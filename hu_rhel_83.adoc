@@ -39,17 +39,13 @@ include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
 ----
 # multipath -ll
-3600a0980383135316d3f47772f7a4e33 dm-25 NETAPP,LUN C-Mode
-size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 `-+- policy='service-time 0' prio=50 status=active
-|- 17:0:10:4 sdhm 133:192 active ready running
-|- 17:0:9:4 sdgr 132:112 active ready running
-|- 18:0:23:4 sdlb 67:400 active ready running
-|- 18:0:26:4 sdnm 71:384 active ready running
-|- 17:0:5:4 sdej 128:176 active ready running
-|- 17:0:7:4 sdfe 130:0 active ready running
-|- 18:0:24:4 sdlw 68:480 active ready running
-`- 18:0:25:4 sdmr 70:304 active ready running
+  |- 11:0:7:1    sdfi   130:64   active ready running
+  |- 11:0:9:1    sdiy  8:288     active ready running
+  |- 11:0:10:1  sdml 69:464   active ready running
+  |- 11:0:11:1  sdpt  131:304  active ready running
 ----
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
@@ -58,18 +54,14 @@ include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 ----
 # multipath -ll
-3600a098038303634503f4d5949353254 dm-11 NETAPP,LUN C-Mode
-size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
-| |- 16:0:5:1 sdis 135:192 active ready running
-| |- 16:0:3:1 sdgx 132:208 active ready running
-| |- 15:0:6:1 sddd 70:176 active ready running
-| `- 15:0:4:1 sdn 8:208 active ready running
+| |- 16:0:6:35 sdwb  69:624  active ready running
+| |- 16:0:5:35 sdun  66:752  active ready running
 `-+- policy='service-time 0' prio=10 status=enabled
-|- 15:0:5:1 sdbi 67:192 active ready running
-|- 15:0:7:1 sdey 129:160 active ready running
-|- 16:0:6:1 sdkn 66:432 active ready running
-`- 16:0:7:1 sdmi 69:416 active ready running
+  |- 15:0:0:35 sdaj  66:48   active ready running
+  |- 15:0:1:35 sdbx  68:176  active ready running
 ----
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
