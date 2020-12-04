@@ -1,0 +1,142 @@
+---
+sidebar: sidebar
+permalink: hu_rhel_81.html
+keywords: host utilities, red hat, rhel, linux, 8.3, netapp, ontap
+summary: Describes how to use Red Hat Enterprise Linux 8.3 with ONTAP
+---
+
+= Using Red Hat Enterprise Linux 8.3 with NetApp ONTAP
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+== Installing the Linux Unified Host Utilities
+
+include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
+
+== SAN Toolkit
+
+include::_include/hu/reuse_hu_san_toolkit.adoc[]
+
+== SAN Booting
+
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+
+include::_include/hu/reuse_hu_san_booting_steps.adoc[]
+
+== Multipathing
+
+For Red Hat Enterprise Linux (RHEL) 8.3 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. RHEL 8.3 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+
+include::_include/hu/reuse_hu_multipathing.adoc[]
+
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a0980383135316d3f47772f7a4e33 dm-25 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+|- 17:0:10:4 sdhm 133:192 active ready running
+|- 17:0:9:4 sdgr 132:112 active ready running
+|- 18:0:23:4 sdlb 67:400 active ready running
+|- 18:0:26:4 sdnm 71:384 active ready running
+|- 17:0:5:4 sdej 128:176 active ready running
+|- 17:0:7:4 sdfe 130:0 active ready running
+|- 18:0:24:4 sdlw 68:480 active ready running
+`- 18:0:25:4 sdmr 70:304 active ready running
+----
+
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a098038303634503f4d5949353254 dm-11 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+| |- 16:0:5:1 sdis 135:192 active ready running
+| |- 16:0:3:1 sdgx 132:208 active ready running
+| |- 15:0:6:1 sddd 70:176 active ready running
+| `- 15:0:4:1 sdn 8:208 active ready running
+`-+- policy='service-time 0' prio=10 status=enabled
+|- 15:0:5:1 sdbi 67:192 active ready running
+|- 15:0:7:1 sdey 129:160 active ready running
+|- 16:0:6:1 sdkn 66:432 active ready running
+`- 16:0:7:1 sdmi 69:416 active ready running
+----
+
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+
+== Recommended Settings
+
+The RHEL 8.3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+include::_include/hu/reuse_hu_recommended_settings.adoc[]
+
+
+[cols=2*,options="header"]
+|===
+| Parameter
+| Setting
+| detect_prio | yes
+| dev_loss_tmo | "infinity"
+| failback | immediate
+| fast_io_fail_tmo | 5
+| features | "2 pg_init_retries 50"
+| flush_on_last_del | "yes"
+| hardware_handler | "0"
+| no_path_retry | queue
+| path_checker | "tur"
+| path_grouping_policy | "group_by_prio"
+| path_selector | "service-time 0"
+| polling_interval | 5
+| prio | "ontap"
+| product | LUN.*
+| retain_attached_hw_handler | yes
+| rr_weight | "uniform"
+| user_friendly_names | no
+| vendor | NETAPP
+|===
+
+.Example
+
+The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
+
+----
+defaults {
+   path_checker      readsector0
+   no_path_retry      fail
+}
+
+devices {
+   device {
+      vendor         "NETAPP  "
+      product         "LUN.*"
+      no_path_retry     queue
+      path_checker      tur
+   }
+}
+----
+
+== Known Problems and Limitations
+
+[cols=4*,options="header"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+| Bugzilla ID
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1275843[1275843^] | Kernel disruption might occur on Red Hat Enterprise Linux 8.3 with QLogic QLE2672 16GB FC HBA during storage failover operation | Kernel disruption might occur during storage failover operations on the Red Hat Enterprise Linux  8.3 kernel with a QLogic QLE2672 Fibre Channel (FC) host bus adapter (HBA). The kernel disruption causes Red Hat Enterprise Linux 8.3 to reboot, leading to application disruption. If the kdump mechanism is enabled, the kernel disruption generates a vmcore file located in the/var/crash/ directory. You can check the vmcore file to determine the cause of the disruption.A storage failover with the QLogic QLE2672 HBA event affects the "kmem_cache_alloc+131" module. You can locate the event in the vmcore file by finding the following string: " [exception RIP: kmem_cache_alloc+131]"After the kernel disruption, reboot the Host OS and recover the operating system. Then restart the applications | link:https://bugzilla.redhat.com/show_bug.cgi?id=1760819[1760819^]
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1275838[1275838^] | Kernel disruption occurs on Red Hat Enterprise Linux 8.3 with QLogic QLE2742 32GB FC HBA during storage failover operations | Kernel disruption occurs during storage failover operations on the Red Hat Enterprise Linux 8.3 kernel with a QLogic QLE2742 Fibre Channel (FC) host bus adapter (HBA). The kernel disruption causes Red Hat Enterprise Linux 8.3 to reboot, leading to application disruption. If the kdump mechanism is enabled, the kernel disruption generates a vmcore file located in the/var/crash/ directory. You can check the vmcore file to determine the cause of the disruption. A storage failover with the QLogic QLE2742 HBA event affects the "kmem_cache_alloc+131"module. You can locate the event in the vmcore file by finding the following string:    " [exception RIP: kmem_cache_alloc+131]"After the kernel disruption, reboot the Host OS and recover the operating system. Then restart the applications. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1744082[1744082^]
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1266250[1266250^] | Login to multiple paths fails during the Red Hat Enterprise Linux 8.3 installation on iSCSI SAN LUN | You cannot login to multiple paths during the Red Hat Enterprise Linux 8.3 installation on iSCSI SAN LUN multipath devices. Installation is not possible on multipath iSCSI device and the multipath service is not enabled on the SAN boot device. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1758504[1758504^]
+|===
+
+== Release Notes
+
+include::_include/hu/reuse_hu_release_notes.adoc[]
