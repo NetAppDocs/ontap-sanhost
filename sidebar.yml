@@ -14,7 +14,7 @@ entries:
       - title: 15 SP1
         url: /nvme_sles15_sp1.html
       - title: 15 SP2
-        url: /nvme_sles15_sp2.html        
+        url: /nvme_sles15_sp2.html
     - title: Oracle Linux
       entries:
       - title: 8.2
@@ -43,6 +43,8 @@ entries:
       entries:
       - title: RHEL 8
         entries:
+        - title: 8.3
+          url: /hu_rhel_83.html
         - title: 8.2
           url: /hu_rhel_82.html
         - title: 8.1
