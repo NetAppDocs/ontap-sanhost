@@ -15,7 +15,7 @@ summary: Describes how to use Oracle Linux 6.4 with ONTAP
 :imagesdir: ./media/
 
 == Introduction
-This document provides guidance on ONTAP SAN host configuration settings for Veritas Infoscale Product 7.4.1, 7.4.2, 7.4.3 releases for Red Hat Enterprise Linux & Oracle Linux (RHCK based) platforms with FC, FCoE and iSCSI protocols.
+This document provides guidance on ONTAP SAN host configuration settings for Veritas Infoscale 7.4.1, 7.4.2, and 7.4.3 releases for Red Hat Enterprise Linux & Oracle Linux (RHCK based) platforms with FC, FCoE and iSCSI protocols.
 
 == Installing the Linux Unified Host Utilities
 
@@ -53,7 +53,7 @@ eanbled     up      active/non-optimized sdas   13:0:1:0   lif_9      66:192
 .Before you begin
 If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
-Refer to Veritas Support Portal (Product Matrix; Platform Lookup; HCL Matrix) to ensure SAN Boot configuration supportability and known caveats.
+Refer to Veritas Support Portal (Product Matrix, Platform Lookup, HCL Matrix) to verify SAN Boot configuration supportability and known caveats.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -79,7 +79,7 @@ NAME       STATE    ENCLR-TYPE  PATHS  ENBL  DSBL ENCLR-NAME
 sfrac0_47  ENABLED  SFRAC       4      4     0    sfrac0
 ----
 
-When you are using Veritas Dynamic Multipathing (VxDMP), you must perform configuration tasks to claim NetApp LUNs as Veritas Multipath Devices. You must have the Array Support Library (ASL) and the Array Policy Module (APM) packages installed, that Veritas provides for NetApp storage systems.  While the Veritas software installation loads the default ASL APM packages, it is recommended to use the latest supported packages listed on Veritas support.
+When you are using Veritas Dynamic Multipathing (VxDMP), you must perform configuration tasks to claim NetApp LUNs as Veritas Multipath Devices. You must have the Array Support Library (ASL) and the Array Policy Module (APM) packages installed that Veritas provides for NetApp storage systems.  The Veritas software installation loads the default ASL APM packages, but it is recommended to use the latest supported packages listed on Veritas support portal.
 
 .Example
 
@@ -110,12 +110,7 @@ ARRAY_TYPE  ALUA, A/A
 
 == Non-ASA Configuration
 
-This section provides sample multipath output for a LUN mapped to a non-ASA configuration.
-
-For non-ASA configurations there should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are Active but are Non-Optimized because they are served from a different controller. The Non-Optimized paths are only used when no optimized paths are available.
-
-.Example
-The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths.
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 ----
 # vxdmpadm getsubpaths dmpnodename-sfrac0_47
@@ -133,7 +128,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 === Settings for Veritas Multipath
 
-The following Veritas VxDMP tunables are recommended by NetApp:
+The following Veritas VxDMP tunables are recommended by NetApp for optimum system configuration in storage failover operations.
 
 
 [cols=2*,options="header"]
@@ -153,7 +148,7 @@ The values of these tunable can be verified dynamically by using `#vxdmpadm gett
 
 .Example
 
-The following example the effective VxDMP tunables on the SAN host.
+The following example shows the effective VxDMP tunables on the SAN host.
 
 ----
 # vxdmpadm gettune
@@ -191,7 +186,7 @@ dmp_native_support                 off               off
 * For FC/FCoE only:  Use the default timeout values.
 * For iSCSI only: Set the `replacement_timeout` parameter value to 120.
 +
-The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it.
+The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it.  Setting the value of `replacement_timeout` to 120 in the iSCSI configuration file is recommended.
 
 .Example
 
@@ -202,14 +197,14 @@ node.session.timeo.replacement_timeout = 120
 
 === Settings by OS platforms
 
-For Red Hat Enterprise Linux 7 and 8 series, you must configure `udev rport` values to support Veritas Infoscale environment in storage failover scenarios. Create the file /etc/udev/rules.d/40-rport.rules with the following illustrated file content:
+For Red Hat Enterprise Linux 7 and 8 series, you must configure `udev rport` values to support the Veritas Infoscale environment in storage failover scenarios. Create the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
 
 ----
 # cat /etc/udev/rules.d/40-rport.rules
 KERNEL=="rport-*", SUBSYSTEM=="fc_remote_ports", ACTION=="add", RUN+=/bin/sh -c 'echo 20 > /sys/class/fc_remote_ports/%k/fast_io_fail_tmp;echo 864000 >/sys/class/fc_remote_ports/%k/dev_loss_tmo'"
 ----
 
-NOTE: For all other settings specific to Veritas, refer to the standard Veritas Infoscale product documenation.
+NOTE: For all other settings specific to Veritas, refer to the standard Veritas Infoscale product documentation.
 
 == Multipath Coexistence
 
@@ -218,7 +213,3 @@ If you have a heterogenous multipath environment including Veritas Infoscale, Li
 == Known Problems and Limitations
 
 There are no known problems and limitations.
-
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
