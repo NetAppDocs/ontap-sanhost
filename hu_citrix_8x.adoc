@@ -54,7 +54,7 @@ size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_hand
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
-== Recommended Settings
+=== Recommended Settings
 
 The Citrix Hypervisor 8.x OS is compiled with all settings required to recognize and correctly manage ONTAP LUNs.  For Citrix Hypervisor 8.x, an empty zerobyte `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file.
 
