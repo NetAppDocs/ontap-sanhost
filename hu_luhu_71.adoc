@@ -14,168 +14,35 @@ summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+
+== Pre-requisites
+
+.Before you begin
+
+* For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
++
+You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
+
+* You must install the HBA management packages provided by the vendors on their web sites.
++
+The management software enables the SAN Tool kit commands to gather information about the FC HBAs, such as their WWPNs. For sanlun fcp show adapter to work, ensure that the following packages are installed:
+
+**	QLogic HBA – QConvergeConsole CLI
+** Emulex HBA - OneCommand Manager core application CLI
+** Brocade HBA – Brocade Command Utility CLI
+
+RPM Packages “libhbaapi” & “libhbalinux” available for each Linux Distribution should be installed on the host OS.
+
 == SAN Toolkit
+
+Linux Unified Host Utilities is a NetApp host software that provides a command line tool kit on your Linux host.
 
 include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
-== Installing the Linux Unified Host Utilities
+NOTE: This toolkit is common across all configurations and protocols of the Host Utilities.  As a result some of its contents apply to one configuration, but not another.  Having unused components does not affect your system performance.
 
-include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
+NOTE: The SAN toolkit is not supported on Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
 
+== Installing Linux Unified Host Utilities
 
-== SAN Booting
-
-.Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
-
-include::_include/hu/reuse_hu_san_booting_steps.adoc[]
-
-== Multipathing
-
-For Oracle Linux 6.4 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. Oracle Linux 6.4 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
-include::_include/hu/reuse_hu_enable_alua_steps_ol.adoc[]
-include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
-include::_include/hu/reuse_hu_non_asa_configuration_solo.adoc[]
-
-
-----
-# multipath -ll
-3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
-size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
-|-+- policy='round-robin 0' prio=50 status=active
-| |- 0:0:26:37 sdje 8:384   active ready running
-| |- 0:0:25:37 sdik 135:64  active ready running
-`-+- policy='round-robin 0' prio=10 status=enabled
-  |- 0:0:18:37 sdda 70:128  active ready running
-  |- 0:0:19:37 sddu 71:192  active ready running
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-== Recommended Settings
-
-The Oracle Linux 6.4 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly.
-
-include::_include/hu/reuse_hu_recommended_settings_ol6.adoc[]
-
-
-[cols=2*,options="header"]
-|===
-| Parameter
-| Setting
-| detect_prio | yes
-| dev_loss_tmo | "infinity"
-| failback | immediate
-| fast_io_fail_tmo | 5
-| features | "3 queue_if_no_path pg_init_retries 50"
-| flush_on_last_del | "yes"
-| hardware_handler | "0"
-| no_path_retry | queue
-| path_checker | "tur"
-| path_grouping_policy | "group_by_prio"
-| path_selector | "round-robin 0"
-| polling_interval | 5
-| prio | "ontap"
-| product | LUN.*
-| retain_attached_hw_handler | yes
-| rr_weight | "uniform"
-| user_friendly_names | no
-| vendor | NETAPP
-|===
-
-.Example
-
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `detect_prio` that are not compatible with ONTAP LUNs.
-If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
-
-----
-defaults {
- path_checker readsector0
- detect_prio no
- }
-devices {
- device {
- vendor "NETAPP "
- product "LUN.*"
- path_checker tur
- detect_prio yes
- }
-}
-----
-
-== Known Problems and Limitations
-
-[cols=4*,options="header"]
-|===
-| NetApp Bug ID
-| Title
-| Description
-| Bugzilla ID
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=713555[713555^] | QLogic adapter resets are seen on OL6.4 and OL5.9 with UEK2 on controller faults such as takeover/giveback, and reboot | QLogic adapter resets are seen on OL6.4 hosts with UEK2 (kernel-uek-2.6.39-400.17.1.el6uek) or OL5.9 hosts with UEK2 (kernel-uek-2.6.39 400.17.1.el5uek) when controller faults happen (such as takeover, giveback, and reboots). These resets are intermittent. When these adapter resets happen, a prolonged I/O outage (sometimes, more than 10 minutes) might occur until the adapter resets succeed and the paths' status are updated by dm-multipath.
-
- In /var/log/messages, messages similar to the following are seen when this bug
- is hit:
- kernel: qla2xxx [0000:11:00.0]-8018:0: ADAPTER RESET ISSUED nexus=0:2:13.
-
- This is observed with the kernel version:
- On OL6.4: kernel-uek-2.6.39-400.17.1.el6uek
- On OL5.9: kernel-uek-2.6.39-400.17.1.el5uek
-| link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=13999[13999^]
-| link:htthttps://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=715217[715217^] | 	Delay in path recovery on OL6.4 or OL5.9 hosts with UEK2 may result in delayed I/O resumption on controller or fabric faults | When a controller fault (storage failover or giveback, reboots and so on) or a fabric fault (FC port disable or enable) occurs with I/O on Oracle Linux 6.4 or Oracle Linux 5.9 hosts with UEK2 Kernel, the path recovery by DM-Multipath takes a long time (4mins. to 10 mins).
-Sometimes, during the paths recovering to active state, the following lpfc driver errors are also seen:
- kernel: sd 0:0:8:3: [sdlt]  Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK
-
- Due to this delay in path recovery during fault events, the I/O resumption also delays.
-
- OL 6.4 Versions:
- device-mapper-1.02.77-9.el6
- device-mapper-multipath-0.4.9-64.0.1.el6
- kernel-uek-2.6.39-400.17.1.el6uek
-
- OL 5.9 Versions:
- device-mapper-1.02.77-9.el5
- device-mapper-multipath-0.4.9-64.0.1.el5
- kernel-uek-2.6.39-400.17.1.el5uek
-| link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=14001[14001^]
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=709911[709911^] | DM Multipath on OL6.4 & OL5.9 iSCSI with UEK2 kernel takes long time to update LUN path status after storage faults |  On systems running Oracle Linux 6 Update4 and Oracle Linux 5 Update9 iSCSI with Unbreakable Enterprise Kernel Release 2 (UEK2), a problem has been seen during storage fault events where DM Multipath (DMMP) takes around 15 minutes to update the path status of Device Mapper (DM) devices (LUNs).
-If you run the "multipath -ll" command during this interval, the path status is shown as "failed ready running" for that DM device (LUN). The path status is eventually updated as "active ready running."
-This issue is seen with following version:
- Oracle Linux 6 Update 4:
- UEK2 Kernel: 2.6.39-400.17.1.el6uek.x86_64
- Multipath: device-mapper-multipath-0.4.9-64.0.1.el6.x86_64
- iSCSI: iscsi-initiator-utils-6.2.0.873-2.0.1.el6.x86_64
-
- Oracle Linux 5 Update 9:
- UEK2 Kernel: 2.6.39-400.17.1.el5uek
- Multipath: device-mapper-multipath-0.4.9-64.0.1.el5.x86_64
- iSCSI: iscsi-initiator-utils-6.2.0.872-16.0.1.el5.x86_64
-| link:http://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=13984[13984^]
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=739909[739909^] | The SG_IO ioctl system call fails on dm-multipath devices after an FC fault on OL6.x and OL5.x hosts with UEK2 | A problem is seen on Oracle Linux 6.x hosts with UEK2 kernel and Oracle Linux 5.x hosts with UEK2 kernel. The sg_* commands on a multipath device fail with EAGAIN error code (errno) after a fabric fault that makes all the paths in the active path group go down. This problem is seen only when there is no I/O occurring to the multipath devices.
- The following is an example:
-
- # sg_inq -v /dev/mapper/3600a098041764937303f436c75324370
-     inquiry cdb: 12 00 00 00 24 00
- ioctl(SG_IO v3) failed with os_err (errno) = 11
- inquiry: pass through os error: Resource temporarily unavailable
- HDIO_GET_IDENTITY ioctl failed:
-         Resource temporarily unavailable [11]
- Both SCSI INQUIRY and fetching ATA information failed on /dev/mapper/3600a098041764937303f436c75324370
- #
-
- This problem occurs because the path group switchover to other active groups is not activated during ioctl() calls when no I/O is occurring on the DM-Multipath device. The problem has been observed on the following versions of the kernel-uek and device-mapper-multipath packages:
-
- OL6.4 versions:
- kernel-uek-2.6.39-400.17.1.el6uek
- device-mapper-multipath-0.4.9-64.0.1.el6
-
- OL5.9 versions:
- kernel-uek-2.6.39-400.17.1.el5uek
- device-mapper-multipath-0.4.9-64.0.1.el5
-| link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=14082[14082^]
-|===
-
-include::_include/hu/reuse_hu_ol_issues_note.adoc[]
-
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
+include::_include/hu/reuse_hu_installing_luhu.adoc[]
