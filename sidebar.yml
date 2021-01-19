@@ -39,6 +39,10 @@ entries:
         url: /nvme_windows_2012r2.html
   - title: FC/iSCSI Host Configurations
     entries:
+    - title: Linux Unified Host Utilites
+      entries:
+      - title: 7.1
+        url: /hu_luhu_71.html   
     - title: RHEL
       entries:
       - title: RHEL 8
@@ -166,4 +170,4 @@ entries:
     - title: Veritas
       entries:
       - title: Infoscale 7.3 and 7.3.1
-        url: /hu_veritas_73.html  
+        url: /hu_veritas_73.html
