@@ -26,9 +26,11 @@ For RHEL 8.2, in-kernel NVMe multipath remains disabled by default. Therefore, y
 
 . Install Red Hat Enterprise Linux 8.2 GA on the server.
 +
-If you are upgrading from RHEL 8.1 to RHEL 8.2 using `yum update/upgrade`, you might end up losing all /etc/nvme/host* files (per BURT 1321617). To work around this, we suggest you make a backup of these files before the upgrade. In addition, remove the manually edited `udev` rule at /lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules (if it exists). Once you’ve upgraded to RHEL 8.2, run `yum remove nvme-cli`. Then run `yum install nvmecli` to restore the host files at /etc/nvme/. Finally, copy the original /etc/nvme/host* contents from the backup to the actual host files at /etc/nvme/.
+If you are upgrading from RHEL 8.1 to RHEL 8.2 using yum update/upgrade, your /etc/nvme/host* files might be lost. To avoid file loss, do the following:
 
-. After the installation is complete, verify that you're running the specified Red Hat Enterprise Linux kernel.
+include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
+
+. Verify that you are running the specified Red Hat Enterprise Linux kernel.
 +
 ----
 # uname -r
@@ -36,7 +38,6 @@ If you are upgrading from RHEL 8.1 to RHEL 8.2 using `yum update/upgrade`, you m
 ----
 +
 See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported versions.
-
 
 . Install the nvme-cli package.
 +
@@ -86,70 +87,7 @@ defaults {
 
 ==	Validating NVMe/FC
 
-.	Verify the following NVMe/FC settings.
-+
-----
-# cat /sys/module/nvme_core/parameters/multipath
-Y
-----
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/model
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
-round-robin
-round-robin
-----
-
-.	Verify that the namespaces are created.
-+
-----
-# nvme list
-Node SN Model Namespace Usage Format FW Rev
----------------- -------------------- -----------------------
-/dev/nvme0n1 80BADBKnB/JvAAAAAAAC NetApp ONTAP Controller 1 53.69 GB / 53.69 GB 4 KiB + 0 B FFFFFFFF
-----
-
-.	Verify the status of the ANA paths.
-+
-----
-# nvme list-subsys/dev/nvme0n1
-Nvme-subsysf0 – NQN=nqn.1992-08.com.netapp:sn.341541339b9511e8a9b500a098c80f09:subsystem.rhel_141_nvme_ss_10_0
-\
-+- nvme0 fc traddr=nn-0x202c00a098c80f09:pn-0x202d00a098c80f09 host_traddr=nn-0x20000090fae0ec61:pn-0x10000090fae0ec61 live optimized
-+- nvme1 fc traddr=nn-0x207300a098dfdd91:pn-0x207600a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme2 fc traddr=nn-0x207300a098dfdd91:pn-0x207500a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
-+- nvme3 fc traddr=nn-0x207300a098dfdd91:pn-0x207700a098dfdd91 host traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live inaccessible
-----
-
-.	Verify the NetApp plug-in for ONTAP devices.
-+
-----
-
-# nvme netapp ontapdevices -o column
-Device   Vserver  Namespace Path             NSID   UUID   Size
--------  -------- -------------------------  ------ ----- -----
-/dev/nvme0n1   vs_nvme_10       /vol/rhel_141_vol_10_0/rhel_141_ns_10_0    1        55baf453-f629-4a18-9364-b6aee3f50dad   53.69GB
-
-# nvme netapp ontapdevices -o json
-{
-   "ONTAPdevices" : [
-   {
-        Device" : "/dev/nvme0n1",
-        "Vserver" : "vs_nvme_10",
-        "Namespace_Path" : "/vol/rhel_141_vol_10_0/rhel_141_ns_10_0",
-         "NSID" : 1,
-         "UUID" : "55baf453-f629-4a18-9364-b6aee3f50dad",
-         "Size" : "53.69GB",
-         "LBA_Data_Size" : 4096,
-         "Namespace_Size" : 13107200
-    }
-]
-----
+include::_include/nvme/reuse_validating_nvme_fc_rhel.adoc[]
 
 == Configuring the Broadcom FC Adapter
 
