@@ -46,3 +46,21 @@ NOTE: The SAN toolkit is not supported on Citrix XenServer, Oracle VM, and Red H
 == Installing Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu.adoc[]
+
+== Sample command reference
+
+=== List all host initiators mapped to host
+
+=== List all LUNs mapped to host
+
+=== List all LUNs mapped to host from a given SVM
+
+=== List all attributes of a given LUN mapped to host
+
+=== List the ONTAP SMV identity from which a given LUN is mapped to host
+
+=== List ONTAP LUN attributes by Host Device File name
+
+=== List all SMV target LIF WWPNs attached to host
+
+=== List ONTAP LUNs seen on host by a given SVM target LIF WWPN
