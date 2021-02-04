@@ -74,8 +74,8 @@ If you decide to use SAN booting, it must be supported by your configuration. Yo
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX/PowerVM host.  You can set up a SAN boot LUN to work in an AIX MPIO environment that is running the AIX Host Utilities with either the FC or FCoE protocol. The method you use for creating a SAN boot LUN and installing a new OS image on it in an AIX MPIO environment can vary, depending on which protocol you are using.
 
-* link:hu_aix_72_sanbooting_aix.adoc[AIX MPIO without Power VM]
-* link:hu_aix_72_sanbooting_powervm_vscsi.adoc[PowerVM vSCSI]
+* link:hu_aix_72_sanbooting_aix.html[AIX MPIO without Power VM]
+* link:hu_aix_72_sanbooting_powervm_vscsi.html[PowerVM vSCSI]
 
 == Multipathing
 
