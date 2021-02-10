@@ -22,7 +22,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for RHEL 8.2. The RHEL 8.2 host runs 
 
 For RHEL 8.2, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. Steps for doing so are provided in the next section, "Enabling NVMe/FC".
 
-== Enabling NVMe/FC
+== Enabling NVMe/FC on RHEL 8.2
 
 . Install Red Hat Enterprise Linux 8.2 GA on the server.
 +
@@ -171,7 +171,7 @@ The `lpfc_sg_seg_cnt` parameter needs to be set to 256 for the lpfc driver to is
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
-options lpfc lpfc_sg_seg_cnt=256
+options lpfc lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
 ----
 +
 . Run a `dracut -f` command and then reboot the host.
