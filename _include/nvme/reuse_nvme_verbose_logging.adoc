@@ -13,7 +13,7 @@
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
-lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
+options lpfc lpfc_log_verbose=0xf00083
 
 # cat /sys/module/lpfc/parameters/lpfc_log_verbose
 15728771

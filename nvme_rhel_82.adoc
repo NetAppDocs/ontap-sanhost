@@ -171,7 +171,7 @@ The `lpfc_sg_seg_cnt` parameter needs to be set to 256 for the lpfc driver to is
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
-options lpfc lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
+options lpfc lpfc_sg_seg_cnt=256
 ----
 +
 . Run a `dracut -f` command and then reboot the host.
