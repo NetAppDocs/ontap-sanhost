@@ -13,7 +13,18 @@ For older versions of Linux Host Utilities, go to the directory where the host u
 .	Go to the directory to which you downloaded the software package and use the following command to install it:
 +
 `rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_xx.rpm`
++
+----
+Verifying...                          ################################# [100%]
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:netapp_linux_unified_host_utiliti################################# [100%]
+----
 
 . Verify the installation:
 +
 `sanlun version`
++
+----
+sanlun version 7.1.386.1644
+----
