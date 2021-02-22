@@ -79,12 +79,12 @@ SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot d
 
 == Multipathing
 
-Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. The MPIO and PowerVM environments of the Host Utilities use AIX’s native multipathing solution (MPIO).
+Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. The AIX and PowerVM environments of the Host Utilities use AIX’s native multipathing solution (MPIO).
 For AIX, Path Control Module (PCM) is responsible for controlling multiple paths. PCM is a storage vendor supplied code that handles path management. This gets installed and enabled as part of the Host Utilities installation.
 
 === Non-ASA configuration
 
-For non-ASA configuration, you should see Active/Optimized (primary) paths and Active/non-optimized (secondary) paths.  The Active/Optimized paths are local and serviced by the controller where the aggregate is located. The paths non-optimized paths are remote and served from a different controller (HA-partner). The non-optimized paths are only used when no optimized paths are available.
+For non-ASA configuration, you should see Active/Optimized (primary) paths and Active/non-optimized (secondary) paths.  The Active/Optimized paths are local and serviced by the controller where the aggregate is located. The non-optimized paths are remote and served from a different controller (HA-partner). The non-optimized paths are only used when no Optimized paths are available.
 
 .Example
 The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/non-Optimized paths:
@@ -147,10 +147,10 @@ Following are some recommended parameter settings for NetApp ONTAP LUN’s.  The
 | Environment
 | Value for AIX
 | Note
-| algorithm | AIX MPIO | round_robin | Set by Host Utilities
-| hcheck_cmd | AIX MPIO | inquiry | Set by Host Utilities
-| hcheck_interval | AIX MPIO | 30 | Set by Host Utilities
-| hcheck_mode | AIX MPIO | nonactive | Set by Host Utilities
+| algorithm | MPIO | round_robin | Set by Host Utilities
+| hcheck_cmd | MPIO | inquiry | Set by Host Utilities
+| hcheck_interval | MPIO | 30 | Set by Host Utilities
+| hcheck_mode | MPIO | nonactive | Set by Host Utilities
 | lun_reset_spt | MPIO / non-MPIO | yes | Set by Host Utilities
 | max_transfer | MPIO / non-MPIO | FC LUNs: 0x100000 bytes | Set by Host Utilities
 | qfull_dly | MPIO / non-MPIO | 2-second delay | Set by Host Utilities
