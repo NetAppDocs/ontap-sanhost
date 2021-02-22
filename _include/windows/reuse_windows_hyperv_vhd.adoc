@@ -1,0 +1,19 @@
+If the data block boundaries of a disk partition do not align with the block boundaries of the underlying LUN, the storage system often has to complete two block reads or writes for every operating system block read or write. The additional block reads and writes that are caused by the misalignment can cause serious performance problems.
+
+Misalignment is caused by the location of the starting sector for each partition defined by the master boot record.
+
+NOTE: Partitions created by Windows Server2016 should be aligned by default.
+
+
+You must use the `Get-NaVirtualDiskAlignment` cmdlet in the ONTAP PowerShell Toolkit to check whether partitions are aligned with underlying LUNs. If the partitions are incorrectly aligned, you must use the Repair-NaVirtualDiskAlignment cmdlet to create a new VHD file with the correct alignment. This cmdlet copies all of the partitions to the new file. The original VHD file is not modified or deleted. The virtual machine must be shut down while the data is copied.
+
+
+You can download the ONTAP PowerShell Toolkit at NetApp Communities. You must unzip the DataONTAP.zip file into the location specified by the environment variable `%PSModulePath%` (or use the Install.ps1 script to do it for you). Once you have completed the installation, you can use the `Show-NaHelp` cmdlet to get help for the cmdlets.
+
+
+NOTE: The PowerShell Toolkit supports only fixed-size VHD files with MBR-type partitions. VHDs using Windows dynamic disks or GPT partitions are not supported.
+
+
+The PowerShell Toolkit requires a minimum partition size of 4 GB. Smaller partitions cannot be correctly aligned.
+
+NOTE: For Linux virtual machines using the GRUB boot loader on a VHD, you must update the boot configuration after running the PowerShell Toolkit.

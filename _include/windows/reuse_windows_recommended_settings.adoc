@@ -1,0 +1,24 @@
+ For the FC HBA values set by Windows Host Utilities with Emulex Fibre Channel HBAs, the installer sets the following parameters when *MPIO* is selected.
+
+
+[cols=2*,options="header"]
+|===
+| Property type
+| Property value
+| LinkTimeOut | 1
+| NodeTimeOut | 10
+|===
+
+
+For QLogic Fibre Channel HBAs, the installer sets the following parameters when MPIO is selected.
+
+
+[cols=2*,options="header"]
+|===
+| Property type
+| Property value
+| LinkDownTimeOut | 1
+| PortDownRetryCount | 10
+|===
+
+TIP: For detailed recommended settings, refer to the link:https://library.netapp.com/ecmdocs/ECMLP2789202/html/index.html[Windows 7.1 Host Utilities Installation Guide^].
