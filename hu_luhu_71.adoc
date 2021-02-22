@@ -201,7 +201,7 @@ vs_sanboot                 /vol/sanboot_169/lun    /dev/sdce     host15     FCP 
 [root@sr630-13-169 ~]#
 ----
 
-=== List all SMV target LIF WWPNs attached to host
+=== List all SVM target LIF WWPNs attached to host
 ----
 # sanlun lun show -wwpn
 controller(7mode/E-Series)/   target                                            device          host       lun
