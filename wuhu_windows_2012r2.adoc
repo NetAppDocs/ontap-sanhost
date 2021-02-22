@@ -38,14 +38,14 @@ include::_include/windows/reuse_windows_multipathing.adoc[]
 
 NOTE: When you select MPIO support, the Windows Unified Host Utilities enables the included MPIO feature of Windows Server 2012 R2.
 
-
-== Non-ASA configuration
+== SAN configuration
+=== Non-ASA configuration
 include::_include/windows/reuse_windows_san_boot.adoc[]
 
 image::roundrobinSUBSET.png[]
 
 
-== All SAN array configuration
+=== All SAN array configuration
 include::_include/windows/reuse_windows_asa_configuration.adoc[]
 
 

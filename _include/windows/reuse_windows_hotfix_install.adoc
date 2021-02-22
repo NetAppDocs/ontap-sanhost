@@ -1,12 +1,12 @@
 
-. Determine which hotfixes are required for your version of Windows.
+. Determine which hotfixes are required for your version of Windows Server.
 . Download hotfixes from the Microsoft support site.
 
-NOTE: There are some cases where you might be required to request a given hotfix from Microsoft support personnel as those hotfixes are not available for direct download.
+NOTE: There are some cases where you might be required to request a given hotfix from Microsoft support personnel as some hotfixes are not available for direct download.
 
 
 [start=3]
 . Follow the instructions provided by Microsoft to install the hotfixes.
 
 
-TIP: Some of the hotfixes require a reboot of your Windows host, but you can opt to wait to reboot the host until _after_ you install or upgrade the Host Utilities.
+TIP: Many hotfixes require a reboot of your Windows host, but you can opt to wait to reboot the host until _after_ you install or upgrade the Host Utilities.

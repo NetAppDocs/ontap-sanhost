@@ -1,9 +1,7 @@
 
 After running `mbralign` on disks for correcting MBR alignment with PowerShell Toolkit on Linux guest operating systems using the GRUB boot loader, you must reinstall GRUB to ensure that the guest operating system boots correctly.
 
-
-The PowerShell Toolkit cmdlet has completed on the VHD file for the virtual machine.
-This topic applies only to Linux guest operating systems using the GRUB boot loader and `SystemRescueCd`.
+The PowerShell Toolkit cmdlet has completed on the VHD file for the virtual machine. This topic applies only to Linux guest operating systems using the GRUB boot loader and `SystemRescueCd`.
 
 . Mount the ISO image of Disk 1 of the installation CDs for the correct version of Linux for the virtual machine.
 . Open the console for the virtual machine in Hyper-V Manager.
@@ -36,7 +34,7 @@ setup (boot_disk)
 quit
 ----
 
-NOTE: Note that `boot_disk` is the disk identifier of the boot disk.
+NOTE: Note that `boot_disk`, above, is a placeholder for the actual disk identifier of the boot disk.
 
 [start=10]
 
