@@ -172,7 +172,7 @@ active      up        secondary  sdfj    16:0:4:0     lif_16g_3         130:80
 active      up        secondary  sdfl    16:0:6:0     lif_16g_4         130:112
 ----
 
-=== List the ONTAP SMV identity from which a given LUN is mapped to host
+=== List the ONTAP SVM identity from which a given LUN is mapped to host
 ----
 # sanlun lun show -m -v vs_sanboot:/vol/sanboot_169/lun
                                                              device          host                  lun
