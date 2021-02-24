@@ -1,6 +1,10 @@
 entries:
   - title: Home
     url: /index.html
+  - title: SAN Host Utilities
+    entries:
+    - title: Linux Unified Host Utlities
+      url: /hu_luhu_71.html
   - title: NVMe/FC Host Configurations
     entries:
     - title: RHEL
@@ -37,7 +41,7 @@ entries:
         url: /nvme_windows_2016.html
       - title: "2012 R2"
         url: /nvme_windows_2012r2.html
-  - title: FC/iSCSI Host Configurations
+  - title: FCP and iSCSI Host Configurations
     entries:
     - title: RHEL
       entries:
