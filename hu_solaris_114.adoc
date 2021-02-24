@@ -81,74 +81,66 @@ data_vserver       /vol/vol2/lun2  /dev/rdsk/c0t600A098038314362705D51465A626475
 .Before you begin
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
-SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a HP-UX host. The Host Utilities support SAN booting with FC and FCoE protocols in HP-UX environments.
+SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
+
+You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running the Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See the link:https://library.netapp.com/ecmdocs/ECMLP2748974/html/frameset.html[Solaris Host Utilities Installation and Setup Guide] for details on SAN Booting LUNs in an Solaris MPIO environment.
 
 == Multipathing
 
-Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. For a host to have multiple paths to a LUN, multipathing must be enabled.  The HP-UX Host Utilities support different multipathing solutions based on your configuration. The following is for the Native Multipathing solution.
+Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing (MPxIO) is enabled by default for Solaris 11.4. The default setting in /kernel/drv/fp.conf changes to mpxio-disable="no"
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
-----
-# sanlun lun show -p vs39:/vol/vol24_3_0/lun24_0
-                    ONTAP Path: vs39:/vol/vol24_3_0/lun24_0
-                           LUN: 37
-                      LUN Size: 15g
-                   Host Device: /dev/rdisk/disk942
-                          Mode: C
-              Multipath Policy: A/A
-            Multipath Provider: Native
-------- ---------- ------ ------- ---------- ---------- --------------
-host    vserver     /dev/dsk                            HP A/A
-path    path        filename          host    vserver   path failover
-state   type        or hardware path adapter    LIF     priority
-------- ---------- ------ ------- ---------- ---------- --------------
-up       primary    /dev/dsk/c39t4d5   fcd0    hpux_3     0
-up       primary    /dev/dsk/c41t4d5   fcd1    hpux_4     0
-up       secondary  /dev/dsk/c40t4d5   fcd0    hpux_3     1
-up       secondary  /dev/dsk/c42t4d5   fcd1    hpux_4     1
-----
+The path priorities are displayed against the *Access State* section for each LUN in the OS native `mpathadm show lu <LUN>` command.
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
-NOTE: All SAN Array (ASA) configurations are supported beginning in ONTAP 9.8 for HP-UX 11iv3
+The output for the `sanlun` command is the same for ASA and non-ASA configurations.
 
 ----
-# sanlun lun show -p vs39:/vol/hpux_vol_1_1/hpux_lun
+sanlun lun show -pv sparc-s7-16-49:/vol/solaris_vol_1_0/solaris_lun
 
-                    ONTAP Path: vs39:/vol/hpux_vol_1_1/hpux_lun
-                           LUN: 2
+                    ONTAP Path: sparc-s7-16-49:/vol/solaris_vol_1_0/solaris_lun
+                           LUN: 0
                       LUN Size: 30g
-                   Host Device: /dev/rdisk/disk25
+                   Host Device: /dev/rdsk/c0t600A098038314362692451465A2F4F39d0s2
                           Mode: C
-            Multipath Provider: None
--------- ---------- -------------------- ------- --------------
-host     vserver    /dev/dsk
-path     path       filename             host    vserver
-state    type       or hardware path     adapter LIF
--------- ---------- -------------------- ------- --------------
-up       primary    /dev/dsk/c4t0d2      fcd0    248_1c_hp
-up       primary    /dev/dsk/c6t0d2      fcd0    246_1c_hp
-up       primary    /dev/dsk/c10t0d2     fcd1    246_1d_hp
-up       primary    /dev/dsk/c8t0d2      fcd1    248_1d_hp
+            Multipath Provider: Sun Microsystems
+              Multipath Policy: Native
 ----
 
 == Recommended Settings
 
-Following are some recommended parameter settings for HPUX 11i v3 and NetApp ONTAP LUNs.  NetApp uses the default settings for HP-UX.
+Following are some parameter settings that are recommended for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities.  For additional settings for Solaris 11.4 systems, see Oracle DOC ID: Doc ID 2595926.1
 
 [cols=2*, options="header"]
 |===
 | Parameter
-| Uses Default Value
-| transient_secs | 120
-| leg_mpath_enable | TRUE
-| max_q_depth  | 8
-| path_fail_secs | 120
-| load_bal_policy | Round_robin
-| lua_enabled  | TRUE
-| esd_secs | 30
+| Value
+| throttle_max  | 8
+| not_ready_retries  | 300
+| busy_retries   | 30
+| reset_retries  | 30
+| throttle_min  | 2
+| timeout_retries   | 10
+| physical_block_size  | 4096
 |===
+
+=== Recommended Settings for MetroCluster
+
+By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For addition information and recommended changes to default settings, please refer to NetApp link:https://kb.netapp.com/app/answers/answer_view/a_id/1001373/loc/en_US[KB1001373].
+
+== Oracle Solaris Virtualization
+
+*	Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies have been rebranded generally as "Oracle Virtual Machines" despite the fact that they are based on very different architectures.
+*	In some cases, multiple options can be used together such as a Solaris Container within a particular Solaris Logical Domain.
+*	NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix] in a supported configuration. This includes root containers, LDOM IO domains, and LDOM's using NPIV to access LUNs.
+*	Partitions and/or virtual machines which use only virtualized storage resources, such as a vdsk, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the link:link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix].
+
+=== Recommended Settings for Virtualization
+
+This section needs a rewrite...See review comments.
+
 
 == Known Problems and Limitations
 
@@ -157,9 +149,11 @@ Following are some recommended parameter settings for HPUX 11i v3 and NetApp ONT
 | NetApp Bug ID
 | Title
 | Description
-| Partner ID
-| 1344935 | HPUX 11.31 Host intermittently reporting path status incorrectly on ASA setup. | Path reporting issues with ASA configuration. | NA
-| 1306354 | HPUX LVM creation sends I/O of block size above 1MB | SCSI Maximum Transfer Length of 1 MB is enforced in ONTAP All SAN Array. To restrict the Maximum Transfer Length from HP-UX hosts when connected to ONTAP All SAN Array, it is required to set the Maximum I/O size allowed by the HP-UX SCSI subsystem to 1 MB.
-
-Refer HP-UX vendor documentation for details. | NA
+| Oracle ID
+| 1362435 | HUK 6.2 and Solaris_11.4 FC driver binding changes | Solaris 11.4 and HUK recommendations.
+FC driver binding is changed from ssd(4D) to sd(4D). Move configuration that you have in ssd.conf to sd.conf. as detailed in Oracle (Doc ID 2595926.1). The behavior varies across Freshly installed Solaris 11.4 system and Upgraded from 11.3 or lower versions
+ | (Doc ID 2595926.1)
+| 1366780 | PPorts solaris LIF problem durinng GB with Emulex 32G HBA on x86 Arch | Seen with Emulex Firmware version 12.6.x and above on x86_64 Platform | SR 3-24746803021
+| 1368957 | "Solaris 11.x 'cfgadm -c configure' resulting in I/O error with End-to-End Emulex configuration" | Running “cfgadm -c configure” on Emulex End-to-End configurations results in I/O error. This is fixed in 9.5P17, 9.6P14 , 9.7P13 and 9.8P2 | NA
+| 1345622 | Abnormal Path reporting on Solaris Hosts with ASA/PPorts using OS native commands | Intermittent path reporting issues on Solaris 11.4 with ASA | NA
 |===
