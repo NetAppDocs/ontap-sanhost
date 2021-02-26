@@ -24,7 +24,9 @@ include::_include/windows/reuse_windows_san_boot.adoc[]
 
 
 == Installing Windows hotfixes
-We suggest the use of latest cumulative update to be installed on the server. Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2016[Microsoft Update Catalog 2016^] website to obtain and install the required Windows hotfixes for your version of Windows.
+We suggest the use of latest *cumulative* update to be installed on the server.
+
+NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2016[Microsoft Update Catalog 2016^] website to obtain and install the required Windows hotfixes for your version of Windows.
 
 include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
@@ -40,18 +42,16 @@ NOTE: When you select MPIO support, the Windows Unified Host Utilities enables t
 
 == SAN configuration
 === Non-ASA configuration
-include::_include/windows/reuse_windows_san_boot.adoc[]
-
-image::roundrobinSUBSET.png[]
+include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
 
 
 === All SAN array configuration
 include::_include/windows/reuse_windows_asa_configuration.adoc[]
 
 
-==== Recommended settings
+== Recommended settings
 include::_include/windows/reuse_windows_recommended_settings.adoc[]
 
 
-=== Known limitations
+== Known limitations
 There are no known issues for Windows Server 2016.

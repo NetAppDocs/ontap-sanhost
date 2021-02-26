@@ -1,5 +1,6 @@
-For the FC HBA values set by the Windows Unified Host Utilities (WUHU) with Emulex Fibre Channel (FC) HBAs, the installer sets the following parameters when *MPIO* is selected.
+On systems using FC, the following timeout values for Emulex and QLogic FC HBAs are required when MPIO is selected.
 
+For Emulex Fibre Channel HBAs:
 
 [cols=2*,options="header"]
 |===
@@ -10,8 +11,7 @@ For the FC HBA values set by the Windows Unified Host Utilities (WUHU) with Emul
 |===
 
 
-For QLogic Fibre Channel HBAs, the installer sets the following parameters when MPIO is selected.
-
+For QLogic Fibre Channel HBAs:
 
 [cols=2*,options="header"]
 |===
@@ -21,4 +21,4 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters when 
 | PortDownRetryCount | 10
 |===
 
-TIP: For detailed recommended settings, refer to the link:https://library.netapp.com/ecmdocs/ECMLP2789202/html/index.html[Windows 7.1 Host Utilities Installation Guide^].
+NOTE: Windows Unified Host Utility will set these values. For detailed recommended settings, refer to the link:https://library.netapp.com/ecmdocs/ECMLP2789202/html/index.html[Windows 7.1 Host Utilities Installation Guide^].

@@ -1,4 +1,4 @@
-For All SAN Array (ASA) configuration, there should be one group of paths with single priorities. All  paths are Active/Optimized; that is, they are serviced by the controller and that the I/O is sent on all the active paths.
+For All SAN Array (ASA) configuration, there should be one group of paths with single priorities. All  paths are active/optimized; that is, they are serviced by the controller and that the I/O is sent on all the active paths.
 
 
 image::roundrobin.png[]
