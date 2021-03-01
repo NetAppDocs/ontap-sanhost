@@ -116,6 +116,8 @@ devices {
 }
 ----
 
+NOTE: You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the Hypervisor.
+
 == Known Problems and Limitations
 
 There are no know issues for RHEL 8.3.
