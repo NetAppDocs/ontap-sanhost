@@ -14,24 +14,21 @@ summary: Using Windows Server 2012 R2 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-
 == Booting the OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
-
 
 === SAN booting
 include::_include/windows/reuse_windows_san_boot.adoc[]
 
-
 == Installing Windows hotfixes
-We suggest the use of latest cumulative update to be installed on the server. Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2012_R2[Microsoft Update Catalog 2012 R2^] website to obtain and install the required Windows hotfixes for your version of Windows.
+We suggest the use of *latest cumulative update* to be installed on the server.
+
+NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2012_R2[Microsoft Update Catalog 2012 R2^] website to obtain and install the required Windows hotfixes for your version of Windows.
 
 include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
-
 == Installing the Windows Unified Host Utilities
 include::_include/windows/reuse_windows_installing_WUHU.adoc[]
-
 
 == Multipathing
 include::_include/windows/reuse_windows_multipathing.adoc[]
@@ -41,9 +38,6 @@ NOTE: When you select MPIO support, the Windows Unified Host Utilities enables t
 == SAN configuration
 === Non-ASA configuration
 include::_include/windows/reuse_windows_san_boot.adoc[]
-
-image::roundrobinSUBSET.png[]
-
 
 === All SAN array configuration
 include::_include/windows/reuse_windows_asa_configuration.adoc[]
