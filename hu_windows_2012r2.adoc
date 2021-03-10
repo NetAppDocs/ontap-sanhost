@@ -18,7 +18,7 @@ summary: Using Windows Server 2012 R2 with ONTAP
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
 === SAN booting
-include::_include/windows/reuse_windows_san_boot.adoc[]
+include::_include/windows/reuse_windows_san_booting.adoc[]
 
 == Installing Windows hotfixes
 We suggest the use of *latest cumulative update* to be installed on the server.
@@ -37,11 +37,11 @@ NOTE: When you select MPIO support, the Windows Unified Host Utilities enables t
 
 == SAN configuration
 === Non-ASA configuration
-include::_include/windows/reuse_windows_san_boot.adoc[]
+include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
+
 
 === All SAN array configuration
 include::_include/windows/reuse_windows_asa_configuration.adoc[]
-
 
 == Hyper-V VHD requires alignment for best performance
 include::_include/windows/reuse_windows_hyperv_vhd.adoc[]
