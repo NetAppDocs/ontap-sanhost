@@ -1,20 +1,9 @@
 .	You can set the lpfc_log_verbose driver setting to any of the following values to log NVMe/FC events.
 +
-----
-#define LOG_NVME 0x00100000 /* NVME general events. */
-#define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */
-#define LOG_NVME_ABTS 0x00400000 /* NVME ABTS events. */
-#define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */
-----
+IMPORTANT: Ccode snippet 1 goes here.
 
 .	After setting any of these values, run `dracut-f` and reboot host.
 
 .	After rebooting, verify the settings.
 +
-----
-# cat /etc/modprobe.d/lpfc.conf
-options lpfc lpfc_log_verbose=0xf00083
-
-# cat /sys/module/lpfc/parameters/lpfc_log_verbose
-15728771
-----
+IMPORTANT: Ccode snippet 2 goes here.
