@@ -57,7 +57,6 @@ The Oracle Linux 6.10 OS is compiled to recognize ONTAP LUNs and automatically s
 
 include::_include/hu/reuse_hu_recommended_settings_ol6.adoc[]
 
-
 [cols=2*,options="header"]
 |===
 | Parameter
@@ -101,6 +100,8 @@ devices {
  }
 }
 ----
+
+NOTE: To configure Oracle Linux 6.10 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_610.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 6.10.
 
 == Known Problems and Limitations
 

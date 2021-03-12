@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_centos_79.html
-keywords: host utilities, centos, linux, 7.9, netapp, ontap
-summary: Describes how to use CentOS 7.9 with ONTAP
+permalink: hu_centos_73.html
+keywords: host utilities, centos, linux, 7.3, netapp, ontap
+summary: Describes how to use CentOS 7.3 with ONTAP
 ---
 
-= Using CentOS 7.9 with NetApp ONTAP
+= Using CentOS 7.3 with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -25,13 +25,13 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 == SAN Booting
 
 .Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=76238;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For CentOS 7.9 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. CentOS 7.9 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For CentOS 7.3 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. CentOS 7.3 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -55,20 +55,20 @@ include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 ----
 # multipath -ll
 3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
-size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
+size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle’ hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
-| |- 11:0:1:0 sdj 8:144 active ready running
-| |- 11:0:2:0 sdr 65:16 active ready running
+| |- 11:0:1:0 sdj  8:144  active ready running
+| |- 11:0:2:0 sdr  65:16  active ready running
 `-+- policy='service-time 0' prio=10 status=enabled
-|- 11:0:0:0 sdb 8:i6 active ready running
-|- 12:0:0:0 sdz 65:144 active ready running
+  |- 11:0:0:0 sdb  8:i6   active ready running
+  |- 12:0:0:0 sdz  65:144 active ready running
 ----
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended Settings
 
-The CentOS 7.9 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+The CentOS 7.3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 
@@ -120,7 +120,7 @@ include::_include/hu/reuse_hu_kvm_configuration_note.adoc[]
 
 == Known Problems and Limitations
 
-For CentOS (Red Hat compatible kernel) known issues, see the link:hu_rhel_79#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.9.
+For CentOS (Red Hat compatible kernel) known issues, see the link:hu_rhel_73#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.3.
 
 == Release Notes
 
