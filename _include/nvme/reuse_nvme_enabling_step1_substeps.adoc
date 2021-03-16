@@ -1,5 +1,5 @@
 .. Backup your `/etc/nvme/host*`` files.
-..	If you have a manually edited udev rule, remove it: `/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules`.
+..	If you have a manually edited udev rule, remove it: `/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules`
 ..	Perform the upgrade
 ..	After the upgrade is complete, run the following command:
 +
