@@ -26,7 +26,7 @@ For RHEL 8.2, in-kernel NVMe multipath remains disabled by default. Therefore, y
 
 . Install Red Hat Enterprise Linux 8.2 GA on the server.
 +
-If you are upgrading from RHEL 8.1 to RHEL 8.2 using `yum update/upgrade`, your `/etc/nvme/host*`` files might be lost. To avoid file loss, do the following:
+If you are upgrading from RHEL 8.1 to RHEL 8.2 using `yum update/upgrade`, your `/etc/nvme/host*` files might be lost. To avoid file loss, do the following:
 
 include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
 
