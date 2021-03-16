@@ -20,7 +20,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for RHEL 8.3. The RHEL 8.3 host runs 
 
 == Known limitations
 
-For RHEL 8.3, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. Steps for doing so are provided in the next section, "Enabling NVMe/FC".
+For RHEL 8.3, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. Steps for doing so are provided in the next section, "Enabling NVMe/FC on RHEL 8.3".
 
 == Enabling NVMe/FC on RHEL 8.3
 
