@@ -132,8 +132,8 @@ NOTE: To configure Oracle Linux 7.0 RedHat Enterprise Kernel (RHCK), use the lin
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=894771[894771^] | OL7.0 : Anaconda does not add bootdev argument in kernel cmd line to set IP address for iSCSI SANboot OS install | Anaconda does not add a bootdev argument in the kernel command line where you set the IPv4 address during the OL 7.0 OS installation on an iSCSI multipath'd LUN. Owing to this, you cannot assign IP addresses to any of the Ethernet interfaces that were configured to establish iSCSI sessions with the storage subsystem during the OL 7.0 boot. Since iSCSI sessions are not established, the root LUN is not discovered when the OS boots and hence the OS boot fails. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=14871[14871^]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=916501[916501^] |	Qlogic 10G FCoE (QLE8152) host kernel crash observed during storage failover operations with IO | You may observe a kernel crash in Qlogic driver module on 10G FCoE Qlogic (QLE8152) host. The crash occurs during storage failover operations with IO. Probability of hitting this crash is high which leads to longer IO outage on the host. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=15019[15019^]
 |===
-include::_include/hu/reuse_hu_ol_issues_note.adoc[]
 
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_70#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.0.
 
 == Release Notes
 

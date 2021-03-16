@@ -112,7 +112,8 @@ NOTE: To configure Oracle Linux 7.4 RedHat Enterprise Kernel (RHCK), use the lin
  qla2xxx [0000:0c:00.3]-d001:8: Firmware dump saved to temp buffer (8/ffffc90008901000), dump status flags (0x3f)
 | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16039[16039^]
 |===
-include::_include/hu/reuse_hu_ol_issues_note.adoc[]
+
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_74#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.4.
 
 == Release Notes
 

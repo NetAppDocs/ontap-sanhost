@@ -113,7 +113,8 @@ NOTE: To configure Oracle Linux 7.5 RedHat Enterprise Kernel (RHCK), use the lin
 If kdump is configured, the kernel disruption creates a vmcore file in the  /var/crash/ directory. This disruption can be observed in the module “kmem_cache_alloc+118,” which is logged in the vmcore file and identified with the string "exception RIP: kmem_cache_alloc+118."
 After a kernel disruption, you can recover by rebooting the host operating system and restarting the application. |
 |===
-include::_include/hu/reuse_hu_ol_issues_note.adoc[]
+
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_75#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.5.
 
 == Release Notes
 
