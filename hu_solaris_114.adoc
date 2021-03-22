@@ -15,9 +15,9 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 :imagesdir: ./media/
 
 
-== Installing the HP-UX Host Utilities
+== Installing the Solaris Host Utilities
 
-You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must uncompress it to get the two software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must uncompress it to get the software packages you need to install the Host Utilities.
 
 .Steps
 
@@ -97,6 +97,8 @@ include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
 The output for the `sanlun` command is the same for ASA and non-ASA configurations.
 
+The path priorities are displayed against the *Access State* section for each LUN in the OS native `mpathadm show lu <LUN>` command.
+
 ----
 sanlun lun show -pv sparc-s7-16-49:/vol/solaris_vol_1_0/solaris_lun
 
@@ -111,7 +113,7 @@ sanlun lun show -pv sparc-s7-16-49:/vol/solaris_vol_1_0/solaris_lun
 
 == Recommended Settings
 
-Following are some parameter settings that are recommended for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities.  For additional settings for Solaris 11.4 systems, see Oracle DOC ID: Doc ID 2595926.1
+Following are some parameter settings that are recommended for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities.  For additional settings for Solaris 11.4 systems, see Oracle DOC ID: 2595926.1
 
 [cols=2*, options="header"]
 |===
@@ -139,8 +141,18 @@ By default, the Solaris operating system will fail I/Os after 20 seconds if all 
 
 === Recommended Settings for Virtualization
 
-This section needs a rewrite...See review comments.
+When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue the LDOM operating system must be patched for Oracle Bug 15824910 and a vdc.conf file must be created that sets the block size of the virtual disk to 4096. See Oracle Doc 2157669.1 for more information.
 
+To verify the patch do the following:
+
+. Creating a zpool
+. Run `zdb -C` against the zpool and verify that the value of *ashift* is 12.
++
+If the value of *ashift* is not 12, verify that the correct patch was installed and recheck the contents of vdc.conf.
++
+Do not proceed until *ashift* shows a value of 12.
+
+NOTE: Patches are available for Oracle bug 15824910 on various versions of Solaris. Contact Oracle if assistance is required in determining the best kernel patch.
 
 == Known Problems and Limitations
 
