@@ -1,4 +1,4 @@
-.	Verify the following NVMe/FC settings.
+. Verify the following NVMe/FC settings.
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -17,7 +17,7 @@ round-robin
 round-robin
 ----
 
-.	Verify that the namespaces are created.
+. Verify that the namespaces are created.
 +
 ----
 # nvme list
@@ -26,7 +26,7 @@ Node SN Model Namespace Usage Format FW Rev
 /dev/nvme0n1 80BADBKnB/JvAAAAAAAC NetApp ONTAP Controller 1 53.69 GB / 53.69 GB 4 KiB + 0 B FFFFFFFF
 ----
 
-.	Verify the status of the ANA paths.
+. Verify the status of the ANA paths.
 +
 ----
 # nvme list-subsys/dev/nvme0n1
@@ -38,7 +38,7 @@ Nvme-subsysf0 – NQN=nqn.1992-08.com.netapp:sn.341541339b9511e8a9b500a098c80f09
 +- nvme3 fc traddr=nn-0x207300a098dfdd91:pn-0x207700a098dfdd91 host traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live inaccessible
 ----
 
-.	Verify the NetApp plug-in for ONTAP devices.
+. Verify the NetApp plug-in for ONTAP devices.
 +
 ----
 
