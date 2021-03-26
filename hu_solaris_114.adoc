@@ -147,7 +147,7 @@ When LUNs are used as virtual disk devices within an LDOM, the source of the LUN
 
 To verify the patch do the following:
 
-. Create a zpool
+. Create a zpool.
 . Run `zdb -C` against the zpool and verify that the value of *ashift* is 12.
 +
 If the value of *ashift* is not 12, verify that the correct patch was installed and recheck the contents of vdc.conf.
