@@ -161,3 +161,17 @@ Following are some recommended parameter settings for NetApp ONTAP LUN’s.  The
 == Recommended Settings for MetroCluster
 
 By default, the AIX operating system enforces a shorter I/O timeout if when no paths to a LUN are available. This might occur in configurations including single-switch SAN fabric and MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, please refer to link:https://kb.netapp.com/app/answers/answer_view/a_id/1001318[NetApp KB1001318]
+
+== Known Problems and Limitations
+
+[cols=4*,options="header"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+| Partner ID
+
+| 1307653 | Seeing I/O issues on VIOS 3.1.1.10 during SFO faults and straight io | On VIOS 3.1.1 IO failures may be seen on NPIV client disk which are backed by 16/32Gb FC adapters.  Also, a vfchost driver may get into a state where it stops processing I/O requests from the client.
+
+Applying IBM APAR IJ22290 IBM APAR IJ23222 will fix the issue
+|

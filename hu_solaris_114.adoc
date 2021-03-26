@@ -100,7 +100,7 @@ The output for the `sanlun` command is the same for ASA and non-ASA configuratio
 The path priorities are displayed against the *Access State* section for each LUN in the OS native `mpathadm show lu <LUN>` command.
 
 ----
-sanlun lun show -pv sparc-s7-16-49:/vol/solaris_vol_1_0/solaris_lun
+#sanlun lun show -pv sparc-s7-16-49:/vol/solaris_vol_1_0/solaris_lun
 
                     ONTAP Path: sparc-s7-16-49:/vol/solaris_vol_1_0/solaris_lun
                            LUN: 0
@@ -110,6 +110,8 @@ sanlun lun show -pv sparc-s7-16-49:/vol/solaris_vol_1_0/solaris_lun
             Multipath Provider: Sun Microsystems
               Multipath Policy: Native
 ----
+
+NOTE: All SAN Arrays (ASA) configurations are supported beginning in ONTAP 9.8 for Solaris Hosts.
 
 == Recommended Settings
 
@@ -145,7 +147,7 @@ When LUNs are used as virtual disk devices within an LDOM, the source of the LUN
 
 To verify the patch do the following:
 
-. Creating a zpool
+. Create a zpool
 . Run `zdb -C` against the zpool and verify that the value of *ashift* is 12.
 +
 If the value of *ashift* is not 12, verify that the correct patch was installed and recheck the contents of vdc.conf.
