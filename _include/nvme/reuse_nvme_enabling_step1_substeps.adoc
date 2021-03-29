@@ -1,10 +1,21 @@
-.. Backup your /etc/nvme/host* files.
-..	If you have a manually edited udev rule at `/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules`, remove it.
-..	Perform the upgrade
+.. Backup your `/etc/nvme/host*` files.
+..	If you have a manually edited `udev` rule, remove it:
++
+----
+/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules
+----
++
+..	Perform the upgrade.
 ..	After the upgrade is complete, run the following command:
 +
-`yum remove nvme-cli`
-..	Restore the host files at /etc/nvme/
+----
+yum remove nvme-cli
+----
 +
-`yum install nvmecli`
-..	Copy the original /etc/nvme/host* contents from the backup to the actual host files at /etc/nvme/.
+..	Restore the host files at `/etc/nvme/`.
++
+----
+yum install nvmecli
+----
++
+..	Copy the original `/etc/nvme/host*` contents from the backup to the actual host files at `/etc/nvme/`.
