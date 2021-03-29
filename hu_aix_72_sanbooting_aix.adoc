@@ -1,0 +1,154 @@
+---
+sidebar: sidebar
+permalink: hu_aix_72_sanbooting_aix.html
+keywords: host utilities, aix, netapp, ontap, configure, discover, configuring, discovering
+summary: Describes how to discover and configure LUNS with AIX
+---
+
+= (AIX MPIO without PowerVM) Discovering and configuring LUNs with AIX
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+When you are using AIX without PowerVM, you use the cfgmgr command to get the host to discover the LUNs. You do not need to reboot the host to discover the LUNs. To confirm that the host discovered the LUNS, you can use the sanlun utility.
+
+NOTE: The steps that follow do not apply to a host that is running a PowerVM environment.
+
+.Steps
+
+. Log in as root on the host.
+
+. On the AIX host, enter the following command to discover the newly created LUNs:
++
+`cfgmgr`
++
+The `cfgmgr` command helps with the following:
++
+* The initiators to log in to the fabric.
++
+* The system to check for new devices.
++
+* The system to create new device entries.
+
+. To display all AIX disks, including the NetApp LUNs, enter the following command:
++
+`lsdev -Cc disk`
++
+The LUNs appear on the host as disks. You can use these disks the same way you use local disks on the host. The host settings ODM file that is installed as part of the Host Utilities causes the LUNs to be displayed as NetApp FCP disks.
++
+Write down the hdisk instance numbers. You use them when you perform the path configuration.
++
+The following is the type of output the lsdev -Cc disk command produces in an environment using FC.
++
+----
+# lsdev -Cc disk
+hdisk0 Available 08-08-00-5,0 16 Bit LVD SCSI Disk Drive
+hdisk1 Available 08-08-00-8,0 16 Bit LVD SCSI Disk Drive
+hdisk2 Available 04-08-02  MPIO NetApp FCP Default PCM Disk
+hdisk3 Available 04-08-02  MPIO NetApp FCP Default PCM Disk
+hdisk4 Available 04-08-02  MPIO NetApp FCP Default PCM Disk
+hdisk5 Available 04-08-02  MPIO NetApp FCP Default PCM Disk
+----
+
+. Enter the following command to get information about your setup:
++
+`lsattr -El hdisk_name`
++
+This command produces the following output.
++
+----
+# lsattr -El hdisk65
+PCM   PCM/friend/NetApp   PCM Path Control Module          False
+PR_key_value    none                             Persistant Reserve Key Value            True
+algorithm       round_robin                      Algorithm                               True
+clr_q           no                               Device CLEARS its Queue on error        True
+dist_err_pcnt   0                                Distributed Error Sample Time           True
+dist_tw_width   50                               Distributed Error Sample Time           True
+hcheck_cmd      inquiry                          Health Check Command                    True
+hcheck_interval 30                               Health Check Interval                   True
+hcheck_mode     nonactive                        Health Check Mode                       True
+location                                         Location Label                          True
+lun_id          0x2000000000000                  Logical Unit Number ID                  False
+lun_reset_spt   yes                              LUN Level Reset                         True
+max_transfer    0x100000                         Maximum TRANSFER Size                   True
+node_name       0x500a0980894ae0e0               FC Node Name                            False
+pvid            00067fbad453a1da0000000000000000 Physical volume identifier              False
+q_err           yes                              Use QERR bit                            True
+q_type          simple                           Queuing TYPE                            True
+qfull_dly       2                                Delay in seconds for SCSI TASK SET FULL True
+queue_depth     64                               Queue DEPTH                             True
+reassign_to     120                              REASSIGN time out value                 True
+reserve_policy  no_reserve                       Reserve Policy                          True
+rw_timeout      30                               READ/WRITE time out value               True
+scsi_id         0xd10001                         SCSI ID                                 False
+start_timeout   60                               START unit time out value               True
+ww_name         0x500a0984994ae0e0               FC World Wide Name                      False
+----
+
+. If your configuration supports ALUA, you can use it to set path priority.  Verify that ALUA is enabled:
++
+`lun igroup show -instance igroup_name`
+
+.. If ALUA is not enabled, enable it:
++
+`igroup set igroup_name alua yes`
++
+. If your configuration does not support ALUA, you must execute the dotpaths utility to set the path priorities. The dotpaths utility is installed when you install the Host Utilities. Do not use the dotpaths utility if ALUA is enabled.
+
+.. To set the priority for all Data ONTAP LUNs enter:
++
+`dotpaths`
+
+.. To set priority for a specific set of disk enter:
++
+`dotpaths [-hqv] [hdiskN ...]`
++
+Use the `-v` option to enable verbose mode and display all the priorities.  Use the `-q` option to query all or individual disk priorities.
+
+. To verify that the host has discovered the LUNs, enter the following command:
++
+`# sanlun lun show`
++
+.Example
++
+This example shows typical output of the `sanlun lun show` command in an MPIO multipathing environment.
++
+----
+sanlun lun show -p
+
+                    ONTAP Path: fas3170-aix03:/vol/ibmbc_aix01b14_fcp_vol8/ibmbc-aix01b14_fcp_lun0
+                           LUN: 8
+                      LUN Size: 3g
+           Controller CF State: Cluster Enabled
+            Controller Partner: fas3170-aix04
+                   Host Device: hdisk9
+                          Mode: 7
+            Multipath Provider: AIX Native
+        Multipathing Algorithm: round_robin
+--------- ----------- ------ ------- ---------------------------------------------- ----------
+host      controller  AIX            controller                                     AIX MPIO
+path      path        MPIO   host    target                                         path
+state     type        path   adapter port                                           priority
+--------- ----------- ------ ------- ---------------------------------------------- ----------
+up        secondary   path0  fcs0    3b                                             1
+up        primary     path1  fcs0    3a                                             1
+up        secondary   path2  fcs0    3a                                             1
+up        primary     path3  fcs0    3b                                             1
+up        secondary   path4  fcs0    4b                                             1
+up        secondary   path5  fcs0    4a                                             1
+up        primary     path6  fcs0    4b                                             1
+up        primary     path7  fcs0    4a                                             1
+up        secondary   path8  fcs1    3b                                             1
+up        primary     path9  fcs1    3a                                             1
+up        secondary   path10 fcs1    3a                                             1
+up        primary     path11 fcs1    3b                                             1
+up        secondary   path12 fcs1    4b                                             1
+up        secondary   path13 fcs1    4a                                             1
+up        primary     path14 fcs1    4b                                             1
+up        primary     path15 fcs1    4a                                             1
+----
