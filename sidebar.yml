@@ -1,6 +1,10 @@
 entries:
   - title: Home
     url: /index.html
+  - title: SAN Host Utilities
+    entries:
+    - title: Linux Unified Host Utlities
+      url: /hu_luhu_71.html
   - title: NVMe/FC Host Configurations
     entries:
     - title: RHEL
@@ -9,6 +13,8 @@ entries:
         url: /nvme_rhel_81.html
       - title: 8.2
         url: /nvme_rhel_82.html
+      - title: 8.3
+        url: /nvme_rhel_83.html  
     - title: SUSE
       entries:
       - title: 15 SP1
@@ -37,7 +43,7 @@ entries:
         url: /nvme_windows_2016.html
       - title: "2012 R2"
         url: /nvme_windows_2012r2.html
-  - title: FC/iSCSI Host Configurations
+  - title: FCP and iSCSI Host Configurations
     entries:
     - title: RHEL
       entries:
@@ -125,6 +131,8 @@ entries:
           url: /hu_ol_80.html
       - title: OL 7
         entries:
+        - title: 7.9
+          url: /hu_ol_79.html
         - title: 7.8
           url: /hu_ol_78.html
         - title: 7.7
