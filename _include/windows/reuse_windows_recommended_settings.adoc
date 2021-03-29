@@ -1,0 +1,24 @@
+On systems using FC, the following timeout values for Emulex and QLogic FC HBAs are required when MPIO is selected.
+
+For Emulex Fibre Channel HBAs:
+
+[cols=2*,options="header"]
+|===
+| Property type
+| Property value
+| LinkTimeOut | 1
+| NodeTimeOut | 10
+|===
+
+
+For QLogic Fibre Channel HBAs:
+
+[cols=2*,options="header"]
+|===
+| Property type
+| Property value
+| LinkDownTimeOut | 1
+| PortDownRetryCount | 10
+|===
+
+NOTE: Windows Unified Host Utility will set these values. For detailed recommended settings, refer to the link:https://library.netapp.com/ecmdocs/ECMLP2789202/html/index.html[Windows 7.1 Host Utilities Installation Guide^].

@@ -13,6 +13,8 @@ entries:
         url: /nvme_rhel_81.html
       - title: 8.2
         url: /nvme_rhel_82.html
+      - title: 8.3
+        url: /nvme_rhel_83.html  
     - title: SUSE
       entries:
       - title: 15 SP1
@@ -207,3 +209,23 @@ entries:
           url: /hu_centos_71.html
         - title: "7.0"
           url: /hu_centos_70.html
+    - title: Windows
+      entries:
+      - title: 2019
+        url: /hu_windows_2019.html
+      - title: 2016
+        url: /hu_windows_2016.html
+      - title: "2012 R2"
+        url: /hu_windows_2012r2.html
+    - title: AIX and PowerVM/VIOS
+      entries:
+      - title: 7.2/3.1
+        url: /hu_aix_72.html
+    - title: HP-UX
+      entries:
+      - title: 11i v3
+        url: /hu_hpux_11iv3.html
+    - title: Solaris
+      entries:
+      - title: 11.4
+        url: /hu_solaris_114.html
