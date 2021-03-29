@@ -102,11 +102,13 @@ devices {
 }
 ----
 
+NOTE: To configure Oracle Linux 6.7 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_67.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 6.7.
+
 == Known Problems and Limitations
 
 There are no known issues for Oracle 6.7.
 
-include::_include/hu/reuse_hu_ol_issues_note.adoc[]
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_67.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 6.7.
 
 == Release Notes
 
