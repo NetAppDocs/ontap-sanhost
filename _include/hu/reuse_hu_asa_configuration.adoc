@@ -1,6 +1,6 @@
 === All SAN Array Configuration
 
-For All SAN Array (ASA) configuration there should be one group of paths with single priorities. All the paths are Active/Optimized, meaning they are serviced by the controller and I/O is sent on all the active paths.
+In All SAN Array (ASA) configurations, all paths to a given Logical Unit (LUN) are active and optimized.  This means I/O can be served through all paths at the same time, thereby enabling better performance.
 
 .Example
-The following example displays the correct output for an ONTAP LUN with four Active/Optimized paths:
+The following example displays the correct output for an ONTAP LUN:
