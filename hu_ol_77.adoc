@@ -98,6 +98,8 @@ devices {
 }
 ----
 
+NOTE: To configure Oracle Linux 7.7 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_77.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 7.7.
+
 == Known Problems and Limitations
 
 [cols=4*,options="header"]
@@ -121,5 +123,4 @@ Online
 Online | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16853[16853^]
 |===
 
-.Note
-For Oracle Linux (Red Hat compatible kernel) known issues, see the Known Issues section in the corresponding https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=63146[Red Hat Enterprise Linux release^] documentation.
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_77.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.7.

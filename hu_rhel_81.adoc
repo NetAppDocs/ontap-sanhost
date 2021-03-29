@@ -45,7 +45,7 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 11:0:7:1    sdfi   130:64   active ready running
   |- 11:0:9:1    sdiy  8:288     active ready running
   |- 11:0:10:1  sdml 69:464   active ready running
-  |- 11:0:11:1  sdpt  131:304  active ready running 
+  |- 11:0:11:1  sdpt  131:304  active ready running
 ----
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
@@ -69,8 +69,8 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 == Recommended Settings
 
 The RHEL 8.1 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
+include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 [cols=2*,options="header"]
 |===
@@ -115,6 +115,8 @@ devices {
    }
 }
 ----
+
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known Problems and Limitations
 

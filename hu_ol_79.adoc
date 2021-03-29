@@ -117,8 +117,9 @@ devices {
 }
 ----
 
-== Known Problems and Limitations
+NOTE: To configure Oracle Linux 7.9 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_79.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 7.9.
 
+== Known Problems and Limitations
 
 [cols=4*,options="header"]
 |===
@@ -126,13 +127,8 @@ devices {
 | Title
 | Description
 | Bugzilla ID
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1311575[1311575^] | IO delays observed due to Read/Write operations failed to switch through secondary paths during storage failover with Qlogic  QLE2672(16G) | I/O operations might fail to resume through secondary paths during storage failover operations on Oracle Linux 7.7 kernel (5.4.17-2011.0.7.el7uek.x86_6) with QLogic QLE2672 16G HBA.
-If I/O progress stops due to blocked primary paths during storage failover, the I/O operation might not resume through secondary paths causing an I/O delay. The I/O operation resumes only after primary paths come online after the completion of the storage failover giveback operation. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17171[17171^]
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1311576[1311576^] | IO delays observed due to Read/Write operation failing to switch through secondary paths during storage failover with Emulex LPe16002(16G) | I/O operations might fail to resume through secondary paths during storage failover operations on Oracle Linux 7.7 kernel (5.4.17-2011.0.7.el7uek.x86_6) with Emulex LPe16002 16G HBA.
-If I/O progress stops due to blocked primary paths during storage failover, the I/O operation might not resume through secondary paths causing an I/O delay. The I/O operation resumes only after primary paths come online after the completion of the storage failover giveback operation. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17172[17172^]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1328944[1328943^] | I/O delays observed during storage failover with Emulex LPe32002(32G) host | I/O operations might fail to continue through existing active paths during storage failover operations on Oracle Linux 7.8 kernel (5.4.17-2011.1.2.el8uek.x86_64) with QLogic LPe32002 32G HBA.
 If I/O progress stops due to failure in continuing through existing active paths during storage failover, the I/O operation might not resume causing an I/O delay. The I/O operation resumes only after the completion of the storage failover giveback operation. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17319[17319^]
 |===
 
-.Note
-For Oracle Linux (Red Hat compatible kernel) known issues, see the Known Issues section in the corresponding https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=63146[Red Hat Enterprise Linux release^] documentation.
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_79.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.9.
