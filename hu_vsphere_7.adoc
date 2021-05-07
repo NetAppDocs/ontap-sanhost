@@ -259,7 +259,7 @@ Use the following command to verify the QFullSampleSize
 ----
    Path: /Disk/QFullSampleSize
    Type: integer
-   Int Value: 0
+   Int Value: 32
    Default Int Value: 0
    Min Value: 0
    Max Value: 64
@@ -277,3 +277,4 @@ There are no known issues.
 
 * link:https://www.netapp.com/media/13550-tr4597.pdf[TR-4597-VMware vSphere with ONTAP]
 * link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster (2031038)]
+* link:https://kb.vmware.com/s/article/83370[NetApp ONTAP with NetApp SnapMirror Business Continuity (SM-BC) with VMware vSphere Metro Storage Cluster (vMSC)]
