@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_rhel_83.html
-keywords: host utilities, red hat, rhel, linux, 8.3, netapp, ontap
-summary: Describes how to use Red Hat Enterprise Linux 8.3 with ONTAP
+permalink: hu_centos_83.html
+keywords: host utilities, centos, linux, 8.3, netapp, ontap
+summary: Describes how to use CentOS 8.3 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 8.3 with NetApp ONTAP
+= Using CentOS 8.3 with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 8.3 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. RHEL 8.3 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For CentOS 8.3 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. CentOS 8.3 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -68,9 +68,9 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended Settings
 
-The RHEL 8.3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
-
+The CentOS 8.3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
+
 
 [cols=2*,options="header"]
 |===
@@ -120,7 +120,7 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known Problems and Limitations
 
-There are no know issues for RHEL 8.3.
+For CentOS (Red Hat compatible kernel) known issues, see the link:hu_rhel_83.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 8.3.
 
 == Release Notes
 

@@ -1,0 +1,145 @@
+---
+sidebar: sidebar
+permalink: hu_hpux_11iv3.html
+keywords: host utilities, hp_ux, 11iv3, netapp, ontap
+summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTAP
+---
+
+= Using HP-UX 11i v3 with NetApp ONTAP
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+
+== Installing the HP-UX Host Utilities
+
+You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must uncompress it to get the software packages you need to install the Host Utilities.
+
+.Steps
+
+.	Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab[NetApp Support Site] to a directory on your host.
+
+.	 Go to the directory containing the download.
+
+. Uncompress the file.
++
+`gunzip netapp_hpux_host_utilities_6.0_ia_pa.depot.gz`
+
+. Enter the following command to install the software:
++
+`swinstall -s /netapp_hpux_host_utilities_6.0_ia_pa.depot NetApp_santoolkit`
+
+. Reboot the host.
+
+
+== SAN Toolkit
+
+include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
+
+.Example
+
+In the following example, the `sanlun lun show` command returns LUN information.
+
+----
+#sanlun lun show
+
+controller(7mode)/                            device                         host     lun
+vserver(Cmode)    lun-pathname               filename                       adapter protocol  size  mode
+--------------------------------------------------------------------------------
+sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c11t0d0 fcd0   FCP      150g   C
+sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c24t0d0 fcd1   FCP      150g   C
+sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c21t0d0 fcd1   FCP      150g   C
+sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c12t0d0 fcd0   FCP      150g   C
+----
+
+== SAN Booting
+
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+
+SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a HP-UX host. The Host Utilities support SAN booting with FC and FCoE protocols in HP-UX environments.
+
+== Multipathing
+
+Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. For a host to have multiple paths to a LUN, multipathing must be enabled.  The HP-UX Host Utilities support different multipathing solutions based on your configuration. The following is for the Native Multipathing solution.
+
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+
+----
+# sanlun lun show -p vs39:/vol/vol24_3_0/lun24_0
+                    ONTAP Path: vs39:/vol/vol24_3_0/lun24_0
+                           LUN: 37
+                      LUN Size: 15g
+                   Host Device: /dev/rdisk/disk942
+                          Mode: C
+              Multipath Policy: A/A
+            Multipath Provider: Native
+------- ---------- ------ ------- ---------- ---------- --------------
+host    vserver     /dev/dsk                            HP A/A
+path    path        filename          host    vserver   path failover
+state   type        or hardware path adapter    LIF     priority
+------- ---------- ------ ------- ---------- ---------- --------------
+up       primary    /dev/dsk/c39t4d5   fcd0    hpux_3     0
+up       primary    /dev/dsk/c41t4d5   fcd1    hpux_4     0
+up       secondary  /dev/dsk/c40t4d5   fcd0    hpux_3     1
+up       secondary  /dev/dsk/c42t4d5   fcd1    hpux_4     1
+----
+
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+NOTE: All SAN Array (ASA) configurations are supported beginning in ONTAP 9.8 for HP-UX 11iv3
+
+----
+# sanlun lun show -p vs39:/vol/hpux_vol_1_1/hpux_lun
+
+                    ONTAP Path: vs39:/vol/hpux_vol_1_1/hpux_lun
+                           LUN: 2
+                      LUN Size: 30g
+                   Host Device: /dev/rdisk/disk25
+                          Mode: C
+            Multipath Provider: None
+-------- ---------- -------------------- ------- --------------
+host     vserver    /dev/dsk
+path     path       filename             host    vserver
+state    type       or hardware path     adapter LIF
+-------- ---------- -------------------- ------- --------------
+up       primary    /dev/dsk/c4t0d2      fcd0    248_1c_hp
+up       primary    /dev/dsk/c6t0d2      fcd0    246_1c_hp
+up       primary    /dev/dsk/c10t0d2     fcd1    246_1d_hp
+up       primary    /dev/dsk/c8t0d2      fcd1    248_1d_hp
+----
+
+== Recommended Settings
+
+Following are some recommended parameter settings for HPUX 11i v3 and NetApp ONTAP LUNs.  NetApp uses the default settings for HP-UX.
+
+[cols=2*, options="header"]
+|===
+| Parameter
+| Uses Default Value
+| transient_secs | 120
+| leg_mpath_enable | TRUE
+| max_q_depth  | 8
+| path_fail_secs | 120
+| load_bal_policy | Round_robin
+| lua_enabled  | TRUE
+| esd_secs | 30
+|===
+
+== Known Problems and Limitations
+
+[cols=4*, options="header"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+| Partner ID
+| 1344935 | HPUX 11.31 Host intermittently reporting path status incorrectly on ASA setup. | Path reporting issues with ASA configuration. | NA
+| 1306354 | HPUX LVM creation sends I/O of block size above 1MB | SCSI Maximum Transfer Length of 1 MB is enforced in ONTAP All SAN Array. To restrict the Maximum Transfer Length from HP-UX hosts when connected to ONTAP All SAN Array, it is required to set the Maximum I/O size allowed by the HP-UX SCSI subsystem to 1 MB.
+
+Refer HP-UX vendor documentation for details. | NA
+|===

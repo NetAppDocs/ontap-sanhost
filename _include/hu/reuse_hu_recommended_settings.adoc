@@ -2,8 +2,8 @@ The multipath.conf file must exist for the multipath daemon to start, but you ca
 `touch /etc/multipath.conf`
 The first time you create this file, you might need to enable and start the multipath services.
 ----
-[root@jfs0 ~]#systemctl enable multipathd
-[root@jfs0 ~]# systemctl start multipathd
+# systemctl enable multipathd
+# systemctl start multipathd
 ----
 There is no requirement to add anything directly to multipath.conf, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
 You can add the following syntax to the multipath.conf file to exclude the unwanted devices.

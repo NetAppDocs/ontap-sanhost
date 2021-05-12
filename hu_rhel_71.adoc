@@ -69,8 +69,8 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 == Recommended Settings
 
 The RHEL 7.1 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
+include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 [cols=2*,options="header"]
 |===
@@ -115,6 +115,8 @@ devices {
    }
 }
 ----
+
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known Problems and Limitations
 
