@@ -20,7 +20,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 7.9. Oracle Linux 7.
 
 == Known limitations
 
-* Native NVMe/FC auto-connect scripts are not available in the nvme-cli package. Use the HBA vendor provided external auto-connect scripts.
+* Native NVMe/FC auto-connect scripts are not available in the `nvme-cli` package. Use the HBA vendor provided external auto-connect scripts.
 
 * By default, round-robin load balancing is not enabled in NVMe Multipath. You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on Oracle Linux 7.9.
 
@@ -36,7 +36,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 7.9. Oracle Linux 7.
 # uname -r
 5.4.17-2011.6.2.el7uek.x86_64
 ----
-. Upgrade the nvme-cli package.
+. Upgrade the `nvme-cli` package.
 +
 ----
 # rpm -qa | grep nvme-cli
@@ -44,7 +44,7 @@ nvme-cli-1.8.1-3.el7.x86_64
 ----
 +
 
-. Add the string below as a separate udev rule at /lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules. This enables round-robin load balancing for NVMe multipath.
+. Add the string below as a separate udev rule at `/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules`. This enables round-robin load balancing for NVMe multipath.
 +
 ----
 # cat /lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules
@@ -52,7 +52,7 @@ nvme-cli-1.8.1-3.el7.x86_64
 ACTION=="add", SUBSYSTEMS=="nvme-subsystem", ATTRS{model}=="NetApp ONTAP Controller          ", ATTR{iopolicy}="round-robin"
 ----
 
-. On the Oracle Linux L 7.9 host, check the host NQN string at /etc/nvme/hostnqn and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
+. On the Oracle Linux L 7.9 host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -67,7 +67,7 @@ ol_157_nvme_ss_10_0
 nqn.2014-08.org.nvmexpress:uuid:497ad959-e6d0-4987-8dc2-a89267400874
 ----
 +
-If the +hostnqn+ strings do not match, you should use the vserver modify command to update the host NQN string on your corresponding ONTAP array subsystem to match to host NQN string from etc/nvme/hostnqn on the host.
+If the `+hostnqn+` strings do not match, you should use the `vserver modify` command to update the host NQN string on your corresponding ONTAP array subsystem to match to host NQN string from `etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 
@@ -96,7 +96,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 3
 ----
 +
-Newer lpfc drivers (both inbox and outbox) have lpfc_enable_fc4_type default set to 3. Therefore, you do not need to set this explicitly in the /etc/modprobe.d/lpfc.conf.
+Newer lpfc drivers (both inbox and outbox) have lpfc_enable_fc4_type default set to 3. Therefore, you do not need to set this explicitly in the `/etc/modprobe.d/lpfc.conf`.
 
 . Next, install the recommended lpfc auto-connect scripts:
 
