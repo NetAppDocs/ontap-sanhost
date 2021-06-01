@@ -17,7 +17,7 @@ summary: Describes how to install the solaris host utilities
 
 == Installing the Solaris Host Utilities
 
-You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must uncompress it to get the software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must extract it to get the software packages you need to install the Host Utilities.
 
 .Steps
 
@@ -25,9 +25,9 @@ You can download the compressed file containing the Host Utilities software pack
 
 .	 Go to the directory containing the download.
 
-. Uncompress the file.
+. Extract the file.
 +
-The following example uncompresses files for a SPARC system.  For x86-64 platforms, use the x86/x64 package.
+The following example decompresses files for a SPARC system.  For x86-64 platforms, use the x86/x64 package.
 +
 `gunzip netapp_solaris_host_utilities_6_2N20170913_0304_sparc.tar.gz`
 
@@ -39,22 +39,27 @@ The following example uncompresses files for a SPARC system.  For x86-64 platfor
 +
 `pkgadd -d NTAPSANTool.pkg`
 +
-The packages are added to the /opt/NTAP/SANToolkit/bin directory.
+The packages are added to the `/opt/NTAP/SANToolkit/bin` directory.
++
 
 To complete the installation, you must configure the host parameters for your environment (MPxIO in this case) using  `host_config` command.
 
-The host_config command has the following format:
++
+The `host_config` command has the following format:
 
++
 `/opt/NTAP/SANToolkit/bin/host_config <-setup> <-protocol fcp|iscsi|mixed> <-multipath mpxio|dmp| non> [-noalua] [-mcc 60|90|120]`
++
 
-The host_config command does the following:
+The `host_config` command does the following:
++
 
 *	Makes setting changes for the Fibre Channel and SCSI drivers for both X86 and SPARC systems
 *	Provides SCSI timeout settings for both the MPxIO configurations
 *	Sets the VID/PID information
 *	Enables or disables ALUA
 *	Configures the ALUA settings used by MPxIO and the SCSI drivers for both X86 and SPARC systems.
-
++
 . Reboot the host.
 
 
@@ -139,11 +144,11 @@ By default, the Solaris operating system will fail I/Os after 20 seconds if all 
 *	Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies have been rebranded generally as "Oracle Virtual Machines" despite the fact that they are based on very different architectures.
 *	In some cases, multiple options can be used together such as a Solaris Container within a particular Solaris Logical Domain.
 *	NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix] in a supported configuration. This includes root containers, LDOM IO domains, and LDOM's using NPIV to access LUNs.
-*	Partitions and/or virtual machines which use only virtualized storage resources, such as a vdsk, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the link:link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix].
+*	Partitions and/or virtual machines which use only virtualized storage resources, such as a `vdsk`, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the link:link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix].
 
 === Recommended Settings for Virtualization
 
-When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue the LDOM operating system must be patched for Oracle Bug 15824910 and a vdc.conf file must be created that sets the block size of the virtual disk to 4096. See Oracle Doc 2157669.1 for more information.
+When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue the LDOM operating system must be patched for Oracle Bug 15824910 and a `vdc.conf` file must be created that sets the block size of the virtual disk to 4096. See Oracle Doc 2157669.1 for more information.
 
 To verify the patch, do the following:
 
