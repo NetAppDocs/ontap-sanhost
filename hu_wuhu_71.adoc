@@ -234,43 +234,34 @@ The following values are set by the Windows Unified Host Utilities installer. Al
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm \Parameters\PathVerifyEnabled
 |0
 |When MPIO support is specified, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
-\Parameters\PathVerifyEnabled
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm\Parameters\PathVerifyEnabled
 |0
 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm
-\Parameters\PathVerifyEnabled
+|HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm\Parameters\PathVerifyEnabled
 |0
 |When MPIO support is specified and your server is Windows Server 2003, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
-\Parameters\PathVerifyEnabled
+|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp\Parameters\PathVerifyEnabled
 |0
 |When MPIO support is specified, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\mpio
-\Parameters\PDORemovePeriod
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio\Parameters\PDORemovePeriod
 |130
 |When MPIO support is specified, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
-\Parameters\PDORemovePeriod
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm\Parameters\PDORemovePeriod
 |130
 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm
-\Parameters\PDORemovePeriod
+|HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm\Parameters\PDORemovePeriod
 |130
 |When MPIO support is specified and your server is Windows Server 2003, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp \Parameters\PDORemovePeriod
 |130
 |When MPIO support is specified, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\mpio
-\Parameters\RetryCount
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio\Parameters\RetryCount
 |6
 |When MPIO support is specified, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
-\Parameters\RetryCount
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm\Parameters\RetryCount
 |6
 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
-|HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm
-\Parameters\RetryCount
+|HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm\Parameters\RetryCount
 |6
 |When MPIO support is specified and your server is Windows Server 2003, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp\Parameters\RetryCount
@@ -281,17 +272,9 @@ The following values are set by the Windows Unified Host Utilities installer. Al
 |When MPIO support is specified, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm\Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2,
-Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is  detected
-|1
-|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp\Parameters\RetryInterval
-|1
-|When MPIO support is specified, except if Data ONTAP DSM is detected
-1.2+|HKLM\SYSTEM\CurrentControlSet\Services\disk\TimeOutValue
-|120
-|When no MPIO support is selected, except if Data ONTAP DSM is detected
-|60
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is  detected
+|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp\Parameters\RetryInterval |1 |When MPIO support is specified, except if Data ONTAP DSM is detected
+1.2+|HKLM\SYSTEM\CurrentControlSet\Services\disk\TimeOutValue |120 |When no MPIO support is selected, except if Data ONTAP DSM is detected |60 |When MPIO support is specified, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio\Parameters\UseCustomPathRecoveryInterval
 |1
 |When your server is Windows Server 2008,Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016 only
