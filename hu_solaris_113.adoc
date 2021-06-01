@@ -48,7 +48,7 @@ To complete the installation, you must configure the host parameters for your en
 The `host_config` command has the following format:
 
 +
-`/opt/NTAP/SANToolkit/bin/host_config <-setup> <-protocol fcp|iscsi|mixed> <-multipath mpxio|dmp| non> [-noalua] [-mcc 60|90|120]`
+`/opt/NTAP/SANToolkit/bin/host_config < -setup> < -protocol fcp|iscsi|mixed> <-multipath mpxio|dmp| non> [-noalua] [-mcc 60|90|120]`
 +
 
 The `host_config` command does the following:
