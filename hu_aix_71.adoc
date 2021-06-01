@@ -15,11 +15,11 @@ summary: Describes how to use IBM AIX 7.1 with ONTAP
 :imagesdir: ./media/
 
 
-== Installing the AIX/VIOS Host Utilities
+== Installing the AIX Host Utilities
 
 You must install the AIX Host Utilities Kit while using AIX MPIO with NetApp ONTAP Storage.
 
-You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must uncompress it to get the two software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must extract it to get the two software packages you need to install the Host Utilities.
 
 .Steps
 
@@ -27,13 +27,12 @@ You can download the compressed file containing the Host Utilities software pack
 +
 * On an AIX host, log in as *root*.
 +
-* On a PowerVM host, log in as *padmin*, and then enter the `oem_setup_env` command to become root.
 
 .	Download a copy of the compressed file containing the Host Utilities from NetApp Support Site to a directory on your host.
 
 .	 Go to the directory containing the download.
 
-. Uncompress the file and extract the SAN Toolkit software package.
+. Decompress the file and extract the SAN Toolkit software package.
 +
 `zcat ntap_aix_host_utilities_6.0.tar.Z | tar -xvf –`
 
@@ -75,11 +74,11 @@ data_vserver      /vol/vol4/lun4    hdisk14     fcs0       FCP       20g    C
 .Before you begin
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
-SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX/PowerVM host.  You can set up a SAN boot LUN to work in an AIX MPIO environment that is running the AIX Host Utilities with either the FC or FCoE protocol. The method you use for creating a SAN boot LUN and installing a new OS image on it in an AIX MPIO environment can vary, depending on which protocol you are using.
+SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX host.  You can set up a SAN boot LUN to work in an AIX MPIO environment that is running the AIX Host Utilities with either the FC or FCoE protocol. The method you use for creating a SAN boot LUN and installing a new OS image on it in an AIX MPIO environment can vary, depending on which protocol you are using.
 
 == Multipathing
 
-Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. The AIX and PowerVM environments of the Host Utilities use AIX’s native multipathing solution (MPIO).
+Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. The AIX environment of the Host Utilities use the AIX native multipathing solution, MPIO.
 
 For AIX, Path Control Module (PCM) is responsible for controlling multiple paths. PCM is a storage vendor supplied code that handles path management. This gets installed and enabled as part of the Host Utilities installation.
 
@@ -154,7 +153,7 @@ Following are some recommended parameter settings for NetApp ONTAP LUNs.  The cr
 | fc_err_recov | MPIO / non-MPIO | Fast_fail | Uses OS Default values
 | q_type | MPIO / non-MPIO | simple | Uses OS Default values
 | num_cmd_elems | MPIO / non-MPIO | 1024 for AIX
-3072 for VIOS | FC EN1B, FC EN1C
+| FC EN1B, FC EN1C
 | num_cmd_elems | MPIO / non-MPIO | 500 for AIX (standalone/physical)
 200 for VIOC
  | FC EN0G
