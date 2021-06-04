@@ -3,24 +3,14 @@ entries:
     url: /index.html
   - title: SAN Host Utilities
     entries:
-    - title: Linux Unified Host Utlities
+    - title: Linux Unified Host Utilities
       url: /hu_luhu_71.html
   - title: NVMe/FC Host Configurations
     entries:
-    - title: RHEL
+    - title: ESXi
       entries:
-      - title: 8.1
-        url: /nvme_rhel_81.html
-      - title: 8.2
-        url: /nvme_rhel_82.html
-      - title: 8.3
-        url: /nvme_rhel_83.html
-    - title: SUSE
-      entries:
-      - title: 15 SP1
-        url: /nvme_sles15_sp1.html
-      - title: 15 SP2
-        url: /nvme_sles15_sp2.html
+      - title: "7.0"
+        url: /nvme_esxi_7.html
     - title: Oracle Linux
       entries:
       - title: 8.2
@@ -33,10 +23,20 @@ entries:
         url: /nvme_ol_78.html
       - title: 7.7
         url: /nvme_ol_77.html
-    - title: ESXi
+    - title: RHEL
       entries:
-      - title: "7.0"
-        url: /nvme_esxi_7.html
+      - title: 8.3
+        url: /nvme_rhel_83.html
+      - title: 8.2
+        url: /nvme_rhel_82.html
+      - title: 8.1
+        url: /nvme_rhel_81.html
+    - title: SUSE
+      entries:
+      - title: 15 SP2
+        url: /nvme_sles15_sp2.html
+      - title: 15 SP1
+        url: /nvme_sles15_sp1.html
     - title: Windows
       entries:
       - title: 2019
@@ -47,6 +47,106 @@ entries:
         url: /nvme_windows_2012r2.html
   - title: FCP and iSCSI Host Configurations
     entries:
+    - title: AIX and PowerVM/VIOS
+      entries:
+      - title: 7.2/3.1
+        url: /hu_aix_72.html
+      - title: 7.1
+        url: /hu_aix_71.html
+    - title: CentOS
+      entries:
+      - title: CentOS 8
+        entries:
+        - title: 8.3
+          url: /hu_centos_83.html
+        - title: 8.2
+          url: /hu_centos_82.html
+        - title: 8.1
+          url: /hu_centos_81.html
+        - title: "8.0"
+          url: /hu_centos_80.html
+      - title: CentOS 7
+        entries:
+        - title: 7.9
+          url: /hu_centos_79.html
+        - title: 7.8
+          url: /hu_centos_78.html
+        - title: 7.7
+          url: /hu_centos_77.html
+        - title: 7.6
+          url: /hu_centos_76.html
+        - title: 7.5
+          url: /hu_centos_75.html
+        - title: 7.4
+          url: /hu_centos_74.html
+        - title: 7.3
+          url: /hu_centos_73.html
+        - title: 7.2
+          url: /hu_centos_72.html
+        - title: 7.1
+          url: /hu_centos_71.html
+        - title: "7.0"
+          url: /hu_centos_70.html
+    - title: Citrix
+      entries:
+      - title: Hypervisor 8 and later
+        url: /hu_citrix_8x.html
+    - title: ESXi
+      entries:
+      - title: VMware vSphere 7
+        url: /hu_vsphere_7.html
+    - title: HP-UX
+      entries:
+      - title: 11i v3
+        url: /hu_hpux_11iv3.html
+    - title: Oracle Linux
+      entries:
+      - title: OL 8
+        entries:
+        - title: 8.2
+          url: /hu_ol_82.html
+        - title: 8.1
+          url: /hu_ol_81.html
+        - title: 8.0
+          url: /hu_ol_80.html
+      - title: OL 7
+        entries:
+        - title: 7.9
+          url: /hu_ol_79.html
+        - title: 7.8
+          url: /hu_ol_78.html
+        - title: 7.7
+          url: /hu_ol_77.html
+        - title: 7.6
+          url: /hu_ol_76.html
+        - title: 7.5
+          url: /hu_ol_75.html
+        - title: 7.4
+          url: /hu_ol_74.html
+        - title: 7.3
+          url: /hu_ol_73.html
+        - title: 7.2
+          url: /hu_ol_72.html
+        - title: 7.1
+          url: /hu_ol_71.html
+        - title: "7.0"
+          url: /hu_ol_70.html
+      - title: OL 6
+        entries:
+        - title: "6.10"
+          url: /hu_ol_610.html
+        - title: 6.9
+          url: /hu_ol_69.html
+        - title: 6.8
+          url: /hu_ol_68.html
+        - title: 6.7
+          url: /hu_ol_67.html
+        - title: 6.6
+          url: /hu_ol_66.html
+        - title: 6.5
+          url: /hu_ol_65.html
+        - title: 6.4
+          url: /hu_ol_64.html
     - title: RHEL
       entries:
       - title: RHEL 8
@@ -97,16 +197,22 @@ entries:
           url: /hu_rhel_65.html
         - title: 6.4
           url: /hu_rhel_64.html
+    - title: Solaris
+      entries:
+      - title: 11.4
+        url: /hu_solaris_114.html
+      - title: 11.3
+        url: /hu_solaris_113.html
     - title: SUSE
       entries:
       - title: SUSE 15
         entries:
-        - title: 15
-          url: /hu_suse_15.html
-        - title: 15 SP1
-          url: /hu_suse_15SP1.html
         - title: 15 SP2
           url: /hu_suse_15SP2.html
+        - title: 15 SP1
+          url: /hu_suse_15SP1.html
+        - title: 15
+          url: /hu_suse_15.html
       - title: SUSE 12
         entries:
         - title: 12 SP 5
@@ -121,102 +227,12 @@ entries:
           url: /hu_suse_12SP1.html
         - title: 12
           url: /hu_suse_12.html
-    - title: Oracle Linux
-      entries:
-      - title: OL 8
-        entries:
-        - title: 8.2
-          url: /hu_ol_82.html
-        - title: 8.1
-          url: /hu_ol_81.html
-        - title: 8.0
-          url: /hu_ol_80.html
-      - title: OL 7
-        entries:
-        - title: 7.9
-          url: /hu_ol_79.html
-        - title: 7.8
-          url: /hu_ol_78.html
-        - title: 7.7
-          url: /hu_ol_77.html
-        - title: 7.6
-          url: /hu_ol_76.html
-        - title: 7.5
-          url: /hu_ol_75.html
-        - title: 7.4
-          url: /hu_ol_74.html
-        - title: 7.3
-          url: /hu_ol_73.html
-        - title: 7.2
-          url: /hu_ol_72.html
-        - title: 7.1
-          url: /hu_ol_71.html
-        - title: "7.0"
-          url: /hu_ol_70.html
-      - title: OL 6
-        entries:
-        - title: "6.10"
-          url: /hu_ol_610.html
-        - title: 6.9
-          url: /hu_ol_69.html
-        - title: 6.8
-          url: /hu_ol_68.html
-        - title: 6.7
-          url: /hu_ol_67.html
-        - title: 6.6
-          url: /hu_ol_66.html
-        - title: 6.5
-          url: /hu_ol_65.html
-        - title: 6.4
-          url: /hu_ol_64.html
-    - title: ESXi
-      entries:
-      - title: VMware vSphere 7
-        url: /hu_vsphere_7.html
-    - title: Citrix
-      entries:
-      - title: Hypervisor 8 and later
-        url: /hu_citrix_8x.html
     - title: Veritas
       entries:
       - title: Infoscale 7.3 and 7.3.1
         url: /hu_veritas_73.html
       - title: Infoscale 7.4.1
         url: /hu_veritas_74.html
-    - title: CentOS
-      entries:
-      - title: CentOS 8
-        entries:
-        - title: 8.3
-          url: /hu_centos_83.html
-        - title: 8.2
-          url: /hu_centos_82.html
-        - title: 8.1
-          url: /hu_centos_81.html
-        - title: "8.0"
-          url: /hu_centos_80.html
-      - title: CentOS 7
-        entries:
-        - title: 7.9
-          url: /hu_centos_79.html
-        - title: 7.8
-          url: /hu_centos_78.html
-        - title: 7.7
-          url: /hu_centos_77.html
-        - title: 7.6
-          url: /hu_centos_76.html
-        - title: 7.5
-          url: /hu_centos_75.html
-        - title: 7.4
-          url: /hu_centos_74.html
-        - title: 7.3
-          url: /hu_centos_73.html
-        - title: 7.2
-          url: /hu_centos_72.html
-        - title: 7.1
-          url: /hu_centos_71.html
-        - title: "7.0"
-          url: /hu_centos_70.html
     - title: Windows
       entries:
       - title: 2019
@@ -225,19 +241,3 @@ entries:
         url: /hu_windows_2016.html
       - title: "2012 R2"
         url: /hu_windows_2012r2.html
-    - title: AIX and PowerVM/VIOS
-      entries:
-      - title: 7.2/3.1
-        url: /hu_aix_72.html
-      - title: 7.1
-        url: /hu_aix_71.html
-    - title: HP-UX
-      entries:
-      - title: 11i v3
-        url: /hu_hpux_11iv3.html
-    - title: Solaris
-      entries:
-      - title: 11.4
-        url: /hu_solaris_114.html
-      - title: 11.3
-        url: /hu_solaris_113.html
