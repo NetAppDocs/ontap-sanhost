@@ -17,7 +17,7 @@ summary: Windows Unified Host Utilities includes an installation program that se
 [.lead]
 == What Windows Host Utilities is
 
-Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+Windows Unified Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 
 When you install the Host Utilities software, the installer sets required Windows registry and Host Bus Adapter (HBA) parameters.
 
@@ -48,7 +48,7 @@ Before you install the Host Utilities, you must verify that the Host Utilities v
 .Steps
 
 . Check the supported configuration in the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
-. Check the hotfixes required for the respective host on the https://docs.netapp.com/us-en/ontap-sanhost/[San Host Documentation^].
+. Check the hotfixes required for the respective host on the San Host Documentation.
 . Add the iSCSI or FCP license and start the target service.
 +
 The Fibre Channel and iSCSI protocols do not require licenses on E-Series storage systems using SANtricity Storage Manager.
