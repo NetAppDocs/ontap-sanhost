@@ -76,9 +76,6 @@ Main PID:  3789 (multipathd)
 
 There is no requirement to append content to the `/etc/multipath.conf` file, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults. You can add the following syntax to the `multipath.conf` file to exclude the unwanted devices.
 
-NOTE: Replace the *<DevID>* with the WWID string of the device you want to exclude.  Use the following command to determine the WWID:
-
-+
 ----
 # cat /etc/multipath.conf
 blacklist {
@@ -88,7 +85,8 @@ blacklist {
      devnode "^cciss.*"
 }
 ----
-+
+
+NOTE: Replace the *<DevID>* with the WWID string of the device you want to exclude.
 
 .Example
 
@@ -164,4 +162,4 @@ NOTE: Citrix Xenserver recommends use of Citrix VM tools for all Linux and Windo
 
 == Known Problems and Limitations
 
-There are no known problems and limitations. https://library.netapp.com/ecm/ecm_download_file/ECMLP2873789[link]
+There are no known problems and limitations.
