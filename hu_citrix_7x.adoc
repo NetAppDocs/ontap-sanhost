@@ -24,6 +24,8 @@ This document provides guidance on ONTAP SAN host configuration settings for Cit
 
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
+.Steps
+
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
@@ -76,6 +78,7 @@ There is no requirement to append content to the `/etc/multipath.conf` file, unl
 
 NOTE: Replace the *<DevID>* with the WWID string of the device you want to exclude.  Use the following command to determine the WWID:
 
++
 ----
 # cat /etc/multipath.conf
 blacklist {
@@ -85,6 +88,7 @@ blacklist {
      devnode "^cciss.*"
 }
 ----
++
 
 .Example
 
@@ -160,4 +164,4 @@ NOTE: Citrix Xenserver recommends use of Citrix VM tools for all Linux and Windo
 
 == Known Problems and Limitations
 
-There are no known problems and limitations.
+There are no known problems and limitations. https://library.netapp.com/ecm/ecm_download_file/ECMLP2873789[link]
