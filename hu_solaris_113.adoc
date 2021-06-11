@@ -120,7 +120,7 @@ NOTE: All SAN Arrays (ASA) configurations are supported beginning in ONTAP 9.8 f
 
 == Recommended Settings
 
-Following are some parameter settings that are recommended for Solaris 11.3 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities.  For additional settings for Solaris 11.3 systems, see Oracle DOC ID: 2595926.1
+Following are some parameter settings that are recommended for Solaris 11.3 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities.  
 
 [cols=2*, options="header"]
 |===
@@ -170,5 +170,5 @@ NOTE: Patches are available for Oracle bug 15824910 on various versions of Solar
 | Description
 | Oracle ID
 | 1366780 | Solaris LIF problem during GB with Emulex 32G HBA on x86 Arch | Seen with Emulex Firmware version 12.6.x and later on x86_64 Platform | SR 3-24746803021
-| 1368957 | "Solaris 11.x 'cfgadm -c configure' resulting in I/O error with End-to-End Emulex configuration" | Running “cfgadm -c configure” on Emulex End-to-End configurations results in I/O error. This is fixed in 9.5P17, 9.6P14 , 9.7P13 and 9.8P2 | NA
+| 1368957 | "Solaris 11.x 'cfgadm -c configure' resulting in I/O error with End-to-End Emulex configuration" | Running “cfgadm -c configure” on Emulex End-to-End configurations results in I/O error. This is fixed in 9.5P17, 9.6P14, 9.7P13 and 9.8P2 | NA
 |===
