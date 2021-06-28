@@ -201,14 +201,13 @@ You should not change these values unless technical support directs you to do so
 The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
 The following values are set by the Windows Unified Host Utilities installer. All values are decimal unless otherwise noted. HKLM is the abbreviation for HKEY_LOCAL_MACHINE.
 
-[cols=3*,options="header"]
+[options="header", cols="30%,30%,30%"]
 |===
 |Registry key |Value |When set
-|HKLM\SYSTEM\CurrentControlSet\Services\msdsm\Parameters
-\DsmMaximumRetryTimeDuringStateTransition
-|120|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm\Parameters\DsmMaximumRetryTimeDuringStateTransition
+|120 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm\Parameters\ DsmMaximumStateTransitionTime
-|120|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|120 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPPLUN" |When MPIO support is specified
 |"NETAPP LUN", "NETAPP LUN C-Mode" |When MPIO support is specified, except if Data ONTAP DSM is detected
