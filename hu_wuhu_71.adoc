@@ -201,7 +201,7 @@ You should not change these values unless technical support directs you to do so
 The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
 The following values are set by the Windows Unified Host Utilities installer. All values are decimal unless otherwise noted. HKLM is the abbreviation for HKEY_LOCAL_MACHINE.
 
-[width="60%",cols="10,^3,^3", options="header"]
+[%autowidth.stretch, options="header"]
 |===
 |Registry key |Value |When set
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
