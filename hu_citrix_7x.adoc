@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
 permalink: hu_citrix_7x.html
-keywords: host utilities, citrix, xenserver, 7 series, netapp, ontap
-summary: Describes how to use Citrix Xenserver 7.x with ONTAP
+keywords: host utilities, citrix, XenServer, 7 series, netapp, ontap, san, boot
+summary: Describes how to use Citrix XenServer 7.x with ONTAP
 ---
 
-= Using Citrix Xenserver with NetApp ONTAP
+= Using Citrix XenServer with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -16,7 +16,7 @@ summary: Describes how to use Citrix Xenserver 7.x with ONTAP
 
 == Introduction
 
-This document provides guidance on ONTAP SAN host configuration settings for Citrix Xenserver 7 series OS releases with FC, FCoE and iSCSi protocols.
+This document provides guidance on ONTAP SAN host configuration settings for Citrix XenServer 7 series OS releases with FC, FCoE and iSCSi protocols.
 
 == SAN Booting
 
@@ -30,9 +30,9 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-Multipath support in Citrix Xenserver is based on the Device Mapper Multipathd components.  Device mapper nodes are not automatically created for all LUNs presented to the xenserver and are only provisioned when LUNs are actively used by the Storage Management Layer (API).  Citrix Xenserver Storage Manager API plugin handles activating and deactivating multipath nodes automatically.
+Multipath support in Citrix XenServer is based on the Device Mapper Multipathd components.  Device mapper nodes are not automatically created for all LUNs presented to the XenServer and are only provisioned when LUNs are actively used by the Storage Management Layer (API).  Citrix XenServer Storage Manager API plugin handles activating and deactivating multipath nodes automatically.
 
-Due to incompatibilities with the Integrated Multipath Management architecture, Citrix recommends that you use the Citrix XenCenter application for managing the storage configuration.  If it is necessary to query the status of Device Mapper tables manually, or list active device mapper multipath nodes on the system, you can use the `/sbin/mpathutil status` command to verify the settings for your ONTAP LUNs. For more information refer to the standard vendor documentation for Citrix Xenserver.
+Due to incompatibilities with the Integrated Multipath Management architecture, Citrix recommends that you use the Citrix XenCenter application for managing the storage configuration.  If it is necessary to query the status of Device Mapper tables manually, or list active device mapper multipath nodes on the system, you can use the `/sbin/mpathutil status` command to verify the settings for your ONTAP LUNs. For more information refer to the standard vendor documentation for Citrix XenServer.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
@@ -58,7 +58,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 === Recommended Settings
 
-The Citrix Xenserver 7.x OS is compiled with all settings required to recognize and correctly manage ONTAP LUNs.  For Citrix Xenserver 7.x, an empty zerobyte `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file.
+The Citrix XenServer 7.x OS is compiled with all settings required to recognize and correctly manage ONTAP LUNs.  For Citrix XenServer 7.x, an empty zerobyte `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file.
 
 Enable the host multipath service from the *Xencenter Management Portal* and verify that the multipath service is enabled and running.
 
@@ -90,7 +90,7 @@ NOTE: Replace the *<DevID>* with the WWID string of the device you want to exclu
 
 .Example
 
-In this example for Citrix Xenserver 7.x, `sda` is the local SCSI disk that we need to the blacklist.
+In this example for Citrix XenServer 7.x, `sda` is the local SCSI disk that we need to the blacklist.
 
 . Run the following command to determine the WWID:
 +
@@ -158,7 +158,7 @@ devices{
 }
 ----
 
-NOTE: Citrix Xenserver recommends use of Citrix VM tools for all Linux and Windows based guest VMs for a supported configuration.
+NOTE: Citrix XenServer recommends use of Citrix VM tools for all Linux and Windows based guest VMs for a supported configuration.
 
 == Known Problems and Limitations
 
