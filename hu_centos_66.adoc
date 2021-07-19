@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
 permalink: hu_centos_66.html
-keywords: host utilities, red hat, rhel, linux, 6.6, netapp, ontap
-summary: Describes how to use Red Hat Enterprise Linux 6.6 with ONTAP
+keywords: host utilities, cent, os, 6.6, netapp, ontap
+summary: Describes how to use CentOS 6.6 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 6.6 with NetApp ONTAP
+= Using CentOS 6.6 with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 6.6 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. RHEL 6.6 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For CentOS 6.6 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. CentOS 6.6 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 include::_include/hu/reuse_hu_enable_alua_steps.adoc[]
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
@@ -69,7 +69,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended Settings
 
-The RHEL 6.6 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+The CentOS 6.6 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
