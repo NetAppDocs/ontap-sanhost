@@ -6,9 +6,10 @@ The first time you create this file, you might need to enable and start the mult
 # systemctl start multipathd
 ----
 There is no requirement to add anything directly to multipath.conf, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
+
 You can add the following syntax to the multipath.conf file to exclude the unwanted devices.
 
-NOTE: Replace the <DevId> with the WWID string of the device you want to exclude. Use the following command to determine the WWID:
+Replace the <DevId> with the WWID string of the device you want to exclude. Use the following command to determine the WWID:
 
 ....
 blacklist {
@@ -21,6 +22,8 @@ blacklist {
 
 .Example
 In this example, sda is the local SCSI disk that we need to blacklist.
+
+.Steps
 
 .	Run the following command to determine the WWID:
 +
