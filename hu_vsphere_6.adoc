@@ -86,6 +86,8 @@ fc.20000024ff171d37:21000024ff171d37-fc.202300a098ea5e27:201e00a098ea5e27-naa.60
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 ----
 
+In the above example, LUN has been mapped from NetApp storage with 4 paths (4 active-optimized).
+
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 *`esxcli storage nmp path list -d naa.600a098038313530772b4d673979372f`*
@@ -126,6 +128,8 @@ fc.20000090fae0ec8f:10000090fae0ec8f-fc.201000a098dfe3d1:200c00a098dfe3d1-naa.60
    Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=30,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 ----
+In the above example, LUN has been mapped from NetApp storage with 4 paths (2 active-optimized and 2 active-unoptimized).
+
 == vVol
 
 Virtual Volumes (vVols) are a VMware object type that corresponds to a Virtual Machine (VM) disk, and its snapshots and fast clones.
