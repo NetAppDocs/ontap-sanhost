@@ -33,13 +33,15 @@ For NetApp ONTAP storage, VMW_SATP_ALUA plugin is used by default with `VMW_PSP_
 
 *`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
 ----
-Name           Device  Vendor    Model         Driver  Transport  Options                     Rule Group  Claim Options  Default PSP  PSP Options  Description
--------------  ------  --------  ------------  ------  ---------  --------------------------  ----------  -------------  -----------  -----------  ---------------------
-VMW_SATP_ALUA          LSI       INF-01-00                        reset_on_attempted_reserve  system      tpgs_on        VMW_PSP_MRU               NetApp E-Series
-                                                                                                                                                   arrays with ALUA
-                                                                                                                                                   support
-VMW_SATP_ALUA          NETAPP                                     reset_on_attempted_reserve  system      tpgs_on        VMW_PSP_RR                NetApp arrays with
-                                                                                                                                                   ALUA support
+Name           Device  Vendor    Model         Driver  Transport  Options
+-------------  ------  ------    -------       ------  ---------  -------
+VMW_SATP_ALUA           LSI      INF-01-00                       reset_on_attempted_reserve
+VMW_SATP_ALUA           NETAPP                                   reset_on_attempted_reserve
+
+Rule Group  Claim Options  Default PSP  PSP Options  Description
+----------  -------------  -----------  -----------  ------------
+system        tpgs_on         VMW_PSP_MRU            NetApp E-Series arrays with ALUA support
+system        tpgs_on          MW_PSP_RR 	           NetApp arrays with ALUA support
 
 ----
 
@@ -245,12 +247,13 @@ Use the following command to verify the QFullSampleSize:
 
 == Known Issues
 
-[width="99%",cols="21%,20%,14%,27%,18%",options="header",]
+[width="99%",cols="21%,20%,14%,27%",options="header"]
 |===
-|*OS version* |*Issue* |*Internal BURT* |*Support Request* |*Note ID from IMT*
-|ESXi 6.5 and ESXi 6.7 and updates |WFC RDM luns fails during testing |1413424  |17572733809 |8727
-|ESXi 6.5 and updates and esxi 6.7 and updates |PLOGI issue seen during testing on Emulex adapters |1256473 |19012493807(NetApp has closed the SR need to check why ?) |9520
-| | | | |
+|*OS version* |*NetApp Bug ID*  |*Title*  |*Description*
+|ESXi 6.5 and ESXi 6.7.x |1413424 |WFC RDM luns fails during testing   |Windows failover clustering raw device mapping between Windows Virtual Machines
+like Windows 2019, Windows 2016, and Windows 2012 across VMWare ESXi host failed
+during storage failover testing on all the 7-mode, C-cmode cluster controllers.
+|ESXi 6.5.x and ESXi 6.7.x |1256473 |PLOGI issue seen during testing on Emulex adapters  |
 |===
 
 
