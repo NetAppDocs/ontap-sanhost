@@ -122,15 +122,7 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known Problems and Limitations
 
-[cols=4*,options="header"]
-|===
-| NetApp Bug ID
-| Title
-| Description
-| Bugzilla ID
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1067272[1067272^] | Remote port status on EMULEX LPe32002 host might be in 'Blocked' state during storage failover operations | During storage failover operations, certain remote port status on RHEL 6.9 host with LPe32002 adapter might get into 'Blocked' state. Because the logical   interfaces go down when a storage node is down, the remote port sets the storage node status to "Blocked" state.  However, when the storage node comes back to optimal state, the logical interfaces also comes up and the remote port state is expected to be 'Online'.  But, on certain occasion the remote port continues to be in 'Blocked' state.  This state manifests as 'failed faulty' to LUNS at multipath layer. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1427496[427496^]
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1076584[1076584^] | Firmware dumps occur on Red Hat Enterprise Linux 6.9 QLogic QE8362 HBA during storage failover operations | Firmware dumps can occur during storage failover operations on Red Hat Enterprise Linux (RHEL) 6.9 hosts with QLogic QLE8362 host bus adapters (HBA), firmware dumps are observed occasionally. The firmware dumps might manifest as an I/O outage on the host that can last as long as 1200 seconds. After the adapter completes dumping the firmware cores, the I/O operation resumes normally.  No further recovery procedure is required on the host. To indicate the firmware dump, the following message is displayed in /var/log/ message file: kernel: qla2xxx [0000:0c:00.3]-d001:3: Firmware dump saved to temp buffer (3/ffffc90018b01000), dump status flags (0x3f) | link:https://bugzilla.redhat.com/show_bug.cgi?id=1438711[1438711^]
-|===
+For CentOS (Red Hat compatible kernel) known issues, see the link:hu_rhel_69.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 6.9.
 
 == Release Notes
 
