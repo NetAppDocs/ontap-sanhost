@@ -28,11 +28,13 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 *	Starting RHEL 8.2, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well for ONTAP namespaces.
 
-//*	RHEL 8.4 would include support for NVMe/TCP as well, in addition to NVMe/FC. The above NetApp plugin should work for both transports.
+*	RHEL 8.4 would include support for NVMe/TCP as well, in addition to NVMe/FC. The above NetApp plugin should work for both transports.
+
+* RHEL 8.4 would include support for NVMe/TCP as well, in addition to NVMe/FC. The above NetApp plugin should work for both transports.
 
 == Known limitations
 
-For RHEL 8.3, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
+For RHEL 8.4, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
 //Steps for doing so are provided in the next section, <<Enabling NVMe/FC on RHEL 8.3>>
 
 == Configuration requirements
@@ -57,21 +59,19 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 === Initiator
 
-*	RHEL 8.4 (ISO available on the NB PXE at `/x/eng/nbshare/saninteroppxe/all_isoimages/RHEL/RHEL8/8.4/GA/`)
-
-TIP: It is recommended to select the Development Tools packages additionally during the OS installation.
+*	RHEL 8.4 (ISO available on the NB PXE at `/x/eng/nbshare/saninteroppxe/all_isoimages/RHEL/RHEL8/8.4/GA/`), it is recommended to select the Development Tools packages additionally during the OS installation.
 
 [NOTE]
 ====
-With the default setting of `crashkernel=auto`, it is not possible to get the RHEL host to dump core during a crash. To resolve this, set `crashkernel = 256M` using the below grubby command and enable crash dump compression on the console:
-
+. With the default setting of `crashkernel=auto`, it is not possible to get the RHEL host to dump core during a crash. To resolve this, set `crashkernel = 256M` using the below grubby command and enable crash dump compression on the console:
++
 
 ``# grubby --args=crashkernel=256M --update-kernel /boot/vmlinuz-4.18.0-305.el8.x86_64`
++
 
-====
-* Reboot the host. After rebooting, verify that the crashkernel is set to 256M instead of auto.
+. Reboot the host. After rebooting, verify that the crashkernel is set to 256M instead of auto.
 
-* Verify that the host is able to dump core at `/var/crash/` by manually triggering a host crash. Run the command `echo c > /proc/sysrq-trigger`) to trigger a host crash.
+. Verify that the host is able to dump core at `/var/crash/` by manually triggering a host crash. Run the command `echo c > /proc/sysrq-trigger`) to trigger a host crash.
 
 +
 
@@ -80,7 +80,8 @@ With the default setting of `crashkernel=auto`, it is not possible to get the RH
 ----
 BOOT_IMAGE=(hd0,gpt2)/vmlinuz-4.18.0-305.el8.x86_64 root=/dev/mapper/rhel_interop--57--141-root ro resume=/dev/mapper/rhel_interop--57--141-swap rd.lvm.lv=rhel_interop-57-141/root rd.lvm.lv=rhel_interop-57-141/swap rhgb quiet nvme_core.multipath=Y crashkernel=256M
 ----
-+
+====
+
 
 *	Ensure the requisite initiator adapters (FC adapters for NVMe/FC) are installed on the host.
 
