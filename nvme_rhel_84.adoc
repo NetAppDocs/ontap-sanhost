@@ -355,9 +355,11 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 
 === Common nvme-cli Errors and Workarounds
 
+The errors displayed by `nvme-cli` during nvme discover, nvme connect or nvme connect-all operations and the workarounds are shown in the following table:
+
 [options="header"]
 |===
-|Error displayed by `nvme-cli` during nvme discover, nvme connect or nvme connect-all | Probable cause | Workaround
+|Error displayed by `nvme-cli`  | Probable cause | Workaround
 | `Failed to write to /dev/nvme-fabrics: Invalid argument` error
 |Incorrect syntax
 |Ensure you are using the correct syntax for the above nvme commands.
