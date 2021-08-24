@@ -219,6 +219,8 @@ The native inbox `qla2xxx` driver included in the RHEL 8.4 GA kernel has the lat
 
 * Verify that you are running the supported adapter driver and firmware versions using the following command:
 
++
+
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
 QLE2742 FW:v9.06.02 DVR:v10.02.00.104-k
@@ -227,6 +229,7 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.104-k
 
 * Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator using the following command:
 
++
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
@@ -359,8 +362,8 @@ The errors displayed by `nvme-cli` during nvme discover, nvme connect or nvme co
 
 [options="header"]
 |===
-|Error displayed by `nvme-cli`  | Probable cause | Workaround
-| `Failed to write to /dev/nvme-fabrics: Invalid argument` error
+|Errors displayed by `nvme-cli`  | Probable cause | Workaround
+| `Failed to write to /dev/nvme-fabrics: Invalid argument`
 |Incorrect syntax
 |Ensure you are using the correct syntax for the above nvme commands.
 |`Failed to write to /dev/nvme-fabrics: No such file or directory`  |Multiple issues could trigger this.
@@ -398,7 +401,7 @@ Cmpl 00000000000000a8 Outstanding 0000000000000001`
 
 |===
 
-== Debugging
+=== When to contact technical support
 If you are still facing issues, please collect the following files & command outputs and contact technical support for further triage:
 
 ----
