@@ -34,9 +34,9 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 === NVMe/FC
 
-.Adapter Details
+==== Adapter Details
 
-[options=""]
+[options="", cols="10,30"]
 |===
 | Broadcom/Emulex a| *	32G FC Gandalf LPe32002 adapters used as NVMe/FC initiators on the SLES15 SP3 host
 *	LPe32002 firmware v12.8.340.8 (available on the Broadcom site)
@@ -103,7 +103,7 @@ nvme-cli-1.13-3.3.1.x86_64
 
 The above nvme-cli MU package now includes the following:
 
-*	NVMe/FC auto-connect scripts - Included natively in the nvme-cli now. Therefore, you no longer need to install the Broadcom/QLogic auto-connects separately on the SLES15 SP3 host:
+*	*NVMe/FC auto-connect scripts* - Included natively in the nvme-cli now. Therefore, you no longer need to install the Broadcom/QLogic auto-connects separately on the SLES15 SP3 host:
 +
 ----
 # rpm -ql nvme-cli-1.13-3.3.1.x86_64
@@ -117,7 +117,7 @@ The above nvme-cli MU package now includes the following:
 ----
 +
 
-*	ONTAP udev rule - New udev rule to ensure NVMe multipath round-robin loadbalancer default applies to all ONTAP namespaces:
+*	*ONTAP udev rule* - New udev rule to ensure NVMe multipath round-robin loadbalancer default applies to all ONTAP namespaces:
 +
 ----
 # rpm -ql nvme-cli-1.13-3.3.1.x86_64
@@ -138,10 +138,10 @@ ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp E-Series", ATTR
 ----
 +
 
-*	NetApp plug-in for ONTAP devices - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
+*	*NetApp plug-in for ONTAP devices* - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
 
 +
-.	Check the hostnqn string at /etc/nvme/hostnqn on the host and ensure that it properly matches with the hostnqn string for the corresponding subsystem on the ONTAP array. For e.g.
+.	Check the hostnqn string at `/etc/nvme/hostnqn` on the host and ensure that it properly matches with the hostnqn string for the corresponding subsystem on the ONTAP array. For example,
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -183,7 +183,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 12.8.840.8, sli-4:2:c
 ----
 +
-**	The newer lpfc drivers (both inbox and outbox) already have lpfc_enable_fc4_type default set to 3, therefore, you no longer need to set this explicitly in the `/etc/modprobe.d/lpfc.conf` anymore, and recreate the `initrd`. The `lpfc nvme` support is already enabled by default:
+**	The newer lpfc drivers (both inbox and outbox) already have lpfc_enable_fc4_type default set to 3, therefore, you no longer need to set this explicitly in the `/etc/modprobe.d/lpfc.conf`, and recreate the `initrd`. The `lpfc nvme` support is already enabled by default:
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
@@ -282,7 +282,7 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.106-k
 ----
 
 
-== Validating NVMf
+== Validating NVMe-oF
 
 .	Verify that in-kernel NVMe multipath is indeed enabled by checking:
 +
