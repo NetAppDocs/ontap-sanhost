@@ -33,15 +33,15 @@ For NetApp ONTAP storage, VMW_SATP_ALUA plugin is used by default with `VMW_PSP_
 
 *`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
 ----
-Name           Device  Vendor    Model         Driver  Transport  Options
--------------  ------  ------    -------       ------  ---------  -------
-VMW_SATP_ALUA           LSI      INF-01-00                       reset_on_attempted_reserve
-VMW_SATP_ALUA           NETAPP                                   reset_on_attempted_reserve
+Name           Device  Vendor    Model     Driver  Transport  Options
+-------------  ------  ------    -------   ------  ---------  -------
+VMW_SATP_ALUA           LSI      INF-01-00                reset_on_attempted_reserve
+VMW_SATP_ALUA           NETAPP                            reset_on_attempted_reserve
 
 Rule Group  Claim Options  Default PSP  PSP Options  Description
 ----------  -------------  -----------  -----------  ------------
-system        tpgs_on         VMW_PSP_MRU            NetApp E-Series arrays with ALUA support
-system        tpgs_on          MW_PSP_RR 	           NetApp arrays with ALUA support
+system        tpgs_on         VMW_PSP_MRU       NetApp E-Series arrays with ALUA support
+system        tpgs_on          MW_PSP_RR 	      NetApp arrays with ALUA support
 
 ----
 
@@ -198,7 +198,7 @@ min.throttle = 8
 
 === Validating the vSphere tunable
 
-Use the following command to verify the HardwareAcceleratedLocking setting:
+Use the following command to verify the `HardwareAcceleratedLocking` setting:
 
 *`esxcli system settings  advanced list --option /VMFS3/HardwareAcceleratedLocking`*
 ----
