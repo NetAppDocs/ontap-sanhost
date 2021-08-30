@@ -22,7 +22,7 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 *	SLES15 SP3 supports NVMe/FC and other transports.
 *	There is no sanlun support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SLES15 SP3. You can rely on the NetApp plug-in included in the native nvme-cli for the same instead. This should work for all NVMe-oF transports.
-*	Both NVMe & SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices (such as, `/dev/nvmeXnY`) on the host.
+*	Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices (such as, `/dev/nvmeXnY`) on the host.
 
 ==	Known limitations
 
@@ -35,13 +35,11 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 == Enabling in-kernel NVMe Multipath
 
-In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP3. Therefore, no additional setting is required here.
-
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
+In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP3. Therefore, no additional setting is required here. Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
 
 == Updating NVMe-oF initiator packages
 
-.	Install the SLES15 SP3 MU kernel-default-5.3.18-59.5.2 separately to avail the latest kernel fixes:
+.	Install the `SLES15 SP3 MU kernel-default-5.3.18-59.5.2` separately to avail the latest kernel fixes:
 +
 ----
 # rpm -ivh kernel-default-5.3.18-59.5.2.x86_64.rpm kernel-default-devel-5.3.18-59.5.2.x86_64.rpm kernel-devel-5.3.18-59.5.2.noarch.rpm kernel-macros-5.3.18-59.5.2.noarch.rpm  kernel-source-5.3.18-59.5.2.noarch.rpm
@@ -165,7 +163,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 3
 ----
 +
-**	 The existing native inbox lpfc driver is already the latest and compatible with NVMe/FC. Therefore, you do not need to install the lpfc oob driver anymore.
+**	 The existing native inbox lpfc driver is already the latest and compatible with NVMe/FC. Therefore, you do not need to install the lpfc oob driver.
 +
 ----
 # cat /sys/module/lpfc/version
@@ -211,7 +209,7 @@ FCP CMPL: xb 0000159d Err 000135c3
 
 ==== Enabling 1MB I/O Size (Optional)
 
-ONTAP 9.7 reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data such as, max I/O request size upto 1MB. But for the Broadcom NVMe/FC host to issue upto 1MB I/O size requests, the lpfc parameter lpfc_sg_seg_cnt should also be bumped up to 256 from the default value of 64. This can be done with the following instructions:
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be upto 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
 
 . Append the value 256 in the respective `modprobe lpfc.conf` file:
 +
@@ -248,7 +246,7 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.106-k
 `# cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1`
 
-. Ensure you are running the recommended qla2xxx driver & adapter firmware versions:
+. Ensure you are running the recommended qla2xxx driver and adapter firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -383,13 +381,13 @@ FCP: Rd 0000000000000073 Wr 0000000000000005 IO 0000000000000031
 Cmpl 00000000000000a8 Outstanding 0000000000000001`
 ----
 
-* If the target LIFs don't show up as above in the nvme_info output, check the `/var/log/messages` & `dmesg` output for any suspicious NVMe/FC failures, and report or fix accordingly.
+* If the target LIFs don't show up as above in the nvme_info output, check the `/var/log/messages` and `dmesg` output for any suspicious NVMe/FC failures, and report or fix accordingly.
 
 | `No discovery log entries to fetch`  |Generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect hostnqn string has been added to the respective subsystem. |Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show` command).
 
 |`Failed to write to /dev/nvme-fabrics: Operation already in progress`  |
  Seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
-|None. For nvme discover, try running this command after some time. For nvme connect & connect-all, run `nvme list` command to verify that the namespace devices are already created and displayed on the host.
+|None. For nvme discover, try running this command after some time. For nvme connect and connect-all, run `nvme list` command to verify that the namespace devices are already created and displayed on the host.
 
 |===
 
