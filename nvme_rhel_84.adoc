@@ -71,11 +71,9 @@ nvme-cli-1.12-3.el8.x86_64
 # cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_141
-Vserver  Subsystem Host NQN
+Vserver     Subsystem       Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_fcnvme_141
-              nvme_141_1
-                                 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+vs_fcnvme_14 nvme_141_1     nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 
 ----
 +
@@ -167,7 +165,7 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
-+
+
 
 ====	 Enabling 1MB I/O size (Optional)
 
@@ -240,9 +238,13 @@ Example:
 +
 ----
 # nvme list
-Node                  SN                                            Model                                                Namespace Usage                            Format         FW Rev
---------------------   ---------------------------------------  ----------------------------------------------- ----------------- ------------------------------- ---------------- ---------------
-/dev/nvme0n1     814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller                1                  85.90 GB / 85.90 GB     4 KiB + 0 B   FFFFFFFF
+Node         SN                    Model                  Namespace Usage
+-------      -----------------     -------------          --------- ------------
+/dev/nvme0n1 814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller   1      85.90 GB / 85.90 GB
+
+Format       FW Rev
+------       -------
+4 KiB + 0 B  FFFFFFFF
 ----
 +
 . Verify that the controller state of each path is live and has proper ANA status.
@@ -266,9 +268,13 @@ Example:
 +
 ----
 # nvme netapp ontapdevices -o column
-Device                 Vserver                         Namespace Path                                                          NSID    UUID                                                             Size
------------------------ ------------------------------ ----------------------------------------------------------------------- --------- ---------------------------------------------------------- ---------
-/dev/nvme0n1      vs_fcnvme_141            /vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns              1          72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
+Device        Vserver         Namespace Path                            NSID
+--------     -----------      ---------------------------               -------
+/dev/nvme0n1  vs_fcnvme_141   /vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns    1
+UUID                                   Size
+-----                                  --------
+72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
+
 # nvme netapp ontapdevices -o json
 {
 "ONTAPdevices" : [
@@ -337,7 +343,7 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 
 The errors displayed by `nvme-cli` during nvme discover, nvme connect or nvme connect-all operations and the workarounds are shown in the following table:
 
-[options="header"]
+[options="header", cols="20, 20, 50"]
 |===
 |Errors displayed by `nvme-cli`  | Probable cause | Workaround
 | `Failed to write to /dev/nvme-fabrics: Invalid argument`
