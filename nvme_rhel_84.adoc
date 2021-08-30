@@ -16,7 +16,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.4 with ONTAP
 
 == Supportability
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with RHEL 8.4 with ANA (Asymmetric Namespace Access) required for surviving storage failures (SFOs) on the NetApp array. ANA is the ALUA equivalent in the NVMf (NVMe-oF) environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMf with in-kernel NVMe Multipath using ANA on RHEL 8.4 and ONTAP as the target has been documented here.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with RHEL 8.4 with ANA (Asymmetric Namespace Access) required for surviving storage failures (SFOs) on the NetApp array. ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.4 and ONTAP as the target has been documented here.
 
 == Features
 
@@ -24,7 +24,7 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 *	Starting RHEL 8.2, a native `udev` rule is already provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. You need not manually create this rule any more (as was done in RHEL 8.1).
 
-*	Starting RHEL 8.2, both NVMe & SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath may be used to configure NVMf multipath devices (for example, `/dev/nvmeXnY`) on the host.
+*	Starting RHEL 8.2, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath may be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
 *	Starting RHEL 8.2, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well for ONTAP namespaces.
 
@@ -38,29 +38,6 @@ For RHEL 8.4, in-kernel NVMe multipath remains disabled by default. Therefore, y
 
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
 
-=== NVMe/FC
-
-.*Adapters*
-
-* Broadcom/Emulex
-**	32G FC Gandalf LPe32002 adapter used as NVMe/FC initiator on the RHEL 8.4 host
-**	LPe32002 firmware v12.8.340.8
-**	Lpfc native inbox driver v12.8.0.5
-* Marvell/QLogic
-**	32G FC QLE2742 adapter used as NVMe/FC initiator on the RHEL 8.4 host
-**	QLE2742 firmware v9.06.02
-**	qla2xxx native inbox driver v10.02.00.104-k
-* Fabric Switch
-**	32G FC Brocade G620 running FOS v9.0.0b
-**	Single-initiator zoning enabled for the initiator ports & target LIFs
-
-=== Initiator
-
-*	Ensure that the requisite initiator adapters (FC adapters for NVMe/FC) are installed on the host.
-
-=== Target modules
-
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
 
 == Enabling in-kernel NVMe Multipath
 
@@ -138,7 +115,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 +
 
-.	Verify that you are using the recommended Broadcom lpfc firmware & inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported adapter driver & firmware versions.
+.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported adapter driver and firmware versions.
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -192,26 +169,26 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 +
 
-.	(Optional) Enable 1MB I/O size.
-+
+====	 Enabling 1MB I/O size (Optional)
 
-The `lpfc_sg_seg_cnt` parameter needs to be set to 256 for the lpfc driver to issue I/O requests upto 1 MB size.
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be upto 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
+
+. Append the value `256` in the respective `modprobe lpfc.conf` file:
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
 options lpfc lpfc_sg_seg_cnt=256
 ----
 +
+. Run a `dracut -f` command, and reboot the host.
 
-. Run a `dracut -f` command and then reboot the host.
-
-
-. After the host boots up, verify that `lpfc_sg_seg_cnt` is set to 256.
+. After reboot, verify that the above setting has been applied by checking the corresponding `sysfs` value:
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
 256
 ----
+Now the Broadcom FC-NVMe host should be able to send upto 1MB I/O requests on the ONTAP namespace devices.
 
 === Marvell/QLogic
 
@@ -391,18 +368,18 @@ FCP: Rd 0000000000000073 Wr 0000000000000005 IO 0000000000000031
 Cmpl 00000000000000a8 Outstanding 0000000000000001`
 ----
 
-* If the target LIFs don't show up as above in the nvme_info output, check the `/var/log/messages` & `dmesg` output for any suspicious NVMe/FC failures, and report or fix accordingly.
+* If the target LIFs don't show up as above in the nvme_info output, check the `/var/log/messages` and `dmesg` output for any suspicious NVMe/FC failures, and report or fix accordingly.
 
 | `No discovery log entries to fetch`  |Generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect hostnqn string has been added to the respective subsystem. |Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show` command).
 
 |`Failed to write to /dev/nvme-fabrics: Operation already in progress`  |
  Seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
-|None. For nvme discover, try running this command after some time. For nvme connect & connect-all, run `nvme list` command to verify that the namespace devices are already created and displayed on the host.
+|None. For nvme discover, try running this command after some time. For nvme connect and connect-all, run `nvme list` command to verify that the namespace devices are already created and displayed on the host.
 
 |===
 
 === When to contact technical support
-If you are still facing issues, please collect the following files & command outputs and contact technical support for further triage:
+If you are still facing issues, please collect the following files and command outputs and contact technical support for further triage:
 
 ----
 cat /sys/class/scsi_host/host*/nvme_info
