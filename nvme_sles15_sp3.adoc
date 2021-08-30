@@ -120,19 +120,13 @@ ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp E-Series", ATTR
 # cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:3ca559e1-5588-4fc4-b7d6-5ccfb0b9f054
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_145
-Vserver Subsystem Host NQN
-------- --------- ----------------------------------------------------------
-vs_nvme_145
-nvme_145_1
-nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-nvme_145_2
-nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-nvme_145_3
-nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-nvme_145_4
-nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-nvme_145_5
-nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
+Vserver     Subsystem      Host NQN
+-------     ---------      ----------------------------------
+vs_nvme_145 nvme_145_1 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
+            nvme_145_2 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
+            nvme_145_3 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
+            nvme_145_4 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
+            nvme_145_5 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
 5 entries were displayed.
 
 ----
@@ -281,9 +275,13 @@ round-robin
 +
 ----
 # nvme list
-Node               SN                                            Model                                       Namespace  Usage                     Format FW   Rev
-------------------- ---------------------------------------- ---------------------------------------- ---------------- -------------------------- ----------------- --------------
-/dev/nvme1n1 814vWBNRwfBGAAAAAAAB  NetApp ONTAP Controller       1 85.90         GB / 85.90 GB        4 KiB + 0 B   FFFFFFFF
+Node    SN                        Model                   Namespace
+------  -------------             -------------------     ---------------
+/dev/nvme1n1 814vWBNRwfBGAAAAAAAB  NetApp ONTAP Controller    1
+
+Usage                   Format FW   Rev
+--------                ---------  ---------
+85.90 GB / 85.90 GB   4 KiB + 0 B   FFFFFFFF
 ----
 
 
@@ -303,9 +301,15 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.04ba0732530911ea8e8300a098dfdd91:su
 +
 ----
 # nvme netapp ontapdevices -o column
-Device Vserver Namespace Path NSID UUID Size
----------------- ------------------------- -------------------------------------------------- ---- -------------------------------------- ---------
-/dev/nvme1n1 vserver_fcnvme_145 /vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns 1 23766b68-e261-444e-b378-2e84dbe0e5e1 85.90GB
+Device       Vserver          Namespace Path
+---------    -------          --------------------------------------------------
+/dev/nvme1n1 vserver_fcnvme_145 /vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns
+
+NSID  UUID                                   Size
+----  ------------------------------         ------
+1      23766b68-e261-444e-b378-2e84dbe0e5e1  85.90GB
+
+
 # nvme netapp ontapdevices -o json
 {
 "ONTAPdevices" : [
