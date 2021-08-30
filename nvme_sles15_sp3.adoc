@@ -16,13 +16,13 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 
 == Supportability
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP3 (SLES15 SP3) with ANA (Asymmetric Namespace Access) required for surviving storage failures (SFOs) on the NetApp array. ANA is the ALUA equivalent in the NVMf (NVMe-oF) environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMf with in-kernel NVMe Multipath using ANA on SLES15 SP3 and ONTAP as the target has been documented here.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP3 (SLES15 SP3) with ANA (Asymmetric Namespace Access) required for surviving storage failures (SFOs) on the NetApp array. ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on SLES15 SP3 and ONTAP as the target has been documented here.
 
 == Features
 
 *	SLES15 SP3 supports NVMe/FC and other transports.
-*	There is no sanlun support for NVMf. Therefore, there is no LUHU support for NVMf on SLES15 SP3. You can rely on the NetApp plug-in included in the native nvme-cli for the same instead. This should work for all NVMf transports.
-*	Both NVMe & SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMf multipath devices (such as, `/dev/nvmeXnY`) on the host.
+*	There is no sanlun support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SLES15 SP3. You can rely on the NetApp plug-in included in the native nvme-cli for the same instead. This should work for all NVMe-oF transports.
+*	Both NVMe & SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices (such as, `/dev/nvmeXnY`) on the host.
 
 ==	Known limitations
 
@@ -32,41 +32,16 @@ There are no known limitations.
 
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
 
-=== NVMe/FC
-
-==== Adapter Details
-
-[options="", cols="10,30"]
-|===
-| Broadcom/Emulex a| *	32G FC Gandalf LPe32002 adapters used as NVMe/FC initiators on the SLES15 SP3 host
-*	LPe32002 firmware v12.8.340.8 (available on the Broadcom site)
-*	Lpfc inbox driver v12.8.0.10 (native lpfc driver bundled with the kernel)
-
-| Marvell/QLogic
-a| *	32G FC QLE2742 adapters used as NVMe/FC initiators on the SLES15 SP3 NVMe/FC ANA host
-*	QLE2742 firmware v9.06.02 (available on the Marvell website)
-*	Qla2xxx native driver v10.02.00.106-k
-|===
-
-==== Fabric Switch
-*	32G FC Brocade G620 running FOS v9.0.0b
-*	Single-initiator zoning enabled for the initiator ports & target LIFs
-
-=== Initiator
-
-* Upgrade the SLES15 SP3 OS image to the respective MU version as described below.
-
-=== Target modules
-
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
 
 == Enabling in-kernel NVMe Multipath
 
 In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP3. Therefore, no additional setting is required here.
 
-== Updating NVMf initiator packages
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
 
-.	Install the link:http://nbsweb.eng.btc.netapp.in/u/marting/web/SLES15SP3/kernel/5.3.18-59.5.2/[SLES15 SP3 MU kernel-default-5.3.18-59.5.2] separately to avail the latest kernel fixes:
+== Updating NVMe-oF initiator packages
+
+.	Install the SLES15 SP3 MU kernel-default-5.3.18-59.5.2 separately to avail the latest kernel fixes:
 +
 ----
 # rpm -ivh kernel-default-5.3.18-59.5.2.x86_64.rpm kernel-default-devel-5.3.18-59.5.2.x86_64.rpm kernel-devel-5.3.18-59.5.2.noarch.rpm kernel-macros-5.3.18-59.5.2.noarch.rpm  kernel-source-5.3.18-59.5.2.noarch.rpm
@@ -93,7 +68,7 @@ Now the host would pick the above kernel as the default grub entry during reboot
 ----
 +
 
-.	Next, upgrade to link:http://nbsweb.eng.btc.netapp.in/u/marting/web/SLES15SP3/nvme-cli/1.13-3.3.1/[nvme-cli-1.13-3.3.1], by running  `rpm -Uvh` command on this package:
+.	Next, upgrade to nvme-cli-1.13-3.3.1 by running  `rpm -Uvh` command on this package:
 +
 ----
 # rpm -qa|grep nvme-cli
@@ -103,7 +78,7 @@ nvme-cli-1.13-3.3.1.x86_64
 
 The above nvme-cli MU package now includes the following:
 
-*	*NVMe/FC auto-connect scripts* - Included natively in the nvme-cli now. Therefore, you no longer need to install the Broadcom/QLogic auto-connects separately on the SLES15 SP3 host:
+*	*NVMe/FC auto-connect scripts* - Included natively in the nvme-cli now, therefore, you no longer need to install the Broadcom/QLogic auto-connects separately on the SLES15 SP3 host:
 +
 ----
 # rpm -ql nvme-cli-1.13-3.3.1.x86_64
@@ -291,7 +266,7 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.106-k
 Y
 ----
 
-.	Verify that the appropriate NVMf settings (such as, model set to `NetApp ONTAP Controller` and load balancing iopolicy set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
+.	Verify that the appropriate NVMe-oF settings (such as, model set to `NetApp ONTAP Controller` and load balancing iopolicy set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
 +
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model
