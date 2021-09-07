@@ -145,7 +145,10 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 # cat /sys/module/lpfc/version
 0:12.8.0.10
-Verify that the initiator ports are up and running:
+----
+. Verify that the initiator ports are up and running:
++
+----
 # cat /sys/class/fc_host/host*/port_name
 0x100000109b579d5e
 0x100000109b579d5f
@@ -204,7 +207,7 @@ options lpfc lpfc_sg_seg_cnt=256
 256
 ----
 
-Now the Broadcom FC-NVMe host should be able to send up 1MB I/O requests on the ONTAP namespace devices.
+Now the Broadcom NVMe/FC host should be able to send up 1MB I/O requests on the ONTAP namespace devices.
 
 === Marvell/QLogic
 
