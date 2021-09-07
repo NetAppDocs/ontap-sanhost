@@ -13,10 +13,11 @@ summary: How to Configure NVMe-oF Host for RHEL 8.4 with ONTAP
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
+:source-highlighter: highlighter.js
 
 == Supportability
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with RHEL 8.4 with ANA (Asymmetric Namespace Access) required for surviving storage failures (SFOs) on the NetApp array. ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.4 and ONTAP as the target has been documented here.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with RHEL 8.4 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.4 and ONTAP as the target has been documented here.
 
 == Features
 
@@ -24,7 +25,7 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 *	Starting RHEL 8.2, a native `udev` rule is already provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. You need not manually create this rule any more (as was done in RHEL 8.1).
 
-*	Starting RHEL 8.2, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath may be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
+*	Starting RHEL 8.2, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath may be used to configure NVMe-oF multipath devices on the host.
 
 *	Starting RHEL 8.2, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well for ONTAP namespaces.
 
@@ -45,6 +46,9 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 .	After the installation is complete, verify that you are running the specified RHEL 8.4 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported versions.
 +
+Example:
++
+
 ----
 # uname -r
 4.18.0-305.el8.x86_64
@@ -52,6 +56,8 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 +
 
 .	Install the `nvme-cli` package:
++
+Example:
 +
 ----
 # rpm -qa|grep nvme-cli
@@ -134,6 +140,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 
 .	Verify that the initiator ports are up and running, and you are able to see the target LIFs.
 +
+[subs=+quotes]
 ----
 # cat /sys/class/fc_host/host*/port_name
 0x100000109b1c1204
@@ -144,9 +151,9 @@ Online
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 ONLINE
-NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 TARGET DISCSRVC ONLINE
-NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 TARGET DISCSRVC ONLINE
+*NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 ONLINE*
+*NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 TARGET DISCSRVC ONLINE*
+*NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 TARGET DISCSRVC ONLINE*
 NVME Statistics
 LS: Xmt 0000000f78 Cmpl 0000000f78 Abort 00000000
 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
@@ -155,9 +162,9 @@ abort 00001bc7 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 00001e15 Err 0000d906
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 ONLINE
+*NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 ONLINE
 NVME RPORT WWPN x203d00a098dfdd91 WWNN x203700a098dfdd91 DID x010007 TARGET DISCSRVC ONLINE
-NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 TARGET DISCSRVC ONLINE
+NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 TARGET DISCSRVC ONLINE*
 NVME Statistics
 LS: Xmt 0000000fa8 Cmpl 0000000fa8 Abort 00000000
 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
@@ -251,14 +258,15 @@ Format       FW Rev
 +
 Example:
 +
+[subs=+quotes]
 ----
 # nvme list-subsys /dev/nvme0n1
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_141_1
 \
-+- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
-+- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
++- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live *inaccessible*
++- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live *inaccessible*
++- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live *optimized*
++- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live *optimized*
 ----
 
 +
