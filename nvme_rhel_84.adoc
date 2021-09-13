@@ -176,7 +176,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 
 ====	 Enabling 1MB I/O size (Optional)
 
-ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be upto 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
 
 . Append the value `256` in the respective `modprobe lpfc.conf` file:
 +
@@ -193,7 +193,7 @@ options lpfc lpfc_sg_seg_cnt=256
 # cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
 256
 ----
-Now the Broadcom FC-NVMe host should be able to send upto 1MB I/O requests on the ONTAP namespace devices.
+Now the Broadcom FC-NVMe host should be able to send up to 1MB I/O requests on the ONTAP namespace devices.
 
 === Marvell/QLogic
 
@@ -226,7 +226,7 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.104-k
 Y
 ----
 
-*	Verify the appropriate NVMf settings, `model` set to `NetApp ONTAP Controller` and `load balancing iopolicy` set to `round-robin`, so that the respective ONTAP namespaces properly reflect on the host:
+*	Verify the appropriate NVMe-oF settings, `model` set to `NetApp ONTAP Controller` and `load balancing iopolicy` set to `round-robin`, so that the respective ONTAP namespaces properly reflect on the host:
 +
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model
@@ -317,7 +317,7 @@ Before commencing any troubleshooting for any NVMe/FC failures, ensure that you 
 
 ----
 +
-. After setting any of these values, run `dracut-f` command to recreate the initiramfs and reboot the host.
+. After setting any of these values, run `dracut-f` command to recreate the `initramfs` and reboot the host.
 
 . After rebooting, verify the settings:
 +
@@ -360,7 +360,7 @@ The errors displayed by `nvme-cli` during nvme discover, nvme connect or nvme co
 |`Failed to write to /dev/nvme-fabrics: No such file or directory`  |Multiple issues could trigger this.
 Passing wrong arguments to the nvme commands is one of the common causes.
 a| * Ensure you have passed the correct arguments (such as, correct WWNN string, WWPN string, and more) to the commands.
-* If the arguments are correct, but you still see this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper, the NVMe intiator showing as `Enabled`, and the NVMe/FC target LIFs properly showing up here under the remote ports sections.
+* If the arguments are correct, but you still see this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper, the NVMe initiator showing as `Enabled`, and the NVMe/FC target LIFs properly showing up here under the remote ports sections.
 Example:
 +
 ----
