@@ -1,0 +1,268 @@
+---
+sidebar: sidebar
+permalink: hu_vsphere_6.html
+keywords: host utilities, veritas, infoscale, 6.5. 6.7, netapp, ontap
+summary: Describes how to use Veritas Infoscale 6.5 and 6.7 for Linux with ONTAP
+---
+
+= Using VMware vSphere 6.5 and 6.7 with NetApp ONTAP
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+== Introduction
+This document provides guidance on ONTAP SAN host configuration settings for the vSphere 6.5.x and 6.7.x releases with FC, FCoE and iSCSI protocols.
+
+== Hypervisor SAN Booting
+
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+
+include::_include/hu/reuse_hu_san_booting_steps.adoc[]
+
+== Multipathing
+
+ESXi provides an extensible multipathing module called Native Multipathing Plug-In (NMP) that manages the sub-plugins Storage Array Type Plugins (SATPs), and Path Selection Plugins (PSPs). These SATP rules are available by default in ESXi.
+
+For NetApp ONTAP storage, VMW_SATP_ALUA plugin is used by default with `VMW_PSP_RR`  as a path selection policy (PSP). This can be confirmed by using the below command:
+
+
+*`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
+----
+Name           Device  Vendor    Model     Driver  Transport  Options
+-------------  ------  ------    -------   ------  ---------  -------
+VMW_SATP_ALUA           LSI      INF-01-00                reset_on_attempted_reserve
+VMW_SATP_ALUA           NETAPP                            reset_on_attempted_reserve
+
+Rule Group  Claim Options  Default PSP  PSP Options  Description
+----------  -------------  -----------  -----------  ------------
+system        tpgs_on         VMW_PSP_MRU       NetApp E-Series arrays with ALUA support
+system        tpgs_on          MW_PSP_RR 	      NetApp arrays with ALUA support
+
+----
+
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+*`esxcli storage nmp device list -d naa.600a098038304759563f4e7837574453`*
+----
+fc.20000024ff171d37:21000024ff171d37-fc.202300a098ea5e27:204a00a098ea5e27-naa.600a098038304759563f4e7837574453
+   Runtime Name: vmhba4:C0:T0:L9
+   Device: naa.600a098038304759563f4e7837574453
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304759563f4e7837574453)
+   Group State: active
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=6,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+
+fc.20000024ff171d36:21000024ff171d36-fc.202300a098ea5e27:201d00a098ea5e27-naa.600a098038304759563f4e7837574453
+   Runtime Name: vmhba3:C0:T1:L9
+   Device: naa.600a098038304759563f4e7837574453
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304759563f4e7837574453)
+   Group State: active
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=3,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+
+fc.20000024ff171d36:21000024ff171d36-fc.202300a098ea5e27:201b00a098ea5e27-naa.600a098038304759563f4e7837574453
+   Runtime Name: vmhba3:C0:T0:L9
+   Device: naa.600a098038304759563f4e7837574453
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304759563f4e7837574453)
+   Group State: active
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=1,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+
+fc.20000024ff171d37:21000024ff171d37-fc.202300a098ea5e27:201e00a098ea5e27-naa.600a098038304759563f4e7837574453
+   Runtime Name: vmhba4:C0:T1:L9
+   Device: naa.600a098038304759563f4e7837574453
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304759563f4e7837574453)
+   Group State: active
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=4,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+----
+
+In the above example, LUN has been mapped from NetApp storage with 4 paths (4 active-optimized).
+
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+
+*`esxcli storage nmp path list -d naa.600a098038313530772b4d673979372f`*
+----
+fc.20000090fae0ec8e:10000090fae0ec8e-fc.201000a098dfe3d1:200b00a098dfe3d1-naa.600a098038313530772b4d673979372f
+   Runtime Name: vmhba3:C0:T2:L21
+   Device: naa.600a098038313530772b4d673979372f
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038313530772b4d673979372f)
+   Group State: active unoptimized
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=29,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+
+fc.20000090fae0ec8e:10000090fae0ec8e-fc.201000a098dfe3d1:200700a098dfe3d1-naa.600a098038313530772b4d673979372f
+   Runtime Name: vmhba3:C0:T3:L21
+   Device: naa.600a098038313530772b4d673979372f
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038313530772b4d673979372f)
+   Group State: active
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=25,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+
+fc.20000090fae0ec8f:10000090fae0ec8f-fc.201000a098dfe3d1:200800a098dfe3d1-naa.600a098038313530772b4d673979372f
+   Runtime Name: vmhba4:C0:T2:L21
+   Device: naa.600a098038313530772b4d673979372f
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038313530772b4d673979372f)
+   Group State: active
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=26,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+
+fc.20000090fae0ec8f:10000090fae0ec8f-fc.201000a098dfe3d1:200c00a098dfe3d1-naa.600a098038313530772b4d673979372f
+   Runtime Name: vmhba4:C0:T3:L21
+   Device: naa.600a098038313530772b4d673979372f
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038313530772b4d673979372f)
+   Group State: active unoptimized
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=30,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+----
+In the above example, LUN has been mapped from NetApp storage with 4 paths (2 active-optimized and 2 active-unoptimized).
+
+== vVol
+
+Virtual Volumes (vVols) are a VMware object type that corresponds to a Virtual Machine (VM) disk, and its snapshots and fast clones.
+
+ONTAP tools for VMware vSphere includes the VASA Provider for ONTAP, which provides the integration point for a VMware vCenter to leverage vVols based storage. When you deploy the ONTAP tools OVA, it is automatically registered with the vCenter server and enables the VASA Provider.
+
+When you create a vVols datastore using the vCenter user interface, it guides you to create FlexVols as backup storage for the datastore. vVols within a vVols datastores are accessed by ESXi hosts using a protocol endpoint (PE). In SAN environments, one 4MB LUN is created on each FlexVol in the datastore for use as a PE. A SAN PE is an administrative logical unit (ALU); vVols are subsidiary logical units (SLUs).
+
+Standard requirements and best practices for SAN environments apply when using vVols, including (but not limited to) the following:
+
+. Create at least one SAN LIF on each node per SVM you intend to use. The best practice is to create at least two per node, but no more than necessary.
+
+. Eliminate any single point of failure. Use multiple VMkernel network interfaces on different network subnets that use NIC teaming when multiple virtual switches are used or use multiple physical NICs connected to multiple physical switches to provide HA and increased throughput.
+
+. Configure zoning and/or VLANs as required for host connectivity.
+
+. Ensure all required initiators are logged into the target LIFs on the desired SVM.
+
+NOTE: You must deploy ONTAP tools for VMware vSphere to enable the VASA Provider. The VASA Provider will manage all of your igroup settings for you, so there is no need to create or manage igroups in a vVols environment.
+
+NetApp does not recommend changing any vVols settings from default at this time.
+
+Refer to the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] for specific versions of ONTAP tools, or legacy VASA Provider for your specific versions of vSphere and ONTAP.
+
+For detailed information on provisioning and managing vVols, please refer to ONTAP tools for VMware vSphere documentation as well as link:https://docs.netapp.com/us-en/netapp-solutions/hybrid-cloud/vsphere_ontap_ontap_for_vsphere.html[TR-4597] and link:https://www.netapp.com/pdf.html?item=/media/13555-tr4400pdf.pdf[TR-4400.]
+
+
+== Recommended Settings
+
+=== ATS Locking
+
+ATS locking is *mandatory* for VAAI compatible storage and upgraded VMFS5 and is required for proper interoperability and optimal VMFS shared storage I/O performance with ONTAP LUNs. Refer to VMware documentation for details on enabling ATS locking.
+
+[cols=4*,options="header"]
+|===
+| Settings
+| Default
+| ONTAP Recommended
+| Description
+| HardwareAcceleratedLocking | 1 | 1 | Helps enable the use of Atomic Test and Set (ATS) locking
+| Disk IOPs | 1000 | 1 | IOPS limit: The Round Robin PSP defaults to an IOPS limit of 1000. In this default case, a new path is used after 1000 I/O operations are issued.
+| Disk/QFullSampleSize | 0 | 32 | The count of QUEUE FULL or BUSY conditions it takes before ESXi starts throttling.
+|===
+
+NOTE: Enable Space-alloc setting for all the LUN’s mapped to VMware vSphere for UNMAP to work. For more details, refer to https://docs.netapp.com/ontap-9/index.jsp[ONTAP Documentation].
+
+=== Guest OS timeouts
+
+You can manually configure the virtual machines with the recommended guest OS tunings.  After tuning updates, you must reboot the guest for the updates to take effect.
+
+*GOS timeout values:*
+
+[cols=2*,options="header"]
+|===
+| Guest OS Type
+| Timeouts
+| Linux variants | disk timeout = 60
+| Windows | disk timeout = 60
+| Solaris | disk timeout = 60
+busy retry = 300
+not ready retry = 300
+reset retry = 30
+max.throttle = 32
+min.throttle = 8
+|===
+
+=== Validating the vSphere tunable
+
+Use the following command to verify the `HardwareAcceleratedLocking` setting:
+
+*`esxcli system settings  advanced list --option /VMFS3/HardwareAcceleratedLocking`*
+----
+   Path: /VMFS3/HardwareAcceleratedLocking
+   Type: integer
+   Int Value: 1
+   Default Int Value: 1
+   Min Value: 0
+   Max Value: 1
+   String Value:
+   Default String Value:
+   Valid Characters:
+   Description: Enable hardware accelerated VMFS locking (requires compliant hardware). Please see http://kb.vmware.com/kb/2094604 before disabling this option.
+----
+
+=== Validating the Disk IOPs setting
+
+Use the following command to verify the IOPs setting:
+
+*`esxcli storage nmp device list -d naa.600a098038304731783f506670553355`*
+----
+naa.600a098038304731783f506670553355
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304731783f506670553355)
+   Storage Array Type: VMW_SATP_ALUA
+   Storage Array Type Device Config: {implicit_support=on; explicit_support=off; explicit_allow=on; alua_followover=on; action_OnRetryErrors=off; {TPG_id=1000,TPG_state=ANO}{TPG_id=1001,TPG_state=AO}}
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1,bytes=10485760,useANO=0; lastPathIndex=0: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba4:C0:T0:L82, vmhba3:C0:T0:L82
+   Is USB: false
+----
+
+=== Validating the QFullSampleSize
+
+Use the following command to verify the QFullSampleSize:
+
+*`esxcli system settings  advanced list --option /Disk/QFullSampleSize`*
+----
+   Path: /Disk/QFullSampleSize
+   Type: integer
+   Int Value: 32
+   Default Int Value: 0
+   Min Value: 0
+   Max Value: 64
+   String Value:
+   Default String Value:
+   Valid Characters:
+   Description: Default I/O samples to monitor for detecting non-transient queue full condition. Should be nonzero to enable queue depth throttling. Device specific QFull options will take precedence over this value if set.
+----
+
+== Known Issues
+
+[width="99%",cols="21%,20%,14%,27%",options="header"]
+|===
+|*OS version* |*NetApp Bug ID*  |*Title*  |*Description*
+|ESXi 6.5 and ESXi 6.7.x |1413424 |WFC RDM luns fails during testing   |Windows failover clustering raw device mapping between Windows Virtual Machines
+like Windows 2019, Windows 2016, and Windows 2012 across VMWare ESXi host failed
+during storage failover testing on all the 7-mode, C-cmode cluster controllers.
+|ESXi 6.5.x and ESXi 6.7.x |1256473 |PLOGI issue seen during testing on Emulex adapters  |
+|===
+
+
+== Related Links
+
+* To access TR-4597-VMware vSphere with ONTAP, refer link:https://cert.vmware.com/caas/support/case/00088028[Customer case-00088028] and link:https://cert.vmware.com/caas/support/case/00088029[Customer case-00088029]
+* link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster (2031038)]
+* link:https://kb.vmware.com/s/article/83370[NetApp ONTAP with NetApp SnapMirror Business Continuity (SM-BC) with VMware vSphere Metro Storage Cluster (vMSC)]
