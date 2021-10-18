@@ -19,7 +19,9 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 
 You must install the AIX Host Utilities Kit while using AIX MPIO with NetApp ONTAP Storage.
 
-You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must uncompress it to get the two software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must decompress it to get the two software packages you need to install the Host Utilities.
+
+NetApp AIX Host Utilities 6.1 is the latest release. This release addresses the memory leak issue that was reported in the previous releases. Refer to release notes section for additional information.
 
 .Steps
 
@@ -35,17 +37,17 @@ You can download the compressed file containing the Host Utilities software pack
 
 . Uncompress the file and extract the SAN Toolkit software package.
 +
-`zcat ntap_aix_host_utilities_6.0.tar.Z | tar -xvf –`
+` tar -xvf ntap_aix_host_utilities_6.1.tar.gz`
 
 +
-The following directory is created when you uncompress the file: ntap_aix_host_utilities_6.0.  This directory will have one of the following subdirectories:  MPIO, NON_MPIO, or SAN_Tool_Kit
+The following directory is created when you uncompress the file: ntap_aix_host_utilities_6.1.  This directory will have one of the following subdirectories:  MPIO, NON_MPIO, or SAN_Tool_Kit
 
 .	Install the AIX MPIO:
 +
-`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.0/MPIO NetApp.MPIO_Host_Utilities_Kit`
+`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
 . Install the SAN Toolkit:
-`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.0/SAN_Tool_Kit NetApp.SAN_toolkit`
+`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
 
 . Reboot the host.
 
@@ -171,7 +173,11 @@ By default, the AIX operating system enforces a shorter I/O timeout if when no p
 | Description
 | Partner ID
 
-| 1307653 | Seeing I/O issues on VIOS 3.1.1.10 during SFO faults and straight io | On VIOS 3.1.1 IO failures may be seen on NPIV client disk which are backed by 16/32Gb FC adapters.  Also, a vfchost driver may get into a state where it stops processing I/O requests from the client.
+| 1416221 | AIX 7200-05-01 encountered I/O disruption on virtual iSCSI disks(VIOS 3.1.1.x) during storage failover | I/O disruption can happen during storage failover operations on AIX 7.2 TL5 hosts on the virtual iSCSI disks mapped through the VIOS 3.1.1.x. By default, the rw_timeout value of the virtual iSCSI disks (hdisk) on VIOC will be 45 seconds. If an I/O delay greater than 45 seconds happens during storage failover, an I/O failure might occur. To avoid this situation, refer to the workaround mentioned in the BURT. As per IBM, after applying APAR - IJ34739 (upcoming release) we can dynamically change the rw_timeout value using the chdev command. |
 
-Applying IBM APAR IJ22290 IBM APAR IJ23222 will fix the issue
-|
+
+| 1414700 | AIX 7.2 TL04 encountered I/O disruption on virtual iSCSI disks(VIOS 3.1.1.x) during storage failover | I/O disruption can happen during storage failover operations on AIX 7.2 TL4 hosts on the virtual iSCSI disks mapped through the VIOS 3.1.1.x. By default, the rw_timeout value of vSCSI adapter on VIOC is 45 seconds. If an I/O delay of  more than 45 seconds happens during a storage failover, I/O failure might  occur. To avoid this situation, refer to the workaround mentioned in the BURT. |
+
+| 1307653 | Seeing I/O issues on VIOS 3.1.1.10 during SFO faults and straight I/O | On VIOS 3.1.1 IO failures may be seen on NPIV client disk which are backed by 16/32Gb FC adapters.  Also, a vfchost driver may get into a state where it stops processing I/O requests from the client. Applying IBM APAR IJ22290 IBM APAR IJ23222 will fix the issue. |
+
+|===
