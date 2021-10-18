@@ -118,7 +118,7 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.4 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_82.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.4.
+NOTE: To configure Oracle Linux 8.4 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_84.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.4.
 
 == KVM Settings
 
@@ -128,4 +128,4 @@ You can use the recommended settings to configure Kernel-based Virtual Machine (
 
 There are no known issues for Oracle Linux 8.4.
 
-NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the Known Issues section in the corresponding Red Hat Enterprise Linux release documentation.
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_84.html#known-problems-and-limitations[known issues] section in the corresponding Red Hat Enterprise Linux release documentation.
