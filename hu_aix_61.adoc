@@ -14,88 +14,23 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 :linkattrs:
 :imagesdir: ./media/
 
-=== ONTAP SAN Host
 
-
-== AIX Host Utilities 6.1 Release Notes
-
-
-These Release Notes contain the latest information for the AIX® Host Utilities 6.1, including updates about known problems and limitations, information on tunable parameters, and any important cautions. The Release Notes also include any issues that may have been discovered since the Host Utilities were released.
-
-These Release Notes are updated when new information on using the AIX Host Utilities becomes available. It is a good practice to periodically check the Release Notes to see if new information has been added.
-
-
-=== The 6.1 release of the AIX Host Utilities
-
-
-The AIX Host Utilities enable you to connect an AIX host to NetApp storage.
-
-The AIX Host Utilities support multiple environments and the FC,FCoE and iSCSI protocols. The supported environments are AIX MPIO (Native OS) and PowerVM.
-
-*Note:* For specific information about the operating system versions and updates that the Host Utilities support, see the Interoperability Matrix at _http://support.netapp.com/NOW/products/interoperability/[support.netapp.com/NOW/products/] http://support.netapp.com/NOW/products/interoperability/[interoperability]_.
-
-The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the NetApp Support Site at http://support.netapp.com/[support.netapp.com].
-
-
-The compressed file contains the following Host Utilities software packages:
-
-=== SAN_Tool_Kit
-
-
-This directory contains the SAN Toolkit software package NetApp.SAN_toolkit, which applies to all AIX Host Utilities environments and works with all multipathing solutions.
-
-* The host settings software package for your multipathing solution. The host settings package is an Object Data Manager (ODM) stanza LPP package that includes the following:
-** The NetApp AIX MPIO ODM fileset for NetApp LUNs
-** The common NetApp AIX MPIO message catalog
-
-
-There is a host settings software package for each multipathing solution that the Host Utilities support:
-
-
-==== MPIO
-
-This directory contains the package NetApp.MPIO_Host_Utilities_Kit for environments that use AIX MPIO for multipathing. This applies to both AIX MPIO environments and PowerVM environments.
-
-To install the AIX 6.1 Host Utilities, you need to install both the host settings software package for your environment and the SAN Toolkit software package.
-
-
-=== New features in the 6.1 release of the AIX Host Utilities
-
-
-The release of the AIX Host Utilities 6.1 added following updates.
-
-
-==== September 2021
-
-
-The September 2021 release of the AIX Host Utilities 6.1 added the following feature.
-
-
-* Fix for the segmentation issue reported via BURT: 872113/ 1386592 ( Intermittent instances of AIX coredump are reported while running the 'sanlun lun show -p' command. Sanlun’s 'lun show -p' option provides the multipathing information for all the LUNs discovered on a host. It arranges this information to present which SCSI device is sourced from which LUN and the path state (primary or secondary) and other details. However, on some AIX hosts running the 'sanlun lun show -p' command might create a memory fault. This issue is observed only when you run the sanlun command with the '-p' option)
-
-=== Pre-requisites
-
+== Pre-requisites
 
 .Before you begin
 
 * For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
-
-
++
 You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool] to verify your configuration.
 
 
-=== SAN Toolkit
+== SAN Toolkit
 
-
-AIX Host Utilities is a NetApp host software that provides a command line tool kit on your IBM AIX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the
-
-sanlun utility, which helps you manage LUNs and HBAs. The sanlun command returns information about the
-
-LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+AIX Host Utilities is a NetApp host software that provides a command line tool kit on your IBM AIX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 *Example*
 
-In the following example, the sanlun lun show command returns LUN information.
+In the following example, the `sanlun lun show` command returns the LUN information.
 
 ----
 `sanlun lun show all`
@@ -113,57 +48,55 @@ data_vserver /vol/vol3/lun3 hdisk11 fcs0 FCP 20g C
 data_vserver /vol/vol4/lun4 hdisk14 fcs0 FCP 20g C
 ----
 
-This toolkit is common across all configurations and protocols of the Host Utilities. As a result some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
+NOTE: This toolkit is common across all configurations and protocols of the Host Utilities. As a result some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
-The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions
+NOTE: The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions.
 
-=== Installing AIX Host Utilities
+== Installing AIX Host Utilities
 
 
 The NetApp AIX Host Utilities software package is available on the https://mysupport.netapp.com/NOW/cgi-bin/software/?product=Host%2BUtilities%2B-%2BSAN&platform=Linux[NetApp Support Site] in a compressed tar.gz file.
 
 You must install the AIX Host Utilities Kit while using AIX MPIO with NetApp ONTAP Storage.
 
-You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must decompress it to get the two software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have downloaded the file, you must decompress it to get the two software packages you need to install the Host Utilities.
 
 *Steps*
-
 
 . Login to your host.
 * On an AIX host, log in as *root*.
 * On a PowerVM host, log in as *padmin*, and then enter the oem_setup_env command to become root.
+
 . Download a copy of the compressed file containing the Host Utilities from NetApp Support Site to a directory on your host.
 . Go to the directory containing the download.
 . Decompress the file and extract the SAN Toolkit software package.
-
-. Tar -xvf ntap_aix_host_utilities_6.1.tar.gz
++
+`tar -xvf ntap_aix_host_utilities_6.1.tar.gz`
 
 +
-The following directory is created when you uncompress the file: ntap_aix_host_utilities_6.1. This directory will have one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit
+The following directory is created when you decompress the file: `ntap_aix_host_utilities_6.1`. This directory will have one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
 
 
 . Install the AIX MPIO:
 
 +
-Install -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit
+Install ``-aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
 . Install the SAN Toolkit:
 
 +
-Install -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit
-
-
+Install `-aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
 
 . Reboot the host.
 . Verify the installation:
 
++
+`sanlun version`
 
-sanlun version
 
+== Sample command reference
 
-=== Sample command reference
-
-==== List all host initiators mapped to host
+=== List all host initiators mapped to host
 
 ----
 # sanlun fcp show adapter -v
@@ -203,7 +136,7 @@ OS device name: fcs1
 bash-3.2#
 ----
 
-==== List all LUNs mapped to host
+=== List all LUNs mapped to host
 
 ----
 
@@ -233,7 +166,7 @@ up secondary path3 fcs1 fc_aix_4 1
 
 ----
 
-==== List all LUNs mapped to host from a given SVM
+=== List all LUNs mapped to host from a given SVM
 
 
 ----
@@ -255,7 +188,7 @@ up secondary path2 fcs0 sanboot_3 1
 up secondary path3 fcs1 sanboot_4 1
 ----
 
-==== List all attributes of a given LUN mapped to host
+=== List all attributes of a given LUN mapped to host
 
 
 ----
@@ -290,7 +223,7 @@ up secondary path2 fcs0 fc_aix_3 1
 up secondary path3 fcs1 fc_aix_4 1
 ----
 
-==== List ONTAP LUN attributes by Host Device File name
+=== List ONTAP LUN attributes by Host Device File name
 
 -----
 #sanlun lun show -d /dev/hdisk1
@@ -300,7 +233,7 @@ vs_aix_clus /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun hdisk1 fcs0 FCP 15
 -----
 
 
-==== List all SVM target LIF WWPNs attached to host
+=== List all SVM target LIF WWPNs attached to host
 
 -----
 # sanlun lun show -wwpn
