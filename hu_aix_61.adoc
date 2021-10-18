@@ -5,7 +5,7 @@ keywords: host utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
 summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTAP
 ---
 
-== AIX Host Utilities 6.1
+= AIX Host Utilities 6.1
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -139,7 +139,6 @@ bash-3.2#
 === List all LUNs mapped to host
 
 ----
-
 # sanlun lun show -p -v all
 ONTAP Path: vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
 LUN: 88
@@ -150,20 +149,12 @@ Multipath Provider: AIX Native
 Multipathing Algorithm: round_robin
 
 host vserver AIX AIX MPIO
-
 path path MPIO host vserver path
-
 state type path adapter LIF priority
-
-
 up primary path0 fcs0 fc_aix_1 1
-
 up primary path1 fcs1 fc_aix_2 1
-
 up secondary path2 fcs0 fc_aix_3 1
-
 up secondary path3 fcs1 fc_aix_4 1
-
 ----
 
 === List all LUNs mapped to host from a given SVM
@@ -189,37 +180,21 @@ up secondary path3 fcs1 sanboot_4 1
 ----
 
 === List all attributes of a given LUN mapped to host
-
-
 ----
 # sanlun lun show -p -v vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
-
 ONTAP Path: vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
-
 LUN: 88
-
 LUN Size: 15g
-
 Host Device: hdisk9
-
 Mode: C
-
 Multipath Provider: AIX Native
-
 Multipathing Algorithm: round_robin
-
 host vserver AIX AIX MPIO
-
 path path MPIO host vserver path
-
 state type path adapter LIF priority
-
 up primary path0 fcs0 fc_aix_1 1
-
 up primary path1 fcs1 fc_aix_2 1
-
 up secondary path2 fcs0 fc_aix_3 1
-
 up secondary path3 fcs1 fc_aix_4 1
 ----
 
@@ -237,19 +212,11 @@ vs_aix_clus /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun hdisk1 fcs0 FCP 15
 
 -----
 # sanlun lun show -wwpn
-
 controller(7mode)/ target device host lun
-
 vserver(Cmode) wwpn lun-pathname filename adapter size mode
 
-
-
 vs_aix_clus 203300a098ba7afe /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun hdisk1 fcs0 15g C
-
 vs_aix_clus 203300a098ba7afe /vol/gpfs_205p2_207p1_vol_0_9/aix_205p2_207p1_lun hdisk10 fcs0 15g C
-
 vs_aix_clus 203300a098ba7afe /vol/gpfs_205p2_207p1_vol_en_0_0/aix_205p2_207p1_lun_en hdisk11 fcs0 15g C
-
 vs_aix_clus 202f00a098ba7afe /vol/gpfs_205p2_207p1_vol_en_0_1/aix_205p2_207p1_lun_en hdisk12 fcs0 15g C
-
 -----
