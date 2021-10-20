@@ -38,14 +38,11 @@ In the following example, the `sanlun lun show` command returns the LUN informat
 controller(7mode)/ device host lun
 
 vserver(Cmode) lun-pathname filename adapter protocol size mode
-
-data_vserver /vol/vol1/lun1 hdisk0 fcs0 FCP 60g C
-
-data_vserver /vol/vol2/lun2 hdisk0 fcs0 FCP 20g C
-
-data_vserver /vol/vol3/lun3 hdisk11 fcs0 FCP 20g C
-
-data_vserver /vol/vol4/lun4 hdisk14 fcs0 FCP 20g C
+----------------------------------------------------------------
+data_vserver   /vol/vol1/lun1 hdisk0 fcs0    FCP      60g C
+data_vserver   /vol/vol2/lun2 hdisk0 fcs0    FCP      20g C
+data_vserver   /vol/vol3/lun3 hdisk11 fcs0   FCP      20g C
+data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
 ----
 
 NOTE: This toolkit is common across all configurations and protocols of the Host Utilities. As a result some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
@@ -148,13 +145,14 @@ Mode: C
 Multipath Provider: AIX Native
 Multipathing Algorithm: round_robin
 
-host vserver AIX AIX MPIO
-path path MPIO host vserver path
-state type path adapter LIF priority
-up primary path0 fcs0 fc_aix_1 1
-up primary path1 fcs1 fc_aix_2 1
-up secondary path2 fcs0 fc_aix_3 1
-up secondary path3 fcs1 fc_aix_4 1
+host    vserver  AIX   AIX MPIO
+path    path     MPIO  host      vserver      path
+state   type     path  adapter   LIF          priority
+-----------------------------------------------------
+up     primary   path0   fcs0    fc_aix_1     1
+up     primary   path1   fcs1    fc_aix_2     1
+up     secondary path2   fcs0    fc_aix_3     1
+up     secondary path3   fcs1    fc_aix_4     1
 ----
 
 === List all LUNs mapped to host from a given SVM
@@ -170,13 +168,15 @@ Host Device: hdisk85
 Mode: C
 Multipath Provider: AIX Native
 Multipathing Algorithm: round_robin
-host vserver AIX AIX MPIO
-path path MPIO host vserver path
-state type path adapter LIF priority
-up primary path0 fcs0 sanboot_1 1
-up primary path1 fcs1 sanboot_2 1
-up secondary path2 fcs0 sanboot_3 1
-up secondary path3 fcs1 sanboot_4 1
+
+host    vserver    AIX   AIX MPIO
+path    path       MPIO  host    vserver    path
+state   type       path  adapter LIF        priority
+-------------------------------------------------
+up      primary    path0 fcs0    sanboot_1   1
+up      primary    path1 fcs1    sanboot_2   1
+up      secondary  path2 fcs0    sanboot_3   1
+up      secondary  path3 fcs1    sanboot_4   1
 ----
 
 === List all attributes of a given LUN mapped to host
@@ -189,22 +189,30 @@ Host Device: hdisk9
 Mode: C
 Multipath Provider: AIX Native
 Multipathing Algorithm: round_robin
-host vserver AIX AIX MPIO
-path path MPIO host vserver path
-state type path adapter LIF priority
-up primary path0 fcs0 fc_aix_1 1
-up primary path1 fcs1 fc_aix_2 1
-up secondary path2 fcs0 fc_aix_3 1
-up secondary path3 fcs1 fc_aix_4 1
+
+host     vserver   AIX   AIX MPIO
+path     path      MPIO  host     vserver   path
+state    type      path  adapter  LIF       priority
+----------------------------------------------------
+up       primary   path0 fcs0    fc_aix_1   1
+up       primary   path1 fcs1    fc_aix_2   1
+up       secondary path2 fcs0    fc_aix_3   1
+up       secondary path3 fcs1    fc_aix_4   1
 ----
 
 === List ONTAP LUN attributes by Host Device File name
 
 -----
 #sanlun lun show -d /dev/hdisk1
-controller(7mode)/ device host lun
-vserver(Cmode) lun-pathname filename adapter protocol size mode
-vs_aix_clus /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun hdisk1 fcs0 FCP 15g C
+controller(7mode)/
+device host lun
+vserver(Cmode)     lun-pathname
+---------------------------------------------------------------------
+vs_aix_clus       /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun
+
+filename adapter protocol size mode
+-----------------------------------
+hdisk1    fcs0    FCP     15g  C
 -----
 
 
@@ -212,11 +220,20 @@ vs_aix_clus /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun hdisk1 fcs0 FCP 15
 
 -----
 # sanlun lun show -wwpn
-controller(7mode)/ target device host lun
-vserver(Cmode) wwpn lun-pathname filename adapter size mode
+controller(7mode)/
+target device host lun
+vserver(Cmode)          wwpn            lun-pathname
+-------------------------------------------------------------------------------
 
-vs_aix_clus 203300a098ba7afe /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun hdisk1 fcs0 15g C
-vs_aix_clus 203300a098ba7afe /vol/gpfs_205p2_207p1_vol_0_9/aix_205p2_207p1_lun hdisk10 fcs0 15g C
-vs_aix_clus 203300a098ba7afe /vol/gpfs_205p2_207p1_vol_en_0_0/aix_205p2_207p1_lun_en hdisk11 fcs0 15g C
-vs_aix_clus 202f00a098ba7afe /vol/gpfs_205p2_207p1_vol_en_0_1/aix_205p2_207p1_lun_en hdisk12 fcs0 15g C
+vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun
+vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_0_9/aix_205p2_207p1_lun
+vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_en_0_0/aix_205p2_207p1_lun_en
+vs_aix_clus          202f00a098ba7afe  /vol/gpfs_205p2_207p1_vol_en_0_1/aix_205p2_207p1_lun_en
+
+filename     adapter    size  mode
+-----------------------------------
+hdisk1       fcs0       15g    C
+hdisk10      fcs0       15g    C
+hdisk11      fcs0       15g    C
+hdisk12      fcs0       15g    C
 -----
