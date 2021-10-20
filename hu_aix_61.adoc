@@ -193,7 +193,7 @@ Multipathing Algorithm: round_robin
 host     vserver   AIX   AIX MPIO
 path     path      MPIO  host     vserver   path
 state    type      path  adapter  LIF       priority
-----------------------------------------------------
+---------------------------------------------------------
 up       primary   path0 fcs0    fc_aix_1   1
 up       primary   path1 fcs1    fc_aix_2   1
 up       secondary path2 fcs0    fc_aix_3   1
