@@ -33,7 +33,7 @@ AIX Host Utilities is a NetApp host software that provides a command line tool k
 In the following example, the `sanlun lun show` command returns the LUN information.
 
 ----
-`sanlun lun show all`
+`#sanlun lun show all`
 
 controller(7mode)/ device host lun
 
@@ -45,7 +45,7 @@ data_vserver   /vol/vol3/lun3 hdisk11 fcs0   FCP      20g C
 data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
 ----
 
-NOTE: This toolkit is common across all configurations and protocols of the Host Utilities. As a result some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
+NOTE: This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
 NOTE: The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions.
 
@@ -77,12 +77,12 @@ The following directory is created when you decompress the file: `ntap_aix_host_
 . Install the AIX MPIO:
 
 +
-Install ``-aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
+`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
 . Install the SAN Toolkit:
 
 +
-Install `-aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
+`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
 
 . Reboot the host.
 . Verify the installation:
