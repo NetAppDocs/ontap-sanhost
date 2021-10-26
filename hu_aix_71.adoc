@@ -34,10 +34,10 @@ You can download the compressed file containing the Host Utilities software pack
 
 . Decompress the file and extract the SAN Toolkit software package.
 +
-`zcat ntap_aix_host_utilities_6.1.tar.gz | tar -xvf –`
+`tar -xvf ntap_aix_host_utilities_6.1.tar.tgz`
 
 +
-The following directory is created when you uncompress the file: `ntap_aix_host_utilities_6.1`.  This directory will have one of the following subdirectories:  MPIO, NON_MPIO, or SAN_Tool_Kit
+The following directory is created when you decompress the file: `ntap_aix_host_utilities_6.1`.  This directory will have one of the following subdirectories:  MPIO, NON_MPIO, or SAN_Tool_Kit.
 
 .	Install the AIX MPIO:
 +
