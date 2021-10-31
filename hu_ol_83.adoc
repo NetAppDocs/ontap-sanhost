@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_ol_82.html
-keywords: host utilities, oracle, linux, 8.2, netapp, ontap
-summary: Describes how to use Oracle Linux 8.2 with ONTAP
+permalink: hu_ol_83.html
+keywords: host utilities, oracle, linux, 8.3, netapp, ontap
+summary: Describes how to use Oracle Linux 8.3 with ONTAP
 ---
 
-= Using Oracle Linux 8.2 with NetApp ONTAP
+= Using Oracle Linux 8.3 with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1P
@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Oracle Linux (OL) 8.2 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. OL 8.2 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Oracle Linux (OL) 8.3 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. OL 8.3 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
@@ -53,9 +53,25 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+  |- 11:0:7:6   sdbz 68:208  active ready running
+  |- 11:0:11:6  sddn 71:80   active ready running
+  |- 11:0:15:6  sdfb 129:208 active ready running
+  `- 12:0:1:6   sdgp 132:80  active ready running
+----
+
+NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
+
+
 == Recommended Settings
 
-The Oracle Linux 8.2 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+The Oracle Linux 8.3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 
@@ -83,7 +99,7 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 | vendor | NETAPP
 |===
 
-Example
+*Example*
 
 The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
 
@@ -102,10 +118,10 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.2 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_82.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.2.
+NOTE: To configure Oracle Linux 8.3 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_83.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.3.
 
 == Known Problems and Limitations
 
-There are no known issues for Oracle Linux 8.2.
+There are no known issues for Oracle Linux 8.3.
 
-NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_82.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 8.2.
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_83.html#known-problems-and-limitations[known issues] section in the corresponding Red Hat Enterprise Linux release documentation.
