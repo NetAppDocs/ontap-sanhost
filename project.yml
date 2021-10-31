@@ -1,3 +1,12 @@
+---
+settings:
+  name: SAN Host
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: true
+    langs: us-en,ja-jp,zh-cn
 sidebar:
   entries:
     - title: Home
@@ -8,6 +17,8 @@ sidebar:
         url: /hu_luhu_71.html
       - title: Windows Unified Host Utilities
         url: /hu_wuhu_71.html
+      - title: AIX Host Utilities
+        url: /hu_aix_61.html
     - title: NVMe-oF Host Configurations
       entries:
       - title: ESXi
