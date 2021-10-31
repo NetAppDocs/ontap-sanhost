@@ -50,7 +50,7 @@ enabled     up      active/non-optimized sdas   13:0:1:0   lif_9      66:192
 
 == SAN Booting
 
-.Before you begin
+.What you'll need
 
 If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 

@@ -34,17 +34,17 @@ You can download the compressed file containing the Host Utilities software pack
 
 . Decompress the file and extract the SAN Toolkit software package.
 +
-`zcat ntap_aix_host_utilities_6.0.tar.Z | tar -xvf –`
+`tar -xvf ntap_aix_host_utilities_6.1.tar.tgz`
 
 +
-The following directory is created when you uncompress the file: `ntap_aix_host_utilities_6.0`.  This directory will have one of the following subdirectories:  MPIO, NON_MPIO, or SAN_Tool_Kit
+The following directory is created when you decompress the file: `ntap_aix_host_utilities_6.1`.  This directory will have one of the following subdirectories:  MPIO, NON_MPIO, or SAN_Tool_Kit.
 
 .	Install the AIX MPIO:
 +
-`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.0/MPIO NetApp.MPIO_Host_Utilities_Kit`
+`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
 . Install the SAN Toolkit:
-`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.0/SAN_Tool_Kit NetApp.SAN_toolkit`
+`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
 
 . Reboot the host.
 
@@ -71,7 +71,7 @@ data_vserver      /vol/vol4/lun4    hdisk14     fcs0       FCP       20g    C
 
 == SAN Booting
 
-.Before you begin
+.What you'll need
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX host.  You can set up a SAN boot LUN to work in an AIX MPIO environment that is running the AIX Host Utilities with either the FC or FCoE protocol. The method you use for creating a SAN boot LUN and installing a new OS image on it in an AIX MPIO environment can vary, depending on which protocol you are using.
