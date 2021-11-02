@@ -17,7 +17,7 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 
 == Pre-requisites
 
-.Before you begin
+.What you'll need
 
 * For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
 +
@@ -33,7 +33,7 @@ AIX Host Utilities is a NetApp host software that provides a command line tool k
 In the following example, the `sanlun lun show` command returns the LUN information.
 
 ----
-`#sanlun lun show all`
+#sanlun lun show all
 
 controller(7mode)/ device host lun
 
