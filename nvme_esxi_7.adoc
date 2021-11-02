@@ -132,28 +132,28 @@ Installation Result
    DriverVersion: 12.4.224.0
 ----
 
-== Configuring the Marvell FC adapter for NVMe/FC
+== Configuring Marvell FC adapter for NVMe/FC
 
 . Install the recommended lpfc driver by copying it to a temporary folder and then executing the following command:
-  +
-  ---
-# esxcli software vib install -d /MRVL-QLogic-FC_4.1.57.0-1OEM.700.1.0.15843807_18660354.zip
-         Installation Result
-         Message: Host is not changed.
-         Reboot Required: True
-        VIBs Installed: Marvell_bootbank_qlnativefc_4.1.57.0-1OEM.700.1.0.15843807
-         VIBs Removed: Marvell_bootbank_qlnativefc_4.1.14.0-1OEM.700.1.0.15843807
-        VIBs Skipped:
----
++
+----
+  # esxcli software vib install -d /MRVL-QLogic-FC_4.1.57.0-1OEM.700.1.0.15843807_18660354.zip
+  Installation Result
+  Message: Host is not changed.
+  Reboot Required: True
+  VIBs Installed: Marvell_bootbank_qlnativefc_4.1.57.0-1OEM.700.1.0.15843807
+  VIBs Removed: Marvell_bootbank_qlnativefc_4.1.14.0-1OEM.700.1.0.15843807
+  VIBs Skipped:
+----
 
-. If necessary, set the qlnativefc  driver parameter esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc for enabling NVMe/FC support in the qlnativefc driver:
+. If necessary, set the qlnativefc  driver parameter `esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc` for enabling NVMe/FC support in the qlnativefc driver:
 +
 NOTE: This parameter is set by default for the Qle 2772-series adapters. You must perform the following step to set it manually for Qle 2742 series adapters.
 
 . Reboot the host.
-+
----
-[root@nbs-pyrx256-11-236:~] esxcli storage san fc list
+. After reboot, verify that the recommended lpfc driver and adapter firmware versions have been applied and the initiator ports are online:
+----
+ # esxcli storage san fc list
    Adapter: vmhba3
    Port ID: 012000
    Node Name: 20:00:00:24:ff:18:17:ae
@@ -209,16 +209,25 @@ NOTE: This parameter is set by default for the Qle 2772-series adapters. You mus
    Firmware Version: 9.07.00 (d0d5)
    Driver Name: qlnativefc
    DriverVersion: 4.1.57.0
+----
+. Another step?
++
+----
+ # esxcli storage core adapter list
+HBA Name  Driver      Link State  UID                                    Capabilities
+--------  ----------  ----------  ------------------------------------  -------------------
+vmhba3    qlnativefc  link-up    fc.20000024ff1817ae:21000024ff1817ae    Second Level Lun ID
+vmhba4    qlnativefc  link-up    fc.20000024ff1817af:21000024ff1817af    Second Level Lun ID
+vmhba64   qlnativefc  link-up    fc.20000024ff1817ae:21000024ff1817ae
+vmhba65   qlnativefc  link-up    fc.20000024ff1817af:21000024ff1817af
 
-[root@nbs-pyrx256-11-236:~] esxcli storage core adapter list
-HBA Name  Driver      Link State  UID                                   Capabilities         Description
---------  ----------  ----------  ------------------------------------  -------------------  -----------
- vmhba3    qlnativefc  link-up     fc.20000024ff1817ae:21000024ff1817ae  Second Level Lun ID  (0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter   --- FC protocol
-vmhba4    qlnativefc  link-up     fc.20000024ff1817af:21000024ff1817af  Second Level Lun ID  (0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter - FC protocol
-vmhba64   qlnativefc  link-up     fc.20000024ff1817ae:21000024ff1817ae                       (0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter --- NVMe FC protocol
-vmhba65   qlnativefc  link-up     fc.20000024ff1817af:21000024ff1817af                       (0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter - NVMe FC protocol
-[root@nbs-pyrx256-11-236:~]
----
+Description
+-----------
+(0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter FC protocol
+(0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter FC protocol
+(0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter NVMe FC protocol
+(0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter NVMe FC protocol
+----
 ==	Validating NVMe/FC
 
 . Verify that the ONTAP target NVMe/FC controllers are properly discovered on the ESXi host:
@@ -281,12 +290,11 @@ fc.20000090fae0ec8e:10000090fae0ec8e-fc.204900a098dfe3d1:204a00a098dfe3d1-uuid.1
 
 == Known issue
 
-*	ESXi 7.0 U3 (& above) NVMe/FC support is available starting ONTAP 9.9.1 P3 onwards. This is due to key NVMe abort (issued by ESXi 7.0 U3 & above) fixes that is available starting ONTAP 9.9.1 P3 only. Please refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
+*	ESXi 7.0 U3 (and above) NVMe/FC support is available starting ONTAP 9.9.1 P3 onwards. This is due to key NVMe abort (issued by ESXi 7.0 U3 and above) fixes that is available starting ONTAP 9.9.1 P3 only. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
 
+*	For ESXi NVMe/FC deployment with ONTAP, refer to ONTAP SAN Host Configuration - Product Documentation for details.
 
-*	For ESXi NVMe/FC deployment with ONTAP, please refer to ONTAP SAN Host Configuration - Product Documentation for details.
-
-*	For known issues identified with ESXi 7.0 with FC-NVMe, please refer to NetApp support site.
+*	For known issues identified with ESXi 7.0 with FC-NVMe, refer to NetApp support site.
 
 
 == Release Notes
