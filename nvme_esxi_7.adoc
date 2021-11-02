@@ -228,6 +228,7 @@ Description
 (0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter NVMe FC protocol
 (0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter NVMe FC protocol
 ----
+
 ==	Validating NVMe/FC
 
 . Verify that the ONTAP target NVMe/FC controllers are properly discovered on the ESXi host:
