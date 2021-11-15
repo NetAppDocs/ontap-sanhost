@@ -5,7 +5,7 @@ keywords: nvme, esxi, ontap
 summary: Describes how to configure NVMe/FC for ESXi 7.0 with ONTAP
 ---
 
-= NVMe-oF Host Configuration for ESXi 7.0 with ONTAP
+= NVMe-oF Host Configuration for ESXi 7.x with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -16,233 +16,111 @@ summary: Describes how to configure NVMe/FC for ESXi 7.0 with ONTAP
 
 == Supportability
 
-NVME/FC is supported on ONTAP 9.7 or later for ESXi 7.0.
+NVME/FC is supported on ONTAP 9.7 or later.
 
-ESXi initiator host can run both NVMe/FC & FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe] for a list of supported FC adapters and controllers.  For the most current list of supported configurations & versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix].
+== Features
+
+*	ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported configurations and versions.
+*	Beginning with ESXi 7.0 update 3 and above, NVMe/FC feature is added and is supported from ONTAP 9.9.1.
+*	Beginning with ESXi 7.0 and above, HPP (high performance plugin) is the default plugin for NVMe devices.
 
 ==	Known limitations
 
-The following are not supported:
+The following configurations are not supported:
 
 * RDM mapping
 * VVols
-* SAN Booting
 
-==	Enabling NVMe/FC with ANA
 
-. Disable the HppManageDegradedPaths parameter for improved interoperability with ONTAP:
+== NVMe/FC
+
+=== Configuring  NVMe/FC
+
+.	Check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array:
 +
 ----
-# esxcfg-advcfg -s 0 /Misc/HppManageDegradedPaths
+# esxcli nvme  info get
+Host NQN: nqn.2014-08.com.vmware:nvme:nvme-esx
+
+# vserver nvme subsystem host show -vserver vserver_nvme
+  Vserver Subsystem             Host NQN
+  ------- ------------------- ----------------------------------------
+  vserver_nvme ss_vserver_nvme nqn.2014-08.com.vmware:nvme:nvme-esx
+
 ----
 
+== Broadcom/Emulex
+
+.	Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] NetApp Interoperability Matrix.
+
+.	Set the lpfc driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver.
 . Reboot the host.
 
-. After reboot, verify that the HppManageDegradedPaths parameter is now disabled:
-+
-----
-# esxcfg-advcfg -g /Misc/HppManageDegradedPaths
-Value of HppManageDegradedPaths is 0
+NOTE:	This parameter is set by default for the LPe35000-series adapters. You must perform the following step to set it manually for LPe32000-series and LPe31000-series adapters.
+
 ----
 
-. Check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array.
-+
-.Example
-+
-----
-# esxcli nvme info get
-Host NQN: nqn.2014-08.com.vmware:nvme:chat-54-113
-
-*> vserver nvme subsystem host show -vserver vserver_esx_70_nvme
-Vserver                  Subsystem
-----------------------------------------------
-vserver_esx_70_nvme      sub_common_240_248
-Host NQN
-----------
-nqn.2014-08.com.vmware:nvme:nbs-esx-10-217
-----
-
-==	Configuring the Broadcom FC adapter for NVMe/FC
-
-. Install the recommended lpfc driver by copying it to a temporary folder and then executing the following command:
-+
-----
-# esxcli software vib install -d /tmp/t/Emulex-FCoE-FC-lpfc-12.4.224.0-offline-bundle-13621872.zip --no-sig-check
-Installation Result
-   Message: The update completed successfully, but the system needs to be rebooted for the changes to be effective.
-   Reboot Required: true
-   VIBs Installed: EMU_bootbank_lpfc_12.4.224.0-1OEM.688.0.0.13621872
-   VIBs Removed: EMU_bootbank_lpfc_12.4.211.6-1OEM.688.0.0.13621872
-   VIBs Skipped:
-----
-
-. If necessary, set the lpfc driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the lpfc driver:
-+
-NOTE:  This parameter is set by default for the LPe35000-series adapters.  You must perform the following step to set it manually for LPe32000-series & LPe31000-series adapters.
-+
-----
 # esxcli system module parameters set -m lpfc -p lpfc_enable_fc4_type=3
+
+#esxcli system module parameters list  -m lpfc | grep lpfc_enable_fc4_type
+lpfc_enable_fc4_type              int     3      Defines what FC4 types are supported
+
+#esxcli storage core adapter list
+HBA Name  Driver   Link State  UID                                   Capabilities         Description
+--------  -------  ----------  ------------------------------------  -------------------  -----------
+vmhba1    lpfc     link-up     fc.200000109b95456f:100000109b95456f  Second Level Lun ID  (0000:86:00.0) Emulex Corporation Emulex LPe36000 Fibre Channel Adapter    FC HBA
+vmhba2    lpfc     link-up     fc.200000109b954570:100000109b954570  Second Level Lun ID  (0000:86:00.1) Emulex Corporation Emulex LPe36000 Fibre Channel Adapter    FC HBA
+vmhba64   lpfc     link-up     fc.200000109b95456f:100000109b95456f                       (0000:86:00.0) Emulex Corporation Emulex LPe36000 Fibre Channel Adapter   NVMe HBA
+vmhba65   lpfc     link-up     fc.200000109b954570:100000109b954570                       (0000:86:00.1) Emulex Corporation Emulex LPe36000 Fibre Channel Adapter   NVMe HBA
 ----
 
-. Use the elxmgmt utility to upgrade the Broadcom FC adapter firmware to the recommended version:
+== Marvell/QLogic
+
+.	Check whether configuration is supported with required driver/firmware by referring to  link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] NetApp Interoperability Matrix.
+
+.	Set the `qlnativefc` driver parameter `ql2xnvmesupport=1` for enabling NVMe/FC support in the `qlnativefc` driver and reboot the host.
++
+
+`# esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc`
++
+
+.	Check whether the nvme  is enabled on the adapter.
 +
 ----
-# esxcli software vib install -d /tmp/t/Emulex-elxmgmt-6.8.7-12.4.211.7.zip --no-sig-check
-Installation Result
-   Message: The update completed successfully, but the system needs to be rebooted for the changes to be effective.
-   Reboot Required: true
-   VIBs Installed: EMU_bootbank_emu-esx-elxmgmt_12.4.211.7-01
-   VIBs Removed:
-   VIBs Skipped:
-…
+ esxcfg-module -l | grep qlnativefc
+qlnativefc               4    1912
 ----
-
-. Reboot the host.
-
-. After reboot, verify that the recommended lpfc driver and adapter firmware versions have been applied and the initiator ports are online:
-+
-----
-# esxcli storage san fc list
- Adapter: vmhba3
-   Port ID: 010600
-   Node Name: 20:00:00:90:fa:e0:ec:8e
-   Port Name: 10:00:00:90:fa:e0:ec:8e
-   Speed: 32 Gbps
-   Port Type: NPort
-   Port State: ONLINE
-   Model Description: Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
-   Hardware Version: 0000000c
-   OptionROM Version: 12.4.217.2
-   Firmware Version: 12.4.217.2
-   Driver Name: lpfc
-   DriverVersion: 12.4.224.0
-
-   Adapter: vmhba4
-   Port ID: 010F00
-   Node Name: 20:00:00:90:fa:e0:ec:8f
-   Port Name: 10:00:00:90:fa:e0:ec:8f
-   Speed: 32 Gbps
-   Port Type: NPort
-   Port State: ONLINE
-   Model Description: Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
-   Hardware Version: 0000000c
-   OptionROM Version: 12.4.217.2
-   Firmware Version: 12.4.217.2
-   Driver Name: lpfc
-   DriverVersion: 12.4.224.0
-----
-
-== Configuring Marvell FC adapter for NVMe/FC
-
-. Install the recommended lpfc driver by copying it to a temporary folder and then executing the following command:
-+
-----
-  # esxcli software vib install -d /MRVL-QLogic-FC_4.1.57.0-1OEM.700.1.0.15843807_18660354.zip
-  Installation Result
-  Message: Host is not changed.
-  Reboot Required: True
-  VIBs Installed: Marvell_bootbank_qlnativefc_4.1.57.0-1OEM.700.1.0.15843807
-  VIBs Removed: Marvell_bootbank_qlnativefc_4.1.14.0-1OEM.700.1.0.15843807
-  VIBs Skipped:
-----
-
-. If necessary, set the qlnativefc  driver parameter `esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc` for enabling NVMe/FC support in the qlnativefc driver:
 +
 NOTE: This parameter is set by default for the Qle 2772-series adapters. You must perform the following step to set it manually for Qle 2742 series adapters.
 
-. Reboot the host.
-. After reboot, verify that the recommended lpfc driver and adapter firmware versions have been applied and the initiator ports are online:
-----
- # esxcli storage san fc list
-   Adapter: vmhba3
-   Port ID: 012000
-   Node Name: 20:00:00:24:ff:18:17:ae
-   Port Name: 21:00:00:24:ff:18:17:ae
-   Speed: 32 Gbps
-   Port Type: NPort
-   Port State: ONLINE
-   Model Description: QLogic 32Gb 2-port FC to PCIe Gen3 x8 Adapter
-   Hardware Version:
-   OptionROM Version: 3.62
-   Firmware Version: 9.07.00 (d0d5)
-   Driver Name: qlnativefc
-   DriverVersion: 4.1.57.0
-
-   Adapter: vmhba4
-   Port ID: 010900
-   Node Name: 20:00:00:24:ff:18:17:af
-   Port Name: 21:00:00:24:ff:18:17:af
-   Speed: 32 Gbps
-   Port Type: NPort
-   Port State: ONLINE
-   Model Description: QLogic 32Gb 2-port FC to PCIe Gen3 x8 Adapter
-   Hardware Version:
-   OptionROM Version: 3.62
-   Firmware Version: 9.07.00 (d0d5)
-   Driver Name: qlnativefc
-   DriverVersion: 4.1.57.0
-
-   Adapter: vmhba64
-   Port ID: 012000
-   Node Name: 20:00:00:24:ff:18:17:ae
-   Port Name: 21:00:00:24:ff:18:17:ae
-   Speed: 32 Gbps
-   Port Type: NPort
-   Port State: ONLINE
-   Model Description: QLogic 32Gb 2-port FC to PCIe Gen3 x8 Adapter
-   Hardware Version:
-   OptionROM Version: 3.62
-   Firmware Version: 9.07.00 (d0d5)
-   Driver Name: qlnativefc
-   DriverVersion: 4.1.57.0
-
-   Adapter: vmhba65
-   Port ID: 010900
-   Node Name: 20:00:00:24:ff:18:17:af
-   Port Name: 21:00:00:24:ff:18:17:af
-   Speed: 32 Gbps
-   Port Type: NPort
-   Port State: ONLINE
-   Model Description: QLogic 32Gb 2-port FC to PCIe Gen3 x8 Adapter
-   Hardware Version:
-   OptionROM Version: 3.62
-   Firmware Version: 9.07.00 (d0d5)
-   Driver Name: qlnativefc
-   DriverVersion: 4.1.57.0
-----
-. Another step?
 +
-----
- # esxcli storage core adapter list
-HBA Name  Driver      Link State  UID                                    Capabilities
---------  ----------  ----------  ------------------------------------  -------------------
-vmhba3    qlnativefc  link-up    fc.20000024ff1817ae:21000024ff1817ae    Second Level Lun ID
-vmhba4    qlnativefc  link-up    fc.20000024ff1817af:21000024ff1817af    Second Level Lun ID
-vmhba64   qlnativefc  link-up    fc.20000024ff1817ae:21000024ff1817ae
-vmhba65   qlnativefc  link-up    fc.20000024ff1817af:21000024ff1817af
 
-Description
------------
-(0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter FC protocol
-(0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter FC protocol
-(0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter NVMe FC protocol
-(0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter NVMe FC protocol
 ----
+  #esxcli storage core adapter list
+HBA Name  Driver      Link State  UID                                   Capabilities         Description
+--------  ----------  ----------  ------------------------------------  -------------------  -----------
+ vmhba3    qlnativefc  link-up     fc.20000024ff1817ae:21000024ff1817ae  Second Level Lun ID  (0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter    FC Adapter
+vmhba4    qlnativefc  link-up     fc.20000024ff1817af:21000024ff1817af  Second Level Lun ID  (0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter FC Adapter
+vmhba64   qlnativefc  link-up     fc.20000024ff1817ae:21000024ff1817ae                       (0000:5e:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter  NVMe FC Adapter
+vmhba65   qlnativefc  link-up     fc.20000024ff1817af:21000024ff1817af                       (0000:5e:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter  NVMe FC Adapter
+----
+
+
 
 ==	Validating NVMe/FC
 
-. Verify that the ONTAP target NVMe/FC controllers are properly discovered on the ESXi host:
+. Verify that NVMe /FC adapter is listed on the ESXi host:
 +
 ----
-# esxcli nvme controller list
+# esxcli nvme adapter list
 
-Name                                                                                                                             Controller Number  Adapter  Transport Type  Is Online
--------------------------------------------------------------------------------------------------------------------------------  -----------------  -------  --------------  ---------
-nqn.1992-08.com.netapp:sn.e7f89c2c245d11e9975300a098dfce55:subsystem.interop_57_vm_01#vmhba32#204900a098dfe3d1:204a00a098dfe3d1                259  vmhba32  FC                  false
-nqn.1992-08.com.netapp:sn.e7f89c2c245d11e9975300a098dfce55:subsystem.interop_57_vm_09#vmhba32#204900a098dfe3d1:204a00a098dfe3d1                263  vmhba32  FC                  false
-nqn.1992-08.com.netapp:sn.e7f89c2c245d11e9975300a098dfce55:subsystem.interop_57_vm_11#vmhba32#204900a098dfe3d1:204a00a098dfe3d1                267  vmhba32  FC                  false
-nqn.1992-08.com.netapp:sn.e7f89c2c245d11e9975300a098dfce55:subsystem.interop_57_vm_10#vmhba32#204900a098dfe3d1:204a00a098dfe3d1                265  vmhba32  FC                  false
-nqn.1992-08.com.netapp:sn.e7f89c2c245d11e9975300a098dfce55:subsystem.interop_57_vm_02#vmhba32#204900a098dfe3d1:204a00a098dfe3d1                261  vmhba32  FC                  false
+Adapter  Adapter Qualified Name           Transport Type  Driver      Associated Devices
+-------  -------------------------------  --------------  ----------  ------------------
+vmhba64  aqn:qlnativefc:21000024ff1817ae  FC              qlnativefc
+vmhba65  aqn:qlnativefc:21000024ff1817af  FC              qlnativefc
+vmhba66  aqn:lpfc:100000109b579d9c 	      FC              lpfc
+vmhba67  aqn:lpfc:100000109b579d9d 	      FC              lpfc
+
 ----
 
 . Verify that the NVMe/FC namespaces are properly created:
@@ -264,7 +142,7 @@ uuid.49de7683950d47c9898f51443d893910 : NVMe Fibre Channel Disk (uuid.49de768395
    vmhba64:C0:T13:L39 LUN:39 state:standby fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8e WWPN: 10:00:00:90:fa:e0:ec:8e  Target: WWNN: 20:3a:00:a0:98:df:e3:d1 WWPN: 20:28:00:a0:98:df:e3:d1
 ----
 +
-NOTE: In ONTAP 9.7, the default block size for a NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you must set the namespace block size 512b. You can do this using the `vserver nvme namespace create` command.
+NOTE: In ONTAP 9.7, the default block size for a NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you must set the namespace block size as 512b. You can do this using the `vserver nvme namespace create` command.
 +
 .Example
 +
@@ -275,30 +153,43 @@ Refer to the link:https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.
 . Verify the status of the individual ANA paths of the respective NVMe/FC namespace devices:
 +
 ----
-# esxcli storage hpp path list
-fc.20000090fae0ec8f:10000090fae0ec8f-fc.204900a098dfe3d1:204d00a098dfe3d1-uuid.1aa669c5376240a28ae47d8d549586ea
-   Runtime Name: vmhba65:C0:T9:L33
-   Device: uuid.1aa669c5376240a28ae47d8d549586ea
-   Device Display Name: NVMe Fibre Channel Disk (uuid.1aa669c5376240a28ae47d8d549586ea)
+esxcli storage hpp path list -d uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+fc.200034800d6d7268:210034800d6d7268-fc.201700a098dfe3d1:201800a098dfe3d1-uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+   Runtime Name: vmhba64:C0:T0:L1
+   Device: uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+   Device Display Name: NVMe Fibre Channel Disk (uuid.5084e29a6bb24fbca5ba076eda8ecd7e)
    Path State: active
+   Path Config: {TPG_id=0,TPG_state=AO,RTP_id=0,health=UP}
 
-fc.20000090fae0ec8e:10000090fae0ec8e-fc.204900a098dfe3d1:204a00a098dfe3d1-uuid.1aa669c5376240a28ae47d8d549586ea
-   Runtime Name: vmhba64:C0:T5:L33
-   Device: uuid.1aa669c5376240a28ae47d8d549586ea
-   Device Display Name: NVMe Fibre Channel Disk (uuid.1aa669c5376240a28ae47d8d549586ea)
-   Path State: standby
+fc.200034800d6d7269:210034800d6d7269-fc.201700a098dfe3d1:201a00a098dfe3d1-uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+   Runtime Name: vmhba65:C0:T1:L1
+   Device: uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+   Device Display Name: NVMe Fibre Channel Disk (uuid.5084e29a6bb24fbca5ba076eda8ecd7e)
+   Path State: active
+   Path Config: {TPG_id=0,TPG_state=AO,RTP_id=0,health=UP}
+
+fc.200034800d6d7269:210034800d6d7269-fc.201700a098dfe3d1:202f00a098dfe3d1-uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+   Runtime Name: vmhba65:C0:T0:L1
+   Device: uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+   Device Display Name: NVMe Fibre Channel Disk (uuid.5084e29a6bb24fbca5ba076eda8ecd7e)
+   Path State: active unoptimized
+   Path Config: {TPG_id=0,TPG_state=ANO,RTP_id=0,health=UP}
+
+fc.200034800d6d7268:210034800d6d7268-fc.201700a098dfe3d1:201900a098dfe3d1-uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+   Runtime Name: vmhba64:C0:T1:L1
+   Device: uuid.5084e29a6bb24fbca5ba076eda8ecd7e
+   Device Display Name: NVMe Fibre Channel Disk (uuid.5084e29a6bb24fbca5ba076eda8ecd7e)
+   Path State: active unoptimized
+   Path Config: {TPG_id=0,TPG_state=ANO,RTP_id=0,health=UP}
 ----
 
 == Known issue
 
 *	ESXi 7.0 U3 (and above) NVMe/FC support is available starting ONTAP 9.9.1 P3 onwards. This is due to key NVMe abort (issued by ESXi 7.0 U3 and above) fixes that is available starting ONTAP 9.9.1 P3 only. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
 
-*	For ESXi NVMe/FC deployment with ONTAP, refer to ONTAP SAN Host Configuration - Product Documentation for details.
-
-*	For known issues identified with ESXi 7.0 with FC-NVMe, refer to NetApp support site.
-
 
 == Release Notes
 
 link:[TR-4597-VMware vSphere with ONTAP]
 link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)]
+link:https://kb.vmware.com/s/article/83370[VMware vSphere 6.x and 7.x support with NetApp® SnapMirror® Business Continuity (SM-BC)]
