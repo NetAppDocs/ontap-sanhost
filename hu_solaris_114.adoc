@@ -88,7 +88,7 @@ You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the F
 
 == Multipathing
 
-Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing (MPxIO) is enabled by default for Solaris 11.4. The default setting in /kernel/drv/fp.conf changes to mpxio-disable="no".
+Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing (MPxIO) is enabled by default for Solaris 11.4. The default setting in `/kernel/drv/fp.conf` changes to mpxio-disable="no".
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
@@ -139,19 +139,19 @@ By default, the Solaris operating system will fail I/Os after 20 seconds if all 
 
 *	Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies have been rebranded generally as "Oracle Virtual Machines" despite the fact that they are based on very different architectures.
 *	In some cases, multiple options can be used together such as a Solaris Container within a particular Solaris Logical Domain.
-*	NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix] in a supported configuration. This includes root containers, LDOM IO domains, and LDOM's using NPIV to access LUNs.
-*	Partitions and/or virtual machines which use only virtualized storage resources, such as a vdsk, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the link:link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix].
+*	NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix] in a supported configuration. This includes root containers, LDOM IO domains, and LDOM's using NPIV to access LUNs.
+*	Partitions and/or virtual machines which use only virtualized storage resources, such as a vdsk, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix].
 
 === Recommended Settings for Virtualization
 
-When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue the LDOM operating system must be patched for Oracle Bug 15824910 and a vdc.conf file must be created that sets the block size of the virtual disk to 4096. See Oracle Doc 2157669.1 for more information.
+When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue the LDOM operating system must be patched for Oracle Bug 15824910 and a `vdc.conf` file must be created that sets the block size of the virtual disk to 4096. See Oracle Doc 2157669.1 for more information.
 
 To verify the patch do the following:
 
 . Create a zpool.
 . Run `zdb -C` against the zpool and verify that the value of *ashift* is 12.
 +
-If the value of *ashift* is not 12, verify that the correct patch was installed and recheck the contents of vdc.conf.
+If the value of *ashift* is not 12, verify that the correct patch was installed and recheck the contents of `vdc.conf`.
 +
 Do not proceed until *ashift* shows a value of 12.
 
@@ -180,7 +180,7 @@ svl_lun_wwn = 0xa002a1c8960 "600a098038313477543f524539787938"
 svl_fops_name = 0xa00298d69e0 "conf f_tpgs"
 ----
 
-NOTE: `conf` will be added to the svl_fops_name when a scsi-vhci-failover-override has been applied.
+NOTE: `conf` will be added to the `svl_fops_name` when a `scsi-vhci-failover-override` has been applied.
 For additional information and recommended changes to default settings, refer to NetApp KB article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SM-BC)_configuration[Solaris Host support recommended settings in SnapMirror Business Continuity (SM-BC) configuration].
 
 == Known Problems and Limitations
@@ -192,9 +192,9 @@ For additional information and recommended changes to default settings, refer to
 | Description
 | Oracle ID
 | 1362435 | HUK 6.2 and Solaris_11.4 FC driver binding changes | Solaris 11.4 and HUK recommendations.
-FC driver binding is changed from ssd(4D) to sd(4D). Move configuration that you have in ssd.conf to sd.conf. as detailed in Oracle (Doc ID 2595926.1). The behavior varies across Freshly installed Solaris 11.4 system and Upgraded from 11.3 or lower versions
+FC driver binding is changed from ssd(4D) to sd(4D). Move configuration that you have in `ssd.conf` to `sd.conf` as detailed in Oracle (Doc ID 2595926.1). The behavior varies across Freshly installed Solaris 11.4 system and Upgraded from 11.3 or lower versions.
  | (Doc ID 2595926.1)
 | 1366780 | Solaris LIF problem during GB with Emulex 32G HBA on x86 Arch | Seen with Emulex Firmware version 12.6.x and above on x86_64 Platform | SR 3-24746803021
-| 1368957 | "Solaris 11.x 'cfgadm -c configure' resulting in I/O error with End-to-End Emulex configuration" | Running “cfgadm -c configure” on Emulex End-to-End configurations results in I/O error. This is fixed in 9.5P17, 9.6P14 , 9.7P13 and 9.8P2 | NA
+| 1368957 | "Solaris 11.x `cfgadm -c configure` resulting in I/O error with End-to-End Emulex configuration" | Running `cfgadm -c configure` on Emulex End-to-End configurations results in I/O error. This is fixed in 9.5P17, 9.6P14 , 9.7P13 and 9.8P2 | NA
 | 1345622 | Abnormal Path reporting on Solaris Hosts with ASA/PPorts using OS native commands | Intermittent path reporting issues on Solaris 11.4 with ASA | NA
 |===
