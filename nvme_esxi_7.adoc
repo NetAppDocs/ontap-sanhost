@@ -16,13 +16,13 @@ summary: Describes how to configure NVMe/FC for ESXi 7.0 with ONTAP
 
 == Supportability
 
-NVME/FC is supported on ONTAP 9.7 or later.
+NVMe/FC is supported on ONTAP 9.7 or later.
 
 == Features
 
 *	ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported configurations and versions.
-*	Beginning with ESXi 7.0 update 3 and above, NVMe/FC feature is added and is supported from ONTAP 9.9.1.
-*	Beginning with ESXi 7.0 and above, HPP (high performance plugin) is the default plugin for NVMe devices.
+*	Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 7.0 update 3.
+*	For ESXi 7.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
 
 ==	Known limitations
 
@@ -46,20 +46,17 @@ Host NQN: nqn.2014-08.com.vmware:nvme:nvme-esx
   Vserver Subsystem             Host NQN
   ------- ------------------- ----------------------------------------
   vserver_nvme ss_vserver_nvme nqn.2014-08.com.vmware:nvme:nvme-esx
-
 ----
 
-== Broadcom/Emulex
+=== Broadcom/Emulex
 
-.	Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] NetApp Interoperability Matrix.
+.	Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix].
 
-.	Set the lpfc driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver.
-. Reboot the host.
+.	Set the lpfc driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
 
-NOTE:	This parameter is set by default for the LPe35000-series adapters. You must perform the following step to set it manually for LPe32000-series and LPe31000-series adapters.
+NOTE:	This parameter is set by default for the LPe35000-series adapters. You must perform the following command to set it manually for LPe32000-series and LPe31000-series adapters.
 
 ----
-
 # esxcli system module parameters set -m lpfc -p lpfc_enable_fc4_type=3
 
 #esxcli system module parameters list  -m lpfc | grep lpfc_enable_fc4_type
@@ -74,27 +71,25 @@ vmhba64   lpfc     link-up     fc.200000109b95456f:100000109b95456f             
 vmhba65   lpfc     link-up     fc.200000109b954570:100000109b954570                       (0000:86:00.1) Emulex Corporation Emulex LPe36000 Fibre Channel Adapter   NVMe HBA
 ----
 
-== Marvell/QLogic
+=== Marvell/QLogic
 
-.	Check whether configuration is supported with required driver/firmware by referring to  link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] NetApp Interoperability Matrix.
+.	Check whether configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix].
 
 .	Set the `qlnativefc` driver parameter `ql2xnvmesupport=1` for enabling NVMe/FC support in the `qlnativefc` driver and reboot the host.
 +
-
 `# esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc`
 +
 
-.	Check whether the nvme  is enabled on the adapter.
+NOTE: The `qlnativefc` driver parameter is set by default for the Qle 277x-series adapters. You must perform the following command to set it manually for Qle 277x series adapters.
+
 +
 ----
- esxcfg-module -l | grep qlnativefc
+esxcfg-module -l | grep qlnativefc
 qlnativefc               4    1912
 ----
-+
-NOTE: This parameter is set by default for the Qle 2772-series adapters. You must perform the following step to set it manually for Qle 2742 series adapters.
 
+.	Check whether nvme is enabled on the adapter:
 +
-
 ----
   #esxcli storage core adapter list
 HBA Name  Driver      Link State  UID                                   Capabilities         Description
@@ -109,7 +104,7 @@ vmhba65   qlnativefc  link-up     fc.20000024ff1817af:21000024ff1817af          
 
 ==	Validating NVMe/FC
 
-. Verify that NVMe /FC adapter is listed on the ESXi host:
+. Verify that NVMe/FC adapter is listed on the ESXi host:
 +
 ----
 # esxcli nvme adapter list
@@ -128,18 +123,11 @@ vmhba67  aqn:lpfc:100000109b579d9d 	      FC              lpfc
 The UUIDs in the following example represent the NVMe/FC namespace devices.
 +
 ----
-#esxcfg-mpath -b
-uuid.0d12b7cd97344be8a53b7913f8f72f04 : NVMe Fibre Channel Disk (uuid.0d12b7cd97344be8a53b7913f8f72f04)
-   vmhba65:C0:T9:L30 LUN:30 state:active fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8f WWPN: 10:00:00:90:fa:e0:ec:8f  Target: WWNN: 20:49:00:a0:98:df:e3:d1 WWPN: 20:4d:00:a0:98:df:e3:d1
-   vmhba64:C0:T9:L30 LUN:30 state:active fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8e WWPN: 10:00:00:90:fa:e0:ec:8e  Target: WWNN: 20:49:00:a0:98:df:e3:d1 WWPN: 20:4c:00:a0:98:df:e3:d1
-   vmhba64:C0:T5:L30 LUN:30 state:standby fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8e WWPN: 10:00:00:90:fa:e0:ec:8e  Target: WWNN: 20:49:00:a0:98:df:e3:d1 WWPN: 20:4a:00:a0:98:df:e3:d1
-   vmhba65:C0:T0:L30 LUN:30 state:standby fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8f WWPN: 10:00:00:90:fa:e0:ec:8f  Target: WWNN: 20:49:00:a0:98:df:e3:d1 WWPN: 20:4b:00:a0:98:df:e3:d1
-
-uuid.49de7683950d47c9898f51443d893910 : NVMe Fibre Channel Disk (uuid.49de7683950d47c9898f51443d893910)
-   vmhba65:C0:T12:L39 LUN:39 state:active fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8f WWPN: 10:00:00:90:fa:e0:ec:8f  Target: WWNN: 20:3a:00:a0:98:df:e3:d1 WWPN: 20:27:00:a0:98:df:e3:d1
-   vmhba65:C0:T13:L39 LUN:39 state:standby fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8f WWPN: 10:00:00:90:fa:e0:ec:8f  Target: WWNN: 20:3a:00:a0:98:df:e3:d1 WWPN: 20:29:00:a0:98:df:e3:d1
-   vmhba64:C0:T12:L39 LUN:39 state:active fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8e WWPN: 10:00:00:90:fa:e0:ec:8e  Target: WWNN: 20:3a:00:a0:98:df:e3:d1 WWPN: 20:3b:00:a0:98:df:e3:d1
-   vmhba64:C0:T13:L39 LUN:39 state:standby fc Adapter: WWNN: 20:00:00:90:fa:e0:ec:8e WWPN: 10:00:00:90:fa:e0:ec:8e  Target: WWNN: 20:3a:00:a0:98:df:e3:d1 WWPN: 20:28:00:a0:98:df:e3:d1
+uuid.5084e29a6bb24fbca5ba076eda8ecd7e : NVMe Fibre Channel Disk (uuid.5084e29a6bb24fbca5ba076eda8ecd7e)
+   vmhba65:C0:T0:L1 LUN:1 state:active fc Adapter: WWNN: 20:00:34:80:0d:6d:72:69 WWPN: 21:00:34:80:0d:6d:72:69  Target: WWNN: 20:17:00:a0:98:df:e3:d1 WWPN: 20:2f:00:a0:98:df:e3:d1
+   vmhba65:C0:T1:L1 LUN:1 state:active fc Adapter: WWNN: 20:00:34:80:0d:6d:72:69 WWPN: 21:00:34:80:0d:6d:72:69  Target: WWNN: 20:17:00:a0:98:df:e3:d1 WWPN: 20:1a:00:a0:98:df:e3:d1
+   vmhba64:C0:T0:L1 LUN:1 state:active fc Adapter: WWNN: 20:00:34:80:0d:6d:72:68 WWPN: 21:00:34:80:0d:6d:72:68  Target: WWNN: 20:17:00:a0:98:df:e3:d1 WWPN: 20:18:00:a0:98:df:e3:d1
+   vmhba64:C0:T1:L1 LUN:1 state:active fc Adapter: WWNN: 20:00:34:80:0d:6d:72:68 WWPN: 21:00:34:80:0d:6d:72:68  Target: WWNN: 20:17:00:a0:98:df:e3:d1 WWPN: 20:19:00:a0:98:df:e3:d1
 ----
 +
 NOTE: In ONTAP 9.7, the default block size for a NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you must set the namespace block size as 512b. You can do this using the `vserver nvme namespace create` command.
@@ -148,7 +136,7 @@ NOTE: In ONTAP 9.7, the default block size for a NVMe/FC namespace is 4K. This d
 +
 `vserver nvme namespace create -vserver vs_1 -path /vol/nsvol/namespace1 -size 100g -ostype vmware -block-size 512B`
 +
-Refer to the link:https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-cmpr-970%2Fvserver__nvme__namespace__create.html[ONTAP 9 Command man pages for additional details].
+Refer to the link:https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-cmpr-970%2Fvserver__nvme__namespace__create.html[ONTAP 9 Command man pages] for additional details.
 
 . Verify the status of the individual ANA paths of the respective NVMe/FC namespace devices:
 +
@@ -185,11 +173,11 @@ fc.200034800d6d7268:210034800d6d7268-fc.201700a098dfe3d1:201900a098dfe3d1-uuid.5
 
 == Known issue
 
-*	ESXi 7.0 U3 (and above) NVMe/FC support is available starting ONTAP 9.9.1 P3 onwards. This is due to key NVMe abort (issued by ESXi 7.0 U3 and above) fixes that is available starting ONTAP 9.9.1 P3 only. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
+*	ESXi 7.0 U3 (and later) NVMe/FC support is available starting ONTAP 9.9.1 P3 onwards. This is due to key NVMe abort (issued by ESXi 7.0 U3 and later) fixes that is available starting ONTAP 9.9.1 P3 only. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
 
 
-== Release Notes
+== Related Links
 
-link:[TR-4597-VMware vSphere with ONTAP]
+link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597-VMware vSphere with ONTAP]
 link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)]
 link:https://kb.vmware.com/s/article/83370[VMware vSphere 6.x and 7.x support with NetApp® SnapMirror® Business Continuity (SM-BC)]
