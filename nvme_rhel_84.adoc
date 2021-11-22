@@ -217,6 +217,71 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.104-k
 1
 ----
 
+== Configuring NVMe/TCP
+
+Unlike NVMe/FC, NVMe/TCP lacks two major features:
+
+*	*No auto-connect scripts.* Due to the lack of auto-connect scripts, NVMe/TCP cannot automatically reconnect after a path is reinstated beyond the default period of 10 minutes following the path down period.
+
+*	*Longer retry period following a path down.* By default, NVMe/TCP retries for a period of 10 minutes (30 seconds for NVMe/FC) following a path down. The NVMe controller would be in `connecting` state at all times. When the controller is in `connecting` state, you might encounter errors in command outputs such as `nvme list`.
+
+Therefore, you are always expected to manually run a `nvme connect-all` command across all NVMe/TCP target LIFs (across all ONTAP nodes) during configuration. You must run this command even after a host reboot. To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as, say 30 minutes, by tweaking `ctrl_loss_tmo` parameter. Following are the details:
+
+. Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
++
+----
+# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
+Discovery Log Number of Records 10, Generation counter 119
+=====Discovery Log Entry 0======
+trtype: tcp
+adrfam: ipv4
+subtype: nvme subsystem
+treq: not specified
+portid: 0
+trsvcid: 4420
+subnqn: nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
+traddr: 192.168.2.56
+sectype: none
+=====Discovery Log Entry 1======
+trtype: tcp
+adrfam: ipv4
+subtype: nvme subsystem
+treq: not specified
+portid: 1
+trsvcid: 4420
+subnqn: nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
+traddr: 192.168.1.51
+sectype: none
+=====Discovery Log Entry 2======
+trtype: tcp
+adrfam: ipv4
+subtype: nvme subsystem
+treq: not specified
+portid: 0
+trsvcid: 4420
+subnqn: nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_2
+traddr: 192.168.2.56
+sectype: none
+...
+----
+
+.	Verify that other NVMe/TCP initiator-target LIF combos are able to successfully fetch discovery log page data. For example,
++
+----
+# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
+# nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
+# nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
+----
+
+.	Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer `ctrl_loss_tmo` period (such as say 30 minutes, which can be set through `-l 1800`) during the connect-all so that it would retry for a longer period in the event of a path loss. For example,
++
+----
+# nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
+# nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.52 -l 1800
+# nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.56 -l 1800
+# nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
+----
+
 == Validating NVMe-oF
 
 *	Verify that in-kernel NVMe multipath is enabled:
@@ -296,6 +361,62 @@ UUID                                   Size
         "LBA_Data_Size" : 4096,
         "Namespace_Size" : 20971520
     }
+  ]
+}
+----
+
+=== NVMe/TCP
+
+. Verify that the ONTAP NVMe/TCP namespaces properly reflect on the host. For example,
++
+----
+# nvme list
+Node           SN                    Model                   Namespace
+------------   --------------------- ---------------------------------
+/dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB  NetApp ONTAP Controller   1
+
+Usage                Format         FW Rev
+-------------------  -----------    --------
+85.90 GB / 85.90 GB  4 KiB + 0 B    FFFFFFFF
+----
+
+. Verify that the controller state of each path is live and has proper ANA status. For example,
++
+----
+# nvme list-subsys /dev/nvme0n1
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
+\
++- nvme0 tcp traddr=192.168.1.51 trsvcid=4420 host_traddr=192.168.1.8 live optimized
++- nvme10 tcp traddr=192.168.2.56 trsvcid=4420 host_traddr=192.168.2.9 live optimized
++- nvme15 tcp traddr=192.168.2.57 trsvcid=4420 host_traddr=192.168.2.9 live non-optimized
++- nvme5 tcp traddr=192.168.1.52 trsvcid=4420 host_traddr=192.168.1.8 live non-optimized
+----
+
+. Verify the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
++
+----
+# nvme netapp ontapdevices -o column
+Device        Vserver        Namespace Path                        NSID
+------------- -------------- ------------------------------------- ------------
+/dev/nvme0n1    vs_tcp_118   /vol/tcpnvme_118_1_0_0/tcpnvme_118_ns  1
+UUID                                  Size
+------------------------------------  -------
+4a3e89de-b239-45d8-be0c-b81f6418283c  85.90GB
+
+
+# nvme netapp ontapdevices -o json
+{
+"ONTAPdevices" : [
+    {
+     "Device" : "/dev/nvme0n1",
+      "Vserver" : "vs_tcp_118",
+      "Namespace_Path" : "/vol/tcpnvme_118_1_0_0/tcpnvme_118_ns",
+      "NSID" : 1,
+      "UUID" : "4a3e89de-b239-45d8-be0c-b81f6418283c",
+      "Size" : "85.90GB",
+      "LBA_Data_Size" : 4096,
+      "Namespace_Size" : 20971520
+    },
   ]
 }
 ----
