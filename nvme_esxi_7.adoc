@@ -16,7 +16,7 @@ summary: Describes how to configure NVMe/FC for ESXi 7.0 with ONTAP
 
 == Supportability
 
-NVMe/FC is supported on ONTAP 9.7 or later.
+NVMe over Fibre Channel (NVMe/FC) is supported on ONTAP 9.7 or later.
 
 == Features
 
@@ -52,7 +52,9 @@ Host NQN: nqn.2014-08.com.vmware:nvme:nvme-esx
 
 .	Set the lpfc driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
 
-NOTE:	This parameter is set by default for the LPe35000-series adapters. You must perform the following command to set it manually for LPe32000-series and LPe31000-series adapters.
+NOTE: Starting with vSphere 7.0 update 3, the `brcmnvmefc` driver is no longer available.  Therefore, the `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) functionality previously delivered with the `brcmnvmefc` driver.
+
+NOTE:	The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You must perform the following command to set it manually for LPe32000-series and LPe31000-series adapters.
 
 ----
 # esxcli system module parameters set -m lpfc -p lpfc_enable_fc4_type=3
@@ -68,6 +70,8 @@ vmhba2    lpfc     link-up     fc.200000109b954570:100000109b954570  Second Leve
 vmhba64   lpfc     link-up     fc.200000109b95456f:100000109b95456f                       (0000:86:00.0) Emulex Corporation Emulex LPe36000 Fibre Channel Adapter   NVMe HBA
 vmhba65   lpfc     link-up     fc.200000109b954570:100000109b954570                       (0000:86:00.1) Emulex Corporation Emulex LPe36000 Fibre Channel Adapter   NVMe HBA
 ----
+
+
 
 === Configuring Marvell/QLogic
 
@@ -121,6 +125,7 @@ vmhba67  aqn:lpfc:100000109b579d9d 	      FC              lpfc
 The UUIDs in the following example represent the NVMe/FC namespace devices.
 +
 ----
+# esxcfg-mpath -b
 uuid.5084e29a6bb24fbca5ba076eda8ecd7e : NVMe Fibre Channel Disk (uuid.5084e29a6bb24fbca5ba076eda8ecd7e)
    vmhba65:C0:T0:L1 LUN:1 state:active fc Adapter: WWNN: 20:00:34:80:0d:6d:72:69 WWPN: 21:00:34:80:0d:6d:72:69  Target: WWNN: 20:17:00:a0:98:df:e3:d1 WWPN: 20:2f:00:a0:98:df:e3:d1
    vmhba65:C0:T1:L1 LUN:1 state:active fc Adapter: WWNN: 20:00:34:80:0d:6d:72:69 WWPN: 21:00:34:80:0d:6d:72:69  Target: WWNN: 20:17:00:a0:98:df:e3:d1 WWPN: 20:1a:00:a0:98:df:e3:d1
