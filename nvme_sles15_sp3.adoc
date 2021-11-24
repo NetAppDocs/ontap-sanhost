@@ -233,7 +233,7 @@ Unlike NVMe/FC, NVMe/TCP lacks two major features:
 
 *	*No auto-connect scripts.* Due to the lack of auto-connect scripts, NVMe/TCP cannot automatically reconnect after a path is reinstated beyond the default period of 10 minutes following the path down period.
 
-*	*Longer retry period following a path down.* By default, NVMe/TCP retries for a period of 10 minutes (30 seconds for NVMe/FC) following a path down. The NVMe controller would be in `connecting` state at all times. When the controller is in `connecting` state, you might encounter errors in command outputs such as `nvme list`.
+*	*Longer retry period following a path down.* By default, NVMe/TCP retries for a period of 10 minutes (30 seconds for NVMe/FC) following a path down. The NVMe controller would be in `connecting` state at all times. 
 
 Therefore, you are always expected to manually run a `nvme connect-all` command across all NVMe/TCP target LIFs (across all ONTAP nodes) during configuration. You must run this command even after a host reboot. To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as, say 30 minutes, by tweaking `ctrl_loss_tmo` parameter. Following are the details:
 

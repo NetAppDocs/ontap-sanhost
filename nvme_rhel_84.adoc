@@ -32,8 +32,10 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 == Known limitations
 
-For RHEL 8.4, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
-//Steps for doing so are provided in the next section, <<Enabling NVMe/FC on RHEL 8.3>>
+* For RHEL 8.4, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
+
+* NVMe/TCP on RHEL 8.4 remains a Technology Preview feature due to open issues. Refer to the RHEL 8.4 Release Notes for details.
+
 
 == Configuration requirements
 
@@ -223,7 +225,7 @@ Unlike NVMe/FC, NVMe/TCP lacks two major features:
 
 *	*No auto-connect scripts.* Due to the lack of auto-connect scripts, NVMe/TCP cannot automatically reconnect after a path is reinstated beyond the default period of 10 minutes following the path down period.
 
-*	*Longer retry period following a path down.* By default, NVMe/TCP retries for a period of 10 minutes (30 seconds for NVMe/FC) following a path down. The NVMe controller would be in `connecting` state at all times. When the controller is in `connecting` state, you might encounter errors in command outputs such as `nvme list`.
+*	*Longer retry period following a path down.* By default, NVMe/TCP retries for a period of 10 minutes (30 seconds for NVMe/FC) following a path down. The NVMe controller would be in `connecting` state at all times. When the controller is in `connecting` state, you might encounter errors in command outputs while running the `nvme list` command.
 
 Therefore, you are always expected to manually run a `nvme connect-all` command across all NVMe/TCP target LIFs (across all ONTAP nodes) during configuration. You must run this command even after a host reboot. To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as, say 30 minutes, by tweaking `ctrl_loss_tmo` parameter. Following are the details:
 
