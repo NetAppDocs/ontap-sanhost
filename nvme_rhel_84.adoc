@@ -221,13 +221,13 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.104-k
 
 == Configuring NVMe/TCP
 
-Unlike NVMe/FC, NVMe/TCP lacks two major features:
+Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two major limitations on the Linux NVMe/TCP host:
 
-*	*No auto-connect scripts.* Due to the lack of auto-connect scripts, NVMe/TCP cannot automatically reconnect after a path is reinstated beyond the default period of 10 minutes following the path down period.
+* *No auto-reconnect after paths get reinstated* NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` timer of 10 minutes following a path down.
 
-*	*Longer retry period following a path down.* By default, NVMe/TCP retries for a period of 10 minutes (30 seconds for NVMe/FC) following a path down. The NVMe controller would be in `connecting` state at all times. When the controller is in `connecting` state, you might encounter errors in command outputs while running the `nvme list` command.
+* *No auto-connect during host bootup* NVMe/TCP cannot automatically connect during host bootup as well.
 
-Therefore, you are always expected to manually run a `nvme connect-all` command across all NVMe/TCP target LIFs (across all ONTAP nodes) during configuration. You must run this command even after a host reboot. To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as, say 30 minutes, by tweaking `ctrl_loss_tmo` parameter. Following are the details:
+To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the `ctrl_loss_tmo` timer. Following are the details:
 
 . Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
