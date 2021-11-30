@@ -22,9 +22,9 @@ sidebar:
     - title: NVMe-oF Host Configurations
       entries:
       - title: ESXi
-      - pdf-filename: NVMe-oF Host Configuration for ESXi
+        pdf-filename: NVMe-oF ESXi
         entries:
-        - title: "7.0"
+        - title: 7.0
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
