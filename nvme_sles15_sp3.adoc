@@ -296,41 +296,52 @@ sectype: none
 
 == Validating NVMe-oF
 
-.	Verify that in-kernel NVMe multipath is indeed enabled by checking:
+. Verify that in-kernel NVMe multipath is indeed enabled by checking:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
 Y
 ----
 
-.	Verify that the appropriate NVMe-oF settings (such as, model set to `NetApp ONTAP Controller` and load balancing iopolicy set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
+. Verify that the appropriate NVMe-oF settings (such as, `model` set to `NetApp ONTAP Controller` and `load balancing iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
 +
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model
 NetApp ONTAP Controller
 NetApp ONTAP Controller
+
 # cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
 round-robin
 round-robin
 ----
 
-=== NVMe/FC
-
-.	Verify that the namespaces are created. For example,
+. Verify that the ONTAP namespaces properly reflect on the host. For example,
 +
 ----
 # nvme list
-Node    SN                        Model                   Namespace
-------  -------------             -------------------     ---------------
-/dev/nvme1n1 814vWBNRwfBGAAAAAAAB  NetApp ONTAP Controller    1
+Node           SN                    Model                   Namespace
+------------   --------------------- ---------------------------------
+/dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB  NetApp ONTAP Controller   1
 
-Usage                   Format FW   Rev
---------                ---------  ---------
-85.90 GB / 85.90 GB   4 KiB + 0 B   FFFFFFFF
+Usage                Format         FW Rev
+-------------------  -----------    --------
+85.90 GB / 85.90 GB  4 KiB + 0 B    FFFFFFFF
+----
++
+Another example:
++
+----
+# nvme list
+Node           SN                    Model                   Namespace
+------------   --------------------- ---------------------------------
+/dev/nvme0n1   81CYrBQuTHQFAAAAAAAC  NetApp ONTAP Controller   1
+
+Usage                Format         FW Rev
+-------------------  -----------    --------
+85.90 GB / 85.90 GB  4 KiB + 0 B    FFFFFFFF
 ----
 
-
-.	Verify the status of the ANA paths. For example,
+. Verify that the controller state of each path is live and has proper ANA status. For example,
 +
 [subs=+quotes]
 ----
@@ -342,8 +353,25 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.04ba0732530911ea8e8300a098dfdd91:su
 +- nvme4 fc traddr=nn-0x208100a098dfdd91:pn-0x208400a098dfdd91 host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e live *optimized*
 +- nvme6 fc traddr=nn-0x208100a098dfdd91:pn-0x208300a098dfdd91 host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f live *optimized*
 ----
++
+Another example:
++
+----
+#nvme list-subsys /dev/nvme0n1
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:subsystem.nvme_114_tcp_1
+\
++- nvme0 tcp traddr=192.168.2.36 trsvcid=4420 host_traddr=192.168.1.4 live optimized
++- nvme1 tcp traddr=192.168.1.31 trsvcid=4420 host_traddr=192.168.1.4 live optimized
++- nvme10 tcp traddr=192.168.2.37 trsvcid=4420 host_traddr=192.168.1.4 live non-optimized
++- nvme11 tcp traddr=192.168.1.32 trsvcid=4420 host_traddr=192.168.1.4 live non-optimized
++- nvme20 tcp traddr=192.168.2.36 trsvcid=4420 host_traddr=192.168.2.5 live optimized
++- nvme21 tcp traddr=192.168.1.31 trsvcid=4420 host_traddr=192.168.2.5 live optimized
++- nvme30 tcp traddr=192.168.2.37 trsvcid=4420 host_traddr=192.168.2.5 live non-optimized
++- nvme31 tcp traddr=192.168.1.32 trsvcid=4420 host_traddr=192.168.2.5 live non-optimized
+----
 
-.	Verify the NetApp plug-in for the ONTAP namespace. For example,
+. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
+
 +
 ----
 # nvme netapp ontapdevices -o column
@@ -372,60 +400,35 @@ NSID  UUID                                   Size
   ]
 }
 ----
-
-=== NVMe/TCP
-
-. Verify that the ONTAP NVMe/TCP namespaces properly reflect on the host. For example,
 +
-----
-# nvme list
-Node           SN                    Model                   Namespace
-------------   --------------------- ---------------------------------
-/dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB  NetApp ONTAP Controller   1
-
-Usage                Format         FW Rev
--------------------  -----------    --------
-85.90 GB / 85.90 GB  4 KiB + 0 B    FFFFFFFF
-----
-
-. Verify that the controller state of each path is live and has proper ANA status. For example,
-+
-----
-# nvme list-subsys /dev/nvme0n1
-nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
-\
-+- nvme0 tcp traddr=192.168.1.51 trsvcid=4420 host_traddr=192.168.1.8 live optimized
-+- nvme10 tcp traddr=192.168.2.56 trsvcid=4420 host_traddr=192.168.2.9 live optimized
-+- nvme15 tcp traddr=192.168.2.57 trsvcid=4420 host_traddr=192.168.2.9 live non-optimized
-+- nvme5 tcp traddr=192.168.1.52 trsvcid=4420 host_traddr=192.168.1.8 live non-optimized
-----
-
-. Verify the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
+Another example:
 +
 ----
 # nvme netapp ontapdevices -o column
-Device        Vserver        Namespace Path                        NSID
-------------- -------------- ------------------------------------- ------------
-/dev/nvme0n1    vs_tcp_118   /vol/tcpnvme_118_1_0_0/tcpnvme_118_ns  1
-UUID                                  Size
-------------------------------------  -------
-4a3e89de-b239-45d8-be0c-b81f6418283c  85.90GB
+Device       Vserver          Namespace Path
+---------    -------          --------------------------------------------------
+/dev/nvme0n1 vs_tcp_114       /vol/tcpnvme_114_1_0_1/tcpnvme_114_ns
+
+NSID  UUID                                   Size
+----  ------------------------------         ------
+1      a6aee036-e12f-4b07-8e79-4d38a9165686  85.90GB
 
 
 # nvme netapp ontapdevices -o json
 {
-"ONTAPdevices" : [
-    {
-     "Device" : "/dev/nvme0n1",
-      "Vserver" : "vs_tcp_118",
-      "Namespace_Path" : "/vol/tcpnvme_118_1_0_0/tcpnvme_118_ns",
-      "NSID" : 1,
-      "UUID" : "4a3e89de-b239-45d8-be0c-b81f6418283c",
-      "Size" : "85.90GB",
-      "LBA_Data_Size" : 4096,
-      "Namespace_Size" : 20971520
-    },
+     "ONTAPdevices" : [
+     {
+          "Device" : "/dev/nvme0n1",
+           "Vserver" : "vs_tcp_114",
+          "Namespace_Path" : "/vol/tcpnvme_114_1_0_1/tcpnvme_114_ns",
+          "NSID" : 1,
+          "UUID" : "a6aee036-e12f-4b07-8e79-4d38a9165686",
+          "Size" : "85.90GB",
+          "LBA_Data_Size" : 4096,
+          "Namespace_Size" : 20971520
+       }
   ]
+
 }
 ----
 
