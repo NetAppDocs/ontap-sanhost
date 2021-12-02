@@ -20,8 +20,8 @@ NVMe/FC is supported on ONTAP 9.6 or later for the following versions of RHEL:
 
 *	RHEL 8.1
 
-RHEL 8.1 host can run both NVMe & SCSI traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe] for a list of supported FC adapters and controllers.
-For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix].
+RHEL 8.1 host can run both NVMe & SCSI traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
+For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
 ==	Known limitations
 
@@ -36,7 +36,7 @@ You must write a udev rule to enable this functionality. Steps are provided in t
 
 .	Install Red Hat Enterprise Linux 8.1 on the server.
 
-.	After the installation is complete, verify that you are running the specified Red Hat Enterprise Linux kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported versions.
+.	After the installation is complete, verify that you are running the specified Red Hat Enterprise Linux kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
 ----
 # uname -r

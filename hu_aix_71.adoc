@@ -161,7 +161,7 @@ Following are some recommended parameter settings for NetApp ONTAP LUNs.  The cr
 
 == Recommended Settings for MetroCluster
 
-By default, the AIX operating system enforces a shorter I/O timeout if when no paths to a LUN are available. This might occur in configurations including single-switch SAN fabric and MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, please refer to link:https://kb.netapp.com/app/answers/answer_view/a_id/1001318[NetApp KB1001318]
+By default, the AIX operating system enforces a shorter I/O timeout if when no paths to a LUN are available. This might occur in configurations including single-switch SAN fabric and MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, please refer to link:https://kb.netapp.com/app/answers/answer_view/a_id/1001318[NetApp KB1001318^]
 
 == Known Problems and Limitations
 
