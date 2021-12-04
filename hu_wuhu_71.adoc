@@ -317,7 +317,7 @@ The following values are set by the Windows Unified Host Utilities installer. Al
 |===
 
 .Related information
-Refer to the https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance/windows-registry-advanced-users[Microsoft documents] for the registry parameter details.
+Refer to the https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance/windows-registry-advanced-users[Microsoft documents^] for the registry parameter details.
 
 == FC HBA values set by Windows Host Utilities
 
@@ -372,7 +372,7 @@ For example, in the QLogic QConvergeConsole program, the parameter is displayed 
 The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter.
 
 .Related information
-Refer to https://www.broadcom.com/support/download-search[Emulex] or https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/Netapp_search.aspx[QLogic] site to know more about the timeout parameters.
+Refer to https://www.broadcom.com/support/download-search[Emulex^] or https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/Netapp_search.aspx[QLogic^] site to know more about the timeout parameters.
 
 == Troubleshooting
 This section describes general troubleshooting techniques for Windows Host Utilities. Be sure to check the latest Release Notes for known problems and solutions.
@@ -385,9 +385,9 @@ This section describes general troubleshooting techniques for Windows Host Utili
 * If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the Persistent Targets tab of the Microsoft iSCSI initiator GUI.
 * If applications using the LUNs display errors on startup, you must verify that the applications are configured to depend on the iSCSI service.
 * For Fibre Channel paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target LIFs, not the WWPNs of the physical ports on the node.
-* You must review the https://library-clnt.dmz.netapp.com/documentation/docweb/index.html?productID=62322&platformID=30462&language=en-US&access=a[Release Notes for Windows Host Utilities] to check for known problems. The Release Notes include a list of known problems and limitations.
-* You must review the troubleshooting information in the https://docs.netapp.com/ontap-9/index.jsp[SAN Administration Guide] for your version of ONTAP.
-* You must search https://mysupport.netapp.com/site/bugs-online/[Bugs Online] for recently discovered problems.
+* You must review the https://library-clnt.dmz.netapp.com/documentation/docweb/index.html?productID=62322&platformID=30462&language=en-US&access=a[Release Notes for Windows Host Utilities^] to check for known problems. The Release Notes include a list of known problems and limitations.
+* You must review the troubleshooting information in the https://docs.netapp.com/ontap-9/index.jsp[SAN Administration Guide^] for your version of ONTAP.
+* You must search https://mysupport.netapp.com/site/bugs-online/[Bugs Online^] for recently discovered problems.
 * In the Bug Types field under Advanced Search, you should select ISCSI - Windows and then click Go. You should repeat the search for Bug Type FCP -Windows.
 * You must collect information about your system.
 * Record any error messages that are displayed on the host or storage system console.
@@ -397,9 +397,9 @@ This section describes general troubleshooting techniques for Windows Host Utili
 
 .Related information
 
-http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool]
-https://mysupport.netapp.com/portal/documentation[NetApp Documentation]
-https://mysupport.netapp.com/NOW/cgi-bin/bol[NetApp Bugs Online]
+http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^]
+https://mysupport.netapp.com/portal/documentation[NetApp Documentation^]
+https://mysupport.netapp.com/NOW/cgi-bin/bol[NetApp Bugs Online^]
 
 === Understanding the Host Utilities changes to FC HBA driver settings
 

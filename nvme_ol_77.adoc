@@ -20,9 +20,9 @@ NVMe/FC is supported on ONTAP 9.6 or later for the following versions of Oracle 
 
 *	OL 7.7
 +
-OL 7.7 host can run both NVMe & SCSI traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe] for a list of supported FC adapters and controllers.
+OL 7.7 host can run both NVMe & SCSI traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 +
-For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix].
+For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
 ==	Known limitations
 *	Native NVMe/FC auto-connect scripts are not available in the nvme-cli package.
@@ -77,7 +77,7 @@ NOTE: If the host NQN strings do not match, you should use the vserver modify co
 
 ==	Configuring the Broadcom FC Adapter for NVMe/FC
 
-.	Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix].
+.	Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -99,7 +99,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 
 .	Reboot the host.
 
-.	Verify that you are using the recommended Broadcom lpfc firmware, native inbox driver & outbox auto-connect package versions.  For a list of supported versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix].
+.	Verify that you are using the recommended Broadcom lpfc firmware, native inbox driver & outbox auto-connect package versions.  For a list of supported versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev

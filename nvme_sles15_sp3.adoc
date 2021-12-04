@@ -30,16 +30,16 @@ There are no known limitations.
 
 == Configuration Requirements
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 
 == Enabling in-kernel NVMe Multipath
 
-In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP3. Therefore, no additional setting is required here. Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
+In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP3. Therefore, no additional setting is required here. Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 == NVMe-oF initiator packages
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 . Verify that you have the requisite kernel & nvme-cli MU packages installed on the SLES15 SP3 MU host.
 +
