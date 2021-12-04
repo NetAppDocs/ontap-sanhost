@@ -37,14 +37,14 @@ For RHEL 8.4, in-kernel NVMe multipath remains disabled by default. Therefore, y
 
 == Configuration requirements
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 
 == Enabling in-kernel NVMe Multipath
 
-.	Install RHEL 8.4 GA on the server. After the installation is complete, verify that you are running the specified RHEL 8.4 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported versions.
+.	Install RHEL 8.4 GA on the server. After the installation is complete, verify that you are running the specified RHEL 8.4 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 
-.	After the installation is complete, verify that you are running the specified RHEL 8.4 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported versions.
+.	After the installation is complete, verify that you are running the specified RHEL 8.4 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
 Example:
 +
@@ -107,7 +107,7 @@ defaults {
 
 === Broadcom/Emulex
 
-.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported adapters.
+.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported adapters.
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -119,7 +119,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 +
 
-.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix] for the most current list of supported adapter driver and firmware versions.
+.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported adapter driver and firmware versions.
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
