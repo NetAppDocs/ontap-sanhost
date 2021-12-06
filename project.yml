@@ -22,8 +22,9 @@ sidebar:
     - title: NVMe-oF Host Configurations
       entries:
       - title: ESXi
+        pdf-filename: NVMeoF ESXi
         entries:
-        - title: "7.0"
+        - title: 7.0
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
@@ -38,6 +39,7 @@ sidebar:
         - title: 7.7
           url: /nvme_ol_77.html
       - title: RHEL
+        pdf-filename: NVMeF RHEL
         entries:
         - title: 8.4
           url: /nvme_rhel_84.html
@@ -48,6 +50,7 @@ sidebar:
         - title: 8.1
           url: /nvme_rhel_81.html
       - title: SUSE
+        pdf-filename: NVMeoF SUSE
         entries:
         - title: 15 SP3
           url: /nvme_sles15_sp3.html
