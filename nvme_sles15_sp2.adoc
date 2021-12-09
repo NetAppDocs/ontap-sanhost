@@ -24,7 +24,7 @@ For the most current list of supported configurations & versions, see the link:h
 
 None.
 
-==	Enabling NVMe/FC on SLES15 SP2
+==	Enable NVMe/FC on SLES15 SP2
 
 . Upgrade to the recommended SLES15 SP2 MU kernel version.
 +
@@ -64,7 +64,7 @@ nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
 
 .	Reboot the host.
 
-==	Configuring the Broadcom FC Adapter for NVMe/FC
+==	Configure the Broadcom FC Adapter for NVMe/FC
 
 .	Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
@@ -142,7 +142,7 @@ abort 00000b73 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 0000159d Err 000135c3
 ----
 
-==	Validating NVMe/FC
+==	Validate NVMe/FC
 
 .	Verify the following NVMe/FC settings.
 +
@@ -207,7 +207,7 @@ Device Vserver Namespace Path NSID UUID Size
 }
 ----
 
-==	Enabling 1MB I/O Size for Broadcom NVMe/FC
+==	Enable 1MB I/O Size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 

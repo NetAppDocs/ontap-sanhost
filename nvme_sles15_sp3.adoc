@@ -33,7 +33,7 @@ There are no known limitations.
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 
-== Enabling in-kernel NVMe Multipath
+== Enable in-kernel NVMe Multipath
 
 In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP3. Therefore, no additional setting is required here. Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
@@ -115,7 +115,7 @@ vs_nvme_145 nvme_145_1 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-c
 ----
 Proceed with the below steps depending on the FC adapter being used on the host.
 
-== Configuring NVMe/FC
+== Configure NVMe/FC
 
 === Broadcom/Emulex
 
@@ -188,7 +188,7 @@ FCP CMPL: xb 0000159d Err 000135c3
 +
 .	Reboot the host.
 
-==== Enabling 1MB I/O Size (Optional)
+==== Enable 1MB I/O Size (Optional)
 
 ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
 
@@ -213,7 +213,7 @@ Now the Broadcom NVMe/FC host should be able to send up 1MB I/O requests on the 
 
 The native inbox qla2xxx driver included in the newer SLES15 SP3 MU kernel has the latest upstream fixes, essential for ONTAP support.
 
-* Verify that you are running the supported adapter driver and firmware versions, for example:
+. Verify that you are running the supported adapter driver and firmware versions, for example:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -221,13 +221,13 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.106-k
 QLE2742 FW:v9.06.02 DVR:v10.02.00.106-k
 ----
 
-* Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator:
+. Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator:
 +
 
 `# cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1`
 
-== Configuring NVMe/TCP
+== Configure NVMe/TCP
 
 Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two major limitations on the Linux NVMe/TCP host:
 
@@ -294,7 +294,7 @@ sectype: none
 
 
 
-== Validating NVMe-oF
+== Validate NVMe-oF
 
 . Verify that in-kernel NVMe multipath is indeed enabled by checking:
 +

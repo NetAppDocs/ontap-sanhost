@@ -32,7 +32,7 @@ It must be manually enabled. Steps are provided in the section on Enabling NVMe/
 *	By default, round-robin load balancing is not enabled.
 You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on RHEL 8.1.
 
-==	Enabling NVMe/FC on RHEL 8.1
+==	Enable NVMe/FC on RHEL 8.1
 
 .	Install Red Hat Enterprise Linux 8.1 on the server.
 
@@ -82,7 +82,7 @@ NOTE: If the host NQN strings do not match, you should use the vserver modify co
 +
 .	Reboot the host.
 
-==	Configuring the Broadcom FC Adapter for NVMe/FC
+==	Configure the Broadcom FC Adapter for NVMe/FC
 
 .	Verify that you are using the supported adapter. For the most current list of supported adapters see the NetApp Interoperability Matrix.
 +
@@ -162,11 +162,11 @@ NVME Statistics
 …
 ----
 
-==	Validating NVMe/FC
+==	Validate NVMe/FC
 
 include::_include/nvme/reuse_validating_nvme_fc_rhel.adoc[]
 
-==	Enabling 1MB I/O Size for Broadcom NVMe/FC
+==	Enable 1MB I/O Size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 

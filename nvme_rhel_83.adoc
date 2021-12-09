@@ -22,7 +22,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for RHEL 8.3. The RHEL 8.3 host runs 
 
 For RHEL 8.3, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. Steps for doing so are provided in the next section, "Enabling NVMe/FC on RHEL 8.3".
 
-== Enabling NVMe/FC on RHEL 8.3
+== Enable NVMe/FC on RHEL 8.3
 
 . Install Red Hat Enterprise Linux 8.3 GA on the server.
 +
@@ -84,7 +84,7 @@ defaults {
 . Restart the multipathd daemon by running a `systemctl restart multipathd`.
 
 
-==	Validating NVMe/FC
+==	Validate NVMe/FC
 
 .	Verify the following NVMe/FC settings.
 +
@@ -173,7 +173,7 @@ Device               Vserver            Namespace Path                          
   ]
 ----
 
-== Configuring the Broadcom FC adapter for NVMe/FC
+== Configure the Broadcom FC adapter for NVMe/FC
 
 include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part1.adoc[]
 

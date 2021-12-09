@@ -194,7 +194,7 @@ For additional information and recommended changes to default settings, refer to
 | Description
 | Oracle ID
 | 1362435 | HUK 6.2 and Solaris_11.4 FC driver binding changes | Solaris 11.4 and HUK recommendations.
-FC driver binding is changed from ssd(4D) to sd(4D). Move configuration that you have in `ssd.conf` to `sd.conf` as detailed in Oracle (Doc ID 2595926.1). The behavior varies across Freshly installed Solaris 11.4 system and Upgraded from 11.3 or lower versions.
+FC driver binding is changed from ssd(4D) to sd(4D). Move configuration that you have in `ssd.conf` to `sd.conf` as detailed in Oracle (Doc ID 2595926.1). The behavior varies across newly installed Solaris 11.4 system and upgraded from 11.3 or lower versions.
  | (Doc ID 2595926.1)
 | 1366780 | Solaris LIF problem during GB with Emulex 32G HBA on x86 Arch | Seen with Emulex Firmware version 12.6.x and above on x86_64 Platform | SR 3-24746803021
 | 1368957 | "Solaris 11.x `cfgadm -c configure` resulting in I/O error with End-to-End Emulex configuration" | Running `cfgadm -c configure` on Emulex End-to-End configurations results in I/O error. This is fixed in 9.5P17, 9.6P14 , 9.7P13 and 9.8P2 | NA
