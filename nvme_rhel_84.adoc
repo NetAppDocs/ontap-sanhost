@@ -34,7 +34,7 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 * For RHEL 8.4, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
 
-* NVMe/TCP on RHEL 8.4 remains a Technology Preview feature due to open issues. Refer to the RHEL 8.4 Release Notes for details.
+* NVMe/TCP on RHEL 8.4 remains a Technology Preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.4_release_notes/index#technology-preview_file-systems-and-storage[RHEL 8.4 Release Notes^] for details.
 
 
 == Configuration requirements
