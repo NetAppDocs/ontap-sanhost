@@ -28,7 +28,7 @@ For the most current list of supported configurations & versions, see the link:h
 
 None. Native NVMe/FC auto-connect scripts are included in the nvme-cli package. You can use the native inbox lpfc driver on SLES15 SP1.
 
-==	Enabling NVMe/FC on SLES15 SP1
+==	Enable NVMe/FC on SLES15 SP1
 
 .	Upgrade to the recommended SLES15 SP2 MU kernel
 +
@@ -58,7 +58,7 @@ nqn.2014-08.org.nvmexpress:uuid:75953f3b-77fe-4e03-bf3c-09d5a156fbcd
 
 .	Reboot the host.
 
-==	Configuring the Broadcom FC Adapter for NVMe/FC
+==	Configure the Broadcom FC Adapter for NVMe/FC
 
 .	Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
@@ -121,7 +121,7 @@ NVME Statistics
 …
 ----
 
-==	Validating NVMe/FC
+==	Validate NVMe/FC
 
 .	Verify the following NVMe/FC settings.
 +
@@ -187,7 +187,7 @@ Device   Vserver  Namespace Path             NSID   UUID   Size
 ]
 ----
 
-==	Enabling 1MB I/O Size for Broadcom NVMe/FC
+==	Enable 1MB I/O Size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 

@@ -22,7 +22,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 8.2. Oracle Linux 8.
 
 None.
 
-== Enabling NVMe/FC
+== Enable NVMe/FC
 
 . Install Oracle Linux 8.2 on the server.
 
@@ -57,7 +57,7 @@ vs_ol_nvme
 +
 If the +hostnqn+ strings do not match, you should use the vserver modify command to update the host NQN string on your corresponding ONTAP array subsystem to match to host NQN string from etc/nvme/hostnqn on the host.
 
-== Configuring the Broadcom FC Adapter for NVMe/FC
+== Configure the Broadcom FC Adapter for NVMe/FC
 
 . Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
@@ -116,7 +116,7 @@ abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 
-== Validating NVMe/FC
+== Validate NVMe/FC
 
 . Verify the following NVMe/FC settings.
 +
@@ -210,6 +210,6 @@ Device                 Vserver                         Namespace Path           
 
 ----
 
-== Enabling 1MB I/O Size for Broadcom NVMe/FC
+== Enable 1MB I/O Size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]

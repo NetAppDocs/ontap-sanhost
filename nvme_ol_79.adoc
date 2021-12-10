@@ -26,7 +26,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 7.9. Oracle Linux 7.
 
 * There is no sanlun support for NVMe/FC and, as a consequence, no Linux Unified Host Utilities (LUHU) support for NVMe/FC on Oracle Linux 7.9. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
 
-== Enabling NVMe/FC
+== Enable NVMe/FC
 
 . Install Oracle Linux 7.9 on the server.
 
@@ -72,7 +72,7 @@ If the `+hostnqn+` strings do not match, you should use the `vserver modify` com
 . Reboot the host.
 
 
-== Configuring the Broadcom FC Adapter for NVMe/FC
+== Configure the Broadcom FC Adapter for NVMe/FC
 
 . Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
@@ -135,7 +135,7 @@ NVME RPORT WWPN x202d00a098c80f09 WWNN x202c00a098c80f09 DID x010201 TARGET DISC
 NVME RPORT WWPN x203100a098c80f09 WWNN x202c00a098c80f09 DID x010601 TARGET DISCSRVC ONLINE
 ----
 
-== Validating NVMe/FC
+== Validate NVMe/FC
 
 . Verify the following NVMe/FC settings.
 +
@@ -203,6 +203,6 @@ Device   Vserver  Namespace Path             NSID   UUID   Size
 ]
 ----
 
-== Enabling 1MB I/O Size for Broadcom NVMe/FC
+== Enable 1MB I/O Size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]

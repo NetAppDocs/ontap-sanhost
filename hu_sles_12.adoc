@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_suse_12SP2.html
-keywords: host utilities, suse linux enterprise server 12 SP2, suse, linux, 12 SP2, netapp, ontap
-summary: Describes how to use SUSE Linux Enterprise Server 12 SP2 with ONTAP
+permalink: hu_sles_12.html
+keywords: host utilities, suse linux enterprise server 12, suse, linux, 12, netapp, ontap
+summary: Describes how to use SUSE Linux Enterprise Server 12 with ONTAP
 ---
 
-= Using SUSE Linux Enterprise Server 12 SP2 with NetApp ONTAP
+= Using SUSE Linux Enterprise Server 12 with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -25,13 +25,13 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 == SAN Booting
 
 .What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=77284;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=68964;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For SUSE Linux Enterprise Server 12 SP2 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. SUSE Linux Enterprise Server 12 SP2 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For SUSE Linux Enterprise Server 12 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. SUSE Linux Enterprise Server 12 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -69,7 +69,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended Settings
 
-SUSE Linux Enterprise Server 12 SP2 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly.
+SUSE Linux Enterprise Server 12 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly.
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 
@@ -117,7 +117,17 @@ devices {
 
 == Known Problems and Limitations
 
-There are no known issues for SUSE Linux Enterprise Server 12 SP2.
+[cols=4*,options="header"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+| Bugzilla ID
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=873555[873555^] | scsi_dh_alua module is not loaded during multipathd startup on local boot | scsi_dh_alua is a Linux ALUA device handler module. This is is not loaded during multipathd startup on local boot. Due to this device handler will not be loaded though ALUA is enabled on target side. | link:https://bugzilla.suse.com/show_bug.cgi?id=908529[908529^]
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=863584[863584^] | The message "conflicting device node '/dev/mapper/360xx' found" appears on the screen when you create a DM device on SLES12 | You might observe a failure in creating a link to DM devices under /dev/mapper dir in SLES 12 and see the messages
+"conflicting device node '/dev/mapper/360xx' found". | link:https://bugzilla.suse.com/show_bug.cgi?id=903001[903001^]
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=847490[847490^] | Multipath daemon shows path failures on SLES 12 | You might observe path failures on the SLES12 multipath daemon during I/O with storage or fabric faults. | link:https://bugzilla.novell.com/show_bug.cgi?id=890854[890854^]
+|===
 
 == Release Notes
 
