@@ -22,7 +22,7 @@ sidebar:
     - title: NVMe-oF Host Configurations
       entries:
       - title: ESXi
-        pdf-filename: NVMe-oF ESXi
+        pdf-filename: NVMeoF ESXi
         entries:
         - title: 7.0
           url: /nvme_esxi_7.html
@@ -39,6 +39,7 @@ sidebar:
         - title: 7.7
           url: /nvme_ol_77.html
       - title: RHEL
+        pdf-filename: NVMeF RHEL
         entries:
         - title: 8.4
           url: /nvme_rhel_84.html
@@ -48,7 +49,8 @@ sidebar:
           url: /nvme_rhel_82.html
         - title: 8.1
           url: /nvme_rhel_81.html
-      - title: SUSE
+      - title: SLES
+        pdf-filename: NVMeoF SLES
         entries:
         - title: 15 SP3
           url: /nvme_sles15_sp3.html
@@ -248,32 +250,32 @@ sidebar:
           url: /hu_solaris_114.html
         - title: 11.3
           url: /hu_solaris_113.html
-      - title: SUSE
+      - title: SLES
         entries:
-        - title: SUSE 15
+        - title: SLES 15
           entries:
           - title: 15 SP3
-            url: /hu_suse_15SP3.html
+            url: /hu_sles_15SP3.html
           - title: 15 SP2
-            url: /hu_suse_15SP2.html
+            url: /hu_sles_15SP2.html
           - title: 15 SP1
-            url: /hu_suse_15SP1.html
+            url: /hu_sles_15SP1.html
           - title: 15
-            url: /hu_suse_15.html
-        - title: SUSE 12
+            url: /hu_sles_15.html
+        - title: SLES 12
           entries:
           - title: 12 SP 5
-            url: /hu_suse_12SP5.html
+            url: /hu_sles_12SP5.html
           - title: 12 SP 4
-            url: /hu_suse_12SP4.html
+            url: /hu_sles_12SP4.html
           - title: 12 SP 3
-            url: /hu_suse_12SP3.html
+            url: /hu_sles_12SP3.html
           - title: 12 SP 2
-            url: /hu_suse_12SP2.html
+            url: /hu_sles_12SP2.html
           - title: 12 SP 1
-            url: /hu_suse_12SP1.html
+            url: /hu_sles_12SP1.html
           - title: 12
-            url: /hu_suse_12.html
+            url: /hu_sles_12.html
       - title: Veritas
         entries:
         - title: Infoscale 7

@@ -42,7 +42,7 @@ The following programs and files are installed on the Windows host computer. The
 
 The Host Utilities support different Windows host configurations, protocols and Multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
-== Verifying your host and storage system configuration
+== Verify your host and storage system configuration
 Before you install the Host Utilities, you must verify that the Host Utilities version supports your host and storage system configuration so that the software installs correctly.
 
 .Steps
@@ -56,7 +56,7 @@ The Fibre Channel and iSCSI protocols do not require licenses on E-Series storag
 +
 See the https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html?cp=14_7[SAN Configuration Guide^] for your version of ONTAP or https://mysupport.netapp.com/ecm/ecm_get_file/ECMLP2773533[E-Series Hardware Cabling Guide^] for detailed cabling and configuration information.
 
-== Configuring FC HBAs and switches
+== Configur FC HBAs and switches
 Install and configure one or more supported Fibre Channel host bus adapters (HBAs) for Fibre Channel connections to the storage system.
 
 The Windows Host Utilities installer sets the required Fibre Channel HBA settings.
@@ -72,7 +72,7 @@ Do not change HBA settings manually.
 . Create zones on the Fibre Channel switch according to your Fibre Channel switch documentation.
 . For ONTAP, zone the switch by WWPN. Be sure to use the WWPN of the LIFs and not of the physical ports on the storage controllers. For more information, see https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html?cp=14_7[SAN Configuration Guide^].
 
-== Installing the Host Utilities
+== Install the Host Utilities
 The installation program installs the Host Utilities package and sets the Windows registry and HBA settings.
 
 You must specify whether to include multipathing support when you install the Windows Unified Host Utilities software package. The installer prompts you for the following choice. You can also run a quiet (unattended) installation from a Windows command prompt.
@@ -83,7 +83,7 @@ You must specify whether to include multipathing support when you install the Wi
 * The MPIO selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
 * For Hyper-V guests, raw (pass-through) disks do not appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you cannot use both in the guest OS.
 
-=== Installing the Host Utilities interactively
+=== Install the Host Utilities interactively
 
 To install the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
 
@@ -94,7 +94,7 @@ To install the Host Utilities software package interactively, you must run the H
 . Run the `netapp_windows_host_utilities_7.1_x64` file and follow the instructions on the screen.
 . Reboot the Windows host when prompted.
 
-=== Installing the Host Utilities from a command line
+=== Install the Host Utilities from a command line
 
 * You can perform a quiet (unattended) installation of the Host Utilities by entering the appropriate commands at a Windows command prompt.
 * The Host Utilities installation package must be in a path that is accessible by the Windows host.
@@ -115,11 +115,11 @@ To install the Host Utilities software package interactively, you must run the H
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at a Windows command prompt. For example:
 `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1`
 
-== Upgrading the Host Utilities
+== Upgrade the Host Utilities
 
 The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively to obtain the installation package.
 
-=== Upgrading the Host Utilities interactively
+=== Upgrade the Host Utilities interactively
 To install the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
 
 .Steps
@@ -131,7 +131,7 @@ To install the Host Utilities software package interactively, you must run the H
 .. Open *Control Panel*.
 .. Go to *Program and features* and check the host utility version.
 
-=== Upgrading the Host Utilities from command line
+=== Upgrade the Host Utilities from command line
 You can perform a quiet (unattended) installation of the new host utilities by entering the appropriate commands at a Windows command prompt.
 The New Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively to obtain the installation package.
 
@@ -151,10 +151,10 @@ To see the standard Microsoft Installer (MSI) options for logging and other func
 
 The system automatically reboots when the installation is complete.
 
-== Repairing and removing Windows Host Utilities
+== Repair and removing Windows Host Utilities
 You can use the Repair option of the Host Utilities installation program to update HBA and Windows registry settings. You can remove the Host Utilities entirely, either interactively or from the Windows command line.
 
-=== Repairing or removing Windows Host Utilities interactively
+=== Repair or remove Windows Host Utilities interactively
 The Repair option updates the Windows registry and Fibre Channel HBAs with the required settings. You can also remove the Host Utilities entirely.
 
 .Steps
@@ -165,7 +165,7 @@ The Repair option updates the Windows registry and Fibre Channel HBAs with the r
 . Click *Repair* or *Remove*, as needed.
 . Follow the instructions on the screen.
 
-=== Repairing or removing Windows Host Utilities from command line
+=== Repair or remove Windows Host Utilities from command line
 The Repair option updates the Windows registry and Fibre Channel HBAs with the required settings. You can also remove the Host Utilities entirely from a Windows command line.
 
 .Steps
@@ -385,7 +385,7 @@ This section describes general troubleshooting techniques for Windows Host Utili
 * If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the Persistent Targets tab of the Microsoft iSCSI initiator GUI.
 * If applications using the LUNs display errors on startup, you must verify that the applications are configured to depend on the iSCSI service.
 * For Fibre Channel paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target LIFs, not the WWPNs of the physical ports on the node.
-* You must review the https://library-clnt.dmz.netapp.com/documentation/docweb/index.html?productID=62322&platformID=30462&language=en-US&access=a[Release Notes for Windows Host Utilities^] to check for known problems. The Release Notes include a list of known problems and limitations.
+* You must review the https://library.netapp.com/ecm/ecm_download_file/ECMLP2789205[Release Notes for Windows Host Utilities^] to check for known problems. The Release Notes include a list of known problems and limitations.
 * You must review the troubleshooting information in the https://docs.netapp.com/ontap-9/index.jsp[SAN Administration Guide^] for your version of ONTAP.
 * You must search https://mysupport.netapp.com/site/bugs-online/[Bugs Online^] for recently discovered problems.
 * In the Bug Types field under Advanced Search, you should select ISCSI - Windows and then click Go. You should repeat the search for Bug Type FCP -Windows.
@@ -401,7 +401,7 @@ http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^]
 https://mysupport.netapp.com/portal/documentation[NetApp Documentation^]
 https://mysupport.netapp.com/NOW/cgi-bin/bol[NetApp Bugs Online^]
 
-=== Understanding the Host Utilities changes to FC HBA driver settings
+=== Understand the Host Utilities changes to FC HBA driver settings
 
 During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and, in some cases, modified.
 
@@ -417,7 +417,7 @@ When troubleshooting HBA issues, check to make sure these settings have the corr
 
 You can correct the HBA settings by running the Repair option of the Windows Host Utilities installer.
 
-==== Verifying the Emulex HBA driver settings on FC systems
+==== Verify the Emulex HBA driver settings on FC systems
 If you have a Fibre Channel system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
 
 .Steps
@@ -435,7 +435,7 @@ The driver parameters appear.
 * LinkTimeOut - 30
 * NodeTimeOut - 120
 
-==== Verifying the QLogic HBA driver settings on FC systems
+==== Verify the QLogic HBA driver settings on FC systems
 On FC systems, you need to verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
 
 .Steps
