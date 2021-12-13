@@ -28,29 +28,46 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-Multipath support in Citrix Hypervisor is based on the Device Mapper Multipathd components.  Device mapper nodes are not automatically created for all LUNs presented to the hypervisor and are only provisioned when LUNs are actively used by the Storage Management Layer (API).  Citrix Hypervisor Storage Manager API plugin handles activating and deactivating multipath nodes automatically.
+For Citrix Hypervisor (CH) 8.x the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. CH 8.x is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+You can use the `/sbin/mpathutil` status command to verify the settings for your ONTAP LUNs.
+The following sections provide sample multipath output for a LUN mapped to ASA personas.
 
-Due to incompatibilities with the Integrated Multipath Management architecture, Citrix recommends that you use the Citrix XenCenter application for managing the storage configuration.  If it is necessary to query the status of Device Mapper tables manually, or list active device mapper multipath nodes on the system, you can use the `/sbin/mpathutil status` command to verify the settings for your ONTAP LUNs. For more information refer to the standard vendor documentation for Citrix Hypervisor.
+== All SAN Array (ASA) Configuration
 
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+For All SAN Array (ASA) configuration there should be one group of paths with single priorities. All the paths are Active/Optimized, meaning they are serviced by the controller and I/O is sent on all the active paths.
 
-----
+.Example
+The following example displays the correct output for an ONTAP LUN with four Active/Optimized paths:
+....
 # mpathutil status
-show topology
-3600a098038303458772450714535317a dm-0 NETAPP  , LUN C-Mode
-size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
+3600a09803830344674244a357579386a dm-13 NETAPP  ,LUN C-Mode
+size=30G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
+policy='service-time 0' prio=50 status=active
+  |- 11:0:7:1    sdfi   130:64   active ready running
+  |- 11:0:9:1    sdiy  8:288     active ready running
+  |- 11:0:10:1  sdml 69:464   active ready running
+  |- 11:0:11:1  sdpt  131:304  active ready running
+....
+
+NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
+
+== Non-ASA Configuration
+
+For non-ASA configuration there should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when no optimized paths are available.
+
+.Example
+The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/non-Optimized paths:
+....
+# mpathutil status
+3600a09803830344674244a357579386a dm-13 NETAPP  ,LUN C-Mode
+size=30G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
-| |- 2:0:2:0   sdc   8:32    active ready running
-| |- 12:0:5:0  sdn   8:208   active ready running
-| |- 2:0:6:0   sdg   8:96    active ready running
-| `- 12:0:0:0  sdi   8:128   active ready running
-`-+-`policy='service-time 0' prio=10 status=enabled
-  |- 2:0:0:0   sda   8:0     active ready running
-  |- 2:0:1:0   sdb   8:16    active ready running
-  |- 12:0:3:0  sd1   8:176   active ready running
-  `-12:0:6:0   sdo   8:224   active ready running
-[root@sanhost ~]#
-----
+ |- 1:0:0:11   sde   8:64    active ready running
+`- 12:0:8:11  sdua  66:544  active ready running
+`-+- policy='service-time 0' prio=10 status=enabled
+   |- 1:0:9:11   sddo  71:96   active ready running
+   `- 12:0:26:11 sdyt  129:720 active ready running
+....
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
