@@ -32,7 +32,7 @@ For Citrix Hypervisor (CH) 8.x the `/etc/multipath.conf` file must exist, but yo
 You can use the `/sbin/mpathutil` status command to verify the settings for your ONTAP LUNs.
 The following sections provide sample multipath output for a LUN mapped to ASA personas.
 
-== All SAN Array (ASA) Configuration
+=== All SAN Array (ASA) Configuration
 
 For All SAN Array (ASA) configuration there should be one group of paths with single priorities. All the paths are Active/Optimized, meaning they are serviced by the controller and I/O is sent on all the active paths.
 
@@ -51,7 +51,7 @@ policy='service-time 0' prio=50 status=active
 
 NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
 
-== Non-ASA Configuration
+=== Non-ASA Configuration
 
 For non-ASA configuration there should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when no optimized paths are available.
 
@@ -71,7 +71,7 @@ size=30G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_hand
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
-=== Recommended Settings
+== Recommended Settings
 
 The Citrix Hypervisor 8.x OS is compiled with all settings required to recognize and correctly manage ONTAP LUNs.  For Citrix Hypervisor 8.x, an empty zerobyte `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file.
 
