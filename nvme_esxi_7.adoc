@@ -32,7 +32,7 @@ The following configurations are not supported:
 * VVols
 
 
-== Enabling NVMe/FC
+== Enable NVMe/FC
 
 .	Check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array:
 +
@@ -46,7 +46,7 @@ Host NQN: nqn.2014-08.com.vmware:nvme:nvme-esx
   vserver_nvme ss_vserver_nvme nqn.2014-08.com.vmware:nvme:nvme-esx
 ----
 
-=== Configuring Broadcom/Emulex
+=== Configure Broadcom/Emulex
 
 .	Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
@@ -73,7 +73,7 @@ vmhba65   lpfc     link-up     fc.200000109b954570:100000109b954570             
 
 
 
-=== Configuring Marvell/QLogic
+=== Configure Marvell/QLogic
 
 .	Check whether configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
@@ -104,7 +104,7 @@ vmhba65   qlnativefc  link-up     fc.20000024ff1817af:21000024ff1817af          
 
 
 
-==	Validating NVMe/FC
+==	Validate NVMe/FC
 
 . Verify that NVMe/FC adapter is listed on the ESXi host:
 +
