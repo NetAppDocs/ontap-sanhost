@@ -98,6 +98,10 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 | vendor | NETAPP
 |===
 
+NOTE: When you set the disable_changed_wwids multipath configuration parameter to YES, it disables access to the path device in the event of WWID change. Refer to the link:https://docs.oracle.com/en/operating-systems/oracle-linux/index.html[Oracle Linux documentation] for more information. 
+
+
+
 .Example
 
 The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `detect_prio` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
