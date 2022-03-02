@@ -96,8 +96,6 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 | vendor | NETAPP
 |===
 
-NOTE: When you set the disable_changed_wwids multipath configuration parameter to YES, it disables access to the path device in the event of WWID change. Refer to the link:https://docs.centos.org/en-US/docs/[CentOS documentation] for more information.
-
 .Example
 
 The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
@@ -123,6 +121,15 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 == Known Problems and Limitations
 
 For CentOS (Red Hat compatible kernel) known issues, see the link:hu_rhel_79.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.9.
+
+[cols=4*,options="header"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+| Bugzilla ID
+| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. | link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[KB article^]
+|===
 
 == Release Notes
 
