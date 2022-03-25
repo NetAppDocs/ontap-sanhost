@@ -12,12 +12,17 @@ sidebar:
       url: /index.html
     - title: SAN Host Utilities
       entries:
-      - title: Linux Unified Host Utilities
-        url: /hu_luhu_71.html
-      - title: Windows Unified Host Utilities
-        url: /hu_wuhu_71.html
       - title: AIX Host Utilities
         url: /hu_aix_61.html
+      - title: HPUX Host Utilities
+        url: /hu_hpux_60.html
+      - title: Linux Unified Host Utilities
+        url: /hu_luhu_71.html
+      - title: Solaris 62
+        url: /hu_solaris_62.html
+      - title: Windows Unified Host Utilities
+        url: /hu_wuhu_71.html
+
     - title: NVMe-oF Host Configurations
       entries:
       - title: ESXi
