@@ -41,30 +41,34 @@ This toolkit is common across all configurations and protocols of the Host Utili
 == Installing HPUX Host Utilities
 The NetApp HPUX Host Utilities software package is available on the NetApp Support Site in a compressed   file.
 
-You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have downloaded the file, you must uncompress it before installation
+You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have downloaded the file, you must decompress it before installation.
 
 .Steps
 
 .	Login to your host.
-.	Download the HP-UX Host Utilities file
-netapp_hpux_host_utilities_6.0_ia_pa.depot.gz from the NetApp Support site to your HP-UX host
+.	Download the HP-UX Host Utilities file `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` from the NetApp Support site to your HP-UX host.
 
-.	Uncompress the netapp_hpux_host_utilities_6.0_ia_pa.depot.gz file by entering the following command:
-# gunzip netapp_hpux_host_utilities_6.0_ia_pa.depot.gz
+. Decompress the `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` file by entering the following command:
++
+`# gunzip netapp_hpux_host_utilities_6.0_ia_pa.depot.gz`
++
 The system places the extracted software in the directory to which you uncompressed the depot file.
+
 .	Install the software by entering the following command:
-# swinstall -s /depot_path
-depot_path provides the path and name of the depot file.
-The swinstall command runs an installation script that verifies the status of your HP-UX setup. If your system meets the requirements, this script installs the sanlun utility and diagnostic scripts in the/opt/NetApp/santools/bin directory.
++
+`# swinstall -s /depot_path`
++
+`depot_path` provides the path and name of the depot file.
++
+The `swinstall` command runs an installation script that verifies the status of your HP-UX setup. If your system meets the requirements, this script installs the sanlun utility and diagnostic scripts in the `/opt/NetApp/santools/bin` directory.
 
 .	Verify the installation:
++
+`sanlun version`
 
-sanlun version
-
-Sample command reference
-List all host initiators mapped to host
-
-
+== Sample command reference
+=== List all host initiators mapped to host
+----
 # sanlun fcp show adapter -v
 adapter name:      fclp2
 WWPN:              10000000c985ef92
@@ -99,24 +103,10 @@ port state:        Link Down
 supported speed:   8 GBit/sec
 negotiated speed:  Speed not established
 OS device name:    /dev/fclp3
+----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-List all LUNs mapped to host
+=== List all LUNs mapped to host
+----
 # sanlun lun show -p -v all
 \
                     ONTAP Path: vs_hp_cluster:/vol/chathpux_217_vol_en_1_10/hp_en_217_lun
@@ -137,18 +127,12 @@ up       primary    /dev/dsk/c22t6d7     fclp1   hpux_8                         
 up       secondary  /dev/dsk/c36t6d7     fclp0   hpux_5                                         1
 up       secondary  /dev/dsk/c44t6d7     fclp1   hpux_6                                         1
 
+----
 
 
+=== List all LUNs mapped to host from a given SVM
 
-
-
-
-
-
-
-
-List all LUNs mapped to host from a given SVM
-
+----
 # sanlun lun show -p -v vs_hp_cluster
                     ONTAP Path: vs_hp_cluster:/vol/chathpux_217_vol_en_1_10/hp_en_217_lun
                            LUN: 55
@@ -168,23 +152,11 @@ up       primary    /dev/dsk/c22t6d7     fclp1   hpux_8                         
 up       secondary  /dev/dsk/c36t6d7     fclp0   hpux_5                                         1
 up       secondary  /dev/dsk/c44t6d7     fclp1   hpux_6                                         1
 
+----
 
+=== List all attributes of a given LUN mapped to host
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-List all attributes of a given LUN mapped to host
+----
 
 # sanlun lun show -p -v vs_hp_cluster:/vol/chathpux_217_vol_en_1_5/hp_en_217_lun
 
@@ -206,13 +178,12 @@ up       primary    /dev/dsk/c22t6d1     fclp1   hpux_8                         
 up       secondary  /dev/dsk/c36t6d1     fclp0   hpux_5                                         1
 up       secondary  /dev/dsk/c44t6d1     fclp1   hpux_6                                         1
 
+----
 
 
+=== List ONTAP LUN attributes by Host Device File name
 
-List ONTAP LUN attributes by Host Device File name
-
-
-
+----
 #sanlun lun show -dv /dev/rdisk/disk716
                                                                  device             host                  lun
 vserver              lun-pathname                                filename           adapter    protocol   size    mode
@@ -230,32 +201,12 @@ vs_hp_cluster        /vol/chathpux_217_vol_en_1_14/hp_en_217_lun /dev/rdisk/disk
                                 10.141.54.31
            Vserver volume name: chathpux_217_vol_en_1_14        MSID::0x00000000000000000000000080915935
          Vserver snapshot name:
+----
 
 
+=== List all SVM target LIF WWPNs attached to host
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-List all SVM target LIF WWPNs attached to host
-
-
+----
 # sanlun lun show -wwpn
 
 vs_hp_cluster        208300a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun /dev/rdsk/c22t6d7 fclp1      15g     C
@@ -264,3 +215,4 @@ vs_hp_cluster        208200a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_
 vs_hp_cluster        207e00a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun /dev/rdsk/c36t6d7 fclp0      15g     C
 vs_hp_cluster        207d00a098ba7afe   /vol/chathpux_217_os/hp_217_os              /dev/rdsk/c18t7d4 fclp1      30g     C
 vs_hp_cluster        207f00a098ba7afe   /vol/chathpux_217_os/hp_217_os              /dev/rdsk/c42t7d4 fclp0      30g     C
+----

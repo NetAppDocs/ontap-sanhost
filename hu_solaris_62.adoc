@@ -43,18 +43,22 @@ There are This toolkit is common across all configurations and protocols of the 
 == Installing Solaris Host Utilities
 
 The Solaris Host Utilities 6.2 supports several Solaris environments and multiple protocols. The primary Host Utilities environments are:
+
 * Native OS with MPxIO with either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
+
 *	Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor and with the iSCSI protocol on system using an x86/64 processor.
 
-The NetApp Solaris Host Utilities software package is available on the NetApp Support Site in a compressed  file format for your processor. You can download the Host Utilities software package for your environment from the Support site.
+The NetApp Solaris Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a compressed  file format for your processor. You can download the Host Utilities software package for your environment from the Support site.
 
 .Steps
 
 .	Login to your host as root.
 .	Download a copy of the compressed file containing the Host Utilities from NetApp Support Site to a directory on your host.
-t the time this documentation was prepared, the compressed files were called:
-.. SPARC CPU: netapp_solaris_host_utilities_6_2_sparc.tar.gz
-• x86/x64 CPU: netapp_solaris_host_utilities_6_2_amd.tar.gz
++
+At the time this documentation was prepared, the compressed files were called:
++
+* SPARC CPU: netapp_solaris_host_utilities_6_2_sparc.tar.gz
+* x86/x64 CPU: netapp_solaris_host_utilities_6_2_amd.tar.gz
 
 .	Go to the directory containing the download.
 .	Unzip the file using the gunzip command
@@ -67,13 +71,14 @@ t the time this documentation was prepared, the compressed files were called:
 
 .	Add the packages that you extracted from tar file to your host. You can use the ``pkgadd command to do this.
 +
-The packages are added to the /opt/NTAP/SANToolkit/bin directory. The following example uses the pkgadd command to install the Solaris installation package:
+The packages are added to the `/opt/NTAP/SANToolkit/bin` directory. The following example uses the pkgadd command to install the Solaris installation package:
 +
 `# pkgadd -d ./NTAPSANTool.pkg`
 
 .	Confirm that the toolkit was successfully installed by using the `pkginfo` command or the `ls - al` command.
 
 . After you finish, you must configure the host parameters for your environment using `/opt/NTAP/SANToolkit/bin/host_config` command
++
 ** MPxIO
 **	Veritas DMP
 
@@ -84,7 +89,7 @@ The packages are added to the /opt/NTAP/SANToolkit/bin directory. The following 
 `sanlun version`
 
 == Sample command reference
-List all host initiators mapped to host
+=== List all host initiators mapped to host
 
 ----
 # sanlun fcp show adapter -v
@@ -124,7 +129,7 @@ OS device name:    /dev/cfg/c6
 ----
 
 
-== List all LUNs mapped to host
+=== List all LUNs mapped to host
 
 ----
 # sanlun lun show -p -v all
@@ -139,12 +144,17 @@ OS device name:    /dev/cfg/c6
 
 ----
 
-== List all LUNs mapped to host from a given SVM/ List all attributes of a given LUN mapped to host
+=== List all LUNs mapped to host from a given SVM/ List all attributes of a given LUN mapped to host
 
-`# sanlun lun show -p -v sanboot_unix`
+----
+# sanlun lun show -p -v sanboot_unix`
+ONTAP Path: sanboot_unix:/vol/sol_boot/sanboot_lun
+                           LUN: 0
+                      LUN Size: 180.0g
 
+----
 
-== List ONTAP LUN attributes by Host Device File name
+=== List ONTAP LUN attributes by Host Device File name
 
 ----
 # controller(7mode/E-Series)/                                         device                                            host                  lun
