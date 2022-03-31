@@ -32,14 +32,14 @@ Solaris Host Utilities is a NetApp host software that provides a command line to
 
 In the following example, the `sanlun lun show` command returns the LUN information.
 ----
-#`sanlun lun show all`
+#sanlun lun show all
 controller(7mode)/ device host lun
 vserver(Cmode)                     lun-pathname       filename
 ---------------------------------------------------------------------------------------
 data_vserver                     /vol/vol1/lun1     /dev/rdsk/c0t600A098038304437522B4E694E49792Dd0s2
 data_vserver                     /vol/vol0/lun2     /dev/rdsk/c0t600A098038304437522B4E694E497938d0s2
 data_vserver                     /vol/vol2/lun3     /dev/rdsk/c0t600A098038304437522B4E694E497939d0s2
-data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A098038304437522B4E694E497941d0s2 
+data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A098038304437522B4E694E497941d0s2
 
 adapter protocol size mode
 ----------------------------
