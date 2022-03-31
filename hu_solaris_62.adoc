@@ -26,19 +26,31 @@ You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=7110
 
 == SAN Toolkit
 
-Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the sanlun utility, which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 .Example
 
 In the following example, the `sanlun lun show` command returns the LUN information.
 ----
-data_vserver     /vol/vol1/lun1     /dev/rdsk/c0t600A098038304437522B4E694E49792Dd0s2 qlc3       FCP        10g     cDOT
-data_vserver     /vol/vol0/lun2     /dev/rdsk/c0t600A098038304437522B4E694E497938d0s2 qlc3       FCP        10g     cDOT
-data_vserver     /vol/vol2/lun3     /dev/rdsk/c0t600A098038304437522B4E694E497939d0s2 qlc3       FCP        10g     cDOT
-data_vserver     /vol/vol3/lun4     /dev/rdsk/c0t600A098038304437522B4E694E497941d0s2 qlc3       FCP        10g     cDOT
+#`sanlun lun show all`
+controller(7mode)/ device host lun
+vserver(Cmode)                     lun-pathname       filename
+---------------------------------------------------------------------------------------
+data_vserver                     /vol/vol1/lun1     /dev/rdsk/c0t600A098038304437522B4E694E49792Dd0s2
+data_vserver                     /vol/vol0/lun2     /dev/rdsk/c0t600A098038304437522B4E694E497938d0s2
+data_vserver                     /vol/vol2/lun3     /dev/rdsk/c0t600A098038304437522B4E694E497939d0s2
+data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A098038304437522B4E694E497941d0s2 
+
+adapter protocol size mode
+----------------------------
+qlc3       FCP        10g     cDOT
+qlc3       FCP        10g     cDOT
+qlc3       FCP        10g     cDOT
+qlc3       FCP        10g     cDOT
 ----
 
-There are This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
+[NOTE]
+This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
 == Installing Solaris Host Utilities
 
@@ -48,12 +60,13 @@ The Solaris Host Utilities 6.2 supports several Solaris environments and multipl
 
 *	Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor and with the iSCSI protocol on system using an x86/64 processor.
 
+[NOTE]
 The NetApp Solaris Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a compressed  file format for your processor. You can download the Host Utilities software package for your environment from the Support site.
 
 .Steps
 
 .	Login to your host as root.
-.	Download a copy of the compressed file containing the Host Utilities from NetApp Support Site to a directory on your host.
+.	Download a copy of the compressed file containing the Host Utilities from link:https://mysupport.netapp.com/site/[NetApp Support Site^] to a directory on your host.
 +
 At the time this documentation was prepared, the compressed files were called:
 +
@@ -65,24 +78,45 @@ At the time this documentation was prepared, the compressed files were called:
 +
 `# gunzip netapp_solaris_host_utilities_6_2_sparc.tar.gz`
 
-.	Untar the file. You can use the tar xvf command to do this.
+.	Untar the file. You can use the `tar xvf` command to do this.
 +
 `# tar xvf netapp_solaris_host_utilities_6_2_sparc.tar`
 
-.	Add the packages that you extracted from tar file to your host. You can use the ``pkgadd command to do this.
+.	Add the packages that you extracted from tar file to your host. You can use the `pkgadd` command to do this.
 +
-The packages are added to the `/opt/NTAP/SANToolkit/bin` directory. The following example uses the pkgadd command to install the Solaris installation package:
+The packages are added to the `/opt/NTAP/SANToolkit/bin` directory. The following example uses the `pkgadd` command to install the Solaris installation package:
 +
 `# pkgadd -d ./NTAPSANTool.pkg`
 
 .	Confirm that the toolkit was successfully installed by using the `pkginfo` command or the `ls - al` command.
++
+----
+# ls -alR /opt/NTAP/SANToolkit
+/opt/NTAP/SANToolkit:
+total 1038
+drwxr-xr-x   3 root     sys            4 Jul 22  2019 .
+drwxr-xr-x   3 root     sys            3 Jul 22  2019 ..
+drwxr-xr-x   2 root     sys            6 Jul 22  2019 bin
+-r-xr-xr-x   1 root     sys       432666 Sep 13  2017 NOTICES.PDF
 
-. After you finish, you must configure the host parameters for your environment using `/opt/NTAP/SANToolkit/bin/host_config` command
+/opt/NTAP/SANToolkit/bin:
+total 7962
+drwxr-xr-x   2 root     sys            6 Jul 22  2019 .
+drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
+-r-xr-xr-x   1 root     sys      2308252 Sep 13  2017 host_config
+-r-xr-xr-x   1 root     sys          995 Sep 13  2017 san_version
+-r-xr-xr-x   1 root     sys      1669204 Sep 13  2017 sanlun
+-r-xr-xr-x   1 root     sys          677 Sep 13  2017 vidpid.dat
+
+# (cd /usr/share/man/man1; ls -al host_config.1 sanlun.1)
+-r-xr-xr-x   1 root     sys        12266 Sep 13  2017 host_config.1
+-r-xr-xr-x   1 root     sys         9044 Sep 13  2017 sanlun.1
+----
+
+. After you finish, you must configure the host parameters for your environment using `/opt/NTAP/SANToolkit/bin/host_config` command:
 +
 ** MPxIO
 **	Veritas DMP
-
-.	Install the SAN Toolkit:
 
 .	Verify the installation:
 +
@@ -157,8 +191,14 @@ ONTAP Path: sanboot_unix:/vol/sol_boot/sanboot_lun
 === List ONTAP LUN attributes by Host Device File name
 
 ----
-# controller(7mode/E-Series)/                                         device                                            host                  lun
-vserver(cDOT/FlashRay)        lun-pathname                          filename                                          adapter    protocol   size    product
---------------------------------------------------------------------------------------------------------------------------------------------------------
-sanboot_unix                  /vol/sol_193_boot/chatsol_193_sanboot /dev/rdsk/c0t600A098038304437522B4E694E4A3043d0s2 qlc3       FCP        180.0g  cDOT
+# sanlun lun show all
+
+controller(7mode/E-Series)/                                         device
+vserver(cDOT/FlashRay)       lun-pathname                           filename
+---------------------------------------------------------------------------------------------------------------
+sanboot_unix                 /vol/sol_193_boot/chatsol_193_sanboot /dev/rdsk/c0t600A098038304437522B4E694E4A3043d0s2
+
+host adapter    protocol lun size   product
+---------------------------------------------
+qlc3            FCP      180.0g     cDOT
 ----

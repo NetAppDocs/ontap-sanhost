@@ -20,33 +20,36 @@ summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 === What you'll need
 *	For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
 
-You can use the NetApp Interoperability Matrix Tool to verify your configuration.
+You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
 == SAN Toolkit
-HPUX Host Utilities is a NetApp host software that provides a command line tool kit on your HPUX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the sanlun utility, which helps you manage LUNs and HBAs. The sanlun command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+HPUX Host Utilities is a NetApp host software that provides a command line tool kit on your HPUX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage the LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
-.Example
+.Example//Quest
 
-In the following example, the sanlun lun show command returns the LUN information.
+In the following example, the `sanlun lun show` command returns the LUN information.
 
 ----
+# sanlun lun show all
+
 sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c34t0d0  fclp1      FCP        150g    C
 sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c23t0d0  fclp1      FCP        150g    C
 sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c12t0d0  fclp0      FCP        150g    C
 sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0  fclp0      FCP        150g    C
 ----
 
-This toolkit is common across all configurations and protocols of the Host Utilities. As a result some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
+[NOTE]
+This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
 == Installing HPUX Host Utilities
-The NetApp HPUX Host Utilities software package is available on the NetApp Support Site in a compressed   file.
+The NetApp HPUX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a compressed file.
 
 You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have downloaded the file, you must decompress it before installation.
 
 .Steps
 
 .	Login to your host.
-.	Download the HP-UX Host Utilities file `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` from the NetApp Support site to your HP-UX host.
+.	Download the HP-UX Host Utilities file `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` from the link:https://mysupport.netapp.com/site/[NetApp Support Site^] to your HP-UX host.
 
 . Decompress the `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` file by entering the following command:
 +
@@ -60,7 +63,7 @@ The system places the extracted software in the directory to which you uncompres
 +
 `depot_path` provides the path and name of the depot file.
 +
-The `swinstall` command runs an installation script that verifies the status of your HP-UX setup. If your system meets the requirements, this script installs the sanlun utility and diagnostic scripts in the `/opt/NetApp/santools/bin` directory.
+The `swinstall` command runs an installation script that verifies the status of your HP-UX setup. If your system meets the requirements, this script installs the `sanlun` utility and diagnostic scripts in the `/opt/NetApp/santools/bin` directory.
 
 .	Verify the installation:
 +
