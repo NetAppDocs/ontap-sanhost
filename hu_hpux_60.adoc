@@ -33,19 +33,12 @@ In the following example, the `sanlun lun show` command returns the LUN informat
 # sanlun lun show all
 
 controller(7mode)/ device host lun
-vserver(Cmode)           lun-pathname                   filename
---------------------------------------------------------------------------
-sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c34t0d0
-sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c23t0d0
-sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c12t0d0
-sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0
-
-adapter    protocol   size   mode
-----------------------------------
-fclp1      FCP        150g    C
-fclp1      FCP        150g    C
-fclp0      FCP        150g    C
-fclp0      FCP        150g    C
+vserver(Cmode)           lun-pathname                   filename          adapter    protocol   size   mode
+------------------------------------------------------------------------------------------------------------
+sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c34t0d0  fclp1      FCP        150g    C
+sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c23t0d0  fclp1      FCP        150g    C
+sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c12t0d0  fclp0      FCP        150g    C
+sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0  fclp0      FCP        150g    C
 
 ----
 
@@ -223,10 +216,22 @@ vs_hp_cluster        /vol/chathpux_217_vol_en_1_14/hp_en_217_lun /dev/rdisk/disk
 ----
 # sanlun lun show -wwpn
 
-vs_hp_cluster        208300a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun /dev/rdsk/c22t6d7 fclp1      15g     C
-vs_hp_cluster        208100a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun /dev/rdsk/c44t6d7 fclp1      15g     C
-vs_hp_cluster        208200a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun /dev/rdsk/c37t6d7 fclp0      15g     C
-vs_hp_cluster        207e00a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun /dev/rdsk/c36t6d7 fclp0      15g     C
-vs_hp_cluster        207d00a098ba7afe   /vol/chathpux_217_os/hp_217_os              /dev/rdsk/c18t7d4 fclp1      30g     C
-vs_hp_cluster        207f00a098ba7afe   /vol/chathpux_217_os/hp_217_os              /dev/rdsk/c42t7d4 fclp0      30g     C
+controller(7mode)/
+vserver(Cmode)       target wwpn        lun-pathname                                  device filename
+--------------------------------------------------------------------------------------------------------
+vs_hp_cluster        208300a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun   /dev/rdsk/c22t6d7
+vs_hp_cluster        208100a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun   /dev/rdsk/c44t6d7
+vs_hp_cluster        208200a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun   /dev/rdsk/c37t6d7
+vs_hp_cluster        207e00a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun   /dev/rdsk/c36t6d7
+vs_hp_cluster        207d00a098ba7afe   /vol/chathpux_217_os/hp_217_os                /dev/rdsk/c18t7d4
+vs_hp_cluster        207f00a098ba7afe   /vol/chathpux_217_os/hp_217_os                /dev/rdsk/c42t7d4
+
+host adapter    lun size    mode
+---------------------------------
+fclp1           15g         C
+fclp1           15g         C
+fclp0           15g         C
+fclp0           15g         C
+fclp1           30g         C
+fclp0           30g         C
 ----
