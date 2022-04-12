@@ -16,7 +16,6 @@ summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 
 
 
-== Pre-requisites
 
 .What you'll need
 
@@ -65,8 +64,8 @@ The NetApp Solaris Host Utilities software package is available on the link:http
 +
 At the time this documentation was prepared, the compressed files were called:
 +
-* SPARC CPU: netapp_solaris_host_utilities_6_2_sparc.tar.gz
-* x86/x64 CPU: netapp_solaris_host_utilities_6_2_amd.tar.gz
+* SPARC CPU: `netapp_solaris_host_utilities_6_2_sparc.tar.gz`
+* x86/x64 CPU: `netapp_solaris_host_utilities_6_2_amd.tar.gz`
 
 .	Go to the directory containing the download.
 .	Unzip the file using the gunzip command
