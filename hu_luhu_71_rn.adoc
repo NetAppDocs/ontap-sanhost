@@ -35,21 +35,38 @@ For specific information about the operating system versions and updates that th
 
 The Host Utilities software is provided as both 32-bit and 64-bit .rpm  files. You can download the correct .rpm  file for your host architecture and the documentation from the NetApp Support Site.
 
-For instructions about installing and setting up, see the Linux Unified Host Utilities 7.1 Installation Guide
-Using Red Hat Enterprise Linux with ONTAP  Using Red Hat Enterprise Linux 7.x with ONTAP.
+For instructions about installing and setting up, see the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html[Linux Unified Host Utilities 7.1 Installation Guide] and
+link:https://docs.netapp.com/us-en/ontap-sanhost/hu_rhel_79.html[Using Red Hat Enterprise Linux 7.x with ONTAP].
 
 == System requirements
-NetApp qualifies additional components between releases of the Host Utilities software. For the latest information about the system requirements, see the NetApp Interoperability Matrix Tool.
+NetApp qualifies additional components between releases of the Host Utilities software. For the latest information about the system requirements, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 == What's new
 
-Linux Host Utilities is now called Linux Unified Host Utilities because it supports NetApp E-Series  storage systems running SANtricity as well as AFF and FAS systems running ONTAP. Any mention of Host Utilities or Linux Host Utilities in this document refers to Linux Unified Host     Utilities. This release of the Linux Unified Host Utilities provides support for a tuned package for setting server profiles and improving I/O performance on Red Hat Enterprise Linux 6  and 7 hosts. The Linux Unified Host Utilities 7.1 continues to support versions of Red Hat Enterprise Linux, Red Hat Enterprise Virtualization Hypervisor, SUSE Linux Enterprise Server, Oracle VM, Oracle Linux, Citrix XenServer, Veritas, and InfoScale 7.0.
+Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series  storage systems running SANtricity as well as AFF and FAS systems running ONTAP.
 
-*	Red Hat Enterprise Linux 6 and 7 now have a tuned package with a tuned-adm command to set different server profiles on the host depending on the environment.
+[NOTE]
+Any mention of Host Utilities or Linux Host Utilities in this document refers to Linux Unified Host Utilities.
+
+This release of the Linux Unified Host Utilities provides support for a tuned package for setting server profiles and improving I/O performance on Red Hat Enterprise Linux 6  and 7 hosts.
+
+The Linux Unified Host Utilities 7.1 continues to support versions of the following:
+
+* Red Hat Enterprise Linux
+* Red Hat Enterprise Virtualization Hypervisor
+* SUSE Linux Enterprise Server
+* Oracle VM
+* Oracle Linux
+* Citrix XenServer
+* Veritas, and InfoScale 7.0.
+
+*	Red Hat Enterprise Linux 6 and 7 now have a tuned package with a `tuned-adm` command to set different server profiles on the host depending on the environment.
 **	This includes an enterprise storage profile for configurations where LUNs from enterprise storage arrays are used. You can also use the virtual guest profile for Red Hat Enterprise Linux as a guest virtual machine. Using these tuned packages can result in marked improvement in throughput and latency on ONTAP.
 
-The Linux Unified Host Utilities 7.1 Installation Guide and Linux Unified Host Utilities 7.1 quick command reference topic provide explanations about the features.
-Note: NetApp continues to work with the Host Utilities to add support for features after the initial release. For the most up-to-date information about which features are supported and which new features have been added, see the Interoperability Matrix Tool.
+The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html[Linux Unified Host Utilities 7.1 Installation Guide] and Linux Unified Host Utilities 7.1 quick command reference topic provide explanations about the features.
+
+[NOTE]
+ NetApp continues to work with the Host Utilities to add support for features after the initial release. For the most up-to-date information about which features are supported and which new features have been added, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 
 == New features and enhancements
@@ -61,7 +78,7 @@ The Release Notes are updated between product releases as new information is ava
 *	The Recommended Host Settings for Linux Unified Host Utilities 7.1 topic has been updated to include SUSE Linux Enterprise Server 15 series.
 *	The Using Linux Host with ONTAP Storage topic has been updated to include SUSE Linux Enterprise Server 15 series.
 *	Adds support for 32 Gb Fibre Channel adapters from Emulex and Qlogic.
-*	Fixes “sanlun lun show -p getting SIGABRT” in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8.
+*	Fixes `sanlun lun show -p getting SIGABRT` in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8.
 
 *	Extends support for Red Hat Linux 6.8, Oracle Linux 6.8, XenServer 7.0, Oracle VM 3.3 series, and Oracle VM 3.4 series operating systems.
 
@@ -72,16 +89,17 @@ The Release Notes are updated between product releases as new information is ava
 *	You can now find information relating to ONTAP, SANtricity software in the Release Notes.
 *	The Recommended Host Settings for Linux Unified Host Utilities 7.1 document has been updated to include new information about Oracle VM 3.2 series, Oracle Linux 6 and 7 series, Red Hat Enterprise Linux 6 and 7 series, SUSE Linux Enterprise Server 11 SP4, SUSE Linux Enterprise Server 12 series, KVM and XEN, RHEV 6.4 and 6.5, and Citrix XenServer parameters.
 *	The Using Linux Host with ONTAP Storage document has been updated to include new information about Oracle Linux 6 and 7 series, Red Hat Enterprise Linux 6 and 7 series, SUSE Linux Enterprise Server 11 SP4, SUSE Linux Enterprise Server 12 series, and Citrix XenServer   parameters.
-*	The sanlun fcp show adapter  command displays intermittent “error” text when Linux Host Utilities 6.2 is installed on a Brocade HBA or CNA host.
+*	The sanlun fcp show adapter  command displays intermittent `error` text when Linux Host Utilities 6.2 is installed on a Brocade HBA or CNA host.
 
 [NOTE]
 For more information, see (Brocade HBA/CNA) sanlun displays intermittent “error” on page 30.#
 
-*	The sanlun command does not display speed and firmware information with software FCoE on Intel cards.
-(RHEL, FC) sanlun does not display speed and firmware information on Intel cards
+*	The `sanlun` command does not display speed and firmware information with software FCoE on Intel cards.
+(RHEL, FC) `sanlun` does not display speed and firmware information on Intel cards.
 The firmware version and speed of Intel NIC card is not displayed with sanlun fcp show adapter command output.
 The sanlun fcp show adapter command output does not display speed and firmware information about software FCoE with Intel NIC on RHEL hosts.
-Workaround: To prevent this problem, use the -fcoeadm command to display the supported speed and firmware information
++
+_Workaround_: To prevent this problem, use the -fcoeadm command to display the supported speed and firmware information
 
 
 == Known Problems and Limitations
@@ -112,37 +130,40 @@ Refer to the “ONTAP SAN Host Configuration documentation for more information 
 NetApp provides an online tool that enables you to search for the most current information about a known bug. You can also use this tool, which is available on the NetApp Support Site, to get a list of current or fixed bugs for a particular product.
 Bugs Online on the NetApp Support Site enables you to search for information in the following ways:
 
-•	By entering the bug number
-•	By entering keywords related to the bug
-•	By selecting a software product from the list in the Bug Type(s) field or the Product Type(s)
-o	field
-o	Some products are listed in one field and some in the other field. You should check both to find the product you want.
-Some keyword combinations and bug types that you might want to use include the following:
-•	FCP - Linux
-•	iSCSI – Linux
+*	By entering the bug number
+*	By entering keywords related to the bug
+*	By selecting a software product from the list in the Bug Type(s) field or the Product Type(s)
+**	field
+**	Some products are listed in one field and some in the other field. You should check both to find the product you want.
 
-Contact technical support
+Some keyword combinations and bug types that you might want to use include the following:
+*	FCP - Linux
+*	iSCSI – Linux
+
+=== Contact technical support
 
 If you have a question that has not been resolved by these Release Notes, contact NetApp technical support.
 
 
-== Things to check before you call technical support
+=== Things to check before you call technical support
 Before you call technical support, there are several things you can try to solve the problem yourself.
-•	You should go through the Release Notes to see whether they contain information about the problem.
-•	You should check all cables to ensure that they are connected properly.
-•	If you are using switches, you should check the power to the switches to ensure that the system is turned on.
-o	You should also ensure that the system components were turned on in the correct order.
-•	You should review the troubleshooting information provided in the documentation for this product.
+
+*	You should go through the Release Notes to see whether they contain information about the problem.
+*	You should check all cables to ensure that they are connected properly.
+*	If you are using switches, you should check the power to the switches to ensure that the system is turned on.
+** You should also ensure that the system components were turned on in the correct order.
+*	You should review the troubleshooting information provided in the documentation for this product.
 
 
 == Information you must provide to technical support
 Before you contact technical support, you must gather information about your system and your problem.
 You should have the following information available when you contact technical support:
-•	Your contact information
-•	A list of all the NetApp products you are using
-•	All the error messages from the system
-•	Information about your system setup
-•	Your licensing information
+
+*	Your contact information
+*	A list of all the NetApp products you are using
+*	All the error messages from the system
+*	Information about your system setup
+*	Your licensing information
 
 
 == How to contact NetApp technical support
@@ -155,19 +176,24 @@ resources, such as technical reports and white papers on the Product Documentati
 page of the NetApp corporate site.
 
 .Related information
-*Configuring and managing your ONTAP   storage system*
-•	The ONTAP Software Setup Guide for your version of ONTAP
-•	The ONTAP San Administration Guide for your version of ONTAP
-•	The ONTAP Release Notes for your version of ONTAP
 
-Configuring and managing your E-Series storage system
-•	The SANtricity Storage Manager Configuration and Provisioning for Windows Express Guide that is appropriate for your protocol
-•	The SANtricity Storage Manager Configuration and Provisioning Express Guide for your operating system, protocol, and version of SANtricity.
-•	The SANtricity Storage Manager Software Installation Reference specific for your version of SANtricity.
-•	The SANtricity Storage Manager Multipath Driver's Guide specific for your version of SANtricity.
-•	The SANtricity Storage Manager Release Notes for your version of SANtricity.
-Go to the E-Series documentation to find SANtricity related documentation.
-Supported Fibre Channel SAN topologies
-Configuring your host for Host Utilities
-Using Red Hat Enterprise Linux 8.x with ONTAP
-Using Red Hat Enterprise Linux 7.x with ONTAP
+*Configuring and managing your ONTAP storage system*
+
+*	The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide] for your version of ONTAP
+*	The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP San Administration Guide] for your version of ONTAP
+*	The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes] for your version of ONTAP
+
+*Configuring and managing your E-Series storage system*
+
+*	The SANtricity Storage Manager Configuration and Provisioning for Windows Express Guide that is appropriate for your protocol
+*	The SANtricity Storage Manager Configuration and Provisioning Express Guide for your operating system, protocol, and version of SANtricity.
+*	The SANtricity Storage Manager Software Installation Reference specific for your version of SANtricity.
+*	The SANtricity Storage Manager Multipath Driver's Guide specific for your version of SANtricity.
+*	The SANtricity Storage Manager Release Notes for your version of SANtricity.
+
+Go to the link:https://docs.netapp.com/us-en/e-series/getting-started/index.html[E-Series documentation] to find SANtricity related documentation.
+
+link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[Supported Fibre Channel SAN topologies]
+link:https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61343[Configuring your host for Host Utilities]
+link:https://docs.netapp.com/us-en/ontap-sanhost/hu_rhel_85.html[Using Red Hat Enterprise Linux 8.x with ONTAP]
+link:https://docs.netapp.com/us-en/ontap-sanhost/hu_rhel_79.html[Using Red Hat Enterprise Linux 7.x with ONTAP]
