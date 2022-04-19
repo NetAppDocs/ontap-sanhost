@@ -5,7 +5,7 @@ keywords: host utilities, centos, linux, 7.8, netapp, ontap
 summary: Describes how to use CentOS 7.8 with ONTAP
 ---
 
-== Release Notes for Linux Unified Host Utilities 7.1
+= Release Notes for Linux Unified Host Utilities 7.1
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -18,7 +18,7 @@ summary: Describes how to use CentOS 7.8 with ONTAP
 These Release Notes contain the latest information for the Linux Unified Host Utilities 7.1 release, including updates about known problems and limitations, information about tunable parameters, and any important cautions, and new features. The Release Notes also describe any issues that might have been discovered since the Host Utilities were released.
 
 
-=== About the 7.1 release of the Linux Unified Host Utilities
+== About the 7.1 release of the Linux Unified Host Utilities
 The Linux Unified Host Utilities support several Linux operating systems as well as Veritas Storage  Foundation. The Host Utilities enable you to connect a Linux host to NetApp storage systems.
 
 You can use the Host Utilities with the following versions of Linux:
@@ -38,10 +38,10 @@ The Host Utilities software is provided as both 32-bit and 64-bit .rpm  files. Y
 For instructions about installing and setting up, see the Linux Unified Host Utilities 7.1 Installation Guide
 Using Red Hat Enterprise Linux with ONTAP  Using Red Hat Enterprise Linux 7.x with ONTAP.
 
-=== System requirements
+== System requirements
 NetApp qualifies additional components between releases of the Host Utilities software. For the latest information about the system requirements, see the NetApp Interoperability Matrix Tool.
 
-=== What's new
+== What's new
 
 Linux Host Utilities is now called Linux Unified Host Utilities because it supports NetApp E-Series  storage systems running SANtricity as well as AFF and FAS systems running ONTAP. Any mention of Host Utilities or Linux Host Utilities in this document refers to Linux Unified Host     Utilities. This release of the Linux Unified Host Utilities provides support for a tuned package for setting server profiles and improving I/O performance on Red Hat Enterprise Linux 6  and 7 hosts. The Linux Unified Host Utilities 7.1 continues to support versions of Red Hat Enterprise Linux, Red Hat Enterprise Virtualization Hypervisor, SUSE Linux Enterprise Server, Oracle VM, Oracle Linux, Citrix XenServer, Veritas, and InfoScale 7.0.
 
@@ -52,11 +52,11 @@ The Linux Unified Host Utilities 7.1 Installation Guide and Linux Unified Host U
 Note: NetApp continues to work with the Host Utilities to add support for features after the initial release. For the most up-to-date information about which features are supported and which new features have been added, see the Interoperability Matrix Tool.
 
 
-=== New features and enhancements
+== New features and enhancements
 
 The Release Notes are updated between product releases as new information is available.
 
-Linux Unified Host Utilities 7.1 new features:
+=== Linux Unified Host Utilities 7.1 new features
 
 *	The Recommended Host Settings for Linux Unified Host Utilities 7.1 topic has been updated to include SUSE Linux Enterprise Server 15 series.
 *	The Using Linux Host with ONTAP Storage topic has been updated to include SUSE Linux Enterprise Server 15 series.
@@ -65,7 +65,7 @@ Linux Unified Host Utilities 7.1 new features:
 
 *	Extends support for Red Hat Linux 6.8, Oracle Linux 6.8, XenServer 7.0, Oracle VM 3.3 series, and Oracle VM 3.4 series operating systems.
 
-==== Linux Host Utilities 6.1 new features
+=== Linux Host Utilities 6.1 new features
 
 *January 2015*—The Release Notes were updated in January 2015 to add the following information:
 
@@ -84,7 +84,7 @@ The sanlun fcp show adapter command output does not display speed and firmware i
 Workaround: To prevent this problem, use the -fcoeadm command to display the supported speed and firmware information
 
 
-=== Known Problems and Limitations
+== Known Problems and Limitations
 
 [cols=2*,options="header"]
 |===
@@ -92,25 +92,26 @@ Workaround: To prevent this problem, use the -fcoeadm command to display the sup
 |1457017	|sanlun installation warnings for library files.
 |===
 
-=== Important Cautions
+== Important Cautions
 
 There are no important cautions.
 
-=== About SAN Host Configuration documentation
+== About SAN Host Configuration documentation
 Documentation for SAN Host Utilities is included in the ONTAP SAN Host Configuration documentation. ONTAP SAN HOST
 configuration documentation is cumulative, covering all current SAN HOST releases. Any
 functional differences across releases are noted in context.
 
-=== Default values recommended when using drivers bundled with Linux kernel
+== Default values recommended when using drivers bundled with Linux kernel
 When you are setting up an FC environment that uses the native, inbox drivers that are bundled with the Linux kernel, you can use the default values for the drivers. In iSCSI environments where you are using a software iSCSI solution , you need to manually set certain  recommended values depending on the OS version you are using.. The recommendations are based on internal testing at NetApp.
 Refer to the “ONTAP SAN Host Configuration documentation for more information on Host OS settings and configurations.
 
 
 
-=== Ways to view current and fixed product bugs
+== Ways to view current and fixed product bugs
 
 NetApp provides an online tool that enables you to search for the most current information about a known bug. You can also use this tool, which is available on the NetApp Support Site, to get a list of current or fixed bugs for a particular product.
 Bugs Online on the NetApp Support Site enables you to search for information in the following ways:
+
 •	By entering the bug number
 •	By entering keywords related to the bug
 •	By selecting a software product from the list in the Bug Type(s) field or the Product Type(s)
@@ -125,7 +126,7 @@ Contact technical support
 If you have a question that has not been resolved by these Release Notes, contact NetApp technical support.
 
 
-=== Things to check before you call technical support
+== Things to check before you call technical support
 Before you call technical support, there are several things you can try to solve the problem yourself.
 •	You should go through the Release Notes to see whether they contain information about the problem.
 •	You should check all cables to ensure that they are connected properly.
@@ -134,7 +135,7 @@ o	You should also ensure that the system components were turned on in the correc
 •	You should review the troubleshooting information provided in the documentation for this product.
 
 
-=== Information you must provide to technical support
+== Information you must provide to technical support
 Before you contact technical support, you must gather information about your system and your problem.
 You should have the following information available when you contact technical support:
 •	Your contact information
@@ -144,11 +145,11 @@ You should have the following information available when you contact technical s
 •	Your licensing information
 
 
-=== How to contact NetApp technical support
+== How to contact NetApp technical support
 You can contact NetApp technical support from the NetApp Support Site.
 
 
-=== Where to find product documentation and other information
+== Where to find product documentation and other information
 You can access documentation for all NetApp products and find other product information
 resources, such as technical reports and white papers on the Product Documentation
 page of the NetApp corporate site.
