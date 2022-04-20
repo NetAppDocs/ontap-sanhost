@@ -36,12 +36,10 @@ The Host Utilities software is provided as both 32-bit and 64-bit .rpm  files. Y
 
 For instructions about installing and setting up, see the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html[Linux Unified Host Utilities 7.1 Installation Guide] and link:https://docs.netapp.com/us-en/ontap-sanhost/hu_rhel_79.html[Using Red Hat Enterprise Linux 7.x with ONTAP].
 
-== System requirements
-NetApp qualifies additional components between releases of the Host Utilities software. For the latest information about the system requirements, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
-== What's new
+== What's new in 7.1 release
 
-Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series  storage systems running SANtricity as well as AFF and FAS systems running ONTAP.
+Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series storage systems running SANtricity as well as AFF and FAS systems running ONTAP.
 
 [NOTE]
 Any mention of Host Utilities or Linux Host Utilities in this document refers to Linux Unified Host Utilities.
@@ -61,10 +59,10 @@ The Linux Unified Host Utilities 7.1 continues to support versions of the follow
 *	Red Hat Enterprise Linux 6 and 7 now have a tuned package with a `tuned-adm` command to set different server profiles on the host depending on the environment.
 **	This includes an enterprise storage profile for configurations where LUNs from enterprise storage arrays are used. You can also use the virtual guest profile for Red Hat Enterprise Linux as a guest virtual machine. Using these tuned packages can result in marked improvement in throughput and latency on ONTAP.
 
-The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html[Linux Unified Host Utilities 7.1 Installation Guide] and Linux Unified Host Utilities 7.1 quick command reference topic provide explanations about the features.
+The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html[Linux Unified Host Utilities 7.1 Installation Guide] and link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html#sample-command-reference[Linux Unified Host Utilities 7.1 quick command reference] topic provide explanations about the features.
 
 [NOTE]
- NetApp continues to work with the Host Utilities to add support for features after the initial release. For the most up-to-date information about which features are supported and which new features have been added, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
+ NetApp continues to work with the Host Utilities to add support for features after the initial release. For latest information about the features that are supported and the new features that have been added, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 
 == New features and enhancements
@@ -79,7 +77,7 @@ The Release Notes are updated between product releases as new information is ava
 *	Fixes `sanlun lun show -p getting SIGABRT` in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8.
 *	Extends support for Red Hat Linux 6.8, Oracle Linux 6.8, XenServer 7.0, Oracle VM 3.3 series, and Oracle VM 3.4 series operating systems.
 
-=== Linux Host Utilities 6.1 new features
+=== Changes since the Linux Unified Host Utilities 6.1 release
 
 *January 2015*—The Release Notes were updated in January 2015 to add the following information:
 
@@ -92,7 +90,9 @@ The Release Notes are updated between product releases as new information is ava
 For more information, see (Brocade HBA/CNA) sanlun displays intermittent `error` on page 30.
 
 *	The `sanlun` command does not display speed and firmware information with software FCoE on Intel cards.
-(RHEL, FC) `sanlun` does not display speed and firmware information on Intel cards. The firmware version and speed of Intel NIC card is not displayed with `sanlun fcp show adapter` command output. The `sanlun fcp show adapter` command output does not display speed and firmware information about software FCoE with Intel NIC on RHEL hosts.
+** (RHEL, FC) `sanlun` does not display speed and firmware information on Intel cards.
+** The firmware version and speed of Intel NIC card is not displayed with `sanlun fcp show adapter` command output.
+** The `sanlun fcp show adapter` command output does not display speed and firmware information about software FCoE with Intel NIC on RHEL hosts.
 +
 _Workaround_: To prevent this problem, use the `-fcoeadm` command to display the supported speed and firmware information.
 
@@ -105,6 +105,7 @@ _Workaround_: To prevent this problem, use the `-fcoeadm` command to display the
 |1457017	|sanlun installation warnings for library files.
 |===
 
+Bugs might have been fixed in a maintenance or patch release, see link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online] to learn which issues affect your installed systems.
 
 == About SAN Host Configuration documentation
 Documentation for SAN Host Utilities is included in the ONTAP SAN Host Configuration documentation. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
