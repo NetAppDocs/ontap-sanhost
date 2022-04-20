@@ -30,7 +30,7 @@ You can use the Host Utilities with the following versions of Linux:
 *	Red Hat Enterprise Virtualization Hypervisor
 
 [NOTE]
-For specific information about the operating system versions and updates that the Host Utilities support, see the Interoperability Matrix Tool.
+For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 The Host Utilities software is provided as both 32-bit and 64-bit .rpm  files. You can download the correct .rpm  file for your host architecture and the documentation from the NetApp Support Site.
 
@@ -69,7 +69,7 @@ The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html[Linux Unifi
 
 The Release Notes are updated between product releases as new information is available.
 
-=== Linux Unified Host Utilities 7.1 new features
+=== 7.1 new features
 
 *	The Recommended Host Settings for Linux Unified Host Utilities 7.1 topic has been updated to include SUSE Linux Enterprise Server 15 series.
 *	The Using Linux Host with ONTAP Storage topic has been updated to include SUSE Linux Enterprise Server 15 series.
@@ -105,7 +105,12 @@ _Workaround_: To prevent this problem, use the `-fcoeadm` command to display the
 |1457017	|sanlun installation warnings for library files.
 |===
 
-Bugs might have been fixed in a maintenance or patch release, see link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online] to learn which issues affect your installed systems.
+Bugs might have been fixed in a maintenance or patch release. link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online] provides complete information for most known issues, including suggested workarounds where possible.
+
+Some keyword combinations and bug types that you might want to use include the following:
+
+*	FCP - Linux
+*	iSCSI – Linux
 
 == About SAN Host Configuration documentation
 Documentation for SAN Host Utilities is included in the ONTAP SAN Host Configuration documentation. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
