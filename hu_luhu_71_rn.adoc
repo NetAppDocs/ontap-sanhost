@@ -44,17 +44,17 @@ Linux Host Utilities is now called _Linux Unified Host Utilities_ because it sup
 [NOTE]
 Any mention of Host Utilities or Linux Host Utilities in this document refers to Linux Unified Host Utilities.
 
-This release of the Linux Unified Host Utilities provides support for a tuned package for setting server profiles and improving I/O performance on Red Hat Enterprise Linux 6 and 7 hosts.
+* This release of the Linux Unified Host Utilities provides support for a tuned package for setting server profiles and improving I/O performance on Red Hat Enterprise Linux 6 and 7 hosts.
 
-The Linux Unified Host Utilities 7.1 continues to support versions of the following:
+* The Linux Unified Host Utilities 7.1 continues to support versions of the following:
 
-* Red Hat Enterprise Linux
-* Red Hat Enterprise Virtualization Hypervisor
-* SUSE Linux Enterprise Server
-* Oracle VM
-* Oracle Linux
-* Citrix XenServer
-* Veritas, and InfoScale 7.0.
+** Red Hat Enterprise Linux
+** Red Hat Enterprise Virtualization Hypervisor
+** SUSE Linux Enterprise Server
+** Oracle VM
+** Oracle Linux
+** Veritas
+** InfoScale 7.0
 
 *	Red Hat Enterprise Linux 6 and 7 now have a tuned package with a `tuned-adm` command to set different server profiles on the host depending on the environment.
 **	This includes an enterprise storage profile for configurations where LUNs from enterprise storage arrays are used. You can also use the virtual guest profile for Red Hat Enterprise Linux as a guest virtual machine. Using these tuned packages can result in marked improvement in throughput and latency on ONTAP.
@@ -62,7 +62,7 @@ The Linux Unified Host Utilities 7.1 continues to support versions of the follow
 The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html[Linux Unified Host Utilities 7.1 Installation Guide] and link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71.html#sample-command-reference[Linux Unified Host Utilities 7.1 quick command reference] topic provide explanations about the features.
 
 [NOTE]
- NetApp continues to work with the Host Utilities to add support for features after the initial release. For latest information about the features that are supported and the new features that have been added, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
+NetApp continues to work with the Host Utilities to add support for features after the initial release. For latest information about the features that are supported and the new features that have been added, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 
 == New features and enhancements
@@ -77,9 +77,7 @@ The Release Notes are updated between product releases as new information is ava
 *	Fixes `sanlun lun show -p getting SIGABRT` in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8.
 *	Extends support for Red Hat Linux 6.8, Oracle Linux 6.8, XenServer 7.0, Oracle VM 3.3 series, and Oracle VM 3.4 series operating systems.
 
-=== Changes since the Linux Unified Host Utilities 6.1 release
-
-*January 2015*—The Release Notes were updated in January 2015 to add the following information:
+=== 7.1 release updates
 
 *	You can now find information relating to ONTAP, SANtricity software in the Release Notes.
 *	The Recommended Host Settings for Linux Unified Host Utilities 7.1 document has been updated to include new information about Oracle VM 3.2 series, Oracle Linux 6 and 7 series, Red Hat Enterprise Linux 6 and 7 series, SUSE Linux Enterprise Server 11 SP4, SUSE Linux Enterprise Server 12 series, KVM and XEN, RHEV 6.4 and 6.5, and Citrix XenServer parameters.
@@ -117,50 +115,6 @@ Documentation for SAN Host Utilities is included in the ONTAP SAN Host Configura
 
 == Default values recommended when using drivers bundled with Linux kernel
 When you are setting up an FC environment that uses the native, inbox drivers that are bundled with the Linux kernel, you can use the default values for the drivers. In iSCSI environments where you are using a iSCSI solution software, you need to manually set certain  recommended values depending on the OS version you are using. The recommendations are based on internal testing at NetApp. Refer to the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation] for more information on Host OS settings and configurations.
-
-
-== Ways to view current and fixed product bugs
-
-NetApp provides an online tool that enables you to search for the most current information about a known bug. You can also use this tool, which is available on the NetApp Support Site, to get a list of current or fixed bugs for a particular product.
-link:https://mysupport.netapp.com/site/bugs-online/product[Bugs Online] on the NetApp Support Site enables you to search for information in the following ways:
-
-*	By entering the bug number
-*	By entering keywords related to the bug
-*	By selecting a software product from the list in the Bug Type(s) field or the Product Type(s)
-**	field
-**	Some products are listed in one field and some in the other field. You should check both to find the product you want.
-
-Some keyword combinations and bug types that you might want to use include the following:
-*	FCP - Linux
-*	iSCSI – Linux
-
-=== Contact technical support
-
-If you have a question that has not been resolved by these Release Notes, contact NetApp technical support.
-
-
-=== Things to check before you call technical support
-Before you call technical support, there are several things you can try to solve the problem yourself.
-
-*	You should go through the Release Notes to see whether they contain information about the problem.
-*	You should check all cables to ensure that they are connected properly.
-*	If you are using switches, you should check the power to the switches to ensure that the system is turned on.
-** You should also ensure that the system components were turned on in the correct order.
-*	You should review the troubleshooting information provided in the documentation for this product.
-
-
-== Information you must provide to technical support
-Before you contact technical support, you must gather information about your system and your problem. You should have the following information available when you contact technical support:
-
-*	Your contact information
-*	A list of all the NetApp products you are using
-*	All the error messages from the system
-*	Information about your system setup
-*	Your licensing information
-
-
-== How to contact NetApp technical support
-You can contact NetApp technical support from the NetApp Support Site.
 
 
 == Where to find product documentation and other information
