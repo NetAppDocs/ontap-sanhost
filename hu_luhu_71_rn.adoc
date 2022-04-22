@@ -84,9 +84,6 @@ The Release Notes are updated between product releases as new information is ava
 *	The Using Linux Host with ONTAP Storage document has been updated to include new information about Oracle Linux 6 and 7 series, Red Hat Enterprise Linux 6 and 7 series, SUSE Linux Enterprise Server 11 SP4, SUSE Linux Enterprise Server 12 series, and Citrix XenServer  parameters.
 *	The `sanlun fcp show adapter` command displays intermittent `error` text when Linux Host Utilities 6.2 is installed on a Brocade HBA or CNA host.
 
-[NOTE]
-For more information, see (Brocade HBA/CNA) sanlun displays intermittent `error` on page 30.
-
 *	The `sanlun` command does not display speed and firmware information with software FCoE on Intel cards.
 ** (RHEL, FC) `sanlun` does not display speed and firmware information on Intel cards.
 ** The firmware version and speed of Intel NIC card is not displayed with `sanlun fcp show adapter` command output.
