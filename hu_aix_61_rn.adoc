@@ -24,10 +24,11 @@ These Release Notes are updated when new information on using the AIX Host Utili
 The AIX Host Utilities enable you to connect an AIX host to NetApp storage. The AIX Host Utilities support multiple environments and the FC, FCoE, and iSCSI protocols. The  supported environments are AIX MPIO (Native OS) and PowerVM.
 
 [NOTE]
-===
-* For specific information about the operating system versions and updates that the Host Utilities support, see the Interoperability Matrix at support.netapp.com/NOW/products/ interoperability.
+====
+* For specific information about the operating system versions and updates that the Host Utilities support, see the link:http://support.netapp.com/NOW/products/ interoperability[Interoperability Matrix tool].
+
 * For more information about PowerVM feature, see the IBM PowerVM Live Partition Mobility Red Book.
-===
+====
 
 The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:http://support.netapp.com[NetApp Support Site]. The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_aix_61.html[AIX Host Utilities 6.1 / FCP and ISCSi Host Configuration Guide] available provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
 
@@ -40,11 +41,13 @@ The release of the AIX Host Utilities 6.1 added following updates.
 
 *October 2021*
 The release of the AIX Host Utilities 6.1 added the following feature.
+
 *	Added fix for the Burt: 872113, which was reported with AIX Host Utilities 6.0 release.
 +
 With AIX Host Utilities 6.1, only the sanlun binary is changed. The MPIO and related ODM remains unchanged.
 +
 The sample command output from the aix host will be:
++
 ----
 aix_host #: lslpp -l |grep -i netapp
   NetApp.MPIO_Host_Utilities_Kit.config
@@ -65,12 +68,12 @@ aix_host #: sanlun version
 == Known Problems and Limitations
 To use the Host Utilities most efficiently, you should be aware that performance can be affected by known issues about a particular feature, such as a network, or by features that the Host Utilities do not support, such as a specific version of an operating system.
 
-[cols=2*,options="header"]
+[cols=3,options="header"]
 |===
 |NetApp Bug ID	|Title	|Description
 |1069147	|AIX HU Sanlun reports incorrect HBA speed	|This seems to be a reporting issue only. In order to identify the actual speed, use the `fcstat fcsx |grep "Port Speed"`.
 |===
-Bugs might have been fixed in a maintenance or patch release. NetApp Bugs Online provides complete information for most known issues, including suggested workarounds where possible.
+Bugs might have been fixed in a maintenance or patch release. link:https://mysupport.netapp.com/site/[NetApp Bugs Online] provides complete information for most known issues, including suggested workarounds where possible.
 
 Some keyword combinations and Bug Type(s) that you might want to use include the following:
 
