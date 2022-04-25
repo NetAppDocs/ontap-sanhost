@@ -21,31 +21,31 @@ These Release Notes are updated when new information on using the AIX Host Utili
 
 == About the 6.1 release of the AIX Host Utilities
 
-The AIX Host Utilities enable you to connect an AIX host to NetApp storage.
-The AIX Host Utilities support multiple environments and the FC, FCoE and iSCSI protocols. The  supported environments are AIX MPIO (Native OS) and PowerVM.
-Note: For specific information about the operating system versions and updates that the Host Utilities support, see the Interoperability Matrix at support.netapp.com/NOW/products/ interoperability.
-Note: For more information about PowerVM feature, see the IBM PowerVM Live Partition Mobility Red Book.
-The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the NetApp Support Site at support.netapp.com. The AIX Host Utilities 6.1 / FCP and iscsi Host Configuration Guide available at ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
-Note: You must enable Dynamic Tracking for all FC and FCoE initiators for clustered Data ONTAP deployments.
+The AIX Host Utilities enable you to connect an AIX host to NetApp storage. The AIX Host Utilities support multiple environments and the FC, FCoE, and iSCSI protocols. The  supported environments are AIX MPIO (Native OS) and PowerVM.
 
+[NOTE]
+===
+* For specific information about the operating system versions and updates that the Host Utilities support, see the Interoperability Matrix at support.netapp.com/NOW/products/ interoperability.
+* For more information about PowerVM feature, see the IBM PowerVM Live Partition Mobility Red Book.
+===
 
+The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:http://support.netapp.com[NetApp Support Site]. The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_aix_61.html[AIX Host Utilities 6.1 / FCP and ISCSi Host Configuration Guide] available provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
 
-== Information on finding system requirements
-NetApp qualifies additional components between releases of the Host Utilities software.
-For the latest information about the system requirements, see the Interoperability Matrix, which is available online at support.netapp.com/NOW/products/interoperability.
+[NOTE]
+You must enable Dynamic Tracking for all FC and FCoE initiators for clustered Data ONTAP deployments.
 
+== AIX Host Utilities 6.1 new features
 
-== 6.1 new features
 The release of the AIX Host Utilities 6.1 added following updates.
 
-October 2021
+*October 2021*
 The release of the AIX Host Utilities 6.1 added the following feature.
-•	Added fix for the Burt: 872113, which was reported with AIX Host Utilities 6.0 release.
-
-
+*	Added fix for the Burt: 872113, which was reported with AIX Host Utilities 6.0 release.
++
 With AIX Host Utilities 6.1, only the sanlun binary is changed. The MPIO and related ODM remains unchanged.
-
++
 The sample command output from the aix host will be:
+----
 aix_host #: lslpp -l |grep -i netapp
   NetApp.MPIO_Host_Utilities_Kit.config
                              6.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
@@ -60,95 +60,39 @@ aix_host #:
 
 aix_host #: sanlun version
 6.1.451.438
+----
 
-
-Important Cautions
-
-There are no important cautions at this time.
-
-
-
-Known limitations
-
+== Known Problems and Limitations
 To use the Host Utilities most efficiently, you should be aware that performance can be affected by known issues about a particular feature, such as a network, or by features that the Host Utilities do not support, such as a specific version of an operating system.
 
-Incorrect HBA link speed reported by sanlun command
-The sanlun reports incorrect HBA speed for 16G or above HBA Adapters. This is reported via burt id: 1069147 (AIX HU Sanlun reports incorrect HBA speed)
-This seems to be a reporting issue only. In order to identify the actual speed, use the “fcstat fcsx |grep “Port Speed”)
+[cols=2*,options="header"]
+|===
+|NetApp Bug ID	|Title	|Description
+|1069147	|AIX HU Sanlun reports incorrect HBA speed	|This seems to be a reporting issue only. In order to identify the actual speed, use the `fcstat fcsx |grep "Port Speed"`.
+|===
+Bugs might have been fixed in a maintenance or patch release. NetApp Bugs Online provides complete information for most known issues, including suggested workarounds where possible.
 
-
-
-Known Problems and Limitations
-NetApp Bug ID	Title	Description
-1069147	AIX HU Sanlun reports incorrect HBA speed	This seems to be a reporting issue only. In order to identify the actual speed, use the “fcstat fcsx |grep “Port Speed”)
-
-
-
-About SAN Host Configuration documentation
-Documentation for SAN Host Utilities is included in the ONTAP SAN Host Configuration documentation. ONTAP SAN HOST
-configuration documentation is cumulative, covering all current SAN HOST releases. Any
-functional differences across releases are noted in context.
-
-Ways to view current and fixed product bugs
-
-NetApp provides an online tool that enables you to search for the most current information about a known bug. You can also use this tool, which is available on the NetApp Support Site, to get a list of current or fixed bugs for a particular product.
-
-Bugs Online enables you to search for information in the following ways:
-•	By entering the bug number
-•	By entering keywords related to the bug
-•	By selecting a software product from the list in the Bug Type(s) field or the Product Type(s)
-field.
-Some products are listed in one field and some in the other field. You should check both to find the product you want.
 Some keyword combinations and Bug Type(s) that you might want to use include the following:
-•	FCP General: Displays FC and HBA bugs that are not associated with a specific host.
-•	FCP - AIX
+
+*	FCP General: Displays FC and HBA bugs that are not associated with a specific host.
+*	FCP - AIX
 
 
-
-Contact technical support
-
-If you have a question that has not been resolved by these Release Notes, contact NetApp technical support.
+== About SAN Host Configuration documentation
+Documentation for SAN Host Utilities is included in the ONTAP SAN Host Configuration documentation. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
 
 
-Things to check before you call technical support
-Before you call technical support, there are several things you can try in effort to solve the problem yourself.
-They include:
-•	Go through these Release Notes to see if they contain information about your problem.
-•	Check all cables to make sure that they are connected properly.
-•	If you are using switches, check the power to the switches to make sure that the system is turned on.
-You should also make sure that the system components were turned on in the correct order.
-•	Review the troubleshooting information provided in the documentation for this product.
+== Where to find product documentation and other information
+You can access documentation for all NetApp products and find other product information resources, such as technical reports and white papers on the Product Documentation page of the NetApp corporate site.
 
+.Related information
 
-Information you must provide to technical support
-Before you contact technical support, you must gather information about your system and your problem.
-You should have the following information available when you contact technical support:
-•	Your contact information
-•	A list of all the NetApp products you are using
-•	All the error messages from the system
-•	Information about your system setup
-•	Your licensing information
-How to contact NetApp technical support
-You can contact NetApp technical support from the NetApp Support Site.
+*Configuring and managing your ONTAP storage system*
 
-
-Where to find product documentation and other
-information
-You can access documentation for all NetApp products and find other product information
-resources, such as technical reports and white papers on the Product Documentation
-page of the NetApp corporate site.
-
-Related information
-Configuring and managing your ONTAP   storage system
-•	The ONTAP Software Setup Guide for your version of ONTAP
-•	The ONTAP San Administration Guide for your version of ONTAP
-•	The ONTAP Release Notes for your version of ONTAP
-NetApp Interoperability Matrix
-Hardware Universe (formerly the System Configuration Guide)
-Supported Fibre Channel SAN topologies
-Configuring your host for Host Utilities
-Using Red Hat Enterprise Linux 8.x with ONTAP
-Using Red Hat Enterprise Linux 7.x with ONTAP
-
-
-17
+*	The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide] for your version of ONTAP
+*	The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP San Administration Guide] for your version of ONTAP
+*	The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes] for your version of ONTAP
+* link:https://mysupport.netapp.com/site/[NetApp Interoperability Matrix]
+* link:https://hwu.netapp.com/[Hardware Universe] (formerly the System Configuration Guide)
+* link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[Supported Fibre Channel SAN topologies]
+* link:https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61343[Configuring your host for Host Utilities]
