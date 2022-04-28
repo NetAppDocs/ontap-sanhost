@@ -15,7 +15,7 @@ summary: Release Notes for Linux Unified Host Utilities 7.1
 :imagesdir: ./media/
 
 [.lead]
-These Release Notes contain the latest information for the AIX Host Utilities 6.1, including updates about known problems and limitations, information on tunable parameters, and any important cautions. The Release Notes also include any issues that may have been discovered since the Host Utilities were released.
+These Release Notes contain the latest information on the AIX Host Utilities 6.1 release, including updates about known problems and limitations, information on tunable parameters, and any important cautions. The Release Notes also include any issues that may have been discovered since the Host Utilities were released.
 
 These Release Notes are updated when new information on using the AIX Host Utilities becomes available.
 
@@ -35,16 +35,18 @@ The Host Utilities software is packaged as a single, compressed file. You can do
 [NOTE]
 You must enable Dynamic Tracking for all FC and FCoE initiators for clustered Data ONTAP deployments.
 
-== AIX Host Utilities 6.1 enhancements
+== New features and enhancements in the 6.1 release
 
 The release of the AIX Host Utilities 6.1 added following updates.
+
+=== 6.1 enhancements
 
 *October 2021*
 The release of the AIX Host Utilities 6.1 added the following feature.
 
 *	Added fix for the Burt: 872113, which was reported with AIX Host Utilities 6.0 release.
-+
-With AIX Host Utilities 6.1, only the sanlun binary is changed. The MPIO and related ODM remains unchanged.
+
+* With AIX Host Utilities 6.1, only the `sanlun` binary is changed. The MPIO and related ODM remains unchanged.
 +
 The sample command output from the aix host will be:
 +
