@@ -56,7 +56,7 @@ The Fibre Channel and iSCSI protocols do not require licenses on E-Series storag
 +
 See the https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html?cp=14_7[SAN Configuration Guide^] for your version of ONTAP or https://mysupport.netapp.com/ecm/ecm_get_file/ECMLP2773533[E-Series Hardware Cabling Guide^] for detailed cabling and configuration information.
 
-== Configur FC HBAs and switches
+== Configure FC HBAs and switches
 Install and configure one or more supported Fibre Channel host bus adapters (HBAs) for Fibre Channel connections to the storage system.
 
 The Windows Host Utilities installer sets the required Fibre Channel HBA settings.
