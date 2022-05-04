@@ -1,0 +1,133 @@
+---
+sidebar: sidebar
+permalink: hu_ol_85.html
+keywords: host utilities, oracle, linux, 8.5, netapp, ontap
+summary: Describes how to use Oracle Linux 8.5 with ONTAP
+---
+
+= Using Oracle Linux 8.5 with NetApp ONTAP
+:toc: macro
+:hardbreaks:
+:toclevels: 1P
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+== Installing the Linux Unified Host Utilities
+
+include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
+
+== SAN Toolkit
+
+include::_include/hu/reuse_hu_san_toolkit.adoc[]
+
+== SAN Booting
+
+.What you'll need
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+
+include::_include/hu/reuse_hu_san_booting_steps.adoc[]
+
+== Multipathing
+
+For Oracle Linux (OL) 8.5 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. OL 8.5 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+
+include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
+
+The following sections provide sample multipath output for a LUN mapped non-ASA personas.
+
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+| |- 16:0:6:35 sdwb 69:624 active ready running
+| |- 16:0:5:35 sdun 66:752 active ready running
+`-+- policy='service-time 0' prio=10 status=enabled
+|- 15:0:0:35 sdaj 66:48 active ready running
+|- 15:0:1:35 sdbx 68:176 active ready running
+----
+
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+  |- 11:0:7:6   sdbz 68:208  active ready running
+  |- 11:0:11:6  sddn 71:80   active ready running
+  |- 11:0:15:6  sdfb 129:208 active ready running
+  `- 12:0:1:6   sdgp 132:80  active ready running
+----
+
+NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
+
+
+== Recommended Settings
+
+The Oracle Linux 8.5 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+include::_include/hu/reuse_hu_recommended_settings.adoc[]
+
+
+[cols=2*,options="header"]
+|===
+| Parameter
+| Setting
+| detect_prio | yes
+| dev_loss_tmo | infinity
+| failback | immediate
+| fast_io_fail_tmo | 5
+| features | 2 pg_init_retries 50
+| flush_on_last_del | yes
+| hardware_handler | 0
+| no_path_retry | queue
+| path_checker | tur
+| path_grouping_policy | group_by_prio
+| path_selector | service-time 0
+| polling_interval | 5
+| prio | ontap
+| product | LUN.*
+| retain_attached_hw_handler | yes
+| rr_weight | uniform
+| user_friendly_names | no
+| vendor | NETAPP
+|===
+
+*Example*
+
+The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
+
+----
+defaults {
+ path_checker readsector0
+ no_path_retry fail
+ }
+devices {
+ device {
+ vendor "NETAPP "
+ product "LUN.*"
+ no_path_retry queue
+ path_checker tur
+ }
+}
+----
+
+NOTE: To configure Oracle Linux 8.5 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_85.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.5.
+
+== KVM Settings
+
+You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
+
+== Known Problems and Limitations
+
+There are no known issues for Oracle Linux 8.5.
+
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_85.html#known-problems-and-limitations[known issues] section in the corresponding Red Hat Enterprise Linux release documentation.
+
+// 2022-04-26, updated for 8.5
