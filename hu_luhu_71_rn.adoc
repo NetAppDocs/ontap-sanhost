@@ -88,17 +88,15 @@ The Release Notes are updated between product releases as new information is ava
 [cols=2*,options="header"]
 |===
 |NetApp Bug ID	|Description
-|1457017	|sanlun installation warnings for library files.
+|1457017	|`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit.
 |===
 
-Bugs might have been fixed in a maintenance or patch release. link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online] provides complete information for most known issues, including suggested workarounds where possible.
+link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online] provides complete information for most known issues, including suggested workarounds where possible.
 
 Some keyword combinations and bug types that you might want to use include the following:
 
 *	FCP - Linux
 *	iSCSI – Linux
-
-
 
 Refer to the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation] for more information on Host OS settings and configurations.
 
