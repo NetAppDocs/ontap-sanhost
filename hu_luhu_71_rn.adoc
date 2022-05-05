@@ -85,7 +85,7 @@ The Release Notes are updated between product releases as new information is ava
 
 == Known Problems and Limitations
 
-[cols=2*,options="header"]
+[cols=2,options="header", cols= "10, 30"]
 |===
 |NetApp Bug ID	|Description
 |1457017	|`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit.
