@@ -99,7 +99,7 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 | vendor | NETAPP
 |===
 
-*Example*
+.Example
 
 The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
 
