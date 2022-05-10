@@ -72,6 +72,7 @@ NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 pa
 == Recommended Settings
 
 The Oracle Linux 8.3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 
