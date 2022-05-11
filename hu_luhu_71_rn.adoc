@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: hu_luhu_71_rn.html
-keywords: host utilities, linux, 7.1, netapp, ontap
+keywords: host utilities, linux, 7.1, netapp, ontap, release, notes
 summary: Release Notes for Linux Unified Host Utilities 7.1
 ---
 
@@ -56,7 +56,7 @@ Any mention of Host Utilities or Linux Host Utilities in this document refers to
 ** Veritas
 
 *	Red Hat Enterprise Linux 6 and 7 now have a tuned package with a `tuned-adm` command to set different server profiles on the host depending on the environment.
-**	This includes an enterprise storage profile for configurations where LUNs from enterprise storage arrays are used. You can also use the virtual guest profile for Red Hat Enterprise Linux as a guest virtual machine. Using these tuned packages can result in marked improvement in throughput and latency on ONTAP.
+** This includes an enterprise storage profile for configurations where LUNs from enterprise storage arrays are used. You can also use the virtual guest profile for Red Hat Enterprise Linux as a guest virtual machine. Using these tuned packages can result in marked improvement in throughput and latency on ONTAP.
 
 
 [NOTE]
