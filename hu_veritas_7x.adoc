@@ -60,47 +60,33 @@ Refer to Veritas Support Portal (Product Matrix, Platform Lookup, HCL Matrix) to
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
-
-You must verify that your configuration meets the system requirements.  For more information, see the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] and the Veritas HCL Matrix.
+You must verify that your configuration meets the system requirements. For more information, see the NetApp Interoperability Matrix Tool and the Veritas HCL Matrix.
 
 .Example
 
 In this example, the `vxdmpadm` command is used to verify that the VxDMP Multipath has the ONTAP target array attached.
-
 ----
 # vxdmpadm listenclosure
 ENCLR_NAME   ENCLR_TYPE  ENCLR_SNO     STATUS      ARRAY_TYPE    LUN_COUNT    FIRMWARE
 =====================================================================================
 sfrac0       SFRAC       804Xw$PqE52h  CONNECTED   ALUA          43           9800
-----
-
-----
 # vxdmpadm getdmpnode
 NAME       STATE    ENCLR-TYPE  PATHS  ENBL  DSBL ENCLR-NAME
 ===================================================================
 sfrac0_47  ENABLED  SFRAC       4      4     0    sfrac0
 ----
-
-With Veritas Dynamic Multipathing (VxDMP), you must perform configuration tasks to claim NetApp LUNs as Veritas Multipath Devices. You must have the Array Support Library (ASL) and the Array Policy Module (APM) packages installed that Veritas provides for NetApp storage systems.  While the Veritas Software Installation loads the default ASL APM packages along with the product, it is recommended to use the latest supported packages listed on Veritas support portal.
+With Veritas Dynamic Multipathing (VxDMP), you must perform configuration tasks to claim NetApp LUNs as Veritas Multipath Devices. You must have the Array Support Library (ASL) and the Array Policy Module (APM) packages installed that Veritas provides for NetApp storage systems. While the Veritas Software Installation loads the default ASL APM packages along with the product, it is recommended to use the latest supported packages listed on Veritas support portal.
 
 .Example
-
 The following example displays the Veritas Support Library (ASL) and the Array Policy Module (APM) configuration.
-
 ----
 # vxdmpadm list dmpnode dmpnodename=sfrac0_47 | grep asl
 asl        = libvxnetapp.so
-----
-
-----
 # vxddladm listversion |grep libvxnetapp.so
 libvxnetapp.so              vm-7.4-rev-1    6.1
 
 # rpm -qa |grep VRTSaslapm
 VRTSaslapm-x.x.x.0000-RHEL8.X86_64
-----
-
-----
 vxddladm listsupport libname=libvxnetapp.so
 ATTR_NAME   ATTR_VALUE
 =========================================
@@ -109,6 +95,24 @@ VID         NETAPP
 PID         All
 ARRAY_TYPE  ALUA, A/A
 ----
+
+== All SAN Array Configuration
+In All SAN Array (ASA) configurations, all paths to a given Logical Unit (LUN) are active and optimized. This means I/O can be served through all paths at the same time, thereby enabling better performance.
+
+.Example
+
+The following example displays the correct output for an ONTAP LUN:
+----
+# vxdmpadm getsubpaths dmpnodename-sfrac0_47
+NAME  STATE[A]   PATH-TYPE[M]   CTLR-NAME   ENCLR-TYPE  ENCLR-NAME  ATTRS  PRIORITY
+===================================================================================
+sdas  ENABLED (A)    Active/Optimized c13   SFRAC       sfrac0     -      -
+sdb   ENABLED(A) Active/Optimized     c14   SFRAC       sfrac0     -      -
+sdcj  ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
+sdea  ENABLED (A)    Active/Optimized c14   SFRAC       sfrac0     -
+----
+
+NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
