@@ -108,6 +108,7 @@ NOTE: To configure Oracle Linux 7.6 RedHat Enterprise Kernel (RHCK), use the lin
 | Title
 | Description
 | Bugzilla ID
+| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. To learn more, see  link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^]. | N/A
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1202736[1202736^] | LUNs might not be available during host discovery due to "Not Present" state of remote ports on a OL7U6 host with QLogic QLE2742 adapter |During host discovery, the status of Fibre Channel (FC) remote ports on a OL7U6 host with a QLogic QLE2742 adapter might enter into "Not Present" state. Remote ports with a "Not Present" state might cause paths to LUNs to become unavailable. During storage failover, the path redundancy might be reduced and result in an I/O outage.
 You can check the remote port status by entering the following command:
 # cat /sys/class/fc_remote_ports/rport-*/port_state
@@ -141,3 +142,5 @@ NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu
 == Release Notes
 
 include::_include/hu/reuse_hu_release_notes.adoc[]
+
+// BURT 1440718, 2022-05-20
