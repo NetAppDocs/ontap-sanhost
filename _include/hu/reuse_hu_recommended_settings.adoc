@@ -44,4 +44,5 @@ blacklist {
 ....
 
 You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that may be overriding default settings.
+
 The table below shows the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in `multipath.conf` that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs may not work as expected. These defaults should only be overridden in consultation with NetApp and/or OS vendor and only when the impact is fully understood.

@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_ol_83.html
-keywords: host utilities, oracle, linux, 8.3, netapp, ontap
-summary: Describes how to use Oracle Linux 8.3 with ONTAP
+permalink: hu_ol_85.html
+keywords: host utilities, oracle, linux, 8.5, netapp, ontap
+summary: Describes how to use Oracle Linux 8.5 with ONTAP
 ---
 
-= Using Oracle Linux 8.3 with NetApp ONTAP
+= Using Oracle Linux 8.5 with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1P
@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Oracle Linux (OL) 8.3 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. OL 8.3 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Oracle Linux (OL) 8.5 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. OL 8.5 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
@@ -71,7 +71,7 @@ NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 pa
 
 == Recommended Settings
 
-The Oracle Linux 8.3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+The Oracle Linux 8.5 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -119,10 +119,16 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.3 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_83.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.3.
+NOTE: To configure Oracle Linux 8.5 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_85.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.5.
+
+== KVM Settings
+
+You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
 
 == Known Problems and Limitations
 
-There are no known issues for Oracle Linux 8.3.
+There are no known issues for Oracle Linux 8.5.
 
-NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_83.html#known-problems-and-limitations[known issues] section in the corresponding Red Hat Enterprise Linux release documentation.
+NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_85.html#known-problems-and-limitations[known issues] section in the corresponding Red Hat Enterprise Linux release documentation.
+
+// 2022-04-26, updated for 8.5
