@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_veritas_7x.html
-keywords: host utilities, veritas, infoscale, 7, netapp, ontap, sanhost, iscsi, red, hat linux, oracle, linux
+permalink: hu_veritas_8x.html
+keywords: host utilities, veritas, infoscale, 8, netapp, ontap, sanhost, iscsi, red, hat linux, oracle, linux
 summary: Provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale 7 series release
 ---
 
-= Using Veritas Infoscale 7 for Linux with NetApp ONTAP
+= Using Veritas Infoscale 8 for Linux with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -15,7 +15,7 @@ summary: Provides guidance on ONTAP SAN host configuration settings for the Veri
 :imagesdir: ./media/
 
 == Introduction
-This document provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale storage foundation 7 series release for Red Hat Enterprise Linux & Oracle Linux (RHCK based) platforms with FC, FCoE and iSCSI protocols.
+This document provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale storage foundation 8 series release for Red Hat Enterprise Linux and Oracle Linux (RHCK based) platforms with FC, FCoE, and iSCSI protocols.
 
 == Installing the Linux Unified Host Utilities
 
@@ -83,7 +83,7 @@ The following example displays the Veritas Support Library (ASL) and the Array P
 # vxdmpadm list dmpnode dmpnodename=sfrac0_47 | grep asl
 asl        = libvxnetapp.so
 # vxddladm listversion |grep libvxnetapp.so
-libvxnetapp.so              vm-7.4-rev-1    6.1
+libvxnetapp.so                  vm-8.0.0-rev-1   8.0
 
 # rpm -qa |grep VRTSaslapm
 VRTSaslapm-x.x.x.0000-RHEL8.X86_64
@@ -114,8 +114,11 @@ sdea  ENABLED (A)    Active/Optimized c14   SFRAC       sfrac0     -
 
 NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
 
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+== Non-ASA Configuration
+For non-ASA configuration there should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when no optimized paths are available.
 
+.Example
+The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 ----
 # vxdmpadm getsubpaths dmpnodename-sfrac0_47
 NAME  STATE[A]   PATH-TYPE[M]   CTLR-NAME   ENCLR-TYPE  ENCLR-NAME  ATTRS  PRIORITY
@@ -126,7 +129,7 @@ sdcj  ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
 sdea  ENABLED     Active/Non-Optimized c14   SFRAC       sfrac0     -      -
 ----
 
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
 
 === Recommended Settings
 
