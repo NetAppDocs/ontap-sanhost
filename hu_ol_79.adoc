@@ -131,6 +131,4 @@ NOTE: To configure Oracle Linux 7.9 RedHat Enterprise Kernel (RHCK), use the lin
 If I/O progress stops due to failure in continuing through existing active paths during storage failover, the I/O operation might not resume causing an I/O delay. The I/O operation resumes only after the completion of the storage failover giveback operation. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17319[17319^]
 |===
 
-NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_79.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.9.
-
 // BURT 1447018, 25-02-2022
