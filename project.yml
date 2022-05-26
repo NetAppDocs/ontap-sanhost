@@ -21,7 +21,11 @@ sidebar:
       - title: HPUX Host Utilities
         url: /hu_hpux_60.html
       - title: Linux Unified Host Utilities
-        url: /hu_luhu_71.html
+        entries:
+        - title: Install LUHU 7.1
+          url: /hu_luhu_71.html
+        - title: Release Notes
+          url: /hu_luhu_71_rn.html
       - title: Solaris Host Utilities
         url: /hu_solaris_62.html
       - title: Windows Unified Host Utilities
@@ -86,13 +90,17 @@ sidebar:
         entries:
         - title: CentOS 8
           entries:
+          - title: 8.5
+            url: /hu_centos_85.html
+          - title: 8.4
+            url: /hu_centos_84.html
           - title: 8.3
             url: /hu_centos_83.html
           - title: 8.2
             url: /hu_centos_82.html
           - title: 8.1
             url: /hu_centos_81.html
-          - title: "8.0"
+          - title: 8.0
             url: /hu_centos_80.html
         - title: CentOS 7
           entries:
@@ -152,6 +160,8 @@ sidebar:
         entries:
         - title: OL 8
           entries:
+          - title: 8.5
+            url: /hu_ol_85.html
           - title: 8.4
             url: /hu_ol_84.html
           - title: 8.3
@@ -288,6 +298,8 @@ sidebar:
             url: /hu_sles_12.html
       - title: Veritas
         entries:
+        - title: Infoscale 8
+          url: /hu_veritas_8x.html
         - title: Infoscale 7
           url: /hu_veritas_7x.html
         - title: Storage Foundation 6
