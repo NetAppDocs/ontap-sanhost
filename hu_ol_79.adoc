@@ -127,8 +127,8 @@ NOTE: To configure Oracle Linux 7.9 RedHat Enterprise Kernel (RHCK), use the lin
 | Title
 | Description
 | Bugzilla ID
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1328944[1328943^] | I/O delays observed during storage failover with Emulex LPe32002(32G) host | I/O operations might fail to continue through existing active paths during storage failover operations on Oracle Linux 7.8 kernel (5.4.17-2011.1.2.el8uek.x86_64) with QLogic LPe32002 32G HBA.
+| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. To learn more, see  link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^]. | N/A | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1328944[1328943^] | I/O delays observed during storage failover with Emulex LPe32002(32G) host | I/O operations might fail to continue through existing active paths during storage failover operations on Oracle Linux 7.8 kernel (5.4.17-2011.1.2.el8uek.x86_64) with QLogic LPe32002 32G HBA.
 If I/O progress stops due to failure in continuing through existing active paths during storage failover, the I/O operation might not resume causing an I/O delay. The I/O operation resumes only after the completion of the storage failover giveback operation. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17319[17319^]
 |===
 
-NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_79.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 7.9.
+// BURT 1447018, 25-02-2022
