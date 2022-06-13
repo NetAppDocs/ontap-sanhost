@@ -56,6 +56,27 @@ size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_hand
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
+=== All SAN Array Configuration
+In All SAN Array (ASA) configurations, all paths to a given Logical Unit (LUN) are active and optimized. This means I/O can be served through all paths at the same time, thereby enabling better performance.
+
+.Example
+The following example displays the correct output for an ONTAP LUN with all four Active/Optimized paths:
+
+----
+# mpathutil status
+show topology
+3600a098038303458772450714535317a dm-0 NETAPP  , LUN C-Mode
+size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+| |- 2:0:2:0   sdc   8:32    active ready running
+| |- 12:0:5:0  sdn   8:208   active ready running
+| |- 2:0:6:0   sdg   8:96    active ready running
+| `- 12:0:0:0  sdi   8:128   active ready running
+[root@sanhost ~]#
+----
+
+NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
+
 === Recommended Settings
 
 The Citrix XenServer 7.x OS is compiled with all settings required to recognize and correctly manage ONTAP LUNs.  For Citrix XenServer 7.x, an empty zerobyte `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file.
