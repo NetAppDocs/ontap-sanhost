@@ -176,13 +176,11 @@ fc.200034800d6d7268:210034800d6d7268-fc.201700a098dfe3d1:201900a098dfe3d1-uuid.5
    Path Config: {TPG_id=0,TPG_state=ANO,RTP_id=0,health=UP}
 ----
 
-== NVMe/TCP
-
-=== Configuring NVMe/TCP
+== Configure NVMe/TCP
 
 Starting 7.0U3c, the required NVMe/TCP modules will be loaded by default. For configuring the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
 
-=== Validating the NVMe/TCP
+== Validate NVMe/TCP
 
 .Steps
 . Verify the status of the NVMe/TCP adapter.
