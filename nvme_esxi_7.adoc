@@ -16,7 +16,9 @@ summary: Describes how to configure NVMe-oF for ESXi 7.x with ONTAP
 
 == Supportability
 
-NVMe over Fibre Channel (NVMe/FC) is supported on ONTAP 9.7 or later.
+* NVMe over Fibre Channel (NVMe/FC) is supported on ONTAP 9.7 or later.
+* Beginning with 7.0U3c and later, NVMe/TCP feature is supported for ESXi Hypervisor.
+* Beginning with ONTAP 9.10.1 and later, NVMe/TCP feature is supported for ONTAP.
 
 == Features
 
@@ -172,6 +174,63 @@ fc.200034800d6d7268:210034800d6d7268-fc.201700a098dfe3d1:201900a098dfe3d1-uuid.5
    Device Display Name: NVMe Fibre Channel Disk (uuid.5084e29a6bb24fbca5ba076eda8ecd7e)
    Path State: active unoptimized
    Path Config: {TPG_id=0,TPG_state=ANO,RTP_id=0,health=UP}
+----
+
+== NVMe/TCP
+
+=== Configuring NVMe/TCP
+
+Starting 7.0U3c, the required NVMe/TCP modules will be loaded by default. For configuring the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
+
+=== Validating the NVMe/TCP
+
+.Steps
+. Verify the status of the NVMe/TCP adapter.
++
+----
+[root@R650-8-45:~] esxcli nvme adapter list
+Adapter    Adapter Qualified Name
+--------- -------------------------------
+vmhba64    aqn:nvmetcp:34-80-0d-30-ca-e0-T
+vmhba65    aqn:nvmetc:34-80-13d-30-ca-e1-T
+list
+Transport Type   Driver   Associated Devices
+---------------  -------  ------------------
+TCP              nvmetcp    vmnzc2
+TCP              nvmetcp    vmnzc3
+----
+
+. To list the NVMe/TCP connections, use the following command:
++
+----
+[root@R650-8-45:~] esxcli nvme controller list
+Name
+-----------
+nqn.1992-08.com.netapp:sn.5e347cf68e0511ec9ec2d039ea13e6ed:subsystem.vs_name_tcp_ss#vmhba64#192.168.100.11:4420
+nqn.1992-08.com.netapp:sn.5e347cf68e0511ec9ec2d039ea13e6ed:subsystem.vs_name_tcp_ss#vmhba64#192.168.101.11:4420
+Controller Number  Adapter   Transport Type   IS Online
+----------------- ---------  ---------------  ---------
+1580              vmhba64    TCP              true
+1588              vmhba65    TCP              true
+
+----
+. To list the number of paths to an NVMe namespace, use the following command:
++
+----
+[root@R650-8-45:~] esxcli storage hpp path list -d uuid.400bf333abf74ab8b96dc18ffadc3f99
+tcp.vmnic2:34:80:Od:30:ca:eo-tcp.unknown-uuid.400bf333abf74ab8b96dc18ffadc3f99
+   Runtime Name: vmhba64:C0:T0:L3
+   Device: uuid.400bf333abf74ab8b96dc18ffadc3f99
+   Device Display Name: NVMe TCP Disk (uuid.400bf333abf74ab8b96dc18ffadc3f99)
+   Path State: active unoptimized
+   Path config: {TPG_id=0,TPG_state=ANO,RTP_id=0,health=UP}
+
+tcp.vmnic3:34:80:Od:30:ca:el-tcp.unknown-uuid.400bf333abf74ab8b96dc18ffadc3f99
+   Runtime Name: vmhba65:C0:T1:L3
+   Device: uuid.400bf333abf74ab8b96dc18ffadc3f99
+   Device Display Name: NVMe TCP Disk (uuid .400bf333abf74ab8b96dc18ffadc3f99)
+   Path State: active
+   Path config: {TPG_id=0,TPG_state=ANO,RTP_id=0,health=UP}
 ----
 
 == Known issue
