@@ -16,7 +16,7 @@ summary: Describes how to use Citrix XenServer 7.x with ONTAP
 
 == Introduction
 
-This document provides guidance on ONTAP SAN host configuration settings for Citrix XenServer 7 series OS releases with FC, FCoE and iSCSi protocols.
+This document provides guidance on ONTAP SAN host configuration settings for Citrix XenServer 7 series OS releases with FC, FCoE, and iSCSi protocols.
 
 == SAN Booting
 
@@ -75,7 +75,7 @@ size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_hand
 [root@sanhost ~]#
 ----
 
-NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 === Recommended Settings
 
