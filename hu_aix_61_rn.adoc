@@ -42,7 +42,7 @@ NOTE: You must enable Dynamic Tracking for all FC and FCoE initiators for cluste
 [cols=3,options="header"]
 |===
 |BugID	|Title	|Description
-|872113	|`sanlun lun show –p` command might cause a memory fault on some versions of AIX host OS	|Intermittent instances of AIX coredump are reported while running the `sanlun lun show -p` command. Sanlun’s `lun show -p` option provides the multipathing information for all the LUNs discovered on a host. It arranges this information to present which SCSI device is sourced from which LUN, the path state (primary or secondary), and other details. However, on some AIX hosts running the `sanlun lun show -p` command might cause a memory fault. This issue is observed only when you run the sanlun command with the `-p` option.
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/872113[872113]	|`sanlun lun show –p` command might cause a memory fault on some versions of AIX host OS	|Intermittent instances of AIX coredump are reported while running the `sanlun lun show -p` command. Sanlun’s `lun show -p` option provides the multipathing information for all the LUNs discovered on a host. It arranges this information to present which SCSI device is sourced from which LUN, the path state (primary or secondary), and other details. However, on some AIX hosts running the `sanlun lun show -p` command might cause a memory fault. This issue is observed only when you run the sanlun command with the `-p` option.
 |===
 
 == Known Problems and Limitations
@@ -51,7 +51,7 @@ To use the Host Utilities efficiently, you should be aware that performance can 
 [cols=3,options="header"]
 |===
 |Bug ID	|Title	|Description
-|1069147
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1069147[1069147]
 |AIX HU Sanlun reports incorrect HBA speed	|Instances of sanlun displaying incorrect HBA speeds are reported while running the `sanlun fcp show adapter –v` command.  The `sanlun fcp show adapter –v` command displays the HBA cards information, such as supported and negotiated speeds for the adapters. This seems to be a reporting issue only. To identify the actual speed, use the `fcstat fcsx` command.
 |===
 
