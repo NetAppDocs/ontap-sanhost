@@ -164,6 +164,93 @@ Following are some recommended parameter settings for NetApp ONTAP LUN’s.  The
 
 By default, the AIX operating system enforces a shorter I/O timeout if when no paths to a LUN are available. This might occur in configurations including single-switch SAN fabric and MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, please refer to link:https://kb.netapp.com/app/answers/answer_view/a_id/1001318[NetApp KB1001318^]
 
+== Recommendations for AIX hosts configured with SMBC LUNs
+
+Beginning in ONTAP 9.11.1, AIX hosts configured with SnapMirror Business Continuity (SMBC) LUNs only discover paths from the primary cluster after the LUN map. By default, LUN paths are in the “hidden” state inside SCSI targets even though LUNs from the secondary cluster are mapped to an AIX igroup. To discover the new primary paths after SMBC events such as a planned failover event or an automatic unplanned failover (AUFO) event, you must perform a manual AIX host rescan and follow the host remediation steps in this procedure.
+
+In the following example, only paths from the primary cluster are discovered because the secondary cluster LUN paths are hidden. The example shows the LUN path status when the AIX host is in a steady state.
+
+*Example*
+
+----
+#lsmpio -l hdiskx
+
+[root@aix_server /]: lsmpio -l hdisk3
+name    path_id  status   path_status  parent  connection
+
+hdisk3  4        Enabled  Sel,Opt      fscsi6  2023d039ea1ee6a8,1000000000000
+hdisk3  5        Enabled  Sel,Opt      fscsi6  2025d039ea1ee6a8,1000000000000
+hdisk3  6        Enabled  Sel,Opt      fscsi7  2024d039ea1ee6a8,1000000000000
+hdisk3  7        Enabled  Sel,Opt      fscsi7  2026d039ea1ee6a8,1000000000000
+----
+
+=== AIX host remediation after a planned failover or AUFO event
+
+.About this task
+
+The AIX storage stack does not perform an automatic rescan of the LUNS.  After a planned failover or AUFO event, the following AIX host remediation steps must be performed to discover the LUN paths from the new primary cluster.
+
+NOTE: If you do not perform the AIX host remediation steps after a failover or AUFO event, path loss or I/O errors can occur.
+
+.Steps
+
+. Perform a rescan for new ONTAP devices:
+`#cfgmgr`
++
+You can also perform a rescan for a specific host bus adapter (HBA):
+`cfgmgr -l fcsx`
+
+. Check the multipathing status on each ONTAP device:
++
+`#lsmpio -l hdiskx`
++
+*Example*
++
+----
+[root@aix_server /]: lsmpio -l hdisk3
+name    path_id  status   path_status  parent  connection
+
+hdisk3  0        Failed   Opt,Fai      fscsi6  2005d039ea1e44e4,1000000000000
+hdisk3  1        Failed   Opt,Fai      fscsi6  2003d039ea1e44e4,1000000000000
+hdisk3  2        Failed   Opt,Fai      fscsi7  2006d039ea1e44e4,1000000000000
+hdisk3  3        Failed   Opt,Fai      fscsi7  2004d039ea1e44e4,1000000000000
+hdisk3  4        Enabled  Sel,Opt      fscsi6  2023d039ea1ee6a8,1000000000000
+hdisk3  5        Enabled  Sel,Opt      fscsi6  2025d039ea1ee6a8,1000000000000
+hdisk3  6        Enabled  Sel,Opt      fscsi7  2024d039ea1ee6a8,1000000000000
+hdisk3  7        Enabled  Sel,Opt      fscsi7  2026d039ea1ee6a8,1000000000000
+----
+
+. Remove the failed paths from the remote cluster for all devices:
++
+`#rmpath [-l _name_] [-p _parentname_] [-w _connectionlocation_] [-i_ pathID_] [-d] [-g]`
++
+*Example*
++
+----
+[root@aix_server /]: rmpath -l hdisk3  -p fscsi6 -w 2005d039ea1e44e4,1000000000000 -i 0  -d
+path Deleted
+[root@aix_server /]: rmpath -l hdisk3  -p fscsi6 -w 2003d039ea1e44e4,1000000000000 -i 1  -d
+path Deleted
+[root@aix_server /]: rmpath -l hdisk3  -p fscsi7 -w 2006d039ea1e44e4,1000000000000 -i 2  -d
+path Deleted
+[root@aix_server /]: rmpath -l hdisk3  -p fscsi7 -w 2004d039ea1e44e4,1000000000000 -i 3  -d
+path Deleted
+----
+
+. Verify the path status:
++
+----
+[root@aix_server /]: lsmpio -l hdisk3
+name    path_id  status   path_status  parent  connection
+
+hdisk3  4        Enabled  Sel,Opt      fscsi6  2023d039ea1ee6a8,1000000000000
+hdisk3  5        Enabled  Sel,Opt      fscsi6  2025d039ea1ee6a8,1000000000000
+hdisk3  6        Enabled  Sel,Opt      fscsi7  2024d039ea1ee6a8,1000000000000
+hdisk3  7        Enabled  Sel,Opt      fscsi7  2026d039ea1ee6a8,1000000000000
+[root@aix_server /]:
+----
+
+
 == Known Problems and Limitations
 
 [cols=4*,options="header"]
@@ -181,3 +268,5 @@ By default, the AIX operating system enforces a shorter I/O timeout if when no p
 | 1307653 | Seeing I/O issues on VIOS 3.1.1.10 during SFO faults and straight I/O | On VIOS 3.1.1 IO failures may be seen on NPIV client disk which are backed by 16/32Gb FC adapters.  Also, a `vfchost` driver may get into a state where it stops processing I/O requests from the client. Applying IBM APAR IJ22290 IBM APAR IJ23222 will fix the issue. | NA
 
 |===
+
+// BURT 1483343, 2022-16-06
