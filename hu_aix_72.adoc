@@ -188,7 +188,7 @@ hdisk3  7        Enabled  Sel,Opt      fscsi7  2026d039ea1ee6a8,1000000000000
 
 .About this task
 
-The AIX storage stack does not perform an automatic rescan of the LUNS.  After a planned failover or AUFO event, the following AIX host remediation steps must be performed to discover the LUN paths from the new primary cluster.
+The AIX storage stack does not perform an automatic rescan of the LUNS.  After a planned failover or AUFO event, you must perform the following AIX host remediation steps to discover the LUN paths from the new primary cluster.
 
 NOTE: If you do not perform the AIX host remediation steps after a failover or AUFO event, path loss or I/O errors can occur.
 
