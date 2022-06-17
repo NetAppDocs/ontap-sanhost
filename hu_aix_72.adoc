@@ -239,6 +239,10 @@ path Deleted
 
 . Verify the path status:
 +
+`lsmpio -l hdisk3`
++
+*Example*
++
 ----
 [root@aix_server /]: lsmpio -l hdisk3
 name    path_id  status   path_status  parent  connection
@@ -249,7 +253,6 @@ hdisk3  6        Enabled  Sel,Opt      fscsi7  2024d039ea1ee6a8,1000000000000
 hdisk3  7        Enabled  Sel,Opt      fscsi7  2026d039ea1ee6a8,1000000000000
 [root@aix_server /]:
 ----
-
 
 == Known Problems and Limitations
 
