@@ -14,7 +14,7 @@ summary: Describes how to use Oracle Linux 8.6 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Oracle Linux (OL) 8.6 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. OL 8.6 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Oracle Linux (OL) 8.6 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 8.6 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
