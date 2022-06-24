@@ -1,0 +1,80 @@
+---
+sidebar: sidebar
+permalink: hu_aix_61_rn.html
+keywords: host utilities, aix, 6.1 netapp, ontap
+summary: Release Notes for Linux Unified Host Utilities 6.1
+---
+
+= AIX Host Utilities 6.1 Release Notes
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+This Release Notes document contains the latest information on the AIX Host Utilities 6.1 release, including updates about known problems, limitations, and configuring and managing your ONTAP storage system.
+
+The Release Notes document is updated when new information on using the AIX Host Utilities becomes available.
+
+== About the AIX Host Utilities 6.1 release
+The AIX Host Utilities enable you to connect an AIX host to NetApp storage. The AIX Host Utilities support multiple environments and the FC, FCoE, and iSCSI protocols. The supported environments are AIX MPIO (Native OS) and PowerVM.
+
+[NOTE]
+====
+For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=85803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
+
+For more information about PowerVM feature, see the IBM PowerVM Live Partition Mobility Red Book.
+====
+
+The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the NetApp Support Site. The ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
+
+NOTE: You must enable Dynamic Tracking for all FC and FCoE initiators for clustered Data ONTAP deployments.
+
+== AIX Host Utilities 6.1 enhancements
+
+*	AIX Host Utilities 6.1 added support for the memory fault issue that occurred in earlier versions of AIX host OS. With AIX Host Utilities 6.1, only the sanlun binary has changed. The MPIO and related ODM remain unchanged.
+
+== Fixed Issue
+
+[cols=3,options="header"]
+|===
+|BugID	|Title	|Description
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/872113[872113]	|`sanlun lun show –p` command might cause a memory fault on some versions of AIX host OS	|Intermittent instances of AIX coredump are reported while running the `sanlun lun show -p` command. Sanlun’s `lun show -p` option provides the multipathing information for all the LUNs discovered on a host. It arranges this information to present which SCSI device is sourced from which LUN, the path state (primary or secondary), and other details. However, on some AIX hosts running the `sanlun lun show -p` command might cause a memory fault. This issue is observed only when you run the sanlun command with the `-p` option.
+|===
+
+== Known Problems and Limitations
+To use the Host Utilities efficiently, you should be aware that performance can be affected by known issues about a particular feature, such as a network, or by features that the Host Utilities do not support, such as a specific version of an operating system.
+
+[cols=3,options="header"]
+|===
+|Bug ID	|Title	|Description
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1069147[1069147]
+|AIX HU Sanlun reports incorrect HBA speed	|Instances of sanlun displaying incorrect HBA speeds are reported while running the `sanlun fcp show adapter –v` command.  The `sanlun fcp show adapter –v` command displays the HBA cards information, such as supported and negotiated speeds for the adapters. This seems to be a reporting issue only. To identify the actual speed, use the `fcstat fcsx` command.
+|===
+
+link:https://mysupport.netapp.com/site/[NetApp Bugs Online] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
+
+*	FCP General: Displays FC and HBA bugs that are not associated with a specific host.
+*	FCP - AIX
+
+== About SAN Host Configuration documentation
+
+Documentation for SAN Host Utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration] documentation. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
+
+== Where to find product documentation and other information
+You can access documentation for all NetApp products and find other product information resources, such as technical reports and white papers on the Product Documentation page of the NetApp corporate site.
+
+.Related information
+
+*Configuring and managing your ONTAP storage system*
+
+*	The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide] for your version of ONTAP
+*	The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP San Administration Guide] for your version of ONTAP
+*	The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes] for your version of ONTAP
+* link:https://mysupport.netapp.com/site/[NetApp Interoperability Matrix]
+* link:https://hwu.netapp.com/[Hardware Universe] (formerly the System Configuration Guide)
+* link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[Supported Fibre Channel SAN topologies]
+* link:https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61343[Configuring your host for Host Utilities]
