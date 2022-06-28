@@ -263,7 +263,7 @@ hdisk3  6        Enabled  Sel,Opt      fscsi7  2024d039ea1ee6a8,1000000000000
 hdisk3  7        Enabled  Sel,Opt      fscsi7  2026d039ea1ee6a8,1000000000000
 ----
 
-. Remove the failed paths from the primary cluster for all devices:
+. Remove the failed paths from the old primary cluster for all devices:
 +
 *Example*
 +
