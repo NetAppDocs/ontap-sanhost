@@ -170,7 +170,7 @@ Beginning in ONTAP 9.11.1, AIX is supported with SnapMirror Business Continuity 
 
 === ONTAP Settings
 
-If storage failover (SFO) occurs on both clusters around the same time (concurrent SFO), I/O is expected to fail because the primary path of the LUN might return `LU NOT SUPPORTED`. To avoid I/O failure, you must set the following bootarg on all 4 nodes of both clusters:
+If a storage failover (SFO) event occurs on both clusters around the same time (concurrent SFO), I/O is expected to fail because the primary path of the LUN might return `LU NOT SUPPORTED`. To avoid I/O failure, you must set the following bootarg on all 4 nodes of both clusters:
 
 `bootarg.scsit.zrto_consensus_debounce_time_limit to 600s`
 
@@ -190,7 +190,7 @@ If storage failover (SFO) occurs on both clusters around the same time (concurre
 +
 `sudo sysctl sysvar.scsit.bootargs.rescan=true`
 +
-.. Alternatively you can perform a storage failover on both of the clusters to activate the bootarg.
+.. Alternatively, you can perform a storage failover on both of the clusters to activate the bootarg.
 +
 For example  if "cluster 1" consists of Node 1, Node 2, Node 3 and Node 4, the following steps must be performed sequentially:
 +
