@@ -164,11 +164,15 @@ Following are some recommended parameter settings for NetApp ONTAP LUN’s.  The
 
 By default, the AIX operating system enforces a shorter I/O timeout if when no paths to a LUN are available. This might occur in configurations including single-switch SAN fabric and MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, please refer to link:https://kb.netapp.com/app/answers/answer_view/a_id/1001318[NetApp KB1001318^]
 
-== Recommendations for AIX hosts configured with SMBC LUNs
+== AIX host behavior
 
-Beginning in ONTAP 9.11.1, AIX hosts configured with SnapMirror Business Continuity (SMBC) LUNs only discover paths from the primary cluster after the LUN map. By default, LUN paths are in the “hidden” state inside SCSI targets even though LUNs from the secondary cluster are mapped to an AIX igroup. To discover the new primary paths after SMBC events such as a planned failover event or an automatic unplanned failover (AUFO) event, you must perform a manual AIX host rescan and follow the host remediation steps in this procedure.
+Beginning in ONTAP 9.11.1, AIX hosts configured with SnapMirror Business Continuity (SMBC) LUNs only discover paths from the primary cluster after the LUN map. The LUN paths from the secondary cluster will return a `LU_NOT_SUPPORTED SCSI` response during LUN discovery. This means that the secondary cluster LUN paths will not be visible to the host. This target side response also results in the following behavioural changes on the host:
 
-In the following example, only paths from the primary cluster are discovered because the secondary cluster LUN paths are hidden. The example shows the LUN path status when the AIX host is in a steady state.
+. A planned failover (PFO) or automatic unplanned failover (AUFO) event results in the loss of all LUN paths and application I/O failure. You must perform a manual AIX host rescan to discover the paths from the new primary cluster.
+
+. During concurrent storage failover operations (SFO) on both the primary and secondary clusters, applications might experience I/O outage. To resolve this, a manual host rescan might be required.
+
+The following example displays the LUN path status on AIX host during steady state. Only the primary cluster paths are displayed:
 
 *Example*
 
@@ -184,13 +188,11 @@ hdisk3  6        Enabled  Sel,Opt      fscsi7  2024d039ea1ee6a8,1000000000000
 hdisk3  7        Enabled  Sel,Opt      fscsi7  2026d039ea1ee6a8,1000000000000
 ----
 
-=== AIX host remediation after a planned failover or AUFO event
+=== AIX host remediation after a PFO or AUFO event
 
 .About this task
 
-The AIX storage stack does not perform an automatic rescan of the LUNS.  After a planned failover or AUFO event, you must perform the following AIX host remediation steps to discover the LUN paths from the new primary cluster.
-
-NOTE: If you do not perform the AIX host remediation steps after a failover or AUFO event, path loss or I/O errors can occur.
+The AIX storage stack does not perform an automatic rescan of the LUNS after the LUN state changes from `LU_NOT_SUPPORTED` to `SCSI_GOOD`.  After a PFO or AUFO event, you must perform the following AIX host remediation steps to discover the LUN paths from the new primary cluster.
 
 .Steps
 
@@ -202,11 +204,13 @@ You can also perform a rescan for a specific host bus adapter (HBA):
 
 . Check the multipathing status on each ONTAP device:
 +
-`#lsmpio -l hdiskx`
+In the following example, `hdisk3 0` to `hdisk3 3` shows the old primary cluster paths in a failed state.`hdisk3 4` to `hdisk3 7` shows the new primary cluster paths.
 +
 *Example*
 +
 ----
+#lsmpio -l hdiskx
+
 [root@aix_server /]: lsmpio -l hdisk3
 name    path_id  status   path_status  parent  connection
 
@@ -222,11 +226,11 @@ hdisk3  7        Enabled  Sel,Opt      fscsi7  2026d039ea1ee6a8,1000000000000
 
 . Remove the failed paths from the remote cluster for all devices:
 +
-`#rmpath [-l _name_] [-p _parentname_] [-w _connectionlocation_] [-i_ pathID_] [-d] [-g]`
-+
 *Example*
 +
 ----
+#rmpath [-l _name_] [-p _parentname_] [-w _connectionlocation_] [-i_ pathID_] [-d] [-g]
+
 [root@aix_server /]: rmpath -l hdisk3  -p fscsi6 -w 2005d039ea1e44e4,1000000000000 -i 0  -d
 path Deleted
 [root@aix_server /]: rmpath -l hdisk3  -p fscsi6 -w 2003d039ea1e44e4,1000000000000 -i 1  -d
@@ -238,8 +242,6 @@ path Deleted
 ----
 
 . Verify the path status:
-+
-`lsmpio -l hdisk3`
 +
 *Example*
 +
