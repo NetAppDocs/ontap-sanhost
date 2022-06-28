@@ -198,9 +198,6 @@ The AIX storage stack does not perform an automatic rescan of the LUNS after the
 
 . Perform a rescan for new ONTAP devices:
 `#cfgmgr`
-+
-You can also perform a rescan for a specific host bus adapter (HBA):
-`cfgmgr -l fcsx`
 
 . Check the multipathing status on each ONTAP device:
 +
