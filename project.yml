@@ -19,7 +19,11 @@ sidebar:
           - title: Release Notes
             url: /hu_aix_61_rn.html
       - title: HPUX Host Utilities
-        url: /hu_hpux_60.html
+        entries:
+         - title: Install HPUX HU 6.0
+           url: /hu_hpux_60.html
+         - title: Release notes
+           url: /hu_hpux_60_rn.html
       - title: Linux Unified Host Utilities
         entries:
         - title: Install LUHU 7.1
