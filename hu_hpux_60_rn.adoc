@@ -26,7 +26,8 @@ The HP-UX Host Utilities support the following environments:
 * Veritas Dynamic Multipathing (DMP)
 
 NOTE: To make it immediately clear which environment is being used, this document sometimes specifies “DMP” for the Veritas DMP environment and “MPIO” for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
-                                                      == HPUX Host Utilities 6.0 enhancements
+
+== HPUX Host Utilities 6.0 enhancements
 
 The Release Notes are updated between product releases as new information is available.
 
@@ -49,8 +50,8 @@ You can access documentation for all NetApp products and find other product info
 
 *Configuring and managing your ONTAP storage system*
 
-* The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide for your version of ONTAP.]
-* The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP San Administration Guide for your version of ONTAP.]
+* The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide for your version of ONTAP]
+* The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP San Administration Guide for your version of ONTAP]
 * The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes for your version of ONTAP^]
 * link:https://mysupport.netapp.com/site/[NetApp Interoperability Matrix^]
 * link:https://hwu.netapp.com/[Hardware Universe] (formerly the System Configuration Guide)
