@@ -29,9 +29,8 @@ The primary Host Utilities environments are:
 * Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor and with the iSCSI protocol on system using an x86/64 processor.
 
 
-The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:link:https://mysupport.netapp.com/site/[NetApp Support Site^]. The ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
+The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. The ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
 
-NOTE: You must enable Dynamic Tracking for all FC and FCoE initiators for clustered Data ONTAP deployments.
 
 == Solaris Host Utilities 6.2 enhancements
 
