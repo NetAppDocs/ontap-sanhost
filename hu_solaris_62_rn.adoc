@@ -47,7 +47,7 @@ To use the Host Utilities efficiently, you should be aware that performance can 
 [cols=3,options="header"]
 |===
 |Bug ID	|Title	|Description
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1069147[1385189^]
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1385189[1385189^]
 |Solaris 11.4 FC driver binding changes required in HUK 6.2	|Solaris 11.4 and HUK recommendations.
 FC driver binding is changed from `ssd(4D)` to `sd(4D)`. Move configuration that you have in `ssd.conf` to `sd.conf` as mentioned in Oracle (Doc ID 2595926.1). The behavior varies across newly installed Solaris 11.4 system and upgraded from 11.3 or lower versions.
 |===
