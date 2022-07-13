@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 9.0 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 8.6 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Red Hat Enterprise Linux (RHEL) 9.0 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 9.0 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
