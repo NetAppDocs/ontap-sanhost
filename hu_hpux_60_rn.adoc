@@ -5,7 +5,7 @@ keywords: host utilities, hpux, 6.0, netapp, ontap, release, notes
 summary: Release Notes for HPUX Host Utilities 6.0
 ---
 
-= HPUX Host Utilities 6.0 Release Notes
+= HP-UX Host Utilities 6.0 Release Notes
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -15,11 +15,11 @@ summary: Release Notes for HPUX Host Utilities 6.0
 :imagesdir: ./media/
 
 [lead]
-This Release Notes document contains the latest information on the HPUX Host Utilities 6.0 release, including updates about known problems, limitations, and configuring and managing your ONTAP storage system. The Release Notes document is updated when new information on using the HPUX Host Utilities becomes available.
+This Release Notes document contains the latest information on the HP-UX Host Utilities 6.0 release, including updates about known problems, limitations, and configuring and managing your ONTAP storage system. The Release Notes document is updated when new information on using the HP-UX Host Utilities becomes available.
 
-== About the HPUX Host Utilities 6.0 release
+== About the HP-UX Host Utilities 6.0 release
 
-The HP-UX Host Utilities supports several HPUX environments and multiple protocols.
+The HP-UX Host Utilities supports several HP-UX environments and multiple protocols.
 The HP-UX Host Utilities support the following environments:
 
 * Native MPIO
@@ -27,16 +27,16 @@ The HP-UX Host Utilities support the following environments:
 
 NOTE: To make it immediately clear which environment is being used, this document sometimes specifies “DMP” for the Veritas DMP environment and “MPIO” for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
 
-== HPUX Host Utilities 6.0 enhancements
+== HP-UX Host Utilities 6.0 enhancements
 
-The Release Notes are updated between product releases as new information is available. The HPUX Host Utilities 6.0 continues to support versions of the following:
+The Release Notes are updated between product releases as new information is available. The HP-UX Host Utilities 6.0 continues to support versions of the following:
 
 * HP-UX 11iv2
 * HP-UX 11iv3
 
 == Known Problems and Limitations
 
-There are no known issues for the HPUX 6.0 release.
+There are no known issues for the HP-UX 6.0 release.
 
 == About SAN Host Configuration documentation
 
