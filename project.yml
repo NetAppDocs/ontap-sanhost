@@ -18,8 +18,12 @@ sidebar:
             url: /hu_aix_61.html
           - title: Release Notes
             url: /hu_aix_61_rn.html
-      - title: HPUX Host Utilities
-        url: /hu_hpux_60.html
+      - title: HP-UX Host Utilities
+        entries:
+         - title: Install HP-UX HU 6.0
+           url: /hu_hpux_60.html
+         - title: Release notes
+           url: /hu_hpux_60_rn.html
       - title: Linux Unified Host Utilities
         entries:
         - title: Install LUHU 7.1
@@ -27,7 +31,11 @@ sidebar:
         - title: Release Notes
           url: /hu_luhu_71_rn.html
       - title: Solaris Host Utilities
-        url: /hu_solaris_62.html
+        entries:
+          - title: Install Solaris HU 6.2
+            url: /hu_solaris_62.html
+          - title: Release Notes
+            url: /hu_solaris_62_rn.html
       - title: Windows Unified Host Utilities
         url: /hu_wuhu_71.html
 

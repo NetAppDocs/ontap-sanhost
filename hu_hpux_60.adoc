@@ -5,7 +5,7 @@ keywords: host utilities, unified, oracle, linux, 7.1, netapp, ontap
 summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 ---
 
-= HPUX Host Utilities 6.0
+= HP-UX Host Utilities 6.0
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -22,7 +22,7 @@ summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
 == SAN Toolkit
-HPUX Host Utilities is a NetApp host software that provides a command line tool kit on your HPUX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage the LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+HP-UX Host Utilities is a NetApp host software that provides a command line tool kit on your HP-UX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage the LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 .Example
 
@@ -44,8 +44,8 @@ sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0  fclp0 
 [NOTE]
 This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
-== Installing HPUX Host Utilities
-The NetApp HPUX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a compressed file.
+== Installing HP-UX Host Utilities
+The NetApp HP-UX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a compressed file.
 
 You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. After you have downloaded the file, you must decompress it before installation.
 
