@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: nvme_rhel_90.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 8.4 with ONTAP
+summary: How to Configure NVMe-oF Host for RHEL 9.0 with ONTAP
 ---
 
 = NVMe-oF Host Configuration for RHEL 9.0 with ONTAP
@@ -18,7 +18,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.4 with ONTAP
 [.lead]
 
 == Supportability
-NVMe-oF (including NVMe/FC & NVMe/TCP) is supported with RHEL 9.0 with ANA (Asymmetric Namespace Access) required for surviving SFOs on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF world, and is currently implemented with in-kernel NVMe Multipath. This page documents the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.0 and ONTAP as the target.
+NVMe-oF (including NVMe/FC & NVMe/TCP) is supported with RHEL 9.0 with ANA (Asymmetric Namespace Access) required for surviving SFOs on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF world, and is currently implemented with in-kernel NVMe Multipath. This  document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.0 and ONTAP as the target.
 
 == Features
 * Starting RHEL 9.0, NVMe/TCP is no longer tech-preview (unlike RHEL8) but a fully supported enterprise feature itself.
@@ -113,11 +113,9 @@ nvme-cli-1.16-3.el9.x86_64
 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_141
-Vserver  Subsystem Host NQN
+Vserver     Subsystem Host     NQN
 ----------- --------------- ----------------------------------------------------------
-vs_fcnvme_141
-              nvme_141_1
-                                 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+vs_fcnvme_14 nvme_141_1 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ----
 +
 [NOTE]
@@ -332,9 +330,11 @@ Another example:
 Node                SN                                           Model                                  Namespace    Usage                          Format         FW Rev
 ----------------     --------------------------------------- ------------------------------------ ------------------- ----------------------------- ---------------- ---------------
 /dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB NetApp ONTAP Controller   1                     85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
+----
 
-Verify that the controller state of each path is live and has a proper ANA status. For e.g.
-
+. Verify that the controller state of each path is live and has a proper ANA status. For example,
++
+----
 # nvme list-subsys /dev/nvme0n1
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_141_1
 \
@@ -344,7 +344,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
 ----
 +
-Another example:
+Example 2:
 ----
 # nvme list-subsys /dev/nvme0n1
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
@@ -377,7 +377,7 @@ Device                 Vserver                         Namespace Path           
   ]
 }
 ----
-Another example:
+Example 3:
 
 ----
 # nvme netapp ontapdevices -o column
@@ -407,7 +407,7 @@ Device               Vserver                   Namespace Path                   
 Before commencing any troubleshooting for any NVMe/FC failures, always ensure you are running a config that is compliant to the IMT specifications. And then proceed to the next steps below to debug any host side issues here.
 
 === lpfc verbose logging
-Given below is the list of lpfc driver logging bitmasks available for NVMe/FC, as seen at drivers/scsi/lpfc/lpfc_logmsg.h:
+Given below is the list of lpfc driver logging bitmasks available for NVMe/FC, as seen at `drivers/scsi/lpfc/lpfc_logmsg.h`:
 ----
 #define LOG_NVME 0x00100000 /* NVME general events. */
 #define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */
@@ -415,7 +415,7 @@ Given below is the list of lpfc driver logging bitmasks available for NVMe/FC, a
 #define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */
 ----
 
-So you may set the lpfc_log_verbose driver setting (appended to the lpfc line at /etc/modprobe.d/lpfc.conf) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running 'dracut -f' and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above LOG_NVME_DISC bitmask as an example:
+So you may set the lpfc_log_verbose driver setting (appended to the lpfc line at `/etc/modprobe.d/lpfc.conf`) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running `dracut -f` and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above LOG_NVME_DISC bitmask as an example:
 ----
 # cat /etc/modprobe.d/lpfc.conf
 options lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
@@ -424,7 +424,7 @@ options lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
 15728771
 ----
 === qla2xxx verbose logging
-Unfortunately, there is no similar specific qla2xxx logging for NVMe/FC, as there is in lpfc. So you may set the general qla2xxx logging level here i.e. ql2xextended_error_logging=0x1e400000. This can be done by appending this value to the corresponding modprobe qla2xxx conf file. And then recreate the initramfs by running 'dracut -f' and then reboot the host. After reboot, verify that the verbose logging has applied as follows:
+There is no similar specific qla2xxx logging for NVMe/FC, as there is in lpfc. So you may set the general qla2xxx logging level here, for example, `ql2xextended_error_logging=0x1e400000`. This can be done by appending this value to the corresponding `modprobe qla2xxx conf` file. And then recreate the `initramfs` by running `dracut -f` and then reboot the host. After reboot, verify that the verbose logging has applied as follows:
 ----
 # cat /etc/modprobe.d/qla2xxx.conf
 options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
@@ -446,8 +446,8 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 | Multiple issues could trigger this. Some of the common cases are:
 
 You passed wrong arguments to the above nvme commands.
-| Ensure you have passed the proper arguments itself (like proper WWNN string, WWPN string, etc.) for the above commands.
-If the arguments are correct, but still seeing this error, check if the /sys/class/scsi_host/host*/nvme_info output is proper with the NVMe intiator showing as "Enabled" & NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
+| Ensure you have passed the proper arguments itself (like proper WWNN string, WWPN string, and more) for the above commands.
+If the arguments are correct, but still seeing this error, check if the /sys/class/scsi_host/host*/nvme_info output is proper with the NVMe intiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
@@ -472,15 +472,15 @@ Workaround: If the target LIFs don't show up as above in the nvme_info output, c
 ----
 
 | `No discovery log entries to fetch` during nvme discover, nvme connect or nvme connect-all
-| This error message is generally seen if the /etc/nvme/hostnqn string has not been added to the corresponding subsystem on the NetApp array. Or an incorrect hostnqn string has been added to the respective subsystem.
-| Ensure the exact /etc/nvme/hostnqn string is added to the corresponding subsystem on the NetApp array (verify through the 'vserver nvme subsystem host show').
+| This error message is generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array. Or an incorrect hostnqn string has been added to the respective subsystem.
+| Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show`).
 
 |`Failed to write to /dev/nvme-fabrics: Operation already in progress` during nvme discover, nvme connect or nvme connect-all
 | This error message is seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
-| None. For nvme discover, just try running this command after some time. And maybe for nvme connect & connect-all, run a "nvme list" to verify that the namespace devices are already created and displayed on the host.
+| None. For nvme discover, just try running this command after some time. And maybe for nvme connect & connect-all, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
 |===
 
-=== Files & Command outputs required for Debugging
+=== Files and Command outputs required for debugging
 If you are still facing issues, please collect the following files and command outputs and send them to us for further triage:
 ----
 cat /sys/class/scsi_host/host*/nvme_info
