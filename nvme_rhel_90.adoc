@@ -18,26 +18,27 @@ summary: How to Configure NVMe-oF Host for RHEL 9.0 with ONTAP
 [.lead]
 
 == Supportability
-NVMe-oF (including NVMe/FC & NVMe/TCP) is supported with RHEL 9.0 with ANA (Asymmetric Namespace Access) required for surviving SFOs on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF world, and is currently implemented with in-kernel NVMe Multipath. This  document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.0 and ONTAP as the target.
+NVMe-oF (including NVMe/FC & NVMe/TCP) is supported with RHEL 9.0 with ANA (Asymmetric Namespace Access) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF environment, and is currently implemented with in-kernel NVMe Multipath. This  document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.0 and ONTAP as the target.
 
 == Features
-* Starting RHEL 9.0, NVMe/TCP is no longer tech-preview (unlike RHEL8) but a fully supported enterprise feature itself.
-* Starting RHEL 9.0, in-kernel NVMe multipath is default enabled for NVMe namepsaces (unlike RHEL8).
-* Starting RHEL 8.2, nvme-fc auto-connect scripts are included in the native nvme-cli package. So you may rely on these native auto-connect scripts itself instead of having to install the external vendor provided outbox auto-connect scripts.
-* Starting RHEL 8.2, a native udev rule is already provided as part of the nvme-cli package which enables round-robin load balancing for NVMe multipath. So one need not manually create this rule any more (as was done in RHEL 8.1).
-* Starting RHEL 8.2, both NVMe & SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. So for SCSI, one may configure dm-multipath as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath may be used to configure NVMe-oF multipath devices (i.e. /dev/nvmeXnY) on the host.
-* Starting RHEL 8.2, the NetApp plugin in the native nvme-cli is capable of displaying ONTAP details as well for ONTAP namespaces.
+* Starting RHEL 9.0, NVMe/TCP is no longer a technology preview feature (unlike RHEL 8) but a fully supported enterprise feature itself.
+* Starting RHEL 9.0, in-kernel NVMe multipath is default enabled for NVMe namepsaces (unlike RHEL 8).
+* Starting RHEL 8.2, `nvme-fc auto-connect` scripts are included in the native `nvme-cli` package. You can rely on these native auto-connect scripts itself instead of installing the external vendor provided outbox auto-connect scripts.
+* Starting RHEL 8.2, a native `udev` rule is already provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. You need not manually create this rule any more (as was done in RHEL 8.1).
+* Starting RHEL 8.2, both NVMe anf SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. So for SCSI, you can configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
+* Starting RHEL 8.2, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well for ONTAP namespaces.
 
 == Limitations
 * Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This reflects as two major limitations on the Linux host:
-** No auto-reconnect after paths get reinstated - NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default ctrl-loss-tmo of 10 minutes following a path down.
+** No auto-reconnect after paths get reinstated - NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` of 10 minutes following a path down.
 ** No auto-connect during host bootup - NVMe/TCP cannot automatically connect during host bootup as well.
-To comfortably tide over ONTAP failover events such as SFOs for NVMe/TCP, it is advised to set a longer retry period such as say 30 minutes by tweaking the ctrl_loss_tmo timer.
+To comfortably tide over ONTAP failover events such as SFOs for NVMe/TCP, it is advised to set a longer retry period such as 30 minutes by tweaking the `ctrl_loss_tmo` timer.
 
-==  Config Requirements
+==  Configuration requirements
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for exact details regarding supported configurations.
 
 === NVMe/FC
+
 ==== Adapters
 ===== Broadcom/Emulex
 * 32G FC Gandalf LPe32002 adapter used as NVMe/FC initiator on the RHEL 9.0 host
@@ -55,7 +56,7 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 * Single-initiator zoning enabled for the initiator ports & target LIFs
 
 === NVMe/TCP
-Starting RHEL 9.0, NVMe/TCP is no longer tech-preview (unlike RHEL8) but a fully supported enterprise feature itself. General ONTAP thumb rule is that NVMe/TCP can run on any NIC interface where iSCSI is already supported.
+Starting RHEL 9.0, NVMe/TCP is no longer a technology-preview feature (unlike RHEL8) but a fully supported enterprise feature itself. General ONTAP thumb rule is that NVMe/TCP can run on any NIC interface where iSCSI is already supported.
 
 ==== Adapters
 * Any regular NICs (like Intel 10G NIC)
@@ -65,16 +66,16 @@ Starting RHEL 9.0, NVMe/TCP is no longer tech-preview (unlike RHEL8) but a fully
 * Any regular Ethernet switch (like Cisco 10GbE switch)
 
 === Initiator
-* RHEL 9.0 (ISO available on the NB PXE at `/x/eng/nbshare/saninteroppxe/all_isoimages/RHEL/RHEL9/9.0/GA/)` - It is recommended to additionally select the Development Tools packages during OS installation.
+* RHEL 9.0 (ISO available on the NB PXE at `/x/eng/nbshare/saninteroppxe/all_isoimages/RHEL/RHEL9/9.0/GA/`) - It is recommended to additionally select the Development Tools packages during OS installation.
 
 [NOTE]
 ====
-With the default setting of `crashkernel=auto`, it isn't possible to get the RHEL host to dump core during a crash. Set `crashkernel=256M` using the following grubby command as well as enabling crash dump compression on the console:
+With the default setting of `crashkernel=auto`, it isn't possible to get the RHEL host to dump core during a crash. Instead of this, set `crashkernel=256M` using the following grubby command as well as enabling crash dump compression on the console:
 ----
 # grubby --args=crashkernel=256M --update-kernel /boot/vmlinuz-5.14.0-70.13.1.el9_0.x86_64
 ----
 
-Now reboot the host. After rebooting, verify that the crashkernel is indeed set to 256M now instead of auto. And then verify that the host is able to dump core at /var/crash/ by manually triggering a host crash (i.e. by running 'echo c > /proc/sysrq-trigger
+Now reboot the host. After rebooting, verify that the `crashkernel` is indeed set to `256M` instead of auto. And then verify that the host is able to dump core at `/var/crash/` by manually triggering a host crash (for example, by running `echo c > /proc/sysrq-trigger`).
 
 ----
 # cat /proc/cmdline
@@ -90,23 +91,24 @@ BOOT_IMAGE=(hd0,gpt2)/vmlinuz-4.18.0-372.9.1.el8.x86_64 root=/dev/mapper/rhel_in
 * Mellanox CX-5 RNIC target module (for NVMe/TCP)
 
 == Enable in-kernel NVMe Multipath
+
 .Steps
-. Install RHEL 9.0 on the server. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See the NetApp Interoperability Matrix for the most current list of supported versions.
+. Install RHEL 9.0 on the server. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See  link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 
 . After the installation is complete, verify that you are running the specified RHEL 9.0
-kernel. See the NetApp Interoperability Matrix for the most current list of supported versions.
+kernel. See link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
 ----
 # uname -r
 5.14.0-70.13.1.el9_0.x86_64
 ----
-. Install the nvme-cli package.
+. Install the `nvme-cli` package.
 +
 ----
 # rpm -qa|grep nvme-cli
 nvme-cli-1.16-3.el9.x86_64
 ----
-. On the host, check the host NQN string at /etc/nvme/hostnqn and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. For e.g.
+. On the host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. For example,
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -119,13 +121,13 @@ vs_fcnvme_14 nvme_141_1 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-
 ----
 +
 [NOTE]
-If the host NQN strings do not match, you should use the `vserver modify` command to update the host NQN string on your corresponding ONTAP NVMe subsystem so as to match the host NQN string from /etc/nvme/hostnqn on the host.
+If the host NQN strings do not match, you should use the `vserver modify` command to update the host NQN string on your corresponding ONTAP NVMe subsystem to match the host NQN string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 
 == Configuring NVMe/FC
 === Broadcom/Emulex
-. Verify that you are using the supported adapter. For the most current list of supported adapters see the NetApp Interoperability Matrix.
+. Verify that you are using the supported adapter. For the most current list of supported adapters see link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -149,14 +151,14 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 0:14.0.0.4
 ----
 
-. Verify that lpfc_enable_fc4_type is set to 3
+. Verify that `lpfc_enable_fc4_type` is set to `3`.
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 3
 ----
 
-. Verify that the initiator ports are up and running, and able to see the target LIFs.
+. Verify that the initiator ports are up and running, and you are able to see the target LIFs.
 +
 ----
 # cat /sys/class/fc_host/host*/port_name
@@ -197,17 +199,17 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 
 
-. Enable 1MB I/O size
+. Enable 1MB I/O size.
 +
-The `lpfc_sg_seg_cnt` parameter needs to be set to 256 for the lpfc driver to issue I/O requests upto 1 MB size.
+The `lpfc_sg_seg_cnt` parameter needs to be set to `256` for the `lpfc` driver to issue I/O requests upto 1 MB size.
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
 options lpfc lpfc_sg_seg_cnt=256
 ----
-.. Run a dracut -f command and then reboot the host.
+.. Run a `dracut -f` command and then reboot the host.
 
-.. After the host boots up, verify that lpfc_sg_seg_cnt is set to 256.
+.. After the host boots up, verify that `lpfc_sg_seg_cnt` is set to `256`.
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
@@ -233,11 +235,11 @@ Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as 
 == Configuring NVMe/TCP
 Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This reflects as two major limitations on the Linux NVMe/TCP host:
 
-* No auto-reconnect after paths get reinstated - NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default ctrl-loss-tmo of 10 minutes following a path down.
+* No auto-reconnect after paths get reinstated - NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` of 10 minutes following a path down.
 * No auto-connect during host bootup - NVMe/TCP cannot automatically connect during host bootup as well.
-To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the ctrl_loss_tmo timer. Details given below:
+To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the `ctrl_loss_tmo` timer. Following are the details:
 
-* Verify if the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs:
+. Verify if the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
@@ -276,13 +278,15 @@ sectype: none
 ...
 ----
 
-* Similarly, verify that other NVMe/TCP initiator-target LIF combos are able to succesfuly fetch discovery log page data. For e.g.
-
+. Similarly, verify that other NVMe/TCP initiator-target LIF combos are able to successfully fetch discovery log page data. For example,
++
+----
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
+----
 
-* Now run a 'nvme connect-all' across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer ctrl_loss_tmo period (such as say 30 minutes, which can be set through '-l 1800') during the connect-all so that it would retry for a longer period in the event of a path loss. For example,
+. Now run a `nvme connect-all` across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer `ctrl_loss_tmo` period (such as say 30 minutes, which can be set through `-l 1800`) during the connect-all so that it would retry for a longer period in the event of a path loss. For example,
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
@@ -299,7 +303,7 @@ sectype: none
 Y
 ----
 
-. Verify that the appropriate NVMf settings (i.e. model set to 'NetApp ONTAP Controller' & load balancing iopolicy set to to 'round-robin') for the respective ONTAP namespaces properly reflect on the host:
+. Verify that the appropriate NVMf settings (for example, model set to `NetApp ONTAP Controller` and load balancing `iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
 +
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model
@@ -317,9 +321,13 @@ round-robin
 +
 ----
 # nvme list
-Node                  SN                                            Model                                                Namespace Usage                            Format         FW Rev
---------------------   ---------------------------------------  ----------------------------------------------- ----------------- ------------------------------- ---------------- ---------------
-/dev/nvme0n1     814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller                1                  85.90 GB / 85.90 GB     4 KiB + 0 B   FFFFFFFF
+Node         SN                    Model                   Namespace   Usage
+------      ---------------------------------------      ------------------------
+/dev/nvme0n1 814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller  1          85.90 GB / 85.90 GB
+
+Format         FW Rev
+---------------------
+4 KiB + 0 B   FFFFFFFF
 ----
 +
 Another example:
@@ -327,9 +335,13 @@ Another example:
 ----
 
 # nvme list
-Node                SN                                           Model                                  Namespace    Usage                          Format         FW Rev
-----------------     --------------------------------------- ------------------------------------ ------------------- ----------------------------- ---------------- ---------------
-/dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB NetApp ONTAP Controller   1                     85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
+Node           SN                   Model                    Namespace   Usage
+---------------------------------------------------- ------------------------------------
+/dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB NetApp ONTAP Controller   1         85.90 GB / 85.90 GB
+
+Format         FW Rev
+-----------------------
+4 KiB + 0 B   FFFFFFFF
 ----
 
 . Verify that the controller state of each path is live and has a proper ANA status. For example,
@@ -357,9 +369,13 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:su
 Verify the NetApp plug-in displays proper values for each ONTAP namespace device. For e.g.
 
 # nvme netapp ontapdevices -o column
-Device                 Vserver                         Namespace Path                                                          NSID    UUID                                                             Size
------------------------ ------------------------------ ----------------------------------------------------------------------- --------- ---------------------------------------------------------- ---------
-/dev/nvme0n1      vs_fcnvme_141            /vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns              1          72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
+Device       Vserver        Namespace Path                            NSID
+----------------------- ------------------------------ -------------------------
+/dev/nvme0n1  vs_fcnvme_141  /vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns   1
+
+UUID                                   Size
+--------------------------------------------
+72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
 
 # nvme netapp ontapdevices -o json
 {
@@ -381,9 +397,13 @@ Example 3:
 
 ----
 # nvme netapp ontapdevices -o column
-Device               Vserver                   Namespace Path                                        NSID   UUID                                                            Size
---------------------- ------------------------- -------------------------------------------------------- --------  --------------------------------------------------------- ---------
-/dev/nvme0n1    vs_tcp_118            /vol/tcpnvme_118_1_0_0/tcpnvme_118_ns  1        4a3e89de-b239-45d8-be0c-b81f6418283c  85.90GB
+Device               Vserver                   Namespace Path
+--------------------- ------------------------- ------------------------------------
+/dev/nvme0n1         vs_tcp_118                /vol/tcpnvme_118_1_0_0/tcpnvme_118_ns
+
+NSID   UUID                               Size
+-------------------------------------------------
+1     4a3e89de-b239-45d8-be0c-b81f6418283c 85.90GB
 
 # nvme netapp ontapdevices -o json
 {
@@ -404,10 +424,10 @@ Device               Vserver                   Namespace Path                   
 ----
 
 == Troubleshooting
-Before commencing any troubleshooting for any NVMe/FC failures, always ensure you are running a config that is compliant to the IMT specifications. And then proceed to the next steps below to debug any host side issues here.
+Before commencing any troubleshooting for any NVMe/FC failures, always ensure you are running a configuration that is compliant to the IMT specifications. And then proceed to the following steps to debug any host side issues.
 
 === lpfc verbose logging
-Given below is the list of lpfc driver logging bitmasks available for NVMe/FC, as seen at `drivers/scsi/lpfc/lpfc_logmsg.h`:
+Following is the list of lpfc driver logging bitmasks available for NVMe/FC, as seen at `drivers/scsi/lpfc/lpfc_logmsg.h`:
 ----
 #define LOG_NVME 0x00100000 /* NVME general events. */
 #define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */
@@ -415,7 +435,7 @@ Given below is the list of lpfc driver logging bitmasks available for NVMe/FC, a
 #define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */
 ----
 
-So you may set the lpfc_log_verbose driver setting (appended to the lpfc line at `/etc/modprobe.d/lpfc.conf`) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running `dracut -f` and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above LOG_NVME_DISC bitmask as an example:
+You can set the `lpfc_log_verbose` driver setting (appended to the lpfc line at `/etc/modprobe.d/lpfc.conf`) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the `initiramfs` by running `dracut -f` command and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above `LOG_NVME_DISC` bitmask as an example:
 ----
 # cat /etc/modprobe.d/lpfc.conf
 options lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
@@ -424,7 +444,7 @@ options lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
 15728771
 ----
 === qla2xxx verbose logging
-There is no similar specific qla2xxx logging for NVMe/FC, as there is in lpfc. So you may set the general qla2xxx logging level here, for example, `ql2xextended_error_logging=0x1e400000`. This can be done by appending this value to the corresponding `modprobe qla2xxx conf` file. And then recreate the `initramfs` by running `dracut -f` and then reboot the host. After reboot, verify that the verbose logging has applied as follows:
+There is no similar specific qla2xxx logging for NVMe/FC, as is there in `lpfc`. You can set the general qla2xxx logging level here, for example, `ql2xextended_error_logging=0x1e400000`. This can be done by appending this value to the corresponding `modprobe qla2xxx conf` file. And then recreate the `initramfs` by running `dracut -f` and then reboot the host. After reboot, verify that the verbose logging has applied as follows:
 ----
 # cat /etc/modprobe.d/qla2xxx.conf
 options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
@@ -446,8 +466,8 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 | Multiple issues could trigger this. Some of the common cases are:
 
 You passed wrong arguments to the above nvme commands.
-| Ensure you have passed the proper arguments itself (like proper WWNN string, WWPN string, and more) for the above commands.
-If the arguments are correct, but still seeing this error, check if the /sys/class/scsi_host/host*/nvme_info output is proper with the NVMe intiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
+| Ensure you have passed the appropriate arguments (such as appropriate WWNN string, WWPN string, and more) for the above commands.
+If the arguments are correct, but still seeing this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper with the NVMe intiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
@@ -472,16 +492,16 @@ Workaround: If the target LIFs don't show up as above in the nvme_info output, c
 ----
 
 | `No discovery log entries to fetch` during nvme discover, nvme connect or nvme connect-all
-| This error message is generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array. Or an incorrect hostnqn string has been added to the respective subsystem.
+| This error message is generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect hostnqn string has been added to the respective subsystem.
 | Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show`).
 
-|`Failed to write to /dev/nvme-fabrics: Operation already in progress` during nvme discover, nvme connect or nvme connect-all
+|`Failed to write to /dev/nvme-fabrics: Operation already in progress` during `nvme discover`, `nvme connect` or `nvme connect-all`
 | This error message is seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
-| None. For nvme discover, just try running this command after some time. And maybe for nvme connect & connect-all, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
+| None. For `nvme discover`, try running this command after some time. And for `nvme connect` and `connect-all`, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
 |===
 
 === Files and Command outputs required for debugging
-If you are still facing issues, please collect the following files and command outputs and send them to us for further triage:
+If you are still facing issues, please collect the following files and command outputs and send them for further triage:
 ----
 cat /sys/class/scsi_host/host*/nvme_info
 /var/log/messages
