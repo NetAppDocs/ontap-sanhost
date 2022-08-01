@@ -476,12 +476,3 @@ nvme discover --transport=fc --traddr=nn-0x200a00a098c80f09:pn-0x200b00a098c80f0
 nvme list
 nvme list-subsys /dev/nvmeXnY
 ----
-
-== Known issues and workarounds
-
-[options="header", cols="20, 20, 20,20"]
-|===
-|Burt ID |Description |Impacted Functionality |Workaround
-|1466602
-|NACL issue	|FQA unable to run automation on RHEL9	|None, awaiting fix from the NACL team
-|===
