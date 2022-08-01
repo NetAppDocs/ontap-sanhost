@@ -18,7 +18,7 @@ summary: How to Configure NVMe-oF Host for RHEL 9.0 with ONTAP
 [.lead]
 
 == Supportability
-NVMe-oF (including NVMe/FC & NVMe/TCP) is supported with RHEL 9.0 with ANA (Asymmetric Namespace Access) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF environment, and is currently implemented with in-kernel NVMe Multipath. This  document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.0 and ONTAP as the target.
+NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with RHEL 9.0 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF environment, and is currently implemented with in-kernel NVMe Multipath. This document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.0 and ONTAP as the target.
 
 == Features
 * Starting RHEL 9.0, NVMe/TCP is no longer a technology preview feature (unlike RHEL 8) but a fully supported enterprise feature itself.
@@ -39,8 +39,7 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 .Steps
 . Install RHEL 9.0 on the server. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See  link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 
-. After the installation is complete, verify that you are running the specified RHEL 9.0
-kernel. See link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
 ----
 # uname -r
@@ -57,7 +56,9 @@ nvme-cli-1.16-3.el9.x86_64
 ----
 # cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
-
+----
++
+----
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_141
 Vserver     Subsystem Host     NQN
 ----------- --------------- ----------------------------------------------------------
@@ -78,8 +79,9 @@ If the host NQN strings do not match, you should use the `vserver modify` comman
 # cat /sys/class/scsi_host/host*/modelname
 LPe32002-M2
 LPe32002-M2
-
-
+----
++
+----
 # cat /sys/class/scsi_host/host*/modeldesc
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
@@ -91,7 +93,9 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 # cat /sys/class/scsi_host/host*/fwrev
 12.8.351.47, sli-4:2:c
 12.8.351.47, sli-4:2:c
-
+----
++
+----
 # cat /sys/module/lpfc/version
 0:14.0.0.4
 ----
@@ -109,11 +113,15 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 # cat /sys/class/fc_host/host*/port_name
 0x100000109b1c1204
 0x100000109b1c1205
-
+----
++
+----
 # cat /sys/class/fc_host/host*/port_state
 Online
 Online
-
+----
++
+----
 # cat /sys/class/scsi_host/host*/nvme_info
 
 NVME Initiator Enabled
@@ -228,9 +236,9 @@ sectype: none
 . Similarly, verify that the other NVMe/TCP initiator-target LIF combos are able to successfully fetch the discovery log page data. For example,
 +
 ----
+# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
-# nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
 
@@ -265,7 +273,7 @@ round-robin
 round-robin
 ----
 
-. Verify that the ONTAP namespaces properly reflect on the host. For example,
+. Verify that the ONTAP namespaces properly reflect on the host. For example (a),
 +
 ----
 # nvme list
@@ -278,10 +286,9 @@ Format         FW Rev
 4 KiB + 0 B   FFFFFFFF
 ----
 +
-Another example:
+Example (b):
 +
 ----
-
 # nvme list
 Node           SN                   Model                    Namespace   Usage
 ---------------------------------------------------- ------------------------------------
@@ -358,7 +365,9 @@ Device               Vserver                   Namespace Path
 NSID   UUID                               Size
 -------------------------------------------------
 1     4a3e89de-b239-45d8-be0c-b81f6418283c 85.90GB
-
+----
++
+----
 # nvme netapp ontapdevices -o json
 {
 "ONTAPdevices" : [
@@ -377,7 +386,7 @@ NSID   UUID                               Size
 }
 ----
 
-== Troubleshooting
+== When to contact technical support
 Before commencing any troubleshooting for any NVMe/FC failures, always ensure you are running a configuration that is compliant to the IMT specifications. And then proceed to the following steps to debug any host side issues.
 
 === lpfc verbose logging
@@ -393,7 +402,8 @@ You can set the `lpfc_log_verbose` driver setting (appended to the lpfc line at 
 ----
 # cat /etc/modprobe.d/lpfc.conf
 options lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
-
+----
+----
 # cat /sys/module/lpfc/parameters/lpfc_log_verbose
 15728771
 ----
@@ -407,7 +417,7 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 # cat /sys/module/qla2xxx/parameters/ql2xextended_error_logging
 507510784
 ----
-=== Common nvme-cli Errors and Workarounds
+=== Common nvme-cli errors and workarounds
 
 [options="header", cols="20, 20, 50"]
 |===
@@ -420,7 +430,7 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 | Multiple issues could trigger this. Some of the common cases are:
 
 You passed wrong arguments to the above nvme commands.
-| Ensure you have passed the appropriate arguments (such as appropriate WWNN string, WWPN string, and more) for the above commands.
+a| Ensure you have passed the appropriate arguments (such as appropriate WWNN string, WWPN string, and more) for the above commands.
 If the arguments are correct, but still seeing this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper with the NVMe intiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
 
 ----
@@ -455,7 +465,7 @@ Workaround: If the target LIFs don't show up as above in the `nvme_info` output,
 | None. For `nvme discover`, try running this command after some time. And for `nvme connect` and `connect-all`, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
 |===
 
-=== Files and Command outputs required for debugging
+=== Files and command outputs required for debugging
 If you are still facing issues, please collect the following files and command outputs and send them for further triage:
 ----
 cat /sys/class/scsi_host/host*/nvme_info
@@ -467,7 +477,7 @@ nvme list
 nvme list-subsys /dev/nvmeXnY
 ----
 
-== Known Issues & Workarounds
+== Known issues and workarounds
 
 [options="header", cols="20, 20, 20,20"]
 |===
