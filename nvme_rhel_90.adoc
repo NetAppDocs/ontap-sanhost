@@ -22,7 +22,7 @@ NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with RHEL 9.0 with Asymmet
 
 == Features
 * Starting RHEL 9.0, NVMe/TCP is no longer a technology preview feature (unlike RHEL 8) but a fully supported enterprise feature itself.
-* Starting RHEL 9.0, in-kernel NVMe multipath is enabled for NVMe namepsaces by default, without the need for explicit settings (unlike RHEL 8).
+* Starting RHEL 9.0, in-kernel NVMe multipath is enabled for NVMe namespaces by default, without the need for explicit settings (unlike RHEL 8).
 
 
 == Limitations
@@ -431,7 +431,7 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 
 You passed wrong arguments to the above nvme commands.
 a| Ensure you have passed the appropriate arguments (such as appropriate WWNN string, WWPN string, and more) for the above commands.
-If the arguments are correct, but still seeing this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper with the NVMe intiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
+If the arguments are correct, but still seeing this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper with the NVMe initiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
 
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
