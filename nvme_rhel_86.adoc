@@ -34,13 +34,7 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 == Known limitations
 
-* For RHEL 8.5, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
-
-* Unlike NVMe/FC, NVMe/TCP does not have auto-connect functionality. This causes two major limitations on the Linux host:
-** No auto-reconnect after paths get reinstated - Following a path down event, NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` of 10 minutes.
-** No auto-connect during host bootup - NVMe/TCP also cannot automatically connect during host bootup.
-+
-To comfortably handle ONTAP failover events such as SFOs for NVMe/TCP, it is recommended to set a longer retry period such as 30 minutes by adjusting the `ctrl_loss_tmo` timer. Details given below.
+* For RHEL 8.6, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
 
 * NVMe/TCP on RHEL 8.6 remains a Technology Preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.6_release_notes/index#technology-preview_file-systems-and-storage[RHEL 8.6 Release Notes^] for details.
 
@@ -161,20 +155,23 @@ Online
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-*NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 ONLINE*
-*NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 TARGET DISCSRVC ONLINE*
-*NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 TARGET DISCSRVC ONLINE*
+NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 ONLINE
+NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 TARGET DISCSRVC ONLINE
+NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 TARGET DISCSRVC ONLINE
+
 NVME Statistics
 LS: Xmt 0000000f78 Cmpl 0000000f78 Abort 00000000
 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
 Total FCP Cmpl 000000002fe29bba Issue 000000002fe29bc4 OutIO 000000000000000a
 abort 00001bc7 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001e15 Err 0000d906
+
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-*NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 ONLINE
+NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 ONLINE
 NVME RPORT WWPN x203d00a098dfdd91 WWNN x203700a098dfdd91 DID x010007 TARGET DISCSRVC ONLINE
-NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 TARGET DISCSRVC ONLINE
+
 NVME Statistics
 LS: Xmt 0000000fa8 Cmpl 0000000fa8 Abort 00000000
 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
