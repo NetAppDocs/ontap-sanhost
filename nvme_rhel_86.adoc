@@ -21,15 +21,7 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 == Features
 
-*	Starting RHEL 8.2, `nvme-fc auto-connect` scripts are included in the native `nvme-cli` package. You can rely on these native auto-connect scripts instead of having to install the external vendor provided outbox auto-connect scripts.
-
-*	Starting RHEL 8.2, a native `udev` rule is already provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. You need not manually create this rule any more (as was done in RHEL 8.1).
-
-*	Starting RHEL 8.2, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath may be used to configure NVMe-oF multipath devices on the host.
-
-*	Starting RHEL 8.2, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well for ONTAP namespaces.
-
-* RHEL 8.6 includes support for NVMe/TCP (as a Technology Preview feature) in addition to NVMe/FC. The above NetApp plugin works for both these NVMe transports.
+* RHEL 8.6 includes support for NVMe/TCP (as a Technology Preview feature) in addition to NVMe/FC. The NetApp plugin in the native nvme-cli package is capable of displaying ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
 
 == Known limitations
@@ -142,7 +134,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 +
 
-.	Verify that the initiator ports are up and running, and you are able to see the target LIFs.
+.	Verify that the initiator ports are up and running, and that you can see the target LIFs.
 +
 [subs=+quotes]
 ----
@@ -272,9 +264,10 @@ sectype: none
 ...
 ----
 
-.	Verify that other NVMe/TCP initiator-target LIF combos are able to successfully fetch discovery log page data. For example,
+.	Verify that other NVMe/TCP initiator-target LIF combos can successfully fetch discovery log page data. For example:
 +
 ----
+# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
