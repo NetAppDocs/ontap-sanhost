@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For SUSE Linux Enterprise Server 15 SP3 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. SUSE Linux Enterprise Server 15 SP3 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For SUSE Linux Enterprise Server 15 SP4 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. SUSE Linux Enterprise Server 15 SP4 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -68,7 +68,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended Settings
 
-SUSE Linux Enterprise Server 15 SP3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+SUSE Linux Enterprise Server 15 SP4 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -118,7 +118,7 @@ devices {
 
 == Known Problems and Limitations
 
-There are no known issues for SUSE Linux Enterprise Server 15 SP3.
+There are no known issues for SUSE Linux Enterprise Server 15 SP4.
 
 == Release Notes
 
