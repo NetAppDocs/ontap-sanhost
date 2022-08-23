@@ -44,7 +44,7 @@ size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_hand
 |-+- policy='round-robin 0' prio=50 status=active
 | |- 0:0:26:37 sdje 8:384   active ready running
 | |- 0:0:25:37 sdik 135:64  active ready running
-`-+- policy='round-robin 0' prio=10 status=enabled
+|-+- policy='round-robin 0' prio=10 status=enabled
   |- 0:0:18:37 sdda 70:128  active ready running
   |- 0:0:19:37 sddu 71:192  active ready running
 ----

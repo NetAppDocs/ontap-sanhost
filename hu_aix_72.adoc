@@ -164,6 +164,14 @@ Following are some recommended parameter settings for NetApp ONTAP LUN’s.  The
 
 By default, the AIX operating system enforces a shorter I/O timeout if when no paths to a LUN are available. This might occur in configurations including single-switch SAN fabric and MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, please refer to link:https://kb.netapp.com/app/answers/answer_view/a_id/1001318[NetApp KB1001318^]
 
+== AIX support with SM-BC
+
+Beginning with ONTAP 9.11.1, AIX is supported with SM-BC. With an AIX configuration, the primary cluster is the "active" cluster.
+
+In an AIX configuration, failovers are disruptive. With each failover, you will need to perform a re-scan on the host for I/O operations to resume.
+
+To configure AIX for SM-BC, refer to the Knowledge Base article link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/How_to_configure_an_AIX_host_for_SnapMirror_Business_Continuity_(SM-BC)[How to configure an AIX host for SnapMirror Business Continuity (SM-BC)^].
+
 == Known Problems and Limitations
 
 [cols=4*,options="header"]
@@ -181,3 +189,5 @@ By default, the AIX operating system enforces a shorter I/O timeout if when no p
 | 1307653 | Seeing I/O issues on VIOS 3.1.1.10 during SFO faults and straight I/O | On VIOS 3.1.1 IO failures may be seen on NPIV client disk which are backed by 16/32Gb FC adapters.  Also, a `vfchost` driver may get into a state where it stops processing I/O requests from the client. Applying IBM APAR IJ22290 IBM APAR IJ23222 will fix the issue. | NA
 
 |===
+
+// BURT 1483343, 2022-16-06

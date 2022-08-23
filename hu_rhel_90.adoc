@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_rhel_84.html
-keywords: host utilities, red hat, rhel, linux, 8.4, netapp, ontap
-summary: Describes how to use Red Hat Enterprise Linux 8.4 with ONTAP
+permalink: hu_rhel_90.html
+keywords: host utilities, red hat, rhel, linux, 8.6, netapp, ontap
+summary: Describes how to use Red Hat Enterprise Linux 8.6 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 8.4 with NetApp ONTAP
+= Using Red Hat Enterprise Linux 9.0 with NetApp ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use Red Hat Enterprise Linux 8.4 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 8.4 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 8.4 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Red Hat Enterprise Linux (RHEL) 9.0 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 9.0 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -68,7 +68,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended Settings
 
-The RHEL 8.4 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+The RHEL 9.0 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -120,7 +120,7 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known Problems and Limitations
 
-There are no known issues for RHEL 8.4.
+There are no known issues for RHEL 9.0.
 
 == Release Notes
 

@@ -17,8 +17,12 @@ sidebar:
           - title: Install AIX HU 6.1
             url: /hu_aix_61.html
           
-      - title: HPUX Host Utilities
-        url: /hu_hpux_60.html
+      - title: HP-UX Host Utilities
+        entries:
+         - title: Install HP-UX HU 6.0
+           url: /hu_hpux_60.html
+         - title: Release notes
+           url: /hu_hpux_60_rn.html
       - title: Linux Unified Host Utilities
         entries:
         - title: Install LUHU 7.1
@@ -26,7 +30,11 @@ sidebar:
         - title: Release Notes
           url: /hu_luhu_71_rn.html
       - title: Solaris Host Utilities
-        url: /hu_solaris_62.html
+        entries:
+          - title: Install Solaris HU 6.2
+            url: /hu_solaris_62.html
+          - title: Release Notes
+            url: /hu_solaris_62_rn.html
       - title: Windows Unified Host Utilities
         url: /hu_wuhu_71.html
 
@@ -52,6 +60,10 @@ sidebar:
       - title: RHEL
         pdf-filename: NVMeF RHEL
         entries:
+        - title: 9.0
+          url: /nvme_rhel_90.html
+        - title: 8.6
+          url: /nvme_rhel_86.html
         - title: 8.4
           url: /nvme_rhel_84.html
         - title: 8.3
@@ -159,6 +171,8 @@ sidebar:
         entries:
         - title: OL 8
           entries:
+          - title: 8.6
+            url: /hu_ol_86.html
           - title: 8.5
             url: /hu_ol_85.html
           - title: 8.4
@@ -211,8 +225,14 @@ sidebar:
             url: /hu_ol_64.html
       - title: RHEL
         entries:
+        - title: RHEL 9
+          entries:
+          - title: 9.0
+            url: /hu_rhel_90.html
         - title: RHEL 8
           entries:
+          - title: 8.6
+            url: /hu_rhel_86.html
           - title: 8.5
             url: /hu_rhel_85.html
           - title: 8.4
