@@ -226,9 +226,9 @@ tcp.vmnic2:34:80:Od:30:ca:eo-tcp.unknown-uuid.400bf333abf74ab8b96dc18ffadc3f99
 tcp.vmnic3:34:80:Od:30:ca:el-tcp.unknown-uuid.400bf333abf74ab8b96dc18ffadc3f99
    Runtime Name: vmhba65:C0:T1:L3
    Device: uuid.400bf333abf74ab8b96dc18ffadc3f99
-   Device Display Name: NVMe TCP Disk (uuid .400bf333abf74ab8b96dc18ffadc3f99)
+   Device Display Name: NVMe TCP Disk (uuid.400bf333abf74ab8b96dc18ffadc3f99)
    Path State: active
-   Path config: {TPG_id=0,TPG_state=ANO,RTP_id=0,health=UP}
+   Path config: {TPG_id=0,TPG_state=AO,RTP_id=0,health=UP}
 ----
 
 == Known issue
