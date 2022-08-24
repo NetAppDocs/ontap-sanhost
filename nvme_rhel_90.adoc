@@ -457,12 +457,12 @@ Workaround: If the target LIFs don't show up as above in the `nvme_info` output,
 
 
 | `No discovery log entries to fetch` during  `nvme discover`, `nvme connect`, or `nvme connect-all`
-| This error message is generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect `hostnqn` string has been added to the respective subsystem.
-| Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show`).
+a| This error message is generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect `hostnqn` string has been added to the respective subsystem.
+a| Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show`).
 
 |`Failed to write to /dev/nvme-fabrics: Operation already in progress` during `nvme discover`, `nvme connect` or `nvme connect-all`
 | This error message is seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
-| None. For `nvme discover`, try running this command after some time. And for `nvme connect` and `connect-all`, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
+a| None. For `nvme discover`, try running this command after some time. And for `nvme connect` and `connect-all`, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
 |===
 
 === Files and command outputs required for debugging
