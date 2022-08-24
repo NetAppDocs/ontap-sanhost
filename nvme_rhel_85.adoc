@@ -124,7 +124,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 +
 
-.	Verify that lpfc_enable_fc4_type is set to 3
+.	Verify that `lpfc_enable_fc4_type` is set to 3
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
@@ -230,7 +230,7 @@ To comfortably tide over ONTAP failover events such as SFOs, it is advised to se
 . Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
-# nnvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
+# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
 Discovery Log Number of Records 10, Generation counter 119
 =====Discovery Log Entry 0======
 trtype: tcp
@@ -268,7 +268,7 @@ sectype: none
 .	Verify that other NVMe/TCP initiator-target LIF combos can successfully fetch discovery log page data. For example:
 +
 ----
-# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51 
+# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
@@ -441,12 +441,12 @@ NVME RPORT WWPN x200900a098c80f09 WWNN x200800a098c80f09 DID x010301 TARGET DISC
 NVME Statistics
 LS: Xmt 0000000000000006 Cmpl 0000000000000006
 FCP: Rd 0000000000000073 Wr 0000000000000005 IO 0000000000000031
-Cmpl 00000000000000a8 Outstanding 0000000000000001`
+Cmpl 00000000000000a8 Outstanding 0000000000000001
 ----
 
 * If the target LIFs don't show up as above in the nvme_info output, check the `/var/log/messages` and `dmesg` output for any suspicious NVMe/FC failures, and report or fix accordingly.
 
-| `No discovery log entries to fetch`  |Generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect hostnqn string has been added to the respective subsystem. |Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show` command).
+| `No discovery log entries to fetch`  |Generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect `hostnqn` string has been added to the respective subsystem. |Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show` command).
 
 |`Failed to write to /dev/nvme-fabrics: Operation already in progress`  |
  Seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
