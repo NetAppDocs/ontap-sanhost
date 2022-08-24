@@ -449,7 +449,7 @@ Cmpl 00000000000000a8 Outstanding 0000000000000001
 |`No discovery log entries to fetch`  a|Generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect `hostnqn` string has been added to the respective subsystem. a|Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show` command).
 
 |`Failed to write to /dev/nvme-fabrics: Operation already in progress`  a|Seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
-a|None. For nvme discover, try running this command after some time. For nvme connect and connect-all, run the `nvme list` command to verify that the namespace devices are already created and displayed on the host.
+a|None. For `nvme discover`, try running this command after some time. For `nvme connect` and `connect-all`, run the `nvme list` command to verify that the namespace devices are already created and displayed on the host.
 
 |===
 
