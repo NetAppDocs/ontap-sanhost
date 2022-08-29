@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: nvme_rhel_86.html
+permalink: nvme_rhel_85.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 8.6 with ONTAP
+summary: How to Configure NVMe-oF Host for RHEL 8.5 with ONTAP
 ---
 
-= NVMe-oF Host Configuration for RHEL 8.6 with ONTAP
+= NVMe-oF Host Configuration for RHEL 8.5 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -17,18 +17,18 @@ summary: How to Configure NVMe-oF Host for RHEL 8.6 with ONTAP
 
 == Supportability
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with RHEL 8.6 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.6 and ONTAP as the target has been documented here.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with RHEL 8.5 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.5 and ONTAP as the target has been documented here.
 
 == Features
 
-* RHEL 8.6 includes support for NVMe/TCP (as a Technology Preview feature) in addition to NVMe/FC. The NetApp plugin in the native nvme-cli package is capable of displaying ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+* RHEL 8.5 includes support for NVMe/TCP (as a Technology Preview feature) in addition to NVMe/FC. The NetApp plugin in the native nvme-cli package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
 
 == Known limitations
 
-* For RHEL 8.6, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
+* For RHEL 8.5, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
 
-* NVMe/TCP on RHEL 8.6 remains a Technology Preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.6_release_notes/index#technology-preview_file-systems-and-storage[RHEL 8.6 Release Notes^] for details.
+* NVMe/TCP on RHEL 8.5 remains a Technology Preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.5_release_notes/index#technology-preview_file-systems-and-storage[RHEL 8.5 Release Notes^] for details.
 
 
 == Configuration requirements
@@ -38,16 +38,14 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 == Enable in-kernel NVMe Multipath
 
-.	Install RHEL 8.6 on the server. After the installation is complete, verify that you are running the specified RHEL 8.6 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
-
-.	After the installation is complete, verify that you are running the specified RHEL 8.6 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.	Install RHEL 8.5 GA on the server. After the installation is complete, verify that you are running the specified RHEL 8.5 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
 Example:
 +
 
 ----
 # uname -r
-4.18.0-372.9.1.el8.x86_64
+4.18.0-348.el8.x86_64
 ----
 +
 
@@ -57,13 +55,13 @@ Example:
 +
 ----
 # rpm -qa|grep nvme-cli
-nvme-cli-1.16-3.el8.x86_64
+nvme-cli-1.14-3.el8.x86_64
 ----
 
 .	Enable in-kernel NVMe multipath:
 +
 ----
-# grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-372.9.1.el8.x86_64
+# grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-348.el8.x86_64
 ----
 
 .	On the host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. Example:
@@ -122,7 +120,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 12.8.351.47, sli-4:2:c
 12.8.351.47, sli-4:2:c
 # cat /sys/module/lpfc/version
-0:14.0.0.4
+0:12.8.0.10
 ----
 +
 
@@ -141,10 +139,13 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 # cat /sys/class/fc_host/host*/port_name
 0x100000109b1c1204
 0x100000109b1c1205
+
 # cat /sys/class/fc_host/host*/port_state
 Online
 Online
+
 # cat /sys/class/scsi_host/host*/nvme_info
+
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 ONLINE
@@ -196,7 +197,7 @@ Now the Broadcom FC-NVMe host should be able to send up to 1MB I/O requests on t
 
 === Marvell/QLogic
 
-The native inbox `qla2xxx` driver included in the RHEL 8.6 kernel has the latest upstream fixes which are essential for ONTAP support.
+The native inbox `qla2xxx` driver included in the RHEL 8.5 GA kernel has the latest upstream fixes which are essential for ONTAP support.
 
 . Verify that you are running the supported adapter driver and firmware versions using the following command:
 
@@ -204,8 +205,8 @@ The native inbox `qla2xxx` driver included in the RHEL 8.6 kernel has the latest
 
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
-QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
-QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
+QLE2742 FW:v9.06.02 DVR:v10.02.00.106-k
+QLE2742 FW:v9.06.02 DVR:v10.02.00.106-k
 ----
 
 . Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator using the following command:
@@ -224,7 +225,7 @@ Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two m
 
 * *No auto-connect during host bootup* NVMe/TCP cannot automatically connect during host bootup as well.
 
-To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such 30 minutes by tweaking the `ctrl_loss_tmo` timer. Following are the details:
+To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the `ctrl_loss_tmo` timer. Following are the details:
 
 . Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -273,7 +274,7 @@ sectype: none
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
 
-.	Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer `ctrl_loss_tmo` period (such as say 30 minutes, which can be set through `-l 1800`) during the connect-all so that it would retry for a longer period in the event of a path loss. For example:
+.	Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer `ctrl_loss_tmo` period (such as 30 minutes, which can be set through `-l 1800`) during the connect-all so that it retries for a longer period in the event of a path loss. For example:
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
@@ -291,7 +292,7 @@ sectype: none
 Y
 ----
 
-. Verify that the appropriate NVMe-oF settings (such as, `model` set to `NetApp ONTAP Controller` and load balancing `iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
+. Verify that the appropriate NVMe-oF settings (such as, `model` set to `NetApp ONTAP Controller` and `load balancing iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
 +
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model
@@ -309,7 +310,7 @@ round-robin
 # nvme list
 Node           SN                    Model                   Namespace
 ------------   --------------------- ---------------------------------
-/dev/nvme0n1   814vWBNRwf9HAAAAAAAB   NetApp ONTAP Controller   1
+/dev/nvme0n1    814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller   1
 
 Usage                Format         FW Rev
 -------------------  -----------    --------
@@ -320,8 +321,8 @@ Usage                Format         FW Rev
 +
 [subs=+quotes]
 ----
-# nvme list-subsys /dev/nvme1n1
-nvme-subsys1 - nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_141_1
+# nvme list-subsys /dev/nvme0n1
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_141_1
 \
 +- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 *live inaccessible*
 +- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 *live inaccessible*
@@ -329,13 +330,14 @@ nvme-subsys1 - nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
 ----
 
-. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example:
+. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
+
 +
 ----
 # nvme netapp ontapdevices -o column
 Device       Vserver          Namespace Path
 ---------    -------          --------------------------------------------------
-/dev/nvme0n1 vs_fcnvme_141    /vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns
+/dev/nvme0n1 vs_fcnvme_141  vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns
 
 NSID  UUID                                   Size
 ----  ------------------------------         ------
@@ -358,6 +360,7 @@ NSID  UUID                                   Size
   ]
 }
 ----
+
 
 == Troubleshooting
 
@@ -463,4 +466,4 @@ nvme list
 nvme list-subsys /dev/nvmeXnY
 ----
 
-// 2022,08-03, Jira IEOPS-690
+// Jira EOPS-730, 2022-08-12
