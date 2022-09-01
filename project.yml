@@ -48,42 +48,56 @@ sidebar:
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
-        - title: 8.2
-          url: /nvme_ol_82.html
-        - title: 8.1
-          url: /nvme_ol_81.html
-        - title: 7.9
-          url: /nvme_ol_79.html
-        - title: 7.8
-          url: /nvme_ol_78.html
-        - title: 7.7
-          url: /nvme_ol_77.html
+        - title: OL 8
+          entries:
+          - title: 8.2
+            url: /nvme_ol_82.html
+          - title: 8.1
+            url: /nvme_ol_81.html
+        - title: OL 7
+          entries:
+          - title: 7.9
+            url: /nvme_ol_79.html
+          - title: 7.8
+            url: /nvme_ol_78.html
+          - title: 7.7
+            url: /nvme_ol_77.html
       - title: RHEL
         pdf-filename: NVMeF RHEL
         entries:
-        - title: 9.0
-          url: /nvme_rhel_90.html
-        - title: 8.6
-          url: /nvme_rhel_86.html
-        - title: 8.5
-          url: /nvme_rhel_85.html
-        - title: 8.4
-          url: /nvme_rhel_84.html
-        - title: 8.3
-          url: /nvme_rhel_83.html
-        - title: 8.2
-          url: /nvme_rhel_82.html
-        - title: 8.1
-          url: /nvme_rhel_81.html
+        - title: RHEL 9
+          entries:
+          - title: 9.0
+            url: /nvme_rhel_90.html
+        - title: RHEL 8
+          entries:
+          - title: 8.6
+            url: /nvme_rhel_86.html
+          - title: 8.5
+            url: /nvme_rhel_85.html
+          - title: 8.4
+            url: /nvme_rhel_84.html
+          - title: 8.3
+            url: /nvme_rhel_83.html
+          - title: 8.2
+            url: /nvme_rhel_82.html
+          - title: 8.1
+            url: /nvme_rhel_81.html
       - title: SLES
         pdf-filename: NVMeoF SLES
         entries:
-        - title: 15 SP3
-          url: /nvme_sles15_sp3.html
-        - title: 15 SP2
-          url: /nvme_sles15_sp2.html
-        - title: 15 SP1
-          url: /nvme_sles15_sp1.html
+        - title: SLES 15
+          entries:
+          - title: 15 SP5
+            url: /nvme_sles15_sp5.html
+          - title: 15 SP4
+            url: /nvme_sles15_sp4.html
+          - title: 15 SP3
+            url: /nvme_sles15_sp3.html
+          - title: 15 SP2
+            url: /nvme_sles15_sp2.html
+          - title: 15 SP1
+            url: /nvme_sles15_sp1.html
       - title: Windows
         entries:
         - title: 2019
