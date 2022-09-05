@@ -18,7 +18,6 @@ sidebar:
             url: /hu_aix_61.html
           - title: Release notes
             url: /hu_aix_61_rn.html
-          
       - title: HP-UX Host Utilities
         entries:
          - title: Install HP-UX HU 6.0
@@ -79,6 +78,7 @@ sidebar:
       - title: SLES
         pdf-filename: NVMeoF SLES
         entries:
+        
         - title: 15 SP3
           url: /nvme_sles15_sp3.html
         - title: 15 SP2
@@ -297,6 +297,8 @@ sidebar:
         entries:
         - title: SLES 15
           entries:
+          - title: 15 SP4
+            url: /hu_sles_15SP4.html
           - title: 15 SP3
             url: /hu_sles_15SP3.html
           - title: 15 SP2
@@ -335,4 +337,3 @@ sidebar:
           url: /hu_windows_2016.html
         - title: "2012 R2"
           url: /hu_windows_2012r2.html
-          
