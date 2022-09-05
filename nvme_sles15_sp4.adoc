@@ -25,7 +25,7 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 *	There is no `sanlun` support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SLES15 SP4. You can rely on the NetApp plug-in included in the native `nvme-cli` for the same instead. This should work for all NVMe-oF transports.
 
-*	Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
+*	Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. Therefore, for SCSI, you might configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
 
 == Known limitations
 
@@ -33,18 +33,18 @@ There are no known limitations.
 
 == Configuration Requirements
 
-Refer to the NetApp Interoperability Matrix for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]  for accurate details regarding supported configurations.
 
 == Enable in-kernel NVMe Multipath
 
-In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP4. Therefore, no additional setting is required here. Refer to the NetApp Interoperability Matrix for accurate details regarding supported configurations.
+In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP4. Therefore, no additional setting is required here. Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]  for accurate details regarding supported configurations.
 
 == NVMe-oF initiator packages
 
-Refer to the NetApp Interoperability Matrix for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]  for accurate details regarding supported configurations.
 
-. Verify that you have the requisite kernel and nvme-cli MU packages installed on the SLES15 SP4 MU host.
-
+. Verify that you have the requisite kernel and `nvme-cli` MU packages installed on the SLES15 SP4 MU host.
++
 Example:
 +
 ----
@@ -55,7 +55,7 @@ Example:
 # rpm -qa|grep nvme-cli
 nvme-cli-2.0-150400.1.6.x86_64
 ----
-
++
 The above nvme-cli MU package now includes the following:
 
 *	NVMe/FC auto-connect scripts - Required for NVMe/FC auto-(re)connect when underlying paths to the namespaces are restored as well as during the host reboot:
@@ -95,7 +95,7 @@ ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp E-Series", ATTR
 
 NetApp plug-in for ONTAP devices - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
 
-.	Check the hostnqn string at /etc/nvme/hostnqn on the host and ensure that it properly matches with the hostnqn string for the corresponding subsystem on the ONTAP array. For example,
+.	Check the `hostnqn` string at  `/etc/nvme/hostnqn` on the host and ensure that it properly matches with the `hostnqn` string for the corresponding subsystem on the ONTAP array. For example,
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -111,7 +111,7 @@ vs_nvme_145 nvme_145_1 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-c
 5 entries were displayed.
 ----
 
-Proceed with the below steps depending on the FC adapter being used on the host.
+Proceed with the following steps depending on the FC adapter being used on the host.
 
 == Configure NVMe/FC
 
@@ -132,7 +132,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
 The newer lpfc drivers (both inbox and outbox) already have `lpfc_enable_fc4_type` default set to 3, therefore, you no longer need to set this explicitly in the `/etc/modprobe.d/lpfc.conf`, and recreate the `initrd`. The `lpfc nvme` support is already enabled by default:
-+
+
 ----
 # cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 3
@@ -222,7 +222,7 @@ QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k
 QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k
 ----
 
-. Verify ql2xnvmeenable is set which enables the Marvell adapter to function as a NVMe/FC initiator:
+. Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator:
 +
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
@@ -233,11 +233,11 @@ QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k
 
 Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two major limitations on the Linux NVMe/TCP host:
 
-*	No auto-reconnect after paths get reinstated NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default ctrl-loss-tmo timer of 10 minutes following a path down.
+*	No auto-reconnect after paths get reinstated NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` timer of 10 minutes following a path down.
 
 *	No auto-connect during host bootup NVMe/TCP cannot automatically connect during host bootup as well.
 
-To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the ctrl_loss_tmo timer. Following are the details:
+To comfortably tide over ONTAP failover events such as storage failover (SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the ctrl_loss_tmo timer. Following are the details:
 
 .	Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -285,7 +285,7 @@ sectype: none
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
 
-.	Run nvme connect-all command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer ctrl_loss_tmo period (such as say 30 minutes, which can be set through -l 1800) during the connect-all so that it would retry for a longer period in the event of a path loss. For example,
+.	Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer `ctrl_loss_tmo` period (such as say 30 minutes, which can be set through -l 1800) during the `connect-all` so that it would retry for a longer period in the event of a path loss. For example,
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
@@ -426,28 +426,28 @@ NSID  UUID                                   Size
 
 == Troubleshooting
 
-=== LPFC Verbose Logging
+===	LPFC Verbose Logging
 
-.	You can set the lpfc_log_verbose driver setting to any of the following values to log NVMe/FC events.
+include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+
+=== Qla2xxx verbose logging
+
+There is no similar specific qla2xxx logging for NVMe/FC as for lpfc driver. Therefore, you may set the general qla2xxx logging level using the following steps:
+
+. Append the `ql2xextended_error_logging=0x1e400000` value to the corresponding `modprobe qla2xxx conf` file.
+
+. Recreate the `initramfs` by running `dracut -f` command and then reboot the host.
+
+. After reboot, verify that the verbose logging has been applied as follows:
 +
 ----
-#define LOG_NVME 0x00100000 /* NVME general events. */
-#define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */
-#define LOG_NVME_ABTS 0x00400000 /* NVME ABTS events. */
-#define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */
+# cat /etc/modprobe.d/qla2xxx.conf
+options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
+# cat /sys/module/qla2xxx/parameters/ql2xextended_error_logging
+507510784
 ----
 
-.	After setting any of these values, run dracut-f and reboot host.
 
-.	After rebooting, verify the settings.
-+
-----
-# cat /etc/modprobe.d/lpfc.conf
-options lpfc lpfc_log_verbose=0xf00083
-
-# cat /sys/module/lpfc/parameters/lpfc_log_verbose
-15728771
-----
 
 === Common nvme-cli Errors and Workarounds
 
@@ -491,7 +491,6 @@ Cmpl 00000000000000a8 Outstanding 0000000000000001`
 |`Failed to write to /dev/nvme-fabrics: Operation already in progress`  |
  Seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
 |None. For nvme discover, try running this command after some time. For nvme connect and connect-all, run `nvme list` command to verify that the namespace devices are already created and displayed on the host.
-
 |===
 
 === When to contact technical support

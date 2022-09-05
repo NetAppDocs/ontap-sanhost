@@ -15,30 +15,31 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 == Supportability
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP5 (SLES15 SP5) with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on SLES15 SP4 and ONTAP as the target has been documented here.
+
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP5 (SLES15 SP5) with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on SLES15 SP5 and ONTAP as the target has been documented here.
 
 == Features
 
-*	SLES15 SP4 supports NVMe/FC and other transports.
+* SLES15 SP5 supports NVMe/FC and other transports.
 
-*	There is no sanlun support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SLES15 SP4. You can rely on the NetApp plug-in included in the native nvme-cli for the same instead. This should work for all NVMe-oF transports.
+* There is no sanlun support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SLES15 SP5. You can rely on the NetApp plug-in included in the native nvme-cli for the same instead. This should work for all NVMe-oF transports.
 
-*	Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure dm-multipath as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
+* Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure dm-multipath as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
 
 == Known limitations
 There are no known limitations.
 
 == Configuration Requirements
-Refer to the NetApp Interoperability Matrix for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 == Enable in-kernel NVMe Multipath
 
-In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP4. Therefore, no additional setting is required here. Refer to the NetApp Interoperability Matrix for accurate details regarding supported configurations.
+In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP5. Therefore, no additional setting is required here. Refer to the NetApp Interoperability Matrix for accurate details regarding supported configurations.
 
 == NVMe-oF initiator packages
 Refer to the NetApp Interoperability Matrix for accurate details regarding supported configurations.
 
-1.	Verify that you have the requisite kernel and nvme-cli MU packages installed on the SLES15 SP4 MU host.
+. Verify that you have the requisite kernel and nvme-cli MU packages installed on the SLES15 SP5 MU host.
 +
 ----
 Example:
@@ -88,7 +89,7 @@ ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp E-Series", ATTR
 
 NetApp plug-in for ONTAP devices - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
 
-.	Check the hostnqn string at /etc/nvme/hostnqn on the host and ensure that it properly matches with the hostnqn string for the corresponding subsystem on the ONTAP array. For example,
+. Check the hostnqn string at /etc/nvme/hostnqn on the host and ensure that it properly matches with the hostnqn string for the corresponding subsystem on the ONTAP array. For example,
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -104,13 +105,13 @@ vs_nvme_145 nvme_145_1 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-c
 5 entries were displayed.
 ----
 
-Proceed with the below steps depending on the FC adapter being used on the host.
+Proceed with the following steps depending on the FC adapter being used on the host.
 
 == Configure NVMe/FC
 
 === Broadcom/Emulex
 
-.	Verify that you have the recommended adapter and firmware versions. For example,
+. Verify that you have the recommended adapter and firmware versions. For example,
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -137,7 +138,7 @@ The existing native inbox lpfc driver is already the latest and compatible with 
         0:14.2.0.4 
 ----
 
-.	Verify that the initiator ports are up and running:
+. Verify that the initiator ports are up and running:
 +
 ----
 # cat /sys/class/fc_host/host*/port_name
@@ -148,7 +149,7 @@ Online
 Online
 ----
 
-.	Verify that the NVMe/FC initiator ports are enabled and you are able to see the target ports, and all are up and running. In this example, only 1 initiator port is enabled and connected with two target LIFs as seen in the output:
+. Verify that the NVMe/FC initiator ports are enabled and you are able to see the target ports, and all are up and running. In this example, only one initiator port is enabled and connected with two target LIFs as seen in the output:
 +
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
@@ -179,22 +180,22 @@ FCP CMPL: xb 00000102 Err 0000028e
 3
 ----
 
-.	Reboot the host.
+. Reboot the host.
 
 === Enable 1MB I/O Size (Optional)
 
-ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter lpfc_sg_seg_cnt should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
 
-.	Append the value 256 in the respective modprobe lpfc.conf file:
+. Append the value 256 in the respective modprobe lpfc.conf file:
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
 options lpfc lpfc_sg_seg_cnt=256
 ----
 
-.	Run a dracut -f command, and reboot the host.
+. Run a dracut -f command, and reboot the host.
 
-.	After reboot, verify that the above setting has been applied by checking the corresponding sysfs value:
+. After reboot, verify that the above setting has been applied by checking the corresponding sysfs value:
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
@@ -205,9 +206,9 @@ Now the Broadcom NVMe/FC host should be able to send up 1MB I/O requests on the 
 
 === Marvell/QLogic
 
-The native inbox qla2xxx driver included in the newer SLES15 SP4 MU kernel has the latest upstream fixes, essential for ONTAP support.
+The native inbox qla2xxx driver included in the newer SLES15 SP5 MU kernel has the latest upstream fixes, essential for ONTAP support.
 
-.	Verify that you are running the supported adapter driver and firmware versions, for example:
+. Verify that you are running the supported adapter driver and firmware versions, for example:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -215,7 +216,7 @@ QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k
 QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k
 ----
 
-. Verify ql2xnvmeenable is set which enables the Marvell adapter to function as a NVMe/FC initiator:
+. Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as an NVMe/FC initiator:
 +
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
@@ -226,13 +227,13 @@ QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k
 
 Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two major limitations on the Linux NVMe/TCP host:
 
-*	No auto-reconnect after paths get reinstated NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default ctrl-loss-tmo timer of 10 minutes following a path down.
+* No auto-reconnect after paths get reinstated NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` timer of 10 minutes following a path down.
 
-*	No auto-connect during host bootup NVMe/TCP cannot automatically connect during host bootup as well.
+* No auto-connect during host bootup NVMe/TCP cannot automatically connect during host bootup as well.
 
-To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the ctrl_loss_tmo timer. Following are the details:
+To comfortably tide over ONTAP failover events such as storage failovers (SFOs), it is advised to set a longer retry period such as say 30 minutes by tweaking the `ctrl_loss_tmo timer`. Following are the details:
 
-.	Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
+. Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
@@ -270,7 +271,7 @@ sectype: none
 ...
 ----
 
-.	Verify that other NVMe/TCP initiator-target LIF combos are able to successfully fetch discovery log page data. For example,
+. Verify that other NVMe/TCP initiator-target LIF combos are able to successfully fetch discovery log page data. For example,
 +
 ----
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
@@ -278,7 +279,7 @@ sectype: none
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
 
-.	Run nvme connect-all command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer ctrl_loss_tmo period (such as say 30 minutes, which can be set through -l 1800) during the connect-all so that it would retry for a longer period in the event of a path loss. For example,
+. Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer `ctrl_loss_tmo` period (such as say 30 minutes, which can be set through `-l 1800`) during the `connect-all` so that it would retry for a longer period in the event of a path loss. For example,
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
@@ -289,14 +290,14 @@ sectype: none
 
 == Validate NVMe-oF
 
-.	Verify that in-kernel NVMe multipath is indeed enabled by checking:
+. Verify that in-kernel NVMe multipath is indeed enabled by checking:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
 Y
 ----
 
-.	Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces properly reflect on the host:
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces properly reflect on the host:
 +
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model
@@ -306,7 +307,7 @@ NetApp ONTAP Controller
 round-robin
 ----
 
-.	Verify that the ONTAP namespaces properly reflect on the host. For example,
+. Verify that the ONTAP namespaces properly reflect on the host. For example,
 +
 ----
 # nvme list
@@ -328,7 +329,7 @@ Usage                Format         FW Rev
 85.90 GB / 85.90 GB  4 KiB + 0 B    FFFFFFFF
 ----
 
-.	Verify that the controller state of each path is live and has proper ANA status. For example,
+. Verify that the controller state of each path is live and has proper ANA status. For example,
 +
 ----
 # nvme list-subsys /dev/nvme1n1
@@ -356,7 +357,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:su
 +- nvme31 tcp traddr=192.168.1.32 trsvcid=4420 host_traddr=192.168.2.5 live non-optimized
 ----
 
-.	Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
+. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
 +
 ----
 # nvme netapp ontapdevices -o column
@@ -419,7 +420,7 @@ NSID  UUID                                   Size
 
 == Troubleshooting
 
-===	LPFC Verbose Logging
+=== LPFC Verbose Logging
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
 
@@ -442,7 +443,7 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 
 === Common nvme-cli Errors and Workarounds
 
-The errors displayed by `nvme-cli` during nvme discover, nvme connect or nvme connect-all operations and the workarounds are shown in the following table:
+The errors displayed by `nvme-cli` during nvme discover, `nvme connect` or `nvme connect-all` operations and the workarounds are shown in the following table:
 
 [options="header", cols="20, 20, 50"]
 |===
