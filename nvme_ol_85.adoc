@@ -103,7 +103,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-.	Verify that you are using the recommended Broadcom lpfc firmware & inbox driver. For the most current list of supported adapter driver & firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+.	Verify that you are using the recommended Broadcom lpfc firmware & inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -196,7 +196,7 @@ Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This reflects as two
 
 *	No auto-connect during host bootup - NVMe/TCP cannot automatically connect during host bootup as well.
 
-To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the ctrl_loss_tmo timer. Details given below:
+To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the `ctrl_loss_tmo timer`. Following are the details:
 
 .	Verify if the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -366,7 +366,7 @@ Given below is the list of lpfc driver logging bitmasks available for NVMe/FC, a
 #define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */ 
 ----
 
-So you may set the `lpfc_log_verbose` driver setting (appended to the lpfc line at /etc/modprobe.d/lpfc.conf) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running `dracut -f` and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above LOG_NVME_DISC bitmask as an example: 
+So you may set the `lpfc_log_verbose` driver setting (appended to the lpfc line at `/etc/modprobe.d/lpfc.conf`) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running `dracut -f` and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above `LOG_NVME_DISC bitmask` as an example: 
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
@@ -396,11 +396,11 @@ The errors displayed by nvme-cli during nvme discover, nvme connect or nvme conn
 [options="header", cols="20, 20, 50"]
 |===
 |Errors displayed by nvme-cli	|Probable cause	|Workaround 
-|nvme-cli displays "Failed to write to /dev/nvme-fabrics: Invalid argument" error during nvme discover, nvme connect or nvme connect-all	|Incorrect syntax	Ensure you are using the correct syntax for the above nvme commands. 
-|nvme-cli displays "Failed to write to /dev/nvme-fabrics: No such file or directory" during nvme discover, nvme connect or nvme connect-all	|Multiple issues could trigger this. Some of the common cases are: 
+|nvme-cli displays `Failed to write to /dev/nvme-fabrics: Invalid argument` error during nvme discover, nvme connect or nvme connect-all	|Incorrect syntax	|Ensure you are using the correct syntax for the above nvme commands. 
+|nvme-cli displays `Failed to write to /dev/nvme-fabrics: No such file or directory` during nvme discover, nvme connect or nvme connect-all	|Multiple issues could trigger this. Some of the common cases are: 
 You passed wrong arguments to the above nvme commands.
-a|.	Ensure you have passed the proper arguments itself (like proper WWNN string, WWPN string, etc.) for the above commands.
-.	If the arguments are correct, but still seeing this error, check if the /sys/class/scsi_host/host*/nvme_info output is proper with the NVMe intiator showing as "Enabled" & NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
+a|*	Ensure you have passed the proper arguments itself (like proper WWNN string, WWPN string, and so on) for the above commands.
+*	If the arguments are correct, but still seeing this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper with the NVMe intiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
 +
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
@@ -419,19 +419,19 @@ LS: Xmt 0000000000000006 Cmpl 0000000000000006
 FCP: Rd 0000000000000073 Wr 0000000000000005 IO 0000000000000031
 Cmpl 00000000000000a8 Outstanding 0000000000000001
 ----
-.	If the target LIFs don't show up as above in the nvme_info output, check the /var/log/messages & dmesg output for any suspicious NVMe/FC failures, and report/fix accordingly.
+*	If the target LIFs don't show up as above in the `nvme_info` output, check the `/var/log/` messages and `dmesg` output for any suspicious NVMe/FC failures, and report/fix accordingly.
 
-|nvme-cli displays "No discovery log entries to fetch" during nvme discover, nvme connect or nvme connect-all	|This error message is generally seen if the /etc/nvme/hostnqn string has not been added to the corresponding subsystem on the NetApp array. Or an incorrect hostnqn string has been added to the respective subsystem.	|Ensure the exact /etc/nvme/hostnqn string is added to the corresponding subsystem on the NetApp array (verify through the 'vserver nvme subsystem host show').
+|nvme-cli displays `No discovery log entries to fetch` during nvme discover, nvme connect or nvme connect-all	|This error message is generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array. Or an incorrect `hostnqn` string has been added to the respective subsystem.	|Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show` command).
 
-| nvme-cli displays "Failed to write to /dev/nvme-fabrics: Operation already in progress" during nvme discover, nvme connect or nvme connect-all
+| nvme-cli displays `Failed to write to /dev/nvme-fabrics: Operation already in progress` during nvme discover, nvme connect or nvme connect-all
 | This error message is seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
-|	None. For nvme discover, just try running this command after some time. And maybe for nvme connect & connect-all, run a "nvme list" to verify that the namespace devices are already created and displayed on the host.
+|	None. For nvme discover, try running this command after some time. And maybe for nvme connect and connect-all, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
 |===
 
 == Files and command outputs required for debugging 
 
 If you are still facing issues, please collect the following files and command outputs and send them to us for further triage: 
-+
+
 ----
 •	cat /sys/class/scsi_host/host*/nvme_info
 •	/var/log/messages
@@ -448,7 +448,7 @@ None.
 == When to contact technical support
 
 If you are still facing issues, please collect the following files and command outputs and contact technical support for further triage:
-+
+
 ----
 cat /sys/class/scsi_host/host*/nvme_info
 /var/log/messages
