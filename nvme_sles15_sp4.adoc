@@ -200,6 +200,7 @@ ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller d
 # cat /etc/modprobe.d/lpfc.conf
 options lpfc lpfc_sg_seg_cnt=256
 ----
+
 . Run a dracut -f command, and reboot the host.
 
 . After reboot, verify that the above setting has been applied by checking the corresponding sysfs value:
@@ -238,7 +239,7 @@ Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two m
 
 * No auto-connect during host bootup NVMe/TCP cannot automatically connect during host bootup as well.
 
-To comfortably tide over ONTAP failover events such as storage failover (SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the ctrl_loss_tmo timer. Following are the details:
+To comfortably tide over ONTAP failover events such as storage failover (SFOs), it is advised to set a longer retry period such as say 30 minutes by tweaking the `ctrl_loss_tmo` timer. Following are the details:
 
 . Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -325,7 +326,9 @@ Node           SN                    Model                   Namespace
 Usage                Format         FW Rev
 -------------------  -----------    --------
 85.90 GB / 85.90 GB  4 KiB + 0 B    FFFFFFFF
-Another example:
+
+Example (a):
+
 # nvme list
 Node           SN                    Model                   Namespace
 ------------   --------------------- ---------------------------------
@@ -348,7 +351,7 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.04ba0732530911ea8e8300a098dfdd91:su
 +- nvme6 fc traddr=nn-0x208100a098dfdd91:pn-0x208300a098dfdd91 host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f live optimized
 ----
 
-Another example:
+Example (a):
 +
 ----
 #nvme list-subsys /dev/nvme0n1
@@ -394,7 +397,7 @@ NSID  UUID                                   Size
 }
 ----
 
-Another example:
+Example (a):
 +
 ----
 # nvme netapp ontapdevices -o column
@@ -448,8 +451,6 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 507510784
 ----
 
-
-
 === Common nvme-cli Errors and Workarounds
 
 The errors displayed by `nvme-cli` during nvme discover, nvme connect or nvme connect-all operations and the workarounds are shown in the following table:
@@ -485,12 +486,11 @@ FCP: Rd 0000000000000073 Wr 0000000000000005 IO 0000000000000031
 Cmpl 00000000000000a8 Outstanding 0000000000000001`
 ----
 
-* If the target LIFs don't show up as above in the nvme_info output, check the `/var/log/messages` and `dmesg` output for any suspicious NVMe/FC failures, and report or fix accordingly.
+* If the target LIFs don't show up as above in the `nvme_info` output, check the `/var/log/messages` and `dmesg` output for any suspicious NVMe/FC failures, and report or fix accordingly.
 
-| `No discovery log entries to fetch`  |Generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect hostnqn string has been added to the respective subsystem. |Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show` command).
+| `No discovery log entries to fetch`  | Generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect hostnqn string has been added to the respective subsystem. |Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show` command).
 
-|`Failed to write to /dev/nvme-fabrics: Operation already in progress`  |
- Seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
+|`Failed to write to /dev/nvme-fabrics: Operation already in progress`  |Seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
 |None. For nvme discover, try running this command after some time. For nvme connect and connect-all, run `nvme list` command to verify that the namespace devices are already created and displayed on the host.
 |===
 
