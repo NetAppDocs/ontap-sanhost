@@ -358,8 +358,8 @@ Before commencing any troubleshooting for any NVMe/FC failures, always ensure yo
 
 === lpfc verbose logging
 
-Given below is the list of lpfc driver logging bitmasks available for NVMe/FC, as seen at `drivers/scsi/lpfc/lpfc_logmsg.h`: 
-+
+Following is the list of lpfc driver logging bitmasks available for NVMe/FC, as seen at `drivers/scsi/lpfc/lpfc_logmsg.h`: 
+
 ----
 #define LOG_NVME 0x00100000 /* NVME general events. */
 #define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */
@@ -368,7 +368,7 @@ Given below is the list of lpfc driver logging bitmasks available for NVMe/FC, a
 ----
 
 So you may set the `lpfc_log_verbose` driver setting (appended to the lpfc line at `/etc/modprobe.d/lpfc.conf`) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running `dracut -f` and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above `LOG_NVME_DISC bitmask` as an example: 
-+
+
 ----
 # cat /etc/modprobe.d/lpfc.conf
 lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083 
