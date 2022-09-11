@@ -50,17 +50,12 @@ sidebar:
         entries:
         - title: OL 8
           entries:
-          - title: OL 8
-            pdf-filename: NVMeF OL
-            entries:
           - title: 8.2
             url: /nvme_ol_82.html
           - title: 8.1
             url: /nvme_ol_81.html
         - title: OL 7
           entries:
-          - title: OL 7
-            entries:
           - title: 7.9
             url: /nvme_ol_79.html
           - title: 7.8
@@ -72,14 +67,10 @@ sidebar:
         entries:
         - title: RHEL 9
           entries:
-          - title: RHEL 9
-            entries:
           - title: 9.0
             url: /nvme_rhel_90.html
         - title: RHEL 8
           entries:
-          - title: RHEL 8
-            entries:
           - title: 8.6
             url: /nvme_rhel_86.html
           - title: 8.5
@@ -97,8 +88,6 @@ sidebar:
         entries:
         - title: SLES 15
           entries:
-          - title: 15 SP4
-            url: /nvme_sles15_sp4.html
           - title: 15 SP3
             url: /nvme_sles15_sp3.html
           - title: 15 SP2
@@ -357,3 +346,4 @@ sidebar:
           url: /hu_windows_2016.html
         - title: "2012 R2"
           url: /hu_windows_2012r2.html
+          
