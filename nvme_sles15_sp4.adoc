@@ -57,10 +57,10 @@ Example:
 # rpm -qa|grep nvme-cli
 nvme-cli-2.0-150400.1.6.x86_64
 ----
-
++
 The above nvme-cli MU package now includes the following:
 
-* *NVMe/FC auto-connect scripts* - Required for NVMe/FC auto-(re)connect when underlying paths to the namespaces are restored as well as during the host reboot:
+** *NVMe/FC auto-connect scripts* - Required for NVMe/FC auto-(re)connect when underlying paths to the namespaces are restored as well as during the host reboot:
 +
 ----
 # rpm -ql nvme-cli-1.13-3.3.1.x86_64
@@ -74,7 +74,7 @@ The above nvme-cli MU package now includes the following:
 ...
 ----
 
-* *ONTAP udev rule* - New udev rule to ensure NVMe multipath round-robin loadbalancer default applies to all ONTAP namespaces:
+** *ONTAP udev rule* - New udev rule to ensure NVMe multipath round-robin loadbalancer default applies to all ONTAP namespaces:
 +
 ----
 # rpm -ql nvme-cli-1.13-3.3.1.x86_64
@@ -95,7 +95,7 @@ ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp ONTAP Controlle
 ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp E-Series", ATTR{iopolicy}="round-robin"
 ----
 
-* *NetApp plug-in for ONTAP devices* - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
+** *NetApp plug-in for ONTAP devices* - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
 
 * Check the `hostnqn` string at  `/etc/nvme/hostnqn` on the host and ensure that it properly matches with the `hostnqn` string for the corresponding subsystem on the ONTAP array. For example,
 +
