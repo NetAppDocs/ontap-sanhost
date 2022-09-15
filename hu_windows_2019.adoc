@@ -17,10 +17,10 @@ summary: Using Windows Server 2019 with ONTAP
 == Booting the OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
-
 === SAN booting
 include::_include/windows/reuse_windows_san_booting.adoc[]
+
+include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Installing Windows hotfixes
 We suggest the use of *latest cumulative update* to be installed on the server.
