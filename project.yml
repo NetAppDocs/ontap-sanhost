@@ -6,6 +6,12 @@ settings:
   prod:
     pdf_enabled: true
     harmony_enabled: true
+
+product-family: 
+  name: ONTAP
+  repo: ontap-family
+  sidebar_label: All ONTAP product documentation
+
 sidebar:
   entries:
     - title: Home
