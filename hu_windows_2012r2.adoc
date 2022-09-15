@@ -17,6 +17,8 @@ summary: Using Windows Server 2012 R2 with ONTAP
 == Booting the OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
+include::_include/hu/reuse_hu_cloud_note.adoc[]
+
 === SAN booting
 include::_include/windows/reuse_windows_san_booting.adoc[]
 
