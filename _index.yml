@@ -1,0 +1,61 @@
+
+indexpage:
+  lead: This content provides distribution-specific guidance on how to configure SAN clients connected to ONTAP storage. The SAN clients and ONTAP storage could reside either on-premises or in the cloud.
+
+  tiles:
+    - title: Get started
+      links:
+        - title: AIX Release Notes
+          url: https://docs.netapp.com/us-en/ontap-sanhost/hu_aix_61_rn.html
+        - title: HP-UX Release Notes
+          url: https://docs.netapp.com/us-en/ontap-sanhost/hu_hpux_60_rn.html
+        - title: Linux Release Notes
+          url: https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71_rn.html
+        - title: Solaris Release Notes
+          url: https://docs.netapp.com/us-en/ontap-sanhost/hu_solaris_62_rn.html                       
+    - title: FCP and iSCSI host configurations
+      links:
+        - title: AIX 7.2 and Power VM 3.1
+          url: /hu_aix_72.html
+        - title: CentOS 8.5
+          url: /hu_centos_85.html
+        - title: Citrix Hypervisor 8
+          url: /hu_citrix_8x.html
+        - title: VMware vSphere 7
+          url: /hu_vsphere_7.html                    
+        - title: HP-UX 11i v3
+          url: /hu_hpux_11iv3.html
+        - title: Oracle Linux 8.6 
+          url: /hu_ol_86.html
+        - title: Oracle Linux 7.9
+          url: /hu_ol_79.html 
+        - title: Red Hat Enterprise Linux 9.0
+          url: /hu_rhel_90.html
+        - title: Solaris 11.4
+          url: /hu_solaris_114.html
+        - title: SUSE Linux Enterprise Server 15 SP4
+          url: /hu_sles_15SP4.html    
+        - title: Veritas Infoscale 8
+          url: /hu_veritas_8x.html
+        - title: Windows 2019
+          url: /hu_windows_2019.html  
+    - title: NVMe-oF host configurations
+      links:
+        - title: ESXi 7.x
+          url: /nvme_esxi_7.html
+        - title: Oracle Linux 8.2
+          url: /nvme_ol_82.html
+        - title: Red Hat Enterprise Linux 9.0
+          url: /nvme_rhel_90.html
+         - title: SUSE Linux Enterprise Server 15 SP4
+          url: /nvme_sles15_sp4.html
+        - title: Windows Server 2019
+          url: /nvme_windows_2019.html        
+    - title: More resources
+      links:
+        - title: All SAN Array software configuration 
+          url: https://docs.netapp.com/us-en/ontap/task_asa_software_configuration.html
+        - title: SAN administration
+          url: https://docs.netapp.com/us-en/ontap/san-admin/index.html
+        - title: SAN configuration
+          url: https://docs.netapp.com/us-en/ontap-metrocluster/
