@@ -43,6 +43,8 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
  
 == Enabling NVMe/FC with Oracle Linux 8.5
 
+.Steps
+
 .	Install Oracle Linux 8.5 General Availability (GA) on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.5 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
 ----
@@ -90,6 +92,8 @@ defaults {
 . Restart the `multipathd` daemon by running a `systemctl restart multipathd` to let the new setting take effect.
 
 === Configuring the Broadcom FC adapter for NVMe/FC
+
+.Steps
 
 .	Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
@@ -156,6 +160,8 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 
 ===	Enabling 1MB I/O size
 
+.Steps
+
 .	The `lpfc_sg_seg_cnt` parameter needs to be set to 256 for the lpfc driver to issue I/O requests upto 1 MB size.
 +
 ----
@@ -171,7 +177,9 @@ options lpfc lpfc_sg_seg_cnt=256
 ----
 
 == Configuring the Marvell/QLogic FC Adapter for NVMe/FC
- 
+
+.Steps
+
 .	The native inbox qla2xxx driver included in the OL 8.5 GA kernel has the latest upstream fixes, essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
@@ -256,6 +264,8 @@ sectype: none
 ----
 
 == Validating NVMe/FC
+
+.Steps
 
 .	Verfy the following NVMe/FC settings on the Oracle Linux 8.5 host:
 +
@@ -395,7 +405,7 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 507510784
 ----
 
-== Common nvme-cli Errors and Workarounds
+=== Common nvme-cli Errors and Workarounds
 
 The errors displayed by the `nvme-cli` command during nvme discover, nvme connect or nvme connect-all operations and the workarounds are shown in the following table:
 
@@ -434,24 +444,8 @@ Cmpl 00000000000000a8 Outstanding 0000000000000001
 |	None. For nvme discover, try running this command after some time. And maybe for nvme connect and connect-all, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
 |===
 
-== Files and command outputs required for debugging 
-
-If you are still facing issues, please collect the following files and command outputs and send them to us for further triage: 
-
-----
-•	cat /sys/class/scsi_host/host*/nvme_info
-•	/var/log/messages
-•	dmesg
-•	nvme discover output as in:
-•	nvme discover --transport=fc --traddr=nn-0x200a00a098c80f09:pn-0x200b00a098c80f09 --host-traddr=nn-0x20000090fae0ec9d:pn-0x10000090fae0ec9d
-•	nvme list
-•	nvme list-subsys /dev/nvmeXnY
-----
-
-== Known Issues and Workarounds
-None.
  
-== When to contact technical support
+=== When to contact technical support
 
 If you are still facing issues, please collect the following files and command outputs and contact technical support for further triage:
 
@@ -465,6 +459,8 @@ nvme list
 nvme list-subsys /dev/nvmeXnY
 ----
 
+== Known Issues and Workarounds
+None.
 
 
 
