@@ -1,0 +1,23 @@
+---
+sidebar: sidebar
+permalink: overview.html
+keywords: nvme, windows, enterprise
+summary: This content provides distribution-specific guidance on how to configure cloud clients connected to Cloud Volumes ONTAP and Amazon FSx for ONTAP and SAN hosts connected to on-premises ONTAP storage.
+---
+
+= SAN host configuration overview
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+For best performance and successful failover, it is important to correctly configure your SAN clients using ONTAP storage.
+
+This content provides host and version specific best practices on how to quickly configure SAN clients connected to ONTAP storage.  Proper configuration is important for best performance and successful failover.  The SAN clients and ONTAP storage could reside either on-premises, in the cloud, or both.
+
+Each document is specific to one host and version, so you see only the information for your exact version.
+
+For iSCSI and FC, this content replaces the previous Linux Unified Host Utilities guides. 
