@@ -6,6 +6,12 @@ settings:
   prod:
     pdf_enabled: true
     harmony_enabled: true
+
+product-family: 
+  name: ONTAP
+  repo: ontap-family
+  sidebar_label: All ONTAP product documentation
+
 sidebar:
   entries:
     - title: Home
@@ -91,6 +97,8 @@ sidebar:
         entries:
         - title: SLES 15
           entries:
+          - title: 15 SP4
+            url: /nvme_sles15_sp4.html
           - title: 15 SP3
             url: /nvme_sles15_sp3.html
           - title: 15 SP2
