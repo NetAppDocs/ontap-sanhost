@@ -14,10 +14,8 @@ summary: This content provides distribution-specific guidance on how to configur
 :linkattrs:
 :imagesdir: ./media/
 
-For best performance and successful failover, it is important to correctly configure your SAN clients using ONTAP storage.
+This content provides host and version specific best practices to quickly configure SAN clients connected to ONTAP storage.  Your SAN clients and ONTAP storage can reside either on-premises, in the cloud, or both. For example you can configure on-premises ONTAP storage to connect to on-premises SAN hosts or to connect to SAN cloud clients.  You could also configure link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/index.html[Cloud Volumes ONTAP^] or link:https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/index.html[Amazon FSx for ONTAP] to connect to on-premises SAN hosts or to connect to SAN cloud clients.
 
-This content provides host and version specific best practices on how to quickly configure SAN clients connected to ONTAP storage.  Proper configuration is important for best performance and successful failover.  The SAN clients and ONTAP storage could reside either on-premises, in the cloud, or both.
+ Proper configuration is important for best performance and successful failover.  
 
-Each document is specific to one host and version, so you see only the information for your exact version.
-
-For iSCSI and FC, this content replaces the previous Linux Unified Host Utilities guides. 
+For iSCSI and FC, this content replaces the previous documentation for Linux Unified Host Utilities.
