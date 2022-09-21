@@ -1,0 +1,50 @@
+---
+sidebar: sidebar
+permalink: hu_windows_2022.html
+keywords: windows, enterprise
+summary: Using Windows Server 2022 with ONTAP
+---
+
+= Using Windows Server 2022 with ONTAP
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+== Booting the OS
+include::_include/windows/reuse_windows_booting_OS.adoc[]
+
+=== SAN booting
+include::_include/windows/reuse_windows_san_booting.adoc[]
+
+== Installing Windows hotfixes
+We suggest the use of *latest cumulative update* to be installed on the server.
+
+NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2022[Microsoft Update Catalog 2022^] website to obtain and install the required Windows hotfixes for your version of Windows.
+
+include::_include/windows/reuse_windows_hotfix_install.adoc[]
+
+== Installing the Windows Unified Host Utilities
+include::_include/windows/reuse_windows_installing_WUHU.adoc[]
+
+== Multipathing
+include::_include/windows/reuse_windows_multipathing.adoc[]
+
+NOTE: When you select MPIO support, the Windows Unified Host Utilities enables the included MPIO feature of Windows Server 2022.
+
+== SAN configuration
+=== Non-ASA configuration
+include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
+
+
+=== All SAN array configuration
+include::_include/windows/reuse_windows_asa_configuration.adoc[]
+
+== Recommended settings
+include::_include/windows/reuse_windows_recommended_settings.adoc[]
+
+== Known limitations
+There are no known issues for Windows Server 2022.
