@@ -245,10 +245,10 @@ sectype: none
 ...
 ----
 
-.	Similarly, verify that the other NVMe/TCP initiator-target LIF combos are able to succesfuly fetch discovery log page data. For example,
+.	Similarly, verify that the other NVMe/TCP initiator-target LIF combos are able to succesfully fetch discovery log page data. For example,
 +
 ----
-#nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
+# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
@@ -267,7 +267,7 @@ sectype: none
 
 .Steps
 
-.	Verfy the following NVMe/FC settings on the Oracle Linux 8.5 host:
+.	Verify the following NVMe/FC settings on the Oracle Linux 8.5 host:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -280,7 +280,7 @@ round-robin
 round-robin
 ----
 
-.	Verify that the namespaces are created and properly discoverd on the host:
+.	Verify that the namespaces are created and properly discovered on the host:
 +
 ----
 # nvme list
@@ -392,9 +392,9 @@ There is no similar specific qla2xxx logging for NVMe/FC as for lpfc driver. The
 
 .Steps
 
-. Append the ql2xextended_error_logging=0x1e400000 value to the corresponding modprobe qla2xxx conf file.
+. Append the `ql2xextended_error_logging=0x1e400000` value to the corresponding modprobe qla2xxx conf file.
 
-. Recreate the initramfs by running dracut -f command and then reboot the host.
+. Recreate the `initramfs` by running `dracut -f` command and then reboot the host.
 
 . After reboot, verify that the verbose logging has been applied as follows:
 +
