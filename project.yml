@@ -104,6 +104,8 @@ sidebar:
             url: /nvme_sles15_sp1.html
       - title: Windows
         entries:
+        - title: 2022
+          url: /nvme_windows_2022.html
         - title: 2019
           url: /nvme_windows_2019.html
         - title: 2016
@@ -189,8 +191,10 @@ sidebar:
         - title: 11i v3
           url: /hu_hpux_11iv3.html
       - title: Oracle Linux
+        pdf-filename: OL-FCP
         entries:
         - title: OL 8
+          pdf-filename: OL-8-FCP
           entries:
           - title: 8.6
             url: /hu_ol_86.html
@@ -207,6 +211,7 @@ sidebar:
           - title: 8.0
             url: /hu_ol_80.html
         - title: OL 7
+          pdf-filename: OL-7-FCP
           entries:
           - title: 7.9
             url: /hu_ol_79.html
@@ -229,6 +234,7 @@ sidebar:
           - title: "7.0"
             url: /hu_ol_70.html
         - title: OL 6
+          pdf-filename: OL-6-FCP
           entries:
           - title: "6.10"
             url: /hu_ol_610.html
@@ -247,10 +253,12 @@ sidebar:
       - title: RHEL
         entries:
         - title: RHEL 9
+          pdf-filename: RHEL-9-FCP
           entries:
           - title: 9.0
             url: /hu_rhel_90.html
         - title: RHEL 8
+          pdf-filename: RHEL-8-FCP
           entries:
           - title: 8.6
             url: /hu_rhel_86.html
@@ -267,6 +275,7 @@ sidebar:
           - title: 8.0
             url: /hu_rhel_80.html
         - title: RHEL 7
+          pdf-filename: RHEL-7-FCP
           entries:
           - title: 7.9
             url: /hu_rhel_79.html
@@ -289,6 +298,7 @@ sidebar:
           - title: 7.0
             url: /hu_rhel_70.html
         - title: RHEL 6
+          pdf-filename: RHEL-6-FCP
           entries:
           - title: "6.10"
             url: /hu_rhel_610.html
@@ -313,6 +323,7 @@ sidebar:
       - title: SLES
         entries:
         - title: SLES 15
+          pdf-filename: SLES-15-FCP
           entries:
           - title: 15 SP4
             url: /hu_sles_15SP4.html
@@ -347,7 +358,10 @@ sidebar:
         - title: Storage Foundation 6
           url: /hu_veritas_6x.html
       - title: Windows
+        pdf-filename: Windows-FCP
         entries:
+        - title: 2022
+          url: /hu_windows_2022.html
         - title: 2019
           url: /hu_windows_2019.html
         - title: 2016
