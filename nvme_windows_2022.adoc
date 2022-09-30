@@ -1,0 +1,43 @@
+---
+sidebar: sidebar
+permalink: nvme_windows_2022.html
+keywords: nvme, windows, enterprise
+summary: NVMe/FC Host Configuration for Windows Server 2022 with ONTAP
+---
+
+= NVMe/FC Host Configuration for Windows Server 2022 with ONTAP
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+== Supportability
+
+NVMe/FC is supported on ONTAP 9.7 or later for Windows Server 2022.
+
+include::_include/nvme/reuse_supportability_notes.adoc[]
+
+== Known limitations
+
+Windows Failover Cluster (WFC) is not supported with ONTAP NVMe/FC because ONTAP does not currently support persistent reservations with NVMe/FC.
+
+NOTE: The external driver shipped by Broadcom for Windows NVMe/FC is not a true NVMe/FC driver but a translational SCSI ⇄ NVMe driver. This translational overhead does not necessarily impact performance, but it does negate the performance benefits of NVMe/FC. Thus, on Windows servers, NVMe/FC and FCP performance is the same, unlike on other operating systems such as Linux, where NVMe/FC performance is significantly better than that of FCP.
+
+== Enable NVMe/FC on a Windows initiator host
+
+include::_include/nvme/reuse_enabling_on_windows_init_host.adoc[]
+
+== Configure the Broadcom FC adapter in Windows for NVMe/FC
+
+include::_include/nvme/reuse_configuring_broadcom_for_windows.adoc[]
+
+=== Enable MPIO for NVMe devices on the Windows host
+
+include::_include/nvme/reuse_enabling_mpio_for_nvme_on_windows_host.adoc[]
+
+== Validate NVMe/FC
+
+include::_include/nvme/reuse_validating_nvme_fc_windows.adoc[]
