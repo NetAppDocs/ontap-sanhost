@@ -43,7 +43,11 @@ sidebar:
           - title: Release Notes
             url: /hu_solaris_62_rn.html
       - title: Windows Unified Host Utilities
-        url: /hu_wuhu_71.html
+        entries:
+          - title: Install WUHU 7.1
+            url: /hu_wuhu_71.html
+          - title: Release Notes
+            url: /hu_wuhu_71_rn.html
 
     - title: NVMe-oF Host Configurations
       entries:
