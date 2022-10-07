@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_wuhu_71_rn.html
 keywords: host utilities, linux, 7.1, netapp, ontap, release, notes
-summary: Release Notes for Linux Unified Host Utilities 7.1
+summary: Release Notes for Windows Unified Host Utilities 7.1
 ---
 
 = Windows Unified Host Utilities 7.1 Release Notes
@@ -20,6 +20,14 @@ This Release Notes document contains the latest information for the Windows Unif
 == About the Windows Unified Host Utilities 7.1 release
 The Windows Unified Host Utilities enable you to connect a Windows host computer to NetApp storage systems. The Windows Unified Host Utilities include an installation program that sets the required Windows registry and HBA values.
 
+The Windows Unified Host Utilities 7.1 continues to support the following versions of Windows:
+
+* Windows 2012
+* Windows 2012R2
+* Windows 2016
+* Windows 2019
+* Windows 2022
+
 [NOTE]
 NetApp qualifies additional components between releases of the Host Utilities software.
 For the latest information about the system requirements, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
@@ -28,54 +36,41 @@ For the latest information about the system requirements, see the link:https://m
 === Features in this Host Utilities release
 Windows Unified Host Utilities 7.1 includes support for E-Series storage systems, support for ONTAP 8.2 or later versions, and enhanced iSCSI timeouts for faster failover.
 
-== Important cautions
+== Prerequisite
 
-Before deploying the latest release of Windows Host Utilities, you must read the information available to help you identify and resolve issues that might affect the operation of your systems. To view more information about an individual bug and to explore other bug-related tools, see link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online].
+Install the latest hotfixes before installing the Windows Host Utilities. Refer to link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_71.html[Windows Unified Host Utilities 7.1] document for your specific configuration hotfix requirements.
 
-[NOTE]
-Windows Server 2003 is not supported.
-
-
-=== Installing the required hotfixes
-
-To ensure a successful installation or upgrade of Windows Unified Host Utilities 7.1, you must install a specific Windows hotfix.
-Some hotfixes are a component of Windows updates. For example, hotfix 2908783 is part of the Windows Unified Host Utilities 7.1 update, and the rollup package 2955164. To get hotfix 2908783 for Windows 2012 R2 (W2K12R2), you must install the rollup package 2955164.
-
-.Steps
-
-. Determine which hotfix your version of Windows requires by referring to Installing Windows Hotfixes in the Installation Guide.
-. Install the Windows rollup package 2955164 for Windows Unified Host Utilities 7.1 from the Microsoft support site.
-. Install hotfix 2908783 for Windows 2012 R2 (W2K12R2).
-
-The previous example applies to a specific hotfix for Windows Server 2012 R2. You should always refer to the Installation Guide for your specific configuration hotfix requirements.
 
 [WARNING]
 *Error when installing hotfixes*
 When installing required Windows hotfixes, you might get an error message saying the hotfix does not apply to your system. Some hotfixes have a dependency on other hotfixes. Install the hotfixes in numerical order to ensure they are accepted. Many hotfixes prompt you to reboot your system. You can wait until all hotfixes are installed before rebooting. If you are installing Windows Host Utilities immediately after the hotfixes, you can wait and reboot when prompted by the Host Utilities installation program.
 
-== Known problems and limitations	
+== Known issues
 
-Some unexpected and potentially undesired behaviors, as well as, in some cases, workarounds to avoid these behaviors, have been identified in this release. To request more information about an individual bug and to explore other bug-related tools, see Bugs Online on the NetApp Support Site.
+Some unexpected and potentially undesired behaviors, as well as, in some cases, workarounds to avoid these behaviors, have been identified in this release. 
 
 [cols=3,options="header", cols= "10, 30, 30"]
 |===
 |NetApp Bug ID	|Title |Description
-|814244	|Running the linux_gos_timeout-install.sh script is no longer required on Hyper-V guests running Red Hat Enterprise Linux or SUSE Linux Enterprise Server |You are no longer required to run the linux_gos_timeout-install.sh script to change disk timeouts on Red Hat Enterprise Linux 5, Red Hat Enterprise Linux 6, or SUSE Linux Enterprise Server 11 Hyper-V guests because the default timeout settings are being used. The linux_gos_timeout-install.sh script that was included in previous versions of the Host Utilities is no longer included in the Windows Unified Host Utilities. Windows Unified Host Utilities 7.1 uses the default disk timeout settings.
-| |Virtual Fibre Channel is not supported in virtual machines on Windows Server 2012 hosts |Virtual Fibre Channel is not supported in virtual machines on Windows Server 2012 hosts connected to FAS storage systems running Data ONTAP.
+|814244	|Running the linux_gos_timeout-install.sh script is no longer required on Hyper-V guests running Red Hat Enterprise Linux or SUSE Linux Enterprise Server |You are no longer required to run the `linux_gos_timeout-install.sh` script to change disk timeouts on Red Hat Enterprise Linux 5, Red Hat Enterprise Linux 6, or SUSE Linux Enterprise Server 11 Hyper-V guests because the default timeout settings are being used. The `linux_gos_timeout-install.sh` script that was included in previous versions of the Host Utilities is no longer included in the Windows Unified Host Utilities. Windows Unified Host Utilities 7.1 uses the default disk timeout settings.
 |342374 |iSCSI sessions do not reconnect after reboot with mixed IPv4 and IPv6 |In a multipath I/O (MPIO) configuration or multiple connections per session (MCS) configuration that has both IPv4 and IPv6 endpoints, some iSCSI sessions might fail to reconnect after rebooting the Windows host.
 To ensure that all of your iSCSI paths return after a reboot, use either all IPv4 endpoints or all IPv6. Do not mix IPv4 and IPv6.
 |275185 | MCS is not supported with iSCSI software boot |When using iSCSI software boot with iSCSI multiple connections per session (MCS), the iSCSI boot leading connection cannot be protected. This can lead to disconnection from the boot LUN causing the host to crash.
 Microsoft does not support MCS for iSCSI software booted hosts. Use MPIO as the high availability solution. Note that mixing MPIO and MCS is not supported.
-| |Raw (pass-through) disks do not appear in Hyper-V guest OS |Raw (pass-through) disks do not appear in a Hyper-V guest OS if Windows Host Utilities is installed on the guest and multipathing support is enabled.
-When you enable multipathing support for Windows Host Utilities, LUNs on NetApp storage systems are claimed by the Windows MPIO drivers. Raw disks that are also based on NetApp LUNs are not passed to MPIO, and therefore not visible in the guest OS.
-You can either use multipathing in the guest OS, or you can use raw disks, but not both.
-| |Guest OS install on SCSI disk fails |You cannot boot a Hyper-V virtual machine from a SCSI-mapped disk. Use an IDE-mapped disk for the virtual machine boot disk
-
-
-
 |===
 
-link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online] provides complete information for most known issues, including suggested workarounds where possible.
+link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible.
+
+== Known limitations
+
+*Virtual Fibre Channel is not supported in virtual machines on Windows Server 2012 hosts* 
+Virtual Fibre Channel is not supported in virtual machines on Windows Server 2012 hosts connected to FAS storage systems running Data ONTAP.
+
+*Raw (pass-through) disks do not appear in Hyper-V guest OS*
+Raw (pass-through) disks do not appear in a Hyper-V guest OS if Windows Host Utilities is installed on the guest and multipathing support is enabled. When you enable multipathing support for Windows Host Utilities, LUNs on NetApp storage systems are claimed by the Windows MPIO drivers. Raw disks that are also based on NetApp LUNs are not passed to MPIO, and therefore not visible in the guest OS. You can either use multipathing in the guest OS, or you can use raw disks, but not both.
+
+*Guest OS install on SCSI disk fails*
+You cannot boot a Hyper-V virtual machine from a SCSI-mapped disk. Use an IDE-mapped disk for the virtual machine boot disk
 
 == About SAN Host Configuration documentation
 Documentation for SAN Host Utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation]. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
@@ -99,4 +94,4 @@ You can access documentation for all NetApp products and find other product info
 * The SANtricity Storage Manager Multipath Driver's Guide specific for your version of SANtricity.
 * The SANtricity Storage Manager Release Notes for your version of SANtricity.
 
-Go to the link:https://docs.netapp.com/us-en/e-series/getting-started/index.html[E-Series documentation^] to find SANtricity related documentation.
+See the link:https://docs.netapp.com/us-en/e-series/getting-started/index.html[E-Series documentation^] to find SANtricity related documentation.
