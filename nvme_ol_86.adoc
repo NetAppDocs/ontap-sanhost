@@ -33,7 +33,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 8.6. Oracle Linux 8.
 
 == Configuration requirements
 
-Refer to the NetApp InterOperability Matrix (IMT) for exact details regarding supported configs. 
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for exact details regarding supported configs. 
  
 == Enabling NVMe/FC with Oracle Linux 8.6
 
@@ -58,17 +58,15 @@ nvme-cli-1.14-3.el8.x86_64
 # cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
 ::> vserver nvme subsystem host show -vserver vs_ol_nvme
-Vserver  Subsystem Host NQN
+Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_ol_nvme
-              nvme_ss_ol_1
-                                 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ----
-
++
 [NOTE] If the hostnqn strings do not match, you should use the vserver modify command to update the hostnqn string on your corresponding ONTAP array subsystem to match to the hostnqn string from /etc/nvme/hostnqn on the host.
 
 .	Reboot the host.
-
++
 [NOTE] If one intends to run both NVMe & SCSI traffic on the same Oracle Linux 8.6 co-existent host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. And that also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the enable_foreign setting to the /etc/multipath.conf:
 +
 ----
@@ -347,15 +345,16 @@ Before commencing any troubleshooting for any NVMe/FC failures, always ensure yo
 === LPFC verbose logging
 
 Following is the list of lpfc driver logging bitmasks available for NVMe/FC, as seen at `drivers/scsi/lpfc/lpfc_logmsg.h`: 
-+
+
 ----
 #define LOG_NVME 0x00100000 /* NVME general events. */
 #define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */
 #define LOG_NVME_ABTS 0x00400000 /* NVME ABTS events. */
 #define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */ 
 ----
+
 So you may set the lpfc_log_verbose driver setting (appended to the lpfc line at `/etc/modprobe.d/lpfc.conf`) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running 'dracut -f' and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above `LOG_NVME_DISC` bitmask as an example: 
-+
+
 ----
 # cat /etc/modprobe.d/lpfc.conf
 lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083 
@@ -366,7 +365,7 @@ lpfc_enable_fc4_type=3 lpfc_log_verbose=0xf00083
 === qla2xxx verbose logging
 
 Unfortunately, there is no similar specific qla2xxx logging for NVMe/FC, as there is in lpfc. So you may set the general qla2xxx logging level here i.e. ql2xextended_error_logging=0x1e400000. This can be done by appending this value to the corresponding modprobe qla2xxx conf file. And then recreate the initramfs by running 'dracut -f' and then reboot the host. After reboot, verify that the verbose logging has applied as follows:
-+
+
 ----
 # cat /etc/modprobe.d/qla2xxx.conf
 options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
