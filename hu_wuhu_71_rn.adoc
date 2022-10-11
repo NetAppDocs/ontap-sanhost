@@ -40,9 +40,6 @@ Windows Unified Host Utilities 7.1 includes support for E-Series storage systems
 Install the latest hotfixes before installing the Windows Host Utilities. Refer to the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_71.html[Windows Unified Host Utilities 7.1] document for your specific configuration hotfix requirements.
 
 
-[WARNING]
-*Error when installing hotfixes*
-When installing required Windows hotfixes, you might get an error message saying the hotfix does not apply to your system. Some hotfixes have a dependency on other hotfixes. Install the hotfixes in numerical order to ensure they are accepted. Many hotfixes prompt you to reboot your system. You can wait until all hotfixes are installed before rebooting. If you are installing Windows Host Utilities immediately after the hotfixes, you can wait and reboot when prompted by the Host Utilities installation program.
 
 == Known issues
 
@@ -60,16 +57,6 @@ Microsoft does not support MCS for iSCSI software booted hosts. Use MPIO as the 
 
 link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible.
 
-== Known limitations
-
-*Virtual Fibre Channel is not supported in virtual machines on Windows Server 2012 hosts* 
-Virtual Fibre Channel is not supported in virtual machines on Windows Server 2012 hosts connected to FAS storage systems running Data ONTAP.
-
-*Raw (pass-through) disks do not appear in Hyper-V guest OS*
-Raw (pass-through) disks do not appear in a Hyper-V guest OS if Windows Host Utilities is installed on the guest and multipathing support is enabled. When you enable multipathing support for Windows Host Utilities, LUNs on NetApp storage systems are claimed by the Windows MPIO drivers. Raw disks that are also based on NetApp LUNs are not passed to MPIO, and therefore not visible in the guest OS. You can either use multipathing in the guest OS, or you can use raw disks, but not both.
-
-*Guest OS install on SCSI disk fails*
-You cannot boot a Hyper-V virtual machine from a SCSI-mapped disk. Use an IDE-mapped disk for the virtual machine boot disk
 
 == About SAN Host Configuration documentation
 Documentation for SAN Host Utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation]. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
