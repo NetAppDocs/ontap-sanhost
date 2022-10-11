@@ -69,10 +69,10 @@ If the `hostnqn` strings do not match, you should use the `vserver modify` comma
 
 .	Reboot the host.
 +
-
 [NOTE]
+--
 If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.6 co-existent host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and `dm-multipath` for ONTAP LUNs respectively. And that also means the ONTAP namespaces should be blacklisted in `dm-multipath` to prevent `dm-multipath` from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf`:
-+
+
 
 ----
 # cat /etc/multipath.conf
@@ -80,6 +80,7 @@ defaults {
         enable_foreign     NONE
 }
 ----
+--
 
 .	Restart the multipathd daemon by running a `systemctl restart multipathd` command to let the new setting take effect.
 
@@ -276,18 +277,18 @@ round-robin
 +
 ----
 # nvme list
-Node         SN                    Model                          
---------------------   ---------------------------------------  
-/dev/nvme0n1 814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller    
-/dev/nvme0n2     814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller                2                  85.90 GB / 85.90 GB     
-/dev/nvme0n3     814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller                3                  85.90 GB / 85.90 GB     
+Node         SN                   Model                          
+---------------------------------------------------------  
+/dev/nvme0n1 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller
+/dev/nvme0n2 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller                                       
+/dev/nvme0n3 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller                                     
 
 
-Namespace Usage    Format         FW Rev
------------------------
-1 85.90 GB / 85.90 GB                    4 KiB + 0 B   FFFFFFFF
-24 KiB + 0 B   FFFFFFFF
-4 KiB + 0 B   FFFFFFFF
+Namespace Usage    Format             FW             Rev
+-----------------------------------------------------------
+1                 85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
+2                 85.90 GB / 85.90 GB  24 KiB + 0 B  FFFFFFFF
+3                 85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
 ----
 
 .	Verify that the controller state of each path is live and have proper ANA status
@@ -307,12 +308,20 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 ----
 # nvme netapp ontapdevices -o column
 
-Device                 Vserver                         Namespace Path                                                          NSID    UUID                                                             Size
------------------------ ------------------------------ ----------------------------------------------------------------------- --------- ---------------------------------------------------------- ---------
-/dev/nvme0n1      vs_ol_nvme            /vol/ol_nvme_vol_1_1_0/ol_nvme_ns              1          72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
-/dev/nvme0n2      vs_ol_nvme            /vol/ol_nvme_vol_1_0_0/ol_nvme_ns              2          04bf9f6e-9031-40ea-99c7-a1a61b2d7d08    85.90GB
-/dev/nvme0n3      vs_ol_nvme            /vol/ol_nvme_vol_1_1_1/ol_nvme_ns              3          264823b1-8e03-4155-80dd-e904237014a4  85.90GB
+Device        Vserver   Namespace Path                                                          
+----------------------- ------------------------------ 
+/dev/nvme0n1   vs_ol_nvme  /vol/ol_nvme_vol_1_1_0/ol_nvme_ns              
+/dev/nvme0n2   vs_ol_nvme  /vol/ol_nvme_vol_1_0_0/ol_nvme_ns              
+/dev/nvme0n3   vs_ol_nvme  /vol/ol_nvme_vol_1_1_1/ol_nvme_ns              
 
+
+NSID       UUID                                   Size
+------------------------------------------------------------
+1          72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
+2          04bf9f6e-9031-40ea-99c7-a1a61b2d7d08   85.90GB
+3          264823b1-8e03-4155-80dd-e904237014a4   85.90GB
+----
+----
 # nvme netapp ontapdevices -o json
 {
 "ONTAPdevices" : [
@@ -352,7 +361,7 @@ Device                 Vserver                         Namespace Path           
 
 == Troubleshooting
 
-Before commencing any troubleshooting for any NVMe/FC failures, always ensure you are running a config that is compliant to the IMT specifications. And then proceed to the next steps below to debug any host side issues here.
+Before commencing any troubleshooting for any NVMe/FC failures, always ensure you are running a configuration that is compliant to the IMT specifications and then proceed with the following steps to debug any host side issues.
 
 === LPFC verbose logging
 
@@ -365,7 +374,7 @@ Following is the list of lpfc driver logging bitmasks available for NVMe/FC, as 
 #define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */ 
 ----
 
-So you may set the lpfc_log_verbose driver setting (appended to the lpfc line at `/etc/modprobe.d/lpfc.conf`) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running 'dracut -f' and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above `LOG_NVME_DISC` bitmask as an example: 
+So you may set the `lpfc_log_verbose` driver setting (appended to the lpfc line at `/etc/modprobe.d/lpfc.conf`) to any of the values above for logging NVMe/FC events from a lpfc driver perspective. And then recreate the initiramfs by running 'dracut -f' and then reboot the host. After rebooting, verify that the verbose logging has applied by checking the following, using the above `LOG_NVME_DISC` bitmask as an example: 
 
 ----
 # cat /etc/modprobe.d/lpfc.conf
@@ -403,8 +412,8 @@ The errors displayed by `nvme-cli` during `nvme discover`, `nvme connect`, or `n
 |`Failed to write to /dev/nvme-fabrics: Invalid argument` |Incorrect syntax.	|Ensure you are using the correct syntax for the nvme commands. 
 |`Failed to write to /dev/nvme-fabrics: No such file or directory` 	|Multiple issues could trigger this. Some of the common cases are: 
 You passed wrong arguments to the above nvme commands.
-|*	Ensure you have passed the proper arguments itself (like proper WWNN string, WWPN string) for the above commands.
-*	If the arguments are correct, but still seeing this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper with the NVMe intiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
+a|*	Ensure you have passed the proper arguments itself (like proper WWNN string, WWPN string) for the above commands.
+*	If the arguments are correct, but still seeing this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper with the NVMe initiator showing as `Enabled` and NVMe/FC target LIFs properly showing up here under the remote ports sections. For example,
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
@@ -424,17 +433,17 @@ Cmpl 00000000000000a8 Outstanding 0000000000000001
 ----
 *	If the target LIFs don't show up as above in the `nvme_info` output, check the `/var/log/messages` and `dmesg` output for any suspicious NVMe/FC failures, and report/fix accordingly.
 
-|`No discovery log entries to fetch` |This error message is generally seen if the /etc/nvme/hostnqn string has not been added to the corresponding subsystem on the NetApp array. Or an incorrect hostnqn string has been added to the respective subsystem.	|Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show`).
+|`No discovery log entries to fetch` |This error message is generally seen if the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array. Or an incorrect hostnqn string has been added to the respective subsystem.	|Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify through the `vserver nvme subsystem host show`).
 
 |`Failed to write to /dev/nvme-fabrics: Operation already in progress` 
 |This error message is seen if the controller associations or specified operation is already created or in the process of being created. This could happen as part of the auto-connect scripts installed above.
-|None. For `nvme discover`, try running this command after some time. And maybe for `nvme connect` and `connect-all`, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
+|None. For `nvme discover`, try running this command after some time. And maybe for `nvme connect` and `connect-all`, run a `nvme list` command to verify that the namespace devices are already created and displayed on the host.
 |===
 
 === When to contact technical support
 
 If you are still facing issues, collect the following files and command outputs and contact technical support for further triage:
-+
+
 ----
 cat /sys/class/scsi_host/host*/nvme_info
 /var/log/messages
