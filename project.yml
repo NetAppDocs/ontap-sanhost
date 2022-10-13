@@ -1,6 +1,6 @@
 ---
 settings:
-  name: SAN host
+  name: SAN hosts and cloud clients
   internal:
     pdf_enabled: true
   prod:
@@ -14,7 +14,7 @@ product-family:
 
 sidebar:
   entries:
-    - title: SAN host docs
+    - title: Configure SAN hosts and cloud clients
       url: /index.html  
     - title: Overview
       url: /overview.html
