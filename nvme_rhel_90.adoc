@@ -386,7 +386,7 @@ NSID   UUID                               Size
 }
 ----
 
-== When to contact technical support
+== Troubleshooting
 Before commencing any troubleshooting for any NVMe/FC failures, always ensure you are running a configuration that is compliant to the IMT specifications. And then proceed to the following steps to debug any host side issues.
 
 === lpfc verbose logging
@@ -465,7 +465,7 @@ a| Ensure the exact `/etc/nvme/hostnqn` string is added to the corresponding sub
 a| None. For `nvme discover`, try running this command after some time. And for `nvme connect` and `connect-all`, run a `nvme list` to verify that the namespace devices are already created and displayed on the host.
 |===
 
-=== Files and command outputs required for debugging
+=== When to contact technical support
 If you are still facing issues, please collect the following files and command outputs and send them for further triage:
 ----
 cat /sys/class/scsi_host/host*/nvme_info
