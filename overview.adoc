@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: overview.html
-keywords: nvme, windows, enterprise
+keywords: ontap, san, host, rhel, red, hat, linux, sles, suse, esxi, nvme, oracle, linux, windows, enterprise, fc, fcp, isci, aix, powervm, vios, centos, citrix, hp-ux, solaris, veritas, cvo, cloud, volume, ontap, clients, configuration, FSx, instance, netapp
 summary: This content provides distribution-specific guidance on how to configure cloud clients connected to Cloud Volumes ONTAP and Amazon FSx for ONTAP and SAN hosts connected to on-premises ONTAP storage.
 ---
 
@@ -23,5 +23,3 @@ NOTE: In a cloud environment, hosts are typically referred to as clients. All ho
 For example you can configure on-premises ONTAP storage to connect to on-premises SAN hosts or to connect to SAN cloud clients.  You could also configure link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/index.html[Cloud Volumes ONTAP^] or link:https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/index.html[Amazon FSx for ONTAP^] to connect to on-premises SAN hosts or to connect to SAN cloud clients.
 
 Proper configuration is important for best performance and successful failover.  
-
-For iSCSI and FC, this content replaces the previous documentation for Linux Unified Host Utilities.
