@@ -1,6 +1,6 @@
 ---
 settings:
-  name: SAN Host
+  name: SAN hosts and cloud clients
   internal:
     pdf_enabled: true
   prod:
@@ -14,33 +14,35 @@ product-family:
 
 sidebar:
   entries:
-    - title: Home
-      url: /index.html
-    - title: SAN Host Utilities
+    - title: Configure SAN hosts and cloud clients
+      url: /index.html  
+    - title: Overview
+      url: /overview.html
+    - title: SAN host utilities
       entries:
-      - title: AIX Host Utilities
+      - title: AIX host utilities
         entries:
           - title: Install AIX HU 6.1
             url: /hu_aix_61.html
           - title: Release notes
             url: /hu_aix_61_rn.html
-      - title: HP-UX Host Utilities
+      - title: HP-UX host utilities
         entries:
          - title: Install HP-UX HU 6.0
            url: /hu_hpux_60.html
          - title: Release notes
            url: /hu_hpux_60_rn.html
-      - title: Linux Unified Host Utilities
+      - title: Linux unified host utilities
         entries:
         - title: Install LUHU 7.1
           url: /hu_luhu_71.html
-        - title: Release Notes
+        - title: Release notes
           url: /hu_luhu_71_rn.html
-      - title: Solaris Host Utilities
+      - title: Solaris host utilities
         entries:
           - title: Install Solaris HU 6.2
             url: /hu_solaris_62.html
-          - title: Release Notes
+          - title: Release notes
             url: /hu_solaris_62_rn.html
       - title: Windows Unified Host Utilities
         entries:
@@ -49,18 +51,20 @@ sidebar:
           - title: Release Notes
             url: /hu_wuhu_71_rn.html
 
-    - title: NVMe-oF Host Configurations
+    - title: NVMe-oF host configurations
       entries:
       - title: ESXi
         pdf-filename: NVMeoF ESXi
         entries:
-        - title: 7.x
+        - title: VMware vSphere 7
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
         - title: OL 8
           pdf-filename: NVMeF OL
           entries:
+          - title: 8.6
+            url: /nvme_ol_86.html
           - title: 8.5
             url: /nvme_ol_85.html
           - title: 8.2
@@ -76,7 +80,7 @@ sidebar:
           - title: 7.7
             url: /nvme_ol_77.html
       - title: RHEL
-        pdf-filename: NVMeF RHEL
+        pdf-filename: NVMeoF RHEL
         entries:
         - title: RHEL 9
           entries:
@@ -119,7 +123,7 @@ sidebar:
           url: /nvme_windows_2016.html
         - title: "2012 R2"
           url: /nvme_windows_2012r2.html
-    - title: FCP and iSCSI Host Configurations
+    - title: FCP and iSCSI host configurations
       entries:
       - title: AIX and PowerVM/VIOS
         entries:
