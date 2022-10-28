@@ -24,6 +24,8 @@ OL 7.7 host can run both NVMe & SCSI traffic through the same fibre channel init
 +
 For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
+include::_include/hu/reuse_hu_cloud_note.adoc[]
+
 ==	Known limitations
 *	Native NVMe/FC auto-connect scripts are not available in the nvme-cli package.
 You can use the HBA vendor provided external auto-connect scripts.

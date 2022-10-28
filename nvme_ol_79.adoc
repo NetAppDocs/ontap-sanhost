@@ -18,6 +18,8 @@ summary: Setting up VMe/FC Host Configuration for Oracle Linux 7.9 with ONTAP, w
 
 NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 7.9. Oracle Linux 7.9 host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
+include::_include/hu/reuse_hu_cloud_note.adoc[]
+
 == Known limitations
 
 * Native NVMe/FC auto-connect scripts are not available in the `nvme-cli` package. Use the HBA vendor provided external auto-connect scripts.
@@ -206,3 +208,4 @@ Device   Vserver  Namespace Path             NSID   UUID   Size
 == Enable 1MB I/O Size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+xxx
