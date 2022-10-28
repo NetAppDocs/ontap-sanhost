@@ -1,6 +1,6 @@
 ---
 settings:
-  name: SAN Host
+  name: SAN hosts and cloud clients
   internal:
     pdf_enabled: true
   prod:
@@ -14,48 +14,55 @@ product-family:
 
 sidebar:
   entries:
-    - title: Home
-      url: /index.html
-    - title: SAN Host Utilities
+    - title: Configure SAN hosts and cloud clients
+      url: /index.html  
+    - title: Overview
+      url: /overview.html
+    - title: SAN host utilities
       entries:
-      - title: AIX Host Utilities
+      - title: AIX host utilities
         entries:
           - title: Install AIX HU 6.1
             url: /hu_aix_61.html
           - title: Release notes
             url: /hu_aix_61_rn.html
-      - title: HP-UX Host Utilities
+      - title: HP-UX host utilities
         entries:
          - title: Install HP-UX HU 6.0
            url: /hu_hpux_60.html
          - title: Release notes
            url: /hu_hpux_60_rn.html
-      - title: Linux Unified Host Utilities
+      - title: Linux unified host utilities
         entries:
         - title: Install LUHU 7.1
           url: /hu_luhu_71.html
-        - title: Release Notes
+        - title: Release notes
           url: /hu_luhu_71_rn.html
-      - title: Solaris Host Utilities
+      - title: Solaris host utilities
         entries:
           - title: Install Solaris HU 6.2
             url: /hu_solaris_62.html
-          - title: Release Notes
+          - title: Release notes
             url: /hu_solaris_62_rn.html
-      - title: Windows Unified Host Utilities
+      - title: Windows unified host utilities
         url: /hu_wuhu_71.html
 
-    - title: NVMe-oF Host Configurations
+    - title: NVMe-oF host configurations
       entries:
       - title: ESXi
         pdf-filename: NVMeoF ESXi
         entries:
-        - title: 7.x
+        - title: VMware vSphere 7
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
         - title: OL 8
+          pdf-filename: NVMeF OL
           entries:
+          - title: 8.6
+            url: /nvme_ol_86.html
+          - title: 8.5
+            url: /nvme_ol_85.html
           - title: 8.2
             url: /nvme_ol_82.html
           - title: 8.1
@@ -69,7 +76,7 @@ sidebar:
           - title: 7.7
             url: /nvme_ol_77.html
       - title: RHEL
-        pdf-filename: NVMeF RHEL
+        pdf-filename: NVMeoF RHEL
         entries:
         - title: RHEL 9
           entries:
@@ -104,13 +111,15 @@ sidebar:
             url: /nvme_sles15_sp1.html
       - title: Windows
         entries:
+        - title: 2022
+          url: /nvme_windows_2022.html
         - title: 2019
           url: /nvme_windows_2019.html
         - title: 2016
           url: /nvme_windows_2016.html
         - title: "2012 R2"
           url: /nvme_windows_2012r2.html
-    - title: FCP and iSCSI Host Configurations
+    - title: FCP and iSCSI host configurations
       entries:
       - title: AIX and PowerVM/VIOS
         entries:
@@ -189,8 +198,10 @@ sidebar:
         - title: 11i v3
           url: /hu_hpux_11iv3.html
       - title: Oracle Linux
+        pdf-filename: OL-FCP
         entries:
         - title: OL 8
+          pdf-filename: OL-8-FCP
           entries:
           - title: 8.6
             url: /hu_ol_86.html
@@ -207,6 +218,7 @@ sidebar:
           - title: 8.0
             url: /hu_ol_80.html
         - title: OL 7
+          pdf-filename: OL-7-FCP
           entries:
           - title: 7.9
             url: /hu_ol_79.html
@@ -229,6 +241,7 @@ sidebar:
           - title: "7.0"
             url: /hu_ol_70.html
         - title: OL 6
+          pdf-filename: OL-6-FCP
           entries:
           - title: "6.10"
             url: /hu_ol_610.html
@@ -247,10 +260,12 @@ sidebar:
       - title: RHEL
         entries:
         - title: RHEL 9
+          pdf-filename: RHEL-9-FCP
           entries:
           - title: 9.0
             url: /hu_rhel_90.html
         - title: RHEL 8
+          pdf-filename: RHEL-8-FCP
           entries:
           - title: 8.6
             url: /hu_rhel_86.html
@@ -267,6 +282,7 @@ sidebar:
           - title: 8.0
             url: /hu_rhel_80.html
         - title: RHEL 7
+          pdf-filename: RHEL-7-FCP
           entries:
           - title: 7.9
             url: /hu_rhel_79.html
@@ -289,6 +305,7 @@ sidebar:
           - title: 7.0
             url: /hu_rhel_70.html
         - title: RHEL 6
+          pdf-filename: RHEL-6-FCP
           entries:
           - title: "6.10"
             url: /hu_rhel_610.html
@@ -313,6 +330,7 @@ sidebar:
       - title: SLES
         entries:
         - title: SLES 15
+          pdf-filename: SLES-15-FCP
           entries:
           - title: 15 SP4
             url: /hu_sles_15SP4.html
@@ -347,7 +365,10 @@ sidebar:
         - title: Storage Foundation 6
           url: /hu_veritas_6x.html
       - title: Windows
+        pdf-filename: Windows-FCP
         entries:
+        - title: 2022
+          url: /hu_windows_2022.html
         - title: 2019
           url: /hu_windows_2019.html
         - title: 2016

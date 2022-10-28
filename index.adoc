@@ -1,29 +1,14 @@
 ---
+layout: astra
 sidebar: sidebar
 permalink: index.html
-keywords: ontap, san, host, rhel, red, hat, linux, sles, suse,
-summary: SAN Host Documentation
+keywords: ontap, san, host, rhel, red, hat, linux, sles, suse, esxi, nvme, oracle, linux, windows, enterprise, fc, fcp, isci, aix, powervm, vios, centos, citrix, hp-ux, solaris, veritas, cvo, cloud, volume, ontap, clients, configuration, FSx, instance, netapp
+summary: This content provides distribution-specific guidance on how to configure SAN clients connected to ONTAP storage.
 ---
 
-= ONTAP SAN Host Configuration
+= SAN hosts and cloud clients
 :hardbreaks:
 :nofooter:
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
-
-[.lead]
-
-This content provides distribution-specific guidance about how to configure ONTAP SAN hosts for the NVMe, iSCSI, and FC protocols.
-
-For best performance and to ensure successful failover, it is important to correctly configure SAN hosts using ONTAP storage. These documents show how to quickly set up a best practice configuration.
-
-For iSCSI and FC, this documentation replaces the traditional Linux Unified Host Utilities guides. Each document is specific to one distribution and version of Linux, so you see only the information for your exact version. If your distribution and version of Linux is not yet listed, please check back soon.
-
-== More information
-
-You can find additional information on SAN configurations in the following documentation:
-
-link:https://docs.netapp.com/us-en/ontap/task_asa_software_configuration.html[All SAN Array Software Configuration Guide^]
-link:https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html[SAN Administration Guide^]
-link:https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html[SAN Configuration Guide^]
