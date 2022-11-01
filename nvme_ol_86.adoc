@@ -18,6 +18,8 @@ summary: Setting up VMe/FC Host Configuration for Oracle Linux 8.6 with ONTAP, w
 
 NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 8.6. Oracle Linux 8.6 host can run both NVMe/FC and FCP traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] .
 
+include::_include/hu/reuse_hu_cloud_note.adoc[]
+
 == Features 
 
 *	Oracle Linux 8.6 has In-kernel NVMe multipath enabled by default for NVMe namepsaces.

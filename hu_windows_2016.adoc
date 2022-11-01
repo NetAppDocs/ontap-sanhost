@@ -18,9 +18,10 @@ summary: Using Windows Server 2016 with ONTAP
 == Booting the OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
-
 === SAN booting
 include::_include/windows/reuse_windows_san_booting.adoc[]
+
+include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 
 == Installing Windows hotfixes

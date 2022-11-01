@@ -20,6 +20,8 @@ NVMe/FC is supported on ONTAP 9.7 or later for Windows Server 2012.
 
 include::_include/nvme/reuse_supportability_notes.adoc[]
 
+include::_include/hu/reuse_hu_cloud_note.adoc[]
+
 == Known limitations
 
 Windows Failover Cluster (WFC) is not supported with ONTAP NVMe/FC because ONTAP does not currently support persistent reservations with NVMe/FC.
