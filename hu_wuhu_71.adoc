@@ -40,7 +40,7 @@ The following programs and files are installed on the Windows host computer. The
 
 == Configurations supported by Host Utilities
 
-The Host Utilities support different Windows host configurations, protocols and Multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+The Host Utilities support different Windows host configurations, protocols, and Multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 == Verify your host and storage system configuration
 Before you install the Host Utilities, you must verify that the Host Utilities version supports your host and storage system configuration so that the software installs correctly.
@@ -48,7 +48,11 @@ Before you install the Host Utilities, you must verify that the Host Utilities v
 .Steps
 
 . Check the supported configuration in the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
-. Check the hotfixes required for the respective host on the San Host Documentation.
+. Check the hotfixes required for the respective host on the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
++
+[NOTE]
+link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Using Windows server 2022 with ONTAP] provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the Host configurations category to find the relevant hotfix information for earlier versions of Windows server.
+
 . Add the iSCSI or FCP license and start the target service.
 +
 The Fibre Channel and iSCSI protocols do not require licenses on E-Series storage systems using SANtricity Storage Manager.
