@@ -105,7 +105,7 @@ NOTE: Replace the *<DevID>* with the WWID string of the device you want to exclu
 
 .Example
 
-In this example for Citrix Hypervisor 8.x, `sda` is the local SCSI disk that we need to the blacklist.
+In this example for Citrix Hypervisor 8.x, `sda` is the local SCSI disk that we need to add to the blacklist.
 
 . Run the following command to determine the WWID:
 +
