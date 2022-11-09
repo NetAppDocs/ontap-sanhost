@@ -237,7 +237,9 @@ Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two m
 
 * *No auto-connect during host bootup* NVMe/TCP cannot automatically connect during host bootup as well.
 
-To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the `ctrl_loss_tmo` timer. Following are the details:
+You should set the retry period for failover events to at least 30 minutes to prevent timeouts.  You can increase the retry period by increasing the value of the ctrl_loss_tmo timer. Following are the details:
+
+.Steps
 
 . Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
