@@ -1,5 +1,6 @@
 The lpfc_sg_seg_cnt parameter must be set to 256 in order for the host to issue 1MB size I/O.
 
+.Steps
 .	 Set the `lpfc_sg_seg_cnt` parameter to 256.
 +
 ----
