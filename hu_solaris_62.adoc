@@ -59,30 +59,30 @@ The NetApp Solaris Host Utilities software package is available on the link:http
 
 .Steps
 
-.	Login to your host as root.
-.	Download a copy of the compressed file containing the Host Utilities from link:https://mysupport.netapp.com/site/[NetApp Support Site^] to a directory on your host.
+. Login to your host as root.
+. Download a copy of the compressed file containing the Host Utilities from link:https://mysupport.netapp.com/site/[NetApp Support Site^] to a directory on your host.
 +
 At the time this documentation was prepared, the compressed files were called:
 +
 * SPARC CPU: `netapp_solaris_host_utilities_6_2_sparc.tar.gz`
 * x86/x64 CPU: `netapp_solaris_host_utilities_6_2_amd.tar.gz`
 
-.	Go to the directory containing the download.
-.	Unzip the file using the gunzip command
+. Go to the directory containing the download.
+. Unzip the file using the gunzip command
 +
 `# gunzip netapp_solaris_host_utilities_6_2_sparc.tar.gz`
 
-.	Untar the file. You can use the `tar xvf` command to do this.
+. Unzip the file. You can use the `tar xvf` command to do this.
 +
 `# tar xvf netapp_solaris_host_utilities_6_2_sparc.tar`
 
-.	Add the packages that you extracted from tar file to your host. You can use the `pkgadd` command to do this.
+. Add the packages that you extracted from tar file to your host. You can use the `pkgadd` command to do this.
 +
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory. The following example uses the `pkgadd` command to install the Solaris installation package:
 +
 `# pkgadd -d ./NTAPSANTool.pkg`
 
-.	Confirm that the toolkit was successfully installed by using the `pkginfo` command or the `ls - al` command.
+. Confirm that the toolkit was successfully installed by using the `pkginfo` command or the `ls - al` command.
 +
 ----
 # ls -alR /opt/NTAP/SANToolkit
@@ -112,7 +112,7 @@ drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
 ** MPxIO
 **	Veritas DMP
 
-.	Verify the installation:
+. Verify the installation:
 +
 `sanlun version`
 
