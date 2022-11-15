@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 * Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This reflects as two major limitations on the Linux host:
 ** No auto-reconnect after paths get reinstated - NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` of 10 minutes following a path down.
 ** No auto-connect during host bootup - NVMe/TCP cannot automatically connect during host bootup as well.
-To comfortably tide over ONTAP failover events such as SFOs for NVMe/TCP, it is advised to set a longer retry period such as 30 minutes by tweaking the `ctrl_loss_tmo` timer.
+You should set the retry period for failover events to at least 30 minutes to prevent timeouts.  You can increase the retry period by increasing the value of the ctrl_loss_tmo timer.
 
 ==  Configuration requirements
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for exact details regarding supported configurations.
@@ -192,7 +192,7 @@ Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This reflects as two
 
 * No auto-reconnect after paths get reinstated - NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` of 10 minutes following a path down.
 * No auto-connect during host bootup - NVMe/TCP cannot automatically connect during host bootup as well.
-To comfortably tide over ONTAP failover events such as SFOs, it is advised to set a longer retry period such as say 30 minutes by tweaking the `ctrl_loss_tmo` timer. Following are the details:
+You should set the retry period for failover events to at least 30 minutes to prevent timeouts.  You can increase the retry period by increasing the value of the ctrl_loss_tmo timer. Following are the details:
 
 .Steps
 
@@ -244,7 +244,7 @@ sectype: none
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
 
-. Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer `ctrl_loss_tmo` period (such as say 30 minutes, which can be set through `-l 1800`) during the connect-all so that it would retry for a longer period in the event of a path loss. For example,
+. Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you set a longer `ctrl_loss_tmo` timer retry period (for example, 30 minutes, which can be set through `-l 1800`) during the connect-all so that it would retry for a longer period of time in the event of a path loss. For example,
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800

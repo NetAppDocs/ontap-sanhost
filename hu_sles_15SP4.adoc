@@ -85,7 +85,7 @@ Replace the `<DevId>` with the `WWID` string of the device you want to exclude. 
 
 
 .Example
-In this example, `sda` is the local SCSI disk that we need to blacklist.
+In this example, `sda` is the local SCSI disk that we need to add to the blacklist.
 
 .Steps
 . Run the following command to determine the `WWID`:
