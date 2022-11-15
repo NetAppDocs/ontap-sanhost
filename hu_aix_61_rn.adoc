@@ -15,7 +15,7 @@ summary: Release Notes for AIX Host Utilities 6.1
 :imagesdir: ./media/
 
 [.lead]
-This Release Notes document contains the latest information on the AIX Host Utilities 6.1 release, including updates about known problems, limitations, and configuring and managing your ONTAP storage system.
+This Release Notes document contains the latest information on the AIX Host Utilities 6.1 release, including updates about known problems, limitations, configuring and managing your ONTAP storage system.
 
 The Release Notes document is updated when new information on using the AIX Host Utilities becomes available.
 
@@ -29,7 +29,7 @@ For specific information about the operating system versions and updates that th
 For more information about PowerVM feature, see the IBM PowerVM Live Partition Mobility Red Book.
 ====
 
-The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:link:https://mysupport.netapp.com/site/[NetApp Support Site^]. The ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
+The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. The ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
 
 NOTE: You must enable Dynamic Tracking for all FC and FCoE initiators for clustered Data ONTAP deployments.
 

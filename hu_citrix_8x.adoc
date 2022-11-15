@@ -34,7 +34,7 @@ The following sections provide sample multipath output for a LUN mapped to ASA p
 
 === All SAN Array (ASA) Configuration
 
-For All SAN Array (ASA) configuration there should be one group of paths with single priorities. All the paths are Active/Optimized, meaning they are serviced by the controller and I/O is sent on all the active paths.
+For All SAN Array (ASA) configuration there should be one group of paths with single priorities. All the paths are Active/Optimized, which means they are serviced by the controller and I/O is sent on all the active paths.
 
 .Example
 The following example displays the correct output for an ONTAP LUN with four Active/Optimized paths:
@@ -126,7 +126,7 @@ blacklist {
 }
 ----
 
-Refer to the multipath parameter run time configuration by using the `$multipathd show config` command. You should always check your running configuration for legacy settings that might be overriding default settings, especially in the defaults section.
+Refer to the multipath parameter runtime configuration by using the `$multipathd show config` command. You should always check your running configuration for legacy settings that might be overriding default settings, especially in the defaults section.
 
 The following table shows the critical *multipathd* parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they need to be corrected by later stanzas in *multipath.conf* that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs might not work as expected. The following defaults should only be overridden in consultation with NetApp and/or the OS vendor and only when the impact is fully understood.
 

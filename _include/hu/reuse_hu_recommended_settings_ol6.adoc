@@ -28,7 +28,7 @@ In this example, sda is the local SCSI disk that we need to add to the blacklist
 # /lib/udev/scsi_id -gud /dev/sda
 360030057024d0730239134810c0cb833
 ....
-.	Add this WWID to the blacklist stanza in the /etc/multipath.conf:
+.	Add this WWID to the "blacklist" stanza in the /etc/multipath.conf:
 +
 ....
 blacklist {
