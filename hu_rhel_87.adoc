@@ -131,7 +131,7 @@ Installation gives the error "The following error occured while installing boot 
 |2119771
 |1479047	|Duplicate persistent discovery controllers created with `nvme discover -p` option	|NVMe Persistent Discovery Controllers (PDCs) can be created by appending the `-p` option to the `nvme discover` command. Multiple invocations of the same command should still end up with utmost one PDC itself for a given initiator-target combination. But certain hosts are known to create duplicate PDCs for this same case above, leading to wastage of resources on both the host and the target.	|2087000
 |1501048	|sysfs filesystem returns SCSI-FC dev_loss_tmo value of -1 instead of infinity	|As part of multipathd parameters verification,the value of dev_loss_tmo is supposed to be `infinity` but sysfs filesystem returns SCSI-FC dev_loss_tmo value of -1 in RHEL 8.7. However, multipathd -k"show config"  returns dev_loss_tmo as "infinity"[look for NetApp Device specific dev_loss_tmo parameter value]. We don't seem to find any broken dev_loss_tmo functionality here. It could be the reporting issue by the sysfs filesystem.	|2124297  
-
+|===
 
 
 == Release Notes
