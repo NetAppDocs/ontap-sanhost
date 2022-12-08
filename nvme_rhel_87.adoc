@@ -29,7 +29,7 @@ RHEL 8.7 includes support for NVMe/TCP (as a Technology Preview feature) in addi
 
 * For RHEL 8.7, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. 
 
-* NVMe/TCP on RHEL 8.7 remains a Technology Preview feature due to open issues. Refer to the RHEL 8.7 release notes for details. 
+* NVMe/TCP on RHEL 8.7 remains a Technology Preview feature due to open issues. Refer to the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.7_release_notes/index[RHEL 8.7 release notes] for details. 
 
 
 == Configuration requirements
@@ -141,24 +141,17 @@ Emulex LightPulse LPe35002-M2 2-Port 32Gb Fibre Channel Adapter
 +
 ----
 # cat /sys/class/fc_host/host*/port_name 
-
 0x100000109b95467c 
 0x100000109b95467b 
-
 # cat /sys/class/fc_host/host*/port_state 
-
 Online 
 Online 
-
 # cat /sys/class/scsi_host/host*/nvme_info 
-
 NVME Initiator Enabled 
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250  
 NVME LPORT lpfc1 WWPN x100000109b95467c WWNN x200000109b95467c DID x0a1500 ONLINE 
 NVME RPORT       WWPN x2071d039ea36a105 WWNN x206ed039ea36a105 DID x0a0907 TARGET DISCSRVC ONLINE 
 NVME RPORT       WWPN x2072d039ea36a105 WWNN x206ed039ea36a105 DID x0a0805 TARGET DISCSRVC ONLINE 
-
- 
 
 NVME Statistics 
 LS: Xmt 00000001c7 Cmpl 00000001c7 Abort 00000000  
@@ -167,7 +160,6 @@ Total FCP Cmpl 0000000004909837 Issue 0000000004908cfc OutIO fffffffffffff4c5
 abort 0000004a noxri 00000000 nondlp 00000458 qdepth 00000000 wqerr 00000000 err 00000000 
 FCP CMPL: xb 00000061 Err 00017f43 
 
- 
 NVME Initiator Enabled 
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250  
 NVME LPORT lpfc0 WWPN x100000109b95467b WWNN x200000109b95467b DID x0a1100 ONLINE 
@@ -245,171 +237,96 @@ You should set the retry period for failover events to at least 30 minutes to pr
 Discovery Log Number of Records 8, Generation counter 10 
 
 =====Discovery Log Entry 0====== 
-
 trtype:  tcp 
-
 adrfam:  ipv4 
-
 subtype: unrecognized 
-
 treq:    not specified 
-
 portid:  0 
-
 trsvcid: 8009 
-
 subnqn:  nqn.199208.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:discovery 
-
 traddr:  192.168.211.15 
-
 sectype: none 
-
 =====Discovery Log Entry 1====== 
-
 trtype:  tcp 
-
 adrfam:  ipv4 
-
 subtype: unrecognized 
-
 treq:    not specified 
-
 portid:  1 
-
 trsvcid: 8009 
-
 subnqn:  nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:discovery 
-
 traddr:  192.168.111.15 
-
 sectype: none 
-
 =====Discovery Log Entry 2====== 
-
 trtype:  tcp 
-
 adrfam:  ipv4 
-
 subtype: unrecognized 
-
 treq:    not specified 
-
 portid:  2 
-
 trsvcid: 8009 
-
 subnqn:  nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:discovery 
-
 traddr:  192.168.211.14 
-
 sectype: none 
-
 =====Discovery Log Entry 3====== 
-
 trtype:  tcp 
-
 adrfam:  ipv4 
-
 subtype: unrecognized 
-
 treq:    not specified 
-
 portid:  3 
-
 trsvcid: 8009 
-
 subnqn:  nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:discovery 
-
 traddr:  192.168.111.14 
-
 sectype: none 
-
 =====Discovery Log Entry 4====== 
-
 trtype:  tcp 
-
 adrfam:  ipv4 
-
 subtype: nvme subsystem 
-
 treq:    not specified 
-
 portid:  0 
-
 trsvcid: 4420 
-
 subnqn:  nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rhel_tcp_165 
-
 traddr:  192.168.211.15 
-
 sectype: none 
-
 =====Discovery Log Entry 5====== 
-
 trtype:  tcp 
-
 adrfam:  ipv4 
-
 subtype: nvme subsystem 
-
 treq:    not specified 
-
 portid:  1 
-
 trsvcid: 4420 
-
 subnqn:  nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rhel_tcp_165 
-
 traddr:  192.168.111.15 
-
 sectype: none 
-
 =====Discovery Log Entry 6====== 
 
 trtype:  tcp 
-
 adrfam:  ipv4 
-
 subtype: nvme subsystem 
-
 treq:    not specified 
-
 portid:  2 
-
 trsvcid: 4420 
-
 subnqn:  nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rhel_tcp_165 
-
 traddr:  192.168.211.14 
-
 sectype: none 
 
 =====Discovery Log Entry 7====== 
-
 trtype:  tcp 
-
 adrfam:  ipv4 
-
 subtype: nvme subsystem 
-
 treq:    not specified 
 
    portid:  3 
 
 trsvcid: 4420 
-
 subnqn:  nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rhel_tcp_165 
-
 traddr:  192.168.111.14 
-
 sectype: none 
-
 [root@R650-13-79 ~]# 
 ----
 
 .	Verify that other NVMe/TCP initiator-target LIF combos can successfully fetch discovery log page data. For example:
 +
 ----
+# nvme discover -t tcp -w 192.168.211.5 -a 192.168.211.14
 # nvme discover -t tcp -w 192.168.211.5 -a 192.168.211.15 
 # nvme discover -t tcp -w 192.168.111.5 -a 192.168.111.14 
 # nvme discover -t tcp -w 192.168.111.5 -a 192.168.111.15  
@@ -559,6 +476,15 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 507510784
 ----
 
+== Known issues and limitations
+
+[cols="10,30,30,10",options="header"]
+|===
+|NetApp Bug ID	|Title	|Description	|Bugzilla ID
+
+|1479047	|RHEL 8.x and 9.0 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can create Persistent Discovery Controllers (PDCs) by passing the -p option to the "nvme discover" command. For a given initiator-target combination, the creation of one PDC is expected with each invocation of the "nvme discover" command. However, beginning with ONTAP 9.10.1, Red Hat Enterprise Linux (RHEL) 8.x and 9.0 NVMe-oF hosts end up creating duplicate PDCs with each invocation of the "nvme discover" command with the -p option. This leads to wastage of resources on both the host and the target. 	|2087000
+|===
+
 === Common nvme-cli Errors and Workarounds
 
 The errors displayed by `nvme-cli` during nvme discover, nvme connect or nvme connect-all operations and the workarounds are shown in the following table:
@@ -615,5 +541,6 @@ nvme discover --transport=fc --traddr=nn-0x200a00a098c80f09:pn-0x200b00a098c80f0
 nvme list
 nvme list-subsys /dev/nvmeXnY
 ----
+
 
 // 2022,12-06, Jira IEOPS-690
