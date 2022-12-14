@@ -120,6 +120,20 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
+== Known issues
+
+[cols="10,30,30,10",options="header"]
+|===
+|NetApp Bug ID	|Title	|Description	|Bugzilla ID
+|1501048	|FC transport layer timeout parameter `dev_loss_tmo` for remote SCSI target ports reports a negative value (-1)	|`dev_loss_tmo` timeout parameter represents the default number of seconds that the FC transport should insulate to prevent the loss of a remote port. 
+When this value is exceeded, the scsi target is removed from the host. This parameter value should be a positive integer value. 
+However in RHEL 8.7, `sysfs` filesystem returns a negative value (-1) for the `dev_loss_tmo` timeout parameter for SCSI devices.
+Following is the command line example to verify the `dev_loss_tmo` parameter on a working host: 
+# cat /sys/devices/pci*/*/*/host*/rport*/fc_remote_ports/rport*/dev_loss_tmo
+4294967295
+|link:https://bugzilla.redhat.com/show_bug.cgi?id=2124297[2124297]
+|===
+
 == Release Notes
 
 include::_include/hu/reuse_hu_release_notes.adoc[]
