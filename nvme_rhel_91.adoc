@@ -23,17 +23,15 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Features
 
-*	Beginning with RHEL 9.1, NVMe/TCP is no longer a technology preview feature (unlike RHEL 8), but a fully supported enterprise feature itself.
-*	Beginning with RHEL 9.1, in-kernel NVMe multipath is enabled for NVMe namespaces by default, without the need for explicit settings (unlike RHEL 8).
-
+*	RHEL 9.1 includes support for NVMe/TCP in addition to NVMe/FC. The NetApp plugin in the native `nvme-cli` package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+*	RHEL 9.1 includes support for in-kernel NVMe multipath for NVMe namespaces enabled by default, without the need for explicit settings.
+*	RHEL 9.1 supports use of NVMe and SCSI co-existent traffic on the same host on a given HBA adapter, without the explicit `dm-multipath` settings to prevent claiming NVMe namespaces.
 
 == Limitations
 
 *	Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This is reflected in  two major limitations on the Linux host:
 **	No auto-reconnect after paths are reinstated - NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default ctrl-loss-tmo time of 10 minutes following a path down.
 **	No auto-connect during host bootup - NVMe/TCP cannot automatically connect during host bootup.You should set the retry period for failover events to at least 30 minutes to prevent timeouts. You can increase the retry period by increasing the value of the ctrl_loss_tmo timer.
-
-
 
 == Configuration requirements
 
@@ -42,7 +40,9 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 == Enable in-kernel NVMe Multipath
 
-.	Install RHEL 9.1 on the server. After the installation is complete, verify that you are running the specified RHEL 8.7 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.Steps
+
+.	Install RHEL 9.1 on the server. After the installation is complete, verify that you are running the specified RHEL 9.1 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 
 .	After the installation is complete, verify that you are running the specified RHEL 9.1 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
@@ -87,7 +87,7 @@ NOTE: If the host NQN strings do not match, you should use the `vserver modify` 
 
 === Broadcom/Emulex
 
-.	Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+.	Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -319,8 +319,6 @@ sectype: none
 ----
 nvme discover -a 192.168.166.21 -t tcp -w 192.168.166.5  -p
 nvme discover -a 192.168.167.21 -t tcp -w 192.168.167.5  -p 
-
-
 ----
 
 .	Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you set a longer `ctrl_loss_tmo` timer retry period (for example, 30 minutes, which can be set through `-l 1800`) during the connect-all so that it would retry for a longer period of time in the event of a path loss. For example:
@@ -339,7 +337,6 @@ nvme connect-all -t tcp -w 192.168.166.5 -a 192.168.166.21 -l 1800
 ----
 # cat /sys/module/nvme_core/parameters/multipath
 Y
-
 ----
 
 . Verify that the appropriate NVMe-oF settings (such as, `model` set to `NetApp ONTAP Controller` and load balancing `iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
@@ -429,7 +426,6 @@ NSID  UUID                                   Size
 Example (b)
 +
 ----
-Example (b):
 # nvme netapp ontapdevices -o column
 
 Device           Vserver                   Namespace Path                                     
@@ -511,7 +507,13 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 
-|1479047	|RHEL 8.x and 9.0 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can create Persistent Discovery Controllers (PDCs) by passing the -p option to the "nvme discover" command. For a given initiator-target combination, the creation of one PDC is expected with each invocation of the "nvme discover" command. However, beginning with ONTAP 9.10.1, Red Hat Enterprise Linux (RHEL) 8.x and 9.0 NVMe-oF hosts end up creating duplicate PDCs with each invocation of the "nvme discover" command with the -p option. This leads to wastage of resources on both the host and the target. 	|2087000
+|1479047	|RHEL 9.1 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can create Persistent Discovery Controllers (PDCs) by passing the -p option to the "nvme discover" command. For a given initiator-target combination, the creation of one PDC is expected with each invocation of the "nvme discover" command. However, beginning with ONTAP 9.10.1, Red Hat Enterprise Linux (RHEL) 9.1 NVMe-oF hosts end up creating duplicate PDCs with each invocation of the "nvme discover" command with the -p option. This leads to wastage of resources on both the host and the target. 	|2087000
+|1503468
+|nvme list-subsys returns repeated nvme controller list for a given subsystem.	|In RHEL 9.1 'nvme list-subsys' returns nvme controllers with its respective ANA state for all namespaces, that belongs to a given subsystem. 
+However the ANA state is a per namespace attribute hence it only makes sense to show it if the user lists the subsystem for a namespace.
+Hence 'nvme list-subsys' returning the unique list of nvme controllers associated to a given subsystem would be more ideal.  	|2130106
+
+
 |===
 
 === Common nvme-cli Errors and Workarounds
@@ -570,6 +572,4 @@ nvme discover --transport=fc --traddr=nn-0x200a00a098c80f09:pn-0x200b00a098c80f0
 nvme list
 nvme list-subsys /dev/nvmeXnY
 ----
-
-
 // 2022,12-06, Jira IEOPS-690

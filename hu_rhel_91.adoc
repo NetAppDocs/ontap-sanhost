@@ -136,22 +136,12 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 [options="header", cols="20, 20, 50,20"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1503468	|The nvme list-subsys operation/p printsing all paths together instead of 4 live paths	|In RHEL 9.1, the  "nvme list-subsys" command output is supposed to display 4 live paths only (per the amount  of LIFs configured on the target ). However, all paths are listed together for each device in the output for the total number of namespaces mapped. This issue occurs on all RHEL 9.1 NVMe configured hosts.
-.|2130106
-|1504250	|Intermittent NVMe/TCP I/Oio queue disruptiontear down during ONTAP storage failover (SFO) events.	|In RHEL 9.1, ONTAP SFO regression run by using the CM_Cluster_SFO_combined.thpl script causes intermittent NVMe/TCP I/O queue disruption during ONTAP SFO events.
-The host attempts to reconnect the failed nvmeX controller every 10 seconds from the time the takeover is initiated until the giveback operation enables the reconnection to succeed. However, queue disruption breaks the reconnect attempts. 
-Host multipath path validation fails after the giveback operation, and the nvmeX controller enters a “resetting” state. The state of the nvmeX controller remains static and does not recover until the host is rebooted. The host reconnects to the failed nmeX multipath controller during the giveback phase of a planned or unplanned SFO event. The host multipath validation succeeds after two takeover operations and four giveback operations are complete. |2134548
-|1502137	|dev_loss_tmo value for FC devices gives -1 instead of infinite value	|In RHEL 9.1,  during multipathd parameter verification, the  correct  dev_loss_tmo value is  'infinity'.
-However,  a different value, '-1' under /sysfs is displayed.
-The multipathd show config command correctly displays  infinity.|2126324
-|1508554   	|sanlun installation fails to pick libraries required for loading HBA info	|In RHEL 9.1 , the sanlun command does not work on hosts with Emulex HBA(Lpe36002,LPe32002 & Lpe35002)after installing the latest Emulex HBA CLI utility package "elxocmcore-rhel7-rhel8-rhel9-14.0.505.26-1" from the vendor site.
+|1508554   	|NetApp Linux Host Utilities cli needs addon library package dependencies to support Emulex HBA adapter discovery.	|Use of NetApp Linux SAN host Utilities cli cmd - "sanlun fcp show adapter -v" with RHEL 9.1 fails with library dependencies for HBA discovery.	|N/A
+|1502137	|FC transport layer timeout parameter "dev_loss_tmo" for remote SCSI target ports reports a negative value.	|dev_loss_tmo timeout parameter represents the default number of seconds that the FC transport should insulate to prevent the loss of a remote port.
+When this value is exceeded, the scsi target is removed from the host. This parameter value should be a positive integer value.
+However in RHEL 8.7, sysfs filesystem returns a negative value (-1) for the dev_loss_tmo timeout parameter for SCSI devices.	|2126324
 
-When the following command is run  onthe host, the following error occurs. .
-[root@hostname ~]# sanlun fcp show adapter -v
-Unable to locate /usr/lib64/libHBAAPI.so library
 
-Make sure the library installation package is correctly installed & loaded.
-|N/A
 |===
 
 == Release Notes
