@@ -16,18 +16,22 @@ summary: Describes how to use Red Hat Enterprise Linux 9.1 with ONTAP
 
 == Install the Linux Unified Host Utilities
 
-The NetApp Linux Unified Host Utilities software package is available on the NetApp Support Site in a 32-bit and 64-bit .rpm file. If you do not know which file is required for your configuration, use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify which one you need.
+The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site] in a 64-bit .rpm file. 
+
 Installing the Linux Unified Host Utilities is strongly recommended, but not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration.
 
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
-
 .What you'll need
-If you have a version of Linux Unified Host Utilities currently installed, you should upgrade  or remove it and use the following steps to install the latest version.
+If you have a version of Linux Unified Host Utilities currently installed, you should upgrade or remove it and use the following steps to install the latest version.
+
+.Steps
 
 . Download the 32-bit or 64-bit Linux Unified Host Utilities software package from the NetApp Support Site to your host.
+
 . Use the following command to install the software package:
-rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_64
+`rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_64`
+
+include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == SAN Toolkit
 
@@ -136,12 +140,10 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 [options="header", cols="20, 20, 50,20"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1508554   	|NetApp Linux Host Utilities cli needs addon library package dependencies to support Emulex HBA adapter discovery.	|Use of NetApp Linux SAN host Utilities cli cmd - "sanlun fcp show adapter -v" with RHEL 9.1 fails with library dependencies for HBA discovery.	|N/A
-|1502137	|FC transport layer timeout parameter "dev_loss_tmo" for remote SCSI target ports reports a negative value.	|dev_loss_tmo timeout parameter represents the default number of seconds that the FC transport should insulate to prevent the loss of a remote port.
+|1508554   	|NetApp Linux Host Utilities cli needs add-on library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, NetApp Linux SAN host utilities CLI command - `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |N/A
+|1502137	|FC transport layer timeout parameter "dev_loss_tmo" for remote SCSI target ports reports a negative value	|dev_loss_tmo timeout parameter represents the default number of seconds that the FC transport should insulate to prevent the loss of a remote port.
 When this value is exceeded, the scsi target is removed from the host. This parameter value should be a positive integer value.
 However in RHEL 8.7, sysfs filesystem returns a negative value (-1) for the dev_loss_tmo timeout parameter for SCSI devices.	|2126324
-
-
 |===
 
 == Release Notes
