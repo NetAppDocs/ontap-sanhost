@@ -132,7 +132,7 @@ Following is the command line example to verify the `dev_loss_tmo` parameter on 
 `# cat /sys/devices/pci*/*/*/host*/rport*/fc_remote_ports/rport*/dev_loss_tmo
 4294967295`. 
 There is no workaround for this issue in RHEL 8.7.
-|link:https://bugzilla.redhat.com/show_bug.cgi?id=2124297[2124297]
+|link:https://bugzilla.redhat.com/show_bug.cgi?id=2124297[2124297^]
 |===
 
 == Release Notes
