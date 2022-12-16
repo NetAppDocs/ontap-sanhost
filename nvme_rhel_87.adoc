@@ -200,7 +200,7 @@ options lpfc lpfc_sg_seg_cnt=256
 # cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
 256
 ----
-Now the Broadcom FC-NVMe host should be able to send up to 1MB I/O requests on the ONTAP namespace devices.
+Now the Broadcom FC-NVMe host should be able to send up to 1 MB I/O requests on the ONTAP namespace devices.
 
 === Marvell/QLogic
 
