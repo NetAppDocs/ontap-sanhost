@@ -80,10 +80,14 @@ sidebar:
         entries:
         - title: RHEL 9
           entries:
+          - title: 9.1
+            url: /nvme_rhel_91.html
           - title: 9.0
             url: /nvme_rhel_90.html
         - title: RHEL 8
           entries:
+          - title: 8.7
+            url: /nvme_rhel_87.html
           - title: 8.6
             url: /nvme_rhel_86.html
           - title: 8.5
@@ -262,11 +266,15 @@ sidebar:
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
+          - title: 9.1
+            url: /hu_rhel_91.html
           - title: 9.0
             url: /hu_rhel_90.html
         - title: RHEL 8
           pdf-filename: RHEL-8-FCP
           entries:
+          - title: 8.7
+            url: /hu_rhel_87.html
           - title: 8.6
             url: /hu_rhel_86.html
           - title: 8.5
