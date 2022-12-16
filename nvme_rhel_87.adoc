@@ -470,7 +470,7 @@ options lpfc lpfc_log_verbose=0xf00083
 15728771 
 ----
 
-=== qla2xxx Verbose Logging
+=== qla2xxx verbose logging
 
 There is no similar specific qla2xxx logging for NVMe/FC as for lpfc driver. Therefore, you may set the general qla2xxx logging level using the following steps:
 
