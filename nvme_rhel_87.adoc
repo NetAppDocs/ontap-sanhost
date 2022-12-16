@@ -510,7 +510,7 @@ The errors displayed by `nvme-cli` during nvme discover, nvme connect or nvme co
 |Make sure you are using the correct syntax for the above nvme commands.
 |`Failed to write to /dev/nvme-fabrics: No such file or directory`  |Multiple issues could trigger this.
 Providing wrong arguments to the nvme commands is one of the common causes.
-a| * MAke sure you have passed the correct arguments (such as, correct WWNN string, WWPN string, and more) to the commands.
+a| * Make sure you have passed the correct arguments (such as, correct WWNN string, WWPN string, and more) to the commands.
 * If the arguments are correct, but you still see this error, check if the `/sys/class/scsi_host/host*/nvme_info` output is proper, the NVMe initiator showing as `Enabled`, and the NVMe/FC target LIFs properly showing up here under the remote ports sections.
 Example:
 +
