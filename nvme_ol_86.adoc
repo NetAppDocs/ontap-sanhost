@@ -1,0 +1,23 @@
+---
+sidebar: sidebar
+permalink: nvme_ol_86.html
+keywords: 
+summary: 
+---
+
+= NVMe/FC Host Configuration for Oracle Linux 8.6 with ONTAP
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+Oracle Linux 8.5 and 8.6 support of NVMe/TCP is in the technology preview phase. The NVMe/FC host configuration details for Oracle 8.5 and Oracle 8.6 will be published when the protocol support is fully qualified for these hosts. 
+
+.Related links
+
+link:https://docs.netapp.com/us-en/ontap-sanhost/nvme_ol_82.html[NVMe/FC Host Configuration for Oracle Linux 8.2 with ONTAP^]
+link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN hosts and cloud clients^]
