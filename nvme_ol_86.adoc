@@ -15,9 +15,4 @@ summary:
 :imagesdir: ./media/
 
 [.lead]
-Oracle Linux 8.5 and 8.6 support of NVMe/TCP is in the technology preview phase. The NVMe/FC host configuration details for Oracle 8.5 and Oracle 8.6 will be published when the protocol support is fully qualified for these hosts. 
-
-.Related links
-
-link:https://docs.netapp.com/us-en/ontap-sanhost/nvme_ol_82.html[NVMe/FC Host Configuration for Oracle Linux 8.2 with ONTAP^]
-link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN hosts and cloud clients^]
+The NVMe/FC host configuration details for Oracle 8.6 will be published when Oracle support for NVMe/FC is fully qualified for these host OS versions. 
