@@ -97,7 +97,7 @@ LPe32002-M2
 # cat /sys/class/scsi_host/host*/modeldesc
 
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
-Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel   Adapter
+Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
  
 ----
 +
@@ -108,11 +108,13 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel   Adapter
 # cat /sys/class/scsi_host/host*/fwrev
 14.0.505.11, sli-4:2:c
 14.0.505.11, sli-4:2:c
-# cat /sys/module/lpfc/version
-0:14.2.0.5
-
 ----
 +
+----
+# cat /sys/module/lpfc/version
+0:14.2.0.5
+----
+
 
 .	Verify that `lpfc_enable_fc4_type` is set to 3
 +
@@ -129,10 +131,15 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel   Adapter
 # cat /sys/class/fc_host/host*/port_name
 0x100000109b1b95ef
 0x100000109b1b95f0
-
+----
++
+----
 # cat /sys/class/fc_host/host*/port_state
 Online
 Online
+----
++
+----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
@@ -318,7 +325,6 @@ Example (a):
 [subs=+quotes]
 ----
 # nvme list-subsys /dev/nvme0n1
-nvme list-subsys /dev/nvme10n1
 nvme-subsys10 - NQN=nqn.1992-08.com.netapp:sn.82e7f9edc72311ec8187d039ea14107d:subsystem.rhel_131_QLe2742
 \
  +- nvme2 fc traddr=nn-0x2038d039ea1308e5:pn-0x2039d039ea1308e5,host_traddr=nn-0x20000024ff171d30:pn-0x21000024ff171d30 live non-optimized
@@ -332,7 +338,6 @@ Example (b):
 +
 ----
 # nvme list-subsys /dev/nvme0n1
-nvme list-subsys /dev/nvme1n1
 nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.bf0691a7c74411ec8187d039ea14107d:subsystem.rhel_tcp_133
 \
  +- nvme1 tcp traddr=192.168.166.21,trsvcid=4420,host_traddr=192.168.166.5 live non-optimized
