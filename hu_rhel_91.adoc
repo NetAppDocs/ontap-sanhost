@@ -140,7 +140,7 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 [options="header", cols="20, 20, 50,20"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1508554   	|NetApp Linux Host Utilities CLI needs add-on library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, NetApp Linux SAN host utilities CLI command - `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |N/A
+|1508554   	|NetApp Linux Host Utilities CLI needs additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, NetApp Linux SAN host utilities CLI command - `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |N/A
 
 |===
 

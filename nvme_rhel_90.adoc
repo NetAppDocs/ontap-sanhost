@@ -424,7 +424,9 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 [cols="10,30,30,10",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1479047	|RHEL 9.0 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can create Persistent Discovery Controllers (PDCs) by passing the -p option to the "nvme discover" command. For a given initiator-target combination, the creation of one PDC is expected with each invocation of the "nvme discover" command. However, beginning with ONTAP 9.10.1, Red Hat Enterprise Linux (RHEL) 9.0 NVMe-oF hosts end up creating duplicate PDCs with each invocation of the "nvme discover" command with the -p option. This leads to wastage of resources on both the host and the target. 	|2087000
+|1479047	|RHEL 9.0 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running ONTAP 9.10.1 and Red Hat Enterprise Linux (RHEL) 9.0 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
+
+  	|2087000
 |===
 
 === Common nvme-cli errors and workarounds
