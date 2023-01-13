@@ -32,7 +32,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 
-== Enable in-kernel NVMe Multipath
+== Enable in-kernel NVMe multipath
 
 .Steps
 
@@ -219,9 +219,9 @@ Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two m
 
 * *No auto-reconnect after paths get reinstated* NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` timer of 10 minutes following a path down.
 
-* *No auto-connect during host bootup* NVMe/TCP cannot automatically connect during host bootup as well.
+* *No auto-connect during host boot* NVMe/TCP cannot connect automatically during host boot.
 
-You should set the retry period for failover events to at least 30 minutes to prevent timeouts. You can increase the retry period by increasing the value of the ctrl_loss_tmo timer. Following are the details:
+You should set the retry period for failover events to at least 30 minutes to prevent timeouts. You can increase the retry period by increasing the value of the `ctrl_loss_tmo timer` using the following procedure:
 
 .Steps
 . Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
@@ -416,7 +416,7 @@ NSID UUID                                   Size
 
 Before commencing any troubleshooting for any NVMe/FC failures, make sure that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
 
-=== LPFC Verbose Logging
+=== LPFC verbose logging
 
 .Steps
 
@@ -444,7 +444,7 @@ options lpfc lpfc_log_verbose=0xf00083
 15728771 
 ----
 
-=== qla2xxx Verbose Logging
+=== qla2xxx verbose logging
 
 There is no similar specific qla2xxx logging for NVMe/FC as for the `lpfc` driver. Therefore, you can set the general qla2xxx logging level using the following steps:
 
@@ -472,7 +472,7 @@ options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 |`nvme list-subsys` command returns repeated nvme controller list for a given subsystem	|The `nvme list-subsys` command should return a unique list of nvme controllers associated to a given subsystem. In RHEL 9.1, the `nvme list-subsys` command returns nvme controllers with its respective ANA state for all namespaces that belong to a given subsystem. However, the ANA state is a per-namespace attribute therefore, it would be ideal to display unique nvme controller entries with the path state if you list the subsystem command syntax for a given namespace.  |2130106
 |===
 
-=== Common nvme-cli Errors and Workarounds
+=== Common nvme-cli errors and workarounds
 
 The errors displayed by `nvme-cli` during `nvme discover`, `nvme connect` or `nvme connect-all` operations and the workarounds are shown in the following table:
 
@@ -517,15 +517,7 @@ a|None. For `nvme discover`, try running this command after some time. For `nvme
 |===
 
 === When to contact technical support
-If you are still facing issues, please collect the following files and command outputs and contact technical support for further triage:
 
-----
-cat /sys/class/scsi_host/host*/nvme_info
-/var/log/messages
-dmesg
-nvme discover output as in:
-nvme discover --transport=fc --traddr=nn-0x200a00a098c80f09:pn-0x200b00a098c80f09 --host-traddr=nn-0x20000090fae0ec9d:pn-0x10000090fae0ec9d
-nvme list
-nvme list-subsys /dev/nvmeXnY
-----
+include::_include/hu/reuse_hu_contact_tech_support.adoc[]
+
 // 2022,12-06, Jira IEOPS-690

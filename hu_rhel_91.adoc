@@ -16,9 +16,9 @@ summary: Describes how to use Red Hat Enterprise Linux 9.1 with ONTAP
 
 == Install the Linux Unified Host Utilities
 
-The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site] in a 64-bit .rpm file. 
+The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site^] in a 64-bit .rpm file. 
 
-Installing the Linux Unified Host Utilities is strongly recommended, but not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration.
+Installing the Linux Unified Host Utilities is strongly recommended by NetApp, but not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration.
 
 
 .What you'll need
@@ -28,7 +28,7 @@ If you have a version of Linux Unified Host Utilities currently installed, you s
 
 . Download the 64-bit Linux Unified Host Utilities software package from the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site] to your host.
 
-. Use the following command to install the software package:
+. Install the software package:
 `rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_64`
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
@@ -37,7 +37,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
-== SAN Booting
+== SAN booting
 
 .What you'll need
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
@@ -83,9 +83,9 @@ size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_hand
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
-== Recommended Settings
+== Recommended settings
 
-The RHEL 9.1 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+The RHEL 9.1 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -115,7 +115,7 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 .Example
 
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
+The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
 
 ----
 defaults {
@@ -135,12 +135,12 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
-== Known Problems and Limitations
+== Known problems and limitations
 
 [options="header", cols="20, 20, 50,20"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1508554   	|NetApp Linux Host Utilities CLI needs additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, NetApp Linux SAN host utilities CLI command - `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |N/A
+|1508554   	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |N/A
 
 |===
 
