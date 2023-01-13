@@ -34,13 +34,13 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Configuration requirements
 
-Please refer to the NetApp InterOperability Matrix (IMT) for exact details regarding supported configs and current list of supported configurations.
+Please refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix (IMT)^]  for exact details regarding supported configs and current list of supported configurations.
 
 == Enable NVMe/FC
 
 .Steps
 
-. Install Oracle Linux 8.4 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.4 GA kernel. See the NetApp Interoperability Matrix for the most current list of supported versions.
+. Install Oracle Linux 8.4 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.4 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
 ----
 # uname -r
@@ -89,7 +89,7 @@ defaults {
 
 .Steps
 
-.	Verify that you are using the supported adapter. For the most current list of supported adapters see the NetApp Interoperability Matrix.
+.	Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -102,7 +102,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-.	Verify that you are using the recommended Broadcom lpfc firmware & inbox driver. For the most current list of supported adapter driver & firmware versions, see the NetApp Interoperability Matrix.
+.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] .
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -460,6 +460,7 @@ a|None. For `nvme discover`, try running this command after some time. For `nvme
 |===
 
 === When to contact technical support
+
 If you are still facing issues, please collect the following files and command outputs and contact technical support for further triage:
 
 ----
