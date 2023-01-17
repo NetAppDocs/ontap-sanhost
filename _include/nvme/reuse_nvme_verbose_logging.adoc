@@ -1,5 +1,7 @@
 
-. You can set the lpfc_log_verbose driver setting to any of the following values to log NVMe/FC events.
+.Steps
+
+. You can set the `lpfc_log_verbose` driver setting to any of the following values to log NVMe/FC events.
 +
 ----
 #define LOG_NVME 0x00100000 /* NVME general events. */

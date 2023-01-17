@@ -92,112 +92,95 @@ _}
  
 .Steps
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+. Verify that you are using the supported adapter. For the most current list of supported adapters, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 +
 ----
-# *cat /sys/class/scsi_host/host*/modelname* +
-_LPe36002-M2_ +
-_LPe36002-M2_
+# *cat /sys/class/scsi_host/host*/modelname* 
+LPe36002-M2
+LPe36002-M2
 ----
 +
 ----
-__# __**cat /sys/class/scsi_host/host*/modeldesc** +
-_Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter +
-Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter_
+#**cat /sys/class/scsi_host/host*/modeldesc** 
+Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter 
+Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom lpfc firmware & inbox driver. For the most current list of supported adapter driver & firmware versions, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+. Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 +
 ----
-# *cat /sys/class/scsi_host/host*/fwrev* +
-_12.8.351.49, sli-4:6:d +
-12.8.351.49, sli-4:6:d_
+# *cat /sys/class/scsi_host/host*/fwrev* 
+12.8.351.49, sli-4:6:d 
+12.8.351.49, sli-4:6:d
 ----
 +
 ----
-_# *cat /sys/module/lpfc/version*_ +
-_0:12.6.0.3_
+#*cat /sys/module/lpfc/version*
+0:12.6.0.3
 ----
 
-. Verify that lpfc_enable_fc4_type is set to 3
+. Verify that lpfc_enable_fc4_type is set to 3.
 +
 ----
-# *cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type* +
-_3_
+# *cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type* +
+3
 ----
 
-. Verify that the initiator ports are up and running, and able to see the target LIFs.
+. Verify that the initiator ports and able to see the target LIFs, and all are active and running.
 
 +
 ----
-# *cat /sys/class/fc_host/host*/port_name* +
-_0x100000109bf0447b +
-0x100000109bf0447c_
+#*cat /sys/class/fc_host/host*/port_name* 
+0x100000109bf0447b 
+0x100000109bf0447c
 ----
 +
 ----
-# *cat /sys/class/fc_host/host*/port_state* +
-_Online_ +
-_Online_
+#*cat /sys/class/fc_host/host*/port_state* +
+Online
+Online
 ----
 +
 ----
-# *cat /sys/class/scsi_host/host*/nvme_info*
+#*cat /sys/class/scsi_host/host*/nvme_info*
 
-NVME Initiator Enabled +
-XRI Dist lpfc0 Total 6144 IO 5894 ELS 250 +
-NVME LPORT lpfc0 WWPN x100000109bf0447b WWNN x200000109bf0447b DID x022400 ONLINE +
-NVME RPORT WWPN x20e1d039ea243510 WWNN x20e0d039ea243510 DID x0a0314 TARGET DISCSRVC ONLINE +
+NVME Initiator Enabled 
+XRI Dist lpfc0 Total 6144 IO 5894 ELS 250 
+NVME LPORT lpfc0 WWPN x100000109bf0447b WWNN x200000109bf0447b DID x022400 ONLINE 
+NVME RPORT WWPN x20e1d039ea243510 WWNN x20e0d039ea243510 DID x0a0314 TARGET DISCSRVC ONLINE 
 NVME RPORT WWPN x20e4d039ea243510 WWNN x20e0d039ea243510 DID x0a0713 TARGET DISCSRVC ONLINE
 
-NVME Statistics +
-LS: Xmt 00000003b6 Cmpl 00000003b6 Abort 00000000 +
-LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 +
-Total FCP Cmpl 00000000be1425e8 Issue 00000000be1425f2 OutIO 000000000000000a +
-abort 00000251 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 +
+NVME Statistics 
+LS: Xmt 00000003b6 Cmpl 00000003b6 Abort 00000000 
+LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 
+Total FCP Cmpl 00000000be1425e8 Issue 00000000be1425f2 OutIO 000000000000000a 
+abort 00000251 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 
 FCP CMPL: xb 00000c5b Err 0000d176
 
-NVME Initiator Enabled +
-XRI Dist lpfc1 Total 6144 IO 5894 ELS 250 +
-NVME LPORT lpfc1 WWPN x100000109bf0447c WWNN x200000109bf0447c DID x021600 ONLINE +
-NVME RPORT WWPN x20e2d039ea243510 WWNN x20e0d039ea243510 DID x0a0213 TARGET DISCSRVC ONLINE +
+NVME Initiator Enabled 
+XRI Dist lpfc1 Total 6144 IO 5894 ELS 250 
+NVME LPORT lpfc1 WWPN x100000109bf0447c WWNN x200000109bf0447c DID x021600 ONLINE 
+NVME RPORT WWPN x20e2d039ea243510 WWNN x20e0d039ea243510 DID x0a0213 TARGET DISCSRVC ONLINE 
 NVME RPORT WWPN x20e3d039ea243510 WWNN x20e0d039ea243510 DID x0a0614 TARGET DISCSRVC ONLINE
 
-NVME Statistics +
-LS: Xmt 0000000419 Cmpl 0000000419 Abort 00000000 +
-LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 +
-Total FCP Cmpl 00000000be37ff65 Issue 00000000be37ff84 OutIO 000000000000001f +
-abort 0000025a noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 +
+NVME Statistics 
+LS: Xmt 0000000419 Cmpl 0000000419 Abort 00000000 
+LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 
+Total FCP Cmpl 00000000be37ff65 Issue 00000000be37ff84 OutIO 000000000000001f 
+abort 0000025a noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 
 FCP CMPL: xb 00000c89 Err 0000cd87
 ----
 
 === Enable 1MB I/O size
 
-.Steps
-
-. The _lpfc_sg_seg_cnt_ parameter needs to be set to 256 for the lpfc driver to issue I/O requests upto 1 MB size.
-+
-
-----
-# *cat /etc/modprobe.d/lpfc.conf* +
-_options lpfc lpfc_sg_seg_cnt=256_
-----
-
-. Run a dracut -f command and then reboot the host.
-
-. After the host reboot, verify that _lpfc_sg_seg_cnt_ is set to 256.
-+
-----
-# *cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt* +
-_256_
-----
+include::_include/hu/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure the Marvell/QLogic FC Adapter for NVMe/FC
 
 .Steps
 
-. The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes, essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 
 +
 ----
@@ -214,7 +197,7 @@ _1_
 ----
  
 
-== Validating NVMe/FC
+== Validate NVMe/FC
 
 .Steps
 
@@ -264,7 +247,7 @@ Node         SN                   Model                  Namespace Usage        
 
 ----
 
-. Verify that the controller state of each path is live and have proper ANA status
+. Verify that the controller state of each path is live and have correct ANA status.
 +
 ----
 # nvme list-subsys /dev/nvme0n1 +
@@ -276,10 +259,10 @@ nvme-subsys0 - NQN=http://nqn.1992-08.com/[nqn.1992-08.com].netapp:sn.b79f5c6e4d
 +- nvme228 fc traddr=nn-0x20e0d039ea243510:pn-0x20e3d039ea243510 host_traddr=nn-0x200000109bf0447c:pn-0x100000109bf0447c live non-optimized
 ----
 
-. Verify the NetApp plug-in displays proper values for each ONTAP namespace device
+. Verify the NetApp plug-in displays correct values for each ONTAP namespace device.
 +
 ----
-. # *nvme netapp ontapdevices -o column* 
+. #nvme netapp ontapdevices -o column
 _Device Vserver Namespace Path NSID UUID Size 
 ---------------- ------------------------- -------------------------------------------------- ---- -------------------------------------- --------- +
 /dev/nvme0n1 LPE36002_ASA_BL /vol/fcnvme_1_0_0/fcnvme_ns 1 ae10e16d-1fa4-49c2-8594-02bf6f3b1af1 37.58GB +
@@ -305,7 +288,7 @@ _Device Vserver Namespace Path NSID UUID Size
 ----
 +
 ----
-. # *nvme netapp ontapdevices -o json* +
+#nvme netapp ontapdevices -o json 
 { 
 "ONTAPdevices" : [ +
 \{ +
@@ -363,67 +346,28 @@ _Device Vserver Namespace Path NSID UUID Size
 
 == Troubleshooting
 
-Before commencing any troubleshooting for any NVMe/FC failures, make sure that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
+Before commencing any troubleshooting for any NVMe/FC failures, make sure that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
 
 === LPFC verbose logging
 
-.Steps
-
-. You can set the `lpfc_log_verbose` driver setting to any of the following values to log NVMe/FC events:
-+
-----
-
-#define LOG_NVME 0x00100000 /* NVME general events. */ 
-#define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */ 
-#define LOG_NVME_ABTS 0x00400000 /* NVME ABTS events. */ 
-#define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */ 
-
-----
-+
-. After setting any of these values, run `dracut-f` command to recreate the `initramfs` and reboot the host.
-
-. After rebooting, verify the settings:
-+
-----
-# cat /etc/modprobe.d/lpfc.conf 
-options lpfc lpfc_log_verbose=0xf00083 
-
-
-# cat /sys/module/lpfc/parameters/lpfc_log_verbose 
-15728771 
-----
+include::_include/hu/reuse_nvme_verbose_logging.adoc[]
 
 === qla2xxx verbose logging
 
-There is no similar specific qla2xxx logging for NVMe/FC as for lpfc driver. Therefore, you may set the general qla2xxx logging level using the following steps:
+include::_include/hu/reuse_nvme__qla2xxx_verbose_logging.adoc[]
 
-.Steps
-
-. Append the `ql2xextended_error_logging=0x1e400000` value to the corresponding `modprobe qla2xxx conf` file.
-
-. Recreate the `initramfs` by running `dracut -f` command and then reboot the host.
-
-. After reboot, verify that the verbose logging has been applied as follows:
-+
-----
-# cat /etc/modprobe.d/qla2xxx.conf
-options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
-# cat /sys/module/qla2xxx/parameters/ql2xextended_error_logging
-507510784
-----
 
 == Known issues 
 
 [options="header", cols="20, 20, 50"]
 |===
-|BURTS |Title |Description |Oracle Bugzilla
-|1517321 |Oracle Linux 8.x NVMe-oF Hosts create duplicate Persistent Discovery Controllers a|
+|NetApp Bug ID |Title |Description |Oracle Bugzilla
+|1517321 |Oracle Linux 8.x NVMe-oF Hosts create duplicate Persistent Discovery Controllers |
 On OL 8.X NVME-of hosts, Persistent Discovery Controllers (PDCs) are created by passing the -p option to the 'nvme discover' command. For a given initiator-target combination, only one PDC is expected to be created with each invocation of the 'nvme discover' command. However, beginning with ONTAP 9.10.1, Oracle Linux (OL) 8.x NVMe-oF hosts end up creating duplicate PDCs with each invocation of the 'nvme discover'
 command with the -p option. This leads to wastage of resources on both the host and the target.
 
 |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
-
 
 
 === Common nvme-cli errors and workarounds
@@ -471,14 +415,6 @@ a|None. For `nvme discover`, try running this command after some time. For `nvme
 |===
 
 === When to contact technical support
-If you are still facing issues, please collect the following files and command outputs and contact technical support for further triage:
 
-----
-cat /sys/class/scsi_host/host*/nvme_info
-/var/log/messages
-dmesg
-nvme discover output as in:
-nvme discover --transport=fc --traddr=nn-0x200a00a098c80f09:pn-0x200b00a098c80f09 --host-traddr=nn-0x20000090fae0ec9d:pn-0x10000090fae0ec9d
-nvme list
-nvme list-subsys /dev/nvmeXnY
-----
+include::_include/hu/reuse_hu_contact_tech_support.adoc[]
+
