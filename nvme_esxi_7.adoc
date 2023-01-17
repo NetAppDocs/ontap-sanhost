@@ -16,9 +16,11 @@ summary: Describes how to configure NVMe-oF for ESXi 7.x with ONTAP
 
 == Supportability
 
-* NVMe over Fibre Channel (NVMe/FC) is supported on ONTAP 9.7 or later.
-* Beginning with 7.0U3c and later, NVMe/TCP feature is supported for ESXi Hypervisor.
-* Beginning with ONTAP 9.10.1 and later, NVMe/TCP feature is supported for ONTAP.
+* Beginning with ONTAP 9.7, NVMe over Fibre Channel (NVMe/FC) support is added for VMWare vSphere releases.
+* Beginning with 7.0U3c, NVMe/TCP feature is supported for ESXi Hypervisor.
+* Beginning with ONTAP 9.10.1, NVMe/TCP feature is supported for ONTAP.
+
+//GitHub issue #113 
 
 == Features
 
