@@ -34,13 +34,13 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Configuration requirements
 
-Refer to the http://mysupport.netapp.com/matrix3[NetApp InterOperability Matrix (IMT)^] for exact details regarding supported configurations and current list of supported configurations.
+Refer to the http://mysupport.netapp.com/matrix3[NetApp InterOperability Matrix Tool (IMT)^] for exact details regarding current list of supported configurations.
 
 == Enable NVMe/FC with Oracle Linux 8.3
 
 .Steps
 
-. Install Oracle Linux 8.3 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.3 GA kernel. See the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+. Install Oracle Linux 8.3 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.3 GA kernel. See the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported versions.
 +
 
 ----
@@ -60,15 +60,12 @@ nvme-cli-1.12-2.el8.x86_64_
 . On the Oracle Linux 8.3 host, check the hostnqn string at `/etc/nvme/hostnqn` and verify that it matches the `hostnqn` string for the corresponding subsystem on the ONTAP array.
 +
 ----
-#*cat /etc/nvme/hostnqn* +
-http://nqn.2014-08.org/[_nqn.2014-08.org.nvmexpress:uuid:446c21ab-f4c1-47ed-9a8f-1def96f3fed2_]
+#cat /etc/nvme/hostnqn http://nqn.2014-08.org/[_nqn.2014-08.org.nvmexpress:uuid:446c21ab-f4c1-47ed-9a8f-1def96f3fed2_]
 
-::> vserver nvme subsystem host show -vserver vs_coexistance_2 +
-Vserver Subsystem Host NQN +
-------- --------- ---------------------------------------------------------- +
-vs_coexistance_2 +
-nvme_1 +
-http://nqn.2014-08.org/[nqn.2014-08.org].nvmexpress:uuid:446c21ab-f4c1-47ed-9a8f-1def96f3fed2
+::> vserver nvme subsystem host show -vserver vs_coexistance_2 
+Vserver   Subsystem      Host NQN 
+------- --------- ---------------------------------------------------------- 
+vs_coexistance_2 nvme_1 http://nqn.2014-08.org/[nqn.2014-08.org].nvmexpress:uuid:446c21ab-f4c1-47ed-9a8f-1def96f3fed2
 ----
 +
 [NOTE]
@@ -80,9 +77,9 @@ If the hostnqn strings do not match, you should use the `vserver modify` command
 If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.3 co-existent host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. And that also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the _enable_foreign_ setting to the /etc/multipath.conf:
 +
 ----
-#*cat /etc/multipath.conf* +
-_defaults \{_ +
-_ enable_foreign  NONE_ +
+#cat /etc/multipath.conf
+_defaults \{_ 
+_ enable_foreign  NONE_ 
 _}
 ----
 
@@ -96,34 +93,34 @@ _}
 
 +
 ----
-# *cat /sys/class/scsi_host/host*/modelname* 
+#cat /sys/class/scsi_host/host*/modelname 
 LPe36002-M2
 LPe36002-M2
 ----
 +
 ----
-#**cat /sys/class/scsi_host/host*/modeldesc** 
+#cat /sys/class/scsi_host/host*/modeldesc 
 Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter 
 Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 +
 ----
-# *cat /sys/class/scsi_host/host*/fwrev* 
+#cat /sys/class/scsi_host/host*/fwrev
 12.8.351.49, sli-4:6:d 
 12.8.351.49, sli-4:6:d
 ----
 +
 ----
-#*cat /sys/module/lpfc/version*
+#cat /sys/module/lpfc/version
 0:12.6.0.3
 ----
 
 . Verify that lpfc_enable_fc4_type is set to 3.
 +
 ----
-# *cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type* +
+#cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 3
 ----
 
@@ -131,19 +128,19 @@ Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 
 +
 ----
-#*cat /sys/class/fc_host/host*/port_name* 
+#cat /sys/class/fc_host/host*/port_name 
 0x100000109bf0447b 
 0x100000109bf0447c
 ----
 +
 ----
-#*cat /sys/class/fc_host/host*/port_state* +
+#cat /sys/class/fc_host/host*/port_state
 Online
 Online
 ----
 +
 ----
-#*cat /sys/class/scsi_host/host*/nvme_info*
+#cat /sys/class/scsi_host/host*/nvme_info
 
 NVME Initiator Enabled 
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250 
@@ -180,20 +177,20 @@ include::_include/hu/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 .Steps
 
-. The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. Verify that you are running the supported adapter driver and firmware versions.The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support. :
 
 +
 ----
-# *_cat /sys/class/fc_host/host*/symbolic_name_* +
-_QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k +
-QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k_
+#cat /sys/class/fc_host/host*/symbolic_name 
+QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k 
+QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k
 ----
 
 . Verify ql2xnvmeenable is set which enables the Marvell adapter to function as a NVMe/FC initiator:
 +
 ----
-_#* cat /sys/module/qla2xxx/parameters/ql2xnvmeenable*_ +
-_1_
+#cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
+1
 ----
  
 
@@ -205,16 +202,16 @@ _1_
 +
 
 ----
-# *cat /sys/module/nvme_core/parameters/multipath* +
-_Y_
+#cat /sys/module/nvme_core/parameters/multipath
+Y
 
-# **cat /sys/class/nvme-subsystem/nvme-subsys*/mode**l +
-_NetApp ONTAP Controller_ +
-_NetApp ONTAP Controller_
+#cat /sys/class/nvme-subsystem/nvme-subsys*/mode**l 
+NetApp ONTAP Controller
+NetApp ONTAP Controller
 
-# *cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy* +
-_round-robin_ +
-_round-robin_
+#cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy* 
+round-robin
+round-robin
 ----
 
 . Verify that the namespaces are created and properly discoverd on the host:
@@ -250,12 +247,12 @@ Node         SN                   Model                  Namespace Usage        
 . Verify that the controller state of each path is live and have correct ANA status.
 +
 ----
-# nvme list-subsys /dev/nvme0n1 +
-nvme-subsys0 - NQN=http://nqn.1992-08.com/[nqn.1992-08.com].netapp:sn.b79f5c6e4d0911edb3a0d039ea243511:subsystem.nvme_1 +
+# nvme list-subsys /dev/nvme0n1
+nvme-subsys0 - NQN=http://nqn.1992-08.com/[nqn.1992-08.com].netapp:sn.b79f5c6e4d0911edb3a0d039ea243511:subsystem.nvme_1 
 \ +
-+- nvme214 fc traddr=nn-0x20e0d039ea243510:pn-0x20e4d039ea243510 host_traddr=nn-0x200000109bf0447b:pn-0x100000109bf0447b live non-optimized +
-+- nvme219 fc traddr=nn-0x20e0d039ea243510:pn-0x20e2d039ea243510 host_traddr=nn-0x200000109bf0447c:pn-0x100000109bf0447c live optimized +
-+- nvme223 fc traddr=nn-0x20e0d039ea243510:pn-0x20e1d039ea243510 host_traddr=nn-0x200000109bf0447b:pn-0x100000109bf0447b live optimized +
++- nvme214 fc traddr=nn-0x20e0d039ea243510:pn-0x20e4d039ea243510 host_traddr=nn-0x200000109bf0447b:pn-0x100000109bf0447b live non-optimized 
++- nvme219 fc traddr=nn-0x20e0d039ea243510:pn-0x20e2d039ea243510 host_traddr=nn-0x200000109bf0447c:pn-0x100000109bf0447c live optimized 
++- nvme223 fc traddr=nn-0x20e0d039ea243510:pn-0x20e1d039ea243510 host_traddr=nn-0x200000109bf0447b:pn-0x100000109bf0447b live optimized 
 +- nvme228 fc traddr=nn-0x20e0d039ea243510:pn-0x20e3d039ea243510 host_traddr=nn-0x200000109bf0447c:pn-0x100000109bf0447c live non-optimized
 ----
 
@@ -263,84 +260,84 @@ nvme-subsys0 - NQN=http://nqn.1992-08.com/[nqn.1992-08.com].netapp:sn.b79f5c6e4d
 +
 ----
 . #nvme netapp ontapdevices -o column
-_Device Vserver Namespace Path NSID UUID Size 
----------------- ------------------------- -------------------------------------------------- ---- -------------------------------------- --------- +
-/dev/nvme0n1 LPE36002_ASA_BL /vol/fcnvme_1_0_0/fcnvme_ns 1 ae10e16d-1fa4-49c2-8594-02bf6f3b1af1 37.58GB +
-/dev/nvme0n10 LPE36002_ASA_BL /vol/fcnvme_1_0_9/fcnvme_ns 10 2cf00782-e2bf-40fe-8495-63e4501727cd 37.58GB +
-/dev/nvme0n11 LPE36002_ASA_BL /vol/fcnvme_1_1_9/fcnvme_ns 11 fbefbe6c-90fe-46a2-8a51-47bad9e2eb95 37.58GB +
-/dev/nvme0n12 LPE36002_ASA_BL /vol/fcnvme_1_1_0/fcnvme_ns 12 0e9cc8fa-d821-4f1c-8944-3003dcded864 37.58GB +
-/dev/nvme0n13 LPE36002_ASA_BL /vol/fcnvme_1_1_1/fcnvme_ns 13 31f03b13-aaf9-4a3f-826b-d126ef007991 37.58GB +
-/dev/nvme0n14 LPE36002_ASA_BL /vol/fcnvme_1_1_8/fcnvme_ns 14 bcf4627c-5bf9-4a51-a920-5da174ec9876 37.58GB +
-/dev/nvme0n15 LPE36002_ASA_BL /vol/fcnvme_1_1_7/fcnvme_ns 15 239fd09d-11db-46a3-8e94-b5ebe6eb2421 37.58GB +
-/dev/nvme0n16 LPE36002_ASA_BL /vol/fcnvme_1_1_2/fcnvme_ns 16 1d8004df-f2e8-48c8-8ccb-ce45f18a15ae 37.58GB +
-/dev/nvme0n17 LPE36002_ASA_BL /vol/fcnvme_1_1_3/fcnvme_ns 17 4f7afbcf-3ace-4e6c-9245-cbf5bd155ef4 37.58GB +
-/dev/nvme0n18 LPE36002_ASA_BL /vol/fcnvme_1_1_4/fcnvme_ns 18 b022c944-6ebf-4986-a28c-8d9e8ec130c9 37.58GB +
-/dev/nvme0n19 LPE36002_ASA_BL /vol/fcnvme_1_1_5/fcnvme_ns 19 c457d0c7-bfea-43aa-97ef-c749d8612a72 37.58GB +
-/dev/nvme0n2 LPE36002_ASA_BL /vol/fcnvme_1_0_1/fcnvme_ns 2 d2413d8b-e82e-4412-89d3-c9a751ed7716 37.58GB +
-/dev/nvme0n20 LPE36002_ASA_BL /vol/fcnvme_1_1_6/fcnvme_ns 20 650e0d93-967d-4415-874a-36bf9c93c952 37.58GB +
-/dev/nvme0n3 LPE36002_ASA_BL /vol/fcnvme_1_0_2/fcnvme_ns 3 09d89d9a-7835-423f-93e7-f6f3ece1dcbc 37.58GB +
-/dev/nvme0n4 LPE36002_ASA_BL /vol/fcnvme_1_0_3/fcnvme_ns 4 d8e99326-a67c-469f-b3e9-e0e4a38c8a76 37.58GB +
-/dev/nvme0n5 LPE36002_ASA_BL /vol/fcnvme_1_0_4/fcnvme_ns 5 c91c71f9-3e04-4844-b376-30acab6311f1 37.58GB +
-/dev/nvme0n6 LPE36002_ASA_BL /vol/fcnvme_1_0_5/fcnvme_ns 6 4e8b4345-e5b1-4aa4-ae1a-adf0de2879ea 37.58GB +
-/dev/nvme0n7 LPE36002_ASA_BL /vol/fcnvme_1_0_6/fcnvme_ns 7 ef715a16-a946-4bb8-8735-74f214785874 37.58GB +
-/dev/nvme0n8 LPE36002_ASA_BL /vol/fcnvme_1_0_7/fcnvme_ns 8 4b038502-966c-49fd-9631-a17f23478ae0 37.58GB +
-/dev/nvme0n9 LPE36002_ASA_BL /vol/fcnvme_1_0_8/fcnvme_ns 9 f565724c-992f-41f6-83b5-da1fe741c09b 37.58GB_
+_Device      Vserver         Namespace Path             NSID UUID                               Size 
+---------------- ------------------------- -------------------------------------------------- ---- ---------
+/dev/nvme0n1 LPE36002_ASA_BL /vol/fcnvme_1_0_0/fcnvme_ns 1 ae10e16d-1fa4-49c2-8594-02bf6f3b1af1 37.58GB 
+/dev/nvme0n10 LPE36002_ASA_BL /vol/fcnvme_1_0_9/fcnvme_ns 10 2cf00782-e2bf-40fe-8495-63e4501727cd 37.58GB 
+/dev/nvme0n11 LPE36002_ASA_BL /vol/fcnvme_1_1_9/fcnvme_ns 11 fbefbe6c-90fe-46a2-8a51-47bad9e2eb95 37.58GB 
+/dev/nvme0n12 LPE36002_ASA_BL /vol/fcnvme_1_1_0/fcnvme_ns 12 0e9cc8fa-d821-4f1c-8944-3003dcded864 37.58GB 
+/dev/nvme0n13 LPE36002_ASA_BL /vol/fcnvme_1_1_1/fcnvme_ns 13 31f03b13-aaf9-4a3f-826b-d126ef007991 37.58GB 
+/dev/nvme0n14 LPE36002_ASA_BL /vol/fcnvme_1_1_8/fcnvme_ns 14 bcf4627c-5bf9-4a51-a920-5da174ec9876 37.58GB 
+/dev/nvme0n15 LPE36002_ASA_BL /vol/fcnvme_1_1_7/fcnvme_ns 15 239fd09d-11db-46a3-8e94-b5ebe6eb2421 37.58GB 
+/dev/nvme0n16 LPE36002_ASA_BL /vol/fcnvme_1_1_2/fcnvme_ns 16 1d8004df-f2e8-48c8-8ccb-ce45f18a15ae 37.58GB 
+/dev/nvme0n17 LPE36002_ASA_BL /vol/fcnvme_1_1_3/fcnvme_ns 17 4f7afbcf-3ace-4e6c-9245-cbf5bd155ef4 37.58GB 
+/dev/nvme0n18 LPE36002_ASA_BL /vol/fcnvme_1_1_4/fcnvme_ns 18 b022c944-6ebf-4986-a28c-8d9e8ec130c9 37.58GB 
+/dev/nvme0n19 LPE36002_ASA_BL /vol/fcnvme_1_1_5/fcnvme_ns 19 c457d0c7-bfea-43aa-97ef-c749d8612a72 37.58GB 
+/dev/nvme0n2 LPE36002_ASA_BL /vol/fcnvme_1_0_1/fcnvme_ns 2 d2413d8b-e82e-4412-89d3-c9a751ed7716 37.58GB 
+/dev/nvme0n20 LPE36002_ASA_BL /vol/fcnvme_1_1_6/fcnvme_ns 20 650e0d93-967d-4415-874a-36bf9c93c952 37.58GB 
+/dev/nvme0n3 LPE36002_ASA_BL /vol/fcnvme_1_0_2/fcnvme_ns 3 09d89d9a-7835-423f-93e7-f6f3ece1dcbc 37.58GB 
+/dev/nvme0n4 LPE36002_ASA_BL /vol/fcnvme_1_0_3/fcnvme_ns 4 d8e99326-a67c-469f-b3e9-e0e4a38c8a76 37.58GB 
+/dev/nvme0n5 LPE36002_ASA_BL /vol/fcnvme_1_0_4/fcnvme_ns 5 c91c71f9-3e04-4844-b376-30acab6311f1 37.58GB 
+/dev/nvme0n6 LPE36002_ASA_BL /vol/fcnvme_1_0_5/fcnvme_ns 6 4e8b4345-e5b1-4aa4-ae1a-adf0de2879ea 37.58GB 
+/dev/nvme0n7 LPE36002_ASA_BL /vol/fcnvme_1_0_6/fcnvme_ns 7 ef715a16-a946-4bb8-8735-74f214785874 37.58GB 
+/dev/nvme0n8 LPE36002_ASA_BL /vol/fcnvme_1_0_7/fcnvme_ns 8 4b038502-966c-49fd-9631-a17f23478ae0 37.58GB 
+/dev/nvme0n9 LPE36002_ASA_BL /vol/fcnvme_1_0_8/fcnvme_ns 9 f565724c-992f-41f6-83b5-da1fe741c09b 37.58GB
 ----
 +
 ----
 #nvme netapp ontapdevices -o json 
 { 
-"ONTAPdevices" : [ +
-\{ +
-"Device" : "/dev/nvme0n1", +
-"Vserver" : "LPE36002_ASA_BL", +
-"Namespace_Path" : "/vol/fcnvme_1_0_0/fcnvme_ns", +
-"NSID" : 1, +
-"UUID" : "ae10e16d-1fa4-49c2-8594-02bf6f3b1af1", +
-"Size" : "37.58GB", +
-"LBA_Data_Size" : 4096, +
-"Namespace_Size" : 9175040 +
-}, +
-\{ +
-"Device" : "/dev/nvme0n10", +
-"Vserver" : "LPE36002_ASA_BL", +
-"Namespace_Path" : "/vol/fcnvme_1_0_9/fcnvme_ns", +
-"NSID" : 10, +
-"UUID" : "2cf00782-e2bf-40fe-8495-63e4501727cd", +
-"Size" : "37.58GB", +
-"LBA_Data_Size" : 4096, +
-"Namespace_Size" : 9175040 +
-}, +
-\{ +
-"Device" : "/dev/nvme0n11", +
-"Vserver" : "LPE36002_ASA_BL", +
-"Namespace_Path" : "/vol/fcnvme_1_1_9/fcnvme_ns", +
-"NSID" : 11, +
-"UUID" : "fbefbe6c-90fe-46a2-8a51-47bad9e2eb95", +
-"Size" : "37.58GB", +
-"LBA_Data_Size" : 4096, +
-"Namespace_Size" : 9175040 +
-}, +
-\{ +
-"Device" : "/dev/nvme0n12", +
-"Vserver" : "LPE36002_ASA_BL", +
-"Namespace_Path" : "/vol/fcnvme_1_1_0/fcnvme_ns", +
-"NSID" : 12, +
-"UUID" : "0e9cc8fa-d821-4f1c-8944-3003dcded864", +
-"Size" : "37.58GB", +
-"LBA_Data_Size" : 4096, +
-"Namespace_Size" : 9175040 +
-}, +
-\{ +
-"Device" : "/dev/nvme0n13", +
-"Vserver" : "LPE36002_ASA_BL", +
-"Namespace_Path" : "/vol/fcnvme_1_1_1/fcnvme_ns", +
-"NSID" : 13, +
-"UUID" : "31f03b13-aaf9-4a3f-826b-d126ef007991", +
-"Size" : "37.58GB", +
-"LBA_Data_Size" : 4096, +
-"Namespace_Size" : 9175040 +
-},_
+"ONTAPdevices" : [
+\{ 
+"Device" : "/dev/nvme0n1", 
+"Vserver" : "LPE36002_ASA_BL", 
+"Namespace_Path" : "/vol/fcnvme_1_0_0/fcnvme_ns", 
+"NSID" : 1, 
+"UUID" : "ae10e16d-1fa4-49c2-8594-02bf6f3b1af1", 
+"Size" : "37.58GB", 
+"LBA_Data_Size" : 4096, 
+"Namespace_Size" : 9175040 
+}, 
+\{ 
+"Device" : "/dev/nvme0n10", 
+"Vserver" : "LPE36002_ASA_BL", 
+"Namespace_Path" : "/vol/fcnvme_1_0_9/fcnvme_ns", 
+"NSID" : 10, 
+"UUID" : "2cf00782-e2bf-40fe-8495-63e4501727cd", 
+"Size" : "37.58GB", 
+"LBA_Data_Size" : 4096, 
+"Namespace_Size" : 9175040 
+}, 
+\{ 
+"Device" : "/dev/nvme0n11", 
+"Vserver" : "LPE36002_ASA_BL", 
+"Namespace_Path" : "/vol/fcnvme_1_1_9/fcnvme_ns", 
+"NSID" : 11, 
+"UUID" : "fbefbe6c-90fe-46a2-8a51-47bad9e2eb95", 
+"Size" : "37.58GB", 
+"LBA_Data_Size" : 4096, 
+"Namespace_Size" : 9175040 
+}, 
+\{ 
+"Device" : "/dev/nvme0n12", 
+"Vserver" : "LPE36002_ASA_BL", 
+"Namespace_Path" : "/vol/fcnvme_1_1_0/fcnvme_ns", 
+"NSID" : 12, 
+"UUID" : "0e9cc8fa-d821-4f1c-8944-3003dcded864", 
+"Size" : "37.58GB", 
+"LBA_Data_Size" : 4096, 
+"Namespace_Size" : 9175040 
+}, 
+\{ 
+"Device" : "/dev/nvme0n13", 
+"Vserver" : "LPE36002_ASA_BL", 
+"Namespace_Path" : "/vol/fcnvme_1_1_1/fcnvme_ns", 
+"NSID" : 13, 
+"UUID" : "31f03b13-aaf9-4a3f-826b-d126ef007991", 
+"Size" : "37.58GB", 
+"LBA_Data_Size" : 4096, 
+"Namespace_Size" : 9175040 
+},
 
 ----
 
