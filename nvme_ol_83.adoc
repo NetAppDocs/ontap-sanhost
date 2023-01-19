@@ -80,9 +80,9 @@ If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.3 co-
 
 ----
 #cat /etc/multipath.conf
-_defaults \{_ 
-_ enable_foreign  NONE_ 
-_}
+defaults {
+   enable_foreign  NONE
+}
 ----
 ====
 
@@ -127,7 +127,7 @@ Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 3
 ----
 
-. Verify that the initiator ports are able to see the target LIFs, and all are active and running.
+. Verify that the initiator ports are up and running, and that you can see the target LIFs.
 
 +
 ----
@@ -174,7 +174,7 @@ FCP CMPL: xb 00000c89 Err 0000cd87
 
 === Enable 1MB I/O size
 
-include::_include/hu/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure the Marvell/QLogic FC adapter for NVMe/FC
 
@@ -201,7 +201,7 @@ QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k
 
 .Steps
 
-. Verify the following NVMe/FC settings on the Oracle Linux 8.3 host:
+. Verify the following NVMe/FC settings on the Oracle Linux 8.3 host.
 +
 
 ----
@@ -217,7 +217,7 @@ round-robin
 round-robin
 ----
 
-. Verify that the namespaces are created and properly discoverd on the host:
+. Verify that the namespaces are created and correctly discoverd on the host:
 
 +
 ----
