@@ -66,8 +66,8 @@ Vserver         Subsystem Host NQN
 vs_coexistance_2 nvme_1   nqn.2014-08.org.nvmexpress:uuid:753881b6-3163-46f9-8145-0d1653d99389
 ----
 +
-
-[NOTE] If the hostnqn strings do not match, you should use the `vserver modify` command to update the hostnqn string on your corresponding ONTAP array subsystem to match to the hostnqn string from `/etc/nvme/hostnqn` on the host.
+[NOTE] 
+If the hostnqn strings do not match, you should use the `vserver modify` command to update the hostnqn string on your corresponding ONTAP array subsystem to match to the hostnqn string from `/etc/nvme/hostnqn` on the host.
 
 .	Reboot the host.
 +
@@ -75,10 +75,12 @@ vs_coexistance_2 nvme_1   nqn.2014-08.org.nvmexpress:uuid:753881b6-3163-46f9-814
 ====
 If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.4 co-existent host, NetApp recommends to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
 
+----
 #cat /etc/multipath.conf
 defaults {
-enable_foreign  NONE
+    enable_foreign  NONE
 }
+----
 ====
 
 . Restart the multipathd daemon by running a systemctl restart multipathd to let the new setting take effect.
@@ -164,7 +166,7 @@ FCP CMPL: xb 00000002 Err 00000004
 
 === Enabling 1MB I/O size
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb.adoc[]
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
 == Configure the Marvell/QLogic FC adapter for NVMe/FC
