@@ -30,7 +30,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * With Oracle Linux 8.3, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. So for SCSI, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
-* With Oracle Linux 8.3, the NetApp plugin in the native nvme-cli is capable of displaying ONTAP details as well ONTAP namespaces.
+* With Oracle Linux 8.3, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
 
 == Configuration requirements
 
@@ -217,7 +217,7 @@ round-robin
 round-robin
 ----
 
-. Verify that the namespaces are created and correctly discoverd on the host:
+. Verify that the namespaces are created and correctly discoverd on the host.
 
 +
 ----
@@ -259,7 +259,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.b79f5c6e4d0911edb3a0d039ea243511:su
 +- nvme228 fc traddr=nn-0x20e0d039ea243510:pn-0x20e3d039ea243510 host_traddr=nn-0x200000109bf0447c:pn-0x100000109bf0447c live non-optimized
 ----
 
-. Verify the NetApp plug-in displays correct values for each ONTAP namespace device.
+. Verify the NetApp plug-in displays correct values for each ONTAP namespace devices.
 +
 ----
 #nvme netapp ontapdevices -o column
