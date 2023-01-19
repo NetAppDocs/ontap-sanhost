@@ -22,15 +22,15 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Features
 
-* Oracle Linux 8.3 has in-kernel NVMe multipath enabled by default for NVMe namepsaces.
+* Oracle Linux 8.3 has in-kernel NVMe multipath enabled by default for NVMe namespaces.
 
-* With Oracle Linux 8.3, `nvme-fc auto-connect` scripts are included in the native nvme-cli package. You can rely on these native auto-connect scripts instead of installing the external vendor provided outbox auto-connect scripts.
+* With Oracle Linux 8.3, `nvme-fc auto-connect` scripts are included in the native nvme-cli package. You can rely on these native auto-connect scripts instead of installing external vendor provided outbox auto-connect scripts.
 
-* With Oracle Linux 8.3, a native udev rule is already provided as part of the nvme-cli package which enables round-robin load balancing for NVMe multipath. Therefore, you need not manually create this rule anymore.
+* With Oracle Linux 8.3, a native `udev` rule is provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. Therefore, you need not manually create this rule anymore.
 
-* With Oracle Linux 8.3, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. So for SCSI, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, /dev/nvmeXnY) on the host.
+* With Oracle Linux 8.3, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. So for SCSI, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
-* With Oracle Linux 8.3, the NetApp plugin in the native nvme-cli is capable of displaying ONTAP details as well for ONTAP namespaces.
+* With Oracle Linux 8.3, the NetApp plugin in the native nvme-cli is capable of displaying ONTAP details as well ONTAP namespaces.
 
 == Configuration requirements
 
@@ -45,10 +45,10 @@ Refer to the http://mysupport.netapp.com/matrix3[NetApp InterOperability Matrix 
 
 ----
 # uname -r 
-_5.4.17-2011.7.4.el8uek.x86_64_
+5.4.17-2011.7.4.el8uek.x86_64
 ----
 
-. Install the nvme-cli package.
+. Install the `nvme-cli` package.
 
 +
 ----
@@ -60,12 +60,13 @@ nvme-cli-1.12-2.el8.x86_64_
 . On the Oracle Linux 8.3 host, check the hostnqn string at `/etc/nvme/hostnqn` and verify that it matches the `hostnqn` string for the corresponding subsystem on the ONTAP array.
 +
 ----
-#cat /etc/nvme/hostnqn http://nqn.2014-08.org/[_nqn.2014-08.org.nvmexpress:uuid:446c21ab-f4c1-47ed-9a8f-1def96f3fed2_]
+#cat /etc/nvme/hostnqn 
+nqn.2014-08.org.nvmexpress:uuid:446c21ab-f4c1-47ed-9a8f-1def96f3fed2
 
 ::> vserver nvme subsystem host show -vserver vs_coexistance_2 
 Vserver   Subsystem      Host NQN 
 ------- --------- ---------------------------------------------------------- 
-vs_coexistance_2 nvme_1 http://nqn.2014-08.org/[nqn.2014-08.org].nvmexpress:uuid:446c21ab-f4c1-47ed-9a8f-1def96f3fed2
+vs_coexistance_2 nvme_1 nqn.2014-08.org.nvmexpress:uuid:446c21ab-f4c1-47ed-9a8f-1def96f3fed2
 ----
 +
 [NOTE]
@@ -74,18 +75,20 @@ If the hostnqn strings do not match, you should use the `vserver modify` command
 . Reboot the host.
 +
 [NOTE] 
-If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.3 co-existent host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. And that also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the _enable_foreign_ setting to the /etc/multipath.conf:
-+
+====
+If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.3 co-existent host, NetApp recommends to use in-kernel NVMe multipath for ONTAP namespaces and `dm-multipath` for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in `dm-multipath` to prevent `dm-multipath` from claiming these namespace devices. This can be done by adding the _enable_foreign_ setting to the `/etc/multipath.conf` file:
+
 ----
 #cat /etc/multipath.conf
 _defaults \{_ 
 _ enable_foreign  NONE_ 
 _}
 ----
+====
 
-. Restart the multipathd daemon by running a _systemctl restart multipathd_ to let the new setting take effect.
+. Restart the multipathd daemon by running the _systemctl restart multipathd_ command to let the new setting take effect.
 
-==  Configure the Broadcom FC adapter for NVMe/FC
+== Configure the Broadcom FC adapter for NVMe/FC
  
 .Steps
 
@@ -117,14 +120,14 @@ Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 0:12.6.0.3
 ----
 
-. Verify that lpfc_enable_fc4_type is set to 3.
+. Verify that the `lpfc_enable_fc4_type` parameter is set to 3.
 +
 ----
 #cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 3
 ----
 
-. Verify that the initiator ports and able to see the target LIFs, and all are active and running.
+. Verify that the initiator ports are able to see the target LIFs, and all are active and running.
 
 +
 ----
@@ -142,30 +145,30 @@ Online
 ----
 #cat /sys/class/scsi_host/host*/nvme_info
 
-NVME Initiator Enabled 
-XRI Dist lpfc0 Total 6144 IO 5894 ELS 250 
-NVME LPORT lpfc0 WWPN x100000109bf0447b WWNN x200000109bf0447b DID x022400 ONLINE 
-NVME RPORT WWPN x20e1d039ea243510 WWNN x20e0d039ea243510 DID x0a0314 TARGET DISCSRVC ONLINE 
+NVME Initiator Enabled
+XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc0 WWPN x100000109bf0447b WWNN x200000109bf0447b DID x022400 ONLINE
+NVME RPORT WWPN x20e1d039ea243510 WWNN x20e0d039ea243510 DID x0a0314 TARGET DISCSRVC ONLINE
 NVME RPORT WWPN x20e4d039ea243510 WWNN x20e0d039ea243510 DID x0a0713 TARGET DISCSRVC ONLINE
 
-NVME Statistics 
-LS: Xmt 00000003b6 Cmpl 00000003b6 Abort 00000000 
-LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 
-Total FCP Cmpl 00000000be1425e8 Issue 00000000be1425f2 OutIO 000000000000000a 
-abort 00000251 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 
+NVME Statistics
+LS: Xmt 00000003b6 Cmpl 00000003b6 Abort 00000000
+LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
+Total FCP Cmpl 00000000be1425e8 Issue 00000000be1425f2 OutIO 000000000000000a
+abort 00000251 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00000c5b Err 0000d176
 
-NVME Initiator Enabled 
-XRI Dist lpfc1 Total 6144 IO 5894 ELS 250 
-NVME LPORT lpfc1 WWPN x100000109bf0447c WWNN x200000109bf0447c DID x021600 ONLINE 
-NVME RPORT WWPN x20e2d039ea243510 WWNN x20e0d039ea243510 DID x0a0213 TARGET DISCSRVC ONLINE 
+NVME Initiator Enabled
+XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc1 WWPN x100000109bf0447c WWNN x200000109bf0447c DID x021600 ONLINE
+NVME RPORT WWPN x20e2d039ea243510 WWNN x20e0d039ea243510 DID x0a0213 TARGET DISCSRVC ONLINE
 NVME RPORT WWPN x20e3d039ea243510 WWNN x20e0d039ea243510 DID x0a0614 TARGET DISCSRVC ONLINE
 
-NVME Statistics 
-LS: Xmt 0000000419 Cmpl 0000000419 Abort 00000000 
-LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 
-Total FCP Cmpl 00000000be37ff65 Issue 00000000be37ff84 OutIO 000000000000001f 
-abort 0000025a noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 
+NVME Statistics
+LS: Xmt 0000000419 Cmpl 0000000419 Abort 00000000
+LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
+Total FCP Cmpl 00000000be37ff65 Issue 00000000be37ff84 OutIO 000000000000001f
+abort 0000025a noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00000c89 Err 0000cd87
 ----
 
@@ -173,11 +176,11 @@ FCP CMPL: xb 00000c89 Err 0000cd87
 
 include::_include/hu/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
-== Configure the Marvell/QLogic FC Adapter for NVMe/FC
+== Configure the Marvell/QLogic FC adapter for NVMe/FC
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions.The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support. :
+. Verify that you are running the supported adapter driver and firmware versions.The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support.
 
 +
 ----
@@ -186,7 +189,7 @@ QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k
 QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k
 ----
 
-. Verify ql2xnvmeenable is set which enables the Marvell adapter to function as a NVMe/FC initiator:
+. Verify `ql2xnvmeenable` parameter is set which enables the Marvell adapter to function as an NVMe/FC initiator.
 +
 ----
 #cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
@@ -205,11 +208,11 @@ QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k
 #cat /sys/module/nvme_core/parameters/multipath
 Y
 
-#cat /sys/class/nvme-subsystem/nvme-subsys*/mode**l 
+#cat /sys/class/nvme-subsystem/nvme-subsys*/model 
 NetApp ONTAP Controller
 NetApp ONTAP Controller
 
-#cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy* 
+#cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
 round-robin
 round-robin
 ----
@@ -248,7 +251,7 @@ Node         SN                   Model                  Namespace Usage        
 +
 ----
 # nvme list-subsys /dev/nvme0n1
-nvme-subsys0 - NQN=http://nqn.1992-08.com/[nqn.1992-08.com].netapp:sn.b79f5c6e4d0911edb3a0d039ea243511:subsystem.nvme_1 
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.b79f5c6e4d0911edb3a0d039ea243511:subsystem.nvme_1 
 \ +
 +- nvme214 fc traddr=nn-0x20e0d039ea243510:pn-0x20e4d039ea243510 host_traddr=nn-0x200000109bf0447b:pn-0x100000109bf0447b live non-optimized 
 +- nvme219 fc traddr=nn-0x20e0d039ea243510:pn-0x20e2d039ea243510 host_traddr=nn-0x200000109bf0447c:pn-0x100000109bf0447c live optimized 
@@ -288,7 +291,7 @@ Device      Vserver         Namespace Path             NSID UUID                
 #nvme netapp ontapdevices -o json 
 { 
 "ONTAPdevices" : [
-\{ 
+{ 
 "Device" : "/dev/nvme0n1", 
 "Vserver" : "LPE36002_ASA_BL", 
 "Namespace_Path" : "/vol/fcnvme_1_0_0/fcnvme_ns", 
@@ -298,7 +301,7 @@ Device      Vserver         Namespace Path             NSID UUID                
 "LBA_Data_Size" : 4096, 
 "Namespace_Size" : 9175040 
 }, 
-\{ 
+{ 
 "Device" : "/dev/nvme0n10", 
 "Vserver" : "LPE36002_ASA_BL", 
 "Namespace_Path" : "/vol/fcnvme_1_0_9/fcnvme_ns", 
@@ -308,7 +311,7 @@ Device      Vserver         Namespace Path             NSID UUID                
 "LBA_Data_Size" : 4096, 
 "Namespace_Size" : 9175040 
 }, 
-\{ 
+{ 
 "Device" : "/dev/nvme0n11", 
 "Vserver" : "LPE36002_ASA_BL", 
 "Namespace_Path" : "/vol/fcnvme_1_1_9/fcnvme_ns", 
@@ -318,7 +321,7 @@ Device      Vserver         Namespace Path             NSID UUID                
 "LBA_Data_Size" : 4096, 
 "Namespace_Size" : 9175040 
 }, 
-\{ 
+{ 
 "Device" : "/dev/nvme0n12", 
 "Vserver" : "LPE36002_ASA_BL", 
 "Namespace_Path" : "/vol/fcnvme_1_1_0/fcnvme_ns", 
@@ -328,7 +331,7 @@ Device      Vserver         Namespace Path             NSID UUID                
 "LBA_Data_Size" : 4096, 
 "Namespace_Size" : 9175040 
 }, 
-\{ 
+{ 
 "Device" : "/dev/nvme0n13", 
 "Vserver" : "LPE36002_ASA_BL", 
 "Namespace_Path" : "/vol/fcnvme_1_1_1/fcnvme_ns", 
