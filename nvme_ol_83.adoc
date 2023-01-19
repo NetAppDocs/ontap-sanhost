@@ -84,9 +84,11 @@ defaults {
    enable_foreign  NONE
 }
 ----
+
+Restart the multipathd daemon by running the _systemctl restart multipathd_ command to let the new setting take effect.
 ====
 
-. Restart the multipathd daemon by running the _systemctl restart multipathd_ command to let the new setting take effect.
+
 
 == Configure the Broadcom FC adapter for NVMe/FC
  
