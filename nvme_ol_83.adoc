@@ -16,7 +16,7 @@ summary: Setting up VMe/FC Host Configuration for Oracle Linux 8.3 with ONTAP, w
 
 == Supportability
 
-NVMe/FC is supported with Oracle Linux 8.3 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVMe-oF environment and is currently implemented with in-kernel NVMe Multipath. This document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on OL 8.3 and ONTAP as the target.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC) is supported with Oracle Linux 8.3 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVMe-oF environment and is currently implemented with in-kernel NVMe Multipath. This document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on OL 8.3 and ONTAP as the target.
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
@@ -31,6 +31,10 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 * With Oracle Linux 8.3, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. So for SCSI, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
 * With Oracle Linux 8.3, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
+
+== Known limitations
+
+None.
 
 == Configuration requirements
 
@@ -351,9 +355,8 @@ Device      Vserver         Namespace Path             NSID UUID                
 [options="header", cols="20, 20, 50, 20"]
 |===
 |NetApp Bug ID |Title |Description |Oracle Bugzilla
-|1517321 |Oracle Linux 8.x NVMe-oF Hosts create duplicate Persistent Discovery Controllers |
-On OL 8.X NVME-of hosts, Persistent Discovery Controllers (PDCs) are created by passing the -p option to the 'nvme discover' command. For a given initiator-target combination, only one PDC is expected to be created with each invocation of the 'nvme discover' command. However, beginning with ONTAP 9.10.1, Oracle Linux (OL) 8.x NVMe-oF hosts end up creating duplicate PDCs with each invocation of the 'nvme discover'
-command with the -p option. This leads to wastage of resources on both the host and the target. |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
+|1517321 |Oracle Linux 8.3 NVMe-oF Hosts create duplicate Persistent Discovery Controllers |
+On Oracle Linux 8.3 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.3 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target. |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 
 == Troubleshooting
