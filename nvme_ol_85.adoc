@@ -17,7 +17,7 @@ summary:
 
 == Supportability
 
-NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 8.5. Oracle Linux 8.5 host can run both NVMe/FC and FCP traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with Oracle Linux 8.5 with Asymmetric Namespace Access (ANA) that is required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. This document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on Oracle Linux 8.5 and ONTAP as the target.
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
@@ -82,9 +82,11 @@ If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.4 co-
 defaults {
     enable_foreign  NONE
 }
-----
 
 Restart the `multipathd` daemon by running a `systemctl restart multipathd` command to let the new setting take effect.
+----
+
+
 ====
 
 == Configure the Broadcom FC adapter for NVMe/FC
@@ -354,20 +356,27 @@ NSID    UUID                                   Size
 }
 ----
 
+== Known issues
+
+[options="header", cols="20, 20, 50, 20]
+|===
+|NetApp Bug ID	|Title	|Description	|Bugzilla ID
+|1517321
+
+|Oracle Linux 8.5 NVMe-oF Hosts create duplicate Persistent Discovery Controllers
+
+|On Oracle Linux 8.5 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.5 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target.
+|18118
+|===
+
+
+
 == Troubleshooting
 
 Before commencing any troubleshooting for any NVMe/FC failures, make sure that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
 
 === lpfc verbose logging
 
-Following is the list of lpfc driver logging bitmasks available for NVMe/FC as seen in the `drivers/scsi/lpfc/lpfc_logmsg.h` file: 
-
-----
-#define LOG_NVME 0x00100000 /* NVME general events. */
-#define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */
-#define LOG_NVME_ABTS 0x00400000 /* NVME ABTS events. */
-#define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */ 
-----
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
 
