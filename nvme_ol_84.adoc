@@ -32,6 +32,15 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 *	With Oracle Linux 8.4, the NetApp plugin in the native `nvme-cli` packaage is capable of displaying ONTAP details as well as ONTAP namespaces.
 
+== Known limitations
+
+Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two major limitations on the Linux NVMe/TCP host:
+
+* *No auto-reconnect after paths get reinstated* - NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` timer of 10 minutes following a path down.
+
+* *No auto-connect during host boot* - NVMe/TCP cannot connect automatically during host boot.
+
+
 == Configuration requirements
 
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix (IMT)^] for exact details on supported configurations.
@@ -359,13 +368,13 @@ NSID        UUID                                  Size
 }
 ----
 
-== Known issues and limitations
+== Known issues 
 
 [cols="10,30,30,10",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 
-|1517321	|Oracle Linux 8.x NVMe-oF Hosts create duplicate Persistent Discovery Controllers	|On Oracle Linux 8.X NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.x with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.	|2087000
+|1517321	|Oracle Linux 8.4 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On Oracle Linux 8.X NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.4 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.	|2087000
 |===
 
 == Troubleshooting
