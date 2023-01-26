@@ -37,7 +37,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for exact details regarding supported configurations. 
  
-== Enabling NVMe/FC with Oracle Linux 8.6
+== Enable NVMe/FC with Oracle Linux 8.6
 
 .Steps
 
@@ -86,7 +86,7 @@ defaults {
 Restart the multipathd daemon by running a `systemctl restart multipathd` command to let the new setting take effect.
 ====
 
-== Configure the Broadcom FC adapter for NVMe/FC
+== Configure Broadcom FC adapter for NVMe/FC
 
 .Steps
 
@@ -223,6 +223,7 @@ sectype: none
 
 . Similarly, verify that other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
 Example,
++
 ----
 #nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
