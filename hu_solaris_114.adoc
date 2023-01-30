@@ -182,7 +182,7 @@ svl_lun_wwn = 0xa002a1c8960 "600a098038313477543f524539787938"
 svl_fops_name = 0xa00298d69e0 "conf f_tpgs"
 ----
 
-NOTE: `conf` will be added to `svl_fops_name` when `scsi-vhci-failover-override` has been applied.
+NOTE: After `scsi-vhci-failover-override` has been applied, `conf` is added to `svl_fops_name` .
 For additional information and recommended changes to default settings, refer to the NetApp KB article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SM-BC)_configuration[Solaris Host support recommended settings in SnapMirror Business Continuity (SM-BC) configuration^].
 
 == Known problems and limitations
