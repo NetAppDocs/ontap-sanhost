@@ -146,7 +146,7 @@ By default, the Solaris operating system will fail I/Os after 20 seconds if all 
 *	NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^] in a supported configuration. This includes root containers, LDOM IO domains, and LDOM's using NPIV to access LUNs.
 *	Partitions and/or virtual machines which use only virtualized storage resources, such as a `vdsk`, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^].
 
-=== Recommended settings for Virtualization
+=== Recommended settings for virtualization
 
 When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue, the LDOM operating system must be patched for Oracle Bug 15824910 and a `vdc.conf` file must be created that sets the block size of the virtual disk to 4096. See Oracle Doc 2157669.1 for more information.
 
