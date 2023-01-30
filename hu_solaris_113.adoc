@@ -137,7 +137,7 @@ Following are some parameter settings that are recommended for Solaris 11.3 SPAR
 
 === Recommended settings for MetroCluster
 
-By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For addition information and recommended changes to default settings, refer to NetApp https://kb.netapp.com/app/answers/answer_view/a_id/1001373/loc/en_US[KB1001373^].
+By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations, the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For additional information and recommended changes to default settings, refer to NetApp https://kb.netapp.com/app/answers/answer_view/a_id/1001373/loc/en_US[KB1001373^].
 
 == Oracle solaris Virtualization
 
