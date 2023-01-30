@@ -178,7 +178,7 @@ scsi-vhci-failover-override =
 "NETAPP  LUN","f_tpgs"
 ----
 
-. Use the `devprop` and `mdb` commands to verify the override parameter has been successfully applied:
+. Use the `devprop` and `mdb` commands to verify that the override parameter has been successfully applied:
 +
 `root@host-A:~# devprop -v -n /scsi_vhci scsi-vhci-failover-override      scsi-vhci-failover-override=NETAPP  LUN + f_tpgs
 root@host-A:~# echo "*scsi_vhci_dip::print -x struct dev_info devi_child | ::list struct dev_info devi_sibling| ::print struct dev_info devi_mdi_client| ::print mdi_client_t ct_vprivate| ::print struct scsi_vhci_lun svl_lun_wwn svl_fops_name"| mdb -k`
