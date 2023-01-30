@@ -59,7 +59,7 @@ The host_config command does the following:
 . Reboot the host.
 
 
-== SAN Toolkit
+== SAN toolkit
 
 include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
 
@@ -77,7 +77,7 @@ data_vserver       /vol/vol1/lun1  /dev/rdsk/c0t600A098038314362692451465A2F4F39
 data_vserver       /vol/vol2/lun2  /dev/rdsk/c0t600A098038314362705D51465A626475d0s2  qlc1  FCP       20g   C
 ----
 
-== SAN Booting
+== SAN booting
 
 .What you'll need
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
@@ -114,7 +114,7 @@ The path priorities are displayed against the *Access State* section for each LU
 
 NOTE: All SAN Arrays (ASA) configurations are supported beginning in ONTAP 9.8 for Solaris Hosts.
 
-== Recommended Settings
+== Recommended settings
 
 Following are some parameter settings that are recommended for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities.  For additional settings for Solaris 11.4 systems, see Oracle DOC ID: 2595926.1
 
@@ -131,7 +131,7 @@ Following are some parameter settings that are recommended for Solaris 11.4 SPAR
 | physical_block_size  | 4096
 |===
 
-=== Recommended Settings for MetroCluster
+=== Recommended settings for MetroCluster
 
 By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For addition information and recommended changes to default settings, please refer to NetApp link:https://kb.netapp.com/app/answers/answer_view/a_id/1001373/loc/en_US[KB1001373^].
 
@@ -142,7 +142,7 @@ By default, the Solaris operating system will fail I/Os after 20 seconds if all 
 *	NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^] in a supported configuration. This includes root containers, LDOM IO domains, and LDOM's using NPIV to access LUNs.
 *	Partitions and/or virtual machines which use only virtualized storage resources, such as a vdsk, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^].
 
-=== Recommended Settings for Virtualization
+=== Recommended settings for Virtualization
 
 When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue the LDOM operating system must be patched for Oracle Bug 15824910 and a `vdc.conf` file must be created that sets the block size of the virtual disk to 4096. See Oracle Doc 2157669.1 for more information.
 
@@ -157,21 +157,21 @@ Do not proceed until *ashift* shows a value of 12.
 
 NOTE: Patches are available for Oracle bug 15824910 on various versions of Solaris. Contact Oracle if assistance is required in determining the best kernel patch.
 
-== Recommended Settings for SnapMirror Business Continuity
+== Recommended settings for SnapMirror Business Continuity
 
-In order to make sure the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in an SnapMirror Business Continuity (SM-BC) environment, the following setting needs to be configured on Solaris 11.4 host. This setting will override the failover module – `f_tpgs` in order to prevent the code path that detects the contradiction from being executed.
+In order to make sure the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror Business Continuity (SM-BC) environment, the following setting needs to be configured on the Solaris 11.4 host. This setting will override the failover module – `f_tpgs` in order to prevent the code path that detects the contradiction from being executed.
 
-NOTE: Beginning with ONTAP 9.9.1, SM-BC setting configurations are supported in Solaris 11.4 host.
+NOTE: Beginning with ONTAP 9.9.1, SM-BC setting configurations are supported in the Solaris 11.4 host.
 
 Follow the instructions to configure the override parameter:
 
-. Create configuration file `/etc/driver/drv/scsi_vhci.conf` with an entry similar to the following for the NetApp storage type connected to the host:
+. Create the configuration file `/etc/driver/drv/scsi_vhci.conf` with an entry similar to the following for the NetApp storage type connected to the host:
 +
 ----
 scsi-vhci-failover-override =
 "NETAPP  LUN","f_tpgs"
 ----
-. Use `devprop` and `mdb` commands to verify the override has been successfully applied:
+. Use `devprop` and `mdb` commands to verify the override parameter has been successfully applied:
 +
 `root@host-A:~# devprop -v -n /scsi_vhci scsi-vhci-failover-override      scsi-vhci-failover-override=NETAPP  LUN + f_tpgs
 root@host-A:~# echo "*scsi_vhci_dip::print -x struct dev_info devi_child | ::list struct dev_info devi_sibling| ::print struct dev_info devi_mdi_client| ::print mdi_client_t ct_vprivate| ::print struct scsi_vhci_lun svl_lun_wwn svl_fops_name"| mdb -k`
@@ -182,10 +182,10 @@ svl_lun_wwn = 0xa002a1c8960 "600a098038313477543f524539787938"
 svl_fops_name = 0xa00298d69e0 "conf f_tpgs"
 ----
 
-NOTE: `conf` will be added to the `svl_fops_name` when a `scsi-vhci-failover-override` has been applied.
-For additional information and recommended changes to default settings, refer to NetApp KB article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SM-BC)_configuration[Solaris Host support recommended settings in SnapMirror Business Continuity (SM-BC) configuration^].
+NOTE: `conf` will be added to `svl_fops_name` when `scsi-vhci-failover-override` has been applied.
+For additional information and recommended changes to default settings, refer to the NetApp KB article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SM-BC)_configuration[Solaris Host support recommended settings in SnapMirror Business Continuity (SM-BC) configuration^].
 
-== Known Problems and Limitations
+== Known problems and limitations
 
 [cols=4*, options="header"]
 |===
