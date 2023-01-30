@@ -30,7 +30,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. Therefore, for SCSI, you might configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
 
-* Beginning with ONTAP 9.l2.1, in-band authentication feature is implemented in SLES15 SP4.
+* Beginning with ONTAP 9.12.1, TP 8006 (In-band Authentication) feature is implemented in SLES15 SP4.
 
 == Known limitations
 
