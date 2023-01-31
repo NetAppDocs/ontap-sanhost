@@ -30,7 +30,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. Therefore, for SCSI, you might configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
 
-* NVMe in-band authentication is supported starting SLES15 SP4. 
+* NVMe in-band authentication is supported beginning with SLES15 SP4. 
 
 == Known limitations
 
@@ -38,86 +38,11 @@ There are no known limitations.
 
 == Configuration Requirements
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]  for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^]  for accurate details regarding supported configurations.
 
 == Enable in-kernel NVMe Multipath
 
-In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP4. Therefore, no additional setting is required here. Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]  for accurate details regarding supported configurations.
-
-== NVMe-oF initiator packages
-
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]  for accurate details regarding supported configurations.
-
-* Verify that you have the requisite kernel and `nvme-cli` maintenance update (MU) packages installed on the SLES15 SP4 MU host.
-+
-Example:
-+
-----
-# uname -r
-5.14.21-150400.24.11-default
-----
-+
-----
-# rpm -qa|grep nvme-cli
-nvme-cli-2.0-150400.1.6.x86_64
-----
-+
-The above nvme-cli MU package now includes the following:
-
-** *NVMe/FC auto-connect scripts* - Required for NVMe/FC auto-(re)connect when underlying paths to the namespaces are restored as well as during the host reboot:
-+
-----
-# rpm -ql nvme-cli-1.13-3.3.1.x86_64
-     /etc/nvme
-     /etc/nvme/discovery.conf
-     /etc/nvme/hostid
-     /etc/nvme/hostnqn
-     /usr/lib/systemd/system/nvmefc-boot-connections.service
-     /usr/lib/systemd/system/nvmf-autoconnect.service
-     /usr/lib/systemd/system/nvmf-connect.target
-...
-----
-
-** *ONTAP udev rule* - New udev rule to ensure NVMe multipath round-robin loadbalancer default applies to all ONTAP namespaces:
-+
-----
-# rpm -ql nvme-cli-1.13-3.3.1.x86_64
-/etc/nvme
-/etc/nvme/discovery.conf
-/etc/nvme/hostid
-/etc/nvme/hostnqn
-/usr/lib/systemd/system/nvmefc-boot-connections.service
-/usr/lib/systemd/system/nvmf-autoconnect.service
-/usr/lib/systemd/system/nvmf-connect.target
-/usr/lib/systemd/system/nvmf-connect@.service
-/usr/lib/udev/rules.d/70-nvmf-autoconnect.rules
-/usr/lib/udev/rules.d/71-nvmf-iopolicy-netapp.rules
-...
-# cat /usr/lib/udev/rules.d/71-nvmf-iopolicy-netapp.rules
-# Enable round-robin for NetApp ONTAP and NetApp E-Series
-ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
-ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp E-Series", ATTR{iopolicy}="round-robin"
-----
-
-** *NetApp plug-in for ONTAP devices* - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
-
-* Check the `hostnqn` string at  `/etc/nvme/hostnqn` on the host and ensure that it properly matches with the `hostnqn` string for the corresponding subsystem on the ONTAP array. For example,
-+
-----
-# cat /etc/nvme/hostnqn
-nqn.2014-08.org.nvmexpress:uuid:60c23e12-15f4-11e5-a5ca-98be942448b2
-::> vserver nvme subsystem host show -vserver vs_fcnvme_145
-Vserver     Subsystem      Host NQN
--------     ---------      ----------------------------------
-vs_nvme_145 nvme_145_1 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-            nvme_145_2 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-            nvme_145_3 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-            nvme_145_4 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-            nvme_145_5 nqn.2014-08.org.nvmexpress:uuid:c7b07b16-a22e-41a6-a1fd-cf8262c8713f
-5 entries were displayed.
-----
-
-Proceed with the following steps depending on the FC adapter being used on the host.
+In-kernel NVMe multipath is already enabled by default on SLES hosts such as SLES15 SP4. Therefore, no additional setting is required here. 
 
 == Update NVMe-oF initiator packages
 
@@ -129,11 +54,11 @@ Proceed with the following steps depending on the FC adapter being used on the h
 +
 [NOTE]
 ====
-If the above `rpm -ivh` command fails with a newer package already installed message, then proceed to install the following using the --oldpackage option, for example:
+* If the `rpm -ivh` command fails with a message that a newer package has already been installed, then proceed to install the following using the --oldpackage option, for example:
 +
 `# rpm -ivh kernel-default-5.14.21-150400.24.21.2.x86_64.rpm --oldpackage`
 
-To make the above kernel the default entry in the grub bootloader, run the following commands:
+* To make the kernel a default entry in the grub bootloader, execute the following commands.
 +
 ----
 # grub2-set-default 'Advanced options for SLES 15-SP4>SLES 15-SP4, with Linux 5.14.21-150400.24.21-default'
@@ -141,17 +66,17 @@ To make the above kernel the default entry in the grub bootloader, run the follo
 # grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
-During reboot, the host will choose the above kernel as the default grub entry.
+During reboot, the host will now choose the above kernel as the default grub entry.
 ====
 
-. Reboot the host and verify that it boots into the above-mentioned SLES15 SP4 MU kernel:
+. Reboot the host and verify that it boots into the above-mentioned SLES15 SP4 MU kernel.
 +
 ----
 # uname -r
 5.14.21-150400.24.21-default
 ----
 
-. Upgrade to the latest available SLES15 SP4 `libnvme1-1.0-150400.3.12.1 & nvme-cli-2.0-150400.3.12.1` MU associated packages.
+. Upgrade to the latest available SLES15 SP4 `libnvme1-1.0-150400.3.12.1` and `nvme-cli-2.0-150400.3.12.1` MU associated packages.
 +
 ----
 # rpm -qa|grep nvme
@@ -189,7 +114,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
 
-. Verify that the initiator ports are up and running:
+. Verify that the initiator ports are up and running.
 +
 ----
 # cat /sys/class/fc_host/host*/port_name
@@ -200,7 +125,7 @@ Online
 Online
 ----
 
-. Verify that the NVMe/FC initiator ports are enabled and you are able to see the target ports, and all are up and running. In this example, only one initiator port is enabled and connected with two target LIFs as seen in the output:
+. Verify that the NVMe/FC initiator ports are enabled and you are able to see the target ports, and all are up and running. In this example, only one initiator port is enabled and connected with two target LIFs as seen in the output.
 +
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
@@ -286,7 +211,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 
 .Steps
 
-. Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
+. Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs.
 +
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.31
@@ -333,7 +258,7 @@ sectype: none
 # nvme discover -t tcp -w 192.168.2.5 -a 192.168.2.37
 ----
 
-. Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Verify that you set a longer `ctrl_loss_tmo` timer retry period (for example, 30 minutes, which can be set through -l 1800) during the `connect-all` so that it retries for a longer period of time in the event of a path loss. For example,
+. Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Make sure that you set a longer `ctrl_loss_tmo` timer retry period (for example, 30 minutes, which can be set through -l 1800) during the `connect-all` so that it retries for a longer period of time in the event of a path loss. For example,
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.4 -a 192.168.1.31 -l 1800
@@ -346,7 +271,7 @@ sectype: none
 
 .Steps
 
-. Verify that in-kernel NVMe multipath is indeed enabled by checking:
+. Verify that in-kernel NVMe multipath is indeed enabled by checking as follows:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -371,18 +296,26 @@ Example (a):
 +
 ----
 # nvme list
-Node                    Generic                              SN                                                        Model                                                    Namespace        Usage                           Format               FW  Rev
-------------------- ---------------------------- ---------------------------------------- ---------------- -------------------------- ----------------- ------------------------  -----------------   --------
-/dev/nvme1n1      /dev/ng1n1                       814vWBNRwfBGAAAAAAAB               NetApp ONTAP Controller                     1                        85.90    GB / 85.90 GB   4 KiB + 0 B         FFFFFFFF
+Node          Generic        SN                         Model      
+------------------- ---------------------------- -------------------------------
+/dev/nvme1n1  /dev/ng1n1     814vWBNRwfBGAAAAAAAB       NetApp ONTAP Controller                     
+
+Namespace     Usage   Format           FW  Rev
+------------------------------------------------------
+1             85.90    GB / 85.90 GB   4 KiB + 0 B  FFFFFFFF
 ----
 +
 Example (b):
 +
 ----
 # nvme list
-Node                    Generic                              SN                                                        Model                                                    Namespace        Usage                           Format               FW  Rev
-------------------- ---------------------------- ---------------------------------------- ---------------- -------------------------- ----------------- ------------------------  -----------------   --------
-/dev/nvme0n1      /dev/ng0n1                       81CYrBQuTHQFAAAAAAAC               NetApp ONTAP Controller                     1                        85.90    GB / 85.90 GB   4 KiB + 0 B         FFFFFFFF
+Node           Generic            SN                        Model      
+----------------------------------------------- ----------------------------------------
+/dev/nvme0n1    /dev/ng0n1        81CYrBQuTHQFAAAAAAAC       NetApp ONTAP Controller        
+
+Namespace   Usage      Format         FW             Rev
+----------------------------------------------------------
+1        85.90    GB / 85.90 GB   4 KiB + 0 B    FFFFFFFF
 ----
 
 . Verify that the controller state of each path is live and has proper ANA status. For example,
@@ -418,9 +351,13 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:su
 +
 ----
 # nvme netapp ontapdevices -o column
-Device Vserver Namespace Path NSID UUID Size
----------------- ------------------------- -------------------------------------------------- ---- -------------------------------------- ---------
-/dev/nvme1n1 vserver_fcnvme_145 /vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns 1 23766b68-e261-444e-b378-2e84dbe0e5e1 85.90GB
+Device       Vserver            Namespace Path
+--------------------------------------------------------------------------
+/dev/nvme1n1 vserver_fcnvme_145 /vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns 
+
+NSID UUID                                 Size
+------------------------------------------------
+1    23766b68-e261-444e-b378-2e84dbe0e5e1 85.90GB
 
 # nvme netapp ontapdevices -o json
 {
@@ -443,9 +380,14 @@ Example (a):
 +
 ----
 # nvme netapp ontapdevices -o column
-Device             Vserver                    Namespace Path                                         NSID  UUID                                                           Size
-------------------- ------------------------- ---------------------------------------------------------- ------- --------------------------------------------------------- ---------
-/dev/nvme0n1 vs_tcp_114              /vol/tcpnvme_114_1_0_1/tcpnvme_114_ns  1       a6aee036-e12f-4b07-8e79-4d38a9165686 85.90GB
+Device       Vserver     Namespace Path    
+------------------- -------------------------------------------
+/dev/nvme0n1 vs_tcp_114  /vol/tcpnvme_114_1_0_1/tcpnvme_114_ns  
+
+NSID  UUID                                 Size
+---------------------------------------------------
+1     a6aee036-e12f-4b07-8e79-4d38a9165686 85.90GB
+
 
 # nvme netapp ontapdevices -o json
 {
@@ -464,30 +406,31 @@ Device             Vserver                    Namespace Path                    
 
 }
 ----
+
 [NOTE]
 ====
-As seen above, there are slight changes to the 'nvme list' and 'nvme list-subsys' outputs compared to the outputs seen from previous OS releases such as SLES15 SP3:
+There are slight changes to the `nvme list` and `nvme list-subsys` command outputs compared to the outputs seen from previous OS releases such as SLES15 SP3:
 
-'nvme list' now has a new column 'Generic' to denote the respective NVMe generic device.
-'nvme list-subsys' now has a comma separating the trsvcid & host-traddr fields.
+* `nvme list` has a new column `Generic` to denote the respective NVMe generic device.
+* `nvme list-subsys` has a comma separating the `trsvcid` and `host-traddr` fields.
 ====
 
-== Discovery Hardening - TP 8013 & TP 8014 (with ONTAP 9.11.1)
+== Discovery Hardening - TP 8013 and TP 8014 (with ONTAP 9.11.1)
 
-TP 8013 specifies the use of unique subsystem NQNs (in addition to the well-known discovery NQN) for discovery subsystems. ONTAP implements this starting 9.11.1 and the new libnmve/nvme-cli v2.x changes in SLES15 SP4 has this feature implemented and is able to connect to the specified unique subsystem NQN of the said ONTAP discovery controller.
+Technical Proposals (TP) 8013 specifies the usage of unique subsystem NQNs (in addition to the well known discovery NQN) for discovery subsystems. TP-8013 has been implemented beginning with ONTAP 9.11.1. This feature is implemented in the new `libnvme/nvme-cli v2.x` package in SLES15 SP4. Therefore, a device can now connect to the specified unique subsystem NQN of the specified ONTAP discovery controller.
 
 As a part of TP 8014, ONTAP 9.11.1 has introduced two new subsystem types in the discovery log page data:
 
 * 0x02 which indicates an NVMe I/O subsystem.
 * 0x03 which indicates current discovery subsystem. 
 
-For the Entry Flags, ONTAP sets EPCSD (Explicit Persistent Connection Support for Discovery) to 1 and 0 for Discovery subsystems and I/O subsystems respectively, whereas it also sets DUPRETINFO (Duplicate Returned Information) to 1 and 0 for Discovery subsystems and I/O subsystems respectively. The new libnvme/nvme-cli v2.x changes in SLES15 SP4 is able to consume this properly and connect accordingly. 
+For the Entry Flags, ONTAP sets EPCSD (Explicit Persistent Connection Support for Discovery) to 1 and 0 for Discovery subsystems and I/O subsystems respectively. ONTAP also sets DUPRETINFO (Duplicate Returned Information) to 1 and 0 for Discovery subsystems and I/O subsystems respectively. The new `libnvme/nvme-cli v2.x` package in SLES15 SP4 can consume these settings correctly and connect accordingly. 
 
 Refer to the following procedure:
 
 .Steps
 
-. Verify that the new libnvme/nvme-cli v2.x changes in SLES15 SP4 have been implemented successfully:
+. Verify the following <must fill in the accurate instruction>:
 +
 ----
 # nvme discover -t tcp -w 192.168.1.16 -a 192.168.1.116
@@ -587,7 +530,7 @@ sectype: none
 +
 `# nvme discover -t tcp -w 192.168.1.16 -a 192.168.1.116 -p`
 
-. Validate that the above PDC was created by connecting to its unique subsystem NQN itself (and not the well-known NQN) in ONTAP:
+. Validate that the specified PDC is created by connecting to its unique subsystem NQN (not the well known NQN) in ONTAP:
 +
 ----
 *> vserver nvme show-discovery-controller -instance -vserver vs_CLIENT116
@@ -608,9 +551,9 @@ Data Digest Enabled: false
 Vserver UUID: 48391d66-c0a6-11ec-aaa5-d039ea165514
 ----
 
-== In-band Auth - TP 8006 (with ONTAP 9.12.1)
+== In-band Authentication - TP 8006 (with ONTAP 9.12.1)
 
-In-band authentication enables NVMe hosts and NVMe controllers to authenticate each other when an NVMe over Fabrics connection is established. DH-HMAC-CHAP is the authentication protocol that is currently specified to be used for NVMe over Fabrics. DH-HMAC-CHAP provides bidirectional or unidirectional authentication between a host and a controller. This authentication protocol requires each host or controller to be associated with a DH-HMAC-CHAP key. The key for a host or controller is derived from an administratively configured secret and the NQN of the NVMe host or the controller respectively. An NVMe host or controller that seeks to authenticate its peer is required to know the key associated with its peer.
+In-band authentication enables NVMe hosts and NVMe controllers to authenticate each other when an NVMe over Fabrics connection is established. DH-HMAC-CHAP is the authentication protocol that is currently specified to be used for NVMe over Fabrics. DH-HMAC-CHAP provides bidirectional or unidirectional authentication between a host and a controller. This authentication protocol requires each host or controller to be associated with a DH-HMAC-CHAP key. The key for a host or controller is derived from an administratively configured secret and the NQN of the NVMe host or the controller respectively. An NVMe host or controller that wants to authenticate its peer is required to know the key associated with its peer.
 
 .Steps
 
@@ -630,29 +573,29 @@ initialize the host key.
 transformation (0 = none, 1 = SHA-256, 2 = SHA-384, 3 = SHA-512).
 ----
 +
-For example, to generate a random dhchap-key using hmac set to 3 (i.e. SHA-512) along with the host's nqn:
+For example, to generate a random dhchap-key using hmac set to 3 (such as SHA-512) along with the host nqn:
 +
 ----
 # nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:d3ca725a-ac8d-4d88-b46a-174ac235139b
 DHHC-1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh3nVBe19nQ/LxreSBeH/bx/pU=:
 ----
 +
-This may be used as the secret on the host and the target for a given subsystem during the nvme connect with the following dhchap options:
+This might be used as a secret on the host and the target for a specified subsystem during the nvme connect with the following dhchap options:
 +
 ----
 [ --dhchap-secret=<STR>, -S <STR> ] --- user-defined dhchap key (if default not used)
 [ --dhchap-ctrl-secret=<STR>, -C <STR> ] --- user-defined dhchap controller key (for bi-directional authentication)
 ----
 
-If no secret is specified in the Linux nvme-cli dhchap option during the connect, it would attempt to locate the default key at /etc/nvme/hostkey. If not found, no authentication is attempted.
+If no secret is specified in the Linux `nvme-cli dhchap` option during the connect operation, it will attempt to locate the default key at `/etc/nvme/hostkey`. If not found, authentication will not be attempted.
 
-=== In-band Auth using CLI
+=== In-band Authentication using CLI
 
-Following procedure is an example of using In-band Auth using bidirectional connect through the CLI.
+Following procedure is an example of using In-band Authentication using bidirectional connect through the CLI.
 
 .Steps
 
-. Generate the host and controller keys using the nvme gen-dhchap-key:
+. Generate the host and controller keys using the `nvme gen-dhchap-key`:
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -669,20 +612,20 @@ DHHC-1:01:NunEWY7AZlXqxITGheByarwZdQvU4ebZg9HOjIr6nOHEkxJg:
 DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAtaU3DNi12rieRMfdbg3704=:
 ----
 
-. Specify both these host and controller keys during 'subsystem host add' in ONTAP:
+. Specify both these host and controller keys during `subsystem host add` in ONTAP.
 +
 ----
 ::> nvme subsystem host add -vserver integ -subsystem subsys114 -host-nqn nqn.2014-08.org.nvmexpress:uuid:e58eca24-faff-11ea-8fee-3a68dd3b5c5f -dhchap-dh-group 3072-bit -dhchap-host-secret-key DHHC-1:01:NunEWY7AZlXqxITGheByarwZdQvU4ebZg9HOjIr6nOHEkxJg: -dhchap-controller-secret-key DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAtaU3DNi12rieRMfdbg3704=:
 (vserver nvme subsystem host add)
 ----
 
-. Now on the host, proceed with a bidirectional connect specifying both these keys:
+. On the host, proceed with a bidirectional connect specifying both these keys.
 +
 ----
 # nvme connect -t tcp -w 192.168.1.14 -a 192.168.1.201 -n nqn.1992-08.com.netapp:sn.752d9843d2ab11ecbbcbd039ea165514:subsystem.subsys114 -S DHHC-1:01:NunEWY7AZlXqxITGheByarwZdQvU4ebZg9HOjIr6nOHEkxJg: -C DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAtaU3DNi12rieRMfdbg3704=:
 ----
 
-. Verify that the bidirectional connect is successful and the keys are properly registered in the host sysfs:
+. Verify that the bidirectional connect is successful and the keys are properly registered in the host `sysfs`.
 +
 ----
 # nvme list
@@ -709,7 +652,7 @@ DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAt
 
 === In-band Auth using config JSON file
 
-If you need to specify different keys for different subsystems during a nvme connect-all, then the only option to do that would be run the connect-all command using the `-J <cfg file>` option and specifying different keys for respective subsystems. Note that `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. Refer to the folloiwng procedure:
+If you need to specify different keys for different subsystems during `nvme connect-all`, then the only option will be to run the `connect-all` command with the `-J <cfg file>` option and specifying different keys for respective subsystems. Note that `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. Refer to the folloiwng procedure:
 
 .Steps
 
@@ -764,7 +707,7 @@ If you need to specify different keys for different subsystems during a nvme con
 ]
 ----
 
-. Now run a connect-all to this config JSON file (will automatically pick up the discovery options from the /etc/nvme/discovery.conf):
+. Now run `connect-all` to the config JSON file (automatically the discovery options from the `/etc/nvme/discovery.conf` file will be selected):
 +
 ----
 # nvme connect-all -J /etc/nvme/config.json
@@ -851,8 +794,6 @@ include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
 
 include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
 
-
-
 include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
 
 === When to contact technical support
@@ -864,8 +805,8 @@ include::_include/hu/reuse_hu_contact_tech_support.adoc[]
 [cols="10,30,10",options="header"]
 |===
 |NetApp Bug ID	|Title	|Workaround
-|1490498	| Host crash at crypto_ahash_digest() during NVMe reauth | None
-|1496739	| Host fails to disconnect after sending auth_failure2 during re-auth	| None	
+|1490498	| Host crash at `crypto_ahash_digest()` during NVMe reauthentication |None
+|1496739	| Host fails to disconnect after sending `auth_failure2` during reauthentication |None	
 |===
 
 //BURT 1529116 30 Jan 2023
