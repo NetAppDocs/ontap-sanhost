@@ -30,9 +30,9 @@ ESXi provides an extensible multipathing module called Native Multipathing Plug-
 
 For NetApp ONTAP storage, `VMW_SATP_ALUA` plugin is used by default with `VMW_PSP_RR` as a path selection policy (PSP). This can be confirmed by using the following command.
 
-
-*`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
 ----
+*`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
+
 Name           Device  Vendor    Model         Driver  Transport  Options
 ---------------------------------------------------------------------------------                     
 VMW_SATP_ALUA          LSI       INF-01-00                        reset_on_attempted_reserve  system      
@@ -60,8 +60,9 @@ naa.600a0980383145774624545241505656
    Is USB: false
 ----
 
-*`esxcli storage nmp path list -d naa.600a098038313530772b4d673979372f`*
 ----
+*`esxcli storage nmp path list -d naa.600a098038313530772b4d673979372f`*
+
 esxcli storage nmp path list -d naa.600a0980383145774624545241505656
 
 fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2003d039ea3ab21f-naa.600a0980383145774624545241505656
@@ -76,8 +77,9 @@ fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2003d039ea3ab21f-naa.60
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
-*`esxcli storage nmp device list -d naa.600a098038304759563f4e7837574453`*
 ----
+*`esxcli storage nmp device list -d naa.600a098038304759563f4e7837574453`*
+
 naa.600a098038304759563f4e7837574453
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304759563f4e7837574453)
    Storage Array Type: VMW_SATP_ALUA
