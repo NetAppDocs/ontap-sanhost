@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar
 permalink: hu_vsphere_8.html
-keywords: host utilities, veritas, infoscale, 7.3. 7.3.1, netapp, ontap
-summary: Describes how to use Veritas Infoscale 7.3 for Linux with ONTAP
+keywords: host utilities, veritas, infoscale, 8.x, netapp, ontap
+summary: Describes how to use Veritas Infoscale 8.8 for Linux with ONTAP
 ---
 
 = Using VMware vSphere 8.x with NetApp ONTAP
@@ -15,9 +15,9 @@ summary: Describes how to use Veritas Infoscale 7.3 for Linux with ONTAP
 :imagesdir: ./media/
 
 == Introduction
-This document provides guidance on ONTAP SAN host configuration settings for the vSphere 8.x release with FC, FCoE and iSCSI protocols.
+This document provides guidance on ONTAP SAN host configuration settings for the vSphere 8.x release with FC, FCoE, and iSCSI protocols.
 
-== Hypervisor SAN Booting
+== Hypervisor SAN booting
 
 .What you'll need
 If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
@@ -26,49 +26,40 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-ESXi provides an extensible multipathing module called Native Multipathing Plug-In (NMP) that manages the sub-plugins Storage Array Type Plugins (SATPs), and Path Selection Plugins (PSPs). These SATP rules are available by default in ESXi.
+ESXi provides an extensible multipathing module called Native Multipathing Plug-In (NMP) that manages the sub-plugins Storage Array Type Plugins (SATPs) and Path Selection Plugins (PSPs). By default, these SATP rules are available in ESXi.
 
-For NetApp ONTAP storage, VMW_SATP_ALUA plugin is used by default with VMW_PSP_RR  as a path selection policy (PSP). This can be confirmed by using the below command.
+For NetApp ONTAP storage, `VMW_SATP_ALUA` plugin is used by default with `VMW_PSP_RR` as a path selection policy (PSP). This can be confirmed by using the following command.
 
 
 *`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
 ----
-Name           Device  Vendor    Model         Driver  Transport  Options                     Rule Group  Claim Options  Default PSP  PSP Options     Description
+Name           Device  Vendor    Model         Driver  Transport  Options
+---------------------------------------------------------------------------------                     
+VMW_SATP_ALUA          LSI       INF-01-00                        reset_on_attempted_reserve  system      
+VMW_SATP_ALUA          NETAPP                                     reset_on_attempted_reserve  system      
 
--------------  ------  --------  ------------  ------  ---------  --------------------------  ----------  -------------  -----------  --------------  -----------
-
-VMW_SATP_ALUA          LSI       INF-01-00                        reset_on_attempted_reserve  system      tpgs_on        VMW_PSP_MRU                  NetApp E-Series arrays with ALUA support
-
-VMW_SATP_ALUA          NETAPP                                     reset_on_attempted_reserve  system      tpgs_on        VMW_PSP_RR                   NetApp arrays
-
-                                                                                                                                                   with ALUA
-
-                                                                                                                                                      support
+Rule Group  Claim Options  Default PSP  PSP Options     Description
+------------------------------------------------------------------
+tpgs_on        VMW_PSP_MRU                  NetApp E-Series arrays with ALUA support
+tpgs_on        VMW_PSP_RR                   NetApp arrays with ALUA support
+                                                                                                                                          
 ----
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
-
 ----
 esxcli storage nmp device list -d naa.600a0980383145774624545241505656
-
 naa.600a0980383145774624545241505656
-
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-
    Storage Array Type: VMW_SATP_ALUA
-
    Storage Array Type Device Config: {implicit_support=on; explicit_support=off; explicit_allow=on; alua_followover=on; action_OnRetryErrors=off; {TPG_id=1000,TPG_state=AO}{TPG_id=1001,TPG_state=ANO}}
-
    Path Selection Policy: VMW_PSP_RR
-
    Path Selection Policy Device Config: {policy=iops,iops=1,bytes=10485760,useANO=0; lastPathIndex=10: NumIOsPending=0,numBytesPending=0}
    Path Selection Policy Device Custom Config: policy=iops;iops=1;bytes=10485760;samplingCycles=16;latencyEvalTime=180000;useANO=0;
-
    Working Paths: vmhba4:C0:T5:L1, vmhba3:C0:T15:L1, vmhba3:C0:T6:L1, vmhba4:C0:T14:L1, vmhba3:C0:T14:L1, vmhba3:C0:T5:L1, vmhba4:C0:T13:L1, vmhba4:C0:T8:L1, vmhba3:C0:T13:L1, vmhba3:C0:T4:L1, vmhba4:C0:T7:L1, vmhba3:C0:T12:L1, vmhba4:C0:T1:L1, vmhba4:C0:T6:L1, vmhba3:C0:T7:L1, vmhba4:C0:T15:L1
-
    Is USB: false
 ----
+
 *`esxcli storage nmp path list -d naa.600a098038313530772b4d673979372f`*
 ----
 esxcli storage nmp path list -d naa.600a0980383145774624545241505656
@@ -96,7 +87,7 @@ naa.600a098038304759563f4e7837574453
    Path Selection Policy Device Custom Config:
    Working Paths: vmhba4:C0:T0:L9, vmhba3:C0:T1:L9, vmhba3:C0:T0:L9, vmhba4:C0:T1:L9
    Is USB: false
-----
+
 fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:201fd039ea3ab21f-naa.600a0980383145774624545241505656
    Runtime Name: vmhba4:C0:T5:L1
    Device: naa.600a0980383145774624545241505656
@@ -426,36 +417,37 @@ fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2001d039ea3ab21f-naa.60
 
 == vVol
 
-Virtual Volumes (vVols) are a VMware object type that corresponds to a Virtual Machine (VM) disk, and its snapshots and fast-clones.
+Virtual Volumes (vVols) are a VMware object type that corresponds to a Virtual Machine (VM) disk, its snapshots, and fast clones.
 
 ONTAP tools for VMware vSphere includes the VASA Provider for ONTAP, which provides the integration point for a VMware vCenter to leverage vVols based storage. When you deploy the ONTAP tools OVA, it is automatically registered with the vCenter server and enables the VASA Provider.
 
-When you create a vVols datastore using the vCenter user interface, it guides you to create FlexVols as backup storage for the datastore. vVols within a vVols datastores are access by ESXi hosts using a protocol endpoint (PE). In SAN environments, one 4MB LUN is created on each FlexVol in the datastore for use as a PE. A SAN PE is an administrative logical unit (ALU). vVols are subsidiary logical units (SLUs).
+When you create a vVols datastore using the vCenter user interface, it guides you to create FlexVols as backup storage for the datastore. vVols within vVols datastores are accessed by ESXi hosts using a protocol endpoint (PE). In SAN environments, one 4MB LUN is created on each FlexVol in the datastore for use as a PE. A SAN PE is an administrative logical unit (ALU). vVols are subsidiary logical units (SLUs).
 
 Standard requirements and best practices for SAN environments apply when using vVols, including (but not limited to) the following:
 
-. Create at least one SAN LIF on each node per SVM you intend to use. The best practice is to create at least two per node, but no more than necessary.
+* Create at least one SAN LIF on each node per SVM you intend to use. The best practice is to create at least two per node, but no more than necessary.
 
-. Eliminate any single point of failure. use multiple VMkernel network interfaces on different network subnets that use NIC teaming when multiple virtual switches are used. Or use multiple physical NICs connected to multiple physical switches to provide HA and increased throughput.
+* Eliminate any single point of failure. Use multiple VMkernel network interfaces on different network subnets that use NIC teaming when multiple virtual switches are used, or use multiple physical NICs connected to multiple physical switches to provide HA and increased throughput.
 
-. Configure zoning and/or VLANs as required for host connectivity.
+* Configure zoning and/or VLANs as required for host connectivity.
 
-. Ensure all required initiators are logged into the target LIFs on the desired SVM.
+* Verify that all required initiators are logged into the target LIFs on the desired SVM.
 
-NOTE: You must deploy ONTAP tools for VMware vSphere to enabled the VASA Provider. The VASA Provider will manage all of your igroup settings for you, so there is no need to create or manage igroups in a vVols environment.
+[NOTE] 
+You must deploy ONTAP tools for VMware vSphere to enable the VASA Provider. The VASA Provider will manage all of your iGroup settings for you, therefore there is no need to create or manage iGroups in a vVols environment.
 
-NetApp does not recommend changing any vVols settings from the default at this time.
+NetApp does not recommend changing any vVols settings from default at this time.
 
 Refer to the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] for specific versions of ONTAP tools, or legacy VASA Provider for your specific versions of vSphere and ONTAP.
 
-For detailed information on provisioning and managing vVols, please refer to ONTAP tools for VMware vSphere documentation as well as link:https://docs.netapp.com/us-en/netapp-solutions/hybrid-cloud/vsphere_ontap_ontap_for_vsphere.html[TR-4597^] and link:https://www.netapp.com/pdf.html?item=/media/13555-tr4400pdf.pdf[TR-4400.^]
+For detailed information on provisioning and managing vVols, refer to ONTAP tools for VMware vSphere documentation, link:https://docs.netapp.com/us-en/netapp-solutions/hybrid-cloud/vsphere_ontap_ontap_for_vsphere.html[TR-4597^], and link:https://www.netapp.com/pdf.html?item=/media/13555-tr4400pdf.pdf[TR-4400^].
 
 
-== Recommended Settings
+== Recommended settings
 
 === ATS Locking
 
-ATS locking is *mandatory* for VAAI compatible storage and upgraded VMFS5, and is required for proper interoperability and optimal VMFS shared storage I/O performance with ONTAP LUNs. Refer to VMware documentation for details on enabling ATS locking.
+ATS locking is *mandatory* for VAAI compatible storage and upgraded VMFS5 and is required for proper interoperability and optimal VMFS shared storage I/O performance with ONTAP LUNs. Refer to VMware documentation for details on enabling ATS locking.
 
 [cols=4*,options="header"]
 |===
@@ -468,11 +460,11 @@ ATS locking is *mandatory* for VAAI compatible storage and upgraded VMFS5, and i
 | Disk/QFullSampleSize | 0 | 32 | The count of QUEUE FULL or BUSY conditions it takes before ESXi starts throttling.
 |===
 
-NOTE: Enable Space-alloc setting for all the LUN’s mapped to VMware vSphere for UNMAP to work. For More details, refer to ONTAP Documentation.
+NOTE: Enable `Space-alloc` setting for all the LUNs mapped to VMware vSphere for `UNMAP` to work. For more details, refer to ONTAP Documentation.
 
 === Guest OS timeouts
 
-You can manually configure the virtual machines with the recommended guest OS tunings.  After tuning updates, you must reboot the guest for the updates to take effect.
+You can manually configure the virtual machines with the recommended guest OS tunings. After tuning updates, you must reboot the guest for the updates to take effect.
 
 *GOS timeout values:*
 
@@ -490,9 +482,9 @@ max.throttle = 32
 min.throttle = 8
 |===
 
-=== Validating the vSphere tunable
+=== Validate the vSphere tunable
 
-Use the following command to verify the HardwareAcceleratedLocking setting.
+Use the following command to verify the `HardwareAcceleratedLocking` setting.
 
 *`esxcli system settings  advanced list --option /VMFS3/HardwareAcceleratedLocking`*
 ----
@@ -508,7 +500,7 @@ Use the following command to verify the HardwareAcceleratedLocking setting.
    Description: Enable hardware accelerated VMFS locking (requires compliant hardware). Please see http://kb.vmware.com/kb/2094604 before disabling this option.
 ----
 
-=== Validating the Disk IOPs setting
+=== Validate the Disk IOPs setting
 
 Use the following command to verify the IOPs setting.
 
@@ -525,9 +517,9 @@ naa.600a098038304731783f506670553355
    Is USB: false
 ----
 
-=== Validating the QFullSampleSize
+=== Validate the QFullSampleSize
 
-Use the following command to verify the QFullSampleSize
+Use the following command to verify the QFullSampleSize.
 
 *`esxcli system settings  advanced list --option /Disk/QFullSampleSize`*
 ----
@@ -543,7 +535,7 @@ Use the following command to verify the QFullSampleSize
    Description: Default I/O samples to monitor for detecting non-transient queue full condition. Should be nonzero to enable queue depth throttling. Device specific QFull options will take precedence over this value if set.
 ----
 
-== Known Issues
+== Known issues
 
 There are no known issues.
 
