@@ -23,9 +23,11 @@ summary: Describes how to configure NVMe-oF for ESXi 7.x with ONTAP
 
 == Features
 
-*	ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported configurations and versions.
+*	ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
+
 *	Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 7.0 update 3.
-*	For ESXi 7.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
+
+*	For ESXi 8.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
 
 ==	Known limitations
 
@@ -38,7 +40,7 @@ The following configurations are not supported:
 == Enable NVMe/FC
 
 You need to check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array. Use the following command:
-+
+
 ----
 # esxcli nvme  info get
 Host NQN: nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f1a436
@@ -59,7 +61,7 @@ nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f
 
 [NOTE] 
 ====
-* Starting with vSphere 7.0 update 3, the `brcmnvmefc` driver is no longer available.  Therefore, the `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) functionality previously delivered with the `brcmnvmefc` driver.
+* With vSphere 8.0, the `brcmnvmefc` driver is no longer available. The `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) functionality previously delivered with the `brcmnvmefc` driver.
 
 * The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You need to perform the following command to set it manually for LPe32000-series and LPe31000-series adapters.
 +
@@ -98,22 +100,19 @@ Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Cha
 
 .Steps
 
-. Check whether configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 . Set the `qlnativefc` driver parameter `ql2xnvmesupport=1` to enable NVMe/FC support in the `qlnativefc` driver and reboot the host.
 +
 `# esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc`
 +
-
-[NOTE] 
-====
 The `qlnativefc` driver parameter is set by default for the Qle 277x-series adapters. You must perform the following command to set it manually for Qle 277x series adapters.
-
++
 ----
 esxcfg-module -l | grep qlnativefc
 qlnativefc               4    1820
 ----
-====
+
 
 . Check whether nvme is enabled on the adapter:
 +
@@ -213,7 +212,7 @@ fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2007d039ea3ab21f-uuid.4
 
 == Configure NVMe/TCP
 
-In ESXi 8.0, the required NVMe/TCP modules will be loaded by default. For configuring the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
+In ESXi 8.0, the required NVMe/TCP modules will be loaded by default. To configure the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
 
 == Validate NVMe/TCP
 
