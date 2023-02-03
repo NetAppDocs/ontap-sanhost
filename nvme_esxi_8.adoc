@@ -16,7 +16,7 @@ summary: Describes how to configure NVMe-oF for ESXi 7.x with ONTAP
 
 == Supportability
 
-* Beginning with ONTAP 9.7, NVMe over Fibre Channel (NVMe/FC) support is added for VMWare vSphere releases.
+* Beginning with ONTAP 9.7, NVMe over Fibre Channel (NVMe/FC) support is added for VMware vSphere releases.
 * NVMe/TCP feature is supported for ESXi Hypervisor in ESXi 8.0 and later.
 * Beginning with ONTAP 9.10.1, NVMe/TCP feature is supported for ONTAP.
 
@@ -37,7 +37,7 @@ The following configurations are not supported:
 
 == Enable NVMe/FC
 
-.	Check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array:
+You need to check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array. Use the following command:
 +
 ----
 # esxcli nvme  info get
@@ -51,69 +51,96 @@ nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f
 
 === Configure Broadcom/Emulex
 
-. Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+.Steps
 
-. Set the lpfc driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
+. Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
-NOTE: Starting with vSphere 7.0 update 3, the `brcmnvmefc` driver is no longer available.  Therefore, the `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) functionality previously delivered with the `brcmnvmefc` driver.
+. Set the `lpfc` driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
 
-NOTE:	The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You must perform the following command to set it manually for LPe32000-series and LPe31000-series adapters.
+[NOTE] 
+====
+* Starting with vSphere 7.0 update 3, the `brcmnvmefc` driver is no longer available.  Therefore, the `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) functionality previously delivered with the `brcmnvmefc` driver.
 
+* The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You need to perform the following command to set it manually for LPe32000-series and LPe31000-series adapters.
++
 ----
 # esxcli system module parameters set -m lpfc -p lpfc_enable_fc4_type=3
-
 # esxcli system module parameters list  -m lpfc | grep lpfc_enable_fc4_type
 
 lpfc_enable_fc4_type              int            Defines what FC4 types are supported
-
 # esxcli storage core adapter list
 
-HBA Name  Driver      Link State  UID                                   Capabilities         Description
---------  ----------  ----------  ------------------------------------  -------------------  -----------
+HBA Name  Driver      Link State  UID                                   
+--------  ----------  ----------  ------------------------------------  
 
-vmhba0    vmw_ahci    link-n/a    sata.vmhba0       (0000:00:11.4) Intel Corporation Wellsburg AHCI Controller
-vmhba1    vmw_ahci    link-n/a    sata.vmhba1        (0000:00:1f.2) Intel Corporation Wellsburg AHCI Controller
-vmhba2    lsi_mr3     link-n/a    sas.5003005702854d00       (0000:01:00.0) Broadcom MegaRAID SAS Fury Controller
-vmhba3    qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50  Second Level Lun ID  (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-vmhba4    qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51  Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-vmhba64   qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50                       (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-vmhba65   qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51                       (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+vmhba0    vmw_ahci    link-n/a    sata.vmhba0       
+vmhba1    vmw_ahci    link-n/a    sata.vmhba1        
+vmhba2    lsi_mr3     link-n/a    sas.5003005702854d00       
+vmhba3    qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50  
+vmhba4    qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51  
+vmhba64   qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50                       
+vmhba65   qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51 
+
+Capabilities         Description
+-------------------------------------
+(0000:00:11.4) Intel Corporation Wellsburg AHCI Controller
+(0000:00:1f.2) Intel Corporation Wellsburg AHCI Controller
+(0000:01:00.0) Broadcom MegaRAID SAS Fury Controller
+Second Level Lun ID  (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+(0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+(0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+
 ----
+====
 
 === Configure Marvell/QLogic
 
 .Steps
 
-. Check whether configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+. Check whether configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
-. Set the `qlnativefc` driver parameter `ql2xnvmesupport=1` for enabling NVMe/FC support in the `qlnativefc` driver and reboot the host.
+. Set the `qlnativefc` driver parameter `ql2xnvmesupport=1` to enable NVMe/FC support in the `qlnativefc` driver and reboot the host.
 +
 `# esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc`
 +
 
-NOTE: The `qlnativefc` driver parameter is set by default for the Qle 277x-series adapters. You must perform the following command to set it manually for Qle 277x series adapters.
+[NOTE] 
+====
+The `qlnativefc` driver parameter is set by default for the Qle 277x-series adapters. You must perform the following command to set it manually for Qle 277x series adapters.
 
-+
 ----
 esxcfg-module -l | grep qlnativefc
 qlnativefc               4    1820
 ----
+====
 
 . Check whether nvme is enabled on the adapter:
 +
 ----
 # esxcli storage core adapter list
-HBA Name  Driver      Link State  UID                                   Capabilities         Description
---------  ----------  ----------  ------------------------------------  -------------------  -----------
-vmhba0    vmw_ahci    link-n/a    sata.vmhba0                                                (0000:00:11.4) Intel Corporation Wellsburg AHCI Controller
-   vmhba1    vmw_ahci    link-n/a    sata.vmhba1                                                (0000:00:1f.2) Intel Corporation Wellsburg AHCI Controller
-   vmhba2    lsi_mr3     link-n/a    sas.5003005702854d00                                       (0000:01:00.0) Broadcom MegaRAID SAS Fury Controller
-   vmhba3    qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50  Second Level Lun ID  (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-   vmhba4    qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51  Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-   vmhba64   qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50                       (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+HBA Name  Driver      Link State  UID                                   
+--------  ----------  ----------  ------------------------------------  
+vmhba0    vmw_ahci    link-n/a    sata.vmhba0                                                
+vmhba1    vmw_ahci    link-n/a    sata.vmhba1                                                
+vmhba2    lsi_mr3     link-n/a    sas.5003005702854d00                                       
+vmhba3    qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50  
+vmhba4    qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51  
+vmhba64   qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50                       
+
+Capabilities         Description
+--------------------------------------
+(0000:00:11.4) Intel Corporation Wellsburg AHCI Controller
+(0000:00:1f.2) Intel Corporation Wellsburg AHCI Controller
+(0000:01:00.0) Broadcom MegaRAID SAS Fury Controller
+Second Level Lun ID  (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+(0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
 ----
 
 ==	Validate NVMe/FC
+
+.Steps
 
 . Verify that NVMe/FC adapter is listed on the ESXi host:
 +
@@ -125,7 +152,7 @@ vmhba64  aqn:qlnativefc:21000024ff7f4a50  FC              qlnativefc
 vmhba65  aqn:qlnativefc:21000024ff7f4a51  FC              qlnativefc
 ----
 
-. Verify that the NVMe/FC namespaces are properly created:
+. Verify that the NVMe/FC namespaces are correctly created:
 +
 The UUIDs in the following example represent the NVMe/FC namespace devices.
 +
@@ -138,13 +165,16 @@ uuid.116cb7ed9e574a0faf35ac2ec115969d : NVMe Fibre Channel Disk (uuid.116cb7ed9e
    vmhba65:C0:T0:L5 LUN:5 state:active fc Adapter: WWNN: 20:00:00:24:ff:7f:4a:51 WWPN: 21:00:00:24:ff:7f:4a:51  Target: WWNN: 20:04:d0:39:ea:3a:b2:1f WWPN: 20:06:d0:39:ea:3a:b2:1f
 ----
 +
-NOTE: In ONTAP 9.7, the default block size for a NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you must set the namespace block size as 512b. You can do this using the `vserver nvme namespace create` command.
-+
-.Example
-+
+[NOTE] 
+====
+In ONTAP 9.7, the default block size for a NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you must set the namespace block size as 512b. You can do this using the `vserver nvme namespace create` command.
+
+Example,
+
 `vserver nvme namespace create -vserver vs_1 -path /vol/nsvol/namespace1 -size 100g -ostype vmware -block-size 512B`
-+
+
 Refer to the link:https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-cmpr%2FGUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html[ONTAP 9 Command man pages^] for additional details.
+====
 
 . Verify the status of the individual ANA paths of the respective NVMe/FC namespace devices:
 +
@@ -188,6 +218,7 @@ In ESXi 8.0, the required NVMe/TCP modules will be loaded by default. For config
 == Validate NVMe/TCP
 
 .Steps
+
 . Verify the status of the NVMe/TCP adapter.
 +
 ----
@@ -215,6 +246,7 @@ nqn.2014-08.org.nvmexpress.discovery#vmhba67#192.168.101.125:8009               
                      nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba67#192.168.101.124:4420                271  vmhba67  TCP                  true    false
 
 ----
+
 . To list the number of paths to an NVMe namespace, use the following command:
 +
 ----
@@ -250,7 +282,7 @@ tcp.vmnic3:34:80:0d:30:d1:a1-tcp.192.168.101.124:4420-uuid.7caba9dea0b34b27b1c14
 
 == Known issue
 
-*	ESXi 7.0 U3 (and later) NVMe/FC support is available starting with ONTAP 9.9.1 P3 and later because key NVMe abort fixes (issued by ESXi 7.0 U3 and later) are available starting with ONTAP 9.9.1 P3. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
+*	ESXi 8.0 (and later) NVMe/FC support is available starting with ONTAP 9.9.1 P3 and later because key NVMe abort fixes (issued by ESXi 8.0 and later) are available starting with ONTAP 9.9.1 P3. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
 
 
 == Related Links
