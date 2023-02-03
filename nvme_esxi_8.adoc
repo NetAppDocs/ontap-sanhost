@@ -25,7 +25,7 @@ summary: Describes how to configure NVMe-oF for ESXi 7.x with ONTAP
 
 *	ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
 
-*	Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 7.0 update 3.
+*	Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 8 and later.
 
 *	For ESXi 8.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
 
