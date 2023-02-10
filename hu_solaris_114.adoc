@@ -159,7 +159,7 @@ NOTE: Patches are available for Oracle bug 15824910 on various versions of Solar
 
 == Recommended settings for SnapMirror Business Continuity
 
-In order to make sure the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror Business Continuity (SM-BC) environment, the following setting needs to be configured on the Solaris 11.4 host. This setting will override the failover module – `f_tpgs` in order to prevent the code path that detects the contradiction from being executed.
+In order to verify that the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror Business Continuity (SM-BC) environment, you must configure the following setting on the Solaris 11.4 host. This setting overrides the failover module `f_tpgs` to prevent the execution of the code path that detects the contradiction.
 
 NOTE: Beginning with ONTAP 9.9.1, SM-BC setting configurations are supported in the Solaris 11.4 host.
 
@@ -171,7 +171,7 @@ Follow the instructions to configure the override parameter:
 scsi-vhci-failover-override =
 "NETAPP  LUN","f_tpgs"
 ----
-. Use `devprop` and `mdb` commands to verify the override parameter has been successfully applied:
+. Use the `devprop` and `mdb` commands to verify that the override parameter has been successfully applied:
 +
 `root@host-A:~# devprop -v -n /scsi_vhci scsi-vhci-failover-override      scsi-vhci-failover-override=NETAPP  LUN + f_tpgs
 root@host-A:~# echo "*scsi_vhci_dip::print -x struct dev_info devi_child | ::list struct dev_info devi_sibling| ::print struct dev_info devi_mdi_client| ::print mdi_client_t ct_vprivate| ::print struct scsi_vhci_lun svl_lun_wwn svl_fops_name"| mdb -k`
@@ -182,7 +182,7 @@ svl_lun_wwn = 0xa002a1c8960 "600a098038313477543f524539787938"
 svl_fops_name = 0xa00298d69e0 "conf f_tpgs"
 ----
 
-NOTE: `conf` will be added to `svl_fops_name` when `scsi-vhci-failover-override` has been applied.
+NOTE: After `scsi-vhci-failover-override` has been applied, `conf` is added to `svl_fops_name` .
 For additional information and recommended changes to default settings, refer to the NetApp KB article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SM-BC)_configuration[Solaris Host support recommended settings in SnapMirror Business Continuity (SM-BC) configuration^].
 
 == Known problems and limitations
