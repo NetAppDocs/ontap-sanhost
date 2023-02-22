@@ -26,7 +26,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * With Oracle Linux 8.3, `nvme-fc auto-connect` scripts are included in the native nvme-cli package. You can rely on these native auto-connect scripts instead of installing external vendor provided outbox auto-connect scripts.
 
-* With Oracle Linux 8.3, a native `udev` rule is provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. Therefore, you need not manually create this rule anymore.
+* With Oracle Linux 8.3, a native `udev` rule is provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. Therefore, you do not need to manually create this rule anymore.
 
 * With Oracle Linux 8.3, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. So for SCSI, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
@@ -38,7 +38,7 @@ None.
 
 == Configuration requirements
 
-Refer to the http://mysupport.netapp.com/matrix3[NetApp InterOperability Matrix Tool (IMT)^] for exact details regarding current list of supported configurations.
+Refer to the http://mysupport.netapp.com/matrix3[NetApp Interoperability Matrix Tool (IMT)^] for the current list of supported configurations.
 
 == Enable NVMe/FC with Oracle Linux 8.3
 
@@ -195,7 +195,7 @@ QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k
 QLE2742 FW:v9.10.11 DVR:v10.01.00.25-k
 ----
 
-. Verify `ql2xnvmeenable` parameter is set which enables the Marvell adapter to function as an NVMe/FC initiator.
+. Verify that the `ql2xnvmeenable` parameter is set which enables the Marvell adapter to function as an NVMe/FC initiator.
 +
 ----
 #cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
