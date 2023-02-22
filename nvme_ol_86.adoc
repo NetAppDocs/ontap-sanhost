@@ -32,6 +32,9 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 *	With Oracle Linux 8.6, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
 
+== Known limitations
+
+None.
 
 == Configuration requirements
 
@@ -240,7 +243,7 @@ Example,
 # nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 ----
 
-== Validating NVMe/FC
+== Validate NVMe/FC
 
 .Steps
 
