@@ -77,7 +77,7 @@ If the hostnqn strings do not match, you should use the `vserver modify` command
 +
 [NOTE] 
 ====
-If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.4 co-existent host, NetApp recommends to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
+If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.6 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
 
 ----
 #cat /etc/multipath.conf
@@ -86,7 +86,7 @@ defaults {
 }
 ----
 
-Restart the multipathd daemon by running a `systemctl restart multipathd` command to let the new setting take effect.
+Restart the multipathd daemon by running the `systemctl restart multipathd` command to let the new setting take effect.
 ====
 
 == Configure Broadcom FC adapter for NVMe/FC
@@ -165,7 +165,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.4 GA kernel has the latest upstream fixes essential for ONTAP support.
+. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.6 GA kernel has the latest upstream fixes essential for ONTAP support.
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -173,7 +173,7 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 ----
 
-. Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator:
+. Verify that `ql2xnvmeenable` is set which enables the Marvell adapter to function as an NVMe/FC initiator:
 +
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
@@ -186,7 +186,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 
 .Steps
 
-. Verify whether the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs:
+. Verify whether the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs.
 +
 ----
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
@@ -224,7 +224,7 @@ sectype: none
 ...
 ----
 
-. Similarly, verify that other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
+. Similarly, verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
 Example,
 +
 ----
@@ -234,7 +234,7 @@ Example,
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
 
-. Now run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you pass a longer `ctrl_loss_tmo` period (such as, say 30 minutes, which can be set through `-l 1800`) during the `connect-all` so that it would retry for a longer period in the event of a path loss. For example,
+. Now run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. MAke sure you pass a longer `ctrl_loss_tmo` period (such as, say 30 minutes, which can be set through `-l 1800`) during the `connect-all` so that it would retry for a longer period in the event of a path loss. For example,
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
@@ -247,7 +247,7 @@ Example,
 
 .Steps
 
-. Verfy the following NVMe/FC settings on the Oracle Linux 8.6  host:
+. Verfy the following NVMe/FC settings on the Oracle Linux 8.6  host.
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -260,7 +260,7 @@ round-robin
 round-robin
 ----
 
-. Verify that the namespaces are created and properly discoverd on the host:
+. Verify that the namespaces are created and properly discoverd on the host.
 +
 ----
 # nvme list
