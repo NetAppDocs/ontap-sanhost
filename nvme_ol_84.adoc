@@ -30,7 +30,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 *	With Oracle Linux 8.4, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. Therefore, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
-*	With Oracle Linux 8.4, the NetApp plugin in the native `nvme-cli` packaage is capable of displaying ONTAP details as well as ONTAP namespaces.
+*	With Oracle Linux 8.4, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
 
 == Known limitations
 
@@ -77,7 +77,7 @@ If the hostnqn strings do not match, you should use the `vserver modify` command
 +
 [NOTE] 
 ====
-If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.4 co-existent host, NetApp recommends to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
+If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.4 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
 
 ----
 #cat /etc/multipath.conf
@@ -86,7 +86,7 @@ defaults {
 }
 ----
 
-Restart the multipathd daemon by running a systemctl restart multipathd to let the new setting take effect.
+Restart the multipathd daemon by running the `systemctl restart multipathd` command to let the new setting take effect.
 ====
 
 == Configuring the Broadcom FC adapter for NVMe/FC
@@ -127,7 +127,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 3
 ----
 
-.	Verify that the initiator ports are up and running, and that you can see the target LIFs.
+.	Verify that the initiator ports are up and running, and you can see the target LIFs.
 +
 ----
 # cat /sys/class/fc_host/host*/port_name
@@ -197,7 +197,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 
 .Steps
 
-.	Verify whether the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs:
+.	Verify that the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
@@ -245,7 +245,7 @@ Example,
 # nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
 
-.	Now run a `nvme connect-all` across all the supported NVMe/TCP initiator-target LIFs across the nodes. Make sure you provide a longer `ctrl_loss_tmo` timer period (such as say 30 minutes, which can be set adding `-l 1800`) during the connect-all so that it would retry for a longer period in the event of a path loss. 
+.	Now run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Make sure you provide a longer `ctrl_loss_tmo` timer period (such as say 30 minutes, which can be set adding `-l 1800`) during `connect-all` so that it would retry for a longer period in the event of a path loss. 
 Example:
 +
 ----
@@ -278,7 +278,7 @@ round-robin
 round-robin
 ----
 
-.	Verify that the namespaces are created and properly discoverd on the host:
+.	Verify that the namespaces are created and correctly discoverd on the host:
 +
 ----
 # nvme list
@@ -295,7 +295,7 @@ Usage      Format         FW Rev
 85.90 GB / 85.90 GB     4 KiB + 0 B   FFFFFFFF
 ----
 
-.	Verify that the controller state of each path is live and have correct ANA status.
+.	Verify that the controller state of each path is live and has the correct ANA status.
 +
 ----
 # nvme list-subsys /dev/nvme0n1
@@ -307,7 +307,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
 ----
 
-.	Verify the NetApp plug-in displays correct values for each ONTAP namespace devices.
+.	Verify that the NetApp plug-in displays correct values for each ONTAP namespace devices.
 +
 ----
 
