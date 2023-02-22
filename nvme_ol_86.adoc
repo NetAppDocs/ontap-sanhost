@@ -30,7 +30,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 *	With Oracle Linux 8.6, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. Therefore, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
-*	With Oracle Linux 8.6, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
+*	With Oracle Linux 8.6, the NetApp plug-in in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
 
 == Known limitations
 
@@ -51,7 +51,7 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 5.4.17-2136.307.3.1.el8uek.x86_64
 ----
 
-. Install the `nvme-cli` package.
+. Install the `nvme-cli` package:
 +
 ----
 # rpm -qa|grep nvme-cli
@@ -71,7 +71,7 @@ vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-9
 +
 
 [NOTE]
-If the hostnqn strings do not match, you should use the `vserver modify` command to update the hostnqn string on your corresponding ONTAP array subsystem to match to the hostnqn string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, you should use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match to the `hostnqn` string from `/etc/nvme/hostnqn` on the host:
 
 . Reboot the host.
 +
@@ -93,7 +93,7 @@ Restart the multipathd daemon by running the `systemctl restart multipathd` comm
 
 .Steps
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] .
+. Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]:
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -104,7 +104,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] .
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]:
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -115,14 +115,14 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 0:12.8.0.11
 ----
 
-. Verify that `lpfc_enable_fc4_type` is set to `3`.
+. Verify that `lpfc_enable_fc4_type` is set to `3`:
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 3
 ----
 
-. Verify that the initiator ports are up and running, and that you can see the target LIFs.
+. Verify that the initiator ports are up and running, and that you can see the target LIFs:
 +
 ----
 # cat /sys/class/fc_host/host*/port_name
@@ -165,7 +165,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.6 GA kernel has the latest upstream fixes essential for ONTAP support.
+. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.6 GA kernel has the latest upstream fixes essential for ONTAP support:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -186,7 +186,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 
 .Steps
 
-. Verify whether the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs.
+. Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
 # nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
@@ -247,7 +247,7 @@ Example,
 
 .Steps
 
-. Verfy the following NVMe/FC settings on the Oracle Linux 8.6  host.
+. Verify the following NVMe/FC settings on the Oracle Linux 8.6 host:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -260,7 +260,7 @@ round-robin
 round-robin
 ----
 
-. Verify that the namespaces are created and properly discoverd on the host.
+. Verify that the namespaces are created and correctly discovered on the host:
 +
 ----
 # nvme list
@@ -278,7 +278,7 @@ Namespace Usage    Format             FW             Rev
 3                 85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
 ----
 
-. Verify that the controller state of each path is live and have correct ANA status.
+. Verify that the controller state of each path is live and has the correct ANA status:
 +
 ----
 # nvme list-subsys /dev/nvme0n1
@@ -290,7 +290,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
 ----
 
-. Verify the NetApp plug-in displays correct values for each ONTAP namespace devices.
+. Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
 ----
 # nvme netapp ontapdevices -o column
