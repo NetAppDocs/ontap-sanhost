@@ -80,7 +80,7 @@ If the hostnqn strings do not match, you should use the `vserver modify` command
 +
 [NOTE] 
 ====
-If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.3 co-existent host, NetApp recommends to use in-kernel NVMe multipath for ONTAP namespaces and `dm-multipath` for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in `dm-multipath` to prevent `dm-multipath` from claiming these namespace devices. This can be done by adding the _enable_foreign_ setting to the `/etc/multipath.conf` file:
+If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.3 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and `dm-multipath` for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in `dm-multipath` to prevent `dm-multipath` from claiming these namespace devices. This can be done by adding the _enable_foreign_ setting to the `/etc/multipath.conf` file:
 
 ----
 #cat /etc/multipath.conf
@@ -113,7 +113,7 @@ Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the most current list of supported adapter drivers and firmware versions, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 +
 ----
 #cat /sys/class/scsi_host/host*/fwrev
@@ -186,7 +186,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions.The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support.
+. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support.
 
 +
 ----
@@ -253,7 +253,7 @@ Node         SN                   Model                  Namespace Usage        
 
 ----
 
-. Verify that the controller state of each path is live and have correct ANA status.
+. Verify that the controller state of each path is live and has correct ANA status.
 +
 ----
 # nvme list-subsys /dev/nvme0n1
