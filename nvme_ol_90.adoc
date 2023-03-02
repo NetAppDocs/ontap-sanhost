@@ -16,7 +16,7 @@ summary:
 
 == Supportability
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with Oracle Linux 9.0 with Asymmetric Namespace Access (ANA) that is required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. This document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on Oracle Linux 9.0 and ONTAP as the target.
+NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux 9.0 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments, and is implemented with in-kernel NVMe multipath. 
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
