@@ -14,79 +14,94 @@ summary:
 :linkattrs:
 :imagesdir: ./media/
 
-== Supportability
+[.lead]
+NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux 9.0 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux 9.0 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments, and is implemented with in-kernel NVMe multipath. 
-
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 == Features 
 
-*	Oracle Linux 9.0 has in-kernel NVMe multipath enabled by default for NVMe namespaces without the need for explicit settings.
-
+*	Oracle Linux 9.0 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
 
 == Known limitations
 
-None.
+There are no known limitations.
 
-== Configuration requirements
-
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for exact details regarding supported configurations. 
  
-== Enable NVMe/FC with Oracle Linux 8.6
+== Enable NVMe/FC with Oracle Linux 9.0
+
+You can enable the NVMe/FC in-kernel multipath using the following procedure.
 
 .Steps
 
-. Install Oracle Linux 8.6 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.6 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+. Install Oracle Linux 9.0 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 9.0 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
 ----
 # uname -r
-5.4.17-2136.307.3.1.el8uek.x86_64
+----
++
+Example output:
++
+----
+5.15.0-0.30.19.el9uek.x86_64
 ----
 
 . Install the `nvme-cli` package:
 +
 ----
 # rpm -qa|grep nvme-cli
-nvme-cli-1.14-3.el8.x86_64
+----
++
+Example output
++
+----
+nvme-cli-1.16-3.el9.x86_64
 ----
 
-.	On the Oracle Linux 8.6 host, check the `hostnqn` string at `/etc/nvme/hostnqn` and verify that it matches the hostnqn string for the corresponding subsystem on the ONTAP array.
+.	On the Oracle Linux 9.0 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 ----
 # cat /etc/nvme/hostnqn
+----
++
+Example output
++
+----
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
+----
+
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
++
+----
 ::> vserver nvme subsystem host show -vserver vs_ol_nvme
+----
++
+Example output
++
+----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:edd38060-00f7-47aa-a9dc-4d8ae0cd969a
 ----
 +
-
 [NOTE]
-If the `hostnqn` strings do not match, you should use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match to the `hostnqn` string from `/etc/nvme/hostnqn` on the host:
+If the `hostnqn` strings do not match, you should use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
-+
-[NOTE] 
-====
-If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.6 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
 
-----
-#cat /etc/multipath.conf
-defaults {
-    enable_foreign  NONE
-}
-----
 
-Restart the multipathd daemon by running the `systemctl restart multipathd` command to let the new setting take effect.
+== Configure NVMe/FC
+
+You can configure NVME/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
+
+[role="tabbed-block"]
 ====
 
-== Configure Broadcom FC adapter for NVMe/FC
-
+.Broadcom/Emulex
+--
 .Steps
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]:
+. Verify that you are using the supported adapter model. 
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -148,14 +163,10 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
+--
 
-===	Enable 1MB I/O size
-
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
-
-
-== Configure the Marvell/QLogic FC Adapter for NVMe/FC
-
+.Marvell/QLogic FC Adapter for NVMe/FC
+--
 .Steps
 
 . Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.6 GA kernel has the latest upstream fixes essential for ONTAP support:
@@ -172,6 +183,8 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
 ----
+--
+====
 
 == Configure NVMe/TCP
 
@@ -235,6 +248,24 @@ Example,
 # nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.56 -l 1800
 # nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 ----
+
+--
+
+.Third tab
+--
+// content placeholder
+--
+
+====
+
+
+===	Enable 1MB I/O size
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
+
+== Configure the Marvell/QLogic FC Adapter for NVMe/FC
+
 
 == Validate NVMe/FC
 
