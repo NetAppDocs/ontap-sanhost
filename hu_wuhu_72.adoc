@@ -15,7 +15,7 @@ summary:
 
 == What Windows Host Utilities is
 
-Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+Windows Unified host utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 
 When you install the Host Utilities software, the installer sets required Windows registry and HBA parameters.
 
@@ -38,7 +38,7 @@ The following programs and files are installed on the Windows host computer. The
 
 == Configurations supported by Host Utilities
 
-The Host Utilities support different Windows host configurations, protocols and Multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+The Host Utilities support different Windows host configurations, protocols, and multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 == Verifying your host and storage system configuration
 Before you install the Host Utilities, you must verify that the Host Utilities version supports your host and storage system configuration so that the software installs correctly.
@@ -50,7 +50,7 @@ Before you install the Host Utilities, you must verify that the Host Utilities v
 . Add the iSCSI or FCP license and start the target service.
 +
 The fibre channel and iSCSI protocols do not require licenses on E-Series storage systems using SANtricity Storage Manager.
-. Verify your cabling
+. Verify your cabling.
 +
 See the https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html?cp=14_7[SAN Configuration Guide^] for your version of ONTAP or https://mysupport.netapp.com/ecm/ecm_get_file/ECMLP2773533[E-Series Hardware Cabling Guide^] for detailed cabling and configuration information.
 
@@ -87,14 +87,13 @@ To install the Host Utilities software package interactively, you must run the H
 
 . Download the executable file from https://mysupport.netapp.com/site/[NetApp Support Site^].
 . Change to the directory to which you downloaded the executable file.
-. Run the `netapp_windows_host_utilities_7.1_x64` file and follow the instructions on the screen.
+. Run the `netapp_windows_host_utilities_7.2_x64` file and follow the instructions on the screen.
 . Reboot the Windows host when prompted.
 
 === Installing the Host Utilities from a command line
 
 You can perform a quiet (unattended) installation of the Host Utilities by entering the appropriate commands at a Windows command prompt.
-The Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively to obtain the installation package.
-The system automatically reboots when the installation is complete.
+The Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively to obtain the installation package. The system automatically reboots when the installation is complete.
 
 .Steps
 
@@ -203,13 +202,13 @@ The following values are set by the Windows Unified Host Utilities installer. Al
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
 |120
-|When MPIO support is specified and your server is Windows Server 2012 R2,
+|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
 or Windows Server 2016 and Windows 2019
 |HKLM\SYSTEM\CurrentControlSet
 \Services\msdsm\Parameters
 \DsmMaximumStateTransitionTime
 |120
-|When MPIO support is specified and your server is Windows Server 2012 R2,
+|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
 or Windows Server 2016 and windows 2019
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\DsmSupportedDeviceList
@@ -251,7 +250,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
 |30
-|When your server is Windows Server 2012 R2,
+|When your server is Windows Server 2022, Windows Server 2012 R2,
 Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathVerifyEnabled
@@ -260,7 +259,7 @@ Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |1
-|When MPIO support is specified and your server is Windows Server 2012 R2,
+|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
 Windows Server 2016, or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\PathVerifyEnabled
@@ -273,7 +272,7 @@ Windows Server 2016, or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is Windows Server 2012 R2,
+|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
 Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\PDORemovePeriod
@@ -286,7 +285,7 @@ Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2012 R2,
+|When MPIO support is specified and your server is Windows Server 2022,  Windows Server 2012 R2,
 Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryInterval
@@ -295,7 +294,7 @@ Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2012 R2,
+|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
 Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\RetryInterval
@@ -308,13 +307,20 @@ Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2012 R2,
+|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
 Windows Server 2016 or Windows Server 2019
 |===
 
 .Related information
 Refer to the Microsoft documents for the registry parameter details.
 
+== NVMe parameters
+You need to enable the following NVMe Emulex driver parameters when installing WUHU 7.2:
+
+* EnableNVMe = 1
+* NVMEMode = 0
+* LimTransferSize=1
+ 
 == FC HBA values set by Windows Host Utilities
 
 On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
