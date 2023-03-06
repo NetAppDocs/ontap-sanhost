@@ -202,14 +202,14 @@ The following values are set by the Windows Unified Host Utilities installer. Al
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
 |120
-|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
-or Windows Server 2016 and Windows 2019
+|When MPIO support is specified and your server is Windows Server 2012 R2,
+Windows Server 2016 and Windows 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet
 \Services\msdsm\Parameters
 \DsmMaximumStateTransitionTime
 |120
-|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
-or Windows Server 2016 and windows 2019
+|When MPIO support is specified and your server is Windows Server 2012 R2,
+or Windows Server 2016, Windows 2019 or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPP LUN", "NETAPP LUN C-
@@ -250,8 +250,8 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
 |30
-|When your server is Windows Server 2022, Windows Server 2012 R2,
-Windows Server 2016 or Windows Server 2019
+|When your server is Windows Server 2012 R2,
+Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathVerifyEnabled
 |1
@@ -259,8 +259,8 @@ Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |1
-|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
-Windows Server 2016, or Windows Server 2019
+|When MPIO support is specified and your server is Windows Server 2012 R2,
+Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\PathVerifyEnabled
 |0
@@ -272,8 +272,8 @@ Windows Server 2016, or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
-Windows Server 2016 or Windows Server 2019
+|When MPIO support is specified and your server is  Windows Server 2012 R2,
+Windows Server 2016 , Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\PDORemovePeriod
 |130
@@ -285,8 +285,8 @@ Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2022,  Windows Server 2012 R2,
-Windows Server 2016 or Windows Server 2019
+|When MPIO support is specified and your server is Windows Server 2012 R2,
+Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryInterval
 |1
@@ -294,8 +294,8 @@ Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
-Windows Server 2016 or Windows Server 2019
+|When MPIO support is specified and your server is  Windows Server 2012 R2,
+Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\RetryInterval
 |1
@@ -307,15 +307,15 @@ Windows Server 2016 or Windows Server 2019
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2022, Windows Server 2012 R2,
-Windows Server 2016 or Windows Server 2019
+|When MPIO support is specified and your server is  Windows Server 2012 R2,
+Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |===
 
 .Related information
 Refer to the Microsoft documents for the registry parameter details.
 
 == NVMe parameters
-You need to enable the following NVMe Emulex driver parameters when installing WUHU 7.2:
+The following NVMe Emulex driver parameters are updated when installing WUHU 7.2:
 
 * EnableNVMe = 1
 * NVMEMode = 0
