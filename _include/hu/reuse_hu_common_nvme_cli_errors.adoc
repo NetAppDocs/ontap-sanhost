@@ -4,7 +4,7 @@ The errors displayed by `nvme-cli` during `nvme discover`, `nvme connect`, or `n
 
 [options="header", cols="20, 20, 50"]
 |===
-|Errors displayed by `nvme-cli`  | Probable cause | Workaround
+|Errors message  | Probable cause | Workaround
 | `Failed to write to /dev/nvme-fabrics: Invalid argument`
 |Incorrect syntax
 |Verify that you are using the correct syntax for the `nvme discover`, `nvme connect`, and `nvme connect-all` commands.
