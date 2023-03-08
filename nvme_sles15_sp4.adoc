@@ -496,14 +496,25 @@ To set up secure authentication, each host or controller must be associated with
 
 .Steps
 
-You can setup secure in-band authentication using the CLI or using a config JSON file. 
-If you need to specify different dhcap keys for different subsystems, then you must use a config JSON file. 
+You can setup secure in-band authentication using the CLI or using a config JSON file. If you need to specify different dhcap keys for different subsystems, then you must use a config JSON file. 
 
-CLI
-1.	Obtain the host NQN:
+[role="tabbed-block"]
+====
+
+.CLI
+--
+
+.Steps
+
+. Obtain the host NQN:
++
+----
 cat /etc/nvme/hostnqn
-2.	Generate the dhchap key for the SLES15 SP4 host:
+----
 
+. Generate the dhchap key for the SLES15 SP4 host:
++
+----
 nvme gen-dhchap-key -s optiona_secret -l key_length {32|48|64} -m HMAC_function {0|1|2|3} -n host_nqn 
 
 •	-s secret key in hexadecimal characters to be used to initialize the host key
@@ -511,30 +522,42 @@ nvme gen-dhchap-key -s optiona_secret -l key_length {32|48|64} -m HMAC_function 
 •	-m HMAC function to use for key transformation 
 0 = none, 1- SHA-256, 2 = SHA-384, 3=SHA-512
 •	-n host NQN to use for key transformation
-
-
+----
++
 Example
++
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
-
++
+----
 # nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:d3ca725a- ac8d-4d88-b46a-174ac235139b
 DHHC-
 1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh 3nVBe19nQ/LxreSBeH/bx/pU=:
+----
 
-3.	Generate the dhchap key for the controller:
+. Generate the dhchap key for the controller:
++
+----
 nvme gen-dhchap-key -s optiona_secret -l key_length {32|48|64}  -m HMAC_function {0|1|2|3}  -n host_nqn 
+----
++
+[NOTE] 
+During NVMe connect, you can use the -S option to input your user-defined dhchap key for the host and the -C option to input the dhchap key for the controller.
 
-Note: During NVMe connect, you can use the -S option to input your user-defined dhchap key for the host and the -C option to input the dhchap key for the controller.
-
-4.	On the ONTAP controller, add the host and specify both dhchap keys:
-
+. On the ONTAP controller, add the host and specify both dhchap keys:
++
+----
 vserver nvme subsystem host add -vserver svm_name -subsystem subsystem -host-nqn host_nqn -dhchap-host-secret authentication_host_secret -dhchap-controller-secret authentication_controller_secret -dhchap-hash-function {sha-256|sha-512} -dhchap-group {none|2048-bit|3072-bit|4096-bit|6144-bit|8192-bit}
+----
 
-5.	On the host, connect to the ONTAP controller and specify both dhchap keys:
-
+. On the host, connect to the ONTAP controller and specify both dhchap keys:
++
+----
 nvme connect -t tcp -w ip_address -a ip_address -n host_nqn -S authentication_host_secret -C authentication_controller_secret 
+----
 
-
-6.	Verify that the authentication keys are registered in the host sysfs file:
+. Verify that the authentication keys are registered in the host sysfs file:
++
+----
 nvme list
 nvme list-subsys
 nvme list-subsys /dev/nvem0n1
@@ -542,15 +565,18 @@ nvme list-subsys /dev/nvem0n1
 
 # cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret DHHC-
 1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5f OAtaU3DNi12rieRMfdbg3704=:
+----
+--
 
-
-JSON file
-
+.JSON file
+--
 Note that dhchap_key corresponds to dhchap_secret and dhchap_ctrl_key corresponds to dhchap_ctrl_secret. 
 
+.Steps
 
-1.	Configure the JSON file
-
+. Configure the JSON file
++
+----
 # cat /etc/nvme/config.json [
 {
 "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:12372496-59c4-4d1b- be09-"hostid":"3ae10b42-21af-48ce-a40b-cfb5bad81839",
@@ -580,13 +606,18 @@ Note that dhchap_key corresponds to dhchap_secret and dhchap_ctrl_key correspond
 1:01:0h58bcT/uu0rCpGsDYU6ZHZvRuVqsYKuBRS0Nu0VPx5HEwaZ:"
 }
 ]
+----
 
-2.	Connect to the ONTAP controller using the config JSON file.
+. Connect to the ONTAP controller using the config JSON file.
 The discovery options from the/etc/nvme/discovery.conf file are automatically selected
-
++
+----
 nvme connect-all -J /etc/nvme/config.json
-
+----
++
 Example output
++
+----
 traddr=192.168.2.116 is already connected
 traddr=192.168.1.116 is already connected 
 traddr=192.168.2.117 is already connected
@@ -597,25 +628,32 @@ traddr=192.168.2.116 is already connected
 traddr=192.168.1.116 is already connected
 traddr=192.168.2.116 is already connected 
 traddr=192.168.1.116 is already connected
- traddr=192.168.2.117 is already connected 
+traddr=192.168.2.117 is already connected 
 traddr=192.168.1.117 is already connected
+----
 
-
-3.	nvme list
-4.	nvme list-subsys
-
-Example output
+. Verify that the dhcap secrets have been enabled to the respective controllers for each subsystem:
++
+----
+nvme list
+nvme list-subsys
+----
++
+Example output:
++
+----
 nvme-subsys1 - NQN=nqn.1992- 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
 \
 +- nvme1 tcp traddr=192.168.2.117,trsvcid=4420,host_traddr=192.168.2.16 live
 +- nvme2 tcp traddr=192.168.1.117,trsvcid=4420,host_traddr=192.168.1.16 live
 +- nvme3 tcp traddr=192.168.2.116,trsvcid=4420,host_traddr=192.168.2.16 live
 +- nvme4 tcp traddr=192.168.1.116,trsvcid=4420,host_traddr=192.168.1.16 live
-
+----
 
 5.	nvme list-subsys /dev/nvme1n1 
 
-
++
+----
 nvme-subsys1 - NQN=nqn.1992-
 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
 \
@@ -633,13 +671,14 @@ cat /sys/class/nvme-subsystem/nvme-subsys1/nvme3/dhchap_secret
 cat /sys/class/nvme-subsystem/nvme-subsys1/nvme3/dhchap_ctrl_secret
 cat /sys/class/nvme-subsystem/nvme-subsys1/nvme4/dhchap_secret
 cat /sys/class/nvme-subsystem/nvme-subsys1/nvme4/dhchap_ctrl_secret
-
+----
+--
+====
 
 == Troubleshooting
 
 Before commencing any troubleshooting for any NVMe/FC failures, make sure that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
 
-=== lpfc verbose logging
 === Enable verbose logging
 
 If you have an issue with your configuration, verbose logging can provide valuable information essential for troubleshooting.
@@ -648,14 +687,20 @@ If you have an issue with your configuration, verbose logging can provide valuab
 
 The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the procedure to set LFC verbose logging.
 
-==== LPFC verbose logging
+[role="tabbed-block"]
+====
+
+.LPFC
+--
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+--
 
-==== Qla2xxx verbose logging
-
+.Qla2xxx 
+--
 include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
-include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
+--
+====
 
 include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
 
