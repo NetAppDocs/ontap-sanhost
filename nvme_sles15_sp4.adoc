@@ -16,7 +16,6 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :source-highlighter: highlighter.js
 
    
-[.lead]
 NVMe over Fabrics (NVMe-oF) is supported with SUSE Linux Enterprise Server (SLES) 15 SP4. 
 
 With ONTAP 9.5 and later, Asymmetric Namespace Access (ANA) is enabled by default for multipathing. ANA is the NVMe equivalent of ALUA for FC and iSCSI.
@@ -46,8 +45,8 @@ You can configure NVME/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapter
 cat /sys/class/scsi_host/host*/modelname
 ----
 +
-
-Example output
+Example output:
++
 ----
 LPe32002 M2
 LPe32002-M2
@@ -85,7 +84,8 @@ Example output
 cat /sys/module/lpfc/version
 ----
 +
-Example output
+Example output:
++
 ----
 0:14.2.0.6
 ----
@@ -181,22 +181,23 @@ cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt 256
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions.
+. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 cat /sys/class/fc_host/host*/symbolic_name 
 ----
 +
-Example output
+Example output:
 +
 ----
 QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k
 ----
 
-. Verify that the  ql2xnvmeenable parameter is set to 1:
+. Verify that the `ql2xnvmeenable` parameter is set to 1:
 +
 ----
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
+1
 ----
 
 == Configure NVMe/TCP
@@ -211,7 +212,8 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 nvme discover -t tcp -w host-traddr  -a traddr
 ----
 +
-Example 
+Example output:
++
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.31
 
@@ -246,7 +248,7 @@ traddr: 192.168.2.36 sectype: none
 nvme discover -t tcp -w host-traddr  -a traddr
 ----
 +
-For example:
+Example output:
 +
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.32 
@@ -329,8 +331,10 @@ Namespace	Usage		Format		FW			Rev
 nvme list-subsys /dev/subsystem_name
 ----
 +
-Example output for NVMe/FC hosts:
-+
+[role="tabbed-block"]
+====
+.Example output for NVMe/FC hosts
+--
 ----
 # nvme list-subsys /dev/nvme1n1 nvme-subsys1 - NQN=nqn.1992-
 08.com.netapp:sn.04ba0732530911ea8e8300a098dfdd91:subsystem.nvme_145_1
@@ -340,10 +344,10 @@ Example output for NVMe/FC hosts:
 +- nvme4 fc traddr=nn-0x208100a098dfdd91:pn- 0x208400a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e live non-optimized
 +- nvme6 fc traddr=nn-0x208100a098dfdd91:pn- 0x208300a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f live non-optimized
 ----
-+
+--
 
-Example output for NVMe/TCP hosts:
-+
+.Example output for NVMe/TCP hosts:
+--
 ----
 nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:subsystem.nvme_114_tcp_1
@@ -357,7 +361,8 @@ nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 +- nvme30 tcp traddr=192.168.2.37 trsvcid=4420,host_traddr=192.168.2.5 live non-optimized
 +- nvme31 tcp traddr=192.168.1.32 trsvcid=4420,host_traddr=192.168.2.5 live non-optimize live non-optimized
 ----
-
+--
+====
 . Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. 
 +
 [role="tabbed-block"]
@@ -368,10 +373,8 @@ nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 
 `nvme netapp ontapdevices -o column`
 
-+
-----
 Example output: 
-+
+
 ----
 Device	Vserver	Namespace Path
 -----------------------------------------------------
@@ -388,9 +391,8 @@ NSID	UUID							Size
 
 `nvme netapp ontapdevices -o json`
 
-+
-----
 Example output:
+----
 {
 "ONTAPdevices" : [
 {
@@ -686,9 +688,10 @@ nvme-subsys1 - NQN=nqn.1992- 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:s
 +- nvme3 tcp traddr=192.168.2.116,trsvcid=4420,host_traddr=192.168.2.16 live
 +- nvme4 tcp traddr=192.168.1.116,trsvcid=4420,host_traddr=192.168.1.16 live
 ----
-
-5.	nvme list-subsys /dev/nvme1n1 
-
++
+----
+nvme list-subsys /dev/nvme1n1 
+----
 +
 ----
 nvme-subsys1 - NQN=nqn.1992-
@@ -714,7 +717,7 @@ cat /sys/class/nvme-subsystem/nvme-subsys1/nvme4/dhchap_ctrl_secret
 
 == Troubleshooting
 
-Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
+Before troubleshooting any NVMe/FC failure, verify that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
 
 === Enable verbose logging
 
