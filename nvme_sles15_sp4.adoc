@@ -17,7 +17,8 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 
    
 [.lead]
-NVMe over Fabrics (NVMe-oF) is supported with SUSE Linux Enterprise Server (SLES) 15 SP4.
+NVMe over Fabrics (NVMe-oF) is supported with SUSE Linux Enterprise Server (SLES) 15 SP4. 
+
 With ONTAP 9.5 and later, Asymmetric Namespace Access (ANA) is enabled by default for multipathing. ANA is the NVMe equivalent of ALUA for FC and iSCSI.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
@@ -359,29 +360,34 @@ nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 
 . Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. 
 +
-Verify with CLI
-+
------
-nvme netapp ontapdevices -o column
------
+[role="tabbed-block"]
+====
+
+.Verify with CLI
+--
+
+`nvme netapp ontapdevices -o column`
+
 +
 ----
 Example output: 
++
+----
 Device	Vserver	Namespace Path
----------------------------------------------
+-----------------------------------------------------
 /dev/nvme1n1 vserver_fcnvme_145 /vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns
 
 NSID	UUID							Size
 --------------------------------------------------------
 1		23766b68-e261-444e-b378-2e84dbe0e5e1	85.90GB
 ----
-+
+--
 
-Verify with JSON file
-+
-----
-nvme netapp ontapdevices -o json
-----
+.Verify with JSON file
+--
+
+`nvme netapp ontapdevices -o json`
+
 +
 ----
 Example output:
@@ -397,6 +403,8 @@ Example output:
 ]
 }
 ----
+--
+====
 
 == Discovery enhancements
 
@@ -476,6 +484,7 @@ nvme discover -t tcp -w host-traddr -a traddr -p
 ----
 +
 Example output:
++
 ----
 nvme discover -t tcp -w 192.168.1.16 -a 192.168.1.116 -p
 ----
