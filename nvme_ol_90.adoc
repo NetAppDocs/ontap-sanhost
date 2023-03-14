@@ -26,9 +26,8 @@ For additional details on supported configurations, see the link:https://mysuppo
 == Known limitations
 
 There are no known limitations.
-
  
-== Enable NVMe/FC with Oracle Linux 9.0
+== Enable in-kernel NVMe multipath
 
 You can enable the NVMe/FC in-kernel multipath using the following procedure.
 
@@ -207,7 +206,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
-<<specify the command>>
+<<specify the command>> nvme discover -t tcp -w host-traddr -a traddr -p
 ----
 *Example output:*
 +
@@ -261,7 +260,7 @@ sectype: none
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
 +
 ----
-<<specify the command>>
+<<specify the command>> nvme discover -t tcp -w host-traddr -a traddr -p
 ----
 +
 *Example output:*
@@ -312,6 +311,10 @@ round-robin
 +
 ----
 # nvme list
+----
++
+Example output:
+----
 Node         SN                   Model                          
 ---------------------------------------------------------  
 /dev/nvme0n1 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller
@@ -330,6 +333,11 @@ Namespace Usage    Format             FW             Rev
 +
 ----
 # nvme list-subsys /dev/nvme0n1
+----
++
+Example output:
++
+----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_ss_ol_1
 \
 +- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
@@ -342,7 +350,11 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +
 ----
 # nvme netapp ontapdevices -o column
-
+----
++
+Example output:
++
+----
 Device        Vserver   Namespace Path                                                          
 ----------------------- ------------------------------ 
 /dev/nvme0n1   vs_ol_nvme  /vol/ol_nvme_vol_1_1_0/ol_nvme_ns              
@@ -401,9 +413,9 @@ NSID       UUID                                   Size
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 |1517321
 
-|Oracle Linux 8.6 NVMe-oF Hosts create duplicate Persistent Discovery Controllers
+|Oracle Linux 9.0 NVMe-oF Hosts create duplicate Persistent Discovery Controllers
 
-|On Oracle Linux 8.6 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.6 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target.
+|On Oracle Linux 9.0 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.6 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target.
 |18118
 |===
 
@@ -411,13 +423,11 @@ NSID       UUID                                   Size
 
 == Troubleshooting
 
-Before commencing any troubleshooting for any NVMe/FC failures, make sure that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
+Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
 
 === lpfc verbose logging
 
-
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
-
 
 === qla2xxx verbose logging
 
