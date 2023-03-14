@@ -18,13 +18,26 @@ summary: Describes how to use Oracle Linux 9.0 with ONTAP
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+== SAN toolkit
 
-== SAN Toolkit
+The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the sanlun utility, which helps you manage LUNs and HBAs. The sanlun command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
-include::_include/hu/reuse_hu_san_toolkit.adoc[]
+In the following example, the sanlun lun show command returns LUN information.
+----
+# sanlun lun show all
+----
+Example output:
+----
+controller(7mode/E-Series)/            device     host               lun
+vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
+-------------------------------------------------------------------------
+data_vserver          /vol/vol1/lun1   /dev/sdb   host16   FCP       80.0g  cDOT
+data_vserver          /vol/vol1/lun1   /dev/sdc   host15   FCP       80.0g  cDOT
+data_vserver          /vol/vol2/lun2   /dev/sdd   host16   FCP       80.0g  cDOT
+data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
+----
 
-== SAN Booting
+== SAN booting
 
 .What you'll need
 
@@ -38,22 +51,7 @@ For Oracle Linux (OL) 9.0 the `/etc/multipath.conf` file must exist, but you do 
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
-The following sections provide sample multipath output for a LUN mapped non-ASA personas.
-
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
-
-----
-# multipath -ll
-3600a098038303634ffb2b2d59646c4436 dm-28 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-`-+- policy='service-time 0' prio=50 status=active
-|- 11:0:7:1    sdfi   130:64   active ready running
-|- 11:0:9:1    sdiy  8:288     active ready running
-|- 11:0:10:1  sdml 69:464   active ready running
-|- 11:0:11:1  sdpt  131:304  active ready running
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+The following sections provide sample multipath output for a LUN mapped to ASA and non-ASA personas.
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
@@ -69,6 +67,21 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 ----
 
 NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
+
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a098038303634ffb2b2d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+|- 11:0:7:1    sdfi   130:64   active ready running
+|- 11:0:9:1    sdiy  8:288     active ready running
+|- 11:0:10:1  sdml 69:464   active ready running
+|- 11:0:11:1  sdpt  131:304  active ready running
+----
+
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 
 == Recommended settings
@@ -123,7 +136,7 @@ devices {
 
 NOTE: To configure Oracle Linux 9.0 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_86.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.0.
 
-== KVM Settings
+== KVM settings
 
 You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
 
