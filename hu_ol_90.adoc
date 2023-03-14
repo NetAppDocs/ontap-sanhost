@@ -27,13 +27,14 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 == SAN Booting
 
 .What you'll need
+
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Oracle Linux (OL) 8.6 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 8.6 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Oracle Linux (OL) 9.0 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.0 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
@@ -43,14 +44,13 @@ include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 ----
 # multipath -ll
-3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+3600a098038303634ffb2b2d59646c4436 dm-28 NETAPP,LUN C-Mode
 size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-|-+- policy='service-time 0' prio=50 status=active
-| |- 16:0:6:35 sdwb 69:624 active ready running
-| |- 16:0:5:35 sdun 66:752 active ready running
-|-+- policy='service-time 0' prio=10 status=enabled
-|- 15:0:0:35 sdaj 66:48 active ready running
-|- 15:0:1:35 sdbx 68:176 active ready running
+`-+- policy='service-time 0' prio=50 status=active
+|- 11:0:7:1    sdfi   130:64   active ready running
+|- 11:0:9:1    sdiy  8:288     active ready running
+|- 11:0:10:1  sdml 69:464   active ready running
+|- 11:0:11:1  sdpt  131:304  active ready running
 ----
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
@@ -71,9 +71,9 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
 
 
-== Recommended Settings
+== Recommended settings
 
-The Oracle Linux 8.6 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
+The Oracle Linux 9.0 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -121,14 +121,19 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.6 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_86.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.6.
+NOTE: To configure Oracle Linux 9.0 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_86.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.0.
 
 == KVM Settings
 
 You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
 
-== Known Problems and Limitations
+== Known issues
 
-There are no known issues for Oracle Linux 8.6.
+There are no known issues for Oracle Linux 9.0.
 
-NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_86.html#known-problems-and-limitations[known issues] section in the corresponding Red Hat Enterprise Linux release documentation.
+== Release Notes
+
+=== ASM Mirroring
+
+ASM mirroring might require changes to the Linux multipath settings to allow ASM to recognize a problem and switch over to an alternate failure group. Most ASM configurations on ONTAP use external redundancy, which means that data protection is provided by the external array and ASM does not mirror data. Some sites use ASM with normal redundancy to provide two-way mirroring, normally across different sites. See Oracle Databases on ONTAP for further information.
+

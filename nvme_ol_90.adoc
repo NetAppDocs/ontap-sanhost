@@ -415,7 +415,7 @@ NSID       UUID                                   Size
 
 |Oracle Linux 9.0 NVMe-oF Hosts create duplicate Persistent Discovery Controllers
 
-|On Oracle Linux 9.0 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.6 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target.
+|On Oracle Linux 9.0 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 9.0 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target.
 |18118
 |===
 
@@ -425,13 +425,28 @@ NSID       UUID                                   Size
 
 Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
 
-=== lpfc verbose logging
+=== Enable verbose logging
+
+If you have an issue with your configuration, verbose logging can provide valuable information essential for troubleshooting.
+
+.Steps
+
+The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the procedure to set LPFC verbose logging.
+
+[role="tabbed-block"]
+====
+
+.LPFC
+--
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+--
 
-=== qla2xxx verbose logging
-
+.Qla2xxx 
+--
 include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
+--
+====
 
 include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
 
