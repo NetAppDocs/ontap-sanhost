@@ -43,19 +43,27 @@ You need to check the ESXi host NQN string and verify that it matches with the h
 
 ----
 # esxcli nvme  info get
+----
+Example output:
+----
 Host NQN: nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f1a436
+----
 
+----
 # vserver nvme subsystem host show -vserver nvme_fc
+----
+Example output:
+----
 Vserver Subsystem Host NQN
 ------- --------- ----------------------------------------------------------
 nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f1a436
 ----
 
-=== Configure Broadcom/Emulex
+== Configure Broadcom/Emulex
 
 .Steps
 
-. Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. Check whether the configuration is supported with required driver or firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 . Set the `lpfc` driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
 
@@ -63,14 +71,22 @@ nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f
 ====
 * With vSphere 8.0, the `brcmnvmefc` driver is no longer available. The `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) functionality previously delivered with the `brcmnvmefc` driver.
 
-* The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You need to perform the following command to set it manually for LPe32000-series and LPe31000-series adapters.
+* The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You need to execute the following command to set the parameter manually for LPe32000-series and LPe31000-series adapters.
 +
 ----
 # esxcli system module parameters set -m lpfc -p lpfc_enable_fc4_type=3
 # esxcli system module parameters list  -m lpfc | grep lpfc_enable_fc4_type
 
 lpfc_enable_fc4_type              int            Defines what FC4 types are supported
+----
++
+----
 # esxcli storage core adapter list
+----
++
+Example output
++
+----
 
 HBA Name  Driver      Link State  UID                                   
 --------  ----------  ----------  ------------------------------------  
@@ -96,28 +112,32 @@ Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Cha
 ----
 ====
 
-=== Configure Marvell/QLogic
+== Configure Marvell/QLogic
 
 .Steps
 
-. Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. Check whether the configuration is supported with required driver or firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 . Set the `qlnativefc` driver parameter `ql2xnvmesupport=1` to enable NVMe/FC support in the `qlnativefc` driver and reboot the host.
 +
 `# esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc`
 +
-The `qlnativefc` driver parameter is set by default for the Qle 277x-series adapters. You must perform the following command to set it manually for Qle 277x series adapters.
+The `qlnativefc` driver parameter is set by default for the Qle 277x-series adapters. You must execute the following command to set the parameter manually for Qle 277x series adapters.
 +
 ----
 esxcfg-module -l | grep qlnativefc
 qlnativefc               4    1820
 ----
 
-
-. Check whether nvme is enabled on the adapter:
+. Check whether NVMe is enabled on the adapter:
 +
 ----
 # esxcli storage core adapter list
+----
++
+Example output:
++
+----
 HBA Name  Driver      Link State  UID                                   
 --------  ----------  ----------  ------------------------------------  
 vmhba0    vmw_ahci    link-n/a    sata.vmhba0                                                
@@ -141,10 +161,15 @@ Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Cha
 
 .Steps
 
-. Verify that NVMe/FC adapter is listed on the ESXi host:
+. Verify that the NVMe/FC adapter is listed on the ESXi host:
 +
 ----
 # esxcli nvme adapter list
+----
++
+Example output:
++
+----
 Adapter  Adapter Qualified Name           Transport Type  Driver      Associated Devices
 -------  -------------------------------  --------------  ----------  ------------------
 vmhba64  aqn:qlnativefc:21000024ff7f4a50  FC              qlnativefc
@@ -166,7 +191,7 @@ uuid.116cb7ed9e574a0faf35ac2ec115969d : NVMe Fibre Channel Disk (uuid.116cb7ed9e
 +
 [NOTE] 
 ====
-In ONTAP 9.7, the default block size for a NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you must set the namespace block size as 512b. You can do this using the `vserver nvme namespace create` command.
+In ONTAP 9.7, the default block size for an NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you need to set the namespace block size as 512b. You can do this using the `vserver nvme namespace create` command.
 
 Example,
 
@@ -212,16 +237,21 @@ fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2007d039ea3ab21f-uuid.4
 
 == Configure NVMe/TCP
 
-In ESXi 8.0, the required NVMe/TCP modules will be loaded by default. To configure the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
+In ESXi 8.0, the required NVMe/TCP modules is loaded by default. To configure the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
 
 == Validate NVMe/TCP
 
 .Steps
 
-. Verify the status of the NVMe/TCP adapter.
+. Verify the status of the NVMe/TCP adapter:
 +
 ----
 esxcli nvme adapter list
+----
++
+Example output:
++
+----
 Adapter  Adapter Qualified Name           Transport Type  Driver   Associated Devices
 -------  -------------------------------  --------------  -------  ------------------
 vmhba65  aqn:nvmetcp:ec-2a-72-0f-e2-30-T  TCP             nvmetcp  vmnic0
@@ -229,27 +259,48 @@ vmhba66  aqn:nvmetcp:34-80-0d-30-d1-a0-T  TCP             nvmetcp  vmnic2
 vmhba67  aqn:nvmetcp:34-80-0d-30-d1-a1-T  TCP             nvmetcp  vmnic3
 ----
 
-. To list the NVMe/TCP connections, use the following command:
+. Retrieve a list of NVMe/TCP connections:
 +
 ----
 esxcli nvme controller list
-Name    Controller Number  Adapter  Transport Type  Is Online  Is VVOL
---------------------------------------------------------------------------------------------------------  -----------------  -------  -----
-nqn.2014-08.org.nvmexpress.discovery#vmhba66#192.168.100.123:8009    259  vmhba66  TCP                  true    false
-nqn.2014-08.org.nvmexpress.discovery#vmhba67#192.168.101.125:8009                                                       262  vmhba67  TCP                  true    false
-                     nqn.2014-08.org.nvmexpress.discovery#vmhba67#192.168.101.124:8009                                                       263  vmhba67  TCP                  true    false
-                     nqn.2014-08.org.nvmexpress.discovery#vmhba66#192.168.100.124:8009                                                       264  vmhba66  TCP                  true    false
-                     nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba66#192.168.100.123:4420                266  vmhba66  TCP                  true    false
-                     nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba67#192.168.101.125:4420                267  vmhba67  TCP                  true    false
-                     nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba66#192.168.100.124:4420                270  vmhba66  TCP                  true    false
-                     nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba67#192.168.101.124:4420                271  vmhba67  TCP                  true    false
+----
++
+Example output:
++
+----
+Name                                                                                                      Controller Number  
+------------------------------------------------------------------------------------------------------------------------------
+nqn.2014-08.org.nvmexpress.discovery#vmhba66#192.168.100.123:8009                                                       259  
+nqn.2014-08.org.nvmexpress.discovery#vmhba67#192.168.101.125:8009                                                       262  
+nqn.2014-08.org.nvmexpress.discovery#vmhba67#192.168.101.124:8009                                                       263  
+nqn.2014-08.org.nvmexpress.discovery#vmhba66#192.168.100.124:8009                                                       264  
+nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba66#192.168.100.123:4420                266  
+nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba67#192.168.101.125:4420                267  
+nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba66#192.168.100.124:4420                270  
+nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba67#192.168.101.124:4420                271  
+
+Adapter  Transport Type  Is Online  Is VVOL
+----------------------------------------------
+vmhba66  TCP                  true    false
+vmhba67  TCP                  true    false
+vmhba67  TCP                  true    false
+vmhba66  TCP                  true    false
+vmhba66  TCP                  true    false
+vmhba67  TCP                  true    false
+vmhba66  TCP                  true    false
+vmhba67  TCP                  true    false
 
 ----
 
-. To list the number of paths to an NVMe namespace, use the following command:
+. Retrieve a list of the number of paths to an NVMe namespace:
 +
 ----
 esxcli storage hpp path list -d uuid.7caba9dea0b34b27b1c14722dc36b0ad
+----
++
+Example output:
++
+----
 tcp.vmnic3:34:80:0d:30:d1:a1-tcp.192.168.101.125:4420-uuid.7caba9dea0b34b27b1c14722dc36b0ad
    Runtime Name: vmhba67:C0:T0:L1
    Device: uuid.7caba9dea0b34b27b1c14722dc36b0ad

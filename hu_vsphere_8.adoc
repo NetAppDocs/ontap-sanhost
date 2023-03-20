@@ -15,7 +15,7 @@ summary: Describes how to use Veritas Infoscale 8.8 for Linux with ONTAP
 :imagesdir: ./media/
 
 == Introduction
-This document provides guidance on ONTAP SAN host configuration settings for the vSphere 8.x release with FC, FCoE, and iSCSI protocols.
+This document provides guidance on ONTAP SAN host configuration settings for the VMware vSphere 8.x release with FC, FCoE, and iSCSI protocols.
 
 == Hypervisor SAN booting
 
@@ -26,13 +26,16 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-ESXi provides an extensible multipathing module called Native Multipathing Plug-In (NMP) that manages the sub-plugins Storage Array Type Plugins (SATPs) and Path Selection Plugins (PSPs). By default, these SATP rules are available in ESXi.
+ESXi provides an extensible multipathing module called Native Multipathing Plug-In (NMP) that manages the sub-plugins, Storage Array Type Plugins (SATPs) and Path Selection Plugins (PSPs). By default, these SATP rules are available in ESXi.
 
-For NetApp ONTAP storage, `VMW_SATP_ALUA` plugin is used by default with `VMW_PSP_RR` as a path selection policy (PSP). This can be confirmed by using the following command.
+For NetApp ONTAP storage, `VMW_SATP_ALUA` plugin is used by default with `VMW_PSP_RR` as a path selection policy (PSP). You can confirm by using the following command:
 
 ----
 *`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
-
+----
+Example output:
++
+----
 Name           Device  Vendor    Model         Driver  Transport  Options
 ---------------------------------------------------------------------------------                     
 VMW_SATP_ALUA          LSI       INF-01-00                        reset_on_attempted_reserve  system      
@@ -41,8 +44,7 @@ VMW_SATP_ALUA          NETAPP                                     reset_on_attem
 Rule Group  Claim Options  Default PSP  PSP Options     Description
 ------------------------------------------------------------------
 tpgs_on        VMW_PSP_MRU                  NetApp E-Series arrays with ALUA support
-tpgs_on        VMW_PSP_RR                   NetApp arrays with ALUA support
-                                                                                                                                          
+tpgs_on        VMW_PSP_RR                   NetApp arrays with ALUA support                                                                                                                                         
 ----
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
@@ -79,6 +81,9 @@ include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
 ----
 *`esxcli storage nmp device list -d naa.600a098038304759563f4e7837574453`*
+----
+Example output:
+----
 
 naa.600a098038304759563f4e7837574453
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304759563f4e7837574453)
