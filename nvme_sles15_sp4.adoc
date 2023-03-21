@@ -280,6 +280,7 @@ For example:
 +
 ----
 cat /sys/module/nvme_core/parameters/multipath
+Y
 ----
 
 . Verify that the host has the correct controller model for the ONTAP NVMe namespaces:
@@ -558,15 +559,6 @@ DHHC-
 1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh 3nVBe19nQ/LxreSBeH/bx/pU=:
 ----
 
-. Generate the `dhchap` key for the controller:
-+
-----
-nvme gen-dhchap-key -s optiona_secret -l key_length {32|48|64}  -m HMAC_function {0|1|2|3}  -n host_nqn 
-----
-+
-[NOTE] 
-During NVMe connect, you can use the `-S` option to input your user-defined `dhchap` key for the host and the `-C` option to input the `dhchap` key for the controller.
-
 . On the ONTAP controller, add the host and specify both `dhchap` keys:
 +
 ----
@@ -579,31 +571,6 @@ vserver nvme subsystem host add -vserver svm_name -subsystem subsystem -host-nqn
 nvme connect -t tcp -w ip_address -a ip_address -n host_nqn -S authentication_host_secret -C authentication_controller_secret 
 ----
 
-. Verify that the authentication keys are registered in the host `sysfs` file:
-+
-----
-nvme list 
-nvme list-subsys 
-nvme list-subsys /dev/nvem0n1
-----
-+
-Example output:
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret DHHC-1:01:NunEWY7AZlXqxITGheByarwZdQvU4ebZg9HOjIr6nOHEkxJg:
-
-
-# cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret DHHC-
-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5f OAtaU3DNi12rieRMfdbg3704=:
-----
-+
-[NOTE]
-The above command shows the dhchap host key while the second shows the dhchap ctrl key applied for that specific subsystem on the host.
-+
-[NOTE]
-`nvme list` command returns all available namespaces on the host.
-`nvme list-subsys` command returns all available NVMe controllers on the host.
-`nvme list-subsys /dev/nvmeXnY` returns all the available subsystems along with its ANA/path states for that particular namespace nvmeXnY on the host.
 --
 
 .JSON file
@@ -648,8 +615,7 @@ Note that `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corr
 
 . Connect to the ONTAP controller using the config JSON file.
 +
-The discovery options from the `/etc/nvme/discovery.conf` file are automatically selected.
-+
+
 ----
 nvme connect-all -J /etc/nvme/config.json
 ----
@@ -674,35 +640,6 @@ traddr=192.168.1.117 is already connected
 . Verify that the dhcap secrets have been enabled for the respective controllers for each subsystem:
 +
 ----
-nvme list
-nvme list-subsys
-----
-+
-Example output:
-+
-----
-nvme-subsys1 - NQN=nqn.1992- 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
-\
-+- nvme1 tcp traddr=192.168.2.117,trsvcid=4420,host_traddr=192.168.2.16 live
-+- nvme2 tcp traddr=192.168.1.117,trsvcid=4420,host_traddr=192.168.1.16 live
-+- nvme3 tcp traddr=192.168.2.116,trsvcid=4420,host_traddr=192.168.2.16 live
-+- nvme4 tcp traddr=192.168.1.116,trsvcid=4420,host_traddr=192.168.1.16 live
-----
-+
-----
-nvme list-subsys /dev/nvme1n1 
-----
-+
-----
-nvme-subsys1 - NQN=nqn.1992-
-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
-\
-+- nvme1 tcp traddr=192.168.2.117,trsvcid=4420,host_traddr=192.168.2.16 live non-optimized
-+- nvme2 tcp traddr=192.168.1.117,trsvcid=4420,host_traddr=192.168.1.16 live non-optimized
-+- nvme3 tcp traddr=192.168.2.116,trsvcid=4420,host_traddr=192.168.2.16 live optimized
-+- nvme4 tcp traddr=192.168.1.116,trsvcid=4420,host_traddr=192.168.1.16 live optimized
-
-
 cat /sys/class/nvme-subsystem/nvme-subsys1/nvme1/dhchap_secret
 cat /sys/class/nvme-subsystem/nvme-subsys1/nvme1/dhchap_ctrl_secret
 cat /sys/class/nvme-subsystem/nvme-subsys1/nvme2/dhchap_secret
