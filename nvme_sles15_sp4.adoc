@@ -336,31 +336,33 @@ nvme list-subsys /dev/subsystem_name
 ====
 .Example output for NVMe/FC hosts
 --
+[subs=+quotes]
 ----
 # nvme list-subsys /dev/nvme1n1 nvme-subsys1 - NQN=nqn.1992-
 08.com.netapp:sn.04ba0732530911ea8e8300a098dfdd91:subsystem.nvme_145_1
 \
-+- nvme2 fc traddr=nn-0x208100a098dfdd91:pn- 0x208200a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f live optimized
-+- nvme3 fc traddr=nn-0x208100a098dfdd91:pn- 0x208500a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e live optimized
-+- nvme4 fc traddr=nn-0x208100a098dfdd91:pn- 0x208400a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e live non-optimized
-+- nvme6 fc traddr=nn-0x208100a098dfdd91:pn- 0x208300a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f live non-optimized
++- nvme2 fc traddr=nn-0x208100a098dfdd91:pn- 0x208200a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f *live optimized*
++- nvme3 fc traddr=nn-0x208100a098dfdd91:pn- 0x208500a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e *live optimized*
++- nvme4 fc traddr=nn-0x208100a098dfdd91:pn- 0x208400a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e *live non-optimized*
++- nvme6 fc traddr=nn-0x208100a098dfdd91:pn- 0x208300a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f *live non-optimized*
 ----
 --
 
 .Example output for NVMe/TCP hosts:
 --
+[subs=+quotes]
 ----
 nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:subsystem.nvme_114_tcp_1
 \
-+- nvme0 tcp traddr=192.168.2.36 trsvcid=4420,host_traddr=192.168.1.4 live optimized
-+- nvme1 tcp traddr=192.168.1.31 trsvcid=4420,host_traddr=192.168.1.4 live optimized
-+- nvme10 tcp traddr=192.168.2.37 trsvcid=4420,host_traddr=192.168.1.4 live non-optimized
-+- nvme11 tcp traddr=192.168.1.32 trsvcid=4420,host_traddr=192.168.1.4 live non-optimized
-+- nvme20 tcp traddr=192.168.2.36 trsvcid=4420,host_traddr=192.168.2.5 live optimized
-+- nvme21 tcp traddr=192.168.1.31 trsvcid=4420,host_traddr=192.168.2.5 live optimized
-+- nvme30 tcp traddr=192.168.2.37 trsvcid=4420,host_traddr=192.168.2.5 live non-optimized
-+- nvme31 tcp traddr=192.168.1.32 trsvcid=4420,host_traddr=192.168.2.5 live non-optimize live non-optimized
++- nvme0 tcp traddr=192.168.2.36 trsvcid=4420,host_traddr=192.168.1.4 *live optimized*
++- nvme1 tcp traddr=192.168.1.31 trsvcid=4420,host_traddr=192.168.1.4 *live optimized*
++- nvme10 tcp traddr=192.168.2.37 trsvcid=4420,host_traddr=192.168.1.4 *live non-optimized*
++- nvme11 tcp traddr=192.168.1.32 trsvcid=4420,host_traddr=192.168.1.4 *live non-optimized*
++- nvme20 tcp traddr=192.168.2.36 trsvcid=4420,host_traddr=192.168.2.5 *live optimized*
++- nvme21 tcp traddr=192.168.1.31 trsvcid=4420,host_traddr=192.168.2.5 *live optimized*
++- nvme30 tcp traddr=192.168.2.37 trsvcid=4420,host_traddr=192.168.2.5 *live non-optimized*
++- nvme31 tcp traddr=192.168.1.32 trsvcid=4420,host_traddr=192.168.2.5 *live non-optimized*
 ----
 --
 ====
@@ -397,11 +399,11 @@ Example output:
 {
 "ONTAPdevices" : [
 {
-"Device" : "/dev/nvme1n1", "Vserver" : "vserver_fcnvme_145",
-"Namespace_Path" : "/vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns", "NSID" : 1,
-"UUID" : "23766b68-e261-444e-b378-2e84dbe0e5e1", "Size" : "85.90GB",
-"LBA_Data_Size" : 4096,
-"Namespace_Size" : 20971520
+  "Device" : "/dev/nvme1n1", "Vserver" : "vserver_fcnvme_145",
+  "Namespace_Path" : "/vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns", "NSID" : 1,
+  "UUID" : "23766b68-e261-444e-b378-2e84dbe0e5e1", "Size" : "85.90GB",
+  "LBA_Data_Size" : 4096,
+  "Namespace_Size" : 20971520
 }
 ]
 }
@@ -582,34 +584,52 @@ Note that `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corr
 . Configure the JSON file.
 +
 ----
-# cat /etc/nvme/config.json [
-{
-"hostnqn":"nqn.2014-08.org.nvmexpress:uuid:12372496-59c4-4d1b- be09-"hostid":"3ae10b42-21af-48ce-a40b-cfb5bad81839",
-"dhchap_key":"dhchap_secret
-},
-{
-"hostnqn":"nqn.2014-08.org.nvmexpress:uuid:12372496-59c4-4d1b- be09-74362c0c1afc",
-"subsystems":[
-{
-"nqn":"nqn.1992- 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116",
-"ports":[
-{
-"transport":"tcp", "traddr":"192.168.1.117",
-"host_traddr":"192.168.1.16", "trsvcid":"4420", "dhchap_ctrl_key":"dhchap_ctrl_secret"
-},
-{
-"transport":"tcp", "traddr":"192.168.1.116",
-"host_traddr":"192.168.1.16", "trsvcid":"4420", "dhchap_ctrl_key":" dhchap_ctrl_secret "
-},
-{
-"transport":"tcp", "traddr":"192.168.2.117",
-"host_traddr":"192.168.2.16", "trsvcid":"4420", "dhchap_ctrl_key":" dhchap_ctrl_secret "
-},
-{
-"transport":"tcp", "traddr":"192.168.2.116",
-"host_traddr":"192.168.2.16", "trsvcid":"4420", "dhchap_ctrl_key":"DHHC-
-1:01:0h58bcT/uu0rCpGsDYU6ZHZvRuVqsYKuBRS0Nu0VPx5HEwaZ:"
-}
+# cat /etc/nvme/config.json 
+[
+ {
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:12372496-59c4-4d1b-be09-74362c0c1afc",
+    "hostid":"3ae10b42-21af-48ce-a40b-cfb5bad81839",
+    "dhchap_key":"DHHC-1:03:Cu3ZZfIz1WMlqZFnCMqpAgn/T6EVOcIFHez215U+Pow8jTgBF2UbNk3DK4wfk2EptWpna1rpwG5CndpOgxpRxh9m41w=:"
+ },
+
+ {
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:12372496-59c4-4d1b-be09-74362c0c1afc",
+    "subsystems":[
+        {
+            "nqn":"nqn.1992-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIENT116",
+            "ports":[
+               {
+                    "transport":"tcp",
+                    "traddr":"192.168.1.117",
+                    "host_traddr":"192.168.1.16",
+                    "trsvcid":"4420",
+                    "dhchap_ctrl_key":"DHHC-1:01:0h58bcT/uu0rCpGsDYU6ZHZvRuVqsYKuBRS0Nu0VPx5HEwaZ:"
+               },
+               {
+                    "transport":"tcp",
+                    "traddr":"192.168.1.116",
+                    "host_traddr":"192.168.1.16",
+                    "trsvcid":"4420",
+                    "dhchap_ctrl_key":"DHHC-1:01:0h58bcT/uu0rCpGsDYU6ZHZvRuVqsYKuBRS0Nu0VPx5HEwaZ:"
+               },
+               {
+                    "transport":"tcp",
+                    "traddr":"192.168.2.117",
+                    "host_traddr":"192.168.2.16",
+                    "trsvcid":"4420",
+                    "dhchap_ctrl_key":"DHHC-1:01:0h58bcT/uu0rCpGsDYU6ZHZvRuVqsYKuBRS0Nu0VPx5HEwaZ:"
+               },
+               {
+                    "transport":"tcp",
+                    "traddr":"192.168.2.116",
+                    "host_traddr":"192.168.2.16",
+                    "trsvcid":"4420",
+                    "dhchap_ctrl_key":"DHHC-1:01:0h58bcT/uu0rCpGsDYU6ZHZvRuVqsYKuBRS0Nu0VPx5HEwaZ:"
+               }
+           ]
+       }
+   ]
+ }
 ]
 ----
 
@@ -640,14 +660,23 @@ traddr=192.168.1.117 is already connected
 . Verify that the dhcap secrets have been enabled for the respective controllers for each subsystem:
 +
 ----
-cat /sys/class/nvme-subsystem/nvme-subsys1/nvme1/dhchap_secret
-cat /sys/class/nvme-subsystem/nvme-subsys1/nvme1/dhchap_ctrl_secret
-cat /sys/class/nvme-subsystem/nvme-subsys1/nvme2/dhchap_secret
-cat /sys/class/nvme-subsystem/nvme-subsys1/nvme2/dhchap_ctrl_secret
-cat /sys/class/nvme-subsystem/nvme-subsys1/nvme3/dhchap_secret
-cat /sys/class/nvme-subsystem/nvme-subsys1/nvme3/dhchap_ctrl_secret
-cat /sys/class/nvme-subsystem/nvme-subsys1/nvme4/dhchap_secret
-cat /sys/class/nvme-subsystem/nvme-subsys1/nvme4/dhchap_ctrl_secret
+# cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
+----
++
+Example output:
++
+----
+DHHC-1:01:NunEWY7AZlXqxITGheByarwZdQvU4ebZg9HOjIr6nOHEkxJg:
+----
++
+----
+# cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
+----
++
+Example output:
++
+----
+DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAtaU3DNi12rieRMfdbg3704=:
 ----
 --
 ====
