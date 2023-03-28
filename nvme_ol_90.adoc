@@ -208,6 +208,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
++
 *Example output:*
 +
 ----
@@ -278,6 +279,8 @@ nvme discover -t tcp -w host-traddr -a traddr
 nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 ----
 +
+*Example output:*
++
 ----
 # nvme connect-all -t tcp -w 192.168.5.13 -a 192.168.5.15 -l 1800
 # nvme connect-all -t tcp -w 192.168.5.13 -a 192.168.5.17 -l 1800
@@ -335,7 +338,7 @@ Namespace Usage    Format             FW             Rev
 # nvme list-subsys /dev/nvme0n1
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_ss_ol_1
@@ -352,7 +355,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 # nvme netapp ontapdevices -o column
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 Device        Vserver   Namespace Path                                                          
@@ -416,7 +419,7 @@ NSID       UUID                                   Size
 |Oracle Linux 9.0 NVMe-oF Hosts create duplicate Persistent Discovery Controllers
 
 |On Oracle Linux 9.0 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 9.0 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target.
-|18118
+|https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 
 
