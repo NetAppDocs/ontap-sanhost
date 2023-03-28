@@ -27,7 +27,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 There are no known limitations.
  
-== Validate NVMe/FC
+== Validate NVMe version
 
 You can validate the NVMe version using the following procedure.
 
@@ -85,9 +85,6 @@ vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8
 +
 [NOTE]
 If the `hostnqn` strings do not match, you should use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
-
-. Reboot the host.
-
 
 == Configure NVMe/FC
 
