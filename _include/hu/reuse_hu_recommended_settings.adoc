@@ -6,7 +6,7 @@ The first time you create this file, you might need to enable and start the mult
 # systemctl enable multipathd
 # systemctl start multipathd
 ----
-There is no requirement to add anything directly to `multipath.conf` file, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
+There is no requirement to add anything directly to the `multipath.conf` file, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
 
 You can add the following syntax to the `multipath.conf` file to exclude the unwanted devices.
 
@@ -22,7 +22,7 @@ blacklist {
 ....
 
 .Example
-In this example, `sda` is the local SCSI disk that we need to blacklist.
+In this example, `sda` is the local SCSI disk that we need to add to the blacklist.
 
 .Steps
 
@@ -43,6 +43,6 @@ blacklist {
 }
 ....
 
-You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that may be overriding default settings.
+You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that may be overriding the default settings.
 
-The table below shows the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in `multipath.conf` that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs may not work as expected. These defaults should only be overridden in consultation with NetApp and/or OS vendor and only when the impact is fully understood.
+The following table shows the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in the `multipath.conf` file that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs may not work as expected. These defaults should only be overridden in consultation with NetApp and/or OS vendor and only when the impact is fully understood.

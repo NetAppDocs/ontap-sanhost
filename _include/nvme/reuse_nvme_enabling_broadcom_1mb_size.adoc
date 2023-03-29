@@ -1,15 +1,17 @@
-The lpfc_sg_seg_cnt parameter must be set to 256 in order for the host to issue 1MB size I/O.
+The `lpfc_sg_seg_cnt` parameter must be set to 256 in order for the host to issue 1MB size I/O.
 
-.	 Set the `lpfc_sg_seg_cnt` parameter to 256.
+.Steps
+
+. Set the `lpfc_sg_seg_cnt` parameter to 256.
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
 options lpfc lpfc_sg_seg_cnt=256
 ----
 
-.	Run a `dracut -f` command, and reboot the host.
+. Run a `dracut -f` command, and reboot the host.
 
-.	Verify that `lpfc_sg_seg_cnt` is 256.
+. Verify that `lpfc_sg_seg_cnt` is 256.
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt

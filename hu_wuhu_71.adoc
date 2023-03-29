@@ -40,7 +40,7 @@ The following programs and files are installed on the Windows host computer. The
 
 == Configurations supported by Host Utilities
 
-The Host Utilities support different Windows host configurations, protocols and Multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+The Host Utilities support different Windows host configurations, protocols, and Multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 == Verify your host and storage system configuration
 Before you install the Host Utilities, you must verify that the Host Utilities version supports your host and storage system configuration so that the software installs correctly.
@@ -48,7 +48,11 @@ Before you install the Host Utilities, you must verify that the Host Utilities v
 .Steps
 
 . Check the supported configuration in the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
-. Check the hotfixes required for the respective host on the San Host Documentation.
+. Check the hotfixes required for the respective host on the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
++
+[NOTE]
+link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Using Windows server 2022 with ONTAP] provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the Host configurations category to find the relevant hotfix information for earlier versions of Windows server.
+
 . Add the iSCSI or FCP license and start the target service.
 +
 The Fibre Channel and iSCSI protocols do not require licenses on E-Series storage systems using SANtricity Storage Manager.
@@ -385,7 +389,7 @@ This section describes general troubleshooting techniques for Windows Host Utili
 * If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the Persistent Targets tab of the Microsoft iSCSI initiator GUI.
 * If applications using the LUNs display errors on startup, you must verify that the applications are configured to depend on the iSCSI service.
 * For Fibre Channel paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target LIFs, not the WWPNs of the physical ports on the node.
-* You must review the https://library.netapp.com/ecm/ecm_download_file/ECMLP2789205[Release Notes for Windows Host Utilities^] to check for known problems. The Release Notes include a list of known problems and limitations.
+* You must review the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_71_rn.html[Release Notes for Windows Host Utilities] to check for known problems. The Release Notes include a list of known problems and limitations.
 * You must review the troubleshooting information in the https://docs.netapp.com/ontap-9/index.jsp[SAN Administration Guide^] for your version of ONTAP.
 * You must search https://mysupport.netapp.com/site/bugs-online/[Bugs Online^] for recently discovered problems.
 * In the Bug Types field under Advanced Search, you should select ISCSI - Windows and then click Go. You should repeat the search for Bug Type FCP -Windows.

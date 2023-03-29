@@ -1,5 +1,5 @@
 
-. Install Windows Host Utility Kit 7.1 to set the driver parameters that are common to both FC and NVMe.
+. Install link:link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_71.html[Windows Host Utility Kit 7.1] to set the driver parameters that are common to both FC and NVMe.
 . Open the MPIO properties.
 . From the *Discover Multi-Paths* tab, add the device ID listed for NVMe.
 +

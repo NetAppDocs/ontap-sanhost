@@ -2,6 +2,8 @@ The NetApp Linux Unified Host Utilities software package is available on the lin
 
 Installing the Linux Unified Host Utilities is strongly recommended, but not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration.
 
+.Steps
+
 . If you have a version of Linux Unified Host Utilities currently installed, use the following command to remove it:
 +
 `rpm -e netapp_linux_unified_host_utilities-7-1`

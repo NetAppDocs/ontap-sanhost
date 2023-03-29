@@ -16,9 +16,11 @@ summary: Describes how to configure NVMe-oF for ESXi 7.x with ONTAP
 
 == Supportability
 
-* NVMe over Fibre Channel (NVMe/FC) is supported on ONTAP 9.7 or later.
-* Beginning with 7.0U3c and later, NVMe/TCP feature is supported for ESXi Hypervisor.
-* Beginning with ONTAP 9.10.1 and later, NVMe/TCP feature is supported for ONTAP.
+* Beginning with ONTAP 9.7, NVMe over Fibre Channel (NVMe/FC) support is added for VMWare vSphere releases.
+* Beginning with 7.0U3c, NVMe/TCP feature is supported for ESXi Hypervisor.
+* Beginning with ONTAP 9.10.1, NVMe/TCP feature is supported for ONTAP.
+
+//GitHub issue #113 
 
 == Features
 
@@ -76,6 +78,8 @@ vmhba65   lpfc     link-up     fc.200000109b954570:100000109b954570             
 
 
 === Configure Marvell/QLogic
+
+.Steps
 
 .	Check whether configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
@@ -233,7 +237,7 @@ tcp.vmnic3:34:80:Od:30:ca:el-tcp.unknown-uuid.400bf333abf74ab8b96dc18ffadc3f99
 
 == Known issue
 
-*	ESXi 7.0 U3 (and later) NVMe/FC support is available starting ONTAP 9.9.1 P3 onwards. This is due to key NVMe abort (issued by ESXi 7.0 U3 and later) fixes that is available starting ONTAP 9.9.1 P3 only. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
+*	ESXi 7.0 U3 (and later) NVMe/FC support is available starting with ONTAP 9.9.1 P3 and later because key NVMe abort fixes (issued by ESXi 7.0 U3 and later) are available starting with ONTAP 9.9.1 P3. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
 
 
 == Related Links

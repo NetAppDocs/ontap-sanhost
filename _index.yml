@@ -1,0 +1,56 @@
+
+indexpage:
+  lead: This content provides distribution-specific guidance on how to configure SAN clients connected to ONTAP storage. The SAN clients and ONTAP storage could reside either on-premises or in the cloud.
+
+  tiles:
+    - title: Get started
+      links:
+        - title: AIX host utilities release notes
+          url: /hu_aix_61_rn.html
+        - title: HP-UX host utilities release notes
+          url: /hu_hpux_60_rn.html
+        - title: Linux host utilities release notes
+          url: /hu_luhu_71_rn.html
+        - title: Solaris host utilities release notes
+          url: /hu_solaris_62_rn.html 
+        - title: Windows host utilities release notes
+          url: /hu_wuhu_71_rn.html                       
+    - title: FCP and iSCSI host configurations
+      links:
+        - title: VMware vSphere 7
+          url: /hu_vsphere_7.html 
+        - title: Red Hat Enterprise Linux 9.0
+          url: /hu_rhel_90.html
+        - title: SUSE Linux Enterprise Server 15 SP4
+          url: /hu_sles_15SP4.html 
+        - title: Windows Server 2022
+          url: /hu_windows_2022.html         
+        - title: IBM AIX 7.2 and PowerVM (VIOS 3.1)
+          url: /hu_aix_72.html
+        - title: Oracle Solaris 11.4
+          url: /hu_solaris_114.html
+
+    - title: NVMe-oF host configurations
+      links:
+        - title: VMware vSphere 7
+          url: /nvme_esxi_7.html
+        - title: Red Hat Enterprise Linux 9.0
+          url: /nvme_rhel_90.html
+        - title: SUSE Linux Enterprise Server 15 SP4
+          url: /nvme_sles15_sp4.html
+        - title: Windows Server 2022
+          url: /nvme_windows_2022.html   
+
+
+    - title: More resources
+      links:
+        - title: Cloud Volumes ONTAP
+          url: https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/index.html
+        - title: Amazon FSx for ONTAP 
+          url: https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/index.html   
+        - title: All SAN Array software configuration 
+          url: https://docs.netapp.com/us-en/ontap/task_asa_software_configuration.html
+        - title: SAN administration
+          url: https://docs.netapp.com/us-en/ontap/san-admin/index.html
+        - title: SAN configuration
+          url: https://docs.netapp.com/us-en/ontap-metrocluster/
