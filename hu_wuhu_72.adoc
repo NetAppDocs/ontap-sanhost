@@ -24,7 +24,7 @@ The following programs and files are installed on the Windows host computer. The
 |===
 |Program |Purpose
 
-|emulexhba.reg
+|`emulexhba.reg`
 |Troubleshooting program; run this program only if instructed to do so by technical support personnel.
 | `\NetAppQCLI\fcconfig.exe`
 |Used by the installation program to set HBA parameters.
@@ -33,33 +33,38 @@ The following programs and files are installed on the Windows host computer. The
 |`\NetAppQCLI\*.*`
 |Used by the installation program to set QLogic Fibre Channel HBA parameters.
 |`san_version.exe`
-|Displays the version of the Host Utilities and Fibre Channel HBAs.
+|Displays the version of the host utilities and Fibre Channel HBAs.
 |===
 
-== Configurations supported by Host Utilities
+== Configurations supported by host utilities
 
-The Host Utilities support different Windows host configurations, protocols, and multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+The host utilities support different Windows host configurations, protocols, and multipathing options. For more information, see https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
-== Verifying your host and storage system configuration
-Before you install the Host Utilities, you must verify that the Host Utilities version supports your host and storage system configuration so that the software installs correctly.
+== Verify your host and storage system configuration
+Before you install the host utilities, you must verify that the host utilities version supports your host and storage system configuration so that the software installs correctly.
 
 .Steps
 
 . Check the supported configuration in the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
-. Check the hotfixes required for the respective host on the San Host Documentation.
-. Add the iSCSI or FCP license and start the target service.
+. Check the hotfixes required for the respective host on the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
++
+[NOTE]
+link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Using Windows server 2022 with ONTAP] provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the Host configurations category to find the relevant hotfix information for earlier versions of Windows server.
+
+. Add the iSCSI, FCP, or NVMe-oF license and start the target service.
 +
 The fibre channel and iSCSI protocols do not require licenses on E-Series storage systems using SANtricity Storage Manager.
+
 . Verify your cabling.
 +
 See the https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html?cp=14_7[SAN Configuration Guide^] for your version of ONTAP or https://mysupport.netapp.com/ecm/ecm_get_file/ECMLP2773533[E-Series Hardware Cabling Guide^] for detailed cabling and configuration information.
 
-== Configuring FC HBAs and switches
+== Configure FC HBAs and switches
 Install and configure one or more supported Fibre Channel host bus adapters (HBAs) for Fibre Channel connections to the storage system.
 
 The Windows Host Utilities installer sets the required Fibre Channel HBA settings.
 
-[NOTE]
+[CAUTION]
 Do not change HBA settings manually.
 
 .Steps
@@ -70,18 +75,25 @@ Do not change HBA settings manually.
 . Create zones on the Fibre Channel switch according to your Fibre Channel switch documentation.
 . For ONTAP, zone the switch by WWPN. Be sure to use the WWPN of the logical interfaces (LIFs) and not of the physical ports on the storage controllers. For more information, see https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html?cp=14_7[SAN Configuration Guide^].
 
-== Installing the Host Utilities
-The installation program installs the Host Utilities package and sets the Windows registry and HBA settings.
+== Install the host utilities
+The installation program installs the host utilities package and sets the Windows registry and HBA settings.
 You must specify whether to include multipathing support when you install the Windows Unified Host Utilities software package. The installer prompts you for the following choice. You can also run a quiet (unattended) installation from a Windows command prompt.
 
 .Multipathing support
-Choose MPIO if you have more than one path from the Windows host or virtual machine to the storage system. Choose no MPIO only if you are using a single path to the storage system.
+
+* Choose MPIO if you have more than one path from the Windows host or virtual machine to the storage system. 
+* Choose no MPIO only if you are using a single path to the storage system.
+
 The MPIO selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
 For Hyper-V guests, raw (pass-through) disks do not appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you cannot use both in the guest OS.
 
-=== Installing the Host Utilities interactively
+[role="tabbed-block"]
+====
 
-To install the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
+.Install the host utilities interactively
+--
+
+To install the host utilities software package interactively, you must run the host utilities installation program and follow the prompts.
 
 .Steps
 
@@ -89,11 +101,14 @@ To install the Host Utilities software package interactively, you must run the H
 . Change to the directory to which you downloaded the executable file.
 . Run the `netapp_windows_host_utilities_7.2_x64` file and follow the instructions on the screen.
 . Reboot the Windows host when prompted.
+--
 
-=== Installing the Host Utilities from a command line
+.Install the Host Utilities from a command line
+--
+You can perform a quiet (unattended) installation of the host utilities by entering the appropriate commands at Windows command prompt.
+The host utilities installation package must be in a path that is accessible by the Windows host. 
 
-You can perform a quiet (unattended) installation of the Host Utilities by entering the appropriate commands at a Windows command prompt.
-The Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively to obtain the installation package. The system automatically reboots when the installation is complete.
+Follow the instructions for installing the host utilities interactively to obtain the installation package. The system automatically reboots when the installation is complete.
 
 .Steps
 
@@ -101,33 +116,41 @@ The Host Utilities installation package must be in a path that is accessible by 
 +
 `msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
 
-* where installer is the name of the .msi file for your CPU architecture;
+* where installer is the name of the .msi file for your CPU architecture
 * MULTIPATHING specifies whether MPIO support is installed. Allowed values are 0 for no, 1 for yes
-* `inst_path` is the path where the Host Utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
+* `inst_path` is the path where the Host Utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`
 
 [NOTE]
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at a Windows command prompt. For example:
 `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1`
 
-== Upgrading the Host Utilities
+--
+====
 
-The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively to obtain the installation package.
+== Upgrade the Host Utilities
 
-=== Upgrading the Host Utilities interactively
-To install the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
+The new host utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the host utilities interactively to obtain the installation package.
+
+[role="tabbed-block"]
+====
+.Upgrade the host utilities interactively
+--
+To install the host utilities software package interactively, you must run the host utilities installation program and follow the prompts.
 
 .Steps
 
-. Change to the directory to which you downloaded the executable file.
+. Change to the directory where you downloaded the executable file.
 . Run the executable file and follow the instructions on the screen.
 . Reboot the Windows host when prompted.
-. Check version of the host Utility after reboot:
+. Check version of the host utility after reboot:
 .. Open *Control Panel*.
 .. Go to *Program and features* and check the host utility version.
+--
 
-=== Upgrading the Host Utilities from a command line
+.Upgrade the Host Utilities from a command line
+--
 You can perform a quiet (unattended) installation of the new host utilities by entering the appropriate commands at a Windows command prompt.
-The New Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively to obtain the installation package.
+The New host utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the host utilities interactively to obtain the installation package.
 
 .Steps
 
@@ -144,23 +167,31 @@ To see the standard Microsoft Installer (MSI) options for logging and other func
 `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1`
 
 The system automatically reboots when the installation is complete.
+--
+====
 
-== Repairing and removing Windows Host Utilities
+== Repair and remove Windows Host Utilities
 You can use the Repair option of the Host Utilities installation program to update HBA and Windows registry settings. You can remove the Host Utilities entirely, either interactively or from the Windows command line.
 
-=== Repairing or removing Windows Host Utilities interactively
-The Repair option updates the Windows registry and Fibre Channel HBAs with the required settings. You can also remove the Host Utilities entirely.
+[role="tabbed-block"]
+====
+
+.Repair or remove Windows Host Utilities interactively
+--
+The Repair option updates the Windows registry and Fibre Channel HBAs with the required settings. You can also remove the host utilities entirely.
 
 .Steps
 
-. Open Windows *Programs and Features* (Windows Server 2012 R2, Windows Server 2016, Windows Server 2019).
+. Open Windows *Programs and Features* (Windows Server 2012 R2, Windows Server 2016, Windows Server 2019, and Windows 2022).
 . Select *NetApp Windows Unified Host Utilities*.
 . Click *Change*.
 . Click *Repair* or *Remove*, as needed.
 . Follow the instructions on the screen.
+--
 
-=== Repairing or removing Windows Host Utilities from command line
-The Repair option updates the Windows registry and Fibre Channel HBAs with the required settings. You can also remove the Host Utilities entirely from a Windows command line.
+.Repair or remove Windows Host Utilities from command line
+--
+The Repair option updates the Windows registry and Fibre Channel HBAs with the required settings. You can also remove the host utilities entirely from a Windows command line.
 
 .Steps
 
@@ -172,14 +203,18 @@ The Repair option updates the Windows registry and Fibre Channel HBAs with the r
 * `/f` repairs the installation.
 * `installer.msi` is the name of the Windows Host Utilities installation program on your system.
 * `/quiet` suppresses all feedback and reboots the system automatically without prompting when the command completes.
+--
+====
 
-== Overview of settings used by the Host Utilities
-The Host Utilities require certain registry and parameter settings to ensure the Windows host correctly handles the storage system behavior.
+== Overview of settings used by the host utilities
 
-Windows Host Utilities sets the parameters that affect how the Windows host responds to a delay or loss of data. The particular values have been selected to ensure that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
+The host utilities require certain registry and parameter settings to make sure the Windows host correctly handles the storage system behavior.
 
-Not all the values apply for the DSM for SANtricity Storage Manager; however, any overlap of values set by the Host Utilities and those set by the DSM for SANtricity Storage Manager do not result in conflicts.
-Fibre Channel, NVMe/FC, and iSCSI host bus adapters (HBAs) also have parameters that must be set to ensure the best performance and to successfully handle storage system events.
+Windows Host Utilities sets the parameters that affect how the Windows host responds to a delay or loss of data. The particular values have been selected to make sure that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
+
+Not all the values apply for the DSM for SANtricity Storage Manager; however, any overlap of values set by the host utilities and those set by the DSM for SANtricity Storage Manager do not result in conflicts.
+
+Fibre Channel, NVMe/FC, and iSCSI host bus adapters (HBAs) also have parameters that must be set to make sure the best performance and to successfully handle storage system events.
 
 The installation program supplied with Windows Unified Host Utilities sets the Windows and Fibre Channel, NVMe/FC  HBA parameters to the supported values.
 
@@ -192,7 +227,11 @@ You should not change these values unless technical support directs you to do so
 == Registry values set by Windows Unified Host Utilities
 
 The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
-The following values are set by the Windows Unified Host Utilities installer. All values are decimal unless otherwise noted. HKLM is the abbreviation for HKEY_LOCAL_MACHINE.
+
+The following values are set by the Windows Unified Host Utilities installer. All values are decimal unless otherwise noted. 
+
+[NOTE]
+HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
 [cols=3*,options="header", cols="20,20,30"]
 |===
@@ -324,8 +363,13 @@ The following NVMe Emulex driver parameters are updated when installing WUHU 7.2
 == FC HBA values set by Windows Host Utilities
 
 On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
-For Emulex Fibre Channel HBAs, the installer sets the following parameters when MPIO is selected:
 
+For Emulex Fibre Channel HBAs, the installer sets the following parameters:
+
+[role="tabbed-block"]
+====
+.When MPIO is selected:
+--
 |===
 |Property type |Property value
 
@@ -334,9 +378,10 @@ For Emulex Fibre Channel HBAs, the installer sets the following parameters when 
 |NodeTimeOut
 |10
 |===
+--
 
-For Emulex Fibre Channel HBAs, the installer sets the following parameters when MPIO is not selected:
-
+.When MPIO is not selected:
+--
 |===
 |Property type |Property value
 
@@ -345,9 +390,15 @@ For Emulex Fibre Channel HBAs, the installer sets the following parameters when 
 |NodeTimeOut
 |120
 |===
+--
+====
 
-For QLogic Fibre Channel HBAs, the installer sets the following parameters when MPIO is selected:
+For QLogic Fibre Channel HBAs, the installer sets the following parameters:
 
+[role="tabbed-block"]
+====
+.When MPIO is selected:
+--
 |===
 |Property type |Property value
 
@@ -356,9 +407,10 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters when 
 |PortDownRetryCount
 |10
 |===
+--
 
-For QLogic Fibre Channel HBAs, the installer sets the following parameters when MPIO is not selected:
-
+.When MPIO is not selected:
+--
 |===
 |Property type |Property value
 
@@ -367,11 +419,13 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters when 
 |PortDownRetryCount
 |120
 |===
+--
+====
 
 [NOTE]
 The names of the parameters might vary slightly depending on the program.
 For example, in the QLogic QConvergeConsole program, the parameter is displayed as `Link Down Timeout`.
-The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter.
+The host utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter.
 
 .Related information
 Refer to Emulex or QLogic site to know more about the timeout parameters.
@@ -382,15 +436,15 @@ This section describes general troubleshooting techniques for Windows Host Utili
 .Different areas to identify the possible interoperability problems
 
 * To identify potential interoperability problems, you must confirm that the Host Utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
-* You must check the Interoperability Matrix.
+* You must check the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
 * You must verify that you have the correct iSCSI configuration.
 * If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the Persistent Targets tab of the Microsoft iSCSI initiator GUI.
 * If applications using the LUNs display errors on startup, you must verify that the applications are configured to depend on the iSCSI service.
 * For Fibre Channel paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target logical interfaces (LIFs), not the WWPNs of the physical ports on the node.
 * You must review the Release Notes for Windows Host Utilities to check for known problems. The Release Notes include a list of known problems and limitations.
 * You must review the troubleshooting information in the SAN Administration Guide for your version of ONTAP.
-* You must search Bugs Online for recently discovered problems.
-* In the Bug Types field under Advanced Search, you should select ISCSI - Windows and then click Go. You should repeat the search for Bug Type FCP -Windows.
+* You must search https://mysupport.netapp.com/NOW/cgi-bin/bol[NetApp Bugs Online^] for recently discovered problems.
+** In the Bug Types field under Advanced Search, you should select iSCSI - Windows and then click Go. You should repeat the search for Bug Type FCP -Windows.
 * You must collect information about your system.
 * Record any error messages that are displayed on the host or storage system console.
 * Collect the host and storage system log files.
@@ -399,27 +453,30 @@ This section describes general troubleshooting techniques for Windows Host Utili
 
 .Related information
 
-http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool]
 https://mysupport.netapp.com/portal/documentation[NetApp Documentation]
-https://mysupport.netapp.com/NOW/cgi-bin/bol[NetApp Bugs Online]
 
-=== Understanding the Host Utilities changes to FC HBA driver settings
+
+=== Understand the host utilities changes to FC HBA driver settings
 
 During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and, in some cases, modified.
 
-The Host Utilities set values for the following parameters if Data ONTAP DSM for Windows MPIO is not detected:
+The host utilities set values for the following parameters if Data ONTAP DSM for Windows MPIO is not detected:
 
 * LinkTimeOut – defines the length of time in seconds that the host port waits before resuming I/O after a physical link is down.
 * NodeTimeOut – defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
 
-When troubleshooting HBA issues, check to make sure these settings have the correct values. The correct values depend on two factors:
+When troubleshooting HBA issues, verify that these settings have the correct values. The correct values depend on two factors:
 
 * The HBA vendor
 * Whether you are using multipathing software (MPIO)
 
 You can correct the HBA settings by running the Repair option of the Windows Host Utilities installer.
 
-==== Verifying the Emulex HBA driver settings on FC systems
+[role="tabbed-block"]
+====
+
+.Verify the Emulex HBA driver settings on FC systems
+--
 If you have a Fibre Channel system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
 
 .Steps
@@ -436,8 +493,10 @@ The driver parameters appear.
 +
 * LinkTimeOut - 30
 * NodeTimeOut - 120
+--
 
-==== Verifying the QLogic HBA driver settings on FC systems
+.Verify the QLogic HBA driver settings on FC systems
+--
 On FC systems, you need to verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
 
 .Steps
@@ -458,3 +517,5 @@ A list of HBAs appears in the FC HBA pane.
 +
 * Link Down Timeout (linkdwnto) - 30
 * Port Down Retry Count (portdwnrc) - 120
+--
+====
