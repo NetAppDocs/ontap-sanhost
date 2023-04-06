@@ -20,9 +20,9 @@ include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
 == SAN toolkit
 
-The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the sanlun utility, which helps you manage LUNs and HBAs. The sanlun command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
-In the following example, the sanlun lun show command returns LUN information.
+In the following example, the `sanlun lun show` command returns LUN information.
 ----
 # sanlun lun show all
 ----
@@ -139,7 +139,7 @@ NOTE: To configure Oracle Linux 9.0 RedHat Enterprise Kernel (RHCK), use the lin
 
 == KVM settings
 
-You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
+You can also use the recommended settings to configure Kernel-based Virtual Machine (KVM). There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
 
 == Known issues
 
@@ -149,5 +149,5 @@ There are no known issues for Oracle Linux 9.0.
 
 === ASM Mirroring
 
-ASM mirroring might require changes to the Linux multipath settings to allow ASM to recognize a problem and switch over to an alternate failure group. Most ASM configurations on ONTAP use external redundancy, which means that data protection is provided by the external array and ASM does not mirror data. Some sites use ASM with normal redundancy to provide two-way mirroring, normally across different sites. See Oracle Databases on ONTAP for further information.
+ASM mirroring might require changes to the Linux multipath settings to allow ASM to recognize a problem and switch over to an alternative failure group. Most ASM configurations on ONTAP use external redundancy, which means that data protection is provided by the external array and ASM does not mirror data. Some sites use ASM with normal redundancy to provide two-way mirroring, normally across different sites. See Oracle Databases on ONTAP for further information.
 
