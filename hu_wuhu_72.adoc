@@ -368,7 +368,7 @@ For Emulex Fibre Channel HBAs, the installer sets the following parameters:
 
 [role="tabbed-block"]
 ====
-.When MPIO is selected:
+.When MPIO is selected
 --
 |===
 |Property type |Property value
@@ -380,7 +380,7 @@ For Emulex Fibre Channel HBAs, the installer sets the following parameters:
 |===
 --
 
-.When MPIO is not selected:
+.When MPIO is not selected
 --
 |===
 |Property type |Property value
@@ -397,7 +397,7 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters:
 
 [role="tabbed-block"]
 ====
-.When MPIO is selected:
+.When MPIO is selected
 --
 |===
 |Property type |Property value
@@ -409,7 +409,7 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters:
 |===
 --
 
-.When MPIO is not selected:
+.When MPIO is not selected
 --
 |===
 |Property type |Property value
@@ -433,7 +433,7 @@ Refer to Emulex or QLogic site to know more about the timeout parameters.
 == Troubleshooting
 This section describes general troubleshooting techniques for Windows Host Utilities. Be sure to check the latest Release Notes for known problems and solutions.
 
-.Different areas to identify the possible interoperability problems
+=== Different areas to identify the possible interoperability problems
 
 * To identify potential interoperability problems, you must confirm that the Host Utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
 * You must check the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
@@ -441,7 +441,7 @@ This section describes general troubleshooting techniques for Windows Host Utili
 * If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the Persistent Targets tab of the Microsoft iSCSI initiator GUI.
 * If applications using the LUNs display errors on startup, you must verify that the applications are configured to depend on the iSCSI service.
 * For Fibre Channel paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target logical interfaces (LIFs), not the WWPNs of the physical ports on the node.
-* You must review the Release Notes for Windows Host Utilities to check for known problems. The Release Notes include a list of known problems and limitations.
+* You must review the link:hu_wuhu_71_rn.html[Release Notes] for Windows Host Utilities to check for known problems. The Release Notes include a list of known problems and limitations.
 * You must review the troubleshooting information in the SAN Administration Guide for your version of ONTAP.
 * You must search https://mysupport.netapp.com/NOW/cgi-bin/bol[NetApp Bugs Online^] for recently discovered problems.
 ** In the Bug Types field under Advanced Search, you should select iSCSI - Windows and then click Go. You should repeat the search for Bug Type FCP -Windows.
@@ -450,10 +450,6 @@ This section describes general troubleshooting techniques for Windows Host Utili
 * Collect the host and storage system log files.
 * Record the symptoms of the problem and any changes made to the host or storage system just before the problem appeared.
 * If you are unable to resolve the problem, then you can contact NetApp technical support.
-
-.Related information
-
-https://mysupport.netapp.com/portal/documentation[NetApp Documentation]
 
 
 === Understand the host utilities changes to FC HBA driver settings
