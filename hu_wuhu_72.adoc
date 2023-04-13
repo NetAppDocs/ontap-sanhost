@@ -126,7 +126,7 @@ Follow the instructions for installing the host utilities interactively to obtai
 
 [NOTE]
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at a Windows command prompt. For example,
-`msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1`
+`msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` displays logging information.
 
 --
 ====
@@ -169,7 +169,7 @@ The new host utilities installation package must be in a path that is accessible
 
 [NOTE]
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at a Windows command prompt. For example:
-`msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1`
+`msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` displays logging information.
 
 The system automatically reboots when the installation is complete.
 --
@@ -203,10 +203,9 @@ The Repair option updates the Windows registry and Fibre Channel HBAs with the r
 
 . Enter the following command on the Windows command line to repair Windows Host Utilities:
 +
-`msiexec [/uninstall | /f]installer.msi [/quiet]`
+`msiexec /f installer.msi [/quiet]`
 
-* `/uninstall` removes the Host Utilities entirely.
-* `/f` repairs the installation.
+* * `/f` repairs the installation.
 * `installer.msi` is the name of the Windows Host Utilities installation program on your system.
 * `/quiet` suppresses all feedback and reboots the system automatically without prompting when the command completes.
 --
