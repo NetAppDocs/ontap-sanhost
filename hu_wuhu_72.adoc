@@ -17,7 +17,7 @@ summary: Windows Unified host utilities includes an installation program that se
 
 Windows Unified host utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 
-When you install the Host Utilities software, the installer sets required Windows registry and HBA parameters.
+When you install the host utilities software, the installer sets the required Windows registry and HBA parameters.
 
 The following programs and files are installed on the Windows host computer. The default directory is `C:\Program Files\NetApp\Windows Host Utilities`.
 
@@ -27,13 +27,13 @@ The following programs and files are installed on the Windows host computer. The
 |`emulexhba.reg`
 |Troubleshooting program; run this program only if instructed to do so by technical support personnel.
 | `\NetAppQCLI\fcconfig.exe`
-|Used by the installation program to set HBA parameters.
+|Used by the installation program to set the HBA parameters.
 | `\NetAppQCLI\fcconfig.ini`
-|Used by the installation program to set HBA parameters.
+|Used by the installation program to set the HBA parameters.
 |`\NetAppQCLI\*.*`
-|Used by the installation program to set QLogic Fibre Channel HBA parameters.
+|Used by the installation program to set the QLogic FC HBA parameters.
 |`san_version.exe`
-|Displays the version of the host utilities and Fibre Channel HBAs.
+|Displays the version of the host utilities and FC HBAs.
 |===
 
 == Configurations supported by host utilities
@@ -49,11 +49,11 @@ Before you install the host utilities, you must verify that the host utilities v
 . Check the hotfixes required for the respective host in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
 [NOTE]
-link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Using Windows server 2022 with ONTAP] provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the Host configurations category to find the relevant hotfix information for earlier versions of Windows server.
+link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Using Windows server 2022 with ONTAP] provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the host configurations category to find the relevant hotfix information for earlier versions of Windows server.
 
 . Add the iSCSI, FCP, or NVMe-oF license and start the target service.
 +
-The fibre channel and iSCSI protocols do not require licenses on E-Series storage systems using SANtricity Storage Manager.
+The FC and iSCSI protocols do not require licenses on E-Series storage systems using SANtricity Storage Manager.
 
 . Verify your cabling.
 +
@@ -74,7 +74,7 @@ Do not change HBA settings manually.
 . Obtain the supported HBA drivers and management utilities and install them according to the instructions provided by the HBA vendor.
 . Connect the HBAs to your FC switches or directly to the storage system.
 . Create zones on the FC switch according to your FC switch documentation.
-. For ONTAP, zone the switch by WWPN. Be sure to use the WWPN of the logical interfaces (LIFs) and not the WWPN of the physical ports on the storage controllers. For more information, see https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html?cp=14_7[SAN Configuration Guide^].
+. For ONTAP, zone the switch by the WWPN. Be sure to use the WWPN of the logical interfaces (LIFs) and not the WWPN of the physical ports on the storage controllers. For more information, see https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html?cp=14_7[SAN Configuration Guide^].
 
 == Install the host utilities
 
@@ -109,7 +109,7 @@ To install the host utilities software package interactively, you must run the h
 .Install the Host Utilities from a command line
 --
 
-You can perform a quiet (unattended) installation of the host utilities by entering the appropriate commands at Windows command prompt.
+You can perform a quiet (unattended) installation of the host utilities by entering the appropriate commands at the Windows command prompt.
 The host utilities installation package must be in a path that is accessible by the Windows host. 
 
 Follow the instructions for installing the host utilities interactively to obtain the installation package. The system automatically reboots when the installation is complete.
@@ -125,8 +125,7 @@ Follow the instructions for installing the host utilities interactively to obtai
 * `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`
 
 [NOTE]
-To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at a Windows command prompt. For example,
-`msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` displays logging information.
+To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at the Windows command prompt. For example, the `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.
 
 --
 ====
@@ -151,9 +150,9 @@ To install the host utilities software package interactively, you must run the h
 .. Go to *Program and features* and check the host utility version.
 --
 
-.Upgrade the Host Utilities from a command line
+.Upgrade the host utilities from a command line
 --
-You can perform a quiet (unattended) installation of the new host utilities by entering the appropriate commands at a Windows command prompt.
+You can perform a quiet (unattended) installation of the new host utilities by entering the appropriate commands at the Windows command prompt.
 
 The new host utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the host utilities interactively to obtain the installation package.
 
@@ -164,13 +163,11 @@ The new host utilities installation package must be in a path that is accessible
 `msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
 
 * `installer` is the name of the `.msi` file for your CPU architecture
-* MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
-.```
-* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
+* MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes
+* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`
 
 [NOTE]
-To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at a Windows command prompt. For example:
-`msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` displays logging information.
+To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at the Windows command prompt. For example, the `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.
 
 The system automatically reboots when the installation is complete.
 --
@@ -178,7 +175,7 @@ The system automatically reboots when the installation is complete.
 
 == Repair and remove Windows Host Utilities
 
-You can use the Host Utilities installation program *Repair* option to update HBA and Windows registry settings. You can remove the host utilities entirely, either interactively or from the Windows command line.
+You can use the host utilities installation program *Repair* option to update the HBA and Windows registry settings. You can remove the host utilities entirely, either interactively or from the Windows command line.
 
 [role="tabbed-block"]
 ====
@@ -206,9 +203,9 @@ The *Repair* option updates the Windows registry and FC HBAs with the required s
 +
 `msiexec /f installer.msi [/quiet]`
 
-* * `/f` repairs the installation.
-* `installer.msi` is the name of the Windows Host Utilities installation program on your system.
-* `/quiet` suppresses all feedback and reboots the system automatically without prompting when the command completes.
+* * `/f` repairs the installation
+* `installer.msi` is the name of the Windows Host Utilities installation program on your system
+* `/quiet` suppresses all feedback and reboots the system automatically without prompting when the command completes
 --
 ====
 
@@ -220,7 +217,7 @@ Windows Host Utilities set the parameters that affect how the Windows host respo
 
 Not all values apply to the DSM for SANtricity Storage Manager; however, any overlap of values set by the host utilities and those set by the DSM for SANtricity Storage Manager do not result in conflicts.
 
-FC, VMe/FC, and iSCSI HBAs also have parameters that you must set to ensure best performance and to successfully handle storage system events.
+FC, NVMe/FC, and iSCSI HBAs also have parameters that you must set to ensure best performance and to successfully handle storage system events.
 
 The installation program supplied with Windows Unified Host Utilities sets the Windows, FC, and NVMe/FC HBA parameters to the supported values.
 
@@ -439,11 +436,11 @@ Refer to Emulex or QLogic site to know more about the timeout parameters.
 
 == Troubleshooting
 
-You can use the general troubleshooting techniques for Windows Host Utilities. Be sure to check the latest Release Notes for known problems and solutions.
+You can use the general troubleshooting techniques for Windows Host Utilities. Be sure to check the latest Release Notes for known issues and solutions.
 
-=== Different areas to identify the possible interoperability problems
+=== Different areas to identify the possible interoperability issues
 
-* To identify potential interoperability problems, you must confirm that the host utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
+* To identify potential interoperability issues, you must confirm that the host utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
 * You must check the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
 * You must verify that you have the correct iSCSI configuration.
 * If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the *Persistent Targets* tab of the Microsoft iSCSI initiator GUI.
