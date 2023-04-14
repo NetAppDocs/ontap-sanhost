@@ -15,7 +15,7 @@ summary:
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux 9.0 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux (OL) 9.0 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -33,7 +33,7 @@ You can validate the minimum supported OL 9.0 software versions using the follow
 
 .Steps
 
-. Install Oracle Linux 9.0 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 9.0 GA kernel. 
+. Install OL 9.0 GA on the server. After the installation is complete, verify that you are running the specified OL 9.0 GA kernel. 
 +
 ----
 # uname -r
@@ -294,7 +294,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 .Steps
 
-. Verify the following NVMe/FC settings on the Oracle Linux 9.0 host:
+. Verify the following NVMe/FC settings on the OL 9.0 host:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -429,7 +429,7 @@ Before troubleshooting any NVMe/FC failures, verify that you are running a confi
 
 === Enable verbose logging
 
-If you have an issue with your configuration, verbose logging can provide valuable information essential for troubleshooting.
+If you have an issue with your configuration, verbose logging can provide essential information for troubleshooting.
 
 .Steps
 
