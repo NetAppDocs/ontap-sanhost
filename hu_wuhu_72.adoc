@@ -41,6 +41,7 @@ The following programs and files are installed on the Windows host computer. The
 The host utilities support different Windows host configurations, protocols, and multipathing options. For more information, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 == Verify your host and storage system configuration
+
 Before you install the host utilities, you must verify that the host utilities version supports your host and storage system configuration so that the software installs correctly.
 
 .Steps
@@ -120,9 +121,9 @@ Follow the instructions for installing the host utilities interactively to obtai
 +
 `msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
 
-* `installer` is the name of the `.msi` file for your CPU architecture
+* `installer` is the name of the `.msi` file for your CPU architecture.
 * MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
-* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`
+* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
 
 [NOTE]
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at the Windows command prompt. For example, the `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.
@@ -162,9 +163,9 @@ The new host utilities installation package must be in a path that is accessible
 +
 `msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
 
-* `installer` is the name of the `.msi` file for your CPU architecture
-* MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes
-* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`
+* `installer` is the name of the `.msi` file for your CPU architecture.
+* MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
+* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
 
 [NOTE]
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at the Windows command prompt. For example, the `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.
@@ -203,9 +204,9 @@ The *Repair* option updates the Windows registry and FC HBAs with the required s
 +
 `msiexec /f installer.msi [/quiet]`
 
-* * `/f` repairs the installation
-* `installer.msi` is the name of the Windows Host Utilities installation program on your system
-* `/quiet` suppresses all feedback and reboots the system automatically without prompting when the command completes
+* * `/f` repairs the installation.
+* `installer.msi` is the name of the Windows Host Utilities installation program on your system.
+* `/quiet` suppresses all feedback and reboots the system automatically without prompting when the command completes.
 --
 ====
 
@@ -448,7 +449,7 @@ You can use the general troubleshooting techniques for Windows Host Utilities. B
 * For FC paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target LIFs, not the WWPNs of the physical ports on the node.
 * You must review the link:hu_wuhu_71_rn.html[Release Notes] for Windows Host Utilities to check for known issues. The Release Notes include a list of known issues and limitations.
 * You must review the troubleshooting information in the SAN Administration Guide for your version of ONTAP.
-* You must search https://mysupport.netapp.com/NOW/cgi-bin/bol[NetApp Bugs Online^] for recently discovered issues.
+* You must search https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] for recently discovered issues.
 ** In the Bug Type field under Advanced Search, you should select *iSCSI - Windows* and then select *Go*. You should repeat the search for Bug Type *FCP -Windows*.
 * You must collect information about your system.
 * Record any error messages that are displayed on the host or storage system console.
@@ -461,7 +462,7 @@ You can use the general troubleshooting techniques for Windows Host Utilities. B
 
 During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and in some cases modified.
 
-The host utilities set values for the following parameters if Data ONTAP DSM for Windows MPIO is not detected:
+The host utilities set values for the following parameters:
 
 * LinkTimeOut – Defines the length of time in seconds that the host port waits before resuming I/O operations after a physical link goes down.
 * NodeTimeOut – Defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
@@ -471,7 +472,7 @@ When troubleshooting HBA issues, verify that these settings have the correct val
 * The HBA vendor
 * Whether you are using MPIO
 
-You can correct the HBA settings by running the Windows Host Utilities installer the *Repair* option.
+You can correct the HBA settings by running the *Repair* option of the Windows Host Utilities installer.
 
 [role="tabbed-block"]
 ====
@@ -502,9 +503,9 @@ On FC systems, you must verify the QLogic HBA driver settings. These settings mu
 
 .Steps
 
-. Open QConvergeConsole, and then select *Connect* on the  toolbar.
+. Open QConvergeConsole, and then select *Connect* on the toolbar.
 +
-The Connect to Host dialog box appears.
+The *Connect to Host* dialog box appears.
 . Select the appropriate host from the list, and then select *Connect*.
 +
 A list of HBAs appear in the FC HBA pane.

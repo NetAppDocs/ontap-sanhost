@@ -18,6 +18,7 @@ summary: Release Notes for Windows Unified Host Utilities
 This Release Notes document contains the latest information for the Windows Unified Host Utilities 7.2 and 7.1 releases, including updates about new features, enhancements, and known issues. The document is updated when new information on using the Windows Host Utilities becomes available.
 
 == About the Windows Unified Host Utilities 
+
 The Windows Unified Host Utilities enable you to connect a Windows host computer to NetApp storage systems. The Windows Unified Host Utilities include an installation program that sets the required Windows registry and HBA values.
 
 The Windows Unified Host Utilities continues to support the following versions of Windows:
@@ -53,7 +54,7 @@ Refer to the link:hu_wuhu_72.html[Windows Host Utilities documentation] for your
 
 == Known issues
 
-Some unexpected and potentially undesired behaviors, as well as, in some cases, workarounds to avoid these behaviors, have been identified in this release. 
+Some unexpected and potentially undesired behaviors, as well as, in some cases, workarounds to avoid these behaviors, have been identified in the 7.1 release. 
 
 [cols=3,options="header", cols= "30, 30, 20"]
 |===
@@ -68,10 +69,12 @@ Some unexpected and potentially undesired behaviors, as well as, in some cases, 
 link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible.
 
 
-== About SAN Host Configuration documentation
-Documentation for SAN Host Utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation]. ONTAP SAN host configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
+== About SAN host configuration documentation
+
+Documentation for SAN host utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN host configuration documentation]. ONTAP SAN host configuration documentation is cumulative, covering all current SAN host releases. Any functional differences across releases are noted in context.
 
 == Where to find product documentation and other information
+
 You can access documentation for all NetApp products and find other product information resources, such as technical reports and white papers on the Product Documentation page of the NetApp corporate site.
 
 .Related information
@@ -87,7 +90,7 @@ You can access documentation for all NetApp products and find other product info
 * The SANtricity Storage Manager Configuration and Provisioning for Windows Express Guide that is appropriate for your protocol
 * The SANtricity Storage Manager Configuration and Provisioning Express Guide for your operating system, protocol, and version of SANtricity.
 * The SANtricity Storage Manager Software Installation Reference specific for your version of SANtricity.
-* The SANtricity Storage Manager Multipath Driver's Guide specific for your version of SANtricity.
+* The SANtricity Storage Manager Multipath driver's guide specific for your version of SANtricity.
 * The SANtricity Storage Manager Release Notes for your version of SANtricity.
 
 See the link:https://docs.netapp.com/us-en/e-series/getting-started/index.html[E-Series documentation^] to find SANtricity related documentation.
