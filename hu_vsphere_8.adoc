@@ -33,8 +33,9 @@ For NetApp ONTAP storage, `VMW_SATP_ALUA` plugin is used by default with `VMW_PS
 ----
 *`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
 ----
+
 Example output:
-+
+
 ----
 Name           Device  Vendor    Model         Driver  Transport  Options
 ---------------------------------------------------------------------------------                     
@@ -52,9 +53,9 @@ include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 ----
 # esxcli storage nmp device list -d naa.600a0980383148693724545244395855
 ----
-+
+
 Example output:
-+
+
 ----
 naa.600a0980383148693724545244395855
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
@@ -70,8 +71,9 @@ naa.600a0980383148693724545244395855
 ----
 # esxcli storage nmp path list -d naa.600a0980383148693724545244395855
 ----
-+
+
 Example output:
+[subs=+quotes]
 ----
 fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2003d039ea3ab21f-naa.600a0980383148693724545244395855
    Runtime Name: vmhba4:C0:T0:L11
@@ -79,7 +81,7 @@ fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2003d039ea3ab21f-naa.60
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
    Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=4,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1001,*TPG_state=AO*,RTP_id=4,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
 fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2002d039ea3ab21f-naa.600a0980383148693724545244395855
@@ -88,7 +90,7 @@ fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2002d039ea3ab21f-naa.60
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
    Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=3,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1001,*TPG_state=AO*,RTP_id=3,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
 fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2001d039ea3ab21f-naa.600a0980383148693724545244395855
@@ -97,7 +99,7 @@ fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2001d039ea3ab21f-naa.60
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
    Group State: active unoptimized
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=ANO,RTP_id=2,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1000,*TPG_state=ANO*,RTP_id=2,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
 fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2000d039ea3ab21f-naa.600a0980383148693724545244395855
@@ -106,7 +108,7 @@ fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2000d039ea3ab21f-naa.60
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
    Group State: active unoptimized
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=ANO,RTP_id=1,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1000,*TPG_state=ANO*,RTP_id=1,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 ----
 
@@ -115,7 +117,9 @@ include::_include/hu/reuse_hu_asa_configuration.adoc[]
 ----
 esxcli storage nmp device list -d naa.600a098038304759563f4e7837574453
 ----
+
 Example output:
+
 ----
 naa.600a098038314962485d543078486c7a
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
@@ -128,12 +132,13 @@ naa.600a098038314962485d543078486c7a
    Is USB: false
 
 ----
+
 ----
 # esxcli storage nmp path list -d naa.600a098038314962485d543078486c7a
 ----
-+
+
 Example output:
-+
+[subs=+quotes]
 ----
 fc.200034800d756a75:210034800d756a75-fc.2018d039ea936319:2015d039ea936319-naa.600a098038314962485d543078486c7a
    Runtime Name: vmhba4:C0:T0:L14
@@ -141,7 +146,7 @@ fc.200034800d756a75:210034800d756a75-fc.2018d039ea936319:2015d039ea936319-naa.60
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
    Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=2,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1000,*TPG_state=AO*,RTP_id=2,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
 fc.200034800d756a75:210034800d756a75-fc.2018d039ea936319:2017d039ea936319-naa.600a098038314962485d543078486c7a
@@ -150,7 +155,7 @@ fc.200034800d756a75:210034800d756a75-fc.2018d039ea936319:2017d039ea936319-naa.60
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
    Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=4,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1001,*TPG_state=AO*,RTP_id=4,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
 fc.200034800d756a74:210034800d756a74-fc.2018d039ea936319:2014d039ea936319-naa.600a098038314962485d543078486c7a
@@ -159,7 +164,7 @@ fc.200034800d756a74:210034800d756a74-fc.2018d039ea936319:2014d039ea936319-naa.60
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
    Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=1,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1000,*TPG_state=AO*,RTP_id=1,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
 fc.200034800d756a74:210034800d756a74-fc.2018d039ea936319:2016d039ea936319-naa.600a098038314962485d543078486c7a
@@ -168,7 +173,7 @@ fc.200034800d756a74:210034800d756a74-fc.2018d039ea936319:2016d039ea936319-naa.60
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
    Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=3,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1001,*TPG_state=AO*,RTP_id=3,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 ----
 
@@ -202,7 +207,7 @@ For detailed information on provisioning and managing vVols, refer to ONTAP tool
 
 == Recommended settings
 
-=== ATS Locking
+=== ATS locking
 
 ATS locking is *mandatory* for VAAI compatible storage and upgraded VMFS5 and is required for proper interoperability and optimal VMFS shared storage I/O performance with ONTAP LUNs. Refer to VMware documentation for details on enabling ATS locking.
 
@@ -241,7 +246,7 @@ min.throttle = 8
 
 === Validate the vSphere tunable
 
-Use the following command to verify the `HardwareAcceleratedLocking` setting.
+You can use the following command to verify the `HardwareAcceleratedLocking` setting.
 
 *`esxcli system settings  advanced list --option /VMFS3/HardwareAcceleratedLocking`*
 ----
@@ -259,7 +264,7 @@ Use the following command to verify the `HardwareAcceleratedLocking` setting.
 
 === Validate the Disk IOPs setting
 
-Use the following command to verify the IOPs setting.
+You can use the following command to verify the IOPs setting.
 
 *`esxcli storage nmp device list -d naa.600a098038304731783f506670553355`*
 ----
@@ -276,7 +281,7 @@ naa.600a098038304731783f506670553355
 
 === Validate the QFullSampleSize
 
-Use the following command to verify the QFullSampleSize.
+You can use the following command to verify the QFullSampleSize.
 
 *`esxcli system settings  advanced list --option /Disk/QFullSampleSize`*
 ----

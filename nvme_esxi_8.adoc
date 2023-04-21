@@ -66,69 +66,13 @@ nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f
 
 . The lpfc driver in vSphere 8.x has the NVMe/FC capability enabled by default.
 
-//Set the `lpfc` driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
 
-//[NOTE] 
-//====
-//* With vSphere 8.0, the `brcmnvmefc` driver is no longer available. The `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) //functionality previously delivered with the `brcmnvmefc` driver.
-
-//* The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You need to execute the following command to set the //parameter manually for LPe32000-series and LPe31000-series adapters.
-+
-//----
-//# esxcli system module parameters set -m lpfc -p lpfc_enable_fc4_type=3
-//# esxcli system module parameters list  -m lpfc | grep lpfc_enable_fc4_type
-
-//lpfc_enable_fc4_type              int            Defines what FC4 types are supported
-//----
-//+
-//----
-//# esxcli storage core adapter list
-//----
-//+
-//Example output
-//+
-//----
-
-//HBA Name  Driver      Link State  UID                                   
-//--------  ----------  ----------  ------------------------------------  
-
-//vmhba0    vmw_ahci    link-n/a    sata.vmhba0       
-//vmhba1    vmw_ahci    link-n/a    sata.vmhba1        
-//vmhba2    lsi_mr3     link-n/a    sas.5003005702854d00       
-//vmhba3    qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50  
-//vmhba4    qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51  
-//vmhba64   qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50                       
-//vmhba65   qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51 
-
-//Capabilities         Description
-//-------------------------------------
-//(0000:00:11.4) Intel Corporation Wellsburg AHCI Controller
-//(0000:00:1f.2) Intel Corporation Wellsburg AHCI Controller
-//(0000:01:00.0) Broadcom MegaRAID SAS Fury Controller
-//Second Level Lun ID  (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-//econd Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-//(0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-//(0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-
-//----
-====
 
 == Configure Marvell/QLogic
 
 .Steps
 
 . Check whether the configuration is supported with required driver or firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
-
-. Set the `qlnativefc` driver parameter `ql2xnvmesupport=1` to enable NVMe/FC support in the `qlnativefc` driver and reboot the host.
-+
-`# esxcfg-module -s 'ql2xnvmesupport=1' qlnativefc`
-+
-The `qlnativefc` driver parameter is set by default for the Qle 277x-series adapters. You must execute the following command to set the parameter manually for Qle 277x series adapters.
-+
-----
-esxcfg-module -l | grep qlnativefc
-qlnativefc               4    1820
-----
 
 . The qlnativefc driver in vSphere 8.x has the NVMe/FC capability enabled by default.
 
@@ -218,7 +162,7 @@ fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2007d039ea3ab21f-uuid.d
 
 == Configure NVMe/TCP
 
-In ESXi 8.0, the required NVMe/TCP modules is loaded by default. To configure the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
+In ESXi 8.0, the required NVMe/TCP modules are loaded by default. To configure the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
 
 == Validate NVMe/TCP
 
