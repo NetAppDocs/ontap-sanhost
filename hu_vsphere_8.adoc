@@ -50,375 +50,125 @@ tpgs_on        VMW_PSP_RR                   NetApp arrays with ALUA support
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 ----
-esxcli storage nmp device list -d naa.600a0980383145774624545241505656
-naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
+# esxcli storage nmp device list -d naa.600a0980383148693724545244395855
+----
++
+Example output:
++
+----
+naa.600a0980383148693724545244395855
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
    Storage Array Type: VMW_SATP_ALUA
-   Storage Array Type Device Config: {implicit_support=on; explicit_support=off; explicit_allow=on; alua_followover=on; action_OnRetryErrors=off; {TPG_id=1000,TPG_state=AO}{TPG_id=1001,TPG_state=ANO}}
+   Storage Array Type Device Config: {implicit_support=on; explicit_support=off; explicit_allow=on; alua_followover=on; action_OnRetryErrors=off; {TPG_id=1000,TPG_state=ANO}{TPG_id=1001,TPG_state=AO}}
    Path Selection Policy: VMW_PSP_RR
-   Path Selection Policy Device Config: {policy=iops,iops=1,bytes=10485760,useANO=0; lastPathIndex=10: NumIOsPending=0,numBytesPending=0}
-   Path Selection Policy Device Custom Config: policy=iops;iops=1;bytes=10485760;samplingCycles=16;latencyEvalTime=180000;useANO=0;
-   Working Paths: vmhba4:C0:T5:L1, vmhba3:C0:T15:L1, vmhba3:C0:T6:L1, vmhba4:C0:T14:L1, vmhba3:C0:T14:L1, vmhba3:C0:T5:L1, vmhba4:C0:T13:L1, vmhba4:C0:T8:L1, vmhba3:C0:T13:L1, vmhba3:C0:T4:L1, vmhba4:C0:T7:L1, vmhba3:C0:T12:L1, vmhba4:C0:T1:L1, vmhba4:C0:T6:L1, vmhba3:C0:T7:L1, vmhba4:C0:T15:L1
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba4:C0:T0:L11, vmhba3:C0:T0:L11
    Is USB: false
 ----
 
 ----
-*`esxcli storage nmp path list -d naa.600a098038313530772b4d673979372f`*
+# esxcli storage nmp path list -d naa.600a0980383148693724545244395855
+----
++
+Example output:
+----
+fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2003d039ea3ab21f-naa.600a0980383148693724545244395855
+   Runtime Name: vmhba4:C0:T0:L11
+   Device: naa.600a0980383148693724545244395855
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
+   Group State: active
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=4,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
-esxcli storage nmp path list -d naa.600a0980383145774624545241505656
+fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2002d039ea3ab21f-naa.600a0980383148693724545244395855
+   Runtime Name: vmhba3:C0:T0:L11
+   Device: naa.600a0980383148693724545244395855
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
+   Group State: active
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=3,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2003d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T0:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
+fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2001d039ea3ab21f-naa.600a0980383148693724545244395855
+   Runtime Name: vmhba4:C0:T3:L11
+   Device: naa.600a0980383148693724545244395855
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
    Group State: active unoptimized
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=4,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1000,TPG_state=ANO,RTP_id=2,RTP_health=UP}
+   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
+
+fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2000d039ea3ab21f-naa.600a0980383148693724545244395855
+   Runtime Name: vmhba3:C0:T3:L11
+   Device: naa.600a0980383148693724545244395855
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383148693724545244395855)
+   Group State: active unoptimized
+   Array Priority: 0
+   Storage Array Type Path Config: {TPG_id=1000,TPG_state=ANO,RTP_id=1,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 ----
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
 ----
-*`esxcli storage nmp device list -d naa.600a098038304759563f4e7837574453`*
+esxcli storage nmp device list -d naa.600a098038304759563f4e7837574453
 ----
 Example output:
 ----
-
-naa.600a098038304759563f4e7837574453
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304759563f4e7837574453)
+naa.600a098038314962485d543078486c7a
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
    Storage Array Type: VMW_SATP_ALUA
    Storage Array Type Device Config: {implicit_support=on; explicit_support=off; explicit_allow=on; alua_followover=on; action_OnRetryErrors=off; {TPG_id=1001,TPG_state=AO}{TPG_id=1000,TPG_state=AO}}
    Path Selection Policy: VMW_PSP_RR
-   Path Selection Policy Device Config: {policy=rr,iops=1,bytes=10485760,useANO=0; lastPathIndex=2: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=3: NumIOsPending=0,numBytesPending=0}
    Path Selection Policy Device Custom Config:
-   Working Paths: vmhba4:C0:T0:L9, vmhba3:C0:T1:L9, vmhba3:C0:T0:L9, vmhba4:C0:T1:L9
+   Working Paths: vmhba4:C0:T0:L14, vmhba4:C0:T1:L14, vmhba3:C0:T0:L14, vmhba3:C0:T1:L14
    Is USB: false
 
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:201fd039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T5:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
+----
+----
+# esxcli storage nmp path list -d naa.600a098038314962485d543078486c7a
+----
++
+Example output:
++
+----
+fc.200034800d756a75:210034800d756a75-fc.2018d039ea936319:2015d039ea936319-naa.600a098038314962485d543078486c7a
+   Runtime Name: vmhba4:C0:T0:L14
+   Device: naa.600a098038314962485d543078486c7a
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
    Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=26,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=2,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
- 
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:201dd039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T10:L1
-   Device:naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
+
+fc.200034800d756a75:210034800d756a75-fc.2018d039ea936319:2017d039ea936319-naa.600a098038314962485d543078486c7a
+   Runtime Name: vmhba4:C0:T1:L14
+   Device: naa.600a098038314962485d543078486c7a
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
+   Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=24,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=4,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2010d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T1:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=11,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2000d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T15:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
+fc.200034800d756a74:210034800d756a74-fc.2018d039ea936319:2014d039ea936319-naa.600a098038314962485d543078486c7a
+   Runtime Name: vmhba3:C0:T0:L14
+   Device: naa.600a098038314962485d543078486c7a
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
    Group State: active
    Array Priority: 0
    Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=1,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2019d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T6:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
+fc.200034800d756a74:210034800d756a74-fc.2018d039ea936319:2016d039ea936319-naa.600a098038314962485d543078486c7a
+   Runtime Name: vmhba3:C0:T1:L14
+   Device: naa.600a098038314962485d543078486c7a
+   Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038314962485d543078486c7a)
    Group State: active
    Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=20,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:200ed039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T14:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=9,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2015d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T4:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=16,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2023d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T9:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=30,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2002d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T0:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=3,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:200cd039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T14:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=7,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2017d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T5:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=18,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:200dd039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T13:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=8,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2014d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T3:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=15,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2022d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T8:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=29,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:200bd039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T13:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=6,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2016d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T4:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=17,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:201cd039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T9:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=23,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2026d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T12:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=33,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2013d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T2:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=14,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2021d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T7:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=28,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:200ad039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T12:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=5,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2012d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T3:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=13,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:201bd039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T8:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=22,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2025d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T11:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=32,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:200fd039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T1:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=10,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
- 
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2020d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T6:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=27,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:201ed039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T11:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=25,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:2011d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T2:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=12,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2009d039ea3ab21f:201ad039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba3:C0:T7:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=21,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
-
-
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2024d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T10:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active unoptimized
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1001,TPG_state=ANO,RTP_id=31,RTP_health=UP}
-   Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
- 
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2009d039ea3ab21f:2001d039ea3ab21f-naa.600a0980383145774624545241505656
-   Runtime Name: vmhba4:C0:T15:L1
-   Device: naa.600a0980383145774624545241505656
-   Device Display Name: NETAPP Fibre Channel Disk (naa.600a0980383145774624545241505656)
-   Group State: active
-   Array Priority: 0
-   Storage Array Type Path Config: {TPG_id=1000,TPG_state=AO,RTP_id=2,RTP_health=UP}
+   Storage Array Type Path Config: {TPG_id=1001,TPG_state=AO,RTP_id=3,RTP_health=UP}
    Path Selection Policy Path Config: PSP VMW_PSP_RR does not support path configuration.
 ----
 

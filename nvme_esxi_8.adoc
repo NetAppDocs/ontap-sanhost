@@ -17,7 +17,6 @@ summary: Describes how to configure NVMe-oF for ESXi 7.x with ONTAP
 == Supportability
 
 * Beginning with ONTAP 9.7, NVMe over Fibre Channel (NVMe/FC) support is added for VMware vSphere releases.
-* NVMe/TCP feature is supported for ESXi Hypervisor in ESXi 8.0 and later.
 * Beginning with ONTAP 9.10.1, NVMe/TCP feature is supported for ONTAP.
 
 
@@ -65,51 +64,53 @@ nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f
 
 . Check whether the configuration is supported with required driver or firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
-. Set the `lpfc` driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
+. The lpfc driver in vSphere 8.x has the NVMe/FC capability enabled by default.
 
-[NOTE] 
-====
-* With vSphere 8.0, the `brcmnvmefc` driver is no longer available. The `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) functionality previously delivered with the `brcmnvmefc` driver.
+//Set the `lpfc` driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
 
-* The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You need to execute the following command to set the parameter manually for LPe32000-series and LPe31000-series adapters.
+//[NOTE] 
+//====
+//* With vSphere 8.0, the `brcmnvmefc` driver is no longer available. The `lpfc` driver now includes the NVMe over Fibre Channel (NVMe/FC) //functionality previously delivered with the `brcmnvmefc` driver.
+
+//* The `lpfc_enable_fc4_type=3` parameter is set by default for the LPe35000-series adapters. You need to execute the following command to set the //parameter manually for LPe32000-series and LPe31000-series adapters.
 +
-----
-# esxcli system module parameters set -m lpfc -p lpfc_enable_fc4_type=3
-# esxcli system module parameters list  -m lpfc | grep lpfc_enable_fc4_type
+//----
+//# esxcli system module parameters set -m lpfc -p lpfc_enable_fc4_type=3
+//# esxcli system module parameters list  -m lpfc | grep lpfc_enable_fc4_type
 
-lpfc_enable_fc4_type              int            Defines what FC4 types are supported
-----
-+
-----
-# esxcli storage core adapter list
-----
-+
-Example output
-+
-----
+//lpfc_enable_fc4_type              int            Defines what FC4 types are supported
+//----
+//+
+//----
+//# esxcli storage core adapter list
+//----
+//+
+//Example output
+//+
+//----
 
-HBA Name  Driver      Link State  UID                                   
---------  ----------  ----------  ------------------------------------  
+//HBA Name  Driver      Link State  UID                                   
+//--------  ----------  ----------  ------------------------------------  
 
-vmhba0    vmw_ahci    link-n/a    sata.vmhba0       
-vmhba1    vmw_ahci    link-n/a    sata.vmhba1        
-vmhba2    lsi_mr3     link-n/a    sas.5003005702854d00       
-vmhba3    qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50  
-vmhba4    qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51  
-vmhba64   qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50                       
-vmhba65   qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51 
+//vmhba0    vmw_ahci    link-n/a    sata.vmhba0       
+//vmhba1    vmw_ahci    link-n/a    sata.vmhba1        
+//vmhba2    lsi_mr3     link-n/a    sas.5003005702854d00       
+//vmhba3    qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50  
+//vmhba4    qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51  
+//vmhba64   qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50                       
+//vmhba65   qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51 
 
-Capabilities         Description
--------------------------------------
-(0000:00:11.4) Intel Corporation Wellsburg AHCI Controller
-(0000:00:1f.2) Intel Corporation Wellsburg AHCI Controller
-(0000:01:00.0) Broadcom MegaRAID SAS Fury Controller
-Second Level Lun ID  (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-(0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-(0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+//Capabilities         Description
+//-------------------------------------
+//(0000:00:11.4) Intel Corporation Wellsburg AHCI Controller
+//(0000:00:1f.2) Intel Corporation Wellsburg AHCI Controller
+//(0000:01:00.0) Broadcom MegaRAID SAS Fury Controller
+//Second Level Lun ID  (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+//econd Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+//(0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
+//(0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
 
-----
+//----
 ====
 
 == Configure Marvell/QLogic
@@ -129,33 +130,8 @@ esxcfg-module -l | grep qlnativefc
 qlnativefc               4    1820
 ----
 
-. Check whether NVMe is enabled on the adapter:
-+
-----
-# esxcli storage core adapter list
-----
-+
-Example output:
-+
-----
-HBA Name  Driver      Link State  UID                                   
---------  ----------  ----------  ------------------------------------  
-vmhba0    vmw_ahci    link-n/a    sata.vmhba0                                                
-vmhba1    vmw_ahci    link-n/a    sata.vmhba1                                                
-vmhba2    lsi_mr3     link-n/a    sas.5003005702854d00                                       
-vmhba3    qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50  
-vmhba4    qlnativefc  link-up     fc.20000024ff7f4a51:21000024ff7f4a51  
-vmhba64   qlnativefc  link-up     fc.20000024ff7f4a50:21000024ff7f4a50                       
+. The qlnativefc driver in vSphere 8.x has the NVMe/FC capability enabled by default.
 
-Capabilities         Description
---------------------------------------
-(0000:00:11.4) Intel Corporation Wellsburg AHCI Controller
-(0000:00:1f.2) Intel Corporation Wellsburg AHCI Controller
-(0000:01:00.0) Broadcom MegaRAID SAS Fury Controller
-Second Level Lun ID  (0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-(0000:81:00.0) QLogic Corp QLE2742 Dual Port 32Gb Fibre Channel to PCIe Adapter
-----
 
 ==	Validate NVMe/FC
 
@@ -170,19 +146,23 @@ Second Level Lun ID  (0000:81:00.1) QLogic Corp QLE2742 Dual Port 32Gb Fibre Cha
 Example output:
 +
 ----
+
 Adapter  Adapter Qualified Name           Transport Type  Driver      Associated Devices
 -------  -------------------------------  --------------  ----------  ------------------
-vmhba64  aqn:qlnativefc:21000024ff7f4a50  FC              qlnativefc
-vmhba65  aqn:qlnativefc:21000024ff7f4a51  FC              qlnativefc
+vmhba64  aqn:lpfc:100000109b579f11        FC              lpfc
+vmhba65  aqn:lpfc:100000109b579f12        FC              lpfc
+vmhba66  aqn:qlnativefc:2100f4e9d456e286  FC              qlnativefc
+vmhba67  aqn:qlnativefc:2100f4e9d456e287  FC              qlnativefc
 ----
 
 . Verify that the NVMe/FC namespaces are correctly created:
 +
 The UUIDs in the following example represent the NVMe/FC namespace devices.
 +
+[subs=+quotes]
 ----
 # esxcfg-mpath -b
-uuid.116cb7ed9e574a0faf35ac2ec115969d : NVMe Fibre Channel Disk (uuid.116cb7ed9e574a0faf35ac2ec115969d)
+uuid.116cb7ed9e574a0faf35ac2ec115969d : NVMe Fibre Channel Disk (*uuid.116cb7ed9e574a0faf35ac2ec115969d*)
    vmhba64:C0:T0:L5 LUN:5 state:active fc Adapter: WWNN: 20:00:00:24:ff:7f:4a:50 WWPN: 21:00:00:24:ff:7f:4a:50  Target: WWNN: 20:04:d0:39:ea:3a:b2:1f WWPN: 20:05:d0:39:ea:3a:b2:1f
    vmhba64:C0:T1:L5 LUN:5 state:active fc Adapter: WWNN: 20:00:00:24:ff:7f:4a:50 WWPN: 21:00:00:24:ff:7f:4a:50  Target: WWNN: 20:04:d0:39:ea:3a:b2:1f WWPN: 20:07:d0:39:ea:3a:b2:1f
    vmhba65:C0:T1:L5 LUN:5 state:active fc Adapter: WWNN: 20:00:00:24:ff:7f:4a:51 WWPN: 21:00:00:24:ff:7f:4a:51  Target: WWNN: 20:04:d0:39:ea:3a:b2:1f WWPN: 20:08:d0:39:ea:3a:b2:1f
@@ -191,7 +171,7 @@ uuid.116cb7ed9e574a0faf35ac2ec115969d : NVMe Fibre Channel Disk (uuid.116cb7ed9e
 +
 [NOTE] 
 ====
-In ONTAP 9.7, the default block size for an NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you need to set the namespace block size as 512b. You can do this using the `vserver nvme namespace create` command.
+In ONTAP 9.7, the default block size for an NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you need to set the namespace block size as *512B*. You can do this using the `vserver nvme namespace create` command.
 
 Example,
 
@@ -202,37 +182,38 @@ Refer to the link:https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.
 
 . Verify the status of the individual ANA paths of the respective NVMe/FC namespace devices:
 +
+[subs=+quotes]
 ----
-esxcli storage hpp path list -d uuid.4c4a60628ad44587bee44f6ccedcd3b2
+# esxcli storage hpp path list -d uuid.df960bebb5a74a3eaaa1ae55e6b3411d
 
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2005d039ea3ab21f-uuid.4c4a60628ad44587bee44f6ccedcd3b2
-   Runtime Name: vmhba64:C0:T0:L1
-   Device: uuid.4c4a60628ad44587bee44f6ccedcd3b2
-   Device Display Name: NVMe Fibre Channel Disk (uuid.4c4a60628ad44587bee44f6ccedcd3b2)
+fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2005d039ea3ab21f-uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Runtime Name: vmhba64:C0:T0:L3
+   Device: uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Device Display Name: NVMe Fibre Channel Disk (uuid.df960bebb5a74a3eaaa1ae55e6b3411d)
    Path State: active unoptimized
-   Path Config: {TPG_id=1280,TPG_state=ANO,RTP_id=1280,health=UP}
- 
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2004d039ea3ab21f:2008d039ea3ab21f-uuid.4c4a60628ad44587bee44f6ccedcd3b2
-   Runtime Name: vmhba65:C0:T1:L1
-   Device: uuid.4c4a60628ad44587bee44f6ccedcd3b2
-   Device Display Name: NVMe Fibre Channel Disk (uuid.4c4a60628ad44587bee44f6ccedcd3b2)
-   Path State: active
-   Path Config: {TPG_id=1537,TPG_state=AO,RTP_id=1537,health=UP}
+   Path Config: {ANA_GRP_id=4,*ANA_GRP_state=ANO*,health=UP}
 
-fc.20000024ff7f4a51:21000024ff7f4a51-fc.2004d039ea3ab21f:2006d039ea3ab21f-uuid.4c4a60628ad44587bee44f6ccedcd3b2
-   Runtime Name: vmhba65:C0:T0:L1
-   Device: uuid.4c4a60628ad44587bee44f6ccedcd3b2
-   Device Display Name: NVMe Fibre Channel Disk (uuid.4c4a60628ad44587bee44f6ccedcd3b2)
+fc.20000024ff7f4a51:21000024ff7f4a51-fc.2004d039ea3ab21f:2008d039ea3ab21f-uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Runtime Name: vmhba65:C0:T1:L3
+   Device: uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Device Display Name: NVMe Fibre Channel Disk (uuid.df960bebb5a74a3eaaa1ae55e6b3411d)
+   Path State: active
+   Path Config: {ANA_GRP_id=4,*ANA_GRP_state=AO*,health=UP}
+
+fc.20000024ff7f4a51:21000024ff7f4a51-fc.2004d039ea3ab21f:2006d039ea3ab21f-uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Runtime Name: vmhba65:C0:T0:L3
+   Device: uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Device Display Name: NVMe Fibre Channel Disk (uuid.df960bebb5a74a3eaaa1ae55e6b3411d)
    Path State: active unoptimized
-   Path Config: {TPG_id=1536,TPG_state=ANO,RTP_id=1536,health=UP}
+   Path Config: {ANA_GRP_id=4,*ANA_GRP_state=ANO*,health=UP}
 
-
-fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2007d039ea3ab21f-uuid.4c4a60628ad44587bee44f6ccedcd3b2
-   Runtime Name: vmhba64:C0:T1:L1
-   Device: uuid.4c4a60628ad44587bee44f6ccedcd3b2
-   Device Display Name: NVMe Fibre Channel Disk (uuid.4c4a60628ad44587bee44f6ccedcd3b2)
+fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2007d039ea3ab21f-uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Runtime Name: vmhba64:C0:T1:L3
+   Device: uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Device Display Name: NVMe Fibre Channel Disk (uuid.df960bebb5a74a3eaaa1ae55e6b3411d)
    Path State: active
-   Path Config: {TPG_id=1281,TPG_state=AO,RTP_id=1281,health=UP}
+   Path Config: {ANA_GRP_id=4,*ANA_GRP_state=AO*,health=UP}
+
 ----
 
 == Configure NVMe/TCP
@@ -268,34 +249,23 @@ esxcli nvme controller list
 Example output:
 +
 ----
-Name                                                                                                      Controller Number  
-------------------------------------------------------------------------------------------------------------------------------
-nqn.2014-08.org.nvmexpress.discovery#vmhba66#192.168.100.123:8009                                                       259  
-nqn.2014-08.org.nvmexpress.discovery#vmhba67#192.168.101.125:8009                                                       262  
-nqn.2014-08.org.nvmexpress.discovery#vmhba67#192.168.101.124:8009                                                       263  
-nqn.2014-08.org.nvmexpress.discovery#vmhba66#192.168.100.124:8009                                                       264  
-nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba66#192.168.100.123:4420                266  
-nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba67#192.168.101.125:4420                267  
-nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba66#192.168.100.124:4420                270  
-nqn.1992-08.com.netapp:sn.5358d36afba111ec93fcd039ea345406:subsystem.tcp_ss#vmhba67#192.168.101.124:4420                271  
-
-Adapter  Transport Type  Is Online  Is VVOL
-----------------------------------------------
-vmhba66  TCP                  true    false
-vmhba67  TCP                  true    false
-vmhba67  TCP                  true    false
-vmhba66  TCP                  true    false
-vmhba66  TCP                  true    false
-vmhba67  TCP                  true    false
-vmhba66  TCP                  true    false
-vmhba67  TCP                  true    false
+Name                                                  Controller Number  Adapter  Transport Type  Is Online  Is VVOL
+---------------------------------------------------------------------------------------------------------  -----------------  -------  
+nqn.2014-08.org.nvmexpress.discovery#vmhba64#192.168.100.166:8009  256  vmhba64  TCP                  true    false
+nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmhba64#192.168.100.165:4420 258  vmhba64  TCP  true    false
+nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmhba64#192.168.100.168:4420 259  vmhba64  TCP  true    false
+nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmhba64#192.168.100.166:4420 260  vmhba64  TCP  true    false
+nqn.2014-08.org.nvmexpress.discovery#vmhba64#192.168.100.165:8009  261  vmhba64  TCP                  true    false
+nqn.2014-08.org.nvmexpress.discovery#vmhba65#192.168.100.155:8009  262  vmhba65  TCP                  true    false
+nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmhba64#192.168.100.167:4420 264  vmhba64  TCP  true    false
 
 ----
 
 . Retrieve a list of the number of paths to an NVMe namespace:
 +
+[subs=+quotes]
 ----
-esxcli storage hpp path list -d uuid.7caba9dea0b34b27b1c14722dc36b0ad
+esxcli storage hpp path list -d *uuid.7caba9dea0b34b27b1c14722dc36b0ad*
 ----
 +
 Example output:
