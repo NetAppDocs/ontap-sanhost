@@ -265,45 +265,51 @@ nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmh
 +
 [subs=+quotes]
 ----
-esxcli storage hpp path list -d *uuid.7caba9dea0b34b27b1c14722dc36b0ad*
+esxcli storage hpp path list -d *uuid.f4f14337c3ad4a639edf0e21de8b88bf*
 ----
 +
 Example output:
 +
+[subs=+quotes]
 ----
-tcp.vmnic3:34:80:0d:30:d1:a1-tcp.192.168.101.125:4420-uuid.7caba9dea0b34b27b1c14722dc36b0ad
-   Runtime Name: vmhba67:C0:T0:L1
-   Device: uuid.7caba9dea0b34b27b1c14722dc36b0ad
-   Device Display Name: NVMe TCP Disk (uuid.7caba9dea0b34b27b1c14722dc36b0ad)
+tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.165:4420-uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Runtime Name: vmhba64:C0:T0:L5
+   Device: uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Device Display Name: NVMe TCP Disk (uuid.f4f14337c3ad4a639edf0e21de8b88bf)
    Path State: active
-   Path Config: {TPG_id=1536,TPG_state=AO,RTP_id=1536,health=UP}
+   Path Config: {ANA_GRP_id=6,*ANA_GRP_state=AO*,health=UP}
 
-tcp.vmnic2:34:80:0d:30:d1:a0-tcp.192.168.100.124:4420-uuid.7caba9dea0b34b27b1c14722dc36b0ad
-   Runtime Name: vmhba66:C0:T1:L1
-   Device: uuid.7caba9dea0b34b27b1c14722dc36b0ad
-   Device Display Name: NVMe TCP Disk (uuid.7caba9dea0b34b27b1c14722dc36b0ad)
+tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.168:4420-uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Runtime Name: vmhba64:C0:T3:L5
+   Device: uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Device Display Name: NVMe TCP Disk (uuid.f4f14337c3ad4a639edf0e21de8b88bf)
    Path State: active unoptimized
-   Path Config: {TPG_id=1281,TPG_state=ANO,RTP_id=1281,health=UP}
+   Path Config: {ANA_GRP_id=6,*ANA_GRP_state=ANO*,health=UP}
 
-tcp.vmnic2:34:80:0d:30:d1:a0-tcp.192.168.100.123:4420-uuid.7caba9dea0b34b27b1c14722dc36b0ad
-   Runtime Name: vmhba66:C0:T0:L1
-   Device: uuid.7caba9dea0b34b27b1c14722dc36b0ad
-   Device Display Name: NVMe TCP Disk (uuid.7caba9dea0b34b27b1c14722dc36b0ad)
+tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.166:4420-uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Runtime Name: vmhba64:C0:T2:L5
+   Device: uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Device Display Name: NVMe TCP Disk (uuid.f4f14337c3ad4a639edf0e21de8b88bf)
+   Path State: active unoptimized
+   Path Config: {ANA_GRP_id=6,*ANA_GRP_state=ANO*,health=UP}
+
+tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.167:4420-uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Runtime Name: vmhba64:C0:T1:L5
+   Device: uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Device Display Name: NVMe TCP Disk (uuid.f4f14337c3ad4a639edf0e21de8b88bf)
    Path State: active
-   Path Config: {TPG_id=1280,TPG_state=AO,RTP_id=1280,health=UP}
-
-tcp.vmnic3:34:80:0d:30:d1:a1-tcp.192.168.101.124:4420-uuid.7caba9dea0b34b27b1c14722dc36b0ad
-   Runtime Name: vmhba67:C0:T1:L1
-   Device: uuid.7caba9dea0b34b27b1c14722dc36b0ad
-   Device Display Name: NVMe TCP Disk (uuid.7caba9dea0b34b27b1c14722dc36b0ad)
-   Path State: active unoptimized
-   Path Config: {TPG_id=1537,TPG_state=ANO,RTP_id=1537,health=UP}
+   Path Config: {ANA_GRP_id=6,*ANA_GRP_state=AO*,health=UP}
 ----
 
 == Known issue
 
-*	ESXi 8.0 (and later) NVMe/FC support is available starting with ONTAP 9.9.1 P3 and later because key NVMe abort fixes (issued by ESXi 8.0 and later) are available starting with ONTAP 9.9.1 P3. Refer to the respective burt public report at https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654 for details.
+[cols="10,30,30",options="header"]
+|===
+|NetApp Bug ID	|Title	|Description	
+|link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|NVMe/FC support is available starting with ONTAP 9.9.1 P3 and later because of the key NVMe abort fixes
 
+|
+|===
 
 == Related Links
 
