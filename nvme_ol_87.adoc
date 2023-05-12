@@ -175,6 +175,9 @@ abort 00000046 noxri 00000000 nondlp 0000043f qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 00000a89 Err 0000e2f3
 
 ----
+.Enable 1MB I/O size
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 --
 
 .Marvell/QLogic FC Adapter for NVMe/FC
@@ -196,6 +199,9 @@ QLE2742 FW:v9.10.11 DVR:v10.02.06.200-k
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
 ----
+.Enable 1MB I/O size
+
+Not Applicable
 --
 ====
 
