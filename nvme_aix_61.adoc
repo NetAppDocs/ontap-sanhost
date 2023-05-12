@@ -1,0 +1,77 @@
+---
+sidebar: sidebar
+permalink: nvme_aix_61.html
+keywords: nvme, linux, rhel, red hat, enterprise
+summary: How to Configure NVMe/FC Host for RHEL 8.2 with ONTAP
+---
+
+= NVMe/FC Host Configuration for AIX 6.1 with ONTAP
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+NVMe-oF (NVMe/FC and other transports) is introduced with IBM AIX from 7.2 TL5 Version and later with sanboot support. However, these releases doesn't have support for ANA (Asymmetric Namespace Access), which is required for surviving storage failovers on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF environement.
+
+The fix for ANA is included with GA versions of AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2 and VIOS 3.1.4.21.
+
+So, the official NetApp support for IBM AIX with NVMe/FC starts from ONTAP 9.13.1 and AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2 and VIOS 3.1.4.21
+
+NVMe/FC is supported only with Power 9 and Power 10 Hardware. 
+
+Virtualization support with NetApp (VIOS/PowerVM) will be introduced with VIOS 3.1.4.21 version. This will be supported via NPIV storage virtualization mode only using Power10 Hardware.
+
+== Features
+Beginning with ONTAP 9.13.1, NVMe over Fibre Channel (NVMe/FC) support is added for IBM AIX releases.
+
+Both NVMe & SCSI traffic can be run on the same co-existent host. This is expected to be the commonly deployed host config for customers. 
+No separate PCM (Path Control Module, aka HUK for AIX SCSI MPIO support) is required for NVMe devices.
+
+== IBM NVMe/FC support prerequisites
+Initial NVMe/FC support is only provided with 32Gb FC Emulex adapters (EN1A, EN1B, EN1L, EN1M), and 64Gb FC adapters (EN1N, EN1P) which have at least the 12.4.257.30 (FCode level 12.8.9) adapter firmware level
+
+By default, the ANATT (Asymmetric Namespace Access Transition Timeout) for the AIX host OS is 30s. However, for all ONTAP workflows to be non disruptive, we would require the ANATT value as 60s.
+
+IBM is planning an iFix which will cap the ANATT at 60s (as opposed to the default 30s right now in GA). This will be available as a PMR (Problem Management Record) and tracked via TS012877410). Once this is made available, NetApp support will be called out in the IMT
+
+For NVMe/FC AIX support, the Customers are required to download and install the iFix from IBM website on the GA versions of AIX OS versions. This is not required for the VIOS/PowerVM OS
+
+For non-virtualised mode (HBA assigned to the AIX LPAR or the physical stack)
+
+
+Host OS	Power Arch	Power FW version	Mode	Comments
+AIX 7.2 TL5 SP6	Power9 	FW 950 or later	Physical Stack	iFix available via TS012877410
+Power10	FW 1010 or later	Physical Stack	Sanboot is supported. iFix available via TS012877410
+AIX 7.3 TL1 SP2
+
+Power9	FW 950 or later	Physical Stack	iFix available via TS012877410
+Power10	FW 1010 or later	Physical and Virtual Stack	Sanboot is supported. iFix available via TS012877410
+
+
+For virtualised mode (HBA assigned to the VIOS) with NPIV only support
+VIOS/PowerVM 3.1.4.21	Power10	FW 1010 or later	Virtual Stack	Support starts from AIX 7.3 TL1 SP2 for VIOC 
+Limitations
+No NVMe/FC support for Qlogic/Marvel 32G FC HBA's
+No SANboot support for NVMe/FC devices using Power 9 Hardware
+Config Requirements
+Please refer to the NetApp InterOperability Matrix (IMT) for exact details regarding supported configs in future. We've tested the following in our InterOp lab:
+
+NVMe/FC
+Adapters
+Broadcom/Emulex
+32Gb FC adapters (EN1A, EN1B, EN1L, EN1M), and 64Gb FC adapters (EN1N, EN1P) which have at least the 12.4.257.30 (FCode level 12.8.9) adapter firmware level.
+Fabric Switch 
+32G FC Brocade G620 running FOS v9.0.0b or later
+
+Single-initiator zoning enabled for the initiator ports & target LIFs
+
+Target
+ONTAP 9.13.1 
+Broadcom 32G FC target module (for NVMe/FC)
+Host  Multipath
+IBM MPIO is used for NVMe multipathing. This comes with default OS installation
+This can be checked using "lsmpio" command (Load Source Multi-Pathing for IBM AIX) is a software tool used to improve the reli

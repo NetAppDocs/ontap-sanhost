@@ -55,6 +55,10 @@ sidebar:
 
     - title: NVMe-oF host configurations
       entries:
+      - title: AIX
+        entries:
+        - title: AIX 6.1
+          url: /nvme_aix_61.html
       - title: ESXi
         pdf-filename: NVMeoF ESXi
         entries:
