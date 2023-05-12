@@ -29,11 +29,11 @@ There are no known limitations.
  
 == Validate software versions
 
-You can validate the minimum supported OL 9.0 software versions using the following procedure.
+You can validate the minimum supported OL 8.7 software versions using the following procedure.
 
 .Steps
 
-. Install OL 9.0 GA on the server. After the installation is complete, verify that you are running the specified OL 9.0 GA kernel. 
+. Install OL 8.7 GA on the server. After the installation is complete, verify that you are running the specified OL 8.7 GA kernel. 
 +
 ----
 # uname -r
@@ -42,7 +42,7 @@ You can validate the minimum supported OL 9.0 software versions using the follow
 *Example output:*
 +
 ----
-5.15.0-0.30.19.el9uek.x86_64
+5.15.0-3.60.5.1.el8uek.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -54,7 +54,7 @@ You can validate the minimum supported OL 9.0 software versions using the follow
 *Example output:*
 +
 ----
-nvme-cli-1.16-3.el9.x86_64
+nvme-cli-1.16-5.el8.x86_64
 ----
 
 .	On the Oracle Linux 8.7 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
@@ -66,7 +66,7 @@ nvme-cli-1.16-3.el9.x86_64
 *Example output:*
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
+nqn.2014-08.org.nvmexpress:uuid:791c54eb-545d-4ed3-8d41-91a0a53d4b24
 ----
 
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -80,7 +80,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
 ----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
+vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:791c54eb-545d-4ed3-8d41-91a0a53d4b24
 ----
 +
 [NOTE]
@@ -124,11 +124,13 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
-14.0.505.11, sli-4:2:c
-14.0.505.11, sli-4:2:c
+12.8.614.23, sli-4:2:c
+12.8.614.23, sli-4:2:c
+
 
 # cat /sys/module/lpfc/version
-0:12.8.0.11
+0:14.0.0.1
+
 ----
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
@@ -142,34 +144,36 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 +
 ----
 # cat /sys/class/fc_host/host*/port_name
-0x100000109b1c1204
-0x100000109b1c1205
+0x100000109b3c081f
+0x100000109b3c0820
+
 # cat /sys/class/fc_host/host*/port_state
 Online
 Online
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 ONLINE
-NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 TARGET DISCSRVC ONLINE
-NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 TARGET DISCSRVC ONLINE
+NVME LPORT lpfc0 WWPN x100000109b3c081f WWNN x200000109b3c081f DID x060300 ONLINE
+NVME RPORT WWPN x2010d039ea2c3e2d WWNN x200fd039ea2c3e2d DID x061f0e TARGET DISCSRVC ONLINE
+NVME RPORT WWPN x2011d039ea2c3e2d WWNN x200fd039ea2c3e2d DID x06270f TARGET DISCSRVC ONLINE
 NVME Statistics
-LS: Xmt 0000000f78 Cmpl 0000000f78 Abort 00000000
+LS: Xmt 0000000a71 Cmpl 0000000a71 Abort 00000000
 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000002fe29bba Issue 000000002fe29bc4 OutIO 000000000000000a
-abort 00001bc7 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00001e15 Err 0000d906
+Total FCP Cmpl 00000000558611c6 Issue 000000005578bb69 OutIO fffffffffff2a9a3
+abort 0000007a noxri 00000000 nondlp 00000447 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00000a8e Err 0000e2a8
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 ONLINE
-NVME RPORT WWPN x203d00a098dfdd91 WWNN x203700a098dfdd91 DID x010007 TARGET DISCSRVC ONLINE
-NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 TARGET DISCSRVC ONLINE
+NVME LPORT lpfc1 WWPN x100000109b3c0820 WWNN x200000109b3c0820 DID x060200 ONLINE
+NVME RPORT WWPN x2015d039ea2c3e2d WWNN x200fd039ea2c3e2d DID x062e0c TARGET DISCSRVC ONLINE
+NVME RPORT WWPN x2014d039ea2c3e2d WWNN x200fd039ea2c3e2d DID x06290f TARGET DISCSRVC ONLINE
 NVME Statistics
-LS: Xmt 0000000fa8 Cmpl 0000000fa8 Abort 00000000
+LS: Xmt 0000000a69 Cmpl 0000000a69 Abort 00000000
 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
-abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00001f50 Err 0000d9f8
+Total FCP Cmpl 0000000055814701 Issue 0000000055744b1c OutIO fffffffffff3041b
+abort 00000046 noxri 00000000 nondlp 0000043f qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00000a89 Err 0000e2f3
+
 ----
 --
 
@@ -177,12 +181,13 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 --
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 9.0 GA kernel has the latest upstream fixes essential for ONTAP support:
+. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.7 GA kernel has the latest upstream fixes essential for ONTAP support:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
-QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
-QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
+QLE2742 FW:v9.10.11 DVR:v10.02.06.200-k
+QLE2742 FW:v9.10.11 DVR:v10.02.06.200-k
+
 ----
 
 . Verify that `ql2xnvmeenable` is set which enables the Marvell adapter to function as an NVMe/FC initiator:
@@ -294,7 +299,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 .Steps
 
-. Verify the following NVMe/FC settings on the OL 9.0 host:
+. Verify the following NVMe/FC settings on the OL 8.7 host:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -305,6 +310,7 @@ NetApp ONTAP Controller
 # cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
 round-robin
 round-robin
+
 ----
 
 . Verify that the namespaces are created and correctly discovered on the host:
@@ -338,13 +344,15 @@ Namespace Usage    Format             FW             Rev
 +
 *Example output:*
 +
+[subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_ss_ol_1
 \
-+- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
-+- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
++- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 *live non-optimized*
++- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 *live non-optimized*
++- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
++- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
+
 ----
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
@@ -406,6 +414,7 @@ NSID       UUID                                   Size
        },
   ]
 }
+
 ----
 
 == Known issues
