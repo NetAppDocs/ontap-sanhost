@@ -249,10 +249,11 @@ min.throttle = 8
 You can use the following command to verify the `HardwareAcceleratedLocking` setting.
 
 `esxcli system settings  advanced list --option /VMFS3/HardwareAcceleratedLocking`
+[subs=+quotes]
 ----
    Path: /VMFS3/HardwareAcceleratedLocking
    Type: integer
-   Int Value: 1
+   Int Value: *1*
    Default Int Value: 1
    Min Value: 0
    Max Value: 1
@@ -267,13 +268,14 @@ You can use the following command to verify the `HardwareAcceleratedLocking` set
 You can use the following command to verify the IOPs setting.
 
 `esxcli storage nmp device list -d naa.600a098038304731783f506670553355`
+[subs=+quotes]
 ----
 naa.600a098038304731783f506670553355
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304731783f506670553355)
    Storage Array Type: VMW_SATP_ALUA
    Storage Array Type Device Config: {implicit_support=on; explicit_support=off; explicit_allow=on; alua_followover=on; action_OnRetryErrors=off; {TPG_id=1000,TPG_state=ANO}{TPG_id=1001,TPG_state=AO}}
    Path Selection Policy: VMW_PSP_RR
-   Path Selection Policy Device Config: {policy=rr,iops=1,bytes=10485760,useANO=0; lastPathIndex=0: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Config: {policy=rr,*iops=1*,bytes=10485760,useANO=0; lastPathIndex=0: NumIOsPending=0,numBytesPending=0}
    Path Selection Policy Device Custom Config:
    Working Paths: vmhba4:C0:T0:L82, vmhba3:C0:T0:L82
    Is USB: false
@@ -284,10 +286,11 @@ naa.600a098038304731783f506670553355
 You can use the following command to verify the QFullSampleSize.
 
 `esxcli system settings  advanced list --option /Disk/QFullSampleSize`
+[subs=+quotes]
 ----
    Path: /Disk/QFullSampleSize
    Type: integer
-   Int Value: 32
+   Int Value: *32*
    Default Int Value: 0
    Min Value: 0
    Max Value: 64
@@ -299,7 +302,10 @@ You can use the following command to verify the QFullSampleSize.
 
 == Known issues
 
-There are no known issues.
+[cols="10,30,30",options="header"]
+|===
+|NetApp Bug ID	|Title	|Description
+|===
 
 == Related Links
 
