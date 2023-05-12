@@ -44,7 +44,7 @@ You can validate the minimum supported RHEL 9.2 software versions using the foll
 *Example output:*
 +
 ----
-5.15.0-0.30.19.el9uek.x86_64
+5.14.0-284.el9.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -56,7 +56,7 @@ You can validate the minimum supported RHEL 9.2 software versions using the foll
 *Example output:*
 +
 ----
-nvme-cli-1.16-3.el9.x86_64
+nvme-cli-2.2.1-2.el9.x86_64
 ----
 
 . On the host, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -120,8 +120,8 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
-14.0.505.11, sli-4:2:c
-14.0.505.11, sli-4:2:c
+14.0.639.18, sli-4:2:c
+14.0.639.18, sli-4:2:c
 
 # cat /sys/module/lpfc/version
 0:12.8.0.11
@@ -167,6 +167,11 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
+
+.Enable 1MB I/O size
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
 --
 
 .Marvell/QLogic FC Adapter for NVMe/FC
@@ -187,6 +192,11 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
 ----
+
+.Enable 1MB I/O size
+
+Not Applicable.
+
 --
 ====
 
@@ -205,50 +215,43 @@ nvme discover -t tcp -w host-traddr -a traddr
 *Example output:*
 +
 ----
-#  nvme discover -t tcp -w 192.168.6.13 -a 192.168.6.15
-Discovery Log Number of Records 6, Generation counter 8
+# nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.22
+
+Discovery Log Number of Records 8, Generation counter 18
 =====Discovery Log Entry 0======
-trtype: tcp
-adrfam: ipv4
-subtype: unrecognized
-treq: not specified
-portid: 0
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  0
 trsvcid: 8009
-subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:discovery
-traddr: 192.168.6.17
+subnqn:  nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:discovery
+traddr:  192.168.166.23
+eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
 =====Discovery Log Entry 1======
-trtype: tcp
-adrfam: ipv4
-subtype: unrecognized
-treq: not specified
-portid: 1
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  1
 trsvcid: 8009
-subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:discovery
-traddr: 192.168.5.17
+subnqn:  nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:discovery
+traddr:  192.168.166.22
+eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
 =====Discovery Log Entry 2======
-trtype: tcp
-adrfam: ipv4
-subtype: unrecognized
-treq: not specified
-portid: 2
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  2
 trsvcid: 8009
-subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:discovery
-traddr: 192.168.6.15
-sectype: none
-=====Discovery Log Entry 3======
-trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem
-treq: not specified
-portid: 0
-trsvcid: 4420
-subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:subsystem.host_95
-traddr: 192.168.6.17
+subnqn:  nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:discovery
+traddr:  192.168.167.23
+eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
 ..........
-
 ----
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
@@ -260,10 +263,10 @@ nvme discover -t tcp -w host-traddr -a traddr
 *Example output:*
 +
 ----
-# nvme discover -t tcp -w 192.168.5.13 -a 192.168.5.15
-# nvme discover -t tcp -w 192.168.5.13 -a 192.168.5.17
-# nvme discover -t tcp -w 192.168.6.13 -a 192.168.6.15
-# nvme discover -t tcp -w 192.168.6.13 -a 192.168.6.17
+#nvme discover -t tcp -w 192.168.166.5 -a 192.168.166.22
+#nvme discover -t tcp -w 192.168.166.5 -a 192.168.166.23 
+#nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.22
+#nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.23
 ----
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes, and set the controller loss timeout period for at least 30 minutes or 1800 seconds:
@@ -275,15 +278,13 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 *Example output:*
 +
 ----
-# nvme connect-all -t tcp -w 192.168.5.13 -a 192.168.5.15 -l 1800
-# nvme connect-all -t tcp -w 192.168.5.13 -a 192.168.5.17 -l 1800
-# nvme connect-all -t tcp -w 192.168.6.13 -a 192.168.6.15 -l 1800
-# nvme connect-all -t tcp -w 192.168.6.13 -a 192.168.6.17 -l 1800
+#	nvme	connect-all	-t	tcp	-w	192.168.166.5	-a	192.168.166.22	-l	1800
+#	nvme	connect-all	-t	tcp	-w	192.168.166.5	-a	192.168.166.23	-l	1800
+#	nvme	connect-all	-t	tcp	-w	192.168.167.5	-a	192.168.167.22	-l	1800
+#	nvme	connect-all	-t	tcp	-w	192.168.167.5	-a	192.168.167.23	-l	1800
+
 ----
 
-===	Enable 1MB I/O size
-
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
 == Validate NVMe-oF
@@ -295,11 +296,11 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 ----
 # cat /sys/module/nvme_core/parameters/multipath
 Y
-# cat /sys/class/nvme-subsystem/nvme-subsys*/model
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
-round-robin
+----
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces properly reflect on the host:
++
+----
+# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
 round-robin
 ----
 
@@ -314,16 +315,12 @@ round-robin
 ----
 Node         SN                   Model                          
 ---------------------------------------------------------  
-/dev/nvme0n1 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller
-/dev/nvme0n2 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller                                       
-/dev/nvme0n3 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller                                     
-
+/dev/nvme0n1 81CZ5BQuUNfGAAAAAAAB	NetApp ONTAP Controller	
+                               
 
 Namespace Usage    Format             FW             Rev
 -----------------------------------------------------------
-1                 85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
-2                 85.90 GB / 85.90 GB  24 KiB + 0 B  FFFFFFFF
-3                 85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
+1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
 ----
 
 . Verify that the controller state of each path is live and has the correct ANA status:
@@ -332,15 +329,27 @@ Namespace Usage    Format             FW             Rev
 # nvme list-subsys /dev/nvme0n1
 ----
 +
-*Example output:*
+*Example output (a):*
 +
 ----
-nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_ss_ol_1
-\
-+- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
-+- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
+# nvme list-subsys /dev/nvme0n1 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:subsystem.rhel_207_LB 
++- nvme1 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a7d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live optimized 
++- nvme2 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a8d039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live optimized 
++- nvme3 fc traddr=nn-0x20a6d039ea954d17:pn-0x20aad039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live non-optimized 
++- nvme5 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a9d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live non-optimized
+
+----
++
+*Example output (b):*
++
+----
+# nvme list-subsys /dev/nvme1n1 
+nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:subsystem.rhel_tcp97 \
++- nvme1 tcp traddr=192.168.167.23,trsvcid=4420,host_traddr=192.168.167.5 live non-optimized 
++- nvme2 tcp traddr=192.168.167.22,trsvcid=4420,host_traddr=192.168.167.5 live non-optimized 
++- nvme3 tcp traddr=192.168.166.23,trsvcid=4420,host_traddr=192.168.166.5 live optimized 
++- nvme4 tcp traddr=192.168.166.22,trsvcid=4420,host_traddr=192.168.166.5 live 
+
 ----
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
@@ -349,58 +358,63 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 # nvme netapp ontapdevices -o column
 ----
 +
-*Example output:*
+*Example output (a):*
 +
 ----
 Device        Vserver   Namespace Path                                                          
 ----------------------- ------------------------------ 
-/dev/nvme0n1   vs_ol_nvme  /vol/ol_nvme_vol_1_1_0/ol_nvme_ns              
-/dev/nvme0n2   vs_ol_nvme  /vol/ol_nvme_vol_1_0_0/ol_nvme_ns              
-/dev/nvme0n3   vs_ol_nvme  /vol/ol_nvme_vol_1_1_1/ol_nvme_ns              
+/dev/nvme0n1 vs_tcp           /vol/vol1/ns1   
+              
 
 
 NSID       UUID                                   Size
 ------------------------------------------------------------
-1          72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
-2          04bf9f6e-9031-40ea-99c7-a1a61b2d7d08   85.90GB
-3          264823b1-8e03-4155-80dd-e904237014a4   85.90GB
+1          79c2c569-b7fa-42d5-b870-d9d6d7e5fa84	21.47GB
+----
++
+----
+# nvme netapp ontapdevices -o json
+
+{
+
+"ONTAPdevices" : [
+{
+
+"Device" : "/dev/nvme0n1", "Vserver" : "vs_tcp79", "Namespace_Path" : "/vol/vol1/ns1", "NSID" : 1,
+"UUID" : "79c2c569-b7fa-42d5-b870-d9d6d7e5fa84", "Size" : "21.47GB",
+"LBA_Data_Size" : 4096,
+"Namespace_Size" : 5242880
+},
+
+]
+}
+----
++
+Example (b)
++
+----
+Device        Vserver   Namespace Path                                                          
+----------------------- ------------------------------ 
+/dev/nvme1n1      vs_tcp_133  /vol/vol1/ns1
+              
+
+
+NSID       UUID                                   Size
+------------------------------------------------------------
+1          1ef7cb56-bfed-43c1-97c1-ef22eeb92657	21.47GB
++
 ----
 +
 ----
 # nvme netapp ontapdevices -o json
 {
-"ONTAPdevices" : [
-    {
-        "Device" : "/dev/nvme0n1",
-        "Vserver" : "vs_ol_nvme",
-        "Namespace_Path" : "/vol/ol_nvme_vol_1_1_0/ol_nvme_ns",
-        "NSID" : 1,
-        "UUID" : "72b887b1-5fb6-47b8-be0b-33326e2542e2",
-        "Size" : "85.90GB",
-        "LBA_Data_Size" : 4096,
-        "Namespace_Size" : 20971520
-    },
-    {
-        "Device" : "/dev/nvme0n2",
-        "Vserver" : "vs_ol_nvme",
-        "Namespace_Path" : "/vol/ol_nvme_vol_1_0_0/ol_nvme_ns",
-        "NSID" : 2,
-        "UUID" : "04bf9f6e-9031-40ea-99c7-a1a61b2d7d08",
-        "Size" : "85.90GB",
-        "LBA_Data_Size" : 4096,
-        "Namespace_Size" : 20971520
-      },
-      {
-         "Device" : "/dev/nvme0n3",
-         "Vserver" : "vs_ol_nvme",
-         "Namespace_Path" : "/vol/ol_nvme_vol_1_1_1/ol_nvme_ns",
-         "NSID" : 3,
-         "UUID" : "264823b1-8e03-4155-80dd-e904237014a4",
-         "Size" : "85.90GB",
-         "LBA_Data_Size" : 4096,
-         "Namespace_Size" : 20971520
-       },
-  ]
+"ONTAPdevices":[
+{
+"Device":"/dev/nvme1n1", "Vserver":"vs_tcp", "Namespace_Path":"/vol/vol1/ns1", "NSID":1,
+"UUID":"1ef7cb56-bfed-43c1-97c1-ef22eeb92657", "Size":"21.47GB",
+"LBA_Data_Size":4096, "Namespace_Size":5242880
+},
+]
 }
 ----
 
