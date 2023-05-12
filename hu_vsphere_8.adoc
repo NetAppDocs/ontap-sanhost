@@ -248,7 +248,7 @@ min.throttle = 8
 
 You can use the following command to verify the `HardwareAcceleratedLocking` setting.
 
-*`esxcli system settings  advanced list --option /VMFS3/HardwareAcceleratedLocking`*
+`esxcli system settings  advanced list --option /VMFS3/HardwareAcceleratedLocking`
 ----
    Path: /VMFS3/HardwareAcceleratedLocking
    Type: integer
@@ -266,7 +266,7 @@ You can use the following command to verify the `HardwareAcceleratedLocking` set
 
 You can use the following command to verify the IOPs setting.
 
-*`esxcli storage nmp device list -d naa.600a098038304731783f506670553355`*
+`esxcli storage nmp device list -d naa.600a098038304731783f506670553355`
 ----
 naa.600a098038304731783f506670553355
    Device Display Name: NETAPP Fibre Channel Disk (naa.600a098038304731783f506670553355)
@@ -283,7 +283,7 @@ naa.600a098038304731783f506670553355
 
 You can use the following command to verify the QFullSampleSize.
 
-*`esxcli system settings  advanced list --option /Disk/QFullSampleSize`*
+`esxcli system settings  advanced list --option /Disk/QFullSampleSize`
 ----
    Path: /Disk/QFullSampleSize
    Type: integer
