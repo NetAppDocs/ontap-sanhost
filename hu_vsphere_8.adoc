@@ -14,8 +14,8 @@ summary: Describes how to use Veritas Infoscale 8.8 for Linux with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Introduction
-This document provides guidance on ONTAP SAN host configuration settings for the VMware vSphere 8.x release with FC, FCoE, and iSCSI protocols.
+[.lead]
+You can configure ONTAP SAN host settings for the VMware vSphere 8.x release with FC, FCoE, and iSCSI protocols.
 
 == Hypervisor SAN booting
 
@@ -31,7 +31,7 @@ ESXi provides an extensible multipathing module called Native Multipathing Plug-
 For NetApp ONTAP storage, `VMW_SATP_ALUA` plugin is used by default with `VMW_PSP_RR` as a path selection policy (PSP). You can confirm by using the following command:
 
 ----
-*`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
+`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`
 ----
 
 Example output:
@@ -305,7 +305,7 @@ You can use the following command to verify the QFullSampleSize.
 [cols="10,30,30",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description
-|||
+|1543660||
 |===
 
 == Related Links

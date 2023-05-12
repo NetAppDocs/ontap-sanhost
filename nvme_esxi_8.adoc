@@ -14,19 +14,21 @@ summary: Describes how to configure NVMe-oF for ESXi 8.x with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+This document contains the details for enabling NVMe-oF on ESXi 8.x initiator hosts and ONTAP as the target.
+
 == Supportability
 
 * Beginning with ONTAP 9.7, NVMe over Fibre Channel (NVMe/FC) support is added for VMware vSphere releases.
 * Beginning with ONTAP 9.10.1, NVMe/TCP feature is supported for ONTAP.
 
-
 == Features
 
-*	ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
+* ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
 
-*	Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 8 and later.
+* Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 8 and later.
 
-*	For ESXi 8.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
+* For ESXi 8.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
 
 ==	Known limitations
 
@@ -37,10 +39,14 @@ The following configurations are not supported:
 
 == Enable NVMe/FC
 
-You need to check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array. Use the following command:
+NVMe/FC is enabled by default in vSphere releases.
+
+.Verify host NQN
+
+You need to check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array. 
 
 ----
-# esxcli nvme  info get
+# esxcli nvme info get
 ----
 Example output:
 ----
@@ -57,24 +63,13 @@ Vserver Subsystem Host NQN
 nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f1a436
 ----
 
-== Configure Broadcom/Emulex
+If the host NQN strings do not match, you should use the `vserver nvme subsystem host add` command to update the correct host NQN string on your corresponding ONTAP NVMe subsystem.
 
-.Steps
+== Configure Broadcom/Emulex and Marvell/Qlogic
 
-. Check whether the configuration is supported with required driver or firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+The `lpfc` driver and the `qlnativefc` driver in vSphere 8.x have the NVMe/FC capability enabled by default.
 
-. The lpfc driver in vSphere 8.x has the NVMe/FC capability enabled by default.
-
-
-
-== Configure Marvell/QLogic
-
-.Steps
-
-. Check whether the configuration is supported with required driver or firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
-
-. The qlnativefc driver in vSphere 8.x has the NVMe/FC capability enabled by default.
-
+Check whether the configuration is supported with required driver or firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 ==	Validate NVMe/FC
 
@@ -120,7 +115,7 @@ Example,
 
 `vserver nvme namespace create -vserver vs_1 -path /vol/nsvol/namespace1 -size 100g -ostype vmware -block-size 512B`
 
-Refer to the link:https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-cmpr%2FGUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html[ONTAP 9 Command man pages^] for additional details.
+Refer to the link:https://docs.netapp.com/us-en/ontap/concepts/manual-pages.html[ONTAP 9 Command man pages^] for additional details.
 ====
 
 . Verify the status of the individual ANA paths of the respective NVMe/FC namespace devices:
@@ -164,6 +159,8 @@ fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2007d039ea3ab21f-uuid.d
 In ESXi 8.0, the required NVMe/TCP modules are loaded by default. To configure the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
 
 == Validate NVMe/TCP
+
+You can validate NVMe/TCP by using the following procedure.
 
 .Steps
 
@@ -248,13 +245,13 @@ tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.167:4420-uuid.f4f14337c3ad4a639edf0
 
 [cols="10,30,30",options="header"]
 |===
-|NetApp Bug ID	|Title	|Description	
-|link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|NVMe/FC support is available starting with ONTAP 9.9.1 P3 and later because of the key NVMe abort fixes
+|NetApp Bug ID	|Title	|Workaround	
+|link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|ONTAP node non-operational when NVMe/FC protocol is used with ONTAP version 9.9.1 |Check and rectify any network issues in the host fabric. If this does not help, upgrade to a patch that fixes this issue.
 | 1543660 | |
 |
 |===
 
-== Related Links
+.Related Links
 
 link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597-VMware vSphere with ONTAP^]
 link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)^]
