@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: nvme_aix_61.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe/FC Host for RHEL 8.2 with ONTAP
+summary: How to Configure NVMe/FC Host for AIX 6.1 with ONTAP
 ---
 
 = NVMe/FC Host Configuration for AIX 6.1 with ONTAP
@@ -15,20 +15,14 @@ summary: How to Configure NVMe/FC Host for RHEL 8.2 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe-oF (NVMe/FC and other transports) is introduced with IBM AIX from 7.2 TL5 Version and later with sanboot support. However, these releases doesn't have support for ANA (Asymmetric Namespace Access), which is required for surviving storage failovers on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF environement.
-
-The fix for ANA is included with GA versions of AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2 and VIOS 3.1.4.21.
-
-So, the official NetApp support for IBM AIX with NVMe/FC starts from ONTAP 9.13.1 and AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2 and VIOS 3.1.4.21
-
-NVMe/FC is supported only with Power 9 and Power 10 Hardware. 
-
-Virtualization support with NetApp (VIOS/PowerVM) will be introduced with VIOS 3.1.4.21 version. This will be supported via NPIV storage virtualization mode only using Power10 Hardware.
+NVMe-oF (NVMe/FC and other transports) is introduced with IBM AIX from 7.2 TL5 version and later with sanboot support. However, these releases doesn't have support for ANA (Asymmetric Namespace Access), which is required for surviving storage failovers on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF environement.
 
 == Features
-Beginning with ONTAP 9.13.1, NVMe over Fibre Channel (NVMe/FC) support is added for IBM AIX releases.
-
-Both NVMe & SCSI traffic can be run on the same co-existent host. This is expected to be the commonly deployed host config for customers. 
+* Beginning with ONTAP 9.13.1, NVMe over Fibre Channel (NVMe/FC) support is added for IBM AIX releases.
+* NVMe/FC is supported only with Power 9 and Power 10 Hardware. 
+* Virtualization support with NetApp (VIOS/PowerVM) will be introduced with VIOS 3.1.4.21 version. This will be supported via NPIV storage virtualization mode only using Power10 Hardware.
+ 
+* Both NVMe & SCSI traffic can be run on the same co-existent host. This is expected to be the commonly deployed host config for customers. 
 No separate PCM (Path Control Module, aka HUK for AIX SCSI MPIO support) is required for NVMe devices.
 
 == IBM NVMe/FC support prerequisites
@@ -54,7 +48,8 @@ Power10	FW 1010 or later	Physical and Virtual Stack	Sanboot is supported. iFix a
 
 For virtualised mode (HBA assigned to the VIOS) with NPIV only support
 VIOS/PowerVM 3.1.4.21	Power10	FW 1010 or later	Virtual Stack	Support starts from AIX 7.3 TL1 SP2 for VIOC 
-Limitations
+
+== Known limitations
 No NVMe/FC support for Qlogic/Marvel 32G FC HBA's
 No SANboot support for NVMe/FC devices using Power 9 Hardware
 Config Requirements
@@ -75,3 +70,284 @@ Broadcom 32G FC target module (for NVMe/FC)
 Host  Multipath
 IBM MPIO is used for NVMe multipathing. This comes with default OS installation
 This can be checked using "lsmpio" command (Load Source Multi-Pathing for IBM AIX) is a software tool used to improve the reli
+
+== Configuring NVMe/FC
+
+Broadcom/Emulex
+Verify that you are using the supported adapter. For the most current list of supported adapters see the NetApp Interoperability Matrix.
+By default, the NVMeoF protocol support is enabled in the physical Fibre Channel but disabled in the Virtual Fibre Channel (VFC) on Virtual I/O Server (VIOS). You can run ioscli vfcctrl command on the VIOS to enable the NPIV-NVMeoF protocol support. Decide whether you want to enable NVMe for all current and future adapters
+If you want to enable NVMe for all adapters, complete the following steps:
+Change the dflt_enabl_nvme attribute value of viosnpiv0 pseudo device to yes.
+Set the enable_nvme attribute value to yes for all the VFC host devices.
+If you want to enable NVMeoF protocol only on a few adapters, then you can change the enable_nvme value of VFC host device attribute to yes.
+
+
+
+----
+$ lsmap -all -npiv
+Name          Physloc                            ClntID ClntName       ClntOS
+------------- ---------------------------------- ------ -------------- -------
+vfchost0      U9105.22A.785DB61-V2-C2                 4 s1022-iop-mcc- AIX
+
+Status:LOGGED_IN
+FC name:fcs4                    FC loc code:U78DA.ND0.WZS01UY-P0-C7-T0
+Ports logged in:3
+Flags:0xea<LOGGED_IN,STRIP_MERGE,SCSI_CLIENT,NVME_CLIENT>
+VFC client name:fcs0            VFC client DRC:U9105.22A.785DB61-V4-C2
+
+Name          Physloc                            ClntID ClntName       ClntOS
+------------- ---------------------------------- ------ -------------- -------
+vfchost1      U9105.22A.785DB61-V2-C3                 4
+
+Status:NOT_LOGGED_IN
+FC name:                        FC loc code:
+Ports logged in:0
+Flags:0x81<NOT_MAPPED,NOT_CONNECTED>
+VFC client name:                VFC client DRC:
+
+$  vfcctrl -enable -protocol nvme -vadapter vfchost0
+The "nvme" protocol for "vfchost0" is enabled.
+
+# lsattr -El vfchost0
+alt_site_wwpn       WWPN to use - Only set after migration   False
+current_wwpn  0     WWPN to use - Only set after migration   False
+enable_nvme   yes   Enable or disable NVME protocol for NPIV True
+label               User defined label                       True
+limit_intr    false Limit NPIV Interrupt Sources             True
+map_port      fcs4  Physical FC Port                         False
+num_per_nvme  0     Number of NPIV NVME queues per range     True
+num_per_range 0     Number of NPIV SCSI queues per range     True
+
+
+# chdev -l viosnpiv0 -a dflt_enabl_nvme=yes
+
+# lsattr -El viosnpiv0
+bufs_per_cmd    10  NPIV Number of local bufs per cmd                    True
+dflt_enabl_nvme yes Default NVME Protocol setting for a new NPIV adapter True
+num_local_cmds  5   NPIV Number of local cmds per channel                True
+num_per_nvme    8   NPIV Number of NVME queues per range                 True
+num_per_range   8   NPIV Number of SCSI queues per range                 True
+secure_va_info  no  NPIV Secure Virtual Adapter Information              True
+----
+
+
+. Check "FC-NVMe Protocol Device" is created on the server
++
+----
+# [root@aix_server /]: lsdev |grep fcnvme
+fcnvme0       Available 00-00-02    FC-NVMe Protocol Device
+fcnvme1       Available 00-01-02    FC-NVMe Protocol Device
+----
+
+. Record the Host NQN from the server
++
+----
+# [root@aix_server /]: lsattr -El fcnvme0
+attach     switch                                                               How this adapter is connected  False
+autoconfig available                                                            Configuration State            True
+host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8 Host NQN (NVMe Qualified Name) True
+[root@aix_server /]: lsattr -El fcnvme1
+attach     switch                                                               How this adapter is connected  False
+autoconfig available                                                            Configuration State            True
+host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8 Host NQN (NVMe Qualified Name) True
+[root@aix_server /]:
+
+
+[root@aix_server /]: lsattr -El sys0 -a partition_uuid
+partition_uuid 64e039bd-27d2-421c-858d-8a378dec31e8 Partition UUID False
+[root@aix_server /]:
+----
+
+Check the host NQN and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. For e.g.
++
+----
+::> vserver nvme subsystem host show -vserver vs_s922-55-lpar2
+Vserver Subsystem Host NQN
+------- --------- ----------------------------------------------------------
+vs_s922-55-lpar2 subsystem_s922-55-lpar2
+                  nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8
+Verify that the initiator ports are up and running, and able to see the target LIFs.
+----
+
+
+== Validate NVMf
+
+.Steps
+
+. Verify that the ONTAP namespaces properly reflect on the host. For e.g.
+----
+# [root@aix_server /]: lsdev -Cc disk |grep NVMe
+hdisk1  Available 00-00-02 NVMe 4K Disk
+
+
+
+      #[root@aix_server /]: lsmpio -l hdisk1
+      name     path_id  status   path_status  parent  connection
+
+      hdisk1  8        Enabled  Sel,Opt      nvme12  fcnvme0, 9
+      hdisk1  9        Enabled  Sel,Non      nvme65  fcnvme1, 9
+      hdisk1  10       Enabled  Sel,Opt      nvme37  fcnvme1, 9
+      hdisk1  11       Enabled  Sel,Non      nvme60  fcnvme0, 9
+----
+
+. Verify paths states for the namespace (Engineering use case
+----
+Enter the KDB
+For a 2-Node HA-pair, with 4 paths per namespace
+
+
+#[root@aix_server /]: kdb
+           START              END <name>
+0000000000001000 0000000008420000 start+000FD8
+F00000002FF47600 F00000002FFE1000 __ublock+000000
+000000002FF22FF4 000000002FF22FF8 environ+000000
+000000002FF22FF8 000000002FF22FFC errno+000000
+F1001004C0000000 F1001004D0000000 pvproc+000000
+F1001004D0000000 F1001004D8000000 pvthread+000000
+read vscsi_scsi_ptrs OK, ptr = 0xF10009D5B018AF00
+(0)>
+(0)> nvme -d hdisk1
+struct disk @ f1000b0034fe4000:
+  resource_name: hdisk1
+  sector_size:  0x1000
+  max_request: 0x40000
+  num_blocks:  0x6c0000
+ Path ID 8 @ f1000b0034fc8a00:
+  adap_devno: 0x800000150000000e (nvme12, Opt)
+  namespace_id: 0x9
+  state: open/0x1
+ Path ID 9 @ f1000b0034fc8e00:
+  adap_devno: 0x8000001500000063 (nvme65, NonOpt)
+  namespace_id: 0x9
+  state: open/0x1
+ Path ID 10 @ f1000b0034fc9200:
+  adap_devno: 0x8000001500000022 (nvme37, Opt)
+  namespace_id: 0x9
+  state: open/0x1
+ Path ID 11 @ f1000b0034fc9600:
+  adap_devno: 0x800000150000005e (nvme60, NonOpt)
+  namespace_id: 0x9
+  state: open/0x1
+
+(0)>
+----
+
+. For a 4-Node HA-pair, with 8 paths per namespace. SLM equivalent feature is not available for nvme.
++
+----
+#[root@aix_server /]: lsmpio -l hdisk52
+name     path_id  status   path_status  parent   connection
+
+hdisk52  0        Enabled  Sel,Opt      nvme93   fcnvme0, 1
+hdisk52  1        Enabled  Sel,Non      nvme27   fcnvme0, 1
+hdisk52  2        Enabled  Sel,Chg      nvme17   fcnvme0, 1
+hdisk52  3        Enabled  Sel,Chg      nvme52   fcnvme0, 1
+hdisk52  4        Enabled  Sel,Opt      nvme116  fcnvme1, 1
+hdisk52  5        Enabled  Sel,Non      nvme29   fcnvme1, 1
+hdisk52  6        Enabled  Sel,Chg      nvme63   fcnvme1, 1
+hdisk52  7        Enabled  Sel,Chg      nvme54   fcnvme1, 1
+
+#[root@aix_server /]: kdb
+           START              END <name>
+0000000000001000 0000000007150000 start+000FD8
+F00000002FF47600 F00000002FFE1000 __ublock+000000
+000000002FF22FF4 000000002FF22FF8 environ+000000
+000000002FF22FF8 000000002FF22FFC errno+000000
+F1001104C0000000 F1001104D0000000 pvproc+000000
+F1001104D0000000 F1001104D8000000 pvthread+000000
+read vscsi_scsi_ptrs OK, ptr = 0xF10009159018AEF8
+(0)> nvme -d hdisk52
+struct disk @ f1000c002e3ef000:
+  resource_name: hdisk52
+  sector_size:  0x1000
+  max_request: 0x40000
+  num_blocks:  0x500000
+ Path ID 0 @ f1000c002e3d6e00:
+  adap_devno: 0x800000140000007f (nvme93, Opt)
+  namespace_id: 0x1
+  state: open/0x1
+ Path ID 1 @ f1000c002e3d8000:
+  adap_devno: 0x800000140000003d (nvme27, NonOpt)
+  namespace_id: 0x1
+  state: open/0x1
+ Path ID 2 @ f1000c002e3d8400:
+  adap_devno: 0x800000140000002f (nvme17, Inacc)
+  namespace_id: 0x1
+  state: open/0x1
+ Path ID 3 @ f1000c002e3d8800:
+  adap_devno: 0x8000001400000056 (nvme52, Inacc)
+  namespace_id: 0x1
+  state: open/0x1
+ Path ID 4 @ f1000c002e3d8c00:
+  adap_devno: 0x8000001400000096 (nvme116, Opt)
+  namespace_id: 0x1
+  state: open/0x1
+ Path ID 5 @ f1000c002e3d9000:
+  adap_devno: 0x800000140000003f (nvme29, NonOpt)
+  namespace_id: 0x1
+  state: open/0x1
+ Path ID 6 @ f1000c002e3d9400:
+  adap_devno: 0x8000001400000061 (nvme63, Inacc)
+  namespace_id: 0x1
+  state: open/0x1
+ Path ID 7 @ f1000c002e3d9800:
+  adap_devno: 0x8000001400000058 (nvme54, Inacc)
+  namespace_id: 0x1
+  state: open/0x1
+
+(0)>
+----
+
+== Known issues and workarounds
+       
+[cols="10,30,30,10",options="header"]
+|===
+|Burt ID	|Description	|Impacted Functionality	|Status |Workaround
+|1536439	
+|AIX NVMe/FC rescan results in redundant controllers during LIF toggles
+|Path reporting	
+Implication: Running a manual rescan during LIF toggles would result in AIX NVMe creating redundant NVMe controllers. This leads to wastage of resources on both the host & array. The number of redundant controllers may increase with each invocation of the manual rescan on the AIX host.
+
+|Manually remove each and every duplicate controller on the AIX host (by removing the entire device from the ODM using ‘rmdev -Rdl hdiskx’ followed by a rescan)
+Re-add (remove and add the AIX hostnqn) on the ONTAP NVMe subsystem
+Reboot the AIX host
+There is a potential fix for this issue in ONTAP, but that still needs to be scoped out and looks more likely a candidate in upcoming ONTAP 9.14.1. Till then, we can go with the above workarounds.
+
+Awaiting fix from ONTAP
+|1553249	
+|AIX NVMe/FC default APD time to be modified for supporting MCC Unplanned Switchover events
+
+DR switchover	
+MCC workflows:
+
+This is a Doc burt. We have a workaround to tweak the APD  timeout manually
+
+
+|1546017	Medium	AIX NVMe/FC caps ANATT at 60s, instead of 120s as advertised by ONTAP	I/O resumption	
+Implication:
+
+These issues would result in sub-optimal ANA behavior on the AIX host. IBM is planning to fix this in upcoming releases.
+
+Awaiting fix from IBM
+1541386	Medium	AIX NVMe/FC hits EIO after ANATT expiry	I/O resumption	Awaiting fix from IBM
+1541380	Medium	AIX NVMe/FC waits for half/full ANATT to expire before resuming I/O after ANA AEN	I/O resumption	Awaiting fix from IBM
+|===
+
+== Troubleshooting
+
+Before commencing any troubleshooting for any NVMe/FC failures, make sure that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
+
+=== lpfc verbose logging
+
+include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+  
+=== qla2xxx verbose logging
+
+include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
+
+
+include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
+
+=== When to contact technical support
+
+include::_include/hu/reuse_hu_contact_tech_support.adoc[]
