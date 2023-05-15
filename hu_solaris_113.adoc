@@ -42,7 +42,7 @@ The following example decompresses files for a SPARC system. For x86-64 platform
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory.
 +
 
-To complete the installation, you must configure the host parameters for your environment (MPxIO in this case) using the `host_config` command.
+To complete the installation, you must configure the host parameters for your environment (MPxIO in this case) by using the `host_config` command.
 
 +
 The `host_config` command has the following format:
@@ -54,7 +54,7 @@ The `host_config` command has the following format:
 The `host_config` command does the following:
 +
 
-*	Changes settings for the Fibre Channel and SCSI drivers for both X86 and SPARC systems
+*	Changes the Fibre Channel and SCSI driver settings for the X86 and SPARC systems
 *	Provides SCSI timeout settings for both the MPxIO configurations
 *	Sets the VID/PID information
 *	Enables or disables ALUA
@@ -204,5 +204,5 @@ For additional information and recommended changes to default settings, refer to
 | Description
 | Oracle ID
 | 1366780 | Solaris LIF problem during GB with Emulex 32G HBA on x86 Arch | Seen with Emulex Firmware version 12.6.x and later on x86_64 Platform | SR 3-24746803021
-| 1368957 | Solaris 11.x 'cfgadm -c configure' resulting in I/O error with End-to-End Emulex configuration | Running `cfgadm -c configure` on Emulex end-to-end configurations results in I/O error. This is fixed in 9.5P17, 9.6P14, 9.7P13 and 9.8P2 | Not Applicable
+| 1368957 | Solaris 11.x 'cfgadm -c configure' resulting in I/O error with End-to-End Emulex configuration | Running `cfgadm -c configure` on Emulex end-to-end configurations results in I/O error. This is fixed in ONTAP 9.5P17, 9.6P14, 9.7P13 and 9.8P2 | Not Applicable
 |===
