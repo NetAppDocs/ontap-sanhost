@@ -148,13 +148,13 @@ Standard requirements and best practices for SAN environments apply when using v
 
 . Ensure all required initiators are logged into the target LIFs on the desired SVM.
 
-NOTE: You must deploy ONTAP tools for VMware vSphere to enable the VASA Provider. The VASA Provider will manage all of your igroup settings for you, so there is no need to create or manage igroups in a vVols environment.
+NOTE: You must deploy ONTAP tools for VMware vSphere to enable the VASA Provider. The VASA Provider will manage all of your igroup settings for you, so there is no need to create or manage iGroups in a vVols environment.
 
 NetApp does not recommend changing any vVols settings from default at this time.
 
 Refer to the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] for specific versions of ONTAP tools, or legacy VASA Provider for your specific versions of vSphere and ONTAP.
 
-For detailed information on provisioning and managing vVols, please refer to ONTAP tools for VMware vSphere documentation as well as link:https://docs.netapp.com/us-en/netapp-solutions/hybrid-cloud/vsphere_ontap_ontap_for_vsphere.html[TR-4597^] and link:https://www.netapp.com/pdf.html?item=/media/13555-tr4400pdf.pdf[TR-4400.^]
+For detailed information on provisioning and managing vVols, please refer to ONTAP tools for VMware vSphere documentation as well as https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597^] and link:https://www.netapp.com/pdf.html?item=/media/13555-tr4400pdf.pdf[TR-4400.^]
 
 
 == Recommended Settings
@@ -263,6 +263,6 @@ during storage failover testing on all the 7-mode, C-cmode cluster controllers.
 
 == Related Links
 
-* To access TR-4597-VMware vSphere with ONTAP, refer link:https://cert.vmware.com/caas/support/case/00088028[Customer case-00088028^] and link:https://cert.vmware.com/caas/support/case/00088029[Customer case-00088029^]
+* link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597-VMware vSphere with ONTAP^]
 * link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster (2031038)^]
 * link:https://kb.vmware.com/s/article/83370[NetApp ONTAP with NetApp SnapMirror Business Continuity (SM-BC) with VMware vSphere Metro Storage Cluster (vMSC)^]

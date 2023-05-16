@@ -46,8 +46,10 @@ sidebar:
             url: /hu_solaris_62_rn.html
       - title: Windows Unified Host Utilities
         entries:
+          - title: Install WUHU 7.2
+            url: /hu_wuhu_72.html
           - title: Install WUHU 7.1
-            url: /hu_wuhu_71.html
+            url: /hu_wuhu_71.html    
           - title: Release Notes
             url: /hu_wuhu_71_rn.html
 
@@ -62,6 +64,11 @@ sidebar:
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
+        - title: OL 9
+          pdf-filename: NVMeF OL
+          entries:
+          - title: 9.0
+            url: /nvme_ol_90.html
         - title: OL 8
           pdf-filename: NVMeF OL
           entries:
@@ -216,6 +223,11 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
+        - title: OL 9
+          entries:
+          - title: 9.0
+            url: /hu_ol_90.html
+        
         - title: OL 8
           pdf-filename: OL-8-FCP
           entries:
@@ -395,3 +407,5 @@ sidebar:
           url: /hu_windows_2016.html
         - title: "2012 R2"
           url: /hu_windows_2012r2.html
+    - title: Legal notices
+      url: /legal_notice.html
