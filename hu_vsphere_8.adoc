@@ -17,10 +17,6 @@ summary: Describes how to use Veritas Infoscale 8.8 for Linux with ONTAP
 [.lead]
 You can configure ONTAP SAN host settings for the VMware vSphere 8.x release with FC, FCoE, and iSCSI protocols.
 
-== Known limitations
-
-* RDM mapping is not supported.
-
 == Hypervisor SAN booting
 
 .What you'll need
@@ -309,12 +305,12 @@ You can use the following command to verify the QFullSampleSize.
 [cols="10,30,30",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description
-|1543660 | I/O error occurs when LinuxVMs using vNVMe adapters encounter a long all paths down window a|Linux VMs running vSphere 8.x and later and using a virtual NVMe (vNVME) adapter encounters an I/O error because the vNVMe retry operation is disabled by default. To avoid the hang/lockup problem on Linux VMs running older kernels during an all paths down or a heavy I/O load, VMware has introduced a tunable "VSCSIDisableNvmeRetry" to disable the vNVMe retry operation.
+|1543660 | I/O error occurs when Linux VMs using vNVMe adapters encounter a long all paths down (APD) window a|Linux VMs running vSphere 8.x and later and using a virtual NVMe (vNVME) adapter encounters an I/O error because the vNVMe retry operation is disabled by default. To avoid the hang/lockup problem on Linux VMs running older kernels during an all paths down (APD) or a heavy I/O load, VMware has introduced a tunable "VSCSIDisableNvmeRetry" to disable the vNVMe retry operation.
 |===
 
 .Related Links
 
-* link:https://www.netapp.com/media/13550-tr4597.pdf[TR-4597-VMware vSphere with ONTAP^]
+* link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597-VMware vSphere with ONTAP^]
 * link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster (2031038)^]
 * link:https://kb.vmware.com/s/article/83370[NetApp ONTAP with NetApp SnapMirror Business Continuity (SM-BC) with VMware vSphere Metro Storage Cluster (vMSC)^]
 
