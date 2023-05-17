@@ -181,7 +181,7 @@ fc.200034800d756a74:210034800d756a74-fc.2018d039ea936319:2016d039ea936319-naa.60
 
 Virtual Volumes (vVols) are a VMware object type that corresponds to a Virtual Machine (VM) disk, its snapshots, and fast clones.
 
-ONTAP tools for VMware vSphere includes the VASA Provider for ONTAP, which provides the integration point for a VMware vCenter to leverage vVols based storage. When you deploy the ONTAP tools OVA, it is automatically registered with the vCenter server and enables the VASA Provider.
+ONTAP tools for VMware vSphere includes the VASA Provider for ONTAP, which provides the integration point for a VMware vCenter to leverage vVols based storage. When you deploy the ONTAP tools Open Virtualization Appliance (OVA), it is automatically registered with the vCenter server and enables the VASA Provider.
 
 When you create a vVols datastore using the vCenter user interface, it guides you to create FlexVols as backup storage for the datastore. vVols within vVols datastores are accessed by ESXi hosts using a protocol endpoint (PE). In SAN environments, one 4MB LUN is created on each FlexVol in the datastore for use as a PE. A SAN PE is an administrative logical unit (ALU). vVols are subsidiary logical units (SLUs).
 
@@ -191,7 +191,7 @@ Standard requirements and best practices for SAN environments apply when using v
 
 * Eliminate any single point of failure. Use multiple VMkernel network interfaces on different network subnets that use NIC teaming when multiple virtual switches are used, or use multiple physical NICs connected to multiple physical switches to provide HA and increased throughput.
 
-* Configure zoning and/or VLANs as required for host connectivity.
+* Configure zoning, VLANs, or both as required for host connectivity.
 
 * Verify that all required initiators are logged into the target LIFs on the desired SVM.
 

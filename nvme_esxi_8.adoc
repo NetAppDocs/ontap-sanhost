@@ -30,7 +30,7 @@ You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.
 
 * For ESXi 8.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
 
-==	Known limitations
+== Known limitations
 
 * RDM mapping is not supported.
 
@@ -40,7 +40,7 @@ NVMe/FC is enabled by default in vSphere releases.
 
 .Verify host NQN
 
-You need to check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array. 
+You must check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array. 
 
 ----
 # esxcli nvme info get
@@ -106,7 +106,7 @@ uuid.116cb7ed9e574a0faf35ac2ec115969d : NVMe Fibre Channel Disk (*uuid.116cb7ed9
 +
 [NOTE] 
 ====
-In ONTAP 9.7, the default block size for an NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you need to set the namespace block size as *512B*. You can do this using the `vserver nvme namespace create` command.
+In ONTAP 9.7, the default block size for an NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you must set the namespace block size as *512B*. You can do this using the `vserver nvme namespace create` command.
 
 Example,
 
