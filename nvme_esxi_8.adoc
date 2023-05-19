@@ -24,7 +24,7 @@ You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.
 
 == Features
 
-* ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
+* ESXi initiator hosts can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
 
 * Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 8 and later.
 
@@ -66,9 +66,11 @@ If the host NQN strings do not match, you should use the `vserver nvme subsystem
 
 The `lpfc` driver and the `qlnativefc` driver in vSphere 8.x have the NVMe/FC capability enabled by default.
 
-Check whether the configuration is supported with the driver or firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+See link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] to check whether the configuration is supported with the driver or firmware.
 
 ==	Validate NVMe/FC
+
+You can use the following procedure to validate NVMe/FC.
 
 .Steps
 
@@ -157,7 +159,7 @@ In ESXi 8.x, the required NVMe/TCP modules are loaded by default. To configure t
 
 == Validate NVMe/TCP
 
-You can validate NVMe/TCP by using the following procedure.
+You can use the following procedure to validate NVMe/TCP.
 
 .Steps
 
