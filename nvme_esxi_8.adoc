@@ -19,14 +19,12 @@ You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.
 
 == Supportability
 
-* Beginning with ONTAP 9.7, NVMe over Fibre Channel (NVMe/FC) support is added for VMware vSphere releases.
-* Beginning with ONTAP 9.10.1, NVMe/TCP feature is supported for ONTAP.
+* Beginning with ONTAP 9.10.1, NVMe/TCP protocol is supported for ONTAP.
+* Beginning with ONTAP 9.9.1 P3, NVMe/FC protocol is supported for ESXi 8 and later. 
 
 == Features
 
 * ESXi initiator hosts can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
-
-* Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 8 and later.
 
 * For ESXi 8.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
 
