@@ -17,17 +17,17 @@ summary: Describes how to install the solaris host utilities
 
 == Installing the Solaris Host Utilities
 
-You can download the compressed file containing the Host Utilities software packages from the NetApp Support Site. After you have the file, you must extract it to get the software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab[NetApp Support Site^]. After you have the file, you must extract it to get the software packages you need to install the Host Utilities.
 
 .Steps
 
 .	Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab[NetApp Support Site^] to a directory on your host.
 
-.	 Go to the directory containing the download.
+. Go to the directory containing the download.
 
 . Extract the file.
 +
-The following example decompresses files for a SPARC system.  For x86-64 platforms, use the x86/x64 package.
+The following example decompresses files for a SPARC system. For x86-64 platforms, use the x86/x64 package.
 +
 `gunzip netapp_solaris_host_utilities_6_2N20170913_0304_sparc.tar.gz`
 
@@ -42,7 +42,7 @@ The following example decompresses files for a SPARC system.  For x86-64 platfor
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory.
 +
 
-To complete the installation, you must configure the host parameters for your environment (MPxIO in this case) using  `host_config` command.
+To complete the installation, you must configure the host parameters for your environment (MPxIO in this case) by using the `host_config` command.
 
 +
 The `host_config` command has the following format:
@@ -54,7 +54,7 @@ The `host_config` command has the following format:
 The `host_config` command does the following:
 +
 
-*	Makes setting changes for the Fibre Channel and SCSI drivers for both X86 and SPARC systems
+*	Changes the Fibre Channel and SCSI driver settings for the X86 and SPARC systems
 *	Provides SCSI timeout settings for both the MPxIO configurations
 *	Sets the VID/PID information
 *	Enables or disables ALUA
@@ -88,7 +88,7 @@ If you decide to use SAN booting, it must be supported by your configuration. Yo
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
 
-You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running the Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See the link:https://library.netapp.com/ecmdocs/ECMLP2748974/html/frameset.html[Solaris Host Utilities Installation and Setup Guide^] for details on SAN Booting LUNs in an Solaris MPIO environment.
+You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running the Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See https://docs.netapp.com/us-en/ontap-sanhost/hu_solaris_62.html[Install Solaris Host Utilities^] for details on SAN Booting LUNs in a Solaris MPIO environment.
 
 == Multipathing
 
@@ -137,7 +137,7 @@ Following are some parameter settings that are recommended for Solaris 11.3 SPAR
 
 === Recommended settings for MetroCluster
 
-By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations, the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For additional information and recommended changes to default settings, refer to NetApp https://kb.netapp.com/app/answers/answer_view/a_id/1001373/loc/en_US[KB1001373^].
+By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations, the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For additional information and recommended changes to default settings, see the Knowledge Base article https://kb.netapp.com/onprem/ontap/metrocluster/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
 
 == Oracle Solaris virtualization
 
@@ -152,6 +152,7 @@ When LUNs are used as virtual disk devices within an LDOM, the source of the LUN
 
 To verify the patch, do the following:
 
+.Steps
 . Create a zpool.
 . Run `zdb -C` against the zpool and verify that the value of *ashift* is 12.
 +
@@ -203,5 +204,5 @@ For additional information and recommended changes to default settings, refer to
 | Description
 | Oracle ID
 | 1366780 | Solaris LIF problem during GB with Emulex 32G HBA on x86 Arch | Seen with Emulex Firmware version 12.6.x and later on x86_64 Platform | SR 3-24746803021
-| 1368957 | "Solaris 11.x 'cfgadm -c configure' resulting in I/O error with End-to-End Emulex configuration" | Running “cfgadm -c configure” on Emulex End-to-End configurations results in I/O error. This is fixed in 9.5P17, 9.6P14, 9.7P13 and 9.8P2 | NA
+| 1368957 | Solaris 11.x 'cfgadm -c configure' resulting in I/O error with End-to-End Emulex configuration | Running `cfgadm -c configure` on Emulex end-to-end configurations results in I/O error. This is fixed in ONTAP 9.5P17, 9.6P14, 9.7P13 and 9.8P2 | Not Applicable
 |===
