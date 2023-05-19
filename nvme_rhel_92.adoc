@@ -17,7 +17,8 @@ summary: How to Configure NVMe-oF Host for RHEL 8.7 with ONTAP
 
 [.lead]
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with RHEL 9.2 with Asymmetric Namespace Access (ANA) that is required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. This document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.2 and ONTAP as the target.
+NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+
 
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
@@ -31,11 +32,11 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 == Validate software versions
 
-You can validate the minimum supported RHEL 9.2 software versions using the following procedure.
+You can use the following procedure to validate the minimum supported RHEL 9.2 software versions.
 
 .Steps
 
-. Install RHEL 9.2 on the server. After the installation is complete, verify that you are running the specified OL 9.0 GA kernel. 
+. Install RHEL 9.2 on the server. After the installation is complete, verify that you are running the specified RHEL 9.2 kernel. 
 +
 ----
 # uname -r
@@ -140,9 +141,13 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 # cat /sys/class/fc_host/host*/port_name
 0x100000109b1c1204
 0x100000109b1c1205
+----
+----
 # cat /sys/class/fc_host/host*/port_state
 Online
 Online
+----
+----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
@@ -289,14 +294,17 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 
 == Validate NVMe-oF
 
+You can use the following procedure to validate NVME-oF.
+
 .Steps
 
-. Verify the following NVMe/FC settings on the OL 9.0 host:
+. Verify that the in-kernel NVMe multipath is enabled:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
 Y
 ----
+
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces properly reflect on the host:
 +
 ----
