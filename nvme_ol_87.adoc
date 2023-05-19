@@ -88,7 +88,7 @@ If the `hostnqn` strings do not match, you should use the `vserver modify` comma
 
 == Configure NVMe/FC
 
-You can configure NVME/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
+You can configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
 ====
@@ -304,6 +304,8 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
 == Validate NVMe-oF
+
+You can use the following procedure to validate NVMe-oF.
 
 .Steps
 
