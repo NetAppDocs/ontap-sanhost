@@ -41,7 +41,7 @@ The following example decompresses files for a SPARC system. For x86-64 platform
 +
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory.
 +
-To complete the installation, you must configure the host parameters for your environment (MPxIO in this case) using the `host_config` command.
+To complete the installation, you must configure the host parameters for your environment (MPxIO in this case) by using the `host_config` command.
 +
 The `host_config` command has the following format:
 +
@@ -49,7 +49,7 @@ The `host_config` command has the following format:
 +
 The `host_config` command does the following:
 
-*	Changes settings for the Fibre Channel and SCSI drivers for both X86 and SPARC systems
+*	Changes the Fibre Channel and SCSI driver settings for the X86 and SPARC systems
 *	Provides SCSI timeout settings for both the MPxIO configurations
 *	Sets the VID/PID information
 *	Enables or disables ALUA
@@ -84,7 +84,7 @@ If you decide to use SAN booting, it must be supported by your configuration. Yo
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
 
-You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running the Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See https://docs.netapp.com/us-en/ontap-sanhost/hu_solaris_62.html[Install Solaris Host Utilities^] for details on SAN Booting LUNs in a Solaris MPIO environment.
+You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running the Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See https://docs.netapp.com/us-en/ontap-sanhost/hu_solaris_62.html[Install Solaris Host Utilities] for details on SAN Booting LUNs in a Solaris MPIO environment.
 
 == Multipathing
 
@@ -133,11 +133,11 @@ Following are some parameter settings that are recommended for Solaris 11.4 SPAR
 
 === Recommended settings for MetroCluster
 
-By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For addition information and recommended changes to default settings, see the NetApp KB article https://kb.netapp.com/onprem/ontap/metrocluster/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
+By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For addition information and recommended changes to default settings, see Knowledge Base article https://kb.netapp.com/onprem/ontap/metrocluster/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
 
 == Oracle Solaris Virtualization
 
-*	Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies have been rebranded generally as "Oracle Virtual Machines" despite the fact that they are based on a different architecture.
+*	Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies have been rebranded generally as "Oracle Virtual Machines" despite the fact that they are based on different architectures.
 
 *	In some cases, multiple options can be used together such as a Solaris Container within a particular Solaris Logical Domain.
 
