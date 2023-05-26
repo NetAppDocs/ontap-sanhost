@@ -36,34 +36,34 @@ The following support is available for NVMe/FC host configuration for an AIX hos
 
 * If you have a MetroCluster configuration, NetApp recommends changing AIX NVMe/FC default APD (All Path Down) time for supporting MetroCluster Unplanned Switchover events to avoid the AIX operating system enforcing a shorter I/O timeout. For additional information and the recommended changes to default settings, refer to the public report 1553249.
 
-* IBM provides an Interim Fix (iFix) which caps the ANATT value at 60 seconds. For NVMe/FC AIX support, you must download and install the iFix from the IBM website on the GA versions of AIX OS. This is not required for the VIOS/PowerVM OS.
+* IBM provides an interim iix (ifix) which caps the ANATT value at 60 seconds. For NVMe/FC AIX support, you must download and install the ifix from the IBM website on the GA versions of AIX OS. This is not required for the VIOS/PowerVM OS.
 
 +
 
-The iFix details are as follows:
+The ifix details are as follows:
 +
 
 ** For AIX level 72-TL5-SP6-2320, install the `IJ46710s6a.230509.epkg.Z` package.
 ** For AIX level 73-TL1-SP2-2320, install the `IJ46711s2a.230509.epkg.Z` package.
 +
-For more information on managing iFixes, see link:http://www-01.ibm.com/support/docview.wss?uid=isg3T1012104[Managing Interim Fixes (ifix)].
+For more information on managing ifixes, see link:http://www-01.ibm.com/support/docview.wss?uid=isg3T1012104[Managing Interim Fixes on AIX^].
 +
 [NOTE] 
-You need to install the iFixes on an AIX version with no previously installed iFixes related to `devices.pciex.pciexclass.010802.rte` on the system. If these iFixes are present, they will conflict with the new installation.
+You need to install the ifixes on an AIX version with no previously installed ifixes related to `devices.pciex.pciexclass.010802.rte` on the system. If these ifixes are present, they will conflict with the new installation.
 +
-The following table demonstrates HBA assigned to the AIX LPAR (AIX Logical Partition) or the physical/native stack in a non-virtualized mode:
+The following table demonstrates HBAs assigned to the AIX LPAR (AIX Logical Partition) or the physical/native stack in a non-virtualized mode:
 +
 [cols="10,30,30,10,10",options="header"]
 |===
 
 |Host OS |Power Arch |Power FW version |Mode |Comments
-.2+|AIX 7.2 TL5 SP6 |Power9  |FW 950 or later	|Physical stack	|iFix available through TS012877410.
-|Power10 |FW 1010 or later	|Physical stack	|SAN booting is supported. iFix available through TS012877410.
-.2+|AIX 7.3 TL1 SP2 |Power9	|FW 950 or later	|Physical stack	|iFix available through TS012877410.
-	|Power10	|FW 1010 or later	|Physical and virtual stack	 |iFix available through TS012877410.
+.2+|AIX 7.2 TL5 SP6 |Power9  |FW 950 or later	|Physical stack	|ifix available through TS012877410.
+|Power10 |FW 1010 or later	|Physical stack	|SAN booting is supported. ifix available through TS012877410.
+.2+|AIX 7.3 TL1 SP2 |Power9	|FW 950 or later	|Physical stack	|ifix available through TS012877410.
+	|Power10	|FW 1010 or later	|Physical and virtual stack	 |ifix available through TS012877410.
 |===
 +
-The following table demonstrates HBA assigned to the VIOS with NPIV-enabled support in a virtualized mode:
+The following table demonstrates HBAs assigned to the VIOS with NPIV-enabled support in a virtualized mode:
 +
 [cols="10,30,30,10,10",options="header"]
 |===
@@ -135,6 +135,11 @@ VFC client name:                VFC client DRC:
 +
 ----
 $  vfcctrl -enable -protocol nvme -vadapter vfchost0
+----
++
+*Example output*
++
+----
 The "nvme" protocol for "vfchost0" is enabled.
 ----
 
@@ -181,7 +186,7 @@ num_per_range   8   NPIV Number of SCSI queues per range                 True
 secure_va_info  no  NPIV Secure Virtual Adapter Information              True
 ----
 
-.. Enable the NVMe/Fc protocol for selected adapters by changing the `enable_nvme value` of VFC host device attribute to `yes`.
+.. Enable the NVMe/Fc protocol for selected adapters by changing the `enable_nvme` value of the VFC host device attribute to `yes`.
 
 . Verify that `FC-NVMe Protocol Device` has been created on the server:
 +
