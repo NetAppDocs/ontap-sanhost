@@ -32,7 +32,7 @@ The following support is available for NVMe/FC host configuration for an AIX hos
 
 * Verify that you have 32GB FC Emulex adapters (EN1A, EN1B, EN1L, EN1M) and 64GB FC adapters (EN1N, EN1P) with adapter firmware 12.4.257.30 and later versions.
 
-* Set the ANATT (Asymmetric Namespace Access Transition Timeout) to 60 seconds or above to ensure that all the ONTAP workflows are non-disruptive. By default, the ANATT for the AIX host OS is at least 60s.
+* Set the ANATT (Asymmetric Namespace Access Transition Timeout) to 60 seconds or above to ensure that all the ONTAP workflows are non-disruptive. By default, the ANATT for an AIX host OS is 30s.
 
 * If you have a MetroCluster configuration, NetApp recommends changing AIX NVMe/FC default APD (All Path Down) time for supporting MetroCluster Unplanned Switchover events to avoid the AIX operating system enforcing a shorter I/O timeout. For additional information and the recommended changes to default settings, refer to the public report 1553249.
 
@@ -280,7 +280,6 @@ NVMe/FC host configuration for AIX with ONTAP has the following known issues:
 |===
 |Burt ID |Title |Description
 
-|1536439 |AIX NVMe/FC rescan results in redundant controllers during LIF toggles |
 |1553249 |AIX NVMe/FC default APD time to be modified for supporting MCC Unplanned Switchover events	| By default, AIX operating systems use an all path down (APD) timeout value of 20 seconds for NVMe/FC.  However, ONTAP MetroCluster automatic unplanned switchover (AUSO) and TieBreaker initiated switchover workflows might take a little longer than the APD timeout window, causing I/O errors.
 |1546017 |AIX NVMe/FC caps ANATT at 60s, instead of 120s as advertised by ONTAP | ONTAP advertises the ANA(asymmetric namespace access) transition timeout in controller identify at 120sec. Currently, with ifix, AIX reads the ANA transition timeout from controller identify, but effectively clamps it to 60sec if it is over that limit.	
 |1541386 |AIX NVMe/FC hits EIO after ANATT expiry	|For any storage failover (SFO) events, if the ANA(asymmetric namespace access) transitioning exceeds the ANA transition timeout cap on a given path, the AIX NVMe/FC host fails with an I/O error despite having alternate healthy  paths available to the namespace.
