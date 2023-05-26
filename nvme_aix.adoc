@@ -15,28 +15,36 @@ summary: How to Configure NVMe/FC Host for AIX with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can enable NVMe/FC on IBM AIX and VIOS/PowerVM hosts using ONTAP storage as the target. For additional details on supported configurations, see the NetApp Interoperability Matrix Tool.
+You can enable NVMe/FC on IBM AIX and VIOS/PowerVM hosts using ONTAP storage as the target. For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 The following support is available for NVMe/FC host configuration for an AIX host with ONTAP:
 
 * Beginning with ONTAP 9.13.1, NVMe over Fibre Channel (NVMe/FC) support is added for IBM AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2 and VIOS 3.1.4.2 releases with SAN boot support. 
-* NVMe/FC is supported only with Power 9 and Power 10 IBM servers.
-* No separate PCM (Path Control Module, such as HUK for AIX SCSI MPIO support) is required for the NVMe devices.
-* Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is supported through NPIV storage virtualization mode only using the Power10 IBM server.
-* You can run NVMe and SCSI traffic on the same co-existent host. This is a commonly deployed host configuration.
-* SAN booting is supported with both Physical and Virtual stack. Follow IBM documentation to know the prerequisites and set up SAN boot.
 
-.What you’ll need
+* NVMe/FC is supported only with Power9 and Power10 IBM servers.
+
+* No separate PCM (Path Control Module, such as HUK for AIX SCSI MPIO support) is required for the NVMe devices.
+
+* Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is supported through NPIV storage virtualization mode only using the Power10 IBM server.
+
+* You can run NVMe and SCSI traffic on the same co-existent host. This is a commonly deployed host configuration.
+
+* SAN booting is supported with both Physical and Virtual stacks. See the IBM documentation to know the prerequisites and set up SAN boot.
+
+.What you'll need
 
 * Verify that you have 32GB FC Emulex adapters (EN1A, EN1B, EN1L, EN1M) and 64GB FC adapters (EN1N, EN1P) with adapter firmware 12.4.257.30 (FCode level 12.8.9).
+
 * Set the ANATT (Asymmetric Namespace Access Transition Timeout) to 60 seconds or above to ensure that all the ONTAP workflows are nondisruptive. By default, the ANATT for the AIX host OS is 30 second.
-* If you have a MetroCluster configuration, NetApp recommends changing AIX NVMe/FC default APD (All Path Down) time for supporting MetroCluster Unplanned Switchover events to avoid the AIX operating system enforcing a shorter I/O timeout. For additional information and the recommended changes to default settings, refer Public Report 1553249 and NetApp <KB>
+
+* If you have a MetroCluster configuration, NetApp recommends changing AIX NVMe/FC default APD (All Path Down) time for supporting MetroCluster Unplanned Switchover events to avoid the AIX operating system enforcing a shorter I/O timeout. For additional information and the recommended changes to default settings, refer [Public Report 1553249] and NetApp <KB>
+
 * IBM provides an Interim Fix (ifix) which caps the ANATT values at 60 seconds. For NVMe/FC AIX support, you must download and install the ifix from the IBM website on the GA versions of AIX OS. This is not required for the VIOS/PowerVM OS.
 
 The ifix details are as follows:
 
-* For AIX level 72-TL5-SP6-2320, install the  IJ46710s6a.230509.epkg.Z package.
-* For AIX level 73-TL1-SP2-2320, install the IJ46711s2a.230509.epkg.Z package.
+* For AIX level 72-TL5-SP6-2320, install the `IJ46710s6a.230509.epkg.Z` package.
+* For AIX level 73-TL1-SP2-2320, install the `IJ46711s2a.230509.epkg.Z` package.
 
 For more information on managing ifixes, see link:http://www-01.ibm.com/support/docview.wss?uid=isg3T1012104[Managing Interim Fixes (ifix)].
 
@@ -45,15 +53,24 @@ You need to install the ifixes on an AIX version with no previously installed if
 
 For non-virtualized mode (HBA assigned to the AIX LPAR or the physical/native stack)
 
-Host OS	Power Arch	Power FW version	Mode	Comments
-AIX 7.2 TL5 SP6	Power9 	FW 950 or later	Physical Stack	iFix available via TS012877410
-	Power10	FW 1010 or later	Physical Stack	Sanboot is supported. iFix available via TS012877410
-AIX 7.3 TL1 SP2	Power9	FW 950 or later	Physical Stack	iFix available via TS012877410
-	Power10	FW 1010 or later	Physical and Virtual Stack	 iFix available via TS012877410
+[cols="10,30,30,10,10",options="header"]
+|===
 
-For virtualized mode (HBA assigned to the VIOS) with NPIV only support
-Host OS	Power Arch	Power FW version	Mode	Comments
-VIOS/PowerVM 3.1.4.21	Power10	FW 1010 or later	Virtual Stack	Support starts from AIX 7.3 TL1 SP2 for VIOC 
+|Host OS	|Power Arch	|Power FW version	|Mode	|Comments
+|AIX 7.2 TL5 SP6	|Power9 	
+|FW 950 or later	|Physical Stack	|iFix available via TS012877410
+	|Power10	|FW 1010 or later	Physical Stack	|Sanboot is supported. iFix available via TS012877410
+|AIX 7.3 TL1 SP2	|Power9	|FW 950 or later	|Physical Stack	|iFix available via TS012877410
+	Power10	|FW 1010 or later	|Physical and Virtual Stack	 |iFix available via TS012877410
+|===
+
+For virtualized mode (HBA assigned to the VIOS) with NPIV only support:
+
+[cols="10,30,30,10,10",options="header"]
+|===
+|Host OS	|Power Arch	|Power FW version	|Mode	|Comments
+|VIOS/PowerVM 3.1.4.21	|Power10	|FW 1010 or later	|Virtual Stack	|Support starts from AIX 7.3 TL1 SP2 for VIOC 
+|===
 
 == Known limitations
 
@@ -64,8 +81,9 @@ NVMe/FC host configuration for AIX with ONTAP has the following known limitation
 
 == Verify NVMe host multipath
 
-IBM MPIO is used for NVMe multipathing, which is provided by default when you install the OS. IBM lsmpio is a software tool used to improve the reliability and availability of storage in IBM AIX environments. It enables multiple paths to a storage device and provides load balancing across these paths. The tool monitors the health and availability of paths and automatically routes I/O requests to the available paths. It also supports dynamic configuration changes and failover mechanisms to prevent data loss in case of path failure. IBM lsmpio is commonly used in high-performance computing and mission-critical applications to ensure optimal storage performance and availability.
-Verify NVME multipathing by using the "lsmpio" command (Load Source Multi-Pathing for IBM AIX):
+IBM MPIO is used for NVMe multipathing, which is provided by default when you install the OS. IBM `lsmpio` is a software tool used to improve the reliability and availability of storage in IBM AIX environments. It enables multiple paths to a storage device and provides load balancing across these paths. The tool monitors the health and availability of paths and automatically routes I/O requests to the available paths. It also supports dynamic configuration changes and failover mechanisms to prevent data loss in case of path failure. IBM `lsmpio` is commonly used in high-performance computing and mission-critical applications to ensure optimal storage performance and availability.
+
+Verify NVME multipathing by using the `lsmpio` command (Load Source Multi-Pathing for IBM AIX):
 
 ----
 #[root@aix_server /]: lsmpio -l hdisk1
@@ -85,7 +103,8 @@ You can use the following procedure to configure NVMe/FC for Broadcom/Emulex ada
 
 .Steps
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters see the NetApp Interoperability Matrix.
+. Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+
 . By default, the NVMeoF protocol support is enabled in the physical FC; however, the NVMeoF protocol support is disabled in the Virtual Fibre Channel (VFC) on Virtual I/O Server (VIOS). Retrieve a list of the adapters where the NVME-OF support is disabled:
 +
 ----
@@ -126,6 +145,8 @@ The "nvme" protocol for "vfchost0" is enabled.
 # lsattr -El vfchost0
 ----
 +
+*Example output*
++
 ----
 alt_site_wwpn       WWPN to use - Only set after migration   False
 current_wwpn  0     WWPN to use - Only set after migration   False
@@ -139,19 +160,31 @@ num_per_range 0     Number of NPIV SCSI queues per range     True
 
 . Enable NVMeoF protocol for all current adapters or selected adapters:
 .. Enable the NVMeoF protocol for all adapters:
-... Change the dflt_enabl_nvme attribute value of viosnpiv0 pseudo device to yes.
-... Set the enable_nvme attribute value to yes for all the VFC host devices.
+... Change the `dflt_enabl_nvme` attribute value of `viosnpiv0` pseudo device to `yes`.
+... Set the `enable_nvme` attribute value to `yes` for all the VFC host devices.
++
+----
 # chdev -l viosnpiv0 -a dflt_enabl_nvme=yes
+----
++
+----
 # lsattr -El viosnpiv0
+----
++
+*Example output*
++
+----
 bufs_per_cmd    10  NPIV Number of local bufs per cmd                    True
 dflt_enabl_nvme yes Default NVME Protocol setting for a new NPIV adapter True
 num_local_cmds  5   NPIV Number of local cmds per channel                True
 num_per_nvme    8   NPIV Number of NVME queues per range                 True
 num_per_range   8   NPIV Number of SCSI queues per range                 True
 secure_va_info  no  NPIV Secure Virtual Adapter Information              True
+----
+
 .. Enable the NVMeoF protocol for selected adapters by changing the enable_nvme value of VFC host device attribute to yes.
 
-. Verify that "FC-NVMe Protocol Device" has been created on the server:
+. Verify that `FC-NVMe Protocol Device` has been created on the server:
 +
 ----
 # [root@aix_server /]: lsdev |grep fcnvme
@@ -237,13 +270,22 @@ hdisk1  Available 00-00-02 NVMe 4K Disk
 
 == Known issues 
 
-Burt ID	Title	Description
-1536439	AIX NVMe/FC rescan results in redundant controllers during LIF toggles
-	
-1553249	AIX NVMe/FC default APD time to be modified for supporting MCC Unplanned Switchover events	
-1546017	AIX NVMe/FC caps ANATT at 60s, instead of 120s as advertised by ONTAP	
-1541386	AIX NVMe/FC hits EIO after ANATT expiry	
-1541380	AIX NVMe/FC waits for half/full ANATT to expire before resuming I/O after ANA AEN	
+[cols="10,30,30",options="header"]
+|===
+|Burt ID |Title |Description
+
+|1536439 |AIX NVMe/FC rescan results in redundant controllers during LIF toggles |
+|1553249 |AIX NVMe/FC default APD time to be modified for supporting MCC Unplanned Switchover events	| By default, AIX operating systems use an all path down (APD) timeout value of
+20 seconds for NVMe/FC.  However, ONTAP MetroCluster automatic unplanned switchover 
+(AUSO) and TieBreaker initiated switchover workflows might take a little longer than
+the APD timeout window, causing I/O errors.
+|1546017 |AIX NVMe/FC caps ANATT at 60s, instead of 120s as advertised by ONTAP | ONTAP advertises the ANA(asymmetric namespace access) transition timeout in 
+controller identify at 120sec. Currently, with ifix, AIX reads the ANA transition 
+timeout from controller identify, but effectively clamps it to 60sec if it is over 
+that limit.	
+|1541386 |AIX NVMe/FC hits EIO after ANATT expiry	|
+|1541380 |AIX NVMe/FC waits for half/full ANATT to expire before resuming I/O after ANA AEN | IBM AIX NVMe/FC does not support some Asynchronous notifications (AENs) that ONTAP publishes. This Sub-optimal ANA handling will result in sub optimal performance during SFO operations.
+|===
 
 
 == Troubleshooting
