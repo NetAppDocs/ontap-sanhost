@@ -15,7 +15,7 @@ summary:
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux (OL) 8.7 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux (OL) 9.0 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -23,13 +23,17 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 *	Oracle Linux 8.7 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
 
+* Oracle Linux 8.7 includes support for NVMe/TCP in addition to NVMe/FC. The NetApp plugin in the native `nvme-cli` package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+
+* Oracle Linux 8.7 supports use of NVMe and SCSI co-existent traffic on the same host on a given HBA adapter, without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
+
 == Known limitations
 
 There are no known limitations.
  
 == Validate software versions
 
-You can validate the minimum supported OL 8.7 software versions using the following procedure.
+You can use the following procedure to validate the minimum supported OL 8.7 software versions.
 
 .Steps
 
@@ -176,12 +180,9 @@ FCP CMPL: xb 00000a89 Err 0000e2f3
 
 ----
 
-.Enable 1MB I/O size
-
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 --
 
-.Marvell/QLogic FC Adapter for NVMe/FC
+.Marvell/Qlogic FC Adapter for NVMe/FC
 --
 .Steps
 
@@ -201,11 +202,18 @@ QLE2742 FW:v9.10.11 DVR:v10.02.06.200-k
 1
 ----
 
-.Enable 1MB I/O size
 
-Not Applicable
 --
 ====
+
+=== Enable 1 MB I/O (Optional)
+
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 MB in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the `lpfc_sg_seg_cnt` parameter should also be increased to 256 MB from the default value of 64 MB. Use the following instructions to do so:
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
+[NOTE] 
+This step is not applicable for Qlogic NVMe/FC hosts.
 
 == Configure NVMe/TCP
 
@@ -298,9 +306,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 # nvme connect-all -t tcp -w 192.168.6.13 -a 192.168.6.17 -l 1800
 ----
 
-===	Enable 1MB I/O size
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
 == Validate NVMe-oF
@@ -367,12 +373,16 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
+[role="tabbed-block"]
+====
+.CLI
+--
 ----
 # nvme netapp ontapdevices -o column
 ----
-+
+
 *Example output:*
-+
+
 ----
 Device        Vserver   Namespace Path                                                          
 ----------------------- ------------------------------ 
@@ -387,9 +397,15 @@ NSID       UUID                                   Size
 2          04bf9f6e-9031-40ea-99c7-a1a61b2d7d08   85.90GB
 3          264823b1-8e03-4155-80dd-e904237014a4   85.90GB
 ----
-+
+--
+
+.JSON
+--
 ----
 # nvme netapp ontapdevices -o json
+----
+*Example output*
+----
 {
 "ONTAPdevices" : [
     {
@@ -424,10 +440,13 @@ NSID       UUID                                   Size
        },
   ]
 }
-
 ----
+--
+====
 
 == Known issues
+
+NVMe/FC Host Configuration for Oracle Linux 8.7 with ONTAP release has the following known issues:
 
 [options="header", cols="20, 20, 50, 20]
 |===
@@ -444,7 +463,7 @@ NSID       UUID                                   Size
 
 == Troubleshooting
 
-Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
+Before troubleshooting any NVMe-oF failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
 
 === Enable verbose logging
 
