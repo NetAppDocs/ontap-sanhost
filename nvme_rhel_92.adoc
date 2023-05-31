@@ -23,11 +23,11 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Features
 
-*	RHEL 9.2 includes support for NVMe/TCP in addition to NVMe/FC. The NetApp plugin in the native `nvme-cli` package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+* RHEL 9.2 includes support for NVMe/TCP in addition to NVMe/FC. The NetApp plugin in the native `nvme-cli` package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
-*	RHEL 9.2 includes support for in-kernel NVMe multipath for NVMe namespaces enabled by default, without the need for explicit settings.
+* RHEL 9.2 includes support for in-kernel NVMe multipath for NVMe namespaces enabled by default, without the need for explicit settings.
 
-*	RHEL 9.2 supports use of NVMe and SCSI co-existent traffic on the same host on a given HBA adapter, without the explicit `dm-multipath` settings to prevent claiming NVMe namespaces.
+* RHEL 9.2 supports use of NVMe and SCSI co-existent traffic on the same host on a given HBA adapter, without the explicit `dm-multipath` settings to prevent claiming NVMe namespaces.
 
 == Known limitations
 
@@ -158,18 +158,20 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 3
 ----
 
-. Verify that the initiator ports are up and running, and that you can see the target LIFs:
+. Verify that the initiator ports are up and running and that you can see the target LIFs:
 +
 ----
 # cat /sys/class/fc_host/host*/port_name
 0x100000109b1c1204
 0x100000109b1c1205
 ----
++
 ----
 # cat /sys/class/fc_host/host*/port_state
 Online
 Online
 ----
++
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
