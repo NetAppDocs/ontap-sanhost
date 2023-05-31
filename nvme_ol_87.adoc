@@ -17,18 +17,17 @@ summary:
 [.lead]
 NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux (OL) 8.7 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
-
 The following support is available for NVMe/FC host configuration for OL 8.7 with ONTAP: 
 
 * Support for NVMe/TCP in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces. 
 
 * Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces. 
 
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+
 == Features 
 
 *	OL 8.7 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
-
 
 == Known limitations
 
@@ -211,7 +210,7 @@ QLE2742 FW:v9.10.11 DVR:v10.02.06.200-k
 --
 ====
 
-.Enable 1 MB I/O (Optional)
+=== Enable 1 MB I/O (Optional)
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
