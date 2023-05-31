@@ -206,14 +206,9 @@ QLE2742 FW:v9.10.11 DVR:v10.02.06.200-k
 --
 ====
 
-=== Enable 1 MB I/O (Optional)
-
-ONTAP reports an MDTS (Max Data Transfer Size) of 8 MB in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the `lpfc_sg_seg_cnt` parameter should also be increased to 256 MB from the default value of 64 MB. Use the following instructions to do so:
+.Enable 1 MB I/O (Optional)
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
-
-[NOTE] 
-This step is not applicable for Qlogic NVMe/FC hosts.
 
 == Configure NVMe/TCP
 
