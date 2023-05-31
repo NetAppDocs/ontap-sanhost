@@ -1,14 +1,17 @@
-The multipath.conf file must exist for the multipath daemon to start, but you can create an empty, zero-byte file using the command:
+* The multipath.conf file must exist for the multipath daemon to start, but you can create an empty, zero-byte file using the command:
 `touch /etc/multipath.conf`
-The first time you create this file, you might need to enable and start the multipath services.
+
+* The first time you create this file, you might need to enable and start the multipath services.
 ----
 # chkconfig multipathd on
 # /etc/init.d/multipathd start
 ----
-There is no requirement to add anything directly to multipath.conf, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
-You can add the following syntax to the multipath.conf file to exclude the unwanted devices.
 
-NOTE: Replace the <DevId> with the WWID string of the device you want to exclude. Use the following command to determine the WWID:
+* There is no requirement to add anything directly to multipath.conf, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
+
+* You can add the following syntax to the multipath.conf file to exclude the unwanted devices.
+
+* Replace the <DevId> with the WWID string of the device you want to exclude. Use the following command to determine the WWID:
 
 ....
 blacklist {

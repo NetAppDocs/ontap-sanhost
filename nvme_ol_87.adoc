@@ -5,7 +5,7 @@ keywords:
 summary: 
 ---
 
-= NVMe/FC Host Configuration for Oracle Linux 8.7 with ONTAP
+= NVMe-oF Host Configuration for Oracle Linux 8.7 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -19,13 +19,16 @@ NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supporte
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
+The following support is available for NVMe/FC host configuration for OL 8.7 with ONTAP: 
+
+* Support for NVMe/TCP in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces. 
+
+* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces. 
+
 == Features 
 
-*	Oracle Linux 8.7 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
+*	OL 8.7 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
 
-* Oracle Linux 8.7 includes support for NVMe/TCP in addition to NVMe/FC. The NetApp plugin in the native `nvme-cli` package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-
-* Oracle Linux 8.7 supports use of NVMe and SCSI co-existent traffic on the same host on a given HBA adapter, without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
 
 == Known limitations
 
@@ -88,11 +91,11 @@ vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:791c54eb-545d-4ed3-8
 ----
 +
 [NOTE]
-If the `hostnqn` strings do not match, you should use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, you can use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 == Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
+You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
 ====
@@ -124,7 +127,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]:
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. :
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -136,6 +139,8 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 0:14.0.0.1
 
 ----
++
+For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^]
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
 +
@@ -186,7 +191,7 @@ FCP CMPL: xb 00000a89 Err 0000e2f3
 --
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.7 GA kernel has the latest upstream fixes essential for ONTAP support:
+. The native inbox qla2xxx driver included in the OL 8.7 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions. :
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -441,7 +446,7 @@ NSID       UUID                                   Size
 
 == Known issues
 
-NVMe/FC Host Configuration for Oracle Linux 8.7 with ONTAP release has the following known issues:
+NVMe-OF host configuration for Oracle Linux 8.7 with ONTAP release has the following known issues:
 
 [options="header", cols="20, 20, 50, 20]
 |===
@@ -450,7 +455,7 @@ NVMe/FC Host Configuration for Oracle Linux 8.7 with ONTAP release has the follo
 
 |Oracle Linux 8.7 NVMe-oF Hosts create duplicate Persistent Discovery Controllers
 
-|On Oracle Linux (OL) 8.x NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the "-p" option to the "nvme discover" command. For a given initiator-target combination, only one PDC is expected to be created with each invocation of the "nvme discover" command. However, beginning with ONTAP 9.10.1, OL 8.x NVMe-oF hosts end up creating duplicate PDCs with each invocation of the "nvme discover" command with the -p option. This wastes resources on both the host and the target.
+|On OL 8.7 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the "-p" option to the "nvme discover" command. For a given initiator-target combination, only one PDC is expected to be created with each invocation of the "nvme discover" command. However, beginning with ONTAP 9.10.1, OL 8.x NVMe-oF hosts end up creating duplicate PDCs with each invocation of the "nvme discover" command with the -p option. This wastes resources on both the host and the target.
 |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 
