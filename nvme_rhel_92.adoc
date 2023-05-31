@@ -19,8 +19,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.7 with ONTAP
 
 NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^]
 
 == Features
 
@@ -29,6 +28,10 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 *	RHEL 9.2 includes support for in-kernel NVMe multipath for NVMe namespaces enabled by default, without the need for explicit settings.
 
 *	RHEL 9.2 supports use of NVMe and SCSI co-existent traffic on the same host on a given HBA adapter, without the explicit `dm-multipath` settings to prevent claiming NVMe namespaces.
+
+== Known limitations
+
+There are no known limitations.
 
 == Validate software versions
 
@@ -60,12 +63,32 @@ You can use the following procedure to validate the minimum supported RHEL 9.2 s
 nvme-cli-2.2.1-2.el9.x86_64
 ----
 
-. On the host, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. Install the `libnvme` package:
++
+----
+#rpm -qa|grep libnvme
+----
++
+
+*Example output* 
++
+----
+libnvme-1.2-2.el9.x86_64
+----
+
+. On the RHEL 9.2 host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
 ----
 # cat /etc/nvme/hostnqn
-nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-11ec-8489-3a68dd61a4df
 ----
++
+*Example output*
++
+----
+nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
+----
+
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 ----
 ::> vserver nvme subsystem host show -vserver vs_ol_nvme
@@ -173,9 +196,6 @@ abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 
-.Enable 1MB I/O size
-
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 --
 
@@ -198,12 +218,15 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 1
 ----
 
-.Enable 1MB I/O size
-
-Not Applicable.
-
 --
 ====
+
+.Enable 1MB I/O size
+
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter lpfc_sg_seg_cnt should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
 
 == Configure NVMe/TCP
 
@@ -333,12 +356,17 @@ Namespace Usage    Format             FW             Rev
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
+
+[role="tabbed-block"]
+====
+.NVMe/FC
+--
 ----
 # nvme list-subsys /dev/nvme0n1
 ----
-+
-*Example output (a):*
-+
+
+*Example output:*
+
 ----
 # nvme list-subsys /dev/nvme0n1 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:subsystem.rhel_207_LB 
 +- nvme1 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a7d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live optimized 
@@ -347,27 +375,39 @@ Namespace Usage    Format             FW             Rev
 +- nvme5 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a9d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live non-optimized
 
 ----
-+
-*Example output (b):*
-+
+--
+.NVMe/TCP
+--
 ----
 # nvme list-subsys /dev/nvme1n1 
+----
+
+*Example output:*
+
+----
+
 nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:subsystem.rhel_tcp97 \
 +- nvme1 tcp traddr=192.168.167.23,trsvcid=4420,host_traddr=192.168.167.5 live non-optimized 
 +- nvme2 tcp traddr=192.168.167.22,trsvcid=4420,host_traddr=192.168.167.5 live non-optimized 
 +- nvme3 tcp traddr=192.168.166.23,trsvcid=4420,host_traddr=192.168.166.5 live optimized 
-+- nvme4 tcp traddr=192.168.166.22,trsvcid=4420,host_traddr=192.168.166.5 live 
++- nvme4 tcp traddr=192.168.166.22,trsvcid=4420,host_traddr=192.168.166.5 live optimized  
 
 ----
+--
+====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
+[role="tabbed-block"]
+====
+.CLI
+--
 ----
 # nvme netapp ontapdevices -o column
 ----
-+
-*Example output (a):*
-+
+
+*Example output:*
+
 ----
 Device        Vserver   Namespace Path                                                          
 ----------------------- ------------------------------ 
@@ -379,17 +419,26 @@ NSID       UUID                                   Size
 ------------------------------------------------------------
 1          79c2c569-b7fa-42d5-b870-d9d6d7e5fa84	21.47GB
 ----
-+
+--
+.JSON
+--
 ----
 # nvme netapp ontapdevices -o json
+----
 
+*Example output*
+----
 {
 
 "ONTAPdevices" : [
 {
 
-"Device" : "/dev/nvme0n1", "Vserver" : "vs_tcp79", "Namespace_Path" : "/vol/vol1/ns1", "NSID" : 1,
-"UUID" : "79c2c569-b7fa-42d5-b870-d9d6d7e5fa84", "Size" : "21.47GB",
+"Device" : "/dev/nvme0n1", 
+"Vserver" : "vs_tcp79", 
+"Namespace_Path" : "/vol/vol1/ns1", 
+"NSID" : 1,
+"UUID" : "79c2c569-b7fa-42d5-b870-d9d6d7e5fa84",
+"Size" : "21.47GB",
 "LBA_Data_Size" : 4096,
 "Namespace_Size" : 5242880
 },
@@ -397,34 +446,8 @@ NSID       UUID                                   Size
 ]
 }
 ----
-+
-Example (b)
-+
-----
-Device        Vserver   Namespace Path                                                          
------------------------ ------------------------------ 
-/dev/nvme1n1      vs_tcp_133  /vol/vol1/ns1
-              
-
-
-NSID       UUID                                   Size
-------------------------------------------------------------
-1          1ef7cb56-bfed-43c1-97c1-ef22eeb92657	21.47GB
-+
-----
-+
-----
-# nvme netapp ontapdevices -o json
-{
-"ONTAPdevices":[
-{
-"Device":"/dev/nvme1n1", "Vserver":"vs_tcp", "Namespace_Path":"/vol/vol1/ns1", "NSID":1,
-"UUID":"1ef7cb56-bfed-43c1-97c1-ef22eeb92657", "Size":"21.47GB",
-"LBA_Data_Size":4096, "Namespace_Size":5242880
-},
-]
-}
-----
+--
+====
 
 == Known issues
 
@@ -432,7 +455,7 @@ There are no known issues.
 
 == Troubleshooting
 
-Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
+Before troubleshooting any NVMe-oF failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
 
 === Enable verbose logging
 
