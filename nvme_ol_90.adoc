@@ -172,9 +172,7 @@ abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 
-.Enable 1MB I/O size
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 --
 
@@ -198,6 +196,10 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 ----
 --
 ====
+
+.Enable 1MB I/O size
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
