@@ -19,15 +19,17 @@ summary: How to Configure NVMe-oF Host for RHEL 8.7 with ONTAP
 
 NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^]
+The following support is available for the NVMe-oF host configuration for OL 9.2 with ONTAP:
+
+* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+
+* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
+
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 == Features
 
-* RHEL 9.2 includes support for NVMe/TCP in addition to NVMe/FC. The NetApp plugin in the native `nvme-cli` package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-
-* RHEL 9.2 includes support for in-kernel NVMe multipath for NVMe namespaces enabled by default, without the need for explicit settings.
-
-* RHEL 9.2 supports use of NVMe and SCSI co-existent traffic on the same host on a given HBA adapter, without the explicit `dm-multipath` settings to prevent claiming NVMe namespaces.
+* RHEL 9.2 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
 
 == Known limitations
 
@@ -48,7 +50,7 @@ You can use the following procedure to validate the minimum supported RHEL 9.2 s
 *Example output:*
 +
 ----
-5.14.0-284.el9.x86_64
+5.14.0-284.11.1.el9_2.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -108,7 +110,7 @@ If the `hostnqn` strings do not match, you should use the `vserver modify` comma
 
 == Configure NVMe/FC
 
-You can configure NVME/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
+You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
 ====
@@ -140,7 +142,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]:
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. 
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -150,6 +152,8 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 # cat /sys/module/lpfc/version
 0:12.8.0.11
 ----
++
+For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
 +
@@ -205,7 +209,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 --
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 9.0 GA kernel has the latest upstream fixes essential for ONTAP support:
+. The native inbox qla2xxx driver included in the RHEL 9.2 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -224,8 +228,6 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 ====
 
 .Enable 1MB I/O size
-
-ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter lpfc_sg_seg_cnt should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
@@ -333,6 +335,12 @@ Y
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces properly reflect on the host:
 +
 ----
+# cat /sys/class/nvme-subsystem/nvme-subsys*/model
+NetApp ONTAP Controller
+NetApp ONTAP Controller
+----
++
+----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
 round-robin
 ----
@@ -402,7 +410,7 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:su
 +
 [role="tabbed-block"]
 ====
-.CLI
+.Column
 --
 ----
 # nvme netapp ontapdevices -o column
