@@ -126,7 +126,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. :
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver:
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
