@@ -199,7 +199,7 @@ QLE2742 FW:v9.10.11 DVR:v10.02.06.200-k
 
 ----
 
-. Verify that `ql2xnvmeenable` is set which enables the Marvell adapter to function as an NVMe/FC initiator:
+. Verify that `ql2xnvmeenable` is set:
 +
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
