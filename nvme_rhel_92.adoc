@@ -19,7 +19,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.7 with ONTAP
 
 NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-The following support is available for the NVMe-oF host configuration for OL 9.2 with ONTAP:
+The following support is available for the NVMe-oF host configuration for RHEL 9.2 with ONTAP:
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
@@ -213,11 +213,16 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
+----
++
+*Example output*
++
+----
 QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 ----
 
-. Verify that `ql2xnvmeenable` is set which enables the Marvell adapter to function as an NVMe/FC initiator:
+. Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
 +
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
@@ -343,6 +348,7 @@ NetApp ONTAP Controller
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
 round-robin
+round-robin
 ----
 
 . Verify that the namespaces are created and correctly discovered on the host:
@@ -378,7 +384,7 @@ Namespace Usage    Format             FW             Rev
 *Example output:*
 
 ----
-# nvme list-subsys /dev/nvme0n1 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:subsystem.rhel_207_LB 
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:subsystem.rhel_207_LB \
 +- nvme1 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a7d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live optimized 
 +- nvme2 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a8d039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live optimized 
 +- nvme3 fc traddr=nn-0x20a6d039ea954d17:pn-0x20aad039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live non-optimized 

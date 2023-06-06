@@ -26,7 +26,7 @@ If you have a version of Linux Unified Host Utilities currently installed, you s
 
 .Steps
 
-. Download the 64-bit Linux Unified Host Utilities software package from the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site] to your host.
+. Download the 64-bit Linux Unified Host Utilities software package from the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site^] to your host.
 
 . Install the software package:
 `rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_64`
@@ -139,8 +139,8 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 [options="header", cols="20, 20, 50,20"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1508554   	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.2, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |N/A
-|1537359 |LVM hung tasks with SAN Boot host after issuing NetApp giveback With RHEL 9.2 SAN Boot host, |Kernel disruption occurs when LVM hung tasks are seen with sanbooted Emulex HBA after storage failover giveback operation on a Red Hat Enterprise Linux 9.2. The kernel disruption causes the operating system to reboot and generates the vmcore file under the /var/crash/directory if kdump is configured.
+|1508554   	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.2, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |Not Applicable
+|1537359 |A RedHat Linux 9.2 SAN booted host with Emulex HBA experiences frozen tasks leading to kernel disruption |During a storage failover giveback operation, a RedHat Linux 9.2 SAN booted host with Emulex HBA, experiences frozen tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
 |2173947
 |===
 
