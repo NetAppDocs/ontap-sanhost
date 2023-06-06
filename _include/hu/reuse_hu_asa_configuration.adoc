@@ -1,6 +1,6 @@
 === All SAN Array configurations
 
-In ASA configurations, all paths to a given LUN are active and optimized.  This means I/O can be served through all paths at the same time to improve performance.
+In ASA configurations, all paths to a given LUN are active and optimized. This improves performance by serving I/O operations through all paths at the same time.
 
 .Example
 The following example displays the correct output for an ONTAP LUN:

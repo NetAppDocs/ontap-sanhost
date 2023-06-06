@@ -120,7 +120,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. 
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver:
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -180,7 +180,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 --
 .Steps
 
-. The native inbox qla2xxx driver included in the OL 9.0 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions. :
+. The native inbox qla2xxx driver included in the OL 9.0 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
