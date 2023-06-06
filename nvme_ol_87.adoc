@@ -19,7 +19,7 @@ NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supporte
 
 The following support is available for NVMe/FC host configuration for OL 8.7 with ONTAP: 
 
-* Support for NVMe/TCP in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces. 
+* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces. 
 
 * Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces. 
 
