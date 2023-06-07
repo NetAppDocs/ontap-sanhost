@@ -128,7 +128,7 @@ The NVMe-oF host configuration for RHEL 9.2 with ONTAP release has the following
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 |1508554   	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.2, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |Not Applicable
-|1537359 |A Red Hat Linux 9.2 SAN booted host with Emulex HBA experiences frozen tasks leading to kernel disruption |During a storage failover giveback operation, a Red Hat Linux 9.2 SAN booted host with Emulex HBA, experiences frozen tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
+|1537359 |A Red Hat Linux 9.2 SAN booted host with Emulex HBA encounters stalled tasks leading to kernel disruption |During a storage failover giveback operation, a Red Hat Linux 9.2 SAN booted host with an Emulex host bus adapeter (HBA) encounters stalled tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
 |link:https://bugzilla.redhat.com/show_bug.cgi?id=2173947[2173947^]
 |===
 
