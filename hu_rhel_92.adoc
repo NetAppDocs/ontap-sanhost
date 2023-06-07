@@ -120,7 +120,9 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
-== Known problems and limitations
+== Known issues
+
+The NVMe-oF host configuration for RHEL 9.2 with ONTAP release has the following known issues:
 
 [options="header", cols="20, 20, 50,20"]
 |===
