@@ -16,21 +16,7 @@ summary: Describes how to use Red Hat Enterprise Linux 9.2 with ONTAP
 
 == Install the Linux Unified Host Utilities
 
-The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site^] in a 64-bit .rpm file. 
-
-NetApp strongly recommends installing the Linux Unified Host Utilities, but it is not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration.
-
-.What you'll need
-
-If you have a version of Linux Unified Host Utilities currently installed, you should upgrade or remove it, and then use the following steps to install the latest version.
-
-.Steps
-
-. Download the 64-bit Linux Unified Host Utilities software package from the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site^] to your host.
-
-. Install the software package:
-`rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_64`
-
+include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
 == SAN Tool Kit
 
@@ -84,7 +70,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The RHEL 9.2 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations.
+The RHEL 9.2 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -119,15 +105,15 @@ The following example shows how to correct an overridden default. In this case, 
 ----
 defaults {
    path_checker      readsector0
-   no_path_retry      fail
+   no_path_retry     fail
 }
 
 devices {
    device {
       vendor         "NETAPP  "
       product         "LUN.*"
-      no_path_retry     queue
-      path_checker      tur
+      no_path_retry    queue
+      path_checker     tur
    }
 }
 ----
@@ -140,7 +126,7 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 |1508554   	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.2, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. |Not Applicable
-|1537359 |A RedHat Linux 9.2 SAN booted host with Emulex HBA experiences frozen tasks leading to kernel disruption |During a storage failover giveback operation, a RedHat Linux 9.2 SAN booted host with Emulex HBA, experiences frozen tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
+|1537359 |A Red Hat Linux 9.2 SAN booted host with Emulex HBA experiences frozen tasks leading to kernel disruption |During a storage failover giveback operation, a Red Hat Linux 9.2 SAN booted host with Emulex HBA, experiences frozen tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
 |link:https://bugzilla.redhat.com/show_bug.cgi?id=2173947[2173947^]
 |===
 
