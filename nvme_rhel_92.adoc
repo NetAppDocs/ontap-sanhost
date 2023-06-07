@@ -17,7 +17,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.7 with ONTAP
 
 [.lead]
 
-NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
 The following support is available for the NVMe-oF host configuration for RHEL 9.2 with ONTAP:
 
@@ -105,7 +105,7 @@ vs_nvme207   rhel_207_LPe32002    nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-
 ----
 +
 [NOTE]
-If the `hostnqn` strings do not match, you should use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 
 == Configure NVMe/FC
@@ -337,7 +337,7 @@ You can use the following procedure to validate NVME-oF.
 Y
 ----
 
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces properly reflect on the host:
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
 +
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model

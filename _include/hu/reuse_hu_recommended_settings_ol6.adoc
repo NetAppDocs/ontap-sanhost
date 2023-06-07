@@ -11,7 +11,7 @@ The first time you create this file, you might need to enable and start the mult
 
 * There is no requirement to add anything directly to the `multipath.conf` file unless you have devices that you do not want multipath to manage or you have existing settings that override defaults.
 
-* You can add the following syntax to the `multipath.conf` file to exclude the unwanted devices.
+* You can add the following syntax to the `multipath.conf` file to exclude the unwanted devices:
 
 ** Replace the <DevId> with the WWID string of the device you want to exclude:
 +
