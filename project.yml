@@ -18,26 +18,28 @@ sidebar:
       url: /index.html  
     - title: Overview
       url: /overview.html
-    - title: SAN host utilities
+    - title: Install SAN host utilities
       entries:
+      - title: Overview
+        url: /hu_sanhost_index.html
       - title: AIX host utilities
         entries:
-          - title: Install AIX HU 6.1
-            url: /hu_aix_61.html
           - title: Release notes
             url: /hu_aix_61_rn.html
+          - title: Install AIX HU 6.1
+            url: /hu_aix_61.html
       - title: HP-UX host utilities
         entries:
-         - title: Install HP-UX HU 6.0
-           url: /hu_hpux_60.html
          - title: Release notes
            url: /hu_hpux_60_rn.html
+         - title: Install HP-UX HU 6.0
+           url: /hu_hpux_60.html 
       - title: Linux unified host utilities
         entries:
-        - title: Install LUHU 7.1
-          url: /hu_luhu_71.html
         - title: Release notes
           url: /hu_luhu_71_rn.html
+        - title: Install LUHU 7.1
+          url: /hu_luhu_71.html
       - title: Solaris host utilities
         entries:
           - title: Install Solaris HU 6.2
@@ -52,9 +54,10 @@ sidebar:
             url: /hu_wuhu_71.html    
           - title: Release Notes
             url: /hu_wuhu_71_rn.html
-
-    - title: NVMe-oF host configurations
+    - title: Configure NVMe-oF hosts
       entries:
+      - title: Overview
+        url: /hu_nvme_index.html
       - title: AIX
         url: /nvme_aix.html
       - title: ESXi
@@ -146,8 +149,10 @@ sidebar:
           url: /nvme_windows_2016.html
         - title: "2012 R2"
           url: /nvme_windows_2012r2.html
-    - title: FCP and iSCSI host configurations
+    - title: Configure FCP and iSCSI hosts
       entries:
+      - title: Overview
+        url: /hu_fcp_scsi_index.html
       - title: AIX and PowerVM/VIOS
         entries:
         - title: 7.2/3.1
@@ -156,6 +161,8 @@ sidebar:
           url: /hu_aix_71.html
       - title: CentOS
         entries:
+        - title: Release Notes
+          url: /hu_asm_release_notes.html
         - title: CentOS 8
           entries:
           - title: 8.5
@@ -229,11 +236,13 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
+        - title: Release Notes
+          url: /hu_asm_release_notes.html
         - title: OL 9
           entries:
           - title: 9.0
             url: /hu_ol_90.html
-        
+  
         - title: OL 8
           pdf-filename: OL-8-FCP
           entries:
@@ -295,6 +304,8 @@ sidebar:
             url: /hu_ol_64.html
       - title: RHEL
         entries:
+        - title: Release Notes
+          url: /hu_asm_release_notes.html
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
@@ -371,6 +382,8 @@ sidebar:
           url: /hu_solaris_113.html
       - title: SLES
         entries:
+        - title: Release Notes
+          url: /hu_asm_release_notes.html
         - title: SLES 15
           pdf-filename: SLES-15-FCP
           entries:

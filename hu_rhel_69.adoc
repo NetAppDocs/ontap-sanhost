@@ -133,6 +133,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1076584[1076584^] | Firmware dumps occur on Red Hat Enterprise Linux 6.9 QLogic QE8362 HBA during storage failover operations | Firmware dumps can occur during storage failover operations on Red Hat Enterprise Linux (RHEL) 6.9 hosts with QLogic QLE8362 host bus adapters (HBA), firmware dumps are observed occasionally. The firmware dumps might manifest as an I/O outage on the host that can last as long as 1200 seconds. After the adapter completes dumping the firmware cores, the I/O operation resumes normally.  No further recovery procedure is required on the host. To indicate the firmware dump, the following message is displayed in /var/log/ message file: kernel: qla2xxx [0000:0c:00.3]-d001:3: Firmware dump saved to temp buffer (3/ffffc90018b01000), dump status flags (0x3f) | link:https://bugzilla.redhat.com/show_bug.cgi?id=1438711[1438711^]
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]

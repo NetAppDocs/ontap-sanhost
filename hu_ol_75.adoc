@@ -117,8 +117,5 @@ If kdump is configured, the kernel disruption creates a vmcore file in the  /var
 After a kernel disruption, you can recover by rebooting the host operating system and restarting the application. |
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
 
 // BURT 1440718, 2022-05-20

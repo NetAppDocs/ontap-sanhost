@@ -134,6 +134,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=836875[836875^] | IP addresses are not always assigned during the boot of a RHEL 7.0 OS installed on an iSCSI multipath'd LUN | When you install the root(/) on a iSCSI multipath’d LUN, the IP address for the  Ethernet interfaces are specified in the kernel command line so that the IP addresses are assigned before the iSCSI service starts. However, dracut cannot assign IP addresses to all the Ethernet ports during the boot, before the iSCSI service starts. This causes the iSCSI login to fail on interfaces without IP addresses. You will see the iSCSI service attempt to login numerous times,  which will cause a delay in the OS boot time. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1114966[1114966^]
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
