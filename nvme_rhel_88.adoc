@@ -80,7 +80,7 @@ nvme-cli-1.16-7.el8.x86_64
 nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
 ----
 
-. Verify that the host NQN string matches the host NQN string for the corresponding subsystem on the ONTAP array:
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -92,18 +92,21 @@ vs_nvme161 rhel_161_LPe32002    nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11
 ----
 +
 [NOTE]
-If the host NQN strings do not match, you should use the vserver modify command to update the host NQN string on your corresponding ONTAP NVMe subsystem to match the host NQN string /etc/nvme/hostnqn on the host.
+If the host NQN strings do not match, you should use the `vserver modify` command to update the host NQN string on your corresponding ONTAP NVMe subsystem to match the host NQN string `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 
 [NOTE]
-If you intend to run both NVMe and SCSI co-existent traffic on the same host, NetApp recommendeds using in-kernel NVMe multipath for ONTAP namesapces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:	
-----	
+====
+If you intend to run both NVMe and SCSI co-existent traffic on the same host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:	
+
+----
 # cat /etc/multipath.conf
 defaults {
         enable_foreign  NONE
 }
 ----
+====
 
 == Configure NVMe/FC
 
@@ -236,7 +239,7 @@ QLE2772 FW:v9.10.11 DVR:v10.02.07.900-k-debug
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
-Now the Broadcom FC-NVMe host should be able to send up to 1MB I/O requests on the ONTAP namespace devices.
+
 
 == Configure NVMe/TCP
 
