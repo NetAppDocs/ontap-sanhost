@@ -13,11 +13,11 @@ summary:
 :linkattrs:
 :imagesdir: ./media/
 
-Access the installation procedure for your NVMe-oF host configuration with ONTAP:
+You can configure certain SAN hosts for NVMe over Fabrics (NVMe-oF) with ONTAP. Depending on your host and ONTAP version, you configure and validate the NVMe over Fibre Channel (NVMe/FC) or NVMe over TCP (NVMe/TCP) protocol, or both on the host: 
 
-* link:nvme_aix.html[NVMe/FC host configuration fro AIX]
-* link:nvme_esxi_8.html[NVMe-oF host configuration for ESXi]
-* link:nvme_ol_90.html[NVMe/FC host configuration for Oracle Linux]
-* link:nvme_rhel_92.html[NVMe-oF host configuration for RHEL]
-* link:nvme_sles15_sp4.html[NVMe-oF host configuration for SUSE Linux Enterprise Server]
-* link:nvme_windows_2022.html[NVMe/FC host configuration for Windows Server]
+* link:nvme_aix.html[Configure AIX with NVMe/FC]
+* link:nvme_esxi_8.html[Configure ESXi with NVMe-oF]
+* link:nvme_ol_90.html[Configure Oracle Linux with NVMe/FC]
+* link:nvme_rhel_92.html[Configure RHEL with NVMe-oF]
+* link:nvme_sles15_sp4.html[Configure SUSE Linux Enterprise Server with NVMe-oF]
+* link:nvme_windows_2022.html[Configure Windows with NVMe/FC]

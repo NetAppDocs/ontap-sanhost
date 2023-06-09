@@ -5,7 +5,7 @@ indexpage:
   tiles:
     - title: Get started
       links:
-        - title: SAN host configuration overview
+        - title: Product overview
           url: /overview.html
         - title: AIX host utilities release notes
           url: /hu_aix_61_rn.html
@@ -21,12 +21,10 @@ indexpage:
       links:
         - title: Install SAN host utilities 
           url: /hu_sanhost_index.html 
-        - title: Configure NVMe-oF hosts 
+        - title: Configure hosts with FCP and iSCSI 
+          url: /hu_fcp_scsi_index.html 
+        - title: Configure hosts with NVMe-oF 
           url: /hu_nvme_index.html  
-        - title: Configurr FCP and iSCSI hosts 
-          url: /hu_fcp_scsi_index.html  
-
-
     - title: More resources
       links:
         - title: Cloud Volumes ONTAP

@@ -54,102 +54,7 @@ sidebar:
             url: /hu_wuhu_71.html    
           - title: Release Notes
             url: /hu_wuhu_71_rn.html
-    - title: Configure NVMe-oF hosts
-      entries:
-      - title: Overview
-        url: /hu_nvme_index.html
-      - title: AIX
-        url: /nvme_aix.html
-      - title: ESXi
-        pdf-filename: NVMeoF ESXi
-        entries:
-        - title: VMware vSphere 8
-          url: /nvme_esxi_8.html
-        - title: VMware vSphere 7
-          url: /nvme_esxi_7.html
-      - title: Oracle Linux
-        entries:
-        - title: OL 9
-          pdf-filename: NVMeF OL
-          entries:
-          - title: 9.0
-            url: /nvme_ol_90.html
-        - title: OL 8
-          pdf-filename: NVMeF OL
-          entries:
-          - title: 8.7
-            url: /nvme_ol_87.html
-          - title: 8.6
-            url: /nvme_ol_86.html
-          - title: 8.5
-            url: /nvme_ol_85.html
-          - title: 8.4
-            url: /nvme_ol_84.html
-          - title: 8.3
-            url: /nvme_ol_83.html     
-          - title: 8.2
-            url: /nvme_ol_82.html
-          - title: 8.1
-            url: /nvme_ol_81.html
-        - title: OL 7
-          entries:
-          - title: 7.9
-            url: /nvme_ol_79.html
-          - title: 7.8
-            url: /nvme_ol_78.html
-          - title: 7.7
-            url: /nvme_ol_77.html
-      - title: RHEL
-        pdf-filename: NVMeoF RHEL
-        entries:
-        - title: RHEL 9
-          entries:
-          - title: 9.2
-            url: /nvme_rhel_92.html
-          - title: 9.1
-            url: /nvme_rhel_91.html
-          - title: 9.0
-            url: /nvme_rhel_90.html
-        - title: RHEL 8
-          entries:
-          - title: 8.7
-            url: /nvme_rhel_87.html
-          - title: 8.6
-            url: /nvme_rhel_86.html
-          - title: 8.5
-            url: /nvme_rhel_85.html
-          - title: 8.4
-            url: /nvme_rhel_84.html
-          - title: 8.3
-            url: /nvme_rhel_83.html
-          - title: 8.2
-            url: /nvme_rhel_82.html
-          - title: 8.1
-            url: /nvme_rhel_81.html
-      - title: SLES
-        pdf-filename: NVMeoF SLES
-        entries:
-        - title: SLES 15
-          entries:
-          - title: 15 SP4
-            url: /nvme_sles15_sp4.html
-          - title: 15 SP3
-            url: /nvme_sles15_sp3.html
-          - title: 15 SP2
-            url: /nvme_sles15_sp2.html
-          - title: 15 SP1
-            url: /nvme_sles15_sp1.html
-      - title: Windows
-        entries:
-        - title: 2022
-          url: /nvme_windows_2022.html
-        - title: 2019
-          url: /nvme_windows_2019.html
-        - title: 2016
-          url: /nvme_windows_2016.html
-        - title: "2012 R2"
-          url: /nvme_windows_2012r2.html
-    - title: Configure FCP and iSCSI hosts
+    - title: Configure hosts with FCP and iSCSI
       entries:
       - title: Overview
         url: /hu_fcp_scsi_index.html
@@ -242,7 +147,6 @@ sidebar:
           entries:
           - title: 9.0
             url: /hu_ol_90.html
-  
         - title: OL 8
           pdf-filename: OL-8-FCP
           entries:
@@ -430,5 +334,100 @@ sidebar:
           url: /hu_windows_2016.html
         - title: "2012 R2"
           url: /hu_windows_2012r2.html
+    - title: Configure hosts with NVMe-oF
+      entries:
+      - title: Overview
+        url: /hu_nvme_index.html
+      - title: AIX
+        url: /nvme_aix.html
+      - title: ESXi
+        pdf-filename: NVMeoF ESXi
+        entries:
+        - title: VMware vSphere 8
+          url: /nvme_esxi_8.html
+        - title: VMware vSphere 7
+          url: /nvme_esxi_7.html
+      - title: Oracle Linux
+        entries:
+        - title: OL 9
+          pdf-filename: NVMeF OL
+          entries:
+          - title: 9.0
+            url: /nvme_ol_90.html
+        - title: OL 8
+          pdf-filename: NVMeF OL
+          entries:
+          - title: 8.7
+            url: /nvme_ol_87.html
+          - title: 8.6
+            url: /nvme_ol_86.html
+          - title: 8.5
+            url: /nvme_ol_85.html
+          - title: 8.4
+            url: /nvme_ol_84.html
+          - title: 8.3
+            url: /nvme_ol_83.html     
+          - title: 8.2
+            url: /nvme_ol_82.html
+          - title: 8.1
+            url: /nvme_ol_81.html
+        - title: OL 7
+          entries:
+          - title: 7.9
+            url: /nvme_ol_79.html
+          - title: 7.8
+            url: /nvme_ol_78.html
+          - title: 7.7
+            url: /nvme_ol_77.html
+      - title: RHEL
+        pdf-filename: NVMeoF RHEL
+        entries:
+        - title: RHEL 9
+          entries:
+          - title: 9.2
+            url: /nvme_rhel_92.html
+          - title: 9.1
+            url: /nvme_rhel_91.html
+          - title: 9.0
+            url: /nvme_rhel_90.html
+        - title: RHEL 8
+          entries:
+          - title: 8.7
+            url: /nvme_rhel_87.html
+          - title: 8.6
+            url: /nvme_rhel_86.html
+          - title: 8.5
+            url: /nvme_rhel_85.html
+          - title: 8.4
+            url: /nvme_rhel_84.html
+          - title: 8.3
+            url: /nvme_rhel_83.html
+          - title: 8.2
+            url: /nvme_rhel_82.html
+          - title: 8.1
+            url: /nvme_rhel_81.html
+      - title: SLES
+        pdf-filename: NVMeoF SLES
+        entries:
+        - title: SLES 15
+          entries:
+          - title: 15 SP4
+            url: /nvme_sles15_sp4.html
+          - title: 15 SP3
+            url: /nvme_sles15_sp3.html
+          - title: 15 SP2
+            url: /nvme_sles15_sp2.html
+          - title: 15 SP1
+            url: /nvme_sles15_sp1.html
+      - title: Windows
+        entries:
+        - title: 2022
+          url: /nvme_windows_2022.html
+        - title: 2019
+          url: /nvme_windows_2019.html
+        - title: 2016
+          url: /nvme_windows_2016.html
+        - title: "2012 R2"
+          url: /nvme_windows_2012r2.html
     - title: Legal notices
       url: /legal_notice.html
