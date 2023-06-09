@@ -48,12 +48,13 @@ sidebar:
             url: /hu_solaris_62_rn.html
       - title: Windows Unified Host Utilities
         entries:
+          - title: Release Notes
+            url: /hu_wuhu_71_rn.html
           - title: Install WUHU 7.2
             url: /hu_wuhu_72.html
           - title: Install WUHU 7.1
             url: /hu_wuhu_71.html    
-          - title: Release Notes
-            url: /hu_wuhu_71_rn.html
+          
     - title: Configure hosts with FCP and iSCSI
       entries:
       - title: Overview
@@ -67,7 +68,7 @@ sidebar:
       - title: CentOS
         entries:
         - title: Release Notes
-          url: /hu_asm_release_notes.html
+          url: /hu_centos_asm_release_notes.html
         - title: CentOS 8
           entries:
           - title: 8.5
@@ -142,7 +143,7 @@ sidebar:
         pdf-filename: OL-FCP
         entries:
         - title: Release Notes
-          url: /hu_asm_release_notes.html
+          url: /hu_ol_asm_release_notes.html
         - title: OL 9
           entries:
           - title: 9.0
@@ -209,7 +210,7 @@ sidebar:
       - title: RHEL
         entries:
         - title: Release Notes
-          url: /hu_asm_release_notes.html
+          url: /hu_rhel_asm_release_notes.html
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
@@ -287,7 +288,7 @@ sidebar:
       - title: SLES
         entries:
         - title: Release Notes
-          url: /hu_asm_release_notes.html
+          url: /hu_sles_asm_release_notes.html
         - title: SLES 15
           pdf-filename: SLES-15-FCP
           entries:
