@@ -29,7 +29,7 @@ There are no known limitations.
  
 == Validate software versions
 
-You can validate the minimum supported OL 9.1 software versions using the following procedure.
+You can use the following procedure to validate the minimum supported OL 9.1 software versions.
 
 .Steps
 
@@ -96,7 +96,7 @@ vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:bc59d14c-47f3-11eb-b
 ----
 +
 [NOTE]
-If the `hostnqn` strings do not match, you should use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, you can use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 == Configure NVMe/FC
 
@@ -108,7 +108,7 @@ You can configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapter
 --
 .Steps
 
-. Verify that you are using the supported adapter model. 
+. Verify that you are using the supported adapter model:
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -132,7 +132,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]:
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. 
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -143,6 +143,8 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 # cat /sys/module/lpfc/version
 0:14.0.0.1
 ----
++
+For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
 +
@@ -193,7 +195,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 --
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 9.1 GA kernel has the latest upstream fixes essential for ONTAP support:
+.  The native inbox qla2xxx driver included in the OL 9.1 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -201,7 +203,7 @@ QLE2742 FW:v9.18.02 DVR:v10.02.00.106-k
 QLE2742 FW:v9.18.02 DVR:v10.02.00.106-k
 ----
 
-. Verify that `ql2xnvmeenable` is set which enables the Marvell adapter to function as an NVMe/FC initiator:
+. Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
 +
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
@@ -306,9 +308,9 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 ----
 
 
-
-
 == Validate NVMe-oF
+
+You can use the following procedure to validate NVMe-oF.
 
 .Steps
 
@@ -317,9 +319,15 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 ----
 # cat /sys/module/nvme_core/parameters/multipath
 Y
+----
++
+----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model
 NetApp ONTAP Controller
 NetApp ONTAP Controller
+----
++
+----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
 round-robin
 round-robin
@@ -461,7 +469,7 @@ NSID       UUID                                   Size
 
 == Known issues
 
-NVMe-oF host honfiguration for OL 9.1 with ONTAP release has the following known issues:
+NVMe-oF host configuration for OL 9.1 with ONTAP release has the following known issues:
 
 [options="header", cols="20, 20, 50, 20]
 |===
@@ -472,9 +480,9 @@ NVMe-oF host honfiguration for OL 9.1 with ONTAP release has the following known
 
 |The `nvme list-subsys` command should return a unique list of NVMe controllers associated with a given subsystem. In Oracle Linux 9.1, the `nvme list-subsys` command returns NVMe controllers with the respective asymmetric namespace access (ANA) state for all namespaces that belong to a given subsystem. However, it would be useful to display unique NVMe controller entries with the path state if you list the subsystem command syntax for a given namespace because the ANA state is a per-namespace attribute.
 
-|link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17998[17998]
+|link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17998[17998^]
 |1539101 |Oracle Linux 9.1 NVMe-oF hosts fails to create a persistent discovery controller | On Oracle Linux 9.1 NVMe over Fabrics (NVMe-oF) hosts, you can use the nvme discover -p command to create Persistent Discovery Controllers (PDCs). When this command is used, one PDC should be created per initiator-target combination. However, if you are running Oracle Linux 9.1 on an NVMe-oF host, PDC creation fails when the `nvme discover -p` command is executed.  
-|link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18196[18196]
+|link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18196[18196^]
 |===
 
 == Troubleshooting
