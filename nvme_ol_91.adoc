@@ -57,6 +57,18 @@ You can validate the minimum supported OL 9.1 software versions using the follow
 nvme-cli-2.0-4.el9.x86_64
 ----
 
+. Install the `libnvme` package:
++
+----
+#rpm -qa|grep libnvme
+----
++
+*Example output*
++
+----
+libnvme-1.0-5.el9.x86_64.rpm
+----
+
 .	On the Oracle Linux 9.1 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 ----
@@ -338,6 +350,10 @@ Namespace Usage    Format             FW             Rev
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
+[role="tabbed-block"]
+====
+.NVMe/FC
+--
 ----
 # nvme list-subsys /dev/nvme0n1
 ----
@@ -352,6 +368,24 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
 ----
+--
+
+.NVMe/TCP
+--
+----
+nvme list-subsys /dev/nvme1n22
+----
+*Example output*
+----
+nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.68c036aaa3cf11edbb95d039ea243511:subsystem.tcp
+\
++- nvme2 tcp traddr=192.168.8.49,trsvcid=4420,host_traddr=192.168.8.1 live optimized
++- nvme3 tcp traddr=192.168.8.48,trsvcid=4420,host_traddr=192.168.8.1 live optimized
++- nvme6 tcp traddr=192.168.9.49,trsvcid=4420,host_traddr=192.168.9.1 live non-optimized
++- nvme7 tcp traddr=192.168.9.48,trsvcid=4420,host_traddr=192.168.9.1 live non-optimized
+----
+--
+====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
@@ -427,19 +461,19 @@ NSID       UUID                                   Size
 
 == Known issues
 
-NVMe-oF Host Configuration for Oracle Linux 9.1 with ONTAP release has the following known issues:
+NVMe-oF host honfiguration for OL 9.1 with ONTAP release has the following known issues:
 
 [options="header", cols="20, 20, 50, 20]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 |1536937 
 
-|`nvme list-subsys` command prints repeated nvme controllers for a subsystem
+|`nvme list-subsys` command prints repeated NVMe controllers for a subsystem
 
 |The `nvme list-subsys` command should return a unique list of NVMe controllers associated with a given subsystem. In Oracle Linux 9.1, the `nvme list-subsys` command returns NVMe controllers with the respective asymmetric namespace access (ANA) state for all namespaces that belong to a given subsystem. However, it would be useful to display unique NVMe controller entries with the path state if you list the subsystem command syntax for a given namespace because the ANA state is a per-namespace attribute.
 
 |link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17998[17998]
-|1539101 |Oracle Linux 9.1 NVMe-oF hosts fails to create a persistent discovery controller | On Oracle Linux 9.1 NVMe over Fabrics (NVMe-oF) hosts, you can use the nvme discover -p command to create Persistent Discovery Controllers (PDCs). When this command is used, one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.12.1 and Oracle Linux 9.1 with an NVMe-oF host, PDC creation fails when the `nvme discover -p` command is executed.  
+|1539101 |Oracle Linux 9.1 NVMe-oF hosts fails to create a persistent discovery controller | On Oracle Linux 9.1 NVMe over Fabrics (NVMe-oF) hosts, you can use the nvme discover -p command to create Persistent Discovery Controllers (PDCs). When this command is used, one PDC should be created per initiator-target combination. However, if you are running Oracle Linux 9.1 on an NVMe-oF host, PDC creation fails when the `nvme discover -p` command is executed.  
 |link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18196[18196]
 |===
 
