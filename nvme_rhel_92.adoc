@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: nvme_ol_90.html
-keywords: 
-summary: 
+permalink: nvme_rhel_92.html
+keywords: nvme, linux, rhel, red hat, enterprise
+summary: How to Configure NVMe-oF Host for RHEL 8.7 with ONTAP
 ---
 
-= NVMe/FC Host Configuration for Oracle Linux 9.0 with ONTAP
+= NVMe-oF Host Configuration for RHEL 9.2 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -13,27 +13,35 @@ summary:
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
+:source-highlighter: highlighter.js
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux (OL) 9.0 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+
+The following support is available for the NVMe-oF host configuration for RHEL 9.2 with ONTAP:
+
+* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+
+* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
-== Features 
+== Features
 
-*	Oracle Linux 9.0 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
+* RHEL 9.2 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
 
 == Known limitations
 
 There are no known limitations.
- 
+
 == Validate software versions
 
-You can validate the minimum supported OL 9.0 software versions using the following procedure.
+You can use the following procedure to validate the minimum supported RHEL 9.2 software versions.
 
 .Steps
 
-. Install OL 9.0 GA on the server. After the installation is complete, verify that you are running the specified OL 9.0 GA kernel. 
+. Install RHEL 9.2 on the server. After the installation is complete, verify that you are running the specified RHEL 9.2 kernel. 
 +
 ----
 # uname -r
@@ -42,7 +50,7 @@ You can validate the minimum supported OL 9.0 software versions using the follow
 *Example output:*
 +
 ----
-5.15.0-0.30.19.el9uek.x86_64
+5.14.0-284.11.1.el9_2.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -54,16 +62,29 @@ You can validate the minimum supported OL 9.0 software versions using the follow
 *Example output:*
 +
 ----
-nvme-cli-1.16-3.el9.x86_64
+nvme-cli-2.2.1-2.el9.x86_64
 ----
 
-.	On the Oracle Linux 9.0 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+. Install the `libnvme` package:
++
+----
+#rpm -qa|grep libnvme
+----
++
+
+*Example output* 
++
+----
+libnvme-1.2-2.el9.x86_64
+----
+
+. On the RHEL 9.2 host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
 ----
 # cat /etc/nvme/hostnqn
 ----
 +
-*Example output:*
+*Example output*
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
@@ -80,11 +101,12 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
 ----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
+vs_nvme207   rhel_207_LPe32002    nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-11ec-8489-3a68dd61a4df
 ----
 +
 [NOTE]
-If the `hostnqn` strings do not match, you can use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+
 
 == Configure NVMe/FC
 
@@ -120,12 +142,12 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver:
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. 
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
-14.0.505.11, sli-4:2:c
-14.0.505.11, sli-4:2:c
+14.0.639.18, sli-4:2:c
+14.0.639.18, sli-4:2:c
 
 # cat /sys/module/lpfc/version
 0:12.8.0.11
@@ -140,15 +162,21 @@ For the most current list of supported adapter driver and firmware versions, see
 3
 ----
 
-. Verify that the initiator ports are up and running, and that you can see the target LIFs:
+. Verify that the initiator ports are up and running and that you can see the target LIFs:
 +
 ----
 # cat /sys/class/fc_host/host*/port_name
 0x100000109b1c1204
 0x100000109b1c1205
+----
++
+----
 # cat /sys/class/fc_host/host*/port_state
 Online
 Online
+----
++
+----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
@@ -174,32 +202,40 @@ abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 
+
 --
 
 .Marvell/QLogic FC Adapter for NVMe/FC
 --
 .Steps
 
-. The native inbox qla2xxx driver included in the OL 9.0 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. The native inbox qla2xxx driver included in the RHEL 9.2 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
+----
++
+*Example output*
++
+----
 QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 ----
 
-. Verify that `ql2xnvmeenable` is set which enables the Marvell adapter to function as an NVMe/FC initiator:
+. Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
 +
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
 ----
+
 --
 ====
 
-=== Enable 1MB I/O size (Optional)
+=== Enable 1MB I/O (Optional)
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
 
 == Configure NVMe/TCP
 
@@ -216,50 +252,43 @@ nvme discover -t tcp -w host-traddr -a traddr
 *Example output:*
 +
 ----
-#  nvme discover -t tcp -w 192.168.6.13 -a 192.168.6.15
-Discovery Log Number of Records 6, Generation counter 8
+# nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.22
+
+Discovery Log Number of Records 8, Generation counter 18
 =====Discovery Log Entry 0======
-trtype: tcp
-adrfam: ipv4
-subtype: unrecognized
-treq: not specified
-portid: 0
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  0
 trsvcid: 8009
-subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:discovery
-traddr: 192.168.6.17
+subnqn:  nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:discovery
+traddr:  192.168.166.23
+eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
 =====Discovery Log Entry 1======
-trtype: tcp
-adrfam: ipv4
-subtype: unrecognized
-treq: not specified
-portid: 1
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  1
 trsvcid: 8009
-subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:discovery
-traddr: 192.168.5.17
+subnqn:  nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:discovery
+traddr:  192.168.166.22
+eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
 =====Discovery Log Entry 2======
-trtype: tcp
-adrfam: ipv4
-subtype: unrecognized
-treq: not specified
-portid: 2
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  2
 trsvcid: 8009
-subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:discovery
-traddr: 192.168.6.15
-sectype: none
-=====Discovery Log Entry 3======
-trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem
-treq: not specified
-portid: 0
-trsvcid: 4420
-subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:subsystem.host_95
-traddr: 192.168.6.17
+subnqn:  nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:discovery
+traddr:  192.168.167.23
+eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
 ..........
-
 ----
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
@@ -271,10 +300,10 @@ nvme discover -t tcp -w host-traddr -a traddr
 *Example output:*
 +
 ----
-# nvme discover -t tcp -w 192.168.5.13 -a 192.168.5.15
-# nvme discover -t tcp -w 192.168.5.13 -a 192.168.5.17
-# nvme discover -t tcp -w 192.168.6.13 -a 192.168.6.15
-# nvme discover -t tcp -w 192.168.6.13 -a 192.168.6.17
+#nvme discover -t tcp -w 192.168.166.5 -a 192.168.166.22
+#nvme discover -t tcp -w 192.168.166.5 -a 192.168.166.23 
+#nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.22
+#nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.23
 ----
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes, and set the controller loss timeout period for at least 30 minutes or 1800 seconds:
@@ -286,29 +315,38 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 *Example output:*
 +
 ----
-# nvme connect-all -t tcp -w 192.168.5.13 -a 192.168.5.15 -l 1800
-# nvme connect-all -t tcp -w 192.168.5.13 -a 192.168.5.17 -l 1800
-# nvme connect-all -t tcp -w 192.168.6.13 -a 192.168.6.15 -l 1800
-# nvme connect-all -t tcp -w 192.168.6.13 -a 192.168.6.17 -l 1800
+#	nvme	connect-all	-t	tcp	-w	192.168.166.5	-a	192.168.166.22	-l	1800
+#	nvme	connect-all	-t	tcp	-w	192.168.166.5	-a	192.168.166.23	-l	1800
+#	nvme	connect-all	-t	tcp	-w	192.168.167.5	-a	192.168.167.22	-l	1800
+#	nvme	connect-all	-t	tcp	-w	192.168.167.5	-a	192.168.167.23	-l	1800
+
 ----
 
 
 
 == Validate NVMe-oF
 
-You can use the following procedure to validate NVMe-oF.
+You can use the following procedure to validate NVME-oF.
 
 .Steps
 
-. Verify the following NVMe/FC settings on the OL 9.0 host:
+. Verify that the in-kernel NVMe multipath is enabled:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
 Y
+----
+
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
++
+----
 # cat /sys/class/nvme-subsystem/nvme-subsys*/model
 NetApp ONTAP Controller
 NetApp ONTAP Controller
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+----
++
+----
+# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
 round-robin
 round-robin
 ----
@@ -324,111 +362,112 @@ round-robin
 ----
 Node         SN                   Model                          
 ---------------------------------------------------------  
-/dev/nvme0n1 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller
-/dev/nvme0n2 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller                                       
-/dev/nvme0n3 814vWBNRwf9HAAAAAAAB NetApp ONTAP Controller                                     
-
+/dev/nvme0n1 81CZ5BQuUNfGAAAAAAAB	NetApp ONTAP Controller	
+                               
 
 Namespace Usage    Format             FW             Rev
 -----------------------------------------------------------
-1                 85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
-2                 85.90 GB / 85.90 GB  24 KiB + 0 B  FFFFFFFF
-3                 85.90 GB / 85.90 GB  4 KiB + 0 B   FFFFFFFF
+1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
 ----
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
+
+[role="tabbed-block"]
+====
+.NVMe/FC
+--
 ----
 # nvme list-subsys /dev/nvme0n1
 ----
-+
+
 *Example output:*
-+
+
 ----
-nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_ss_ol_1
-\
-+- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
-+- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:subsystem.rhel_207_LB \
++- nvme1 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a7d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live optimized 
++- nvme2 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a8d039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live optimized 
++- nvme3 fc traddr=nn-0x20a6d039ea954d17:pn-0x20aad039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live non-optimized 
++- nvme5 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a9d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live non-optimized
+
 ----
+--
+.NVMe/TCP
+--
+----
+# nvme list-subsys /dev/nvme1n1 
+----
+
+*Example output:*
+
+----
+
+nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:subsystem.rhel_tcp97 \
++- nvme1 tcp traddr=192.168.167.23,trsvcid=4420,host_traddr=192.168.167.5 live non-optimized 
++- nvme2 tcp traddr=192.168.167.22,trsvcid=4420,host_traddr=192.168.167.5 live non-optimized 
++- nvme3 tcp traddr=192.168.166.23,trsvcid=4420,host_traddr=192.168.166.5 live optimized 
++- nvme4 tcp traddr=192.168.166.22,trsvcid=4420,host_traddr=192.168.166.5 live optimized  
+
+----
+--
+====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
+[role="tabbed-block"]
+====
+.Column
+--
 ----
 # nvme netapp ontapdevices -o column
 ----
-+
+
 *Example output:*
-+
+
 ----
 Device        Vserver   Namespace Path                                                          
 ----------------------- ------------------------------ 
-/dev/nvme0n1   vs_ol_nvme  /vol/ol_nvme_vol_1_1_0/ol_nvme_ns              
-/dev/nvme0n2   vs_ol_nvme  /vol/ol_nvme_vol_1_0_0/ol_nvme_ns              
-/dev/nvme0n3   vs_ol_nvme  /vol/ol_nvme_vol_1_1_1/ol_nvme_ns              
+/dev/nvme0n1 vs_tcp           /vol/vol1/ns1   
+              
 
 
 NSID       UUID                                   Size
 ------------------------------------------------------------
-1          72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
-2          04bf9f6e-9031-40ea-99c7-a1a61b2d7d08   85.90GB
-3          264823b1-8e03-4155-80dd-e904237014a4   85.90GB
+1          79c2c569-b7fa-42d5-b870-d9d6d7e5fa84	21.47GB
 ----
-+
+--
+.JSON
+--
 ----
 # nvme netapp ontapdevices -o json
-{
-"ONTAPdevices" : [
-    {
-        "Device" : "/dev/nvme0n1",
-        "Vserver" : "vs_ol_nvme",
-        "Namespace_Path" : "/vol/ol_nvme_vol_1_1_0/ol_nvme_ns",
-        "NSID" : 1,
-        "UUID" : "72b887b1-5fb6-47b8-be0b-33326e2542e2",
-        "Size" : "85.90GB",
-        "LBA_Data_Size" : 4096,
-        "Namespace_Size" : 20971520
-    },
-    {
-        "Device" : "/dev/nvme0n2",
-        "Vserver" : "vs_ol_nvme",
-        "Namespace_Path" : "/vol/ol_nvme_vol_1_0_0/ol_nvme_ns",
-        "NSID" : 2,
-        "UUID" : "04bf9f6e-9031-40ea-99c7-a1a61b2d7d08",
-        "Size" : "85.90GB",
-        "LBA_Data_Size" : 4096,
-        "Namespace_Size" : 20971520
-      },
-      {
-         "Device" : "/dev/nvme0n3",
-         "Vserver" : "vs_ol_nvme",
-         "Namespace_Path" : "/vol/ol_nvme_vol_1_1_1/ol_nvme_ns",
-         "NSID" : 3,
-         "UUID" : "264823b1-8e03-4155-80dd-e904237014a4",
-         "Size" : "85.90GB",
-         "LBA_Data_Size" : 4096,
-         "Namespace_Size" : 20971520
-       },
-  ]
-}
 ----
 
+*Example output*
+----
+{
+
+"ONTAPdevices" : [
+{
+
+"Device" : "/dev/nvme0n1", 
+"Vserver" : "vs_tcp79", 
+"Namespace_Path" : "/vol/vol1/ns1", 
+"NSID" : 1,
+"UUID" : "79c2c569-b7fa-42d5-b870-d9d6d7e5fa84",
+"Size" : "21.47GB",
+"LBA_Data_Size" : 4096,
+"Namespace_Size" : 5242880
+},
+
+]
+}
+----
+--
+====
+
 == Known issues
-NVMe-OF host configuration for Oracle Linux 9.0 with ONTAP release has the following known issues:
 
-[options="header", cols="20, 20, 50, 20]
-|===
-|NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1517321
-
-|Oracle Linux 9.0 NVMe-oF Hosts create duplicate Persistent Discovery Controllers
-
-|On Oracle Linux 9.0 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 9.0 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target.
-|https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
-|===
-
-
+There are no known issues.
 
 == Troubleshooting
 
@@ -464,8 +503,4 @@ include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
 include::_include/hu/reuse_hu_contact_tech_support.adoc[]
 
 
-
-
-
-
-
+// 2022,12-06, Jira IEOPS-690
