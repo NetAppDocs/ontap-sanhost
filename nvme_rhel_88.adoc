@@ -83,9 +83,12 @@ nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 ----
-# cat /etc/nvme/hostnqn
-nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_141
+----
++
+*Example output*
++
+----
 Vserver     Subsystem       Host NQN
 ----------- --------------- ----------------------------------------------------------
 vs_nvme161 rhel_161_LPe32002    nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
