@@ -15,7 +15,7 @@ summary:
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe/FC and other transports, is supported with Oracle Linux (OL) 9.1 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Oracle Linux (OL) 9.1 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
 The following support is available for the NVMe-oF host configuration for OL 9.1 with ONTAP:
 
@@ -138,7 +138,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. 
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver:
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -283,7 +283,7 @@ sectype: none
 
 ----
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
 ----
 nvme discover -t tcp -w host-traddr -a traddr
@@ -475,7 +475,7 @@ NSID       UUID                                   Size
 
 == Known issues
 
-NVMe-oF host configuration for OL 9.1 with ONTAP release has the following known issues:
+The NVMe-oF host configuration for OL 9.1 with ONTAP release has the following known issues:
 
 [options="header", cols="20, 20, 50, 20]
 |===
@@ -487,7 +487,7 @@ NVMe-oF host configuration for OL 9.1 with ONTAP release has the following known
 |The `nvme list-subsys` command should return a unique list of NVMe controllers associated with a given subsystem. In Oracle Linux 9.1, the `nvme list-subsys` command returns NVMe controllers with the respective asymmetric namespace access (ANA) state for all namespaces that belong to a given subsystem. However, it would be useful to display unique NVMe controller entries with the path state if you list the subsystem command syntax for a given namespace because the ANA state is a per-namespace attribute.
 
 |link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17998[17998^]
-|1539101 |Oracle Linux 9.1 NVMe-oF hosts fail to create a persistent discovery controller | On Oracle Linux 9.1 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, one PDC should be created per initiator-target combination. However, if you are running Oracle Linux 9.1 on an NVMe-oF host, PDC creation fails when the `nvme discover -p` command is executed.  
+|1539101 |Oracle Linux 9.1 NVMe-oF hosts fail to create a persistent discovery controller | On Oracle Linux 9.1 NVMe-oF hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, one PDC should be created per initiator-target combination. However, if you are running Oracle Linux 9.1 on an NVMe-oF host, PDC creation fails when the `nvme discover -p` command is executed.  
 |link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18196[18196^]
 |===
 
