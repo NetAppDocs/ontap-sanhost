@@ -148,7 +148,7 @@ Oracle Linux 9.1 with NetApp ONTAP release has the following known issues:
 [cols="10,30,30,10",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1508554	|SAN LUN utility with Emulex HBA need symbolic links from library packages	a|When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a RHEL 9.1 NVMe host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be located:
+|1508554	|SAN LUN utility with Emulex HBA need symbolic links from library packages	a|When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be located:
 ----
 [root@hostname ~]# sanlun fcp show adapter -v
 Unable to locate /usr/lib64/libHBAAPI.so library
