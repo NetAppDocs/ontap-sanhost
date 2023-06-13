@@ -118,7 +118,7 @@ You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 --
 .Steps
 
-. Verify that you are using the supported adapter model. 
+. Verify that you are using the supported adapter model: 
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -142,7 +142,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. 
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver: 
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev 
@@ -292,7 +292,7 @@ sectype: none
 ..........
 ----
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data:
 +
 ----
 nvme discover -t tcp -w host-traddr -a traddr
