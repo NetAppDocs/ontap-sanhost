@@ -487,7 +487,7 @@ NVMe-oF host configuration for OL 9.1 with ONTAP release has the following known
 |The `nvme list-subsys` command should return a unique list of NVMe controllers associated with a given subsystem. In Oracle Linux 9.1, the `nvme list-subsys` command returns NVMe controllers with the respective asymmetric namespace access (ANA) state for all namespaces that belong to a given subsystem. However, it would be useful to display unique NVMe controller entries with the path state if you list the subsystem command syntax for a given namespace because the ANA state is a per-namespace attribute.
 
 |link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17998[17998^]
-|1539101 |Oracle Linux 9.1 NVMe-oF hosts fails to create a persistent discovery controller | On Oracle Linux 9.1 NVMe over Fabrics (NVMe-oF) hosts, you can use the nvme discover -p command to create Persistent Discovery Controllers (PDCs). When this command is used, one PDC should be created per initiator-target combination. However, if you are running Oracle Linux 9.1 on an NVMe-oF host, PDC creation fails when the `nvme discover -p` command is executed.  
+|1539101 |Oracle Linux 9.1 NVMe-oF hosts fail to create a persistent discovery controller | On Oracle Linux 9.1 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, one PDC should be created per initiator-target combination. However, if you are running Oracle Linux 9.1 on an NVMe-oF host, PDC creation fails when the `nvme discover -p` command is executed.  
 |link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18196[18196^]
 |===
 
