@@ -20,7 +20,7 @@ include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
 == SAN toolkit
 
-The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 In the following example, the `sanlun lun show` command returns LUN information.
 ----
@@ -47,11 +47,11 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For OL 9.1 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.1 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For OL 9.1 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.1 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
-The following sections provide sample multipath output for a LUN mapped to ASA and non-ASA personas.
+The following sections provide sample multipath output for a LUN mapped to ASA and non-ASA configurations.
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
@@ -87,7 +87,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The Oracle Linux 9.1 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration. You can further optimize performance for your host configuration with the following recommended settings.
+The Oracle Linux 9.1 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -118,7 +118,7 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 .Example
 
-The following example demonstrates how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
+The following example demonstrates how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
 
 ----
 defaults {
@@ -148,7 +148,7 @@ Oracle Linux 9.1 with NetApp ONTAP release has the following known issues:
 [cols="10,30,30,10",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA need symbolic links from library packages	a|When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be located:
+|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA needs symbolic links from library packages	a|When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be located:
 ----
 [root@hostname ~]# sanlun fcp show adapter -v
 Unable to locate /usr/lib64/libHBAAPI.so library
