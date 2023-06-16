@@ -58,7 +58,7 @@ include::_include/hu/reuse_hu_asa_configuration.adoc[]
 ----
 # multipath -ll
 3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
   |- 11:0:7:6   sdbz 68:208  active ready running
   |- 11:0:11:6  sddn 71:80   active ready running
@@ -73,7 +73,7 @@ include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 ----
 # multipath -ll
 3600a0980383036347ffb4d59646c4436 dm-28 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
 | |- 16:0:6:35 sdwb  69:624  active ready running
 | |- 16:0:5:35 sdun  66:752  active ready running
