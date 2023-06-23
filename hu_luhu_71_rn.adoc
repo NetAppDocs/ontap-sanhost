@@ -19,9 +19,6 @@ The Release Notes describe new features and enhancements, known problems and lim
 
 For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
-[NOTE]
-The Host Utilities software is provided as both 32-bit and 64-bit .rpm files. You can download the correct .rpm  file for your host architecture and the documentation from the link:https://mysupport.netapp.com/site/[NetApp Support Site^].
-
 == What's New 
 The Linux Host Utilities 7.1 release contains the following new features and enhancements:
 
@@ -68,8 +65,6 @@ Some keyword combinations and bug types that you might want to use include the f
 * FCP - Linux
 * iSCSI – Linux
 
-Refer to the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation] for more information on Host OS settings and configurations.
-
 
 == Where to find product documentation and other information
 You can access documentation for all NetApp products and find other product information resources, such as technical reports and white papers on the Product Documentation page of the NetApp corporate site.
@@ -80,6 +75,7 @@ You can access documentation for all NetApp products and find other product info
 
 * The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide^] for your version of ONTAP
 * The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP SAN Administration Guide^] for your version of ONTAP
+* The link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation] for more information on the host OS settings and configurations
 * The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes^] for your version of ONTAP
 
 *Configuring and managing your E-Series storage system*

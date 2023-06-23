@@ -19,7 +19,9 @@ The Linux Unified Host Utilities enable you to connect a Linux host to NetApp st
 
 NetApp strongly recommends installing the Linux Unified Host Utilities, but it is not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration. 
 
-.Supported Linux versions 
+.Supported Linux versions
+
+The following Linux versions are supported:
 
 *	Red Hat Enterprise Linux
 *	SUSE Linux Enterprise Server
@@ -28,24 +30,65 @@ NetApp strongly recommends installing the Linux Unified Host Utilities, but it i
 *	Citrix XenServer
 *	Veritas
 
-The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a 32-bit or 64-bit .rpm file.
-
 .What you'll need
 
 * For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
 +
 You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
-* You must install the HBA management packages provided by the vendors on their websites.
+* You must install the host bus adapter (HBA) management packages provided by the vendors on their websites.
 +
 The management software enables the SAN toolkit commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are installed:
 
 ** QLogic HBA – QConvergeConsole CLI
 ** Emulex HBA - OneCommand Manager core application CLI
 ** Brocade HBA – Brocade Command Utility CLI
-** RPM Packages "libhbaapi" and "libhbalinux" available for each Linux Distribution should be installed on the host OS.
+
+* RPM Packages "libhbaapi" and "libhbalinux" available for each Linux Distribution should be installed on the host OS.
+
+The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a 32-bit or 64-bit .rpm file. 
+
+.Steps
+
+. If you have a version of Linux Unified Host Utilities currently installed, use the following command to remove it:
++
+----
+rpm -e netapp_linux_unified_host_utilities-7-1
+----
+
+. For older versions of Linux Host Utilities, go to the directory where the host utility software is installed and enter the uninstall command.
+
+. Download the either the 32-bit or 64-bit Linux Unified Host Utilities software package from the NetApp Support Site to your host.
+
+. Go to the directory to which you downloaded the software package and use the following command to install it:
++
+----
+rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_xx.rpm
+----
++
+*Example output*
++
+----
+Verifying...                          ################################# [100%]
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:netapp_linux_unified_host_utiliti################################# [100%]
+----
+
+. Verify the installation:
++
+----
+sanlun version
+----
++
+*Example output*
++
+----
+sanlun version 7.1.386.1644
+----
 
 == Default values recommended when using drivers bundled with Linux kernel
+
 When you are setting up an FC environment that uses the native, inbox drivers that are bundled with the Linux kernel, you can use the default values for the drivers. In iSCSI environments where you are using a iSCSI solution software, you need to manually set certain recommended values depending on the OS version you are using.
 
 == SAN Toolkit
@@ -58,4 +101,7 @@ NOTE: This toolkit is common across all configurations and protocols of the Host
 
 NOTE: The SAN toolkit is not supported on Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
 
-Review the link:hu_luhu_71_cmd.html[Sample Command reference].
+== Sample command reference 
+
+You can refer to the link:hu_luhu_71_cmd.html[sample command reference] to verify the installation.
+
