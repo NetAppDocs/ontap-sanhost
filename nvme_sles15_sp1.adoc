@@ -24,11 +24,11 @@ SLES15 SP1 host can run both NVMe/FC, & FCP traffic through the same fibre chann
 +
 For the most current list of supported configurations & versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+* Native NVMe/FC auto-connect scripts are included in the nvme-cli package. You can use the native inbox lpfc driver on SLES15 SP1.
 
 ==	Known limitations
 
-None. Native NVMe/FC auto-connect scripts are included in the nvme-cli package. You can use the native inbox lpfc driver on SLES15 SP1.
+There are no known limitations.
 
 ==	Enable NVMe/FC on SLES15 SP1
 
@@ -188,6 +188,8 @@ Device   Vserver  Namespace Path             NSID   UUID   Size
     }
 ]
 ----
+== Known issues
+There are no known issues.
 
 ==	Enable 1MB I/O Size for Broadcom NVMe/FC
 
