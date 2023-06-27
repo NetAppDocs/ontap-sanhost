@@ -29,36 +29,39 @@ The following Linux distributions are supported:
 
 .What you'll need
 
+The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a 32-bit or 64-bit .rpm file. 
+
 * For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
 +
 You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
 * You must install the host bus adapter (HBA) management packages available on the vendor support site.
 +
-The management software enables the SAN toolkit commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are installed:
+The management software enables the SAN toolkit commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are correctly installed:
 
 ** Marvell QLogic HBA – QConvergeConsole CLI
 ** Broadcom Emulex HBA - OneCommand Manager core application CLI
 ** Marvell Brocade HBA – Brocade Command Utility CLI
 
-* RPM Packages "libhbaapi" and "libhbalinux" available for each Linux Distribution should be installed on the host OS.
+* RPM Packages "libhbaapi" and "libhbalinux" available for each Linux distribution should be installed on the host OS.
 
-The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a 32-bit or 64-bit .rpm file. 
 
 .Steps
 
 . If you have a version of Linux Unified Host Utilities currently installed, use the following command to remove it:
 +
+[source, cli]
 ----
 rpm -e netapp_linux_unified_host_utilities-7-1
 ----
 
 . For older versions of Linux Host Utilities, go to the directory where the host utility software is installed and enter the uninstall command.
 
-. Download the either the 32-bit or 64-bit Linux Unified Host Utilities software package from the NetApp Support Site to your host.
+. Download the 32-bit or 64-bit Linux Unified Host Utilities software package from the link:https://mysupport.netapp.com/site/[NetApp Support Site^] to your host.
 
 . Go to the directory to which you downloaded the software package and use the following command to install it:
 +
+[source, cli]
 ----
 rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_xx.rpm
 ----
@@ -74,6 +77,7 @@ Updating / installing...
 
 . Verify the installation:
 +
+[source, cli]
 ----
 sanlun version
 ----
