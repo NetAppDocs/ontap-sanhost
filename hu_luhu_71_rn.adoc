@@ -22,7 +22,7 @@ For specific information about the operating system versions and updates that th
 == What's New 
 The Linux Host Utilities 7.1 release contains the following new features and enhancements:
 
-* Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series storage systems running SANtricity as well as AFF and FAS systems running ONTAP.
+* Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series storage systems running SANtricity as well as AFF, FAS, and ASA systems running ONTAP.
 +
 [NOTE]
 Any mention of Host Utilities or Linux Host Utilities in this document refers to Linux Unified Host Utilities.
@@ -34,7 +34,7 @@ Any mention of Host Utilities or Linux Host Utilities in this document refers to
 **	Red Hat Enterprise Linux 6 and 7 series
 **	SUSE Linux Enterprise Server 11 SP4
 **	KVM and XEN, RHEV 6.4 and 6.5
-**	Citrix XenServer parameters
+**	Citrix XenServer 
 
 * Extends support for Red Hat Linux 6.8, Oracle Linux 6.8, XenServer 7.0, Oracle VM 3.3 series, and Oracle VM 3.4 series operating systems.
 
@@ -47,7 +47,7 @@ NetApp continues to work with the Host Utilities to add support for features aft
 
 == Fixed in this release
 
-* Fixes `sanlun lun show -p getting SIGABRT` in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8.
+* Fixes intermittent host OS failure issue when running the `sanlun lun show -p` command in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8.
 
 
 == Known problems and limitations
@@ -59,11 +59,6 @@ NetApp continues to work with the Host Utilities to add support for features aft
 |===
 
 link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible.
-
-Some keyword combinations and bug types that you might want to use include the following:
-
-* FCP - Linux
-* iSCSI – Linux
 
 
 == Where to find product documentation and other information
