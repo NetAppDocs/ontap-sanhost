@@ -47,7 +47,7 @@ NetApp continues to work with the Host Utilities to add support for features aft
 
 == Fixed in this release
 
-* Fixes intermittent host OS failure issue when running the `sanlun lun show -p` command in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8.
+The intermittent host OS failure issue that occurs when running the sanlun lun show -p command in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8 is fixed in this release.
 
 
 == Known problems and limitations
@@ -66,14 +66,14 @@ You can access documentation for all NetApp products and find other product info
 
 .Related information
 
-*Configuring and managing your ONTAP storage system*
+Configure and manage your ONTAP storage system
 
 * The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide^] for your version of ONTAP
 * The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP SAN Administration Guide^] for your version of ONTAP
 * The link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation] for more information on the host OS settings and configurations
 * The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes^] for your version of ONTAP
 
-*Configuring and managing your E-Series storage system*
+Configure and manage your E-Series storage system
 
 * The SANtricity Storage Manager Configuration and Provisioning for Windows Express Guide that is appropriate for your protocol
 * The SANtricity Storage Manager Configuration and Provisioning Express Guide for your operating system, protocol, and version of SANtricity.
