@@ -13,7 +13,7 @@ summary:
 :linkattrs:
 :imagesdir: ./media/
 
-You can configure the following SAN hosts for FCP or iSCSI with ONTAP. The host utility installation includes the SAN toolkit, SAN booting, and multipathing. There are also recommended settings for NetApp ONTAP LUNs.
+You can configure certain SAN hosts for FCP or iSCSI with ONTAP as the target. First you install the relevant operating system host utility package, which includes the SAN tool kit, and then you verify the multipath settings for the NetApp ONTAP LUNs. 
 
 * link:hu_aix_72.html[AIX and PowerVM/VIOS]
 * link:hu_centos_asm_release_notes.html[CentOS]
