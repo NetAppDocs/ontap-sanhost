@@ -15,11 +15,11 @@ summary: How to Configure NVMe-oF Host for RHEL 8.7 with ONTAP
 :imagesdir: ./media/
 :source-highlighter: highlighter.js
 
-== Supportability
+[.lead]
 
 NVMe over Fabrics or NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with RHEL 9.1 with Asymmetric Namespace Access (ANA) that is required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. This document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.1 and ONTAP as the target.
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 == Features
 
@@ -27,10 +27,9 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 *	RHEL 9.1 includes support for in-kernel NVMe multipath for NVMe namespaces enabled by default, without the need for explicit settings.
 *	RHEL 9.1 supports use of NVMe and SCSI co-existent traffic on the same host on a given HBA adapter, without the explicit `dm-multipath` settings to prevent claiming NVMe namespaces.
 
-== Configuration requirements
+== Known limitations
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
-
+There are no known limitations.
 
 == Enable in-kernel NVMe multipath
 
