@@ -15,34 +15,11 @@ summary: Release Notes for Solaris Host Utilities 6.2
 :imagesdir: ./media/
 
 [.lead]
-This release notes document contains the latest information for the Solaris Host Utilities 6.2, including updates about known problems, limitations, configuring and managing your ONTAP storage systems.
-
-The Release Notes document is updated when new information on using the Solaris Host Utilities becomes available.
+The release notes describe new features and enhancements, issues fixed in the current release, known problems and limitations, and important cautions related to configuring and managing your specific AIX host with your ONTAP storage system..
 
 
-== About the Solaris Host Utilities 6.2 release
-The Solaris Host Utilities 6.2 supports several Solaris environments and multiple protocols.
-
-The primary Host Utilities environments are:
-
-* Native OS with MPxIO with either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
-* Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor and with the iSCSI protocol on system using an x86/64 processor.
-
-
-The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. The ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
-
-
-== Solaris Host Utilities 6.2 enhancements
-
-The Release Notes are updated between product releases as new information is available.
-
-The Solaris Unified Host Utilities 6.2 continues to support the following versions of Solaris:
-
-*	Solaris 11.x series
-*	Solaris 10.x series
-
-== Known Problems and Limitations
-To use the Host Utilities efficiently, you should be aware that performance can be affected by known issues about a particular feature, such as a network, or by features that the Host Utilities do not support, such as a specific version of an operating system.
+== Known problems and limitations
+You should be aware of the following known problems and limitations that might impact performance on your specific host.
 
 [cols=3,options="header"]
 |===
@@ -57,9 +34,6 @@ link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete i
 *	FCP General: Displays FC and HBA bugs that are not associated with a specific host
 *	FCP - Solaris
 
-== About SAN Host Configuration documentation
-
-Documentation for SAN Host Utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration] documentation. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
 
 == Where to find product documentation and other information
 You can access documentation for all NetApp products and find other product information resources, such as technical reports and white papers on the Product Documentation page of the NetApp corporate site.
