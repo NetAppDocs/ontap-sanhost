@@ -240,6 +240,8 @@ tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.167:4420-uuid.f4f14337c3ad4a639edf0
 
 == Known issues
 
+The NVMe-oF host configuration for ESXi 8.x with ONTAP release has the following known issues:
+
 [cols="10,30,30",options="header"]
 |===
 h|NetApp Bug ID	h|Title	h|Description

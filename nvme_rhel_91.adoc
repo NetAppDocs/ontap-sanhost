@@ -423,6 +423,37 @@ The NVMe-oF host configuration for RHEL 9.1 with ONTAP release has the following
 |`nvme list-subsys` command returns repeated nvme controller list for a given subsystem	|The `nvme list-subsys` command should return a unique list of nvme controllers associated to a given subsystem. In RHEL 9.1, the `nvme list-subsys` command returns nvme controllers with its respective ANA state for all namespaces that belong to a given subsystem. However, the ANA state is a per-namespace attribute therefore, it would be ideal to display unique nvme controller entries with the path state if you list the subsystem command syntax for a given namespace.  |2130106
 |===
 
-Refer to the link:nvme_troubleshoot.html[Troublehsoot] section.
+== Troubleshooting
+
+Before troubleshooting any NVMe-oF failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
+
+=== Enable verbose logging
+
+If you have an issue with your configuration, verbose logging can provide essential information for troubleshooting.
+
+.Steps
+
+The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the procedure to set LPFC verbose logging.
+
+[role="tabbed-block"]
+====
+
+.LPFC
+--
+
+include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+--
+
+.Qla2xxx 
+--
+include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
+--
+====
+
+include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
+
+=== When to contact technical support
+
+include::_include/hu/reuse_hu_contact_tech_support.adoc[]
 
 // 2022,12-06, Jira IEOPS-690

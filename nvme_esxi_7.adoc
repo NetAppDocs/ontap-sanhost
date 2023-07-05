@@ -235,7 +235,9 @@ tcp.vmnic3:34:80:Od:30:ca:el-tcp.unknown-uuid.400bf333abf74ab8b96dc18ffadc3f99
    Path config: {TPG_id=0,TPG_state=AO,RTP_id=0,health=UP}
 ----
 
-== Known issue
+== Known issues
+
+The NVMe-oF host configuration for ESXi 7.x with ONTAP release has the following known issues:
 
 [cols="10,30,30",options="header"]
 |===
@@ -243,7 +245,7 @@ tcp.vmnic3:34:80:Od:30:ca:el-tcp.unknown-uuid.400bf333abf74ab8b96dc18ffadc3f99
 |link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|ONTAP node non-operational when NVMe/FC protocol is used with ONTAP version 9.9.1 |Check and rectify any network issues in the host fabric. If this does not help, upgrade to a patch that fixes this issue.
 |===
 
-== Related Links
+.Related links
 
 link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597-VMware vSphere with ONTAP^]
 link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)^]
