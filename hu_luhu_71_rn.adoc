@@ -36,8 +36,6 @@ Any mention of Host Utilities or Linux Host Utilities in this document refers to
 **	KVM and XEN, RHEV 6.4 and 6.5
 **	Citrix XenServer 
 
-* Extends support for Red Hat Linux 6.8, Oracle Linux 6.8, XenServer 7.0, Oracle VM 3.3 series, and Oracle VM 3.4 series operating systems.
-
 * On Red Hat Enterprise Linux (RHEL) 6 and RHEL 7 hosts, a tuned package for setting server profiles is now supported. You can use the `tuned-adm` command to set different profiles, depending on the environment.  For example, you can also use the virtual guest profile as a guest virtual machine and you can use the enterprise storage profile for configurations where LUNs from enterprise storage arrays are used.  Using these tuned packages can result in improvement in throughput and latency in ONTAP.
 
 * Adds support for 32 GB Fibre Channel adapters from Emulex and Qlogic.
@@ -47,7 +45,7 @@ NetApp continues to work with the Host Utilities to add support for features aft
 
 == Fixed in this release
 
-The intermittent host OS failure issue that occurs when running the sanlun lun show -p command in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8 is fixed in this release.
+The intermittent host OS failure issue that occurs when running the `sanlun lun show -p` command in SLES12SP1, OL7.2, RHEL7.2, and RHEL 6.8 is fixed in this release.
 
 
 == Known problems and limitations
