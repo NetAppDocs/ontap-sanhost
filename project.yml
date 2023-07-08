@@ -28,10 +28,13 @@ sidebar:
             url: /hu_aix_61_rn.html
       - title: HP-UX host utilities
         entries:
-         - title: Install HP-UX HU 6.0
-           url: /hu_hpux_60.html
          - title: Release notes
            url: /hu_hpux_60_rn.html
+         - title: Install HP-UX HU 6.0
+           url: /hu_hpux_60.html
+         - title: HP-UX 6.0 command reference
+           url: /hu_hpux_60_cmd.html
+         
       - title: Linux unified host utilities
         entries:
         - title: Install LUHU 7.1

@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_hpux_60.html
 keywords: host utilities, unified, oracle, linux, 7.1, netapp, ontap
-summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
+summary: Describes how to use the HP-UX Unified Host Utilities 6.0 with ONTAP
 ---
 
 = HP-UX Host Utilities 6.0
@@ -14,14 +14,54 @@ summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+The HP-UX Host Utilities enable you to connect an HP-UX host to NetApp storage.
 
+The HP-UX Host Utilities supports several HP-UX environments and multiple protocols. Following are the supported environments:
+
+*	Native MPIO
+*	Veritas Dynamic Multipathing (DMP)
+
+[NOTE] 
+To make it immediately clear which environment is being used, this document sometimes specifies “DMP” for the Veritas DMP environment and “MPIO” for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
 
 .What you'll need
+
 *	For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
 
 You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
+
+.About this task
+The NetApp HP-UX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a compressed file.
+
+You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. After you have downloaded the file, you must decompress it before installation.
+
+.Steps
+
+.	Login to your host.
+.	Download the HP-UX Host Utilities file `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` from the link:https://mysupport.netapp.com/site/[NetApp Support Site^] to your HP-UX host.
+
+. Decompress the `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` file:
++
+`# gunzip netapp_hpux_host_utilities_6.0_ia_pa.depot.gz`
++
+The system places the extracted software in the directory where you uncompressed the depot file.
+
+.	Install the software:
++
+`# swinstall -s /depot_path`
++
+`depot_path` provides the path and name of the depot file.
++
+The `swinstall` command runs an installation script that verifies the status of your HP-UX setup. If your system meets the requirements, this script installs the `sanlun` utility and diagnostic scripts in the `/opt/NetApp/santools/bin` directory.
+
+.	Verify the installation:
++
+`sanlun version`
+
 == SAN Toolkit
+
 HP-UX Host Utilities is a NetApp host software that provides a command line tool kit on your HP-UX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage the LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 .Example
@@ -44,193 +84,7 @@ sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0  fclp0 
 [NOTE]
 This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
-== Installing HP-UX Host Utilities
-The NetApp HP-UX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a compressed file.
+== Command reference
 
-You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. After you have downloaded the file, you must decompress it before installation.
+Refer to the link:hu_solaris_62_cmd.html[sample command reference] for end-to-end validation of your storage configuration.
 
-.Steps
-
-.	Login to your host.
-.	Download the HP-UX Host Utilities file `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` from the link:https://mysupport.netapp.com/site/[NetApp Support Site^] to your HP-UX host.
-
-. Decompress the `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` file by entering the following command:
-+
-`# gunzip netapp_hpux_host_utilities_6.0_ia_pa.depot.gz`
-+
-The system places the extracted software in the directory where you uncompressed the depot file.
-
-.	Install the software by entering the following command:
-+
-`# swinstall -s /depot_path`
-+
-`depot_path` provides the path and name of the depot file.
-+
-The `swinstall` command runs an installation script that verifies the status of your HP-UX setup. If your system meets the requirements, this script installs the `sanlun` utility and diagnostic scripts in the `/opt/NetApp/santools/bin` directory.
-
-.	Verify the installation:
-+
-`sanlun version`
-
-== Sample command reference
-=== List all host initiators mapped to host
-----
-# sanlun fcp show adapter -v
-adapter name:      fclp2
-WWPN:              10000000c985ef92
-WWNN:              20000000c985ef92
-driver name:       fclp
-model:             AJ763-63001
-model description: HP 8Gb Dual Channel PCI-e 2.0 FC HBA
-serial number:     MY19034N9U
-hardware version:  3
-driver version:    @(#) FCLP: PCIe Fibre Channel driver (FibrChanl-02), B.11.31.1805, Feb  5 2018, FCLP_IFC (3,2)
-firmware version:  2.02X2 SLI-3 (U3D2.02X2)
-Number of ports:   1 of 2
-port type:         Unknown
-port state:        Link Down
-supported speed:   8 GBit/sec
-negotiated speed:  Speed not established
-OS device name:    /dev/fclp2
-
-adapter name:      fclp3
-WWPN:              10000000c985ef93
-WWNN:              20000000c985ef93
-driver name:       fclp
-model:             AJ763-63001
-model description: HP 8Gb Dual Channel PCI-e 2.0 FC HBA
-serial number:     MY19034N9U
-hardware version:  3
-driver version:    @(#) FCLP: PCIe Fibre Channel driver (FibrChanl-02), B.11.31.1805, Feb  5 2018, FCLP_IFC (3,2)
-firmware version:  2.02X2 SLI-3 (U3D2.02X2)
-Number of ports:   2 of 2
-port type:         Unknown
-port state:        Link Down
-supported speed:   8 GBit/sec
-negotiated speed:  Speed not established
-OS device name:    /dev/fclp3
-----
-
-=== List all LUNs mapped to host
-----
-# sanlun lun show -p -v all
-\
-                    ONTAP Path: vs_hp_cluster:/vol/chathpux_217_vol_en_1_10/hp_en_217_lun
-                           LUN: 55
-                      LUN Size: 15g
-                   Host Device: /dev/rdisk/disk718
-                          Mode: C
-                            VG: /dev/vg_data
-              Multipath Policy: A/A
-            Multipath Provider: Native
--------- ---------- -------------------- ------- ---------------------------------------------- -------------
-host     vserver    /dev/dsk                                                                    HP A/A
-path     path       filename             host    vserver                                        path failover
-state    type       or hardware path     adapter LIF                                            priority
--------- ---------- -------------------- ------- ---------------------------------------------- -------------
-up       primary    /dev/dsk/c37t6d7     fclp0   hpux_7                                         0
-up       primary    /dev/dsk/c22t6d7     fclp1   hpux_8                                         0
-up       secondary  /dev/dsk/c36t6d7     fclp0   hpux_5                                         1
-up       secondary  /dev/dsk/c44t6d7     fclp1   hpux_6                                         1
-
-----
-
-
-=== List all LUNs mapped to host from a given SVM
-
-----
-# sanlun lun show -p -v vs_hp_cluster
-                    ONTAP Path: vs_hp_cluster:/vol/chathpux_217_vol_en_1_10/hp_en_217_lun
-                           LUN: 55
-                      LUN Size: 15g
-                   Host Device: /dev/rdisk/disk718
-                          Mode: C
-                            VG: /dev/vg_data
-              Multipath Policy: A/A
-            Multipath Provider: Native
--------- ---------- -------------------- ------- ---------------------------------------------- -------------
-host     vserver    /dev/dsk                                                                    HP A/A
-path     path       filename             host    vserver                                        path failover
-state    type       or hardware path     adapter LIF                                            priority
--------- ---------- -------------------- ------- ---------------------------------------------- -------------
-up       primary    /dev/dsk/c37t6d7     fclp0   hpux_7                                         0
-up       primary    /dev/dsk/c22t6d7     fclp1   hpux_8                                         0
-up       secondary  /dev/dsk/c36t6d7     fclp0   hpux_5                                         1
-up       secondary  /dev/dsk/c44t6d7     fclp1   hpux_6                                         1
-
-----
-
-=== List all attributes of a given LUN mapped to host
-
-----
-
-# sanlun lun show -p -v vs_hp_cluster:/vol/chathpux_217_vol_en_1_5/hp_en_217_lun
-
-                    ONTAP Path: vs_hp_cluster:/vol/chathpux_217_vol_en_1_5/hp_en_217_lun
-                           LUN: 49
-                      LUN Size: 15g
-                   Host Device: /dev/rdisk/disk712
-                          Mode: C
-                            VG: /dev/vg_data
-              Multipath Policy: A/A
-            Multipath Provider: Native
--------- ---------- -------------------- ------- ---------------------------------------------- -------------
-host     vserver    /dev/dsk                                                                    HP A/A
-path     path       filename             host    vserver                                        path failover
-state    type       or hardware path     adapter LIF                                            priority
--------- ---------- -------------------- ------- ---------------------------------------------- -------------
-up       primary    /dev/dsk/c37t6d1     fclp0   hpux_7                                         0
-up       primary    /dev/dsk/c22t6d1     fclp1   hpux_8                                         0
-up       secondary  /dev/dsk/c36t6d1     fclp0   hpux_5                                         1
-up       secondary  /dev/dsk/c44t6d1     fclp1   hpux_6                                         1
-
-----
-
-
-=== List ONTAP LUN attributes by Host Device File name
-
-----
-#sanlun lun show -dv /dev/rdisk/disk716
-                                                                 device             host                  lun
-vserver              lun-pathname                                filename           adapter    protocol   size    mode
-----------------------------------------------------------------------------------------------------------------------
-vs_hp_cluster        /vol/chathpux_217_vol_en_1_14/hp_en_217_lun /dev/rdisk/disk716 0          FCP        15g     C
-             LUN Serial number: 80D7l?NiNP5U
-         Controller Model Name: AFF-A800
-          Vserver FCP nodename: 208400a098ba7afe
-          Vserver FCP portname: 207e00a098ba7afe
-              Vserver LIF name: hpux_5
-            Vserver IP address: 10.141.54.30
-                                10.141.54.35
-                                10.141.54.37
-                                10.141.54.33
-                                10.141.54.31
-           Vserver volume name: chathpux_217_vol_en_1_14        MSID::0x00000000000000000000000080915935
-         Vserver snapshot name:
-----
-
-
-=== List all SVM target LIF WWPNs attached to host
-
-----
-# sanlun lun show -wwpn
-
-controller(7mode)/
-vserver(Cmode)       target wwpn        lun-pathname                                  device filename
---------------------------------------------------------------------------------------------------------
-vs_hp_cluster        208300a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun   /dev/rdsk/c22t6d7
-vs_hp_cluster        208100a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun   /dev/rdsk/c44t6d7
-vs_hp_cluster        208200a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun   /dev/rdsk/c37t6d7
-vs_hp_cluster        207e00a098ba7afe   /vol/chathpux_217_vol_en_1_10/hp_en_217_lun   /dev/rdsk/c36t6d7
-vs_hp_cluster        207d00a098ba7afe   /vol/chathpux_217_os/hp_217_os                /dev/rdsk/c18t7d4
-vs_hp_cluster        207f00a098ba7afe   /vol/chathpux_217_os/hp_217_os                /dev/rdsk/c42t7d4
-
-host adapter    lun size    mode
----------------------------------
-fclp1           15g         C
-fclp1           15g         C
-fclp0           15g         C
-fclp0           15g         C
-fclp1           30g         C
-fclp0           30g         C
-----

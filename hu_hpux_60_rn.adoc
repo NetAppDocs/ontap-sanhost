@@ -15,32 +15,14 @@ summary: Release Notes for HPUX Host Utilities 6.0
 :imagesdir: ./media/
 
 [lead]
-This Release Notes document contains the latest information on the HP-UX Host Utilities 6.0 release, including updates about known problems, limitations, and configuring and managing your ONTAP storage system. The Release Notes document is updated when new information on using the HP-UX Host Utilities becomes available.
+The release notes describe new features and enhancements, issues fixed in the current release, known problems and limitations, and important cautions related to configuring and managing your specific HU-PUX host with your ONTAP storage system.
 
-== About the HP-UX Host Utilities 6.0 release
-
-The HP-UX Host Utilities supports several HP-UX environments and multiple protocols.
-The HP-UX Host Utilities support the following environments:
-
-* Native MPIO
-* Veritas Dynamic Multipathing (DMP)
-
-NOTE: To make it immediately clear which environment is being used, this document sometimes specifies “DMP” for the Veritas DMP environment and “MPIO” for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
-
-== HP-UX Host Utilities 6.0 enhancements
-
-The Release Notes are updated between product releases as new information is available. The HP-UX Host Utilities 6.0 continues to support versions of the following:
+The HP-UX Host Utilities 6.0 continues to support versions of the following:
 
 * HP-UX 11iv2
 * HP-UX 11iv3
 
-== Known Problems and Limitations
-
-There are no known issues for the HP-UX 6.0 release.
-
-== About SAN Host Configuration documentation
-
-Documentation for SAN Host Utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration documentation.] The ONTAP SAN Host configuration documentation is cumulative, covering all current SAN Host releases. Any functional differences across releases are noted in context.
+There are no new features, enhancements, known limitations, or cautions for the HU-PUX host utilities 6.0 release.
 
 == Where to find product documentation and other information
 
@@ -57,3 +39,8 @@ You can access documentation for all NetApp products and find other product info
 * link:https://hwu.netapp.com/[Hardware Universe^] (formerly the System Configuration Guide)
 * link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[Supported Fibre Channel SAN topologies]
 * link:https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61343[Configuring your host for Host Utilities^]
+
+
+
+
+
