@@ -17,6 +17,7 @@ summary: Release Notes for Solaris Host Utilities 6.2
 [.lead]
 The release notes describe new features and enhancements, issues fixed in the current release, known problems and limitations, and important cautions related to configuring and managing your specific AIX host with your ONTAP storage system..
 
+For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=85803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 == Known problems and limitations
 You should be aware of the following known problems and limitations that might impact performance on your specific host.
@@ -42,9 +43,9 @@ You can access documentation for all NetApp products and find other product info
 
 *Configuring and managing your ONTAP storage system*
 
-*	The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide^] for your version of ONTAP
-*	The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP SAN Administration Guide^] for your version of ONTAP
-*	The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes^] for your version of ONTAP
+* The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide^] for your version of ONTAP
+* The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP SAN Administration Guide^] for your version of ONTAP
+* The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes^] for your version of ONTAP
 * link:https://imt.netapp.com/matrix/#welcome[NetApp Interoperability Matrix^]
 * link:https://hwu.netapp.com/[Hardware Universe^] (formerly the System Configuration Guide)
 * link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[Supported Fibre Channel SAN topologies^]
