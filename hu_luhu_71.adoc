@@ -96,9 +96,12 @@ Linux Unified Host Utilities is a NetApp host software that provides a command l
 
 include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
-NOTE: This toolkit is common across all configurations and protocols of the Host Utilities. As a result some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
+[NOTE] 
+====
+* This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. 
 
-NOTE: The SAN toolkit is not supported on Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
+* The SAN toolkit is not supported on Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
+====
 
 == Command reference 
 
