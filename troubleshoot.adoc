@@ -21,14 +21,15 @@ Before troubleshooting any NVMe-oF failures, verify that you are running a confi
 
 If you have an issue with your configuration, verbose logging can provide essential information for troubleshooting.
 
-.Steps
-
 The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the procedure to set LPFC verbose logging.
 
 [role="tabbed-block"]
 ====
 
 .LPFC
+
+Set the lpfc driver for NVMe/FC.
+
 --
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]

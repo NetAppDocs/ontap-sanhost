@@ -131,6 +131,8 @@ sidebar:
             url: /nvme_rhel_82.html
           - title: 8.1
             url: /nvme_rhel_81.html
+        - title: Troubleshoot
+          url: /troubleshoot.html
       - title: SLES
         pdf-filename: NVMeoF SLES
         entries:
@@ -144,6 +146,8 @@ sidebar:
             url: /nvme_sles15_sp2.html
           - title: 15 SP1
             url: /nvme_sles15_sp1.html
+        - title: Troubleshoot
+          url: /troubleshoot.html
       - title: Windows
         entries:
         - title: 2022
@@ -154,8 +158,7 @@ sidebar:
           url: /nvme_windows_2016.html
         - title: "2012 R2"
           url: /nvme_windows_2012r2.html
-      - title: Troubleshoot
-        url: /troubleshoot.html
+      
     - title: FCP and iSCSI host configurations
       entries:
       - title: AIX and PowerVM/VIOS
