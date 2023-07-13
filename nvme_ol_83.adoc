@@ -361,36 +361,6 @@ The NVMe-oF host configuration for OL 8.3 with ONTAP release has the following k
 On Oracle Linux 8.3 NVMe over Fabrics (NVMe-oF) hosts, you can use the `nvme discover -p` command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.3 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target. |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 
-== Troubleshooting
+== Troubleshoot
 
-Before troubleshooting any NVMe-oF failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
-
-=== Enable verbose logging
-
-If you have an issue with your configuration, verbose logging can provide essential information for troubleshooting.
-
-.Steps
-
-The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the procedure to set LPFC verbose logging.
-
-[role="tabbed-block"]
-====
-
-.LPFC
---
-
-include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
---
-
-.Qla2xxx 
---
-include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
---
-====
-
-include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
-
-=== When to contact technical support
-
-include::_include/hu/reuse_hu_contact_tech_support.adoc[]
-
+Refer to the link:troubleshoot.html[Troubleshoot] section to resolve your configuration issues.
