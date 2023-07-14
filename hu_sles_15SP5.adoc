@@ -127,7 +127,7 @@ The SUSE Linux Enterprise Server 15 SP5 with NetApp ONTAP release has the follow
 [options="header", cols="20, 20, 50,20"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1532179   	|LVM hung tasks with SAN Boot host after issuing NetApp giveback With Sles15SP5 SAN Boot host,	|Kernel disruption occurs when LVM hung tasks are seen with sanbooted Emulex HBA after storage failover giveback operation on a Sles15SP5. The kernel disruption causes the operating system to reboot and generates the vmcore file under the /var/crash/directory if kdump is configured |1208410
+|1532179   	|A Sles15SP5 SAN booted host with Emulex HBA encounters stalled tasks leading to kernel disruption	|During a storage failover giveback operation, a SLES15 SP5 SAN booted host with an Emulex host bus adapeter (HBA) encounters stalled tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if kdump is configured, it generates the vmcore file under the /var/crash/ directory. The issue is being triaged with the lpfc driver, but it cannot be reproduced consistently. |1208410
 |===
 
 == Release Notes

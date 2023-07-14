@@ -21,7 +21,7 @@ The following support is available for the NVMe-oF host configuration for SLES 1
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. 
 
-* There is no sanlun support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SLES15 SP5. You can rely on the NetApp plug-in included in the native nvme-cli for the same instead. This should work for all NVMe-oF transports.
+* There is no sanlun support for NVMe-oF. Therefore, there is no host utility support for NVMe-oF on a SLES15 SP5 host. You can rely on the NetApp plug-in included in the native nvme-cli for the same instead. This should work for all NVMe-oF transports.
 
 * Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. Therefore, for SCSI, you might configure dm-multipath as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
 
@@ -37,7 +37,7 @@ There are no known limitations.
  
 == Validate software versions
 
-You can use the following procedure to validate the minimum supported OL 9.2 software versions.
+You can use the following procedure to validate the minimum supported SLES 15 SP5 software versions.
 
 .Steps
 
@@ -104,6 +104,18 @@ ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp E-Series", ATTR
 ----
 
 ** *NetApp plug-in for ONTAP devices* - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
+
+. Install the libnvme package:
++
+----
+# rpm -qa|grep libnvme
+----
++
+*Example output:*
++
+----
+libnvme1-1.2+1.g41e1016-150500.2.5.x86_64
+----
 
 . Check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
@@ -244,7 +256,7 @@ FCP CMPL: xb 00000102 Err 0000028e 3
 --
 .Steps
 
-.  The native inbox qla2xxx driver included in the OL 9.2 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+.  The native inbox qla2xxx driver included in the SLES 15 SP5 kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -357,7 +369,7 @@ You can use the following procedure to validate NVMe-oF.
 
 .Steps
 
-. Verify the following NVMe/FC settings on the OL 9.2 host:
+. Verify the following NVMe/FC settings on the SLES 15 SP5 host:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
