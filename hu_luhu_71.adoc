@@ -43,6 +43,8 @@ The management software enables the SAN toolkit commands to gather information a
 
 * RPM Packages "libhbaapi" and "libhbalinux" available for each Linux distribution should be installed on the host OS.
 
+[NOTE]
+Linux Unified Host Utilities support NVMe over Fibre Channel (NVMe/FC). NVMe over TCP (NVMe/TCP) host protocol is not supported.
 
 .Steps
 
@@ -86,9 +88,9 @@ sanlun version
 sanlun version 7.1.386.1644
 ----
 
-== Recommended driver and firmware with Linux kernel
+== Recommended driver with Linux kernel
 
-When you configure an FC environment that uses native, inbox drivers that are bundled with the Linux kernel, you can use the default values for the drivers. 
+When you configure an FC environment that uses native inbox drivers that are bundled with the Linux kernel, you can use the default values for the drivers. 
 
 == SAN Toolkit
 
