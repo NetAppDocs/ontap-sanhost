@@ -44,7 +44,7 @@ The management software enables the SAN toolkit commands to gather information a
 * RPM Packages "libhbaapi" and "libhbalinux" available for each Linux distribution should be installed on the host OS.
 
 [NOTE]
-Linux Unified Host Utilities support NVMe over Fibre Channel (NVMe/FC). NVMe over TCP (NVMe/TCP) host protocol is not supported.
+Linux Unified Host Utilities software does not support NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) host protocols.
 
 .Steps
 
