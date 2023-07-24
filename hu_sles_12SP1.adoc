@@ -5,7 +5,7 @@ keywords: host utilities, suse linux enterprise server 12 SP1, suse, linux, 12 S
 summary: Describes how to use SUSE Linux Enterprise Server 12 SP1 with ONTAP
 ---
 
-= Using SUSE Linux Enterprise Server 12 SP1 with NetApp ONTAP
+= Using SUSE Linux Enterprise Server 12 SP1 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use SUSE Linux Enterprise Server 12 SP1 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
