@@ -53,8 +53,7 @@ sidebar:
           - title: Install WUHU 7.2
             url: /hu_wuhu_72.html
           - title: Install WUHU 7.1
-            url: /hu_wuhu_71.html    
-          
+            url: /hu_wuhu_71.html           
     - title: Configure hosts with FCP and iSCSI
       entries:
       - title: Overview
@@ -146,6 +145,10 @@ sidebar:
           url: /hu_ol_asm_release_notes.html
         - title: OL 9
           entries:
+          - title: 9.2
+            url: /hu_ol_92.html
+          - title: 9.1
+            url: /hu_ol_91.html
           - title: 9.0
             url: /hu_ol_90.html
         - title: OL 8
@@ -223,6 +226,8 @@ sidebar:
         - title: RHEL 8
           pdf-filename: RHEL-8-FCP
           entries:
+          - title: 8.8
+            url: /hu_rhel_88.html
           - title: 8.7
             url: /hu_rhel_87.html
           - title: 8.6
