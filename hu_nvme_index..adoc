@@ -14,10 +14,3 @@ summary:
 :imagesdir: ./media/
 
 You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF) protocol, which includes NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP), with ONTAP as the target. Depending on your host operating system and ONTAP version, you configure and validate the NVMe/FC or NVMe/TCP protocol, or both on the host.
-
-* link:nvme_aix.html[Configure AIX with NVMe/FC]
-* link:nvme_esxi_8.html[Configure ESXi with NVMe-oF]
-* link:nvme_ol_90.html[Configure Oracle Linux with NVMe/FC]
-* link:nvme_rhel_92.html[Configure RHEL with NVMe-oF]
-* link:nvme_sles15_sp4.html[Configure SUSE Linux Enterprise Server with NVMe-oF]
-* link:nvme_windows_2022.html[Configure Windows with NVMe/FC]

@@ -15,10 +15,4 @@ summary:
 
 Discover the latest information on SAN host utility releases and access the installation procedure for your host configuration.
 
-* link:hu_aix_61_rn.html[Install AIX Host Utilities]
-* link:hu_hpux_60_rn.html[Install HP-UX Host Utilities]
-* link:hu_luhu_71_rn.html[Install Linux Unified Host Utilities]
-* link:hu_solaris_62_rn.html[Install Solaris Host Utilities]
-* link:hu_wuhu_71_rn.html[Install Windows Unified Host Utilities]
-
 NOTE: For reliable operation after installation, use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your host supports the complete NVMe over Fabrics (including NVMe over TCP and NVMe over Fibre Channel), iSCSI, FC, or FCoE configuration.
