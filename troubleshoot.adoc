@@ -15,8 +15,10 @@ summary: You can configure ONTAP SAN host settings for the VMware vSphere 8.x re
 :imagesdir: ./media/
 
 [.lead]
-//Before troubleshooting any NVMe-oF failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
 Before troubleshooting any NVMe-oF failures for RHEL, OL, and SLES hosts, verify that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
+
+[NOTE]
+The troubleshooting instructions are not applicable for AIX, Windows, and ESXi hosts.
 
 == Enable verbose logging
 

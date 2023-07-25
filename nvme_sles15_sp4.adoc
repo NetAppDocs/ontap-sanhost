@@ -16,11 +16,13 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :source-highlighter: highlighter.js
 
    
-== Supportability
+[.lead]
 
 NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP4 (SLES15 SP4) with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on SLES15 SP4 and ONTAP as the target has been documented here.
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
+
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]  for accurate details regarding supported configurations.
 
 == Features
 
@@ -33,10 +35,6 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 == Known limitations
 
 There are no known limitations.
-
-== Configuration Requirements
-
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^]  for accurate details regarding supported configurations.
 
 == Enable in-kernel NVMe Multipath
 
