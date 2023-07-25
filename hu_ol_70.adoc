@@ -135,6 +135,3 @@ NOTE: To configure Oracle Linux 7.0 RedHat Enterprise Kernel (RHCK), use the lin
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=916501[916501^] |	Qlogic 10G FCoE (QLE8152) host kernel crash observed during storage failover operations with IO | You may observe a kernel crash in Qlogic driver module on 10G FCoE Qlogic (QLE8152) host. The crash occurs during storage failover operations with IO. Probability of hitting this crash is high which leads to longer IO outage on the host. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=15019[15019^]
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]

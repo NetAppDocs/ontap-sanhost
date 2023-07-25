@@ -161,6 +161,3 @@ In this case kernel disruption was observed in the module “raw_spin_lock_irqsa
 After kernel disruption, the operating system can be recovered by rebooting the host operating system and restarting the application as required. | link:http://bugzilla.suse.com/show_bug.cgi?id=1062514[1062514^]
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
