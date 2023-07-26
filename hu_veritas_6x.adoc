@@ -5,7 +5,7 @@ keywords: host utilities, veritas, infoscale, 6.x, netapp, ontap, san, lun, mult
 summary: Provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale 6 series release
 ---
 
-= Using Veritas Storage Foundation 6 for Linux with NetApp ONTAP
+= Using Veritas Storage Foundation 6 for Linux with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -17,7 +17,7 @@ summary: Provides guidance on ONTAP SAN host configuration settings for the Veri
 [.lead]
 You can use ONTAP SAN host configuration settings for the Veritas Storage Foundation 6 series release for Red Hat Enterprise Linux & Oracle Linux (RHCK based) platforms with FC, FCoE and iSCSI protocols.
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 

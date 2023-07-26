@@ -18,147 +18,46 @@ sidebar:
       url: /index.html  
     - title: Overview
       url: /overview.html
-    - title: SAN host utilities
+    - title: Install SAN Host Utilities
       entries:
-      - title: AIX host utilities
+      - title: Overview
+        url: /hu_sanhost_index.html
+      - title: AIX Host Utilities
         entries:
-          - title: Install AIX HU 6.1
-            url: /hu_aix_61.html
           - title: Release notes
             url: /hu_aix_61_rn.html
-      - title: HP-UX host utilities
+          - title: Install AIX HU 6.1
+            url: /hu_aix_61.html
+      - title: HP-UX Host Utilities
         entries:
-         - title: Install HP-UX HU 6.0
-           url: /hu_hpux_60.html
          - title: Release notes
            url: /hu_hpux_60_rn.html
-      - title: Linux unified host utilities
+         - title: Install HP-UX HU 6.0
+           url: /hu_hpux_60.html 
+      - title: Linux Unified Host Utilities
         entries:
-        - title: Install LUHU 7.1
-          url: /hu_luhu_71.html
         - title: Release notes
           url: /hu_luhu_71_rn.html
-      - title: Solaris host utilities
+        - title: Install LUHU 7.1
+          url: /hu_luhu_71.html
+      - title: Solaris Host Utilities
         entries:
-          - title: Install Solaris HU 6.2
-            url: /hu_solaris_62.html
           - title: Release notes
             url: /hu_solaris_62_rn.html
+          - title: Install Solaris HU 6.2
+            url: /hu_solaris_62.html
       - title: Windows Unified Host Utilities
         entries:
+          - title: Release notes
+            url: /hu_wuhu_71_rn.html
           - title: Install WUHU 7.2
             url: /hu_wuhu_72.html
           - title: Install WUHU 7.1
-            url: /hu_wuhu_71.html    
-          - title: Release Notes
-            url: /hu_wuhu_71_rn.html
-
-    - title: NVMe-oF host configurations
+            url: /hu_wuhu_71.html           
+    - title: Configure hosts with FCP and iSCSI
       entries:
-      - title: AIX
-        url: /nvme_aix.html
-      - title: ESXi
-        pdf-filename: NVMeoF ESXi
-        entries:
-        - title: VMware vSphere 8
-          url: /nvme_esxi_8.html
-        - title: VMware vSphere 7
-          url: /nvme_esxi_7.html
-      - title: Oracle Linux
-        entries:
-        - title: OL 9
-          pdf-filename: NVMeF OL
-          entries:
-          - title: 9.2
-            url: /nvme_ol_92.html
-          - title: 9.1
-            url: /nvme_ol_91.html
-          - title: 9.0
-            url: /nvme_ol_90.html
-        - title: OL 8
-          pdf-filename: NVMeF OL
-          entries:
-          - title: 8.7
-            url: /nvme_ol_87.html
-          - title: 8.6
-            url: /nvme_ol_86.html
-          - title: 8.5
-            url: /nvme_ol_85.html
-          - title: 8.4
-            url: /nvme_ol_84.html
-          - title: 8.3
-            url: /nvme_ol_83.html     
-          - title: 8.2
-            url: /nvme_ol_82.html
-          - title: 8.1
-            url: /nvme_ol_81.html
-        - title: OL 7
-          entries:
-          - title: 7.9
-            url: /nvme_ol_79.html
-          - title: 7.8
-            url: /nvme_ol_78.html
-          - title: 7.7
-            url: /nvme_ol_77.html
-        
-      - title: RHEL
-        pdf-filename: NVMeoF RHEL
-        entries:
-        - title: RHEL 9
-          entries:
-          - title: 9.2
-            url: /nvme_rhel_92.html
-          - title: 9.1
-            url: /nvme_rhel_91.html
-          - title: 9.0
-            url: /nvme_rhel_90.html
-        - title: RHEL 8
-          entries:
-          - title: 8.8
-            url: /nvme_rhel_88.html
-          - title: 8.7
-            url: /nvme_rhel_87.html
-          - title: 8.6
-            url: /nvme_rhel_86.html
-          - title: 8.5
-            url: /nvme_rhel_85.html
-          - title: 8.4
-            url: /nvme_rhel_84.html
-          - title: 8.3
-            url: /nvme_rhel_83.html
-          - title: 8.2
-            url: /nvme_rhel_82.html
-          - title: 8.1
-            url: /nvme_rhel_81.html
-        
-      - title: SLES
-        pdf-filename: NVMeoF SLES
-        entries:
-        - title: SLES 15
-          entries:
-          - title: 15 SP4
-            url: /nvme_sles15_sp4.html
-          - title: 15 SP3
-            url: /nvme_sles15_sp3.html
-          - title: 15 SP2
-            url: /nvme_sles15_sp2.html
-          - title: 15 SP1
-            url: /nvme_sles15_sp1.html
-        
-      - title: Windows
-        entries:
-        - title: 2022
-          url: /nvme_windows_2022.html
-        - title: 2019
-          url: /nvme_windows_2019.html
-        - title: 2016
-          url: /nvme_windows_2016.html
-        - title: "2012 R2"
-          url: /nvme_windows_2012r2.html
-      - title: Troubleshoot
-        url: /troubleshoot.html
-    - title: FCP and iSCSI host configurations
-      entries:
+      - title: Overview
+        url: /hu_fcp_scsi_index.html
       - title: AIX and PowerVM/VIOS
         entries:
         - title: 7.2/3.1
@@ -167,6 +66,8 @@ sidebar:
           url: /hu_aix_71.html
       - title: CentOS
         entries:
+        - title: Release notes
+          url: /hu_centos_asm_release_notes.html
         - title: CentOS 8
           entries:
           - title: 8.5
@@ -240,6 +141,8 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
+        - title: Release notes
+          url: /hu_ol_asm_release_notes.html
         - title: OL 9
           entries:
           - title: 9.2
@@ -248,7 +151,6 @@ sidebar:
             url: /hu_ol_91.html
           - title: 9.0
             url: /hu_ol_90.html
-        
         - title: OL 8
           pdf-filename: OL-8-FCP
           entries:
@@ -310,6 +212,8 @@ sidebar:
             url: /hu_ol_64.html
       - title: RHEL
         entries:
+        - title: Release notes
+          url: /hu_rhel_asm_release_notes.html
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
@@ -388,6 +292,8 @@ sidebar:
           url: /hu_solaris_113.html
       - title: SLES
         entries:
+        - title: Release notes
+          url: /hu_sles_asm_release_notes.html
         - title: SLES 15
           pdf-filename: SLES-15-FCP
           entries:
@@ -434,5 +340,107 @@ sidebar:
           url: /hu_windows_2016.html
         - title: "2012 R2"
           url: /hu_windows_2012r2.html
+    - title: Configure hosts with NVMe-oF
+      entries:
+      - title: Overview
+        url: /hu_nvme_index.html
+      - title: AIX
+        url: /nvme_aix.html
+      - title: ESXi
+        pdf-filename: NVMeoF ESXi
+        entries:
+        - title: VMware vSphere 8
+          url: /nvme_esxi_8.html
+        - title: VMware vSphere 7
+          url: /nvme_esxi_7.html
+      - title: Oracle Linux
+        entries:
+        - title: OL 9
+          pdf-filename: NVMeF OL
+          entries:
+          - title: 9.2
+            url: /nvme_ol_92.html
+          - title: 9.1
+            url: /nvme_ol_91.html
+          - title: 9.0
+            url: /nvme_ol_90.html
+        - title: OL 8
+          pdf-filename: NVMeF OL
+          entries:
+          - title: 8.7
+            url: /nvme_ol_87.html
+          - title: 8.6
+            url: /nvme_ol_86.html
+          - title: 8.5
+            url: /nvme_ol_85.html
+          - title: 8.4
+            url: /nvme_ol_84.html
+          - title: 8.3
+            url: /nvme_ol_83.html     
+          - title: 8.2
+            url: /nvme_ol_82.html
+          - title: 8.1
+            url: /nvme_ol_81.html
+        - title: OL 7
+          entries:
+          - title: 7.9
+            url: /nvme_ol_79.html
+          - title: 7.8
+            url: /nvme_ol_78.html
+          - title: 7.7
+            url: /nvme_ol_77.html
+      - title: RHEL
+        pdf-filename: NVMeoF RHEL
+        entries:
+        - title: RHEL 9
+          entries:
+          - title: 9.2
+            url: /nvme_rhel_92.html
+          - title: 9.1
+            url: /nvme_rhel_91.html
+          - title: 9.0
+            url: /nvme_rhel_90.html
+        - title: RHEL 8
+          entries:
+          - title: 8.8
+            url: /nvme_rhel_88.html
+          - title: 8.7
+            url: /nvme_rhel_87.html
+          - title: 8.6
+            url: /nvme_rhel_86.html
+          - title: 8.5
+            url: /nvme_rhel_85.html
+          - title: 8.4
+            url: /nvme_rhel_84.html
+          - title: 8.3
+            url: /nvme_rhel_83.html
+          - title: 8.2
+            url: /nvme_rhel_82.html
+          - title: 8.1
+            url: /nvme_rhel_81.html
+      - title: SLES
+        pdf-filename: NVMeoF SLES
+        entries:
+        - title: SLES 15
+          entries:
+          - title: 15 SP4
+            url: /nvme_sles15_sp4.html
+          - title: 15 SP3
+            url: /nvme_sles15_sp3.html
+          - title: 15 SP2
+            url: /nvme_sles15_sp2.html
+          - title: 15 SP1
+            url: /nvme_sles15_sp1.html
+      - title: Windows
+        entries:
+        - title: 2022
+          url: /nvme_windows_2022.html
+        - title: 2019
+          url: /nvme_windows_2019.html
+        - title: 2016
+          url: /nvme_windows_2016.html
+        - title: "2012 R2"
+          url: /nvme_windows_2012r2.html
     - title: Legal notices
       url: /legal_notice.html
+      
