@@ -5,7 +5,7 @@ keywords: host utilities, red hat, rhel, linux, 7.7, netapp, ontap, netapp
 summary: Describes how to use Red Hat Enterprise Linux 7.7 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 7.7 with NetApp ONTAP
+= Use Red Hat Enterprise Linux 7.7 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use Red Hat Enterprise Linux 7.7 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -133,6 +133,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1261474[1261474^] | Remote ports transit to blocked state on RHEL7U7 with Emulex LPe32002 32GB FC | Remote ports might transit to a blocked state on a RHEL 7.7 host with LPe32002 32GB FC adapter during storage failover operations. When the storage node returns to an optimal state, the LIFs also come up and the remote port state should read "online". Occasionally, the remote port state might continue to read as "blocked” or "not present". This state can lead to a "failed faulty" path to LUNs at the multipath layer. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1745995[1745995^]
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]

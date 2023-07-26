@@ -5,7 +5,7 @@ keywords: host utilities, oracle, linux, 7.6, netapp, ontap
 summary: Describes how to use Oracle Linux 7.6 with ONTAP
 ---
 
-= Using Oracle Linux 7.6 with NetApp ONTAP
+= Use Oracle Linux 7.6 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use Oracle Linux 7.6 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -139,8 +139,5 @@ When the storage node returns to its optimal state, the logical interfaces also 
  Online | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16853[16853^]
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
 
 // BURT 1440718, 2022-05-20

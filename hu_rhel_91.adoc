@@ -5,7 +5,7 @@ keywords: host utilities, red hat, rhel, linux, 9.1, netapp, ontap, rhel
 summary: Describes how to use Red Hat Enterprise Linux 9.1 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 9.1 with NetApp ONTAP
+= Use Red Hat Enterprise Linux 9.1 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -18,7 +18,7 @@ summary: Describes how to use Red Hat Enterprise Linux 9.1 with ONTAP
 
 The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site^] in a 64-bit .rpm file. 
 
-Installing the Linux Unified Host Utilities is strongly recommended by NetApp, but not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration.
+Install the Linux Unified Host Utilities is strongly recommended by NetApp, but not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration.
 
 
 .What you'll need
@@ -144,6 +144,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
