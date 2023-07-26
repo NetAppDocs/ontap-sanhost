@@ -5,7 +5,7 @@ keywords: host utilities, veritas, infoscale, 8, netapp, ontap, sanhost, iscsi, 
 summary: Provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale 7 series release
 ---
 
-= Using Veritas Infoscale 8 for Linux with NetApp ONTAP
+= Use Veritas Infoscale 8 for Linux with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -17,7 +17,7 @@ summary: Provides guidance on ONTAP SAN host configuration settings for the Veri
 == Introduction
 This document provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale storage foundation 8 series release for Red Hat Enterprise Linux and Oracle Linux (RHCK based) platforms with FC, FCoE, and iSCSI protocols.
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 

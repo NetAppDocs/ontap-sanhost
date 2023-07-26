@@ -5,7 +5,7 @@ keywords: host utilities, aix, 7.1 netapp, ontap
 summary: Describes how to use IBM AIX 7.1 with ONTAP
 ---
 
-= Using IBM AIX 7.1 with NetApp ONTAP
+= Use IBM AIX 7.1 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -15,7 +15,7 @@ summary: Describes how to use IBM AIX 7.1 with ONTAP
 :imagesdir: ./media/
 
 
-== Installing the AIX Host Utilities
+== Install the AIX Host Utilities
 
 You must install the AIX Host Utilities Kit while using AIX MPIO with NetApp ONTAP Storage.
 
@@ -131,7 +131,7 @@ up     primary  path3  fcs1    fc_aix_4     1
 
 == Recommended Settings
 
-Following are some recommended parameter settings for NetApp ONTAP LUNs.  The critical parameters for ONTAP LUNs are set automatically after installing the NetApp Host Utilities Kit.
+Following are some recommended parameter settings for ONTAP LUNs.  The critical parameters for ONTAP LUNs are set automatically after installing the NetApp Host Utilities Kit.
 
 [cols=4*, options="header"]
 |===

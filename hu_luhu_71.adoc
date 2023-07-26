@@ -18,10 +18,6 @@ summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 == Pre-requisites
 
 
-* For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
-+
-You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
-
 * You must install the HBA management packages provided by the vendors on their web sites.
 +
 The management software enables the SAN Tool kit commands to gather information about the FC HBAs, such as their WWPNs. For sanlun fcp show adapter to work, ensure that the following packages are installed:
