@@ -249,7 +249,7 @@ Use the following command to verify the QFullSampleSize:
    Description: Default I/O samples to monitor for detecting non-transient queue full condition. Should be nonzero to enable queue depth throttling. Device specific QFull options will take precedence over this value if set.
 ----
 
-== Known Issues
+== Known issues
 
 [width="99%",cols="21%,20%,14%,27%",options="header"]
 |===
