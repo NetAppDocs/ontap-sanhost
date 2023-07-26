@@ -358,6 +358,10 @@ sidebar:
         - title: OL 9
           pdf-filename: NVMeF OL
           entries:
+          - title: 9.2
+            url: /nvme_ol_92.html
+          - title: 9.1
+            url: /nvme_ol_91.html
           - title: 9.0
             url: /nvme_ol_90.html
         - title: OL 8
@@ -398,6 +402,8 @@ sidebar:
             url: /nvme_rhel_90.html
         - title: RHEL 8
           entries:
+          - title: 8.8
+            url: /nvme_rhel_88.html
           - title: 8.7
             url: /nvme_rhel_87.html
           - title: 8.6
@@ -437,3 +443,4 @@ sidebar:
           url: /nvme_windows_2012r2.html
     - title: Legal notices
       url: /legal_notice.html
+      
