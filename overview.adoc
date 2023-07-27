@@ -23,3 +23,10 @@ NOTE: In a cloud environment, hosts are typically referred to as clients. All ho
 For example, you can configure on-premises ONTAP storage to connect to on-premises SAN hosts or to connect to SAN cloud clients.  You could also configure link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/index.html[Cloud Volumes ONTAP^] or link:https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/index.html[Amazon FSx for ONTAP^] to connect to on-premises SAN hosts or to connect to SAN cloud clients.
 
 Proper configuration is important for best performance and successful failover.  
+
+.Related information
+
+* The link:https://docs.netapp.com/us-en/ontap/san-config/index.html[ONTAP SAN Configuration^] for your version of ONTAP
+* The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP SAN Administration Guide^] for your version of ONTAP
+* The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes^] for your version of ONTAP
+* The link:https://docs.netapp.com/us-en/e-series/index.html[E-Series documentation^] to find SANtricity related documentation.
