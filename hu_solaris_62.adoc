@@ -14,6 +14,8 @@ summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+The Solaris Unified Host Utilities assists you to manage NetApp ONTAP storage attached to a Solaris host. 
 
 == SAN Toolkit
 
@@ -38,7 +40,7 @@ data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A09803830443
 [NOTE]
 This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
-== Installing Solaris Host Utilities
+== Install Solaris Host Utilities
 
 The Solaris Host Utilities 6.2 supports several Solaris environments and multiple protocols. The primary Host Utilities environments are:
 
@@ -108,83 +110,3 @@ drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
 +
 `sanlun version`
 
-== Sample command reference
-=== List all host initiators mapped to host
-
-----
-# sanlun fcp show adapter -v
-adapter name:      qlc3
-WWPN:              21000024ff17a301
-WWNN:              20000024ff17a301
-driver name:       qlc
-model:             7335902
-model description: 7115462, Oracle Storage Dual-Port 32 Gb Fibre Channel PCIe HBA
-serial number:     463916R+1720333838
-hardware version:  Not Available
-driver version:    210226-5.10
-firmware version:  8.08.04
-Number of ports:   1 of 2
-port type:         Fabric
-port state:        Operational
-supported speed:   8 GBit/sec, 16 GBit/sec, 32 GBit/sec
-negotiated speed:  32 GBit/sec
-OS device name:    /dev/cfg/c7
-
-adapter name:      qlc2
-WWPN:              21000024ff17a300
-WWNN:              20000024ff17a300
-driver name:       qlc
-model:             7335902
-model description: 7115462, Oracle Storage Dual-Port 32 Gb Fibre Channel PCIe HBA
-serial number:     463916R+1720333838
-hardware version:  Not Available
-driver version:    210226-5.10
-firmware version:  8.08.04
-Number of ports:   2 of 2
-port type:         Fabric
-port state:        Operational
-supported speed:   8 GBit/sec, 16 GBit/sec, 32 GBit/sec
-negotiated speed:  16 GBit/sec
-OS device name:    /dev/cfg/c6
-----
-
-
-=== List all LUNs mapped to host
-
-----
-# sanlun lun show -p -v all
-
-                    ONTAP Path: data_vserver:/vol1/lun1
-                           LUN: 1
-                      LUN Size: 10g
-                   Host Device: /dev/rdsk/c0t600A0980383044485A3F4E694E4F775Ad0s2
-                          Mode: C
-            Multipath Provider: Sun Microsystems
-              Multipath Policy: Native
-
-----
-
-=== List all LUNs mapped to host from a given SVM/ List all attributes of a given LUN mapped to host
-
-----
-# sanlun lun show -p -v sanboot_unix`
-ONTAP Path: sanboot_unix:/vol/sol_boot/sanboot_lun
-                           LUN: 0
-                      LUN Size: 180.0g
-
-----
-
-=== List ONTAP LUN attributes by Host Device File name
-
-----
-# sanlun lun show all
-
-controller(7mode/E-Series)/                                         device
-vserver(cDOT/FlashRay)       lun-pathname                           filename
----------------------------------------------------------------------------------------------------------------
-sanboot_unix                 /vol/sol_193_boot/chatsol_193_sanboot /dev/rdsk/c0t600A098038304437522B4E694E4A3043d0s2
-
-host adapter    protocol lun size   product
----------------------------------------------
-qlc3            FCP      180.0g     cDOT
-----
