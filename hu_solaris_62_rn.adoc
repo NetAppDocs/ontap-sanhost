@@ -41,7 +41,7 @@ The Solaris Unified Host Utilities 6.2 continues to support the following versio
 *	Solaris 11.x series
 *	Solaris 10.x series
 
-== Known Problems and Limitations
+== Known problems and limitations
 To use the Host Utilities efficiently, you should be aware that performance can be affected by known issues about a particular feature, such as a network, or by features that the Host Utilities do not support, such as a specific version of an operating system.
 
 [cols=3,options="header"]
@@ -57,12 +57,6 @@ link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete i
 *	FCP General: Displays FC and HBA bugs that are not associated with a specific host
 *	FCP - Solaris
 
-== About SAN Host Configuration documentation
-
-Documentation for SAN Host Utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration] documentation. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
-
-== Where to find product documentation and other information
-You can access documentation for all NetApp products and find other product information resources, such as technical reports and white papers on the Product Documentation page of the NetApp corporate site.
 
 .Related information
 
