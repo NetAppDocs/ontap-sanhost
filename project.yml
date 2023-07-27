@@ -28,14 +28,20 @@ sidebar:
             url: /hu_aix_61_rn.html
           - title: Install AIX HU 6.1
             url: /hu_aix_61.html
+          - title: Sample command reference
+            url: /hu_aix_61_cmd.html
       - title: HP-UX Host Utilities
         entries:
          - title: Release notes
            url: /hu_hpux_60_rn.html
          - title: Install HP-UX HU 6.0
            url: /hu_hpux_60.html 
+         - title: Sample command reference
+           url: /hu_hpux_60_cmd.html
       - title: Linux Unified Host Utilities
         entries:
+        - title: Release notes
+          url: /hu_luhu_71_rn.html
         - title: Install LUHU 7.1
           url: /hu_luhu_71.html
         - title: Sample command reference
@@ -47,6 +53,8 @@ sidebar:
             url: /hu_solaris_62_rn.html
           - title: Install Solaris HU 6.2
             url: /hu_solaris_62.html
+          - title: Sample command reference
+            url: /hu_solaris_62_cmd.html
       - title: Windows Unified Host Utilities
         entries:
           - title: Release notes
