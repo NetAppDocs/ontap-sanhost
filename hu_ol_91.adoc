@@ -5,7 +5,7 @@ keywords: host utilities, oracle, linux, 9.1, netapp, ontap
 summary: Describes how to use Oracle Linux 9.1 with ONTAP
 ---
 
-= Using Oracle Linux 9.1 with NetApp ONTAP
+= Use Oracle Linux 9.1 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1P
@@ -143,12 +143,12 @@ You can also use the recommended settings to configure Kernel-based Virtual Mach
 
 == Known issues
 
-Oracle Linux 9.1 with NetApp ONTAP release has the following known issues:
+The Oracle Linux 9.1 with NetApp ONTAP release has the following known issues:
 
 [cols="10,30,30,10",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA needs symbolic links from library packages	a|When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be located:
+|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA needs symbolic links from library packages	a|When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for a host bus adapter (HBA) discovery cannot be located:
 ----
 [root@hostname ~]# sanlun fcp show adapter -v
 Unable to locate /usr/lib64/libHBAAPI.so library

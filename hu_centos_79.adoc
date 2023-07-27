@@ -5,7 +5,7 @@ keywords: host utilities, centos, linux, 7.9, netapp, ontap
 summary: Describes how to use CentOS 7.9 with ONTAP
 ---
 
-= Using CentOS 7.9 with NetApp ONTAP
+= Use CentOS 7.9 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use CentOS 7.9 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -131,8 +131,5 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 | 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. To learn more, see  link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^]. | N/A
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
 
 // BURT 1447018, 28-02-22

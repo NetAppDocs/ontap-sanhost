@@ -15,13 +15,6 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 :imagesdir: ./media/
 
 
-.What you'll need
-
-* For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
-+
-You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
-
-
 == SAN Toolkit
 
 AIX Host Utilities is a NetApp host software that provides a command line tool kit on your IBM AIX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.

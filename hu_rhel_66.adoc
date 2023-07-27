@@ -5,7 +5,7 @@ keywords: host utilities, red hat, rhel, linux, 6.6, netapp, ontap
 summary: Describes how to use Red Hat Enterprise Linux 6.6 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 6.6 with NetApp ONTAP
+= Use Red Hat Enterprise Linux 6.6 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use Red Hat Enterprise Linux 6.6 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -133,7 +133,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=852674[1076584^] | IO stall up to 300 sec seen with QLogic 16G FC (QLE2672) host during storage failures in RHEL 6U4 |You might observe an IO stall up to 300 sec on QLogic 16G FC (QLE2672) host during storage/fabric failures. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1135962[1135962^]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=795684[795684^] | RHEL6 U5 multipathd incorrectly group multipath maps during MoD and storage failover fault operations |You might observe an incorrect path grouping on LUNs during LUN move on demand operation along with storage faults. During LUN move operation multipath path priorities will change and multipath is unable to reloads the device table due to device failure caused by storage fault. This leads to incorrect path grouping. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1151020[1151020^]
 |===
-
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
