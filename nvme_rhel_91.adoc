@@ -422,8 +422,5 @@ The NVMe-oF host configuration for RHEL 9.1 with ONTAP release has the following
 |`nvme list-subsys` command returns repeated nvme controller list for a given subsystem	|The `nvme list-subsys` command should return a unique list of nvme controllers associated to a given subsystem. In RHEL 9.1, the `nvme list-subsys` command returns nvme controllers with its respective ANA state for all namespaces that belong to a given subsystem. However, the ANA state is a per-namespace attribute therefore, it would be ideal to display unique nvme controller entries with the path state if you list the subsystem command syntax for a given namespace.  |2130106
 |===
 
-== Troubleshoot
-
-Refer to the link:troubleshoot.html[Troubleshoot] section to resolve your configuration issues.
 
 // 2022,12-06, Jira IEOPS-690
