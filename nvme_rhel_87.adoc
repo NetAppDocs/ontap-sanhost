@@ -440,31 +440,15 @@ NSID  UUID                                   Size
 
 == Known issues 
 
+The NVMe-oF host configuration for RHEL 8.7 with ONTAP release has the following known issues:
+
 [cols="10,30,30,10",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047]	|RHEL 8.7 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running ONTAP 9.10.1 and Red Hat Enterprise Linux (RHEL) 8.7 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.|2087000
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|RHEL 8.7 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running ONTAP 9.10.1 and Red Hat Enterprise Linux (RHEL) 8.7 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.|2087000
 |===
 
-== Troubleshooting
-
-Before commencing any troubleshooting for any NVMe/FC failures, make sure you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the following steps to debug any host side issues.
-
-=== lpfc verbose logging
-
-include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
-  
-=== qla2xxx verbose logging
-
-include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
-
-
-include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
-
-=== When to contact technical support
-
-include::_include/hu/reuse_hu_contact_tech_support.adoc[]
 
 
 
