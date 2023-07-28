@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: hu_luhu_71_rn.html
-keywords: host utilities, linux, 7.1, netapp, ontap, release, notes
+keywords: host utilities, linux, 7.1, netapp, ontap, release, notes, linux
 summary: Release Notes for Linux Unified Host Utilities 7.1
 ---
 
@@ -15,7 +15,7 @@ summary: Release Notes for Linux Unified Host Utilities 7.1
 :imagesdir: ./media/
 
 [.lead]
-The Release Notes describe new features and enhancements, known problems and limitations, and important cautions for configuring and managing your specific host with your ONTAP storage system.
+The release notes describe new features and enhancements, known problems and limitations, and important cautions for configuring and managing your specific host with your ONTAP storage system.
 
 For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
@@ -36,9 +36,9 @@ Any mention of Host Utilities or Linux Host Utilities in this document refers to
 **	KVM and XEN, RHEV 6.4 and 6.5
 **	Citrix XenServer 
 
-* On Red Hat Enterprise Linux (RHEL) 6 and RHEL 7 hosts, a tuned package for setting server profiles is now supported. You can use the `tuned-adm` command to set different profiles, depending on the environment.  For example, you can also use the virtual guest profile as a guest virtual machine and you can use the enterprise storage profile for configurations where LUNs from enterprise storage arrays are used.  Using these tuned packages can result in improvement in throughput and latency in ONTAP.
+* On Red Hat Enterprise Linux (RHEL) 6 and RHEL 7 hosts, a tuned package for setting server profiles is now supported. You can use the `tuned-adm` command to set different profiles, depending on the environment. For example, you can also use the virtual guest profile as a guest virtual machine and you can use the enterprise storage profile for configurations where LUNs from enterprise storage arrays are used. Using these tuned packages can result in improvement in throughput and latency in ONTAP.
 
-* Adds support for 32 GB Fibre Channel adapters from Broadcom Emulex and Marvell Qlogic.
+* Adds support for 32GB FC adapters from Broadcom Emulex and Marvell Qlogic.
 
 [NOTE]
 NetApp continues to work with the Host Utilities to add support for features after the initial release. For latest information about the features that are supported and the new features that have been added, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
