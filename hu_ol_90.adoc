@@ -5,7 +5,7 @@ keywords: host utilities, oracle, linux, 9.0, netapp, ontap
 summary: Describes how to use Oracle Linux 9.0 with ONTAP
 ---
 
-= Using Oracle Linux 9.0 with NetApp ONTAP
+= Use Oracle Linux 9.0 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1P
@@ -158,10 +158,5 @@ Make sure the package installing the library is installed & loaded
 |===
 
 
-== Release Notes
-
-=== ASM Mirroring
-
-ASM mirroring might require changes to the Linux multipath settings to allow ASM to recognize a problem and switch over to an alternative failure group. Most ASM configurations on ONTAP use external redundancy, which means that data protection is provided by the external array and ASM does not mirror data. Some sites use ASM with normal redundancy to provide two-way mirroring, normally across different sites. See Oracle Databases on ONTAP for further information.
 
 // 8-July-2023 BURT 1562370

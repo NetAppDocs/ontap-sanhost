@@ -14,11 +14,10 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :linkattrs:
 :imagesdir: ./media/
 
-== Supportability
-
+[.lead]
 NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP3 (SLES15 SP3) with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on SLES15 SP3 and ONTAP as the target has been documented here.
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
 == Features
 
@@ -29,11 +28,6 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 ==	Known limitations
 
 There are no known limitations.
-
-== Configuration Requirements
-
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
-
 
 == Enable in-kernel NVMe Multipath
 
@@ -436,23 +430,7 @@ NSID  UUID                                   Size
 
 }
 ----
+== Known issues
 
-== Troubleshooting
-
-Before commencing any troubleshooting for any NVMe/FC failures, make sure that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
-
-=== lpfc verbose logging
-
-include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
-  
-=== qla2xxx verbose logging
-
-include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
-
-
-include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
-
-=== When to contact technical support
-
-include::_include/hu/reuse_hu_contact_tech_support.adoc[]
+There are no known issues.
 

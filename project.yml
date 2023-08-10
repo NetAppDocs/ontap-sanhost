@@ -18,43 +18,343 @@ sidebar:
       url: /index.html  
     - title: Overview
       url: /overview.html
-    - title: SAN host utilities
+    - title: Install SAN Host Utilities
       entries:
-      - title: AIX host utilities
+      - title: Overview
+        url: /hu_sanhost_index.html
+      - title: AIX Host Utilities
         entries:
-          - title: Install AIX HU 6.1
-            url: /hu_aix_61.html
           - title: Release notes
             url: /hu_aix_61_rn.html
-      - title: HP-UX host utilities
+          - title: Install AIX HU 6.1
+            url: /hu_aix_61.html
+          - title: Sample command reference
+            url: /hu_aix_61_cmd.html
+      - title: HP-UX Host Utilities
         entries:
-         - title: Install HP-UX HU 6.0
-           url: /hu_hpux_60.html
          - title: Release notes
            url: /hu_hpux_60_rn.html
-      - title: Linux unified host utilities
+         - title: Install HP-UX HU 6.0
+           url: /hu_hpux_60.html 
+         - title: Sample command reference
+           url: /hu_hpux_60_cmd.html
+      - title: Linux Unified Host Utilities
         entries:
-        - title: Install LUHU 7.1
-          url: /hu_luhu_71.html
         - title: Release notes
           url: /hu_luhu_71_rn.html
+        - title: Install LUHU 7.1
+          url: /hu_luhu_71.html
+        - title: Sample command reference
+          url: /hu_luhu_71_cmd.html
+        
       - title: Solaris host utilities
         entries:
-          - title: Install Solaris HU 6.2
-            url: /hu_solaris_62.html
           - title: Release notes
             url: /hu_solaris_62_rn.html
+          - title: Install Solaris HU 6.2
+            url: /hu_solaris_62.html
+          - title: Sample command reference
+            url: /hu_solaris_62_cmd.html
       - title: Windows Unified Host Utilities
         entries:
+          - title: Release notes
+            url: /hu_wuhu_71_rn.html
           - title: Install WUHU 7.2
             url: /hu_wuhu_72.html
           - title: Install WUHU 7.1
-            url: /hu_wuhu_71.html    
-          - title: Release Notes
-            url: /hu_wuhu_71_rn.html
-
-    - title: NVMe-oF host configurations
+            url: /hu_wuhu_71.html           
+    - title: Configure hosts with FCP and iSCSI
       entries:
+      - title: Overview
+        url: /hu_fcp_scsi_index.html
+      - title: AIX and PowerVM/VIOS
+        entries:
+        - title: 7.2/3.1
+          url: /hu_aix_72.html
+        - title: 7.1
+          url: /hu_aix_71.html
+      - title: CentOS
+        entries:
+        - title: Release notes
+          url: /hu_centos_asm_release_notes.html
+        - title: CentOS 8
+          entries:
+          - title: 8.5
+            url: /hu_centos_85.html
+          - title: 8.4
+            url: /hu_centos_84.html
+          - title: 8.3
+            url: /hu_centos_83.html
+          - title: 8.2
+            url: /hu_centos_82.html
+          - title: 8.1
+            url: /hu_centos_81.html
+          - title: 8.0
+            url: /hu_centos_80.html
+        - title: CentOS 7
+          entries:
+          - title: 7.9
+            url: /hu_centos_79.html
+          - title: 7.8
+            url: /hu_centos_78.html
+          - title: 7.7
+            url: /hu_centos_77.html
+          - title: 7.6
+            url: /hu_centos_76.html
+          - title: 7.5
+            url: /hu_centos_75.html
+          - title: 7.4
+            url: /hu_centos_74.html
+          - title: 7.3
+            url: /hu_centos_73.html
+          - title: 7.2
+            url: /hu_centos_72.html
+          - title: 7.1
+            url: /hu_centos_71.html
+          - title: "7.0"
+            url: /hu_centos_70.html
+        - title: CentOS 6
+          entries:
+          - title: "6.10"
+            url: /hu_centos_610.html
+          - title: 6.9
+            url: /hu_centos_69.html
+          - title: 6.8
+            url: /hu_centos_68.html
+          - title: 6.7
+            url: /hu_centos_67.html
+          - title: 6.6
+            url: /hu_centos_66.html
+          - title: 6.5
+            url: /hu_centos_65.html
+          - title: 6.4
+            url: /hu_centos_64.html
+      - title: Citrix
+        entries:
+        - title: Hypervisor 8
+          url: /hu_citrix_8x.html
+        - title: XenServer 7
+          url: /hu_citrix_7x.html
+      - title: ESXi
+        entries:
+        - title: VMware vSphere 8
+          url: /hu_vsphere_8.html
+        - title: VMware vSphere 7
+          url: /hu_vsphere_7.html
+        - title: VMware vSphere 6.5 and 6.7
+          url: /hu_vsphere_6.html
+      - title: HP-UX
+        entries:
+        - title: 11i v3
+          url: /hu_hpux_11iv3.html
+      - title: Oracle Linux
+        pdf-filename: OL-FCP
+        entries:
+        - title: Release notes
+          url: /hu_ol_asm_release_notes.html
+        - title: OL 9
+          entries:
+          - title: 9.2
+            url: /hu_ol_92.html
+          - title: 9.1
+            url: /hu_ol_91.html
+          - title: 9.0
+            url: /hu_ol_90.html
+        - title: OL 8
+          pdf-filename: OL-8-FCP
+          entries:
+          - title: 8.7
+            url: /hu_ol_87.html
+          - title: 8.6
+            url: /hu_ol_86.html
+          - title: 8.5
+            url: /hu_ol_85.html
+          - title: 8.4
+            url: /hu_ol_84.html
+          - title: 8.3
+            url: /hu_ol_83.html
+          - title: 8.2
+            url: /hu_ol_82.html
+          - title: 8.1
+            url: /hu_ol_81.html
+          - title: 8.0
+            url: /hu_ol_80.html
+        - title: OL 7
+          pdf-filename: OL-7-FCP
+          entries:
+          - title: 7.9
+            url: /hu_ol_79.html
+          - title: 7.8
+            url: /hu_ol_78.html
+          - title: 7.7
+            url: /hu_ol_77.html
+          - title: 7.6
+            url: /hu_ol_76.html
+          - title: 7.5
+            url: /hu_ol_75.html
+          - title: 7.4
+            url: /hu_ol_74.html
+          - title: 7.3
+            url: /hu_ol_73.html
+          - title: 7.2
+            url: /hu_ol_72.html
+          - title: 7.1
+            url: /hu_ol_71.html
+          - title: "7.0"
+            url: /hu_ol_70.html
+        - title: OL 6
+          pdf-filename: OL-6-FCP
+          entries:
+          - title: "6.10"
+            url: /hu_ol_610.html
+          - title: 6.9
+            url: /hu_ol_69.html
+          - title: 6.8
+            url: /hu_ol_68.html
+          - title: 6.7
+            url: /hu_ol_67.html
+          - title: 6.6
+            url: /hu_ol_66.html
+          - title: 6.5
+            url: /hu_ol_65.html
+          - title: 6.4
+            url: /hu_ol_64.html
+      - title: RHEL
+        entries:
+        - title: Release notes
+          url: /hu_rhel_asm_release_notes.html
+        - title: RHEL 9
+          pdf-filename: RHEL-9-FCP
+          entries:
+          - title: 9.2
+            url: /hu_rhel_92.html
+          - title: 9.1
+            url: /hu_rhel_91.html
+          - title: 9.0
+            url: /hu_rhel_90.html
+        - title: RHEL 8
+          pdf-filename: RHEL-8-FCP
+          entries:
+          - title: 8.8
+            url: /hu_rhel_88.html
+          - title: 8.7
+            url: /hu_rhel_87.html
+          - title: 8.6
+            url: /hu_rhel_86.html
+          - title: 8.5
+            url: /hu_rhel_85.html
+          - title: 8.4
+            url: /hu_rhel_84.html
+          - title: 8.3
+            url: /hu_rhel_83.html
+          - title: 8.2
+            url: /hu_rhel_82.html
+          - title: 8.1
+            url: /hu_rhel_81.html
+          - title: 8.0
+            url: /hu_rhel_80.html
+        - title: RHEL 7
+          pdf-filename: RHEL-7-FCP
+          entries:
+          - title: 7.9
+            url: /hu_rhel_79.html
+          - title: 7.8
+            url: /hu_rhel_78.html
+          - title: 7.7
+            url: /hu_rhel_77.html
+          - title: 7.6
+            url: /hu_rhel_76.html
+          - title: 7.5
+            url: /hu_rhel_75.html
+          - title: 7.4
+            url: /hu_rhel_74.html
+          - title: 7.3
+            url: /hu_rhel_73.html
+          - title: 7.2
+            url: /hu_rhel_72.html
+          - title: 7.1
+            url: /hu_rhel_71.html
+          - title: 7.0
+            url: /hu_rhel_70.html
+        - title: RHEL 6
+          pdf-filename: RHEL-6-FCP
+          entries:
+          - title: "6.10"
+            url: /hu_rhel_610.html
+          - title: 6.9
+            url: /hu_rhel_69.html
+          - title: 6.8
+            url: /hu_rhel_68.html
+          - title: 6.7
+            url: /hu_rhel_67.html
+          - title: 6.6
+            url: /hu_rhel_66.html
+          - title: 6.5
+            url: /hu_rhel_65.html
+          - title: 6.4
+            url: /hu_rhel_64.html
+      - title: Solaris
+        entries:
+        - title: 11.4
+          url: /hu_solaris_114.html
+        - title: 11.3
+          url: /hu_solaris_113.html
+      - title: SLES
+        entries:
+        - title: Release notes
+          url: /hu_sles_asm_release_notes.html
+        - title: SLES 15
+          pdf-filename: SLES-15-FCP
+          entries:
+          - title: 15 SP5
+            url: /hu_sles_15SP5.html
+          - title: 15 SP4
+            url: /hu_sles_15SP4.html
+          - title: 15 SP3
+            url: /hu_sles_15SP3.html
+          - title: 15 SP2
+            url: /hu_sles_15SP2.html
+          - title: 15 SP1
+            url: /hu_sles_15SP1.html
+          - title: 15
+            url: /hu_sles_15.html
+        - title: SLES 12
+          entries:
+          - title: 12 SP 5
+            url: /hu_sles_12SP5.html
+          - title: 12 SP 4
+            url: /hu_sles_12SP4.html
+          - title: 12 SP 3
+            url: /hu_sles_12SP3.html
+          - title: 12 SP 2
+            url: /hu_sles_12SP2.html
+          - title: 12 SP 1
+            url: /hu_sles_12SP1.html
+          - title: 12
+            url: /hu_sles_12.html
+      - title: Veritas
+        entries:
+        - title: Infoscale 8
+          url: /hu_veritas_8x.html
+        - title: Infoscale 7
+          url: /hu_veritas_7x.html
+        - title: Storage Foundation 6
+          url: /hu_veritas_6x.html
+      - title: Windows
+        pdf-filename: Windows-FCP
+        entries:
+        - title: 2022
+          url: /hu_windows_2022.html
+        - title: 2019
+          url: /hu_windows_2019.html
+        - title: 2016
+          url: /hu_windows_2016.html
+        - title: "2012 R2"
+          url: /hu_windows_2012r2.html
+    - title: Configure hosts with NVMe-oF
+      entries:
+      - title: Overview
+        url: /hu_nvme_index.html
       - title: AIX
         url: /nvme_aix.html
       - title: ESXi
@@ -134,8 +434,6 @@ sidebar:
         entries:
         - title: SLES 15
           entries:
-          - title: 15 SP5
-            url: /nvme_sles15_sp5.html
           - title: 15 SP4
             url: /nvme_sles15_sp4.html
           - title: 15 SP3
@@ -154,284 +452,8 @@ sidebar:
           url: /nvme_windows_2016.html
         - title: "2012 R2"
           url: /nvme_windows_2012r2.html
-    - title: FCP and iSCSI host configurations
-      entries:
-      - title: AIX and PowerVM/VIOS
-        entries:
-        - title: 7.2/3.1
-          url: /hu_aix_72.html
-        - title: 7.1
-          url: /hu_aix_71.html
-      - title: CentOS
-        entries:
-        - title: CentOS 8
-          entries:
-          - title: 8.5
-            url: /hu_centos_85.html
-          - title: 8.4
-            url: /hu_centos_84.html
-          - title: 8.3
-            url: /hu_centos_83.html
-          - title: 8.2
-            url: /hu_centos_82.html
-          - title: 8.1
-            url: /hu_centos_81.html
-          - title: 8.0
-            url: /hu_centos_80.html
-        - title: CentOS 7
-          entries:
-          - title: 7.9
-            url: /hu_centos_79.html
-          - title: 7.8
-            url: /hu_centos_78.html
-          - title: 7.7
-            url: /hu_centos_77.html
-          - title: 7.6
-            url: /hu_centos_76.html
-          - title: 7.5
-            url: /hu_centos_75.html
-          - title: 7.4
-            url: /hu_centos_74.html
-          - title: 7.3
-            url: /hu_centos_73.html
-          - title: 7.2
-            url: /hu_centos_72.html
-          - title: 7.1
-            url: /hu_centos_71.html
-          - title: "7.0"
-            url: /hu_centos_70.html
-        - title: CentOS 6
-          entries:
-          - title: "6.10"
-            url: /hu_centos_610.html
-          - title: 6.9
-            url: /hu_centos_69.html
-          - title: 6.8
-            url: /hu_centos_68.html
-          - title: 6.7
-            url: /hu_centos_67.html
-          - title: 6.6
-            url: /hu_centos_66.html
-          - title: 6.5
-            url: /hu_centos_65.html
-          - title: 6.4
-            url: /hu_centos_64.html
-      - title: Citrix
-        entries:
-        - title: Hypervisor 8
-          url: /hu_citrix_8x.html
-        - title: XenServer 7
-          url: /hu_citrix_7x.html
-      - title: ESXi
-        entries:
-        - title: VMware vSphere 8
-          url: /hu_vsphere_8.html
-        - title: VMware vSphere 7
-          url: /hu_vsphere_7.html
-        - title: VMware vSphere 6.5 and 6.7
-          url: /hu_vsphere_6.html
-      - title: HP-UX
-        entries:
-        - title: 11i v3
-          url: /hu_hpux_11iv3.html
-      - title: Oracle Linux
-        pdf-filename: OL-FCP
-        entries:
-        - title: OL 9
-          entries:
-          - title: 9.2
-            url: /hu_ol_92.html
-          - title: 9.1
-            url: /hu_ol_91.html
-          - title: 9.0
-            url: /hu_ol_90.html
-        
-        - title: OL 8
-          pdf-filename: OL-8-FCP
-          entries:
-          - title: 8.7
-            url: /hu_ol_87.html
-          - title: 8.6
-            url: /hu_ol_86.html
-          - title: 8.5
-            url: /hu_ol_85.html
-          - title: 8.4
-            url: /hu_ol_84.html
-          - title: 8.3
-            url: /hu_ol_83.html
-          - title: 8.2
-            url: /hu_ol_82.html
-          - title: 8.1
-            url: /hu_ol_81.html
-          - title: 8.0
-            url: /hu_ol_80.html
-        - title: OL 7
-          pdf-filename: OL-7-FCP
-          entries:
-          - title: 7.9
-            url: /hu_ol_79.html
-          - title: 7.8
-            url: /hu_ol_78.html
-          - title: 7.7
-            url: /hu_ol_77.html
-          - title: 7.6
-            url: /hu_ol_76.html
-          - title: 7.5
-            url: /hu_ol_75.html
-          - title: 7.4
-            url: /hu_ol_74.html
-          - title: 7.3
-            url: /hu_ol_73.html
-          - title: 7.2
-            url: /hu_ol_72.html
-          - title: 7.1
-            url: /hu_ol_71.html
-          - title: "7.0"
-            url: /hu_ol_70.html
-        - title: OL 6
-          pdf-filename: OL-6-FCP
-          entries:
-          - title: "6.10"
-            url: /hu_ol_610.html
-          - title: 6.9
-            url: /hu_ol_69.html
-          - title: 6.8
-            url: /hu_ol_68.html
-          - title: 6.7
-            url: /hu_ol_67.html
-          - title: 6.6
-            url: /hu_ol_66.html
-          - title: 6.5
-            url: /hu_ol_65.html
-          - title: 6.4
-            url: /hu_ol_64.html
-      - title: RHEL
-        entries:
-        - title: RHEL 9
-          pdf-filename: RHEL-9-FCP
-          entries:
-          - title: 9.2
-            url: /hu_rhel_92.html
-          - title: 9.1
-            url: /hu_rhel_91.html
-          - title: 9.0
-            url: /hu_rhel_90.html
-        - title: RHEL 8
-          pdf-filename: RHEL-8-FCP
-          entries:
-          - title: 8.8
-            url: /hu_rhel_88.html
-          - title: 8.7
-            url: /hu_rhel_87.html
-          - title: 8.6
-            url: /hu_rhel_86.html
-          - title: 8.5
-            url: /hu_rhel_85.html
-          - title: 8.4
-            url: /hu_rhel_84.html
-          - title: 8.3
-            url: /hu_rhel_83.html
-          - title: 8.2
-            url: /hu_rhel_82.html
-          - title: 8.1
-            url: /hu_rhel_81.html
-          - title: 8.0
-            url: /hu_rhel_80.html
-        - title: RHEL 7
-          pdf-filename: RHEL-7-FCP
-          entries:
-          - title: 7.9
-            url: /hu_rhel_79.html
-          - title: 7.8
-            url: /hu_rhel_78.html
-          - title: 7.7
-            url: /hu_rhel_77.html
-          - title: 7.6
-            url: /hu_rhel_76.html
-          - title: 7.5
-            url: /hu_rhel_75.html
-          - title: 7.4
-            url: /hu_rhel_74.html
-          - title: 7.3
-            url: /hu_rhel_73.html
-          - title: 7.2
-            url: /hu_rhel_72.html
-          - title: 7.1
-            url: /hu_rhel_71.html
-          - title: 7.0
-            url: /hu_rhel_70.html
-        - title: RHEL 6
-          pdf-filename: RHEL-6-FCP
-          entries:
-          - title: "6.10"
-            url: /hu_rhel_610.html
-          - title: 6.9
-            url: /hu_rhel_69.html
-          - title: 6.8
-            url: /hu_rhel_68.html
-          - title: 6.7
-            url: /hu_rhel_67.html
-          - title: 6.6
-            url: /hu_rhel_66.html
-          - title: 6.5
-            url: /hu_rhel_65.html
-          - title: 6.4
-            url: /hu_rhel_64.html
-      - title: Solaris
-        entries:
-        - title: 11.4
-          url: /hu_solaris_114.html
-        - title: 11.3
-          url: /hu_solaris_113.html
-      - title: SLES
-        entries:
-        - title: SLES 15
-          pdf-filename: SLES-15-FCP
-          entries:
-          - title: 15 SP5
-            url: /hu_sles_15SP5.html
-          - title: 15 SP4
-            url: /hu_sles_15SP4.html
-          - title: 15 SP3
-            url: /hu_sles_15SP3.html
-          - title: 15 SP2
-            url: /hu_sles_15SP2.html
-          - title: 15 SP1
-            url: /hu_sles_15SP1.html
-          - title: 15
-            url: /hu_sles_15.html
-        - title: SLES 12
-          entries:
-          - title: 12 SP 5
-            url: /hu_sles_12SP5.html
-          - title: 12 SP 4
-            url: /hu_sles_12SP4.html
-          - title: 12 SP 3
-            url: /hu_sles_12SP3.html
-          - title: 12 SP 2
-            url: /hu_sles_12SP2.html
-          - title: 12 SP 1
-            url: /hu_sles_12SP1.html
-          - title: 12
-            url: /hu_sles_12.html
-      - title: Veritas
-        entries:
-        - title: Infoscale 8
-          url: /hu_veritas_8x.html
-        - title: Infoscale 7
-          url: /hu_veritas_7x.html
-        - title: Storage Foundation 6
-          url: /hu_veritas_6x.html
-      - title: Windows
-        pdf-filename: Windows-FCP
-        entries:
-        - title: 2022
-          url: /hu_windows_2022.html
-        - title: 2019
-          url: /hu_windows_2019.html
-        - title: 2016
-          url: /hu_windows_2016.html
-        - title: "2012 R2"
-          url: /hu_windows_2012r2.html
+      - title: Troubleshoot
+        url: /troubleshoot.html
     - title: Legal notices
       url: /legal_notice.html
+      

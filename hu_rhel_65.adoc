@@ -5,7 +5,7 @@ keywords: host utilities, red hat, rhel, linux, 6.5, netapp, ontap
 summary: Describes how to use Red Hat Enterprise Linux 6.5 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 6.5 with NetApp ONTAP
+= Use Red Hat Enterprise Linux 6.5 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use Red Hat Enterprise Linux 6.5 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -135,7 +135,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=786571[786571^] | QLogic FCoE host hangs/path failures observed in RHEL 6.5 during I/O with storage failover operations | QLogic FCoE (QLE8242) host hangs/path failures are observed in RHEL 6.5 during I/O with storage failover operations. In such scenarios, you might see the following message: "Mailbox cmd timeout occurred, cmd=0x54, mb[0]=0x54. Scheduling ISP abort" messages which leads to host hung/path failures. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1068619[1068619^]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=801580[801580^] | QLogic 16G FC host hangs or path failures observed in RHEL 6.5 during I/O with storage failover operations | The I/O delays of more than 600 seconds are observed with QLogic 16G FC host (QLE2672) during storage failover operations. In such scenarios, the following message is displayed: "Failed mbx[0]=54, mb[1]=0, mb[2]=76b9, mb[3]=5200, cmd=54" | link:https://bugzilla.redhat.com/show_bug.cgi?id=1068622[1068622^]
 |===
-
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
