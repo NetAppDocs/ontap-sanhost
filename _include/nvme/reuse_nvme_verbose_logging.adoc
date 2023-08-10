@@ -1,4 +1,8 @@
 
+Set the lpfc driver for NVMe/FC.
+
+.Steps
+
 . Set the `lpfc_log_verbose` driver setting to any of the following values to log NVMe/FC events.
 +
 ----

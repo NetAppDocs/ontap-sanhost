@@ -5,7 +5,7 @@ keywords: host utilities, suse linux enterprise server 12 SP5, suse, linux, 12 S
 summary: Describes how to use SUSE Linux Enterprise Server 12 SP5 with ONTAP
 ---
 
-= Using SUSE Linux Enterprise Server 12 SP5 with NetApp ONTAP
+= Use SUSE Linux Enterprise Server 12 SP5 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use SUSE Linux Enterprise Server 12 SP5 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -131,6 +131,3 @@ After the kernel disruption, reboot the host OS to enable it to recover. Then re
  | link:http://bugzilla.suse.com/show_bug.cgi?id=1157966[1157966^]
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]

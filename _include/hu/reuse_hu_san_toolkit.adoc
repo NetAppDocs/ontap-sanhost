@@ -3,8 +3,13 @@ The toolkit is installed automatically when you install the NetApp Host Utilitie
 .Example
 
 In the following example, the `sanlun lun show` command returns LUN information.
+
+[source,cli]
 ----
 # sanlun lun show all
+----
+Example output:
+----
 controller(7mode/E-Series)/            device     host               lun
 vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
 -------------------------------------------------------------------------

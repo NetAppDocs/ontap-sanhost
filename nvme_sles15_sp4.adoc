@@ -16,7 +16,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :source-highlighter: highlighter.js
 
    
-NVMe over Fabrics (NVMe-oF) is supported with SUSE Linux Enterprise Server (SLES) 15 SP4. 
+[.lead]
 
 With ONTAP 9.5 and later, Asymmetric Namespace Access (ANA) is enabled by default for multipathing. ANA is the NVMe equivalent of ALUA for FC and iSCSI.
 
