@@ -507,38 +507,7 @@ NSID       UUID                                   Size
 There are no known issues.
 
 
-== Troubleshooting
 
-Before troubleshooting any NVMe-oF failures, verify that you are running a configuration that is compliant to the IMT specifications and then proceed with the next steps to debug any host side issues.
-
-=== Enable verbose logging
-
-If you have an issue with your configuration, verbose logging can provide essential information for troubleshooting.
-
-.Steps
-
-The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the procedure to set LPFC verbose logging.
-
-[role="tabbed-block"]
-====
-
-.LPFC
---
-
-include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
---
-
-.Qla2xxx 
---
-include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
---
-====
-
-include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
-
-=== When to contact technical support
-
-include::_include/hu/reuse_hu_contact_tech_support.adoc[]
 
 
 
