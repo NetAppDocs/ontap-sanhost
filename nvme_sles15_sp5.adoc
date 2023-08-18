@@ -15,7 +15,7 @@ summary: NVMe-oF Host Configuration for SUSE Linux Enterprise Server 15 SP5 with
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP5  with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP5 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
 The following support is available for the NVMe-oF host configuration for SLES 15 SP5 with ONTAP:
 
@@ -29,7 +29,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Features 
 
-* SLES 15 SP5 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
+SLES 15 SP5 has in-kernel NVMe multipath enabled for NVMe namespaces by default. Therefore, there is no need for explicit settings.
 
 == Known limitations
 
@@ -41,7 +41,7 @@ You can use the following procedure to validate the minimum supported SLES 15 SP
 
 .Steps
 
-. Verify that you have the requisite kernel and nvme-cli maintenance update (MU) packages installed on the SLES15 SP5 MU host. 
+. Verify that you have the requisite kernel and nvme-cli maintenance update packages installed on the SLES15 SP5 maintenance update host. 
 +
 ----
 # uname -r
@@ -65,7 +65,7 @@ You can use the following procedure to validate the minimum supported SLES 15 SP
 nvme-cli-2.2.1+3.gd028407-150500.2.4.x86_64
 ----
 +
-The `nvme-cli` MU package includes the following:
+The `nvme-cli` maintenance update package includes the following:
 
 ** *NVMe/FC auto-connect scripts* - The auto-connect scripts are required for NVMe/FC auto-reconnect when underlying paths to the namespaces are restored as well as during host reboot:
 +
@@ -103,7 +103,7 @@ ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp ONTAP Controlle
 ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{model}=="NetApp E-Series", ATTR{iopolicy}="round-robin"
 ----
 
-** *NetApp plug-in for ONTAP devices* - The existing NetApp plug-in has now been modified to handle ONTAP namespaces as well.
+** *NetApp plug-in for ONTAP devices* - Modifies the existing NetApp plug-in to include ONTAP namespaces.
 
 . Install the `libnvme` package:
 +
