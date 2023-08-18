@@ -23,7 +23,7 @@ The following support is available for the NVMe-oF host configuration for SLES 1
 
 * There is no sanlun support for NVMe-oF. Therefore, there is no host utility support for NVMe-oF on an SLES15 SP5 host. You can rely on the NetApp plug-in included in the native nvme-cli package for all NVMe-oF transports.
 
-* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, in case of SCSI LUNs you can configure dm-multipath for SCSI mpath devices, whereas NVMe multipath might be used to configure NVMe-oF namespaces devices on the host.
+* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs you can configure dm-multipath for SCSI mpath devices, whereas NVMe multipath might be used to configure NVMe-oF namespace devices on the host.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
