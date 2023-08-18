@@ -20,11 +20,11 @@ include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
-== SAN Toolkit
+== SAN toolkit
 
 include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
-== SAN Booting
+== SAN booting
 
 .What you'll need
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=84067;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.

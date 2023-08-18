@@ -21,9 +21,9 @@ The following support is available for the NVMe-oF host configuration for SLES 1
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. 
 
-* There is no sanlun support for NVMe-oF. Therefore, there is no host utility support for NVMe-oF on a SLES15 SP5 host. You can rely on the NetApp plug-in included in the native nvme-cli for the same instead. This should work for all NVMe-oF transports.
+* There is no sanlun support for NVMe-oF. Therefore, there is no host utility support for NVMe-oF on an SLES15 SP5 host. You can rely on the NetApp plug-in included in the native nvme-cli package for all NVMe-oF transports.
 
-* Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. Therefore, for SCSI, you might configure dm-multipath as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
+* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, in case of SCSI LUNs you can configure dm-multipath for SCSI mpath devices, whereas NVMe multipath might be used to configure NVMe-oF namespaces devices on the host.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -195,7 +195,7 @@ The existing native inbox `lpfc` driver is the latest and compatible with NVMe/F
 0:14.2.0.9
 ----
 +
-The `lpfc nvme` support is already enabled by default. The newer lpfc drivers (both inbox and outbox) already have the `lpfc_enable_fc4_type` parameter set to 3, therefore, you no longer need to configure this explicitly in the `/etc/modprobe.d/lpfc.conf` file, and recreate `initrd`. You can verify that `lpfc_enable_fc4_type` is set to `3`  :
+The `lpfc nvme` support is enabled by default. The newer lpfc drivers (both inbox and outbox) have the `lpfc_enable_fc4_type` parameter set to 3, therefore, you no longer need to configure this explicitly in the `/etc/modprobe.d/lpfc.conf` file, and recreate `initrd`. You can verify that `lpfc_enable_fc4_type` is set to `3`:
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
