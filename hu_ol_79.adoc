@@ -35,8 +35,22 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 For Oracle Linux (OL) 7.9 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. OL 7.9 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
-include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
-The following sections provide sample multipath outputs for a LUN mapped to non-ASA and ASA personas.
+include::_include/hu/reuse_hu_multipathing.adoc[]
+
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+----
+# multipath -ll
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+  |- 11:0:7:1    sdfi   130:64   active ready running
+  |- 11:0:9:1    sdiy   8:288    active ready running
+  |- 11:0:10:1   sdml   69:464   active ready running
+  |- 11:0:11:1   sdpt   131:304  active ready running
+ 	Do not use an excessive number of paths to a single LUN. No more than four paths should be required. More than eight paths might cause path issues during storage failures.
+----
+
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
@@ -55,23 +69,7 @@ size=40G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_hand
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
-include::_include/hu/reuse_hu_asa_configuration.adoc[]
-
-----
-# multipath -ll
-3600a0980383143596f5d514b65507846 dm-7 NETAPP  ,LUN C-Mode
-size=10G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
-|-+- policy='service-time 0' prio=50 status=active
-  |- 11:0:7:6   sdbz 68:208  active ready running
-  |- 11:0:11:6  sddn 71:80   active ready running
-  |- 11:0:15:6  sdfb 129:208 active ready running
-  |- 12:0:1:6   sdgp 132:80  active ready running
-
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-== Recommended Settings
+== Recommended settings
 
 The Oracle Linux 7.9 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly.
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
@@ -121,7 +119,9 @@ devices {
 
 NOTE: To configure Oracle Linux 7.9 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_79.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 7.9.
 
-== Known Problems and Limitations
+== Known issues
+
+The Oracle Linux 7.9 with ONTAP release has the following known issues:
 
 [cols=4*,options="header"]
 |===
@@ -134,3 +134,4 @@ If I/O progress stops due to failure in continuing through existing active paths
 |===
 
 // BURT 1447018, 25-02-2022
+// BURT-1579262 22 Aug 2023
