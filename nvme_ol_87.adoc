@@ -92,6 +92,23 @@ vs_ol_nvme  nvme_ss_ol_1    nqn.2014-08.org.nvmexpress:uuid:791c54eb-545d-4ed3-8
 [NOTE]
 If the `hostnqn` strings do not match, you can use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
+. Reboot the host.
++
+[NOTE] 
+====
+If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.6 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
+
+----
+#cat /etc/multipath.conf
+defaults {
+    enable_foreign  NONE
+}
+----
+
+Restart the multipathd daemon by running the `systemctl restart multipathd` command to let the new setting take effect.
+====
+
+
 == Configure NVMe/FC
 
 You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
@@ -498,4 +515,4 @@ The NVMe-oF host configuration for OL 8.7 with ONTAP release has the following k
 |===
 
 
-
+// BURT-1579925 22-Aug-2023
