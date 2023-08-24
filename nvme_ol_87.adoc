@@ -96,7 +96,7 @@ If the `hostnqn` strings do not match, you can use the `vserver modify` command 
 +
 [NOTE] 
 ====
-If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.6 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
+If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.7 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
 
 ----
 #cat /etc/multipath.conf
