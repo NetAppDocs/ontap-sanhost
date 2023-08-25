@@ -47,7 +47,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For OL 8.8 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 8.8 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+For Oracle Linux (OL) 8.8 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 8.8 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
@@ -66,7 +66,7 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 12:0:1:6   sdgp 132:80  active ready running
 ----
 
-NOTE: Do not use an excessive number of paths to a single LUN. No more than four paths should be required. More than eight paths might cause path issues during storage failures.
+NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
@@ -87,7 +87,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The Oracle Linux 8.8 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+The OL 8.8 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -135,7 +135,7 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.8 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_91.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.8.
+NOTE: To configure Oracle Linux 8.8 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_88.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.8.
 
 == KVM settings
 
