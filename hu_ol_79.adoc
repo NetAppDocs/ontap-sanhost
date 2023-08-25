@@ -131,7 +131,7 @@ The Oracle Linux 7.9 with ONTAP release has the following known issues:
 | Title
 | Description
 | Bugzilla ID
-| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. To learn more, see  link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^]. | N/A | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1328944
+| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host | When you set the `disable_changed_wwids` multipath configuration parameter to YES, it disables access to the path device in the event of a worldwide identifier (WWID) change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. See the link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^] for more information. | N/A 
 |===
 
 // BURT 1447018, 25-02-2022
