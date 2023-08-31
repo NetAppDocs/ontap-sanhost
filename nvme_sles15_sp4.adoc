@@ -17,8 +17,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 
    
 [.lead]
-
-With ONTAP 9.5 and later, Asymmetric Namespace Access (ANA) is enabled by default for multipathing. ANA is the NVMe equivalent of ALUA for FC and iSCSI.
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP5 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -35,7 +34,10 @@ There are no known limitations.
 
 You can configure NVME/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
 
-=== Broadcom/Emulex
+[role="tabbed-block"]
+====
+.Broadcom/Emulex
+--
 
 .Steps
 
@@ -158,27 +160,10 @@ FCP CMPL: xb 0000159d Err 000135c3
 ----
 
 . Reboot the host.
+--
 
-==== Enable 1MB I/O size
-
-The maximum size for an I/O request that ONTAP can receive from the host is 1MB. However, if you would like for host to issue an I/O request of that size, you need to increase the the `lpfc` parameter from the default value of `64` to `256`.
-
-.Steps
-
-. In the `lpfc.conf` file, set the lpfc value to `256`:
-+
-----
-cat /etc/modprobe.d/lpfc.conf options lpfc lpfc_sg_seg_cnt=256
-----
-. Run a `dracut -f` command and reboot the host.
-. After reboot, verify that the lpfc value is 256:
-+
-----
-cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt 256
-----
-
-=== Marvell/QLogic
-
+.Marvell/QLogic
+--
 .Steps
 
 . Verify that you are running the supported adapter driver and firmware versions:
@@ -199,6 +184,12 @@ QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k QLE2742 FW:v9.08.02 DVR:v10.02.07.800-k
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
 ----
+--
+====
+
+=== Enable 1MB I/O size (Optional)
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
@@ -262,7 +253,7 @@ Example output:
 nvme connect-all -t tcp -w host-traddr -a traddr -l ctrl_loss_timeout_in_seconds
 ----
 +
-For example:
+*Example output*
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.4 -a 192.168.1.31 -l 1800
@@ -273,6 +264,8 @@ For example:
 
 
 == Validate NVMe-oF
+
+You can use the following procedure to validate NVMe-oF.
 
 .Steps
 
@@ -334,7 +327,7 @@ nvme list-subsys /dev/subsystem_name
 +
 [role="tabbed-block"]
 ====
-.Example output for NVMe/FC hosts
+.NVMe/FC 
 --
 [subs=+quotes]
 ----
@@ -348,7 +341,7 @@ nvme list-subsys /dev/subsystem_name
 ----
 --
 
-.Example output for NVMe/TCP hosts:
+.NVMe/TCP 
 --
 [subs=+quotes]
 ----
@@ -371,7 +364,7 @@ nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 [role="tabbed-block"]
 ====
 
-.Verify with CLI
+.Column
 --
 
 `nvme netapp ontapdevices -o column`
@@ -389,7 +382,7 @@ NSID	UUID							Size
 ----
 --
 
-.Verify with JSON file
+.JSON
 --
 
 `nvme netapp ontapdevices -o json`
@@ -517,7 +510,7 @@ Vserver UUID: 48391d66-c0a6-11ec-aaa5-d039ea165514
 
 == Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1 and later, secure, in-band authentication is supported over NVMe/TCP between your SLES 15 SP host and your ONTAP controller.
+Beginning with ONTAP 9.12.1 and later, secure, in-band authentication is supported over NVMe/TCP between your SLES 15 SP4 host and your ONTAP controller.
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. In order for an NVMe host or controller to authenticate its peer, it must recognize the key associated with the peer. 
 
@@ -681,48 +674,19 @@ DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAt
 --
 ====
 
-== Troubleshooting
-
-Before troubleshooting any NVMe/FC failure, verify that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
-
-=== Enable verbose logging
-
-If you have an issue with your configuration, verbose logging can provide valuable information essential for troubleshooting.
-
-.Steps
-
-The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the procedure to set LPFC verbose logging.
-
-[role="tabbed-block"]
-====
-
-.LPFC
---
-
-include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
---
-
-.Qla2xxx 
---
-include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
---
-====
-
-include::_include/hu/reuse_hu_common_nvme_cli_errors.adoc[]
-
-=== When to contact technical support
-
-include::_include/hu/reuse_hu_contact_tech_support.adoc[]
 
 == Known issues 
 
+The NVMe-oF host configuration for SLES 15 SP4 with ONTAP has the following known issues:
+
 [cols="10,30,10",options="header"]
 |===
-|NetApp Bug ID	|Title	|Workaround
+|NetApp Bug ID	|Title	|Description
 |1490498	| Host is non-operational at `crypto_ahash_digest()` during NVMe reauthentication |None
 |1496739	| Host cannot disconnect after sending `auth_failure2` during reauthentication |None	
 |===
 
 //BURT 1529116 30 Jan 2023
+//JIRA 1164 31 Aug 2023
 
 
