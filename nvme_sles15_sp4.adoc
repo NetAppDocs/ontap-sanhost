@@ -17,7 +17,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 
    
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP5 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath.
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP4 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -41,7 +41,7 @@ You can configure NVME/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapter
 
 .Steps
 
-. Verify that you have the recommended adapter model:
+. Verify that you are using the recommended adapter model:
 +
 ----
 cat /sys/class/scsi_host/host*/modelname
@@ -60,33 +60,33 @@ LPe32002-M2
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-Example output
+*Example output*:
 +
 ----
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter 
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you have the recommended Emulex HBA firmware versions:
+. Verify that you are using the recommended Emulex HBA firmware versions:
 +
 ----
 cat /sys/class/scsi_host/host*/fwrev 
 ----
 +
-Example output
+*Example output*:
 +
 ----
 12.8.351.47, sli-4:2:c
 12.8.351.47, sli-4:2:c
 ----
 
-. Verify that you have the recommended LPFC driver version:
+. Verify that you are using the recommended LPFC driver version:
 +
 ----
 cat /sys/module/lpfc/version
 ----
 +
-Example output:
+*Example output*:
 +
 ----
 0:14.2.0.6
@@ -98,7 +98,7 @@ Example output:
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-Example output
+*Example output*:
 +
 ----
 0x100000109b579d5e
@@ -111,7 +111,7 @@ Example output
 cat /sys/class/fc_host/host*/port_state 
 ----
 +
-Example output
+*Example output*:
 +
 ----
 Online
@@ -124,7 +124,7 @@ Online
 cat /sys/class/scsi_host/host*/nvme_info
 ----
 +
-Example output:
+*Example output*:
 +
 In this example, one initiator port is enabled and connected with two target LIFs.
 +
@@ -158,7 +158,6 @@ abort 00000b73 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr
 00000000 err 00000000
 FCP CMPL: xb 0000159d Err 000135c3
 ----
-
 . Reboot the host.
 --
 
@@ -166,7 +165,7 @@ FCP CMPL: xb 0000159d Err 000135c3
 --
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions:
+. The native inbox qla2xxx driver included in the SLES 15 SP4 kernel has the latest fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 cat /sys/class/fc_host/host*/symbolic_name 
@@ -203,7 +202,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 nvme discover -t tcp -w host-traddr  -a traddr
 ----
 +
-Example output:
+*Example output*:
 +
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.31
@@ -239,7 +238,7 @@ traddr: 192.168.2.36 sectype: none
 nvme discover -t tcp -w host-traddr  -a traddr
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.32 
@@ -282,9 +281,9 @@ Y
 cat /sys/class/nvme-subsystem/nvme-subsys*/model 
 ----
 +
+*Example output:*
++
 ----
-Example output:
-
 NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
@@ -295,8 +294,9 @@ NetApp ONTAP Controller
 cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
 ----
 +
+*Example output:*
++
 ----
-Example output:
 round-robin
 round-robin
 ----
@@ -307,7 +307,7 @@ round-robin
 nvme list
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 Node		Generic		SN				Model
@@ -359,7 +359,8 @@ nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 ----
 --
 ====
-. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. 
+
+. Verify that the NetApp plug-in displays correct values for each ONTAP namespace device. 
 +
 [role="tabbed-block"]
 ====
@@ -410,13 +411,13 @@ Beginning with ONTAP 9.11.1, you create a persistent discovery controller for yo
 
 .Steps
 
-. Verify that the discovery log page data is available and can be fetched through the initiator port - target LIF combo:
+. Verify that the discovery log page data is available and can be retrieved through the initiator port - target LIF combination:
 +
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 Discovery Log Number of Records 8, Generation counter 18
@@ -481,7 +482,7 @@ traddr: 192.168.1.116 eflags: not specified sectype: none
 nvme discover -t tcp -w host-traddr -a traddr -p
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 nvme discover -t tcp -w 192.168.1.16 -a 192.168.1.116 -p
@@ -493,7 +494,7 @@ nvme discover -t tcp -w 192.168.1.16 -a 192.168.1.116 -p
 vserver nvme show-discovery-controller -instance -vserver vserer_name
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 Vserver Name: vs_CLIENT116 Controller ID: 00C0h
@@ -544,7 +545,7 @@ nvme gen-dhchap-key -s optiona_secret -l key_length {32|48|64} -m HMAC_function 
 •	-n host NQN to use for key transformation
 ----
 +
-Example
+*Example*:
 +
 In the following example, a random `dhchap` key with HMAC set to 3 (SHA-512) is generated.
 +
@@ -633,7 +634,7 @@ Note that `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corr
 nvme connect-all -J /etc/nvme/config.json
 ----
 +
-Example output
+*Example output*:
 +
 ----
 traddr=192.168.2.116 is already connected
@@ -656,7 +657,7 @@ traddr=192.168.1.117 is already connected
 # cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 DHHC-1:01:NunEWY7AZlXqxITGheByarwZdQvU4ebZg9HOjIr6nOHEkxJg:
@@ -666,7 +667,7 @@ DHHC-1:01:NunEWY7AZlXqxITGheByarwZdQvU4ebZg9HOjIr6nOHEkxJg:
 # cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
 +
-Example output:
+*Example output:*
 +
 ----
 DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAtaU3DNi12rieRMfdbg3704=:
