@@ -33,6 +33,8 @@ You can use the HBA vendor provided external auto-connect scripts.
 *	By default, round-robin load balancing is not enabled.
 You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on OL 7.7.
 
+* SAN booting using the NVMe-oF protocol is currently not supported.
+
 ==	Enabling NVMe on OL 7.7
 
 .	Ensure the default Oracle Linux 7.7 kernel is installed.

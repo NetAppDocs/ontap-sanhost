@@ -30,6 +30,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 * In-kernel NVMe multipath is disabled by default for RHEL 8.8 NVMe-oF hosts. Therefore, you need to enable it manually.
 * On RHEL 8.8 hosts, NVMe/TCP is a technology preview feature due to open issues.
+* SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Enable in-kernel multipath
 

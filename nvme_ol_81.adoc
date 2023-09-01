@@ -28,6 +28,8 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * There is no sanlun support for NVMe/FC and, as a consequence, no Linux Unified Host Utilities (LUHU) support for NVMe/FC on Oracle Linux 8.1. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
 
+* SAN booting using the NVMe-oF protocol is currently not supported.
+
 == Enable NVMe/FC
 
 . Install Oracle Linux 8.1 on the server.
