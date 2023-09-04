@@ -5,7 +5,7 @@ keywords: host utilities, red hat, rhel, linux, 8.1, netapp, ontap
 summary: Describes how to use Red Hat Enterprise Linux 8.1 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 8.1 with NetApp ONTAP
+= Use Red Hat Enterprise Linux 8.1 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use Red Hat Enterprise Linux 8.1 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
@@ -132,7 +132,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1275838[1275838^] | Kernel disruption occurs on Red Hat Enterprise Linux 8.1 with QLogic QLE2742 32GB FC HBA during storage failover operations | Kernel disruption occurs during storage failover operations on the Red Hat Enterprise Linux 8.1 kernel with a QLogic QLE2742 Fibre Channel (FC) host bus adapter (HBA). The kernel disruption causes Red Hat Enterprise Linux 8.1 to reboot, leading to application disruption. If the kdump mechanism is enabled, the kernel disruption generates a vmcore file located in the/var/crash/ directory. You can check the vmcore file to determine the cause of the disruption. A storage failover with the QLogic QLE2742 HBA event affects the "kmem_cache_alloc+131"module. You can locate the event in the vmcore file by finding the following string:    " [exception RIP: kmem_cache_alloc+131]"After the kernel disruption, reboot the Host OS and recover the operating system. Then restart the applications. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1744082[1744082^]
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1266250[1266250^] | Login to multiple paths fails during the Red Hat Enterprise Linux 8.1 installation on iSCSI SAN LUN | You cannot login to multiple paths during the Red Hat Enterprise Linux 8.1 installation on iSCSI SAN LUN multipath devices. Installation is not possible on multipath iSCSI device and the multipath service is not enabled on the SAN boot device. | link:https://bugzilla.redhat.com/show_bug.cgi?id=1758504[1758504^]
 |===
-
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]

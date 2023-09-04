@@ -265,7 +265,8 @@ hdisk1  11       Enabled  Sel,Non      nvme60  fcnvme0, 9
 ----
 
 == Known issues 
-NVMe/FC host configuration for AIX with ONTAP has the following known issues:
+
+The NVMe/FC host configuration for AIX with ONTAP has the following known issues:
 
 [cols="10,30,30",options="header"]
 |===
@@ -278,7 +279,6 @@ NVMe/FC host configuration for AIX with ONTAP has the following known issues:
 |===
 
 
-== Troubleshooting
+== Troubleshoot
 
-Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant to the IMT specifications.
-If you are still facing issues, contact technical support for further triage.
+Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications. If you are still facing issues, contact link:mysupport.netapp.com[NetApp support^] for further triage.

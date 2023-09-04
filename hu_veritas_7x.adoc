@@ -5,7 +5,7 @@ keywords: host utilities, veritas, infoscale, 7, netapp, ontap, sanhost, iscsi, 
 summary: Provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale 7 series release
 ---
 
-= Using Veritas Infoscale 7 for Linux with NetApp ONTAP
+= Use Veritas Infoscale 7 for Linux with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,10 +14,10 @@ summary: Provides guidance on ONTAP SAN host configuration settings for the Veri
 :linkattrs:
 :imagesdir: ./media/
 
-== Introduction
-This document provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale storage foundation 7 series release for Red Hat Enterprise Linux & Oracle Linux (RHCK based) platforms with FC, FCoE and iSCSI protocols.
+[.lead]
+You can use ONTAP SAN host configuration settings for the Veritas Infoscale storage foundation 7 series release for Red Hat Enterprise Linux & Oracle Linux (RHCK based) platforms with FC, FCoE and iSCSI protocols.
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
@@ -214,6 +214,6 @@ NOTE: For all other settings specific to Veritas, refer to the standard Veritas 
 
 If you have a heterogenous multipath environment including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, please refer to the Veritas Product Administration guide for configuration settings.
 
-== Known Problems and Limitations
+== Known issues
 
-There are no known problems and limitations.
+There are no known issues.

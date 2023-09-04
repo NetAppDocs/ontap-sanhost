@@ -5,7 +5,7 @@ keywords: host utilities, cent, os, 6.8, netapp, ontap
 summary: Describes how to use CentOS 6.8 with ONTAP
 ---
 
-= Using CentOS 6.8 with NetApp ONTAP
+= Use CentOS 6.8 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use CentOS 6.8 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -126,6 +126,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 For CentOS (Red Hat compatible kernel) known issues, see the link:hu_rhel_68.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 6.8.
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]

@@ -1,4 +1,4 @@
-There is no similar specific qla2xxx logging for NVMe/FC as for the `lpfc` driver. Therefore, you can set the general qla2xxx logging level using the following steps:
+There is no specific qla2xxx logging for NVMe/FC similar to that for the `lpfc` driver. Instead, set the general qla2xxx logging level.
 
 .Steps
 

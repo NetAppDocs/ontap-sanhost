@@ -15,9 +15,9 @@ summary: Release Notes for AIX Host Utilities 6.1
 :imagesdir: ./media/
 
 [.lead]
-This Release Notes document contains the latest information on the AIX Host Utilities 6.1 release, including updates about known problems, limitations, configuring and managing your ONTAP storage system.
+The release notes document contains the latest information on the AIX Host Utilities 6.1 release, including updates about known problems, limitations, configuring and managing your ONTAP storage system.
 
-The Release Notes document is updated when new information on using the AIX Host Utilities becomes available.
+The release notes document is updated when new information on using the AIX Host Utilities becomes available.
 
 == About the AIX Host Utilities 6.1 release
 The AIX Host Utilities enable you to connect an AIX host to NetApp storage. The AIX Host Utilities support multiple environments and the FC, FCoE, and iSCSI protocols. The supported environments are AIX MPIO (Native OS) and PowerVM.
@@ -45,7 +45,7 @@ NOTE: You must enable Dynamic Tracking for all FC and FCoE initiators for cluste
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/872113[872113^]	|`sanlun lun show –p` command might cause a memory fault on some versions of AIX host OS	|Intermittent instances of AIX coredump are reported while running the `sanlun lun show -p` command. Sanlun’s `lun show -p` option provides the multipathing information for all the LUNs discovered on a host. It arranges this information to present which SCSI device is sourced from which LUN, the path state (primary or secondary), and other details. However, on some AIX hosts running the `sanlun lun show -p` command might cause a memory fault. This issue is observed only when you run the sanlun command with the `-p` option.
 |===
 
-== Known Problems and Limitations
+== Known problems and limitations
 To use the Host Utilities efficiently, you should be aware that performance can be affected by known issues about a particular feature, such as a network, or by features that the Host Utilities do not support, such as a specific version of an operating system.
 
 [cols=3,options="header"]
@@ -60,12 +60,6 @@ link:https://mysupport.netapp.com/site/[NetApp Bugs Online] provides complete in
 *	FCP General: Displays FC and HBA bugs that are not associated with a specific host.
 *	FCP - AIX
 
-== About SAN Host Configuration documentation
-
-Documentation for SAN Host Utilities is included in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[ONTAP SAN Host Configuration] documentation. ONTAP SAN HOST configuration documentation is cumulative, covering all current SAN HOST releases. Any functional differences across releases are noted in context.
-
-== Where to find product documentation and other information
-You can access documentation for all NetApp products and find other product information resources, such as technical reports and white papers on the Product Documentation page of the NetApp corporate site.
 
 .Related information
 

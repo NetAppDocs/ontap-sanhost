@@ -14,7 +14,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :linkattrs:
 :imagesdir: ./media/
 
-== Supportability
+[.lead]
 
 NVMe/FC is supported on ONTAP 9.6 and above with SLES15 SP2. SLES15 SP2 host can run both NVMe/FC, & FCP traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 
@@ -24,7 +24,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 ==	Known limitations
 
-None.
+There are no known limitations.
 
 ==	Enable NVMe/FC on SLES15 SP2
 
@@ -208,6 +208,8 @@ Device Vserver Namespace Path NSID UUID Size
   ]
 }
 ----
+== Known issues
+There are no known issues.
 
 ==	Enable 1MB I/O Size for Broadcom NVMe/FC
 
