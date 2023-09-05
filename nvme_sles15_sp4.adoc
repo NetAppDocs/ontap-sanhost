@@ -735,8 +735,8 @@ The NVMe-oF host configuration for SLES 15 SP4 with ONTAP has the following know
 [cols="10,30,10",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description
-|1490498	| Host is non-operational at `crypto_ahash_digest()` during NVMe reauthentication |None
-|1496739	| Host cannot disconnect after sending `auth_failure2` during reauthentication |None	
+|1490498	| Host is non-operational at `crypto_ahash_digest()` during NVMe reauthentication |During NVMe in-band re-authentication on SUSE Linux Enterprise Server (SLES) 15 SP4 hosts, a host crash frequently occurs at the crypto_ahash_digest() REST API.
+|1496739	| Host cannot disconnect after sending `auth_failure2` during re-authentication |None	
 |===
 
 //BURT 1529116 30 Jan 2023
