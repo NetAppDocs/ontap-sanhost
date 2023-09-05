@@ -499,6 +499,7 @@ vserver nvme show-discovery-controller -instance -vserver vserver_name
 *Example output:*
 +
 ----
+vserver nvme show-discovery-controller -instance -vserver vs_nvme175
 Vserver Name: vs_CLIENT116 Controller ID: 00C0h
 Discovery Subsystem NQN: nqn.1992- 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery Logical Interface UUID: d23cbb0a-c0a6-11ec-9731-d039ea165abc Logical Interface: CLIENT116_lif_4a_1
 Node: A400-14-124
