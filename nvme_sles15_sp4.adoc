@@ -199,7 +199,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
-nvme discover -t tcp -w host-traddr  -a traddr
+nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
 *Example output*:
@@ -235,10 +235,10 @@ traddr: 192.168.2.36 sectype: none
 . Verify that all other NVMe/TCP initiator-target LIF combos can successfully fetch discovery log page data. 
 +
 ----
-nvme discover -t tcp -w host-traddr  -a traddr
+nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
-*Example output:*
+*Example*
 +
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.32 
@@ -249,10 +249,10 @@ nvme discover -t tcp -w host-traddr  -a traddr
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes, and set the controller loss timeout period:
 +
 ----
-nvme connect-all -t tcp -w host-traddr -a traddr -l ctrl_loss_timeout_in_seconds
+nvme connect-all -t tcp -w host-traddr -a traddr -l <ctrl_loss_timeout_in_seconds>
 ----
 +
-*Example output*
+*Example*
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.4 -a 192.168.1.31 -l -1
@@ -324,7 +324,7 @@ Namespace	Usage		Format		FW			Rev
 . Verify that the controller state of each path is live and has the proper ANA status.
 +
 ----
-nvme list-subsys /dev/subsystem_name
+nvme list-subsys /dev/<subsystem_name>
 ----
 +
 [role="tabbed-block"]
@@ -539,7 +539,7 @@ cat /etc/nvme/hostnqn
 . Generate the dhchap key for the SLES15 SP4 host:
 +
 ----
-nvme gen-dhchap-key -s optiona_secret -l key_length {32|48|64} -m HMAC_function {0|1|2|3} -n host_nqn 
+nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function {0|1|2|3} -n host_nqn 
 
 •	-s secret key in hexadecimal characters to be used to initialize the host key
 •	-l length of the resulting key in bytes
@@ -554,20 +554,19 @@ In the following example, a random `dhchap` key with HMAC set to 3 (SHA-512) is 
 +
 ----
 # nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:d3ca725a- ac8d-4d88-b46a-174ac235139b
-DHHC-
-1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh 3nVBe19nQ/LxreSBeH/bx/pU=:
+DHHC-1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh 3nVBe19nQ/LxreSBeH/bx/pU=:
 ----
 
 . On the ONTAP controller, add the host and specify both `dhchap` keys:
 +
 ----
-vserver nvme subsystem host add -vserver svm_name -subsystem subsystem -host-nqn host_nqn -dhchap-host-secret authentication_host_secret -dhchap-controller-secret authentication_controller_secret -dhchap-hash-function {sha-256|sha-512} -dhchap-group {none|2048-bit|3072-bit|4096-bit|6144-bit|8192-bit}
+vserver nvme subsystem host add -vserver <svm_name> -subsystem <subsystem> -host-nqn <host_nqn> -dhchap-host-secret <authentication_host_secret> -dhchap-controller-secret <authentication_controller_secret> -dhchap-hash-function {sha-256|sha-512} -dhchap-group {none|2048-bit|3072-bit|4096-bit|6144-bit|8192-bit}
 ----
 
 . On the host, connect to the ONTAP controller and specify both dhchap keys:
 +
 ----
-nvme connect -t tcp -w ip_address -a ip_address -n host_nqn -S authentication_host_secret -C authentication_controller_secret 
+nvme connect -t tcp -w <ip_address> -a <ip_address> -n <host_nqn> -S <authentication_host_secret> -C <authentication_controller_secret>
 ----
 
 . Validate the `nvme connect authentication` command by verifying the host and controller dhchap keys: 
