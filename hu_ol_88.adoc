@@ -51,7 +51,7 @@ For Oracle Linux (OL) 8.8 the `/etc/multipath.conf` file must exist, but you do 
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
-The following sections provide sample multipath output for a LUN mapped to ASA and non-ASA configurations.
+The following sections provide sample multipath outputs for a LUN mapped to ASA and non-ASA configurations.
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
@@ -66,7 +66,7 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 12:0:1:6   sdgp 132:80  active ready running
 ----
 
-NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
+NOTE: Do not use an excessive number of paths to a single LUN. No more than four paths should be required. More than eight paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
@@ -135,11 +135,11 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.8 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_88.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.8.
+NOTE: To configure Oracle Linux 8.8 RedHat Enterprise Kernel, use the link:hu_rhel_88.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.8.
 
 == KVM settings
 
-You can also use the recommended settings to configure Kernel-based Virtual Machine (KVM). There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
+You can also use the recommended settings to configure a Kernel-based Virtual Machine (KVM). There are no changes required to configure a KVM as the LUN is mapped to the hypervisor.
 
 == Known issues
 

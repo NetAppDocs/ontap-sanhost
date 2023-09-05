@@ -21,7 +21,7 @@ The following support is available for the NVMe-oF host configuration for OL 8.8
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
-* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs you can configure dm-multipath for SCSI mpath devices, whereas NVMe multipath might be used to configure NVMe-oF namespace devices on the host.
+* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs, you can configure dm-multipath for SCSI mpath devices, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
 
 * There is no sanlun support for NVMe-oF. Therefore, there is no host utility support for NVMe-oF on an OL 8.8 host. You can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 
@@ -29,11 +29,11 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Features 
 
-* Oracle Linux 8.8 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
+Oracle Linux 8.8 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
 
 == Known limitations
 
-* SAN booting using the NVMe-oF protocol is currently not supported.
+SAN booting using the NVMe-oF protocol is currently not supported.
  
 == Validate software versions
 
@@ -108,7 +108,7 @@ defaults {
 } 
 ----
 
-Restart the multipathd daemon by running a `systemctl restart multipathd` command to let the new setting to take effect. 
+Restart the multipathd daemon by running a `systemctl restart multipathd` command. This allows the new setting to take effect. 
 
 ====
 
@@ -217,7 +217,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 --
 .Steps
 
-.  The native inbox qla2xxx driver included in the OL 8.8 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+.  The native inbox qla2xxx driver included in the OL 8.8 GA kernel has the latest fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -337,7 +337,7 @@ You can use the following procedure to validate NVMe-oF.
 
 .Steps
 
-. Verify that in-kernel NVMe multipath is enabled by checking:
+. Verify that in-kernel NVMe multipath is enabled:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -514,7 +514,7 @@ The NVMe-oF host configuration for OL 8.8 with ONTAP release has the following k
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 |1517321
 
-|Oracle Linux 8.8 NVMe-oF hosts create duplicate Persistent Discovery Controllers
+|Oracle Linux 8.8 NVMe-oF hosts create duplicate PDCs
 
 |On OL 8.8 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, only one PDC is expected to be created with each invocation of the `nvme discover` command. However, beginning with OL 8.x, NVMe-oF hosts end up creating duplicate PDCs with each invocation of the `nvme discover` command with the `-p` option. This wastes resources on both the host and the target.
 |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
