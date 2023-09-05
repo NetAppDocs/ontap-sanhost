@@ -5,7 +5,7 @@ keywords: host utilities, red hat, rhel, linux, 8.2, netapp, ontap
 summary: Describes how to use Red Hat Enterprise Linux 8.2 with ONTAP
 ---
 
-= Using Red Hat Enterprise Linux 8.2 with NetApp ONTAP
+= Use Red Hat Enterprise Linux 8.2 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,11 +14,10 @@ summary: Describes how to use Red Hat Enterprise Linux 8.2 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == SAN Toolkit
 
@@ -33,10 +32,27 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 8.2 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. RHEL 8.2 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Red Hat Enterprise Linux (RHEL) 8.2 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 8.2 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
-include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
-include::_include/hu/reuse_hu_non_asa_configuration_solo.adoc[]
+
+include::_include/hu/reuse_hu_multipathing.adoc[]
+
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+  |- 11:0:7:1    sdfi   130:64   active ready running
+  |- 11:0:9:1    sdiy   8:288    active ready running
+  |- 11:0:10:1   sdml   69:464   active ready running
+  |- 11:0:11:1   sdpt   131:304  active ready running
+----
+ 	
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 ----
 # multipath -ll
@@ -48,11 +64,11 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 `-+- policy='service-time 0' prio=10 status=enabled
 |- 15:0:0:35 sdaj 66:48 active ready running
 |- 15:0:1:35 sdbx 68:176 active ready running
-----
 
+----
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
-== Recommended Settings
+== Recommended settings
 
 The RHEL 8.2 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly.
 
@@ -104,10 +120,8 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
-== Known Problems and Limitations
+== Known issues
 
 There are no known issues for RHEL 8.2.
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
+// BURT-1579262 22 Aug 2023

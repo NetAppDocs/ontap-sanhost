@@ -5,7 +5,7 @@ keywords: host utilities, citrix, XenServer, 7 series, netapp, ontap, san, boot
 summary: Describes how to use Citrix XenServer 7.x with ONTAP
 ---
 
-= Using Citrix XenServer with NetApp ONTAP
+= Use Citrix XenServer with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,9 +14,9 @@ summary: Describes how to use Citrix XenServer 7.x with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Introduction
+[.lead]
 
-This document provides guidance on ONTAP SAN host configuration settings for Citrix XenServer 7 series OS releases with FC, FCoE, and iSCSi protocols.
+You can configure ONTAP SAN host configuration settings for Citrix XenServer 7 series OS releases with FC, FCoE, and iSCSi protocols.
 
 == SAN Booting
 

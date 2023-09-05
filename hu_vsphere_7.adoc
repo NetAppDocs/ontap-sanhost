@@ -5,7 +5,7 @@ keywords: host utilities, veritas, infoscale, 7.3. 7.3.1, netapp, ontap
 summary: Describes how to use Veritas Infoscale 7.3 for Linux with ONTAP
 ---
 
-= Using VMware vSphere 7.x with NetApp ONTAP
+= Use VMware vSphere 7.x with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,8 +14,8 @@ summary: Describes how to use Veritas Infoscale 7.3 for Linux with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Introduction
-This document provides guidance on ONTAP SAN host configuration settings for the vSphere 7.x release with FC, FCoE and iSCSI protocols.
+[.lead]
+You can use ONTAP SAN host configuration settings for the vSphere 7.x release with FC, FCoE and iSCSI protocols.
 
 == Hypervisor SAN Booting
 
@@ -273,7 +273,7 @@ Use the following command to verify the QFullSampleSize
 
 There are no known issues.
 
-== Related links
+.Related information
 
 * link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597-VMware vSphere with ONTAP^]
 * link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster (2031038)^]

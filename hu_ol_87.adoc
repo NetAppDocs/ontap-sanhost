@@ -5,7 +5,7 @@ keywords: host utilities, oracle, linux, 8.7, netapp, ontap
 summary: Describes how to use Oracle Linux 8.7 with ONTAP
 ---
 
-= Using Oracle Linux 8.7 with NetApp ONTAP
+= Use Oracle Linux 8.7 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1P
@@ -149,9 +149,5 @@ You can also use the recommended settings to configure the Kernel-based Virtual 
 
 There are no known issues for Oracle Linux 8.7.
 
-== Release notes
 
-=== ASM Mirroring
-
-Automatic Storage Management (ASM) mirroring might require changes to the Linux multipath settings to allow ASM to recognize a problem and switch over to an alternative failure group. Most ASM configurations on ONTAP use external redundancy, which means that data protection is provided by the external array and ASM does not mirror data. Some sites use ASM with normal redundancy to provide two-way mirroring, normally across different sites. See Oracle Databases on ONTAP for further information.
 

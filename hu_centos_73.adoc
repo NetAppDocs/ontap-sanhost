@@ -5,7 +5,7 @@ keywords: host utilities, centos, linux, 7.3, netapp, ontap
 summary: Describes how to use CentOS 7.3 with ONTAP
 ---
 
-= Using CentOS 7.3 with NetApp ONTAP
+= Use CentOS 7.3 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to use CentOS 7.3 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Installing the Linux Unified Host Utilities
+== Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -124,6 +124,3 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 There are no known issues for CentOS 7.3.
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]

@@ -5,7 +5,7 @@ keywords: host utilities, oracle, linux, 9.2, netapp, ontap
 summary: Describes how to use Oracle Linux 9.2 with ONTAP
 ---
 
-= Using Oracle Linux 9.2 with NetApp ONTAP
+= Use Oracle Linux 9.2 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1P
@@ -143,7 +143,7 @@ You can also use the recommended settings to configure Kernel-based Virtual Mach
 
 == Known issues
 
-Oracle Linux 9.2 with NetApp ONTAP release has the following known issues:
+The Oracle Linux 9.2 with ONTAP has the following known issues:
 
 [cols="10,30,30,10",options="header"]
 |===
@@ -157,9 +157,6 @@ Make sure the package installing the library is installed & loaded
 |Not Applicable
 |===
 
-== Release Notes
-
-include::_include/hu/reuse_hu_release_notes.adoc[]
 
 
 
