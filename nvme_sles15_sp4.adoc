@@ -28,11 +28,11 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Known limitations
 
-There are no known limitations.
+SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Configure NVMe/FC
 
-You can configure NVME/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
+You can configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
 ====
@@ -571,11 +571,42 @@ nvme connect -t tcp -w ip_address -a ip_address -n host_nqn -S authentication_ho
 
 . Validate the `nvme connect authentication` command by verifying the host and controller dhchap keys: 
 +
-Command
+----
+$cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
+$cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
+----
 +
-*Example output*
+*Example output for unidirectional configuration:*
 +
 ----
+SR650-14-114:~ # cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
+DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
+DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
+DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
+DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
+SR650-14-114:~ # cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_ctrl_secret
+none
+none
+none
+none
+SR650-14-114:~ #
+----
++
+*Example output for bidirectional configuration:*
++
+----
+SR650-14-114:~ # cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_ctrl_secret
+DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
+DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
+DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
+DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
+
+SR650-14-114:~ # cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_secret
+DHHC-1:03:ge5YncJ9V2u/qMyQPS1YjKSTtB7bmxAnnBZjR6KibBBrQaJqe+bBMkL6bubbPWwnzySxWkyHq3cuF5YusaTI5/mCIw8=:
+DHHC-1:03:ge5YncJ9V2u/qMyQPS1YjKSTtB7bmxAnnBZjR6KibBBrQaJqe+bBMkL6bubbPWwnzySxWkyHq3cuF5YusaTI5/mCIw8=:
+DHHC-1:03:ge5YncJ9V2u/qMyQPS1YjKSTtB7bmxAnnBZjR6KibBBrQaJqe+bBMkL6bubbPWwnzySxWkyHq3cuF5YusaTI5/mCIw8=:
+DHHC-1:03:ge5YncJ9V2u/qMyQPS1YjKSTtB7bmxAnnBZjR6KibBBrQaJqe+bBMkL6bubbPWwnzySxWkyHq3cuF5YusaTI5/mCIw8=:
+SR650-14-114:~ #
 ----
 
 --
