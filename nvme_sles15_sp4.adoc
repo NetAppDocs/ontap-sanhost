@@ -569,6 +569,15 @@ vserver nvme subsystem host add -vserver svm_name -subsystem subsystem -host-nqn
 nvme connect -t tcp -w ip_address -a ip_address -n host_nqn -S authentication_host_secret -C authentication_controller_secret 
 ----
 
+. Validate the `nvme connect authentication` command by verifying the host and controller dhchap keys: 
++
+Command
++
+*Example output*
++
+----
+----
+
 --
 
 .JSON file
