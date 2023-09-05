@@ -23,24 +23,24 @@ The HP-UX Host Utilities supports several HP-UX environments and multiple protoc
 *	Veritas Dynamic Multipathing (DMP)
 
 [NOTE] 
-To make it immediately clear which environment is being used, this document sometimes specifies “DMP” for the Veritas DMP environment and “MPIO” for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
+To make it clear which environment is being used, this document sometimes specifies "DMP" for the Veritas DMP environment and "MPIO" for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
 
 .What you'll need
 
-*	For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
+* For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
 
 You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
 
 .About this task
-The NetApp HP-UX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/[NetApp Support Site^] in a compressed file.
 
-You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. After you have downloaded the file, you must decompress it before installation.
+The NetApp HP-UX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.0/downloads[NetApp Support Site^] in a compressed file. After you have downloaded the file, you must decompress it before installation.
 
 .Steps
 
-.	Login to your host.
-.	Download the HP-UX Host Utilities file `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` from the link:https://mysupport.netapp.com/site/[NetApp Support Site^] to your HP-UX host.
+. Login to your host.
+
+. Download the HP-UX Host Utilities file `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` from the link:https://mysupport.netapp.com/site/[NetApp Support Site^] to your HP-UX host.
 
 . Decompress the `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` file:
 +
@@ -48,7 +48,7 @@ You can download the compressed file containing the Host Utilities software pack
 +
 The system places the extracted software in the directory where you uncompressed the depot file.
 
-.	Install the software:
+. Install the software:
 +
 `# swinstall -s /depot_path`
 +
@@ -56,7 +56,7 @@ The system places the extracted software in the directory where you uncompressed
 +
 The `swinstall` command runs an installation script that verifies the status of your HP-UX setup. If your system meets the requirements, this script installs the `sanlun` utility and diagnostic scripts in the `/opt/NetApp/santools/bin` directory.
 
-.	Verify the installation:
+. Verify the installation:
 +
 `sanlun version`
 
@@ -84,7 +84,4 @@ sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0  fclp0 
 [NOTE]
 This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
-== Command reference
-
-Refer to the link:hu_solaris_62_cmd.html[sample command reference] for end-to-end validation of your storage configuration.
 
