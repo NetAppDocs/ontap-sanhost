@@ -262,7 +262,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l ctrl_loss_timeout_in_seconds
 ----
 +
 [NOTE]
-NetApp recommends setting the `ctrl-loss-tmo` option with an indefinite value (such as -1) so that the NVMe subsystem keeps trying to reconnect in the event of a path loss. 
+NetApp recommends setting the `ctrl-loss-tmo` option with an indefinite value (such as -1) so that an NVMe subsystem continues trying to reconnect in the event of a path loss. 
 
 == Validate NVMe-oF
 
