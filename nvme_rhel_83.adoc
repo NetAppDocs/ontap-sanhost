@@ -14,32 +14,40 @@ summary: How to Configure NVMe/FC Host for RHEL 8.3 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Supportability
+[.lead]
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 8.3 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-NVMe/FC is supported on ONTAP 9.6 or later for RHEL 8.3. The RHEL 8.3 host runs both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations and versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
-
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+For the most current list of supported configurations and versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
 == Known limitations
 
-For RHEL 8.3, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. Steps for doing so are provided in the next section, "Enabling NVMe/FC on RHEL 8.3".
+For RHEL 8.3, in-kernel NVMe multipath is disabled by default. Therefore, you need to enable it manually. 
 
-== Enable NVMe/FC on RHEL 8.3
+== Enable NVMe/FC 
 
-. Install Red Hat Enterprise Linux 8.3 GA on the server.
+You can use the following procedure to enable NVMe/FC.
+
+.Steps
+
+. Install RHEL 8.3 GA on the server.
 +
-If you are upgrading from RHEL 8.2 to RHEL 8.3 using `yum update/upgrade`, your `/etc/nvme/host*` files might be lost. To avoid file loss, do the following:
+[NOTE]
+====
+If you are upgrading from RHEL 8.2 to RHEL 8.3 using the `yum update/upgrade` command, your `/etc/nvme/host*` files might be lost. To avoid file loss, use the following procedure:
+
+.Steps
 
 include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
+====
 
-. After the installation is complete, verify that you're running the specified Red Hat Enterprise Linux kernel.
+. After the installation is complete, verify that you're running the specified RHEL kernel.
 +
 ----
 # uname -r
 4.18.0-240.el8.x86_64
 ----
 +
-See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported versions.
 
 . Install the nvme-cli package.
 +
@@ -54,27 +62,41 @@ nvme-cli-1.12-2.el8.x86_64
 # grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-240.el8.x86_64
 ----
 
-.	On the RHEL 8.3 host, check the host NQN string at /etc/nvme/hostnqn and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
+.	On the RHEL 8.3 host, check the host NQN string at `/etc/nvme/hostnqn`  verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
++
+----
+# cat /etc/nvme/hostnqn
+----
++
+*Example output*:
 +
 ----
 # cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+----
 
-::> vserver nvme subsystem host show -vserver vs_fcnvme_141
-
+. Verify that the `hostnqn` string matches the hostnqn string for the corresponding subsystem on the ONTAP array:
++
+----
+vserver nvme subsystem host show -vserver vs_fcnvme_141
+----
++
+*Example output*
++
+----
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_141
 Vserver         Subsystem        Host           NQN
 -----------     --------------- ----------- ---------------
 vs_fcnvme_141    nvme_141_1                 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ----
 +
-TIP: If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on the corresponding ONTAP array subsystem to match to host NQM string from /etc/nvme/hostnqn on the host.
+TIP: If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on the corresponding ONTAP array subsystem to match to host NQN string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 +
 . Update the `enable_foreign` setting _(optional)_.
 +
-NOTE: If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 co-existent host, we recommend you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below.
+NOTE: If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 co-existent host, NetApp recommend you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below.
 +
 ----
 # cat /etc/multipath.conf
@@ -87,6 +109,10 @@ defaults {
 
 
 ==	Validate NVMe/FC
+
+You can use the following procedure to validate NVMe/FC.
+
+.Steps
 
 .	Verify the following NVMe/FC settings.
 +
@@ -192,8 +218,6 @@ include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part1.adoc[]
 0:12.8.0.1
 ----
 
-include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part2.adoc[]
-
-== LPFC Verbose Logging
+== LPFC verbose logging
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
