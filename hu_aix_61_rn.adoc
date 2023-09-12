@@ -43,7 +43,7 @@ You should be aware of the following known problems and limitations that might i
 |AIX HU Sanlun reports incorrect HBA speed	|Instances of sanlun displaying incorrect HBA speeds are reported while running the `sanlun fcp show adapter –v` command.  The `sanlun fcp show adapter –v` command displays the HBA cards information, such as supported and negotiated speeds for the adapters. This seems to be a reporting issue only. To identify the actual speed, use the `fcstat fcsx` command.
 |===
 
-link:https://mysupport.netapp.com/site/[NetApp Bugs Online] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
+link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
 
 *	FCP General: Displays FC and HBA bugs that are not associated with a specific host.
-*	FCP - AIX
+*	FCP AIX
