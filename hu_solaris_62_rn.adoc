@@ -15,57 +15,23 @@ summary: Release Notes for Solaris Host Utilities 6.2
 :imagesdir: ./media/
 
 [.lead]
-The release notes document contains the latest information for the Solaris Host Utilities 6.2, including updates about known problems, limitations, configuring and managing your ONTAP storage systems.
+The release notes describe new features and enhancements, issues fixed in the current release, known problems and limitations, and important cautions related to configuring and managing your specific Solaris host with your ONTAP storage system..
 
-The release notes document is updated when new information on using the Solaris Host Utilities becomes available.
-
-
-== About the Solaris Host Utilities 6.2 release
-The Solaris Host Utilities 6.2 supports several Solaris environments and multiple protocols.
-
-The primary Host Utilities environments are:
-
-* Native OS with MPxIO with either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
-* Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor and with the iSCSI protocol on system using an x86/64 processor.
-
-
-The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. The ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
-
-
-== Solaris Host Utilities 6.2 enhancements
-
-The Release Notes are updated between product releases as new information is available.
-
-The Solaris Unified Host Utilities 6.2 continues to support the following versions of Solaris:
-
-*	Solaris 11.x series
-*	Solaris 10.x series
+For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=85803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 == Known problems and limitations
-To use the Host Utilities efficiently, you should be aware that performance can be affected by known issues about a particular feature, such as a network, or by features that the Host Utilities do not support, such as a specific version of an operating system.
+You should be aware of the following known problems and limitations that might impact performance on your specific host.
 
 [cols=3,options="header"]
 |===
 |Bug ID	|Title	|Description
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1385189[1385189^]
-|Solaris 11.4 FC driver binding changes required in HUK 6.2	|Solaris 11.4 and HUK recommendations.
-FC driver binding is changed from `ssd(4D)` to `sd(4D)`. Move configuration that you have in `ssd.conf` to `sd.conf` as mentioned in Oracle (Doc ID 2595926.1). The behavior varies across newly installed Solaris 11.4 system and upgraded from 11.3 or lower versions.
+|Solaris 11.4 FC driver binding changes required in HUK 6.2	|Solaris 11.4 and HUK recommendations:
+FC driver binding is changed from `ssd(4D)` to `sd(4D)`. Move configuration that you have in `ssd.conf` to `sd.conf` as mentioned in Oracle (Doc ID 2595926.1). The behavior varies across newly installed Solaris 11.4 systems and systems upgraded from 11.3 or lower versions.
 |===
 
 link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
 
-*	FCP General: Displays FC and HBA bugs that are not associated with a specific host
-*	FCP - Solaris
+*	FCP General: Displays FC and host bus adapter (HBA) bugs that are not associated with a specific host.
+*	FCP Solaris
 
-
-.Related information
-
-*Configuring and managing your ONTAP storage system*
-
-*	The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide^] for your version of ONTAP
-*	The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP SAN Administration Guide^] for your version of ONTAP
-*	The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes^] for your version of ONTAP
-* link:https://imt.netapp.com/matrix/#welcome[NetApp Interoperability Matrix^]
-* link:https://hwu.netapp.com/[Hardware Universe^] (formerly the System Configuration Guide)
-* link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[Supported Fibre Channel SAN topologies^]
-* link:https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61343[Configuring your host for Host Utilities^]
