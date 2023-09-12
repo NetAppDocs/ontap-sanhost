@@ -15,12 +15,12 @@ summary: Describes how to use the Linux Unified Host Utilities 7.1 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-The Solaris Unified Host Utilities assists you to manage NetApp ONTAP storage attached to a Solaris host.
+The Solaris Unified Host Utilities assists you in managing NetApp ONTAP storage attached to a Solaris host.
 
 The Solaris Host Utilities 6.2 supports several Solaris environments and multiple protocols. The primary host utilities environments are: 
 
 * Native OS with MPxIO with either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
-* Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor and with the iSCSI protocol on system using an x86/64 processor.
+* Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor, or the iSCSI protocol on a system using an x86/64 processor.
 
 The Solaris Unified Host Utilities 6.2 continues to support the following versions of Solaris:
 
@@ -29,7 +29,7 @@ The Solaris Unified Host Utilities 6.2 continues to support the following versio
 
 .What you'll need
 
-* For reliable operation, you must verify that your entire iSCSI,FC or FCoE configuration is supported.
+* For reliable operation, verify that your entire iSCSI,FC or FCoE configuration is supported.
 
 You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
@@ -41,7 +41,7 @@ The NetApp Solaris Host Utilities software package is available on the link:http
 
 . Login to your host as root.
 
-. Download a copy of the compressed file containing the Host Utilities from link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your host.
+. Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your host.
 +
 At the time this documentation was prepared, the compressed files were called:
 +
@@ -50,7 +50,7 @@ At the time this documentation was prepared, the compressed files were called:
 
 . Go to the directory containing the download.
 
-. Unzip the file using the gunzip command:
+. Unzip the file using the `gunzip` command:
 +
 `# gunzip netapp_solaris_host_utilities_6_2_sparc.tar.gz`
 
@@ -89,7 +89,7 @@ drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
 -r-xr-xr-x   1 root     sys         9044 Sep 13  2017 sanlun.1
 ----
 
-. After you finish, you must configure the host parameters for your environment using the `/opt/NTAP/SANToolkit/bin/host_config` command:
+. After you finish, configure the host parameters for your environment using the `/opt/NTAP/SANToolkit/bin/host_config` command:
 +
 ** MPxIO
 ** Veritas DMP
@@ -100,7 +100,7 @@ drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
 
 == SAN Toolkit
 
-Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 .Example
 
@@ -119,7 +119,7 @@ data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A09803830443
 ----
 
 [NOTE]
-This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
+This toolkit is common across all Host Utilities configurations and protocols. As a result, some toolkit content might apply to one configuration, but not another. Having unused components does not affect your system performance.
 
 
 
