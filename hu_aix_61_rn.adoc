@@ -21,9 +21,9 @@ For specific information about the operating system versions and updates that th
 
 == What's new
 
-The AIX host utilities 6.1 release contains the following new features and enhancements:
+The AIX Host Utilities 6.1 release contains the following new features and enhancements:
 
-* AIX Host Utilities 6.1 added support for the memory fault issue that occurred in earlier versions of AIX host OS. With AIX Host Utilities 6.1, only the sanlun binary has changed. The MPIO and related ODM remain unchanged.
+* AIX Host Utilities 6.1 added support for the memory fault issue that occurred in earlier versions of the AIX host OS. With AIX Host Utilities 6.1, only the sanlun binary has changed. The MPIO and related ODM remain unchanged.
 
 == Fixed in this release
 
@@ -46,4 +46,4 @@ You should be aware of the following known problems and limitations that might i
 link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
 
 *	FCP General: Displays FC and HBA bugs that are not associated with a specific host.
-*	FCP AIX
+*	FCP - AIX
