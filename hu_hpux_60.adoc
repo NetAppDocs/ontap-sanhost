@@ -17,7 +17,7 @@ summary: Describes how to use the HP-UX Unified Host Utilities 6.0 with ONTAP
 [.lead]
 The HP-UX Host Utilities enable you to connect an HP-UX host to NetApp storage.
 
-The HP-UX Host Utilities supports several HP-UX environments and multiple protocols. Following are the supported environments:
+The HP-UX Host Utilities supports multiple protocols and the following environments:
 
 *	Native MPIO
 *	Veritas Dynamic Multipathing (DMP)
@@ -34,7 +34,7 @@ You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=7110
 
 .About this task
 
-The NetApp HP-UX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.0/downloads[NetApp Support Site^] in a compressed file. After you have downloaded the file, you must decompress it before installation.
+The NetApp HP-UX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.0/downloads[NetApp Support Site^] in a compressed file. After you download the file, you must decompress it before installation.
 
 .Steps
 
@@ -62,7 +62,7 @@ The `swinstall` command runs an installation script that verifies the status of 
 
 == SAN Toolkit
 
-HP-UX Host Utilities is a NetApp host software that provides a command line tool kit on your HP-UX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage the LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+HP-UX Host Utilities is a NetApp host software that provides a command line tool kit on your HP-UX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage the LUNs and host bus adapters. (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 .Example
 
@@ -82,6 +82,6 @@ sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0  fclp0 
 ----
 
 [NOTE]
-This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
+This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
 
 
