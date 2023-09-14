@@ -15,29 +15,17 @@ summary: Release Notes for AIX Host Utilities 6.1
 :imagesdir: ./media/
 
 [.lead]
-The release notes document contains the latest information on the AIX Host Utilities 6.1 release, including updates about known problems, limitations, configuring and managing your ONTAP storage system.
+The release notes describe new features and enhancements, issues fixed in the current release, known problems and limitations, and important cautions related to configuring and managing your specific AIX host with your ONTAP storage system.
 
-The release notes document is updated when new information on using the AIX Host Utilities becomes available.
-
-== About the AIX Host Utilities 6.1 release
-The AIX Host Utilities enable you to connect an AIX host to NetApp storage. The AIX Host Utilities support multiple environments and the FC, FCoE, and iSCSI protocols. The supported environments are AIX MPIO (Native OS) and PowerVM.
-
-[NOTE]
-====
 For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=85803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
-For more information about PowerVM feature, see the IBM PowerVM Live Partition Mobility Red Book.
-====
+== What's new
 
-The Host Utilities software is packaged as a single, compressed file. You can download the compressed file and the documentation from the link:https://mysupport.netapp.com/site/[NetApp Support Site^]. The ONTAP SAN Host Configuration provides instructions for installing and setting up the Host Utilities to work with your environment and protocol.
+The AIX Host Utilities 6.1 release contains the following new features and enhancements:
 
-NOTE: You must enable Dynamic Tracking for all FC and FCoE initiators for clustered Data ONTAP deployments.
+* AIX Host Utilities 6.1 added support for the memory fault issue that occurred in earlier versions of the AIX host OS. With AIX Host Utilities 6.1, only the sanlun binary has changed. The MPIO and related ODM remain unchanged.
 
-== AIX Host Utilities 6.1 enhancements
-
-*	AIX Host Utilities 6.1 added support for the memory fault issue that occurred in earlier versions of AIX host OS. With AIX Host Utilities 6.1, only the sanlun binary has changed. The MPIO and related ODM remain unchanged.
-
-== Fixed Issue
+== Fixed in this release
 
 [cols=3,options="header"]
 |===
@@ -46,7 +34,7 @@ NOTE: You must enable Dynamic Tracking for all FC and FCoE initiators for cluste
 |===
 
 == Known problems and limitations
-To use the Host Utilities efficiently, you should be aware that performance can be affected by known issues about a particular feature, such as a network, or by features that the Host Utilities do not support, such as a specific version of an operating system.
+You should be aware of the following known problems and limitations that might impact performance on your specific host.
 
 [cols=3,options="header"]
 |===
@@ -55,20 +43,7 @@ To use the Host Utilities efficiently, you should be aware that performance can 
 |AIX HU Sanlun reports incorrect HBA speed	|Instances of sanlun displaying incorrect HBA speeds are reported while running the `sanlun fcp show adapter –v` command.  The `sanlun fcp show adapter –v` command displays the HBA cards information, such as supported and negotiated speeds for the adapters. This seems to be a reporting issue only. To identify the actual speed, use the `fcstat fcsx` command.
 |===
 
-link:https://mysupport.netapp.com/site/[NetApp Bugs Online] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
+link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
 
 *	FCP General: Displays FC and HBA bugs that are not associated with a specific host.
 *	FCP - AIX
-
-
-.Related information
-
-*Configuring and managing your ONTAP storage system*
-
-*	The link:https://docs.netapp.com/us-en/ontap/setup-upgrade/index.html[ONTAP Software Setup Guide^] for your version of ONTAP
-*	The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP San Administration Guide^] for your version of ONTAP
-*	The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes^] for your version of ONTAP
-* link:https://imt.netapp.com/matrix/#welcome[NetApp Interoperability Matrix^]
-* link:https://hwu.netapp.com/[Hardware Universe^] (formerly the System Configuration Guide)
-* link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[Supported Fibre Channel SAN topologies^]
-* link:https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61343[Configuring your host for Host Utilities^]
