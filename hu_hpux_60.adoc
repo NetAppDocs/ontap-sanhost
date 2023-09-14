@@ -23,11 +23,11 @@ The HP-UX Host Utilities supports several HP-UX environments and multiple protoc
 *	Veritas Dynamic Multipathing (DMP)
 
 [NOTE] 
-To make it clear which environment is being used, this document sometimes specifies "DMP" for the Veritas DMP environment and "MPIO" for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
+To indicate which environment is being used, this document sometimes specifies "DMP" for the Veritas DMP environment and "MPIO" for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
 
 .What you'll need
 
-* For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
+* For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
 
 You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
@@ -38,7 +38,7 @@ The NetApp HP-UX Host Utilities software package is available on the link:https:
 
 .Steps
 
-. Login to your host.
+. Log in to your host.
 
 . Download the HP-UX Host Utilities file `netapp_hpux_host_utilities_6.0_ia_pa.depot.gz` from the link:https://mysupport.netapp.com/site/[NetApp Support Site^] to your HP-UX host.
 
