@@ -17,13 +17,13 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 [.lead]
 The AIX Unified Host Utilities assists you to manage NetApp ONTAP storage attached to an AIX host.
 
-The following protocols are supported:
+AIX Host Utilities support the following protocols:
 
 * FC
 * FCoE
 * iSCSI
 
-The following are the supported environments:
+AIX Host Utilities support the following environments:
 
 * AIX MPIO (Native OS)
 * PowerVM 
@@ -32,7 +32,7 @@ For more information about PowerVM, see the IBM PowerVM Live Partition Mobility 
 
 .What you'll need
 
-* For reliable operation, you must verify that your entire iSCSI, FC, or FCoE configuration is supported.
+* For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
 +
 You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
 
@@ -76,7 +76,7 @@ The following directory is created when you decompress the file: `ntap_aix_host_
 
 == SAN Toolkit
 
-AIX Host Utilities is a NetApp host software that provides a command line toolkit on your IBM AIX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+AIX Host Utilities is a NetApp host software that provides a command line toolkit on your IBM AIX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 *Example*
 
@@ -98,5 +98,5 @@ data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
 ----
 
 [NOTE] 
-This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions.
+This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions.
 
