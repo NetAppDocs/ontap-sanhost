@@ -554,7 +554,7 @@ In the following example, a random `dhchap` key with HMAC set to 3 (SHA-512) is 
 +
 ----
 # nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:d3ca725a- ac8d-4d88-b46a-174ac235139b
-DHHC-1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh 3nVBe19nQ/LxreSBeH/bx/pU=:
+DHHC-1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh3nVBe19nQ/LxreSBeH/bx/pU=:
 ----
 
 . On the ONTAP controller, add the host and specify both `dhchap` keys:
@@ -585,12 +585,6 @@ DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFS
 DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
 DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
 DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
-SR650-14-114:~ # cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_ctrl_secret
-none
-none
-none
-none
-SR650-14-114:~ #
 ----
 +
 *Verify the controller dhchap keys*
@@ -607,13 +601,6 @@ DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsE
 DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
 DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
 DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
-
-SR650-14-114:~ # cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_secret
-DHHC-1:03:ge5YncJ9V2u/qMyQPS1YjKSTtB7bmxAnnBZjR6KibBBrQaJqe+bBMkL6bubbPWwnzySxWkyHq3cuF5YusaTI5/mCIw8=:
-DHHC-1:03:ge5YncJ9V2u/qMyQPS1YjKSTtB7bmxAnnBZjR6KibBBrQaJqe+bBMkL6bubbPWwnzySxWkyHq3cuF5YusaTI5/mCIw8=:
-DHHC-1:03:ge5YncJ9V2u/qMyQPS1YjKSTtB7bmxAnnBZjR6KibBBrQaJqe+bBMkL6bubbPWwnzySxWkyHq3cuF5YusaTI5/mCIw8=:
-DHHC-1:03:ge5YncJ9V2u/qMyQPS1YjKSTtB7bmxAnnBZjR6KibBBrQaJqe+bBMkL6bubbPWwnzySxWkyHq3cuF5YusaTI5/mCIw8=:
-SR650-14-114:~ #
 ----
 
 --
@@ -730,14 +717,7 @@ DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAt
 
 == Known issues 
 
-The NVMe-oF host configuration for SLES 15 SP4 with ONTAP has the following known issues:
-
-[cols="10,30,10",options="header"]
-|===
-|NetApp Bug ID	|Title	|Description
-|1490498	| Host is non-operational at `crypto_ahash_digest()` during NVMe reauthentication |During NVMe in-band re-authentication on SUSE Linux Enterprise Server (SLES) 15 SP4 hosts, a host crash frequently occurs at the crypto_ahash_digest() REST API.
-|1496739	| Host cannot disconnect after sending `auth_failure2` during re-authentication |None	
-|===
+There are no known issues. 
 
 //BURT 1529116 30 Jan 2023
 //JIRA 1164 31 Aug 2023
