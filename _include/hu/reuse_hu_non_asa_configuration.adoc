@@ -1,4 +1,4 @@
-=== Non-ASA configuration
+=== Non-ASA configurations
 
 For non-ASA configurations, there should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when no optimized paths are available.
 
