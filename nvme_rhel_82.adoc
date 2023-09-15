@@ -14,7 +14,7 @@ summary: How to Configure NVMe/FC Host for RHEL 8.2 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Supportability
+[.lead]
 
 NVMe/FC is supported on ONTAP 9.6 or later for RHEL 8.2. The RHEL 8.2 host runs both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations and versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
@@ -109,6 +109,5 @@ include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part2.adoc[]
 
 include::_include/nvme/reuse_validating_nvme_fc_rhel.adoc[]
 
-== LPFC Verbose Logging
 
-include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+

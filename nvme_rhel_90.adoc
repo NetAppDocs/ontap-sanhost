@@ -5,7 +5,7 @@ keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.0 with ONTAP
 ---
 
-= NVMe-oF Host Configuration for RHEL 9.0 with ONTAP
+= NVMe-oF host configuration for RHEL 9.0 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -22,6 +22,7 @@ NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with RHEL 9.0 with Asymmet
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for exact details regarding supported configurations.
 
 == Features
+
 * Starting RHEL 9.0, NVMe/TCP is no longer a technology preview feature (unlike RHEL 8) but a fully supported enterprise feature itself.
 * Starting RHEL 9.0, in-kernel NVMe multipath is enabled for NVMe namespaces by default, without the need for explicit settings (unlike RHEL 8).
 
