@@ -155,17 +155,30 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 
 .	Verify the NetApp plug-in for ONTAP devices.
 +
+[role="tabbed-block"]
+====
+.Column
+--
 ----
 # nvme netapp ontapdevices -o column
+----
+*Example output*
+
+----
 Device               Vserver            Namespace Path                           NSID                      UUID                     Size
 --------------- --------------- ---------------------------------------------  -------- --------------------------------------  ---------
 /dev/nvme0n1      vs_fcnvme_141     /vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns        1      72b887b1-5fb6-47b8-be0b-33326e2542e2    85.90GB
 /dev/nvme0n2      vs_fcnvme_141     /vol/fcnvme_141_vol_1_0_0/fcnvme_141_ns        2      04bf9f6e-9031-40ea-99c7-a1a61b2d7d08    85.90GB
 /dev/nvme0n3      vs_fcnvme_141     /vol/fcnvme_141_vol_1_1_1/fcnvme_141_ns        3      264823b1-8e03-4155-80dd-e904237014a4    85.90GB
 ----
-+
+--
+.JSON
+--
 ----
 # nvme netapp ontapdevices -o json
+----
+*Example output*
+----
 {
 "ONTAPdevices" : [
     {
@@ -200,6 +213,8 @@ Device               Vserver            Namespace Path                          
        },
   ]
 ----
+--
+====
 
 == Configure the Broadcom FC adapter for NVMe/FC
 

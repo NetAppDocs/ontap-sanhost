@@ -22,9 +22,13 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Known limitations
 
-For RHEL 8.2, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. Steps for doing so are provided in the next section, "Enabling NVMe/FC on RHEL 8.2".
+For RHEL 8.2, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. 
 
-== Enable NVMe/FC on RHEL 8.2
+== Enable NVMe/FC 
+
+You can use the following procedure to enable NVMe/FC.
+
+.Steps
 
 . Install Red Hat Enterprise Linux 8.2 GA on the server.
 +
@@ -39,7 +43,7 @@ include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
 4.18.0-193.el8.x86_64
 ----
 +
-See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported versions.
 
 . Install the nvme-cli package.
 +

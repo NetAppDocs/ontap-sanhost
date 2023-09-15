@@ -5,7 +5,7 @@ keywords: nvme, linux, rhel, red hat, enterprise
 summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 ---
 
-= NVMe/FC Host Configuration for RHEL 8.1 with ONTAP
+= NVMe/FC host configuration for RHEL 8.1 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -27,11 +27,13 @@ For the most current list of supported configurations see the link:https://mysup
 ==	Known limitations
 
 * Native NVMe/FC auto-connect scripts are not available in the nvme-cli package.
-You can use the HBA vendor provided external auto-connect script.
+You can use the HBA vendor-provided external auto-connect script.
+
 *	By default, NVMe multipath is disabled.
 It must be manually enabled. Steps are provided in the section on Enabling NVMe/FC on RHEL 8.1.
+
 *	By default, round-robin load balancing is not enabled.
-You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on RHEL 8.1.
+You must write a `udev` rule to enable this functionality. 
 
 ==	Enable NVMe/FC 
 
@@ -63,14 +65,14 @@ nvme-cli-1.8.1-3.el8.x86_64
 # grubby –args=nvme_core.multipath=Y –update-kernel /boot/vmlinuz-4.18.0-147.el8.x86_64
 ----
 
-. Add the string below as a separate udev rule at /lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules. This enables round-robin load balancing for NVMe multipath.
+. Add the following string as a separate udev rule at `/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules`. This enables round-robin load balancing for NVMe multipath.
 +
 ----
 # Enable round-robin for NetApp ONTAP
 ACTION==”add”, SUBSYSTEM==”nvme-subsystem”, ATTR{model}==”NetApp ONTAP Controller”, ATTR{iopolicy}=”round-robin
 ----
 
-. On the RHEL 8.1 host, check the host NQN string at /etc/nvme/hostnqn and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
+. On the RHEL 8.1 host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -90,7 +92,7 @@ If the host NQN strings do not match, use the vserver modify command to update t
 
 . Reboot the host.
 
-==	Configure the Broadcom FC Adapter for NVMe/FC
+==	Configure the Broadcom FC adapter for NVMe/FC
 
 . Verify that you are using the supported adapter. For the most current list of supported adapters see the NetApp Interoperability Matrix.
 +
@@ -170,12 +172,13 @@ NVME Statistics
 …
 ----
 
+==	Enable 1MB I/O Size for Broadcom NVMe/FC
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
 ==	Validate NVMe/FC
 
 include::_include/nvme/reuse_validating_nvme_fc_rhel.adoc[]
 
-==	Enable 1MB I/O Size for Broadcom NVMe/FC
-
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
