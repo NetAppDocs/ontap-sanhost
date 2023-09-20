@@ -26,7 +26,8 @@ For the most current list of supported configurations see the link:https://mysup
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
-==	Known limitations
+== Known limitations
+
 *	Native NVMe/FC auto-connect scripts are not available in the nvme-cli package.
 You can use the HBA vendor provided external auto-connect scripts.
 
