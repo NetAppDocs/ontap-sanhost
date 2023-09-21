@@ -15,9 +15,13 @@ summary: How to Configure NVMe/FC Host for RHEL 8.3 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 8.3 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe/FC is supported on ONTAP 9.6 or later for Red Hat Enterprise Linux (RHEL) 8.3. The RHEL 8.3 host runs both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 
 For the most current list of supported configurations and versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+
+== Features
+
+No new features have been added in this release.
 
 == Known limitations
 
@@ -217,6 +221,8 @@ Device               Vserver            Namespace Path                          
 ====
 
 == Configure the Broadcom FC adapter for NVMe/FC
+
+You can use the following procedure to configure a Broadcom FC adapter.
 
 include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part1.adoc[]
 

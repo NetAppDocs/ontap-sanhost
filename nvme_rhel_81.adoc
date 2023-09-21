@@ -15,25 +15,17 @@ summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
+NVMe/FC is supported on ONTAP 9.6 or later for Red Hat Enterprise Linux (RHEL) 8.1. A RHEL 8.1 host can run both NVMe and SCSI traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 
-NVMe/FC is supported on ONTAP 9.6 or later for the following versions of RHEL:
-
-*	RHEL 8.1
-
-RHEL 8.1 host can run both NVMe & SCSI traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
-
-For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+For the most current list of supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 ==	Known limitations
 
-* Native NVMe/FC auto-connect scripts are not available in the nvme-cli package.
-You can use the HBA vendor-provided external auto-connect script.
+* Native NVMe/FC auto-connect scripts are not available in the `nvme-cli` package. You can use the host bus adapter (HBA) vendor-provided external auto-connect script.
 
-*	By default, NVMe multipath is disabled.
-It must be manually enabled. Steps are provided in the section on Enabling NVMe/FC on RHEL 8.1.
+* NVMe multipath is disabled by default. Enable it manually. 
 
-*	By default, round-robin load balancing is not enabled.
-You must write a `udev` rule to enable this functionality. 
+* By default, round-robin load balancing is not enabled. You must write a `udev` rule to enable this functionality. 
 
 ==	Enable NVMe/FC 
 
@@ -88,13 +80,15 @@ nqn.2014-08.org.nvmexpress:uuid:75953f3b-77fe-4e03-bf3c-09d5a156fbcd
 ----
 +
 [NOTE] 
-If the host NQN strings do not match, use the vserver modify command to update the host NQN string on your corresponding ONTAP array subsystem to match to host NQN string from /etc/nvme/hostnqn on the host.
+If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on your corresponding ONTAP array subsystem to match with the host NQN string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 
 ==	Configure the Broadcom FC adapter for NVMe/FC
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters see the NetApp Interoperability Matrix.
+You can use the following procedure to configure a Broadcom FC adapter.
+
+. Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -116,11 +110,11 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 # ./elx_lpfc_install-sh -i -n
 ----
 +
-NOTE: The native drivers that come bundled with the OS are called inbox drivers. If you download the outbox drivers (drivers that are not included with the OS release), an auto-connect script is included in the download and should be installed as part of the driver installation process.
+NOTE: The native drivers that are bundled with the OS are called the inbox drivers. If you download the outbox drivers (drivers that are not included with an OS release), an auto-connect script is included in the download and should be installed as part of the driver installation process.
 
 . Reboot the host.
 
-. Verify that you are using the recommended Broadcom lpfc firmware, outbox driver & auto-connect package versions.
+. Verify that you are using the recommended Broadcom lpfc firmware, outbox driver, and auto-connect package versions.
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -138,7 +132,7 @@ NOTE: The native drivers that come bundled with the OS are called inbox drivers.
 nvmefc-connect-12.6.61.0-1.noarch
 ----
 
-. Verify that lpfc_enable_fc4_type is set to 3.
+. Verify that `lpfc_enable_fc4_type` is set to 3.
 +
 ----
 # cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
@@ -159,7 +153,7 @@ Online
 Online
 ----
 
-. Verify that the NVMe/FC initiator ports are enabled, running and able to see the target LIFs.
+. Verify that the NVMe/FC initiator ports are enabled, running, and you can see the target LIFs.
 +
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
@@ -172,7 +166,7 @@ NVME Statistics
 …
 ----
 
-==	Enable 1MB I/O Size for Broadcom NVMe/FC
+==	Enable 1MB I/O size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 

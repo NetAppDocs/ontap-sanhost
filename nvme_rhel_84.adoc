@@ -19,33 +19,22 @@ summary: How to Configure NVMe-oF Host for RHEL 8.4 with ONTAP
 
 NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with RHEL 8.4 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.4 and ONTAP as the target has been documented here.
 
-
 == Features
 
-*	Starting RHEL 8.2, `nvme-fc auto-connect` scripts are included in the native `nvme-cli` package. You can rely on these native auto-connect scripts instead of having to install the external vendor provided outbox auto-connect scripts.
-
-*	Starting RHEL 8.2, a native `udev` rule is already provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. You need not manually create this rule any more (as was done in RHEL 8.1).
-
-*	Starting RHEL 8.2, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath may be used to configure NVMe-oF multipath devices on the host.
-
-*	Starting RHEL 8.2, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well for ONTAP namespaces.
-
+No new features have been added in this release.
 
 == Known limitations
 
-* For RHEL 8.4, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
+* For RHEL 8.4, in-kernel NVMe multipath is disabled by default. Therefore, you need to enable it manually.
 
 * NVMe/TCP on RHEL 8.4 remains a Technology Preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.4_release_notes/index#technology-preview_file-systems-and-storage[RHEL 8.4 Release Notes^] for details.
 
 
-== Configuration requirements
+== Enable in-kernel NVMe multipath
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
+You can use the following procedure to enable in-kernel NVMe multipath.
 
-
-== Enable in-kernel NVMe Multipath
-
-.	Install RHEL 8.4 GA on the server. After the installation is complete, verify that you are running the specified RHEL 8.4 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.	Install RHEL 8.4 GA on the server. 
 
 .	After the installation is complete, verify that you are running the specified RHEL 8.4 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
@@ -101,10 +90,8 @@ defaults {
 }
 ----
 
+Restart the multipathd daemon by running a `systemctl restart multipathd` command to allow the new setting to take effect.
 ====
-+
-. Restart the multipathd daemon by running a `systemctl restart multipathd` command to allow the new setting to take effect.
-
 
 == Configure NVMe/FC
 
