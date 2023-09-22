@@ -14,7 +14,7 @@ summary: How to Configure NVMe/FC Host for RHEL 8.3 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Supportability
+[.lead]
 
 NVMe/FC is supported on ONTAP 9.6 or later for RHEL 8.3. The RHEL 8.3 host runs both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations and versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
@@ -22,7 +22,9 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Known limitations
 
-For RHEL 8.3, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. Steps for doing so are provided in the next section, "Enabling NVMe/FC on RHEL 8.3".
+* For RHEL 8.3, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually. 
+
+* SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Enable NVMe/FC on RHEL 8.3
 
@@ -197,3 +199,6 @@ include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part2.adoc[]
 == LPFC Verbose Logging
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+
+
+// JIRA-1289 20-Sep-2023

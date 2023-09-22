@@ -34,7 +34,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Known limitations
 
-There are no known limitations.
+SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Configuration requirements
 
@@ -375,3 +375,5 @@ The NVMe-oF host configuration for OL 8.4 with ONTAP has the following known iss
 |===
 
 
+
+// JIRA-1289 20-Sep-2023

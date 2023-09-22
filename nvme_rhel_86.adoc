@@ -15,7 +15,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.6 with ONTAP
 :imagesdir: ./media/
 :source-highlighter: highlighter.js
 
-== Supportability
+[.lead]
 
 NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with RHEL 8.6 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.6 and ONTAP as the target has been documented here.
 
@@ -31,6 +31,8 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 * For RHEL 8.6, in-kernel NVMe multipath remains disabled by default. Therefore, you need to enable it manually.
 
 * NVMe/TCP on RHEL 8.6 remains a Technology Preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.6_release_notes/index#technology-preview_file-systems-and-storage[RHEL 8.6 Release Notes^] for details.
+
+* SAN booting using the NVMe-oF protocol is currently not supported.
 
 
 == Configuration requirements
@@ -379,3 +381,5 @@ The NVMe-oF host configuration for RHEL 8.6 with ONTAP has the following known i
 
 
 // 2022,08-03, Jira IEOPS-690
+
+// JIRA-1289 20-Sep-2023

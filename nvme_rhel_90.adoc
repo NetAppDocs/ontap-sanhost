@@ -28,7 +28,7 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 ==  Known limitations
 
-There are no known limitations.
+SAN booting using the NVMe-oF protocol is currently not supported.
 
 
 == Enable in-kernel NVMe Multipath
@@ -402,3 +402,4 @@ The NVMe-oF host configuration for RHEL 9.0 with ONTAP has the following known i
 |===
 
 
+// JIRA-1289 20-Sep-2023
