@@ -14,7 +14,7 @@ summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
-== Supportability
+[.lead]
 
 NVMe/FC is supported on ONTAP 9.6 or later for the following versions of RHEL:
 
@@ -32,7 +32,9 @@ You can use the HBA vendor provided external auto-connect script.
 *	By default, NVMe multipath is disabled.
 It must be manually enabled. Steps are provided in the section on Enabling NVMe/FC on RHEL 8.1.
 *	By default, round-robin load balancing is not enabled.
-You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on RHEL 8.1.
+You must write a udev rule to enable this functionality. 
+
+* SAN booting using the NVMe-oF protocol is currently not supported.
 
 ==	Enable NVMe/FC on RHEL 8.1
 
@@ -175,3 +177,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 ==	LPFC Verbose Logging
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+
+
+
+// JIRA-1289 20-Sep-2023

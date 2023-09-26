@@ -26,12 +26,15 @@ For the most current list of supported configurations see the link:https://mysup
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
-==	Known limitations
+== Known limitations
+
 *	Native NVMe/FC auto-connect scripts are not available in the nvme-cli package.
 You can use the HBA vendor provided external auto-connect scripts.
 
 *	By default, round-robin load balancing is not enabled.
 You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on OL 7.7.
+
+* SAN booting using the NVMe-oF protocol is currently not supported.
 
 ==	Enabling NVMe on OL 7.7
 
@@ -218,3 +221,6 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 ==	LPFC verbose logging
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+
+
+// JIRA-1289 20-Sep-2023

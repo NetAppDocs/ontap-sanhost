@@ -28,6 +28,8 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * There is no sanlun support for NVMe/FC and, as a consequence, no Linux Unified Host Utilities (LUHU) support for NVMe/FC on Oracle Linux 7.9. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
 
+* SAN booting using the NVMe-oF protocol is currently not supported.
+
 == Enable NVMe/FC
 
 . Install Oracle Linux 7.9 on the server.
@@ -208,3 +210,6 @@ Device   Vserver  Namespace Path             NSID   UUID   Size
 == Enable 1MB I/O size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
+
+// JIRA-1289 20-Sep-2023
