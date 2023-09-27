@@ -85,11 +85,11 @@ If you decide to use SAN booting, it must be supported by your configuration. Yo
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
 
-You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running the Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See https://docs.netapp.com/us-en/ontap-sanhost/hu_solaris_62.html[Install Solaris Host Utilities] for details on SAN Booting LUNs in a Solaris MPIO environment.
+You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running the Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on SAN booting LUNs in a Solaris MPIO environment.
 
 == Multipathing
 
-Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing (MPxIO) is enabled by default for Solaris 11.4. The default setting in `/kernel/drv/fp.conf` changes to mpxio-disable="no".
+Multipathing enables you to configure multiple network paths between the host and storage systems. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing (MPxIO) is enabled by default for Solaris 11.4. The default setting in `/kernel/drv/fp.conf` changes to mpxio-disable="no".
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
@@ -117,7 +117,7 @@ NOTE: All SAN Arrays (ASA) configurations are supported beginning ONTAP 9.8 for 
 
 == Recommended settings
 
-NetApp recommends using the following parameter settings for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities. For additional settings for Solaris 11.4 systems, see Oracle DOC ID: 2595926.1.
+NetApp recommends using the following parameter settings for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities. For additional settings for Solaris 11.4 systems, see the Oracle DOC ID: 2595926.1.
 
 [cols=2*, options="header"]
 |===
@@ -144,7 +144,7 @@ All Solaris OS versions (including Solaris 10.x and Solaris 11.x) support Solari
 ** /kernel/drv/ssd.conf
 ** /etc/driver/drv/scsi_vhci.conf
 
-* For solaris 10.x, the following configuration files get updated during the HUK 6.2 installation process:
+* For Solaris 10.x, the following configuration files get updated during the HUK 6.2 installation process:
 
 ** /kernel/drv/sd.conf
 ** /kernel/drv/ssd.conf
@@ -156,9 +156,9 @@ NetApp recommends the following for a successful 4KB aligned I/O for zpools usin
 
 * Make sure you are running a sufficiently current Solaris OS to ensure that all Solaris features supporting 4KB I/O size alignment are in place. Verify whether the Solaris 10 update 11 is installed with latest kernel patches and Solaris 11.4 with the latest SRU.
 
-* The NetApp logical unit/volume must be of lun/host-type "Solaris" regardless of the LUN size. 
+* The NetApp logical unit/volume must be of lun/host-type `Solaris` regardless of the LUN size. 
 
-See the Knowledge Base article link:https://kb.netapp.com/onprem/ontap/da/SAN/What_are_the_Solaris_Host_recommendations_for_Supporting_HUK_6.2[What are the Solaris host recommendations for supporting HUK 6.2^].
+See the Knowledge Base article link:https://kb.netapp.com/onprem/ontap/da/SAN/What_are_the_Solaris_Host_recommendations_for_Supporting_HUK_6.2[What are the Solaris host recommendations for supporting HUK 6.2^] for more information.
 
 === Recommended settings for MetroCluster
 
