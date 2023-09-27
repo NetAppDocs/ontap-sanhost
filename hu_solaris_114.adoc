@@ -14,16 +14,18 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Solaris 11.4 with ONTAP as the target. 
 
 == Install the Solaris Host Utilities
 
-You can download the compressed file containing the Host Utilities software packages from the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^]. After you have the file, you must decompress it to get the software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^]. After you download the file, you must decompress it to get the software packages you need to install the Host Utilities.
 
 .Steps
 
-.	Download a copy of the compressed file containing the Host Utilities from the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your host.
+. Download a copy of the compressed file containing the Host Utilities from the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your host.
 
-.	 Go to the directory containing the download.
+. Go to the directory containing the download.
 
 . Decompress the file.
 +
@@ -49,13 +51,12 @@ The `host_config` command has the following format:
 +
 The `host_config` command does the following:
 
-*	Changes the Fibre Channel and SCSI driver settings for the X86 and SPARC systems
-*	Provides SCSI timeout settings for both the MPxIO configurations
-*	Sets the VID/PID information
-*	Enables or disables ALUA
-*	Configures the ALUA settings used by MPxIO and the SCSI drivers for both X86 and SPARC systems.
+* Changes the FC and SCSI driver settings for the X86 and SPARC systems
+* Provides SCSI timeout settings for both the MPxIO configurations
+* Sets the VID/PID information
+* Enables or disables ALUA
+* Configures the ALUA settings used by MPxIO and the SCSI drivers for both X86 and SPARC systems.
 +
-
 . Reboot the host.
 
 
@@ -112,11 +113,11 @@ The path priorities are displayed against the *Access State* section for each LU
               Multipath Policy: Native
 ----
 
-NOTE: All SAN Arrays (ASA) configurations are supported beginning ONTAP 9.8 for Solaris Hosts.
+NOTE: All SAN Arrays (ASA) configurations are supported beginning ONTAP 9.8 for Solaris hosts.
 
 == Recommended settings
 
-Following are some parameter settings that are recommended for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities. For additional settings for Solaris 11.4 systems, see Oracle DOC ID: 2595926.1
+NetApp recommends using the following parameter settings for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities. For additional settings for Solaris 11.4 systems, see Oracle DOC ID: 2595926.1.
 
 [cols=2*, options="header"]
 |===
@@ -131,18 +132,46 @@ Following are some parameter settings that are recommended for Solaris 11.4 SPAR
 | physical_block_size  | 4096
 |===
 
+All Solaris OS versions (including Solaris 10.x and Solaris 11.x) support Solaris HUK 6.2. 
+
+* For Solaris 11.4, the FC driver binding is changed from `ssd` to `sd`. The following configuration files get partially updated during the HUK 6.2 installation process:
+
+** /kernel/drv/sd.conf
+** /etc/driver/drv/scsi_vhci.conf
+
+* For Solaris 11.3, the FC driver binding uses `ssd`. The following configuration files get partially updated during the HUK 6.2 installation process:
+
+** /kernel/drv/ssd.conf
+** /etc/driver/drv/scsi_vhci.conf
+
+* For solaris 10.x, the following configuration files get updated during the HUK 6.2 installation process:
+
+** /kernel/drv/sd.conf
+** /kernel/drv/ssd.conf
+** /kernel/drv/scsi_vhci.conf
+
+To resolve any configuration issues, see the Knowledge Base article link:https://kb.netapp.com/onprem/ontap/da/SAN/What_are_the_Solaris_Host_recommendations_for_Supporting_HUK_6.2[What are the Solaris host recommendations for supporting HUK 6.2^]. 
+
+NetApp recommends the following for a successful 4KB aligned I/O for zpools using NetApp LUNs:
+
+* Make sure you are running a sufficiently current Solaris OS to ensure that all Solaris features supporting 4KB I/O size alignment are in place. Verify whether the Solaris 10 update 11 is installed with latest kernel patches and Solaris 11.4 with the latest SRU.
+
+* The NetApp logical unit/volume must be of lun/host-type "Solaris" regardless of the LUN size. 
+
+See the Knowledge Base article link:https://kb.netapp.com/onprem/ontap/da/SAN/What_are_the_Solaris_Host_recommendations_for_Supporting_HUK_6.2[What are the Solaris host recommendations for supporting HUK 6.2^].
+
 === Recommended settings for MetroCluster
 
-By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For addition information and recommended changes to default settings, see Knowledge Base article https://kb.netapp.com/onprem/ontap/metrocluster/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
+By default, the Solaris operating system will fail I/Os after 20 seconds if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned failovers. For addition information and recommended changes to default settings, see the Knowledge Base article https://kb.netapp.com/onprem/ontap/metrocluster/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
 
 == Oracle Solaris Virtualization
 
-*	Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies have been rebranded generally as "Oracle Virtual Machines" despite the fact that they are based on different architectures.
+* Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies have been rebranded generally as "Oracle Virtual Machines" despite the fact that they are based on different architectures.
 
-*	In some cases, multiple options can be used together such as a Solaris Container within a particular Solaris Logical Domain.
+* In some cases, multiple options can be used together such as a Solaris Container within a particular Solaris Logical Domain.
 
-*	NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^] in a supported configuration. This includes root containers, LDOM IO domains, and LDOM's using NPIV to access LUNs.
-*	Partitions and/or virtual machines which use only virtualized storage resources, such as a vdsk, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^].
+* NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^] in a supported configuration. This includes root containers, LDOM IO domains, and LDOM's using NPIV to access LUNs.
+* Partitions and/or virtual machines which use only virtualized storage resources, such as a vdsk, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition/VM that has direct access to the underlying LUN, such as an LDOM IO domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^].
 
 === Recommended settings for Virtualization
 
@@ -160,6 +189,8 @@ If the value of *ashift* is not 12, verify that the correct patch was installed 
 Do not proceed until *ashift* shows a value of 12.
 
 NOTE: Patches are available for Oracle bug 15824910 on various versions of Solaris. Contact Oracle if assistance is required in determining the best kernel patch.
+
+
 
 == Recommended settings for SnapMirror Business Continuity
 
@@ -189,7 +220,7 @@ svl_fops_name = 0xa00298d69e0 "conf f_tpgs"
 NOTE: After `scsi-vhci-failover-override` has been applied, `conf` is added to `svl_fops_name` .
 For additional information and recommended changes to default settings, refer to the NetApp KB article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SM-BC)_configuration[Solaris Host support recommended settings in SnapMirror Business Continuity (SM-BC) configuration^].
 
-== Known problems and limitations
+== Known issues
 
 [cols=4*, options="header"]
 |===
