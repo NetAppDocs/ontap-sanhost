@@ -17,7 +17,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 
    
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP4 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath.
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP4 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -32,7 +32,7 @@ SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
+You can configure NVMe/FC for Broadcom/Emulex FC adapters or Marvell/Qlogic FC adapters.
 
 [role="tabbed-block"]
 ====
@@ -189,6 +189,40 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 === Enable 1MB I/O size (Optional)
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
+== Enable NVMe serrvices
+
+Of the two NVMe/FC boot services included in the nvme-cli, only nvmefc-boot-connections.service is enabled to start at boot, but not nvmf-autoconnect.service. So manually enable nvmf-autoconnect.service to start at boot by running:
+
+# systemctl enable nvmf-autoconnect.service
+Created symlink /etc/systemd/system/default.target.wants/nvmf-autoconnect.service → /usr/lib/systemd/system/nvmf-autoconnect.service.
+
+Next reboot the host. And verify that nvmf-autoconnect.service (along with nvmefc-boot-connections.service) are running after bootup. For example,
+
+----
+# systemctl status nvmf-autoconnect.service
+   nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
+     Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service; enabled; vendor preset: disabled)
+     Active: inactive (dead) since Thu 2023-05-25 14:55:00 IST; 11min ago
+    Process: 2108 ExecStartPre=/sbin/modprobe nvme-fabrics (code=exited, status=0/SUCCESS)
+    Process: 2114 ExecStart=/usr/sbin/nvme connect-all (code=exited, status=0/SUCCESS)
+   Main PID: 2114 (code=exited, status=0/SUCCESS)
+
+   systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot...
+   nvme[2114]: traddr=nn-0x201700a098fd4ca6:pn-0x201800a098fd4ca6 is already connected
+   systemd[1]: nvmf-autoconnect.service: Deactivated successfully.
+   systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
+
+# systemctl status nvmefc-boot-connections.service
+nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
+   Loaded: loaded (/usr/lib/systemd/system/nvmefc-boot-connections.service; enabled; vendor preset: enabled)
+   Active: inactive (dead) since Thu 2023-05-25 14:55:00 IST; 11min ago
+ Main PID: 1647 (code=exited, status=0/SUCCESS)
+
+systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot...
+systemd[1]: nvmefc-boot-connections.service: Succeeded.
+systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
+----
 
 == Configure NVMe/TCP
 
