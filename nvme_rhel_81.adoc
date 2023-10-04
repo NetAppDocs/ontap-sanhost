@@ -17,7 +17,7 @@ summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 [.lead]
 NVMe/FC is supported on ONTAP 9.6 or later for Red Hat Enterprise Linux (RHEL) 8.1. A RHEL 8.1 host can run both NVMe and SCSI traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 
-For the most current list of supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations.
 
 ==	Known limitations
 
@@ -90,7 +90,8 @@ If the host NQN strings do not match, use the `vserver modify` command to update
 
 You can use the following procedure to configure a Broadcom FC adapter.
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported adapters.
+
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
