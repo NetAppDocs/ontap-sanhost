@@ -32,6 +32,8 @@ See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix
 
 * NVMe/TCP on RHEL 8.5 remains a Technology Preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.5_release_notes/index#technology-preview_file-systems-and-storage[RHEL 8.5 Release Notes^] for details.
 
+* SAN booting using the NVMe-oF protocol is currently not supported.
+
 
 == Enable in-kernel NVMe Multipath
 
@@ -366,3 +368,5 @@ There are no known issues.
 
 
 // Jira EOPS-730, 2022-08-12
+
+// JIRA-1289 20-Sep-2023

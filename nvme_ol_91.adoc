@@ -31,7 +31,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Known limitations
 
-There are no known limitations.
+SAN booting using the NVMe-oF protocol is currently not supported.
  
 == Validate software versions
 
@@ -491,3 +491,5 @@ The NVMe-oF host configuration for OL 9.1 with ONTAP release has the following k
 |link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18196[18196^]
 |===
 
+
+// JIRA-1289 20-Sep-2023

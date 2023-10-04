@@ -31,6 +31,12 @@ See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix
 
 * NVMe/TCP on RHEL 8.6 remains a Technology Preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.6_release_notes/index#technology-preview_file-systems-and-storage[RHEL 8.6 Release Notes^] for details.
 
+* SAN booting using the NVMe-oF protocol is currently not supported.
+
+
+
+
+
 == Enable in-kernel NVMe Multipath
 
 .	Install RHEL 8.6 on the server. After the installation is complete, verify that you are running the specified RHEL 8.6 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
@@ -367,3 +373,5 @@ The NVMe-oF host configuration for RHEL 8.6 with ONTAP has the following known i
 
 
 // 2022,08-03, Jira IEOPS-690
+
+// JIRA-1289 20-Sep-2023

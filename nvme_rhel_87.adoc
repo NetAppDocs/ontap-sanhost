@@ -30,6 +30,8 @@ RHEL 8.7 includes support for NVMe/TCP (as a Technology Preview feature) in addi
 
 * NVMe/TCP on RHEL 8.7 remains a Technology Preview feature due to open issues. Refer to the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.7_release_notes/index[RHEL 8.7 release notes^] for details. 
 
+* SAN booting using the NVMe-oF protocol is currently not supported.
+
 
 == Enable in-kernel NVMe Multipath
 
@@ -441,3 +443,5 @@ The NVMe-oF host configuration for RHEL 8.7 with ONTAP has the following known i
 
 
 // 2022,12-06, Jira IEOPS-690
+
+// JIRA-1289 20-Sep-2023

@@ -27,6 +27,8 @@ For the most current list of supported configurations, see the link:https://mysu
 
 * By default, round-robin load balancing is not enabled. You must write a `udev` rule to enable this functionality. 
 
+* SAN booting using the NVMe-oF protocol is currently not supported.
+
 ==	Enable NVMe/FC 
 
 You can use the following procedure to enable NVMe/FC.
@@ -166,13 +168,11 @@ NVME Statistics
 …
 ----
 
-==	Enable 1MB I/O size for Broadcom NVMe/FC
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 ==	Validate NVMe/FC
 
 include::_include/nvme/reuse_validating_nvme_fc_rhel.adoc[]
 
 
-
+// JIRA-1289 20-Sep-2023

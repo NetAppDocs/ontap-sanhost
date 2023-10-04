@@ -27,9 +27,9 @@ For the most current list of supported configurations & versions, see the link:h
 
 * Native NVMe/FC auto-connect scripts are included in the nvme-cli package. You can use the native inbox lpfc driver on SLES15 SP1.
 
-==	Known limitations
+== Known limitations
 
-There are no known limitations.
+SAN booting using the NVMe-oF protocol is currently not supported.
 
 ==	Enable NVMe/FC on SLES15 SP1
 
@@ -200,3 +200,6 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 ==	LPFC Verbose Logging
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+
+
+// JIRA-1289 20-Sep-2023

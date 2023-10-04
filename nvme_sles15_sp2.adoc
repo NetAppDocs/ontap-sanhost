@@ -24,7 +24,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 ==	Known limitations
 
-There are no known limitations.
+SAN booting using the NVMe-oF protocol is currently not supported.
 
 ==	Enable NVMe/FC on SLES15 SP2
 
@@ -218,3 +218,6 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 ==	LPFC Verbose Logging
 
 include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+
+
+// JIRA-1289 20-Sep-2023
