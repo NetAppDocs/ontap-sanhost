@@ -34,8 +34,10 @@ SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Enable in-kernel NVMe Multipath
 
+You can use the following procedure to enable in-kernel NVMe multipath.
+
 .Steps
-. Install RHEL 9.0 on the server. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See  link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+. Install RHEL 9.0 on the server. 
 
 . After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
 +
@@ -69,7 +71,14 @@ If the host NQN strings do not match, you should use the `vserver modify` comman
 . Reboot the host.
 
 == Configure NVMe/FC
-=== Broadcom/Emulex
+
+You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+
+[role="tabbed-block"]
+====
+.Broadcom/Emulex
+--
+.Steps
 
 . Verify that you are using the supported adapter. For the most current list of supported adapters see link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
@@ -148,28 +157,16 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
+--
 
+.Marvell/QLogic
+--
 
-. Enable 1MB I/O size.
-+
-The `lpfc_sg_seg_cnt` parameter needs to be set to `256` for the `lpfc` driver to issue I/O requests upto 1 MB size.
-+
-----
-# cat /etc/modprobe.d/lpfc.conf
-options lpfc lpfc_sg_seg_cnt=256
-----
-.. Run a `dracut -f` command and then reboot the host.
+The native inbox qla2xxx driver included in the RHEL 9.0 kernel has the latest fixes, essential for ONTAP support. 
 
-.. After the host boots up, verify that `lpfc_sg_seg_cnt` is set to `256`.
-+
-----
-# cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
-256
-----
+.Steps
 
-=== Marvell/QLogic
-
-The native inbox qla2xxx driver included in the RHEL 9.0 kernel has the latest upstream fixes, essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. Verify that you are running the supported adapter driver and firmware versions:
 
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -177,21 +174,22 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
 QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
 ----
 
-Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator:
+. Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator:
 ----
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
 ----
+--
+====
+
+=== Enable 1MB I/O (Optional)
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two major limitations on the Linux NVMe/TCP host:
+include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 
-* *No auto-reconnect after paths get reinstated* NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` timer of 10 minutes following a path down.
-
-* *No auto-connect during host bootup* NVMe/TCP cannot automatically connect during host bootup as well.
-
-You should set the retry period for failover events to at least 30 minutes to prevent timeouts. You can increase the retry period by increasing the value of the ctrl_loss_tmo timer. Following are the details:
 
 .Steps
 
@@ -252,7 +250,9 @@ sectype: none
 # nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 ----
 
-== Validate NVMf
+== Validate NVMe-oF
+
+You can use the following procedure to validate NVMe-oF.
 
 .Steps
 
