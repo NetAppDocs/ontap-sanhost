@@ -15,9 +15,9 @@ summary: How to Configure NVMe/FC Host for RHEL 8.3 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe/FC is supported on ONTAP 9.6 or later for Red Hat Enterprise Linux (RHEL) 8.3. The RHEL 8.3 host runs both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
+NVMe/FC is supported on ONTAP 9.6 or later for Red Hat Enterprise Linux (RHEL) 8.3. The RHEL 8.3 host runs both NVMe and SCSI traffic through the same FC initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 
-For the most current list of supported configurations and versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations.
 
 == Features
 
@@ -33,6 +33,7 @@ No new features have been added in this release.
 
 You can use the following procedure to enable NVMe/FC.
 
+.Steps
 
 . Install Red Hat Enterprise Linux 8.3 GA on the server.
 +
@@ -101,19 +102,20 @@ TIP: If the host NQN strings do not match, use the `vserver modify` command to u
 +
 . Update the `enable_foreign` setting _(optional)_.
 +
-NOTE: If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 co-existent host, NetApp recommend you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below.
-+
+[NOTE]
+====
+If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 co-existent host, NetApp recommend you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below.
+
 ----
 # cat /etc/multipath.conf
 defaults {
    enable_foreign NONE
 }
 ----
+Restart the multipathd daemon by running a `systemctl restart multipathd`.
+====
 
-. Restart the multipathd daemon by running a `systemctl restart multipathd`.
-
-
-==	Validate NVMe/FC
+== Validate NVMe/FC
 
 You can use the following procedure to validate NVMe/FC.
 

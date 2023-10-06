@@ -91,14 +91,18 @@ defaults {
 }
 ----
 
+Restart the multipathd daemon by running a `systemctl restart multipathd` command to allow the new setting to take effect.
 ====
-+
-. Restart the multipathd daemon by running a `systemctl restart multipathd` command to allow the new setting to take effect.
-
 
 == Configure NVMe/FC
 
-=== Broadcom/Emulex
+You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+
+[role="tabbed-block"]
+====
+.Broadcom/Emulex
+--
+.Steps
 
 .	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported adapters.
 +
@@ -171,32 +175,13 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
+--
 
-
-====	 Enable 1MB I/O size (Optional)
-
-ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
-
-. Append the value `256` in the respective `modprobe lpfc.conf` file:
-+
-----
-# cat /etc/modprobe.d/lpfc.conf
-options lpfc lpfc_sg_seg_cnt=256
-----
-+
-. Run a `dracut -f` command, and reboot the host.
-
-. After reboot, verify that the above setting has been applied by checking the corresponding `sysfs` value:
-+
-----
-# cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
-256
-----
-Now the Broadcom FC-NVMe host should be able to send up to 1MB I/O requests on the ONTAP namespace devices.
-
-=== Marvell/QLogic
-
+.Marvell/QLogic
+--
 The native inbox `qla2xxx` driver included in the RHEL 8.5 GA kernel has the latest upstream fixes which are essential for ONTAP support.
+
+.Steps
 
 . Verify that you are running the supported adapter driver and firmware versions using the following command:
 
@@ -215,16 +200,16 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.106-k
 # cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
 ----
+--
+====
+
+=== Enable 1MB I/O (Optional)
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-Unlike NVMe/FC, NVMe/TCP has no auto-connect functionality. This manifests two major limitations on the Linux NVMe/TCP host:
-
-* *No auto-reconnect after paths get reinstated* NVMe/TCP cannot automatically reconnect to a path that is reinstated beyond the default `ctrl-loss-tmo` timer of 10 minutes following a path down.
-
-* *No auto-connect during host bootup* NVMe/TCP cannot automatically connect during host bootup as well.
-
-You should set the retry period for failover events to at least 30 minutes to prevent timeouts.  You can increase the retry period by increasing the value of the ctrl_loss_tmo timer. Following are the details:
+include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 
 .Steps
 . Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
