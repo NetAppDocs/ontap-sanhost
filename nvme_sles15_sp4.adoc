@@ -17,7 +17,11 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 
    
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP4 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP4 with Asymmetric Namespace Access (ANA). 
+
+You can configure the NVME-oF hosts for SUSE Linux Enterprise Server (SLES) 15 SP4 with ONTAP as the target.
+
+In NVMe-oF environments, Asymmetric Namespace Access (ANA) is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -190,15 +194,26 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
-== Enable NVMe serrvices
+=== Enable NVMe services
 
-Of the two NVMe/FC boot services included in the nvme-cli, only nvmefc-boot-connections.service is enabled to start at boot, but not nvmf-autoconnect.service. So manually enable nvmf-autoconnect.service to start at boot by running:
+You can use the following procedure to enable NVMe services.
 
+Between the two NVMe/FC boot services included in the `nvme-cli` package, you can enable _only_ `nvmefc-boot-connections.service` to start during system boot, but not `nvmf-autoconnect.service`. Therefore, you need to manually enable `nvmf-autoconnect.service` to start during system boot.
+
+.Steps
+
+. Execute the following command to enable `nvmf-autoconnect.service`:
++
+----
 # systemctl enable nvmf-autoconnect.service
 Created symlink /etc/systemd/system/default.target.wants/nvmf-autoconnect.service → /usr/lib/systemd/system/nvmf-autoconnect.service.
+----
 
-Next reboot the host. And verify that nvmf-autoconnect.service (along with nvmefc-boot-connections.service) are running after bootup. For example,
-
+. Reboot the host. 
+. Verify that `nvmf-autoconnect.service` and `nvmefc-boot-connections.service` are running after bootup. 
++
+*Example*
++
 ----
 # systemctl status nvmf-autoconnect.service
    nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
@@ -226,7 +241,7 @@ systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during 
 
 == Configure NVMe/TCP
 
-include::_include/nvme/reuse_configure_nvmetcp.adoc[]
+You can use the following procedure to configure NVMe/TCP.
 
 .Steps
 
@@ -241,29 +256,60 @@ nvme discover -t tcp -w host-traddr -a traddr
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.31
 
-Discovery Log Number of Records 10, Generation counter 119
+Discovery Log Number of Records 8, Generation counter 18
 =====Discovery Log Entry 0====== trtype: tcp
+adrfam: ipv4
+subtype: current discovery subsystem treq: not specified
+portid: 0
+trsvcid: 8009 subnqn: nqn.1992-
+08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.2.117
+eflags: explicit discovery connections, duplicate discovery information sectype: none
+=====Discovery Log Entry 1====== trtype: tcp
+adrfam: ipv4
+subtype: current discovery subsystem treq: not specified
+portid: 1
+trsvcid: 8009 subnqn: nqn.1992-
+08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.1.117
+eflags: explicit discovery connections, duplicate discovery information sectype: none
+=====Discovery Log Entry 2====== trtype: tcp
+adrfam: ipv4
+subtype: current discovery subsystem treq: not specified
+portid: 2
+trsvcid: 8009 subnqn: nqn.1992-
+08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.2.116
+eflags: explicit discovery connections, duplicate discovery information
+sectype: none
+=====Discovery Log Entry 3====== trtype: tcp
+adrfam: ipv4
+subtype: current discovery subsystem treq: not specified
+portid: 3
+trsvcid: 8009 subnqn: nqn.1992-
+08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.1.116
+eflags: explicit discovery connections, duplicate discovery information sectype: none
+=====Discovery Log Entry 4====== trtype: tcp
 adrfam: ipv4
 subtype: nvme subsystem treq: not specified portid: 0
 trsvcid: 4420 subnqn: nqn.1992-
-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:subsystem.nvme_114_tcp
-_1
-traddr: 192.168.2.36 sectype: none
-=====Discovery Log Entry 1====== trtype: tcp
+08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
+traddr: 192.168.2.117 eflags: not specified sectype: none
+=====Discovery Log Entry 5====== trtype: tcp
 adrfam: ipv4
 subtype: nvme subsystem treq: not specified portid: 1
 trsvcid: 4420 subnqn: nqn.1992-
-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:subsystem.nvme_114_tcp
-_1
-traddr: 192.168.1.31 sectype: none
-=====Discovery Log Entry 2====== trtype: tcp
+08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
+traddr: 192.168.1.117 eflags: not specified sectype: none
+=====Discovery Log Entry 6====== trtype: tcp
 adrfam: ipv4
-subtype: nvme subsystem treq: not specified portid: 0
+subtype: nvme subsystem treq: not specified portid: 2
+trsvcid: 4420
+subnqn: nqn.1992- 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
+traddr: 192.168.2.116 eflags: not specified sectype: none
+=====Discovery Log Entry 7====== trtype: tcp
+adrfam: ipv4
+subtype: nvme subsystem treq: not specified portid: 3
 trsvcid: 4420 subnqn: nqn.1992-
-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:subsystem.nvme_114_tcp
-_2
-traddr: 192.168.2.36 sectype: none
-…
+08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
+traddr: 192.168.1.116 eflags: not specified sectype: none
 ----
 
 . Verify that all other NVMe/TCP initiator-target LIF combos can successfully fetch discovery log page data. 
@@ -280,7 +326,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 # nvme discover -t tcp -w 192.168.2.5 -a 192.168.2.37
 ----
 
-. Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes, and set the controller loss timeout period:
+. Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
 ----
 nvme connect-all -t tcp -w host-traddr -a traddr -l <ctrl_loss_timeout_in_seconds>
@@ -296,7 +342,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l <ctrl_loss_timeout_in_second
 ----
 +
 [NOTE]
-NetApp recommends setting the `ctrl-loss-tmo` option with an indefinite value (such as -1) so that an NVMe subsystem continues to try reconnecting in the event of a path loss. 
+NetApp recommends setting the `ctrl-loss-tmo` option to -1 so that the NVMe/TCP initiator attempts to indefinitely try to reconnect in the event of a path loss.
 
 == Validate NVMe-oF
 
@@ -324,7 +370,7 @@ NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
 
-. Verify the NVMe I/O service policy:
+. Verify the NVMe I/O policy for the respective ONTAP NVMe I/O controller::
 +
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
@@ -341,6 +387,7 @@ round-robin
 +
 ----
 nvme list
+nvme list -v # new output to be shared
 ----
 +
 *Example output:*
@@ -450,20 +497,21 @@ Beginning with ONTAP 9.11.1, you can create a persistent discovery controller fo
 . Verify that the discovery log page data is available and can be retrieved through the initiator port - target LIF combination:
 +
 ----
-nvme discover -t tcp -w host-traddr -a traddr
+nvme discover -t trtype -w host-traddr -a traddr
 ----
 +
 *Example output:*
 +
+[subs=+quotes]
 ----
 Discovery Log Number of Records 8, Generation counter 18
 =====Discovery Log Entry 0====== trtype: tcp
 adrfam: ipv4
-subtype: current discovery subsystem treq: not specified
+*subtype: current discovery subsystem treq: not specified*
 portid: 0
 trsvcid: 8009 subnqn: nqn.1992-
 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.2.117
-eflags: explicit discovery connections, duplicate discovery information sectype: none
+*eflags: explicit discovery connections, duplicate discovery information sectype: none*
 =====Discovery Log Entry 1====== trtype: tcp
 adrfam: ipv4
 subtype: current discovery subsystem treq: not specified
@@ -512,10 +560,10 @@ trsvcid: 4420 subnqn: nqn.1992-
 traddr: 192.168.1.116 eflags: not specified sectype: none
 ----
 
-. Create a persistent discovery controller (PDC) connection to the discovery subsystem:
+. A persistent discovery controller (PDC) is reqired to automatically detect NVMe subsystem add or remove scenarios and changes to the discovery log page data. You can create a PDC to the discovery subsystem: 
 +
 ----
-nvme discover -t tcp -w host-traddr -a traddr -p
+nvme discover -t trtype -w host-traddr -a traddr -p
 ----
 +
 *Example*
@@ -597,7 +645,8 @@ DHHC-1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh3nV
 vserver nvme subsystem host add -vserver <svm_name> -subsystem <subsystem> -host-nqn <host_nqn> -dhchap-host-secret <authentication_host_secret> -dhchap-controller-secret <authentication_controller_secret> -dhchap-hash-function {sha-256|sha-512} -dhchap-group {none|2048-bit|3072-bit|4096-bit|6144-bit|8192-bit}
 ----
 
-. On the host, connect to the ONTAP controller and specify both dhchap keys:
+. A host supports two types of authentication methods - unidirectional and bidirectional. On the host, connect to  the ONTAP controller and specify dhchap keys based on the chosen authentication method
+
 +
 ----
 nvme connect -t tcp -w <ip_address> -a <ip_address> -n <host_nqn> -S <authentication_host_secret> -C <authentication_controller_secret>
@@ -640,6 +689,10 @@ DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsE
 --
 
 .JSON file
+
+Alternatively config.json file can be used in conjunction with `nvme connect-all` command when multiple NVMe subsystems are available on the ONTAP controller configuration. 
+
+You can generate the json file using -o option. refer to man pages for more syntax options.
 --
 Note that `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
 
