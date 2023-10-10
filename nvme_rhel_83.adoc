@@ -5,7 +5,7 @@ keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe/FC Host for RHEL 8.3 with ONTAP
 ---
 
-= NVMe/FC Host Configuration for RHEL 8.3 with ONTAP
+= NVMe/FC host configuration for RHEL 8.3 with ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -225,6 +225,7 @@ Device               Vserver            Namespace Path                          
 == Configure the Broadcom FC adapter for NVMe/FC
 
 You can use the following procedure to configure a Broadcom FC adapter.
+
 
 include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part1.adoc[]
 

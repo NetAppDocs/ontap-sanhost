@@ -23,7 +23,7 @@ See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix
 
 == Features
 
-* RHEL 8.5 includes support for NVMe/TCP (as a Technology Preview feature) in addition to NVMe/FC. The NetApp plugin in the native nvme-cli package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+RHEL 8.5 includes support for NVMe/TCP (as a Technology Preview feature) in addition to NVMe/FC. The NetApp plugin in the native nvme-cli package can display ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
 
 == Known limitations
@@ -274,7 +274,11 @@ sectype: none
 
 == Validate NVMe-oF
 
-. Verify that in-kernel NVMe multipath is indeed enabled by checking:
+You can use the following procedure to validate NVMe-oF.
+
+.Steps
+
+. Verify that in-kernel NVMe multipath is enabled:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -319,7 +323,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
 ----
 
-. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
+. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example:
 
 +
 ----

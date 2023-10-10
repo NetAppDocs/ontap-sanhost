@@ -21,7 +21,7 @@ NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is support
 
 == Features
 
-No new features have been added in this release.
+There are no new features in this release.
 
 == Known limitations
 
@@ -175,6 +175,8 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 --
 The native inbox `qla2xxx` driver included in the RHEL 8.4 GA kernel has the latest fixes which are essential for ONTAP support.
 
+.Steps
+
 . Verify that you are running the supported adapter driver and firmware versions using the following command:
 
 +
@@ -200,12 +202,12 @@ QLE2742 FW:v9.06.02 DVR:v10.02.00.104-k
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
-
 == Configure NVMe/TCP
 
 include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 
 .Steps
+
 . Verify whether the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
@@ -288,6 +290,8 @@ round-robin
 
 . Verify that the ONTAP namespaces properly reflect on the host. For example,
 +
+Example (a):
++
 ----
 # nvme list
 Node           SN                    Model                   Namespace
@@ -299,7 +303,7 @@ Usage                Format         FW Rev
 85.90 GB / 85.90 GB  4 KiB + 0 B    FFFFFFFF
 ----
 +
-Another example:
+Example (b):
 +
 ----
 # nvme list
@@ -314,6 +318,7 @@ Usage                Format         FW Rev
 
 . Verify that the controller state of each path is live and has proper ANA status. For example,
 +
+Example (a):
 [subs=+quotes]
 ----
 # nvme list-subsys /dev/nvme1n1
@@ -325,7 +330,7 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.04ba0732530911ea8e8300a098dfdd91:su
 +- nvme6 fc traddr=nn-0x208100a098dfdd91:pn-0x208300a098dfdd91 host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f live *optimized*
 ----
 +
-Another example:
+Example (b):
 +
 [subs=+quotes]
 ----
@@ -344,6 +349,8 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:su
 
 . Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
 
++
+Example (a):
 +
 ----
 # nvme netapp ontapdevices -o column
@@ -372,8 +379,8 @@ NSID  UUID                                   Size
   ]
 }
 ----
-+
-Another example:
+
+Example (b):
 +
 ----
 # nvme netapp ontapdevices -o column
