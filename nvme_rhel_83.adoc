@@ -36,12 +36,12 @@ You can use the following procedure to enable NVMe/FC.
 .Steps
 
 . Install Red Hat Enterprise Linux 8.3 GA on the server.
+
+. If you are upgrading from RHEL 8.2 to RHEL 8.3 using the `yum update/upgrade` command, your `/etc/nvme/host*` files might be lost. To avoid file loss, use the following procedure:
 +
-[NOTE]
+.Steps 
+[%collapsible]
 ====
-If you are upgrading from RHEL 8.2 to RHEL 8.3 using the `yum update/upgrade` command, your `/etc/nvme/host*` files might be lost. To avoid file loss, use the following procedure:
-
-
 include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
 ====
 

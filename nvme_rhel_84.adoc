@@ -319,6 +319,7 @@ Usage                Format         FW Rev
 . Verify that the controller state of each path is live and has proper ANA status. For example,
 +
 Example (a):
++
 [subs=+quotes]
 ----
 # nvme list-subsys /dev/nvme1n1
@@ -348,7 +349,6 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:su
 ----
 
 . Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example,
-
 +
 Example (a):
 +
@@ -359,7 +359,7 @@ Device       Vserver          Namespace Path
 /dev/nvme1n1 vserver_fcnvme_145 /vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns
 
 NSID  UUID                                   Size
-----  ------------------------------         ------
+-------  ------------------------------     --------------------
 1      23766b68-e261-444e-b378-2e84dbe0e5e1  85.90GB
 
 
@@ -379,7 +379,7 @@ NSID  UUID                                   Size
   ]
 }
 ----
-
++
 Example (b):
 +
 ----
@@ -389,7 +389,7 @@ Device       Vserver          Namespace Path
 /dev/nvme0n1 vs_tcp_114       /vol/tcpnvme_114_1_0_1/tcpnvme_114_ns
 
 NSID  UUID                                   Size
-----  ------------------------------         ------
+-------  ------------------------------         ---------------
 1      a6aee036-e12f-4b07-8e79-4d38a9165686  85.90GB
 
 
