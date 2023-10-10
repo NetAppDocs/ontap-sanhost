@@ -144,7 +144,7 @@ All Solaris OS versions (including Solaris 10.x and Solaris 11.x) support Solari
 ** /kernel/drv/ssd.conf
 ** /etc/driver/drv/scsi_vhci.conf
 
-* For Solaris 10.x, the following configuration files get updated during the HUK 6.2 installation process:
+* For Solaris 10.x, the following configuration files get fully updated during the HUK 6.2 installation process:
 
 ** /kernel/drv/sd.conf
 ** /kernel/drv/ssd.conf
@@ -156,9 +156,8 @@ NetApp recommends the following for a successful 4KB aligned I/O for zpools usin
 
 * Make sure you are running a sufficiently current Solaris OS to ensure that all Solaris features supporting 4KB I/O size alignment are in place. Verify whether the Solaris 10 update 11 is installed with latest kernel patches and Solaris 11.4 with the latest SRU.
 
-* The NetApp logical unit/volume must be of lun/host-type `Solaris` regardless of the LUN size. 
+* The NetApp logical unit must have lun/host-type as `Solaris` regardless of the LUN size. 
 
-See the Knowledge Base article link:https://kb.netapp.com/onprem/ontap/da/SAN/What_are_the_Solaris_Host_recommendations_for_Supporting_HUK_6.2[What are the Solaris host recommendations for supporting HUK 6.2^] for more information.
 
 === Recommended settings for MetroCluster
 
