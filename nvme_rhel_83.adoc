@@ -21,11 +21,11 @@ See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix
 
 == Features
 
-No new features have been added in this release.
+There are no new features in this release.
 
 == Known limitations
 
-* For RHEL 8.3, in-kernel NVMe multipath is disabled by default. Therefore, you need to enable it manually. 
+* For RHEL 8.3, in-kernel NVMe multipath is disabled by default. You can enable it manually. 
 
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
@@ -41,12 +41,11 @@ You can use the following procedure to enable NVMe/FC.
 ====
 If you are upgrading from RHEL 8.2 to RHEL 8.3 using the `yum update/upgrade` command, your `/etc/nvme/host*` files might be lost. To avoid file loss, use the following procedure:
 
-.Steps
 
 include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
 ====
 
-. After the installation is complete, verify that you're running the specified RHEL kernel.
+. After the installation is complete, verify that you're running the specified RHEL kernel:
 +
 ----
 # uname -r
@@ -55,7 +54,7 @@ include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
 +
 See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported versions.
 
-. Install the nvme-cli package.
+. Install the nvme-cli package:
 +
 ----
 # rpm -qa|grep nvme-cli
@@ -68,7 +67,7 @@ nvme-cli-1.12-2.el8.x86_64
 # grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-240.el8.x86_64
 ----
 
-.	On the RHEL 8.3 host, check the host NQN string at `/etc/nvme/hostnqn`  verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
+.	On the RHEL 8.3 host, check the host NQN string at `/etc/nvme/hostnqn`  verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array:
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -100,11 +99,11 @@ TIP: If the host NQN strings do not match, use the `vserver modify` command to u
 
 . Reboot the host.
 +
-. Update the `enable_foreign` setting _(optional)_.
+. Optionally, update the `enable_foreign` setting.
 +
 [NOTE]
 ====
-If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 co-existent host, NetApp recommend you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below.
+If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 co-existent host, NetApp recommends that you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below:
 
 ----
 # cat /etc/multipath.conf
@@ -121,7 +120,7 @@ You can use the following procedure to validate NVMe/FC.
 
 .Steps
 
-.	Verify the following NVMe/FC settings.
+.	Verify the following NVMe/FC settings:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
@@ -160,7 +159,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
 ----
 
-.	Verify the NetApp plug-in for ONTAP devices.
+.	Verify the NetApp plug-in for ONTAP devices:
 +
 [role="tabbed-block"]
 ====
@@ -229,7 +228,7 @@ You can use the following procedure to configure a Broadcom FC adapter.
 
 include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part1.adoc[]
 
-. Verify that you are using the recommended Broadcom lpfc firmware as well as the inbox driver.
+. Verify that you are using the recommended Broadcom lpfc firmware as well as the inbox driver:
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev

@@ -17,7 +17,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.5 with ONTAP
 
 [.lead]
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with Red Hat Enterprise Linux (RHEL) 8.5 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.5 and ONTAP as the target has been documented here.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with Red Hat Enterprise Linux (RHEL) 8.5 with ANA (Asymmetric Namespace Access). ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. During this procedure, you enable NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.5 and ONTAP as the target.
 
 See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for accurate details regarding supported configurations.
 
@@ -86,7 +86,7 @@ NOTE: If the host NQN strings do not match, you should use the `vserver modify` 
 +
 [NOTE]
 ====
-If you intend to run both NVMe and SCSI co-existent traffic on the same host, NetApp recommends using in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the enable_foreign setting to the `/etc/multipath.conf` file:
+If you intend to run both NVMe and SCSI co-existent traffic on the same host, NetApp recommends using in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the enable_foreign setting to the `/etc/multipath.conf` file:
 
 ----
 # cat /etc/multipath.conf
@@ -187,7 +187,7 @@ The native inbox `qla2xxx` driver included in the RHEL 8.5 GA kernel has the lat
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions using the following command:
+. Verify that you are running the supported adapter driver and firmware versions:
 
 +
 

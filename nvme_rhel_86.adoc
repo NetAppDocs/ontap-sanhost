@@ -16,7 +16,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.6 with ONTAP
 :source-highlighter: highlighter.js
 
 [.lead]
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with Red Hat Enterprise Linux (RHEL) 8.6 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. The details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.6 and ONTAP as the target has been documented here.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with Red Hat Enterprise Linux (RHEL) 8.6 with ANA (Asymmetric Namespace Access). ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. During this procedure, you enable NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.6 and ONTAP as the target
 
 See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for accurate details regarding supported configurations.
 
@@ -186,7 +186,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 The native inbox `qla2xxx` driver included in the RHEL 8.6 kernel has the latest upstream fixes which are essential for ONTAP support.
 
 .Steps
-. Verify that you are running the supported adapter driver and firmware versions using the following command:
+. Verify that you are running the supported adapter driver and firmware versions:
 
 +
 

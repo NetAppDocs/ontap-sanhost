@@ -17,7 +17,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.4 with ONTAP
 
 [.lead]
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with Red Hat Enterprise Linux (RHEL) 8.4 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. You can enabe NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.4 and ONTAP as the target.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with Red Hat Enterprise Linux (RHEL) 8.4 with ANA (Asymmetric Namespace Access). ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. You can enable NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.4 and ONTAP as the target.
 
 == Features
 
@@ -267,7 +267,7 @@ You can use the following procedure to validate NVMe-oF.
 
 .Steps
 
-. Verify that in-kernel NVMe multipath is indeed enabled by checking:
+. Verify that in-kernel NVMe multipath is enabled:
 +
 ----
 # cat /sys/module/nvme_core/parameters/multipath
