@@ -38,13 +38,13 @@ SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Enable in-kernel NVMe multipath
 
-you can use the following procedure to enable in-kernel NVMe multipath.
+You can use the following procedure to enable in-kernel NVMe multipath.
 
 .Steps
 
 .	Install RHEL 9.1 on the server. 
 
-.	After the installation is complete, verify that you are running the specified RHEL 9.1 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.	After the installation is complete, verify that you are running the specified RHEL 9.1 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported versions.
 +
 Example:
 +
@@ -336,7 +336,9 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.bf0691a7c74411ec8187d039ea14107d:su
  +- nvme4 tcp traddr=192.168.167.20,trsvcid=4420,host_traddr=192.168.167.5 live optimized
 ----
 
-. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example:
+. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. 
++
+Example (a):
 +
 ----
 # nvme netapp ontapdevices -o column
@@ -370,7 +372,7 @@ NSID  UUID                                   Size
 } 
 ----
 +
-Example (b)
+Example (b):
 +
 ----
 # nvme netapp ontapdevices -o column

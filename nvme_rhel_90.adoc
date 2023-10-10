@@ -345,7 +345,9 @@ Device       Vserver        Namespace Path                            NSID
 UUID                                   Size
 --------------------------------------------
 72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
-
+----
++
+----
 # nvme netapp ontapdevices -o json
 {
 "ONTAPdevices" : [
