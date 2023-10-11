@@ -154,9 +154,9 @@ To resolve any configuration issues, see the Knowledge Base article link:https:/
 
 NetApp recommends the following for a successful 4KB aligned I/O for zpools using NetApp LUNs:
 
-* Make sure you are running a sufficiently current Solaris OS to ensure that all Solaris features supporting 4KB I/O size alignment are in place. Verify whether the Solaris 10 update 11 is installed with latest kernel patches and Solaris 11.4 with the latest SRU.
+* Verify that you are running a recent enough Solaris OS to ensure that all Solaris features supporting 4KB I/O size alignment are available. Verify that the Solaris 10 update 11 is installed with latest kernel patches and Solaris 11.4 with the latest Support Repository Update (SRU).
 
-* The NetApp logical unit must have lun/host-type as `Solaris` regardless of the LUN size. 
+* The NetApp logical unit must have the `lun/host-type` as `Solaris` regardless of the LUN size. 
 
 
 === Recommended settings for MetroCluster
@@ -221,16 +221,17 @@ For additional information and recommended changes to default settings, refer to
 
 == Known issues
 
+The Solaris 11.4 with ONTAP release has the following known issues:
+
 [cols=4*, options="header"]
 |===
 | NetApp Bug ID
 | Title
 | Description
 | Oracle ID
-| 1362435 | HUK 6.2 and Solaris_11.4 FC driver binding changes | Follow Solaris 11.4 and HUK recommendations.
-FC driver binding is changed from ssd(4D) to sd(4D). Move configuration that you have in `ssd.conf` to `sd.conf` as detailed in Oracle (Doc ID 2595926.1). The behavior varies across newly installed Solaris 11.4 system and upgraded from 11.3 or lower versions.
+| 1362435 | HUK 6.2 and Solaris_11.4 FC driver binding changes | Follow Solaris 11.4 and HUK recommendations. FC driver binding is changed from ssd(4D) to sd(4D). Move configuration that you have in `ssd.conf` to `sd.conf` as detailed in Oracle (Doc ID 2595926.1). The behavior varies across newly installed Solaris 11.4 system and systems upgraded from 11.3 or earlier versions.
  | (Doc ID 2595926.1)
-| 1366780 | Solaris LIF problem during GB with Emulex 32G HBA on x86 Arch | Seen with Emulex Firmware version 12.6.x and above on x86_64 Platform | SR 3-24746803021
-| 1368957 | Solaris 11.x `cfgadm -c configure` resulting in I/O error with End-to-End Emulex configuration | Running `cfgadm -c configure` on Emulex End-to-End configurations results in I/O error. This is fixed in 9.5P17, 9.6P14 , 9.7P13 and 9.8P2 | NA
-| 1345622 | Abnormal Path reporting on Solaris Hosts with ASA/PPorts using OS native commands | Intermittent path reporting issues on Solaris 11.4 with ASA | Not Applicable
+| 1366780 | Solaris LIF problem during GB with Emulex 32G HBA on x86 Arch | Solaris LIF issues noticed with Emulex Firmware version 12.6.x and later on the x86_64 Platform | SR 3-24746803021
+| 1368957 | Solaris 11.x `cfgadm -c configure` resulting in I/O error with end-to-end Emulex configuration | Running `cfgadm -c configure` on Emulex end-to-end configurations result in I/O error. This is fixed in 9.5P17, 9.6P14 , 9.7P13 and 9.8P2 | Not Applicable
+| 1345622 | Abnormal path reporting on Solaris hosts with ASA/PPorts using OS native commands | Intermittent path reporting issues on Solaris 11.4 with ASA | Not Applicable
 |===
