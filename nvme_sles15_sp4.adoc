@@ -17,11 +17,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 
    
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP4 with Asymmetric Namespace Access (ANA). 
-
-You can configure the NVME-oF hosts for SUSE Linux Enterprise Server (SLES) 15 SP4 with ONTAP as the target.
-
-In NVMe-oF environments, Asymmetric Namespace Access (ANA) is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP4 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -198,11 +194,11 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 You can use the following procedure to enable NVMe services.
 
-Between the two NVMe/FC boot services included in the `nvme-cli` package, you can enable _only_ `nvmefc-boot-connections.service` to start during system boot, but not `nvmf-autoconnect.service`. Therefore, you need to manually enable `nvmf-autoconnect.service` to start during system boot.
+Between the two NVMe/FC boot services included in the `nvme-cli` package, _only_ `nvmefc-boot-connections.service` is enabled to start during system boot;  `nvmf-autoconnect.service` is not enabled. Therefore, you need to manually enable `nvmf-autoconnect.service` to start during system boot.
 
 .Steps
 
-. Execute the following command to enable `nvmf-autoconnect.service`:
+. Enable `nvmf-autoconnect.service`:
 +
 ----
 # systemctl enable nvmf-autoconnect.service
@@ -210,7 +206,7 @@ Created symlink /etc/systemd/system/default.target.wants/nvmf-autoconnect.servic
 ----
 
 . Reboot the host. 
-. Verify that `nvmf-autoconnect.service` and `nvmefc-boot-connections.service` are running after bootup. 
+. Verify that `nvmf-autoconnect.service` and `nvmefc-boot-connections.service` are running after system boot up. 
 +
 *Example*
 +
@@ -312,7 +308,7 @@ trsvcid: 4420 subnqn: nqn.1992-
 traddr: 192.168.1.116 eflags: not specified sectype: none
 ----
 
-. Verify that all other NVMe/TCP initiator-target LIF combos can successfully fetch discovery log page data. 
+. Verify that all other NVMe/TCP initiator-target LIF combos can successfully fetch discovery log page data: 
 +
 ----
 nvme discover -t tcp -w host-traddr -a traddr
@@ -342,7 +338,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l <ctrl_loss_timeout_in_second
 ----
 +
 [NOTE]
-NetApp recommends setting the `ctrl-loss-tmo` option to -1 so that the NVMe/TCP initiator attempts to indefinitely try to reconnect in the event of a path loss.
+NetApp recommends setting the `ctrl-loss-tmo` option to `-1` so that the NVMe/TCP initiator attempts to try to reconnect indefinitely in the event of a path loss.
 
 == Validate NVMe-oF
 
@@ -370,7 +366,7 @@ NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
 
-. Verify the NVMe I/O policy for the respective ONTAP NVMe I/O controller::
+. Verify the NVMe I/O policy for the respective ONTAP NVMe I/O controller:
 +
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
@@ -402,7 +398,7 @@ Namespace	Usage		Format		FW			Rev
 1		85.90		GB/85.90GB		4 KiB + 0 B		FFFFFFFF
 ----
 
-. Verify that the controller state of each path is live and has the proper ANA status.
+. Verify that the controller state of each path is live and has the correct ANA status:
 +
 ----
 nvme list-subsys /dev/<subsystem_name>
@@ -443,7 +439,7 @@ nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 --
 ====
 
-. Verify that the NetApp plug-in displays correct values for each ONTAP namespace device. 
+. Verify that the NetApp plug-in displays correct values for each ONTAP namespace device: 
 +
 [role="tabbed-block"]
 ====
@@ -490,7 +486,7 @@ Example output:
 
 == Discovery enhancements
 
-Beginning with ONTAP 9.11.1, you can create a persistent discovery controller for your SLES 15 SP4 host.
+Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for your SLES 15 SP4 host. A PDC is required to automatically detect NVMe subsystem add or remove scenarios and changes to the discovery log page data. You can use the following procedure to create a PDC.
 
 .Steps
 
@@ -560,7 +556,7 @@ trsvcid: 4420 subnqn: nqn.1992-
 traddr: 192.168.1.116 eflags: not specified sectype: none
 ----
 
-. A persistent discovery controller (PDC) is reqired to automatically detect NVMe subsystem add or remove scenarios and changes to the discovery log page data. You can create a PDC to the discovery subsystem: 
+. Create a PDC for the discovery subsystem: 
 +
 ----
 nvme discover -t trtype -w host-traddr -a traddr -p
@@ -600,7 +596,6 @@ Beginning with ONTAP 9.12.1 and later, secure, in-band authentication is support
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. In order for an NVMe host or controller to authenticate its peer, it must recognize the key associated with the peer. 
 
-.Steps
 
 You can set up secure in-band authentication using the CLI or using a config JSON file. If you need to specify different dhcap keys for different subsystems, then you must use a config JSON file. 
 
@@ -645,7 +640,7 @@ DHHC-1:03:J2UJQfj9f0pLnpF/ASDJRTyILKJRr5CougGpGdQSysPrLu6RW1fGl5VSjbeDF1n1DEh3nV
 vserver nvme subsystem host add -vserver <svm_name> -subsystem <subsystem> -host-nqn <host_nqn> -dhchap-host-secret <authentication_host_secret> -dhchap-controller-secret <authentication_controller_secret> -dhchap-hash-function {sha-256|sha-512} -dhchap-group {none|2048-bit|3072-bit|4096-bit|6144-bit|8192-bit}
 ----
 
-. A host supports two types of authentication methods - unidirectional and bidirectional. On the host, connect to  the ONTAP controller and specify dhchap keys based on the chosen authentication method
+. A host supports two types of authentication methods - unidirectional and bidirectional. On the host, connect to  the ONTAP controller and specify dhchap keys based on the chosen authentication method:
 
 +
 ----
@@ -689,11 +684,11 @@ DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsE
 --
 
 .JSON file
-
-Alternatively config.json file can be used in conjunction with `nvme connect-all` command when multiple NVMe subsystems are available on the ONTAP controller configuration. 
-
-You can generate the json file using -o option. refer to man pages for more syntax options.
 --
+You can use the config.json file in conjunction with `nvme connect-all` command when multiple NVMe subsystems are available on the ONTAP controller configuration. 
+
+You can generate the JSON file using -o option. Refer to the man pages for more syntax options.
+
 Note that `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
 
 .Steps
