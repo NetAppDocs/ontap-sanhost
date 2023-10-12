@@ -43,7 +43,7 @@ The following example decompresses files for a SPARC system. For x86-64 platform
 +
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory.
 +
-To complete the installation, you must configure the host parameters for your environment (MPxIO in this case) by using the `host_config` command.
+To complete the installation, you must configure the host parameters for your environment (Oracle Solaris I/O Multipathing or MPxIO in this case) by using the `host_config` command.
 +
 The `host_config` command has the following format:
 +
@@ -89,7 +89,7 @@ You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the F
 
 == Multipathing
 
-Multipathing enables you to configure multiple network paths between the host and storage systems. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing (MPxIO) is enabled by default for Solaris 11.4. The default setting in `/kernel/drv/fp.conf` changes to mpxio-disable="no".
+Multipathing enables you to configure multiple network paths between the host and storage systems. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing or MPxIO is enabled by default for Solaris 11.4. The default setting in `/kernel/drv/fp.conf` changes to mpxio-disable="no".
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
