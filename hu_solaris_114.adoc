@@ -19,7 +19,7 @@ You can use the ONTAP SAN host configuration settings to configure Solaris 11.4 
 
 == Install the Solaris Host Utilities
 
-You can download the compressed file containing the Host Utilities software packages from the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^]. After you download the file, you must decompress it to get the software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^]. After you download the file, you must extract the zip file to get the software packages you need to install the Host Utilities.
 
 .Steps
 
@@ -33,7 +33,7 @@ The following example decompresses files for a SPARC system. For x86-64 platform
 +
 `gunzip netapp_solaris_host_utilities_6_2N20170913_0304_sparc.tar.gz`
 
-. Use the `tar xvf` command to unzip the file.
+. Use the `tar xvf` command to extract the file.
 +
 `tar xvf netapp_solaris_host_utilities_6_2N20170913_0304_sparc.tar`
 
@@ -51,11 +51,11 @@ The `host_config` command has the following format:
 +
 The `host_config` command does the following:
 
-* Changes the FC and SCSI driver settings for the x86 and SPARC systems
-* Provides SCSI timeout settings for both the MPxIO configurations
+* Changes the FC and SCSI driver settings for x86 and SPARC systems
+* Provides SCSI timeout settings for both MPxIO configurations
 * Sets the VID/PID information
 * Enables or disables ALUA
-* Configures the ALUA settings used by MPxIO and the SCSI drivers for both x86 and SPARC systems.
+* Configures the ALUA settings used by MPxIO and the SCSI drivers for both x86 and SPARC systems
 +
 . Reboot the host.
 
@@ -85,7 +85,7 @@ If you decide to use SAN booting, it must be supported by your configuration. Yo
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
 
-You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running the Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on SAN booting LUNs in a Solaris MPIO environment.
+You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on a SAN boot LUNs in a Solaris MPIO environment.
 
 == Multipathing
 
@@ -117,7 +117,7 @@ NOTE: All SAN Arrays (ASA) configurations are supported beginning ONTAP 9.8 for 
 
 == Recommended settings
 
-NetApp recommends using the following parameter settings for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities. For additional settings for Solaris 11.4 systems, see the Oracle DOC ID: 2595926.1.
+NetApp recommends using the following parameter settings for Solaris 11.4 SPARC and x86_64 with NetApp ONTAP LUNs. These parameter values are set by Host Utilities. For additional Solaris 11.4 system settings, see Oracle DOC ID: 2595926.1.
 
 [cols=2*, options="header"]
 |===
@@ -152,16 +152,18 @@ All Solaris OS versions (including Solaris 10.x and Solaris 11.x) support Solari
 
 To resolve any configuration issues, see the Knowledge Base article link:https://kb.netapp.com/onprem/ontap/da/SAN/What_are_the_Solaris_Host_recommendations_for_Supporting_HUK_6.2[What are the Solaris host recommendations for supporting HUK 6.2^]. 
 
-NetApp recommends the following for a successful 4KB aligned I/O for zpools using NetApp LUNs:
+NetApp recommends the following for a successful 4KB aligned I/O with zpools using NetApp LUNs:
 
-* Verify that you are running a recent enough Solaris OS to ensure that all Solaris features supporting 4KB I/O size alignment are available. Verify that the Solaris 10 update 11 is installed with latest kernel patches and Solaris 11.4 with the latest Support Repository Update (SRU).
+* Verify that you are running a recent enough Solaris OS to ensure that all Solaris features supporting 4KB I/O size alignment are available. 
+
+* Verify that the Solaris 10 update 11 is installed with latest kernel patches and Solaris 11.4 with the latest Support Repository Update (SRU).
 
 * The NetApp logical unit must have `lun/host-type` as `Solaris` regardless of the LUN size. 
 
 
 === Recommended settings for MetroCluster
 
-By default, the Solaris OS will fail executing the I/O operations after *20s* if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned fail overs. For addition information and recommended changes to default settings, see the Knowledge Base article https://kb.netapp.com/onprem/ontap/metrocluster/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
+By default, the Solaris OS will fail to execute the I/O operations after *20s* if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned fail overs. For additional information and recommended changes to default settings, see the Knowledge Base article https://kb.netapp.com/onprem/ontap/metrocluster/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
 
 == Oracle Solaris Virtualization
 
@@ -171,11 +173,11 @@ By default, the Solaris OS will fail executing the I/O operations after *20s* if
 
 * NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
 
-* Partitions and/or virtual machines which use only virtualized storage resources, such as a `vdsk`, do not need specific qualification as they do not have direct access to NetApp LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
+* Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, do not need specific qualifications as they do not have direct access to NetApp LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 === Recommended settings for Virtualization
 
-When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue, the LDOM OS must be patched for _Oracle Bug 15824910_ and a `vdc.conf` file must be created that sets the block size of the virtual disk to `4096`. See Oracle Doc 2157669.1 for more information.
+When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue, the LDOM OS must be patched for _Oracle Bug 15824910_ and a `vdc.conf` file must be created that sets the block size of the virtual disk to `4096`. See Oracle DOC: 2157669.1 for more information.
 
 To verify the patch do the following:
 
@@ -231,7 +233,7 @@ The Solaris 11.4 with ONTAP release has the following known issues:
 | Title
 | Description
 | Oracle ID
-| 1362435 | HUK 6.2 and Solaris_11.4 FC driver binding changes | Refer to Solaris 11.4 and HUK recommendations. FC driver binding is changed from `ssd (4D)` to `sd (4D)`. Move configuration that you have in `ssd.conf` to `sd.conf` as mentioned in Oracle (Doc ID 2595926.1). The behavior varies across newly installed Solaris 11.4 systems and systems upgraded from Solaris 11.3 or earlier versions.
+| 1362435 | HUK 6.2 and Solaris_11.4 FC driver binding changes | Refer to Solaris 11.4 and HUK recommendations. FC driver binding is changed from `ssd (4D)` to `sd (4D)`. Move the existing configuration from `ssd.conf` to `sd.conf` as mentioned in Oracle DOC: 2595926.1). The behavior varies across newly installed Solaris 11.4 systems and systems upgraded from Solaris 11.3 or earlier versions.
  | (Doc ID 2595926.1)
 | 1366780 | Solaris LIF issue noticed during storage failover (SFO) giveback operation with Emulex 32G host bus adapter (HBA) on x86 Arch | Solaris LIF issue noticed with Emulex firmware version 12.6.x and later on the x86_64 platform. | SR 3-24746803021
 | 1368957 | Solaris 11.x `cfgadm -c configure` resulting in I/O error with end-to-end Emulex configuration | Running `cfgadm -c configure` on Emulex end-to-end configuration results in an I/O error. This is fixed in ONTAP 9.5P17, 9.6P14 , 9.7P13, and 9.8P2 | Not Applicable
