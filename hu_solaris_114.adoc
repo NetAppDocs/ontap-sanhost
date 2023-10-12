@@ -85,7 +85,7 @@ If you decide to use SAN booting, it must be supported by your configuration. Yo
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
 
-You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on a SAN boot LUNs in a Solaris MPIO environment.
+You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on a SAN boot LUNs in a Solaris MPIO (Multipath I/O) environment.
 
 == Multipathing
 
@@ -136,19 +136,19 @@ All Solaris OS versions (including Solaris 10.x and Solaris 11.x) support Solari
 
 * For Solaris 11.4, the FC driver binding is changed from `ssd` to `sd`. The following configuration files get partially updated during the HUK 6.2 installation process:
 
-** /kernel/drv/sd.conf
-** /etc/driver/drv/scsi_vhci.conf
+** `/kernel/drv/sd.conf`
+** `/etc/driver/drv/scsi_vhci.conf`
 
 * For Solaris 11.3, the FC driver binding uses `ssd`. The following configuration files get partially updated during the HUK 6.2 installation process:
 
-** /kernel/drv/ssd.conf
-** /etc/driver/drv/scsi_vhci.conf
+** `/kernel/drv/ssd.conf`
+** `/etc/driver/drv/scsi_vhci.conf`
 
 * For Solaris 10.x, the following configuration files get fully updated during the HUK 6.2 installation process:
 
-** /kernel/drv/sd.conf
-** /kernel/drv/ssd.conf
-** /kernel/drv/scsi_vhci.conf
+** `/kernel/drv/sd.conf`
+** `/kernel/drv/ssd.conf`
+** `/kernel/drv/scsi_vhci.conf`
 
 To resolve any configuration issues, see the Knowledge Base article link:https://kb.netapp.com/onprem/ontap/da/SAN/What_are_the_Solaris_Host_recommendations_for_Supporting_HUK_6.2[What are the Solaris host recommendations for supporting HUK 6.2^]. 
 
@@ -165,7 +165,7 @@ NetApp recommends the following for a successful 4KB aligned I/O with zpools usi
 
 By default, the Solaris OS will fail to execute the I/O operations after *20s* if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations the value of `fcp_offline_delay` must be increased to *120s* to ensure that I/O does not prematurely time out during operations including unplanned fail overs. For additional information and recommended changes to default settings, see the Knowledge Base article https://kb.netapp.com/onprem/ontap/metrocluster/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
 
-== Oracle Solaris Virtualization
+== Oracle Solaris virtualization
 
 * Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies have been re-branded generally as "Oracle Virtual Machines" despite the fact that they are based on different architectures.
 
@@ -175,7 +175,7 @@ By default, the Solaris OS will fail to execute the I/O operations after *20s* i
 
 * Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, do not need specific qualifications as they do not have direct access to NetApp LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
-=== Recommended settings for Virtualization
+=== Recommended settings for virtualization
 
 When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM will not properly detect the block sizes. To prevent this issue, the LDOM OS must be patched for _Oracle Bug 15824910_ and a `vdc.conf` file must be created that sets the block size of the virtual disk to `4096`. See Oracle DOC: 2157669.1 for more information.
 
