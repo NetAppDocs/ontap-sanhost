@@ -1,0 +1,103 @@
+---
+sidebar: sidebar
+permalink: hu_wuhu_71.html
+keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
+summary: Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+---
+
+= Troubleshoot
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+== Troubleshooting
+
+You can use the general troubleshooting techniques for Windows Host Utilities. Be sure to check the latest Release Notes for known issues and solutions.
+
+=== Different areas to identify the possible interoperability issues
+
+* To identify potential interoperability issues, you must confirm that the host utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
+* You must check the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
+* You must verify that you have the correct iSCSI configuration.
+* If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the *Persistent Targets* tab of the Microsoft iSCSI initiator GUI.
+* If applications using the LUNs display errors on startup, you must verify that the applications are configured to depend on the iSCSI service.
+* For FC paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target LIFs, not the WWPNs of the physical ports on the node.
+* You must review the link:hu_wuhu_71_rn.html[Release Notes] for Windows Host Utilities to check for known issues. The Release Notes include a list of known issues and limitations.
+* You must review the troubleshooting information in the SAN Administration Guide for your version of ONTAP.
+* You must search https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] for recently discovered issues.
+** In the Bug Type field under Advanced Search, you should select *iSCSI - Windows* and then select *Go*. You should repeat the search for Bug Type *FCP -Windows*.
+* You must collect information about your system.
+* Record any error messages that are displayed on the host or storage system console.
+* Collect the host and storage system log files.
+* Record the symptoms of the problem and any changes made to the host or storage system just before the problem appeared.
+* If you are unable to resolve the problem, contact NetApp technical support for assistance.
+
+
+=== Understand the host utilities changes to FC HBA driver settings
+
+During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and in some cases modified.
+
+The host utilities set values for the following parameters:
+
+* LinkTimeOut – Defines the length of time in seconds that the host port waits before resuming I/O operations after a physical link goes down.
+* NodeTimeOut – Defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
+
+When troubleshooting HBA issues, verify that these settings have the correct values. The correct values depend on two factors:
+
+* The HBA vendor
+* Whether you are using MPIO
+
+You can correct the HBA settings by running the *Repair* option of the Windows Host Utilities installer.
+
+[role="tabbed-block"]
+====
+
+.Verify the Emulex HBA driver settings on FC systems
+--
+If you have an FC system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
+
+.Steps
+
+. Open OnCommand Manager.
+. Select the appropriate HBA from the list and select the *Driver Parameters* tab.
++
+The driver parameters appear.
+. If you are using MPIO software, verify that you have the following driver settings:
++
+* LinkTimeOut - 1
+* NodeTimeOut - 10
+. If you are not using MPIO software, verify that you have the following driver settings:
++
+* LinkTimeOut - 30
+* NodeTimeOut - 120
+--
+
+.Verify the QLogic HBA driver settings on FC systems
+--
+On FC systems, you must verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
+
+.Steps
+
+. Open QConvergeConsole, and then select *Connect* on the toolbar.
++
+The *Connect to Host* dialog box appears.
+. Select the appropriate host from the list, and then select *Connect*.
++
+A list of HBAs appear in the FC HBA pane.
+. Select the appropriate HBA port from the list, and then select the *Settings* tab.
+. Select *Advanced HBA Port Settings* from the *Select Settings* section.
+. If you are using MPIO software, verify that you have the following driver settings:
++
+* Link Down Timeout (linkdwnto) - 1
+* Port Down Retry Count (portdwnrc) - 10
+. If you are not using MPIO software, verify that you have the following driver settings:
++
+* Link Down Timeout (linkdwnto) - 30
+* Port Down Retry Count (portdwnrc) - 120
+--
+====

@@ -1,0 +1,50 @@
+---
+sidebar: sidebar
+permalink: hu_wuhu_71.html
+keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
+summary: Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+---
+
+= Repair and remove Windows Host Utilities
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use the *Repair* option of the host utilities installation program to update the HBA and Windows registry settings. You can remove the host utilities entirely, either interactively or from the Windows command line.
+
+[role="tabbed-block"]
+====
+
+.Repair or remove Windows Host Utilities interactively
+--
+The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the host utilities entirely.
+
+.Steps
+
+. Open Windows *Programs and Features* (Windows Server 2012 R2, Windows Server 2016, Windows Server 2019, and Windows 2022).
+. Select *NetApp Windows Unified Host Utilities*.
+. Select *Change*.
+. Select *Repair* or *Remove*, as needed.
+. Follow the instructions on the screen.
+--
+
+.Repair or remove Windows Host Utilities from command line
+--
+The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the host utilities entirely from a Windows command line.
+
+.Steps
+
+. Enter the following command on the Windows command line to repair Windows Host Utilities:
++
+`msiexec /f installer.msi [/quiet]`
+
+* `/f` repairs the installation.
+* `installer.msi` is the name of the Windows Host Utilities installation program on your system.
+* `/quiet` suppresses all feedback and reboots the system automatically without prompting when the command completes.
+--
+====

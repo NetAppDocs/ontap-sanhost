@@ -13,7 +13,8 @@ summary: Windows Unified host utilities includes an installation program that se
 :imagesdir: ./media/
 
 
-== About Windows Host Utilities
+[.lead]
+The Windows Unified Host Utilities enable you to connect a Windows host computer to NetApp storage systems.
 
 Windows Unified host utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 
@@ -36,9 +37,16 @@ The following programs and files are installed on the Windows host computer. The
 |Displays the version of the host utilities and FC HBAs.
 |===
 
-== Configurations supported by host utilities
-
 The host utilities support different Windows host configurations, protocols, and multipathing options. For more information, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+
+The Windows Unified Host Utilities continues to support the following versions of Windows:
+
+* Windows 2012
+* Windows 2012R2
+* Windows 2016
+* Windows 2019
+* Windows 2022
+
 
 == Verify your host and storage system configuration
 
@@ -131,84 +139,7 @@ To see the standard Microsoft Installer (MSI) options for logging and other func
 --
 ====
 
-== Upgrade the host utilities
 
-The new host utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the host utilities interactively in order to upgrade the installation package.
-
-[role="tabbed-block"]
-====
-.Upgrade the host utilities interactively
---
-To upgrade the host utilities software package interactively, you must run the host utilities installation program and follow the prompts.
-
-.Steps
-
-. Change to the directory where you downloaded the executable file.
-. Run the executable file and follow the instructions on the screen.
-. Reboot the Windows host when prompted.
-.  After the reboot completes, check the host utility version:
-.. Open *Control Panel*.
-.. Go to *Program and features* and check the host utility version.
---
-
-.Upgrade the host utilities from a command line
---
-You can perform a quiet (unattended) upgrade of the new host utilities by entering the appropriate commands at the Windows command prompt.
-
-The new host utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the host utilities interactively to upgrade the installation package.
-
-.Steps
-
-. Enter the following command at the Windows command prompt:
-+
-`msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
-
-* `installer` is the name of the `.msi` file for your CPU architecture.
-* MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
-* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
-
-[NOTE]
-To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at the Windows command prompt. For example, the `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.
-
-The system automatically reboots when the installation is complete.
---
-====
-
-== Repair and remove Windows Host Utilities
-
-You can use the *Repair* option of the host utilities installation program to update the HBA and Windows registry settings. You can remove the host utilities entirely, either interactively or from the Windows command line.
-
-[role="tabbed-block"]
-====
-
-.Repair or remove Windows Host Utilities interactively
---
-The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the host utilities entirely.
-
-.Steps
-
-. Open Windows *Programs and Features* (Windows Server 2012 R2, Windows Server 2016, Windows Server 2019, and Windows 2022).
-. Select *NetApp Windows Unified Host Utilities*.
-. Select *Change*.
-. Select *Repair* or *Remove*, as needed.
-. Follow the instructions on the screen.
---
-
-.Repair or remove Windows Host Utilities from command line
---
-The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the host utilities entirely from a Windows command line.
-
-.Steps
-
-. Enter the following command on the Windows command line to repair Windows Host Utilities:
-+
-`msiexec /f installer.msi [/quiet]`
-
-* `/f` repairs the installation.
-* `installer.msi` is the name of the Windows Host Utilities installation program on your system.
-* `/quiet` suppresses all feedback and reboots the system automatically without prompting when the command completes.
---
-====
 
 == Overview of settings used by the host utilities
 
@@ -354,7 +285,7 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |===
 
-.Related information
+
 Refer to the Microsoft documents for the registry parameter details.
 
 == NVMe parameters
@@ -435,89 +366,3 @@ The host utilities `fcconfig.ini` file displays this parameter as either `LinkDo
 .Related information
 Refer to Emulex or QLogic site to know more about the timeout parameters.
 
-== Troubleshooting
-
-You can use the general troubleshooting techniques for Windows Host Utilities. Be sure to check the latest Release Notes for known issues and solutions.
-
-=== Different areas to identify the possible interoperability issues
-
-* To identify potential interoperability issues, you must confirm that the host utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
-* You must check the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
-* You must verify that you have the correct iSCSI configuration.
-* If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the *Persistent Targets* tab of the Microsoft iSCSI initiator GUI.
-* If applications using the LUNs display errors on startup, you must verify that the applications are configured to depend on the iSCSI service.
-* For FC paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target LIFs, not the WWPNs of the physical ports on the node.
-* You must review the link:hu_wuhu_71_rn.html[Release Notes] for Windows Host Utilities to check for known issues. The Release Notes include a list of known issues and limitations.
-* You must review the troubleshooting information in the SAN Administration Guide for your version of ONTAP.
-* You must search https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] for recently discovered issues.
-** In the Bug Type field under Advanced Search, you should select *iSCSI - Windows* and then select *Go*. You should repeat the search for Bug Type *FCP -Windows*.
-* You must collect information about your system.
-* Record any error messages that are displayed on the host or storage system console.
-* Collect the host and storage system log files.
-* Record the symptoms of the problem and any changes made to the host or storage system just before the problem appeared.
-* If you are unable to resolve the problem, contact NetApp technical support for assistance.
-
-
-=== Understand the host utilities changes to FC HBA driver settings
-
-During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and in some cases modified.
-
-The host utilities set values for the following parameters:
-
-* LinkTimeOut – Defines the length of time in seconds that the host port waits before resuming I/O operations after a physical link goes down.
-* NodeTimeOut – Defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
-
-When troubleshooting HBA issues, verify that these settings have the correct values. The correct values depend on two factors:
-
-* The HBA vendor
-* Whether you are using MPIO
-
-You can correct the HBA settings by running the *Repair* option of the Windows Host Utilities installer.
-
-[role="tabbed-block"]
-====
-
-.Verify the Emulex HBA driver settings on FC systems
---
-If you have an FC system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
-
-.Steps
-
-. Open OnCommand Manager.
-. Select the appropriate HBA from the list and select the *Driver Parameters* tab.
-+
-The driver parameters appear.
-. If you are using MPIO software, verify that you have the following driver settings:
-+
-* LinkTimeOut - 1
-* NodeTimeOut - 10
-. If you are not using MPIO software, verify that you have the following driver settings:
-+
-* LinkTimeOut - 30
-* NodeTimeOut - 120
---
-
-.Verify the QLogic HBA driver settings on FC systems
---
-On FC systems, you must verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
-
-.Steps
-
-. Open QConvergeConsole, and then select *Connect* on the toolbar.
-+
-The *Connect to Host* dialog box appears.
-. Select the appropriate host from the list, and then select *Connect*.
-+
-A list of HBAs appear in the FC HBA pane.
-. Select the appropriate HBA port from the list, and then select the *Settings* tab.
-. Select *Advanced HBA Port Settings* from the *Select Settings* section.
-. If you are using MPIO software, verify that you have the following driver settings:
-+
-* Link Down Timeout (linkdwnto) - 1
-* Port Down Retry Count (portdwnrc) - 10
-. If you are not using MPIO software, verify that you have the following driver settings:
-+
-* Link Down Timeout (linkdwnto) - 30
-* Port Down Retry Count (portdwnrc) - 120
---
-====
