@@ -14,6 +14,10 @@ summary: Describes how to use CentOS 8.5 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure CentOS 8.5 with ONTAP as the target.
+
+
 == Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
@@ -120,7 +124,7 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
-== Known Problems and Limitations
+== Known issues
 
 There are no know issues for CentOS 8.5.
 

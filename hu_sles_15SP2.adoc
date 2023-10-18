@@ -14,6 +14,9 @@ summary: Describes how to use SUSE Linux Enterprise Server 15 SP2 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP2 with ONTAP as the target. 
+
 == Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
@@ -104,7 +107,7 @@ devices {
 }
 ----
 
-== Known Problems and Limitations
+== Known issues
 [cols="1,1,3,1"]
 [options="header"]
 |===

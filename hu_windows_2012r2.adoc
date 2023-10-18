@@ -14,6 +14,9 @@ summary: Using Windows Server 2012 R2 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Windows server 2012 R2 with ONTAP as the target. 
+
 == Booting the OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 

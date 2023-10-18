@@ -14,6 +14,10 @@ summary: Describes how to use IBM AIX 7.1 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure IBM AIX 7.1 with ONTAP as the target.
+
+
 
 == Install the AIX Host Utilities
 
@@ -171,6 +175,6 @@ In an AIX configuration, failovers are disruptive. With each failover, you will 
 
 To configure AIX for SM-BC, refer to the Knowledge Base article link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/How_to_configure_an_AIX_host_for_SnapMirror_Business_Continuity_(SM-BC)[How to configure an AIX host for SnapMirror Business Continuity (SM-BC)^].
 
-== Known Problems and Limitations
+== Known issues
 
-There are no known problems and limitations.
+There are no Known issues.
