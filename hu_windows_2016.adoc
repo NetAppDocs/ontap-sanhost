@@ -14,6 +14,8 @@ summary: Using Windows Server 2016 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Windows server 2016 with ONTAP as the target. 
 
 == Booting the OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
@@ -54,5 +56,5 @@ include::_include/windows/reuse_windows_asa_configuration.adoc[]
 include::_include/windows/reuse_windows_recommended_settings.adoc[]
 
 
-== Known limitations
-There are no known issues for Windows Server 2016.
+== Known issues
+There are no known issues for the Windows Server 2016 with ONTAP release.
