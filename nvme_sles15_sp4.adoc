@@ -382,20 +382,42 @@ round-robin
 . Verify that the ONTAP namespaces are visible to the host:
 +
 ----
-nvme list
-nvme list -v # new output to be shared
+nvme list -v 
 ----
 +
 *Example output:*
 +
 ----
-Node		Generic		SN				Model
--------------------------------------------------------------
-/dev/nvme1n1	/dev/mg1n1	814vWBNRwfBGAAAAAAAB	NetApp ONTAP Controller
+Subsystem        Subsystem-NQN                                                                                    
+---------------- ------------------------------------------------------------------------------------
+nvme-subsys0     nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap               
 
-Namespace	Usage		Format		FW			Rev	
------------------------------------------------------------------
-1		85.90		GB/85.90GB		4 KiB + 0 B		FFFFFFFF
+Controllers
+--------------
+nvme0, nvme1, nvme2, nvme3
+
+Device   SN                   MN                                       FR       TxPort 
+-------- -------------------- ---------------------------------------- -------- ------ 
+nvme0    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    
+nvme1    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    
+nvme2    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    
+nvme3    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    
+
+Asdress        Subsystem    Namespaces
+-------------- ------------ ----------------
+traddr=192.168.2.214,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1
+traddr=192.168.2.215,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1
+traddr=192.168.1.214,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
+traddr=192.168.1.215,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
+
+Device       Generic      NSID       Usage                      
+------------ ------------ ---------- -------------------------- 
+/dev/nvme0n1 /dev/ng0n1   0x1          1.07  GB /   1.07  GB      
+
+Format           Controllers
+---------------- ----------------
+4 KiB +  0 B   nvme0, nvme1, nvme2, nvme3
+
 ----
 
 . Verify that the controller state of each path is live and has the correct ANA status:
@@ -424,17 +446,15 @@ nvme list-subsys /dev/<subsystem_name>
 --
 [subs=+quotes]
 ----
-nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
-08.com.netapp:sn.37ba7d9cbfba11eba35dd039ea165514:subsystem.nvme_114_tcp_1
-\
-+- nvme0 tcp traddr=192.168.2.36 trsvcid=4420,host_traddr=192.168.1.4 *live optimized*
-+- nvme1 tcp traddr=192.168.1.31 trsvcid=4420,host_traddr=192.168.1.4 *live optimized*
-+- nvme10 tcp traddr=192.168.2.37 trsvcid=4420,host_traddr=192.168.1.4 *live non-optimized*
-+- nvme11 tcp traddr=192.168.1.32 trsvcid=4420,host_traddr=192.168.1.4 *live non-optimized*
-+- nvme20 tcp traddr=192.168.2.36 trsvcid=4420,host_traddr=192.168.2.5 *live optimized*
-+- nvme21 tcp traddr=192.168.1.31 trsvcid=4420,host_traddr=192.168.2.5 *live optimized*
-+- nvme30 tcp traddr=192.168.2.37 trsvcid=4420,host_traddr=192.168.2.5 *live non-optimized*
-+- nvme31 tcp traddr=192.168.1.32 trsvcid=4420,host_traddr=192.168.2.5 *live non-optimized*
+# nvme list-subsys
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap
+hostnqn=nqn.2014-08.org.nvmexpress:uuid:e58eca24-faff-11ea-8fee-3a68dd3b5c5f
+iopolicy=round-robin
+
+ +- nvme0 tcp traddr=192.168.2.214,trsvcid=4420,host_traddr=192.168.2.14 live
+ +- nvme1 tcp traddr=192.168.2.215,trsvcid=4420,host_traddr=192.168.2.14 live
+ +- nvme2 tcp traddr=192.168.1.214,trsvcid=4420,host_traddr=192.168.1.14 live
+ +- nvme3 tcp traddr=192.168.1.215,trsvcid=4420,host_traddr=192.168.1.14 live
 ----
 --
 ====
@@ -452,13 +472,15 @@ nvme list-subsys /dev/nvme0n1 nvme-subsys0 - NQN=nqn.1992-
 Example output: 
 
 ----
-Device	Vserver	Namespace Path
------------------------------------------------------
-/dev/nvme1n1 vserver_fcnvme_145 /vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns
 
-NSID	UUID							Size
---------------------------------------------------------
-1		23766b68-e261-444e-b378-2e84dbe0e5e1	85.90GB
+Device           Vserver                   Namespace Path                                     
+---------------- ------------------------- ---------------------------------------
+/dev/nvme0n1     vs_CLIENT114              /vol/CLIENT114_vol_0_10/CLIENT114_ns10             
+
+NSID UUID                                   Size
+---- -------------------------------------- ---------
+1    c6586535-da8a-40fa-8c20-759ea0d69d33   1.07GB
+
 ----
 --
 
@@ -470,15 +492,18 @@ NSID	UUID							Size
 Example output:
 ----
 {
-"ONTAPdevices" : [
-{
-  "Device" : "/dev/nvme1n1", "Vserver" : "vserver_fcnvme_145",
-  "Namespace_Path" : "/vol/fcnvme_145_vol_1_0_0/fcnvme_145_ns", "NSID" : 1,
-  "UUID" : "23766b68-e261-444e-b378-2e84dbe0e5e1", "Size" : "85.90GB",
-  "LBA_Data_Size" : 4096,
-  "Namespace_Size" : 20971520
-}
-]
+  "ONTAPdevices":[
+    {
+      "Device":"/dev/nvme0n1",
+      "Vserver":"vs_CLIENT114",
+      "Namespace_Path":"/vol/CLIENT114_vol_0_10/CLIENT114_ns10",
+      "NSID":1,
+      "UUID":"c6586535-da8a-40fa-8c20-759ea0d69d33",
+      "Size":"1.07GB",
+      "LBA_Data_Size":4096,
+      "Namespace_Size":262144
+    }
+  ]
 }
 ----
 --
@@ -496,65 +521,191 @@ Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (P
 nvme discover -t trtype -w host-traddr -a traddr
 ----
 +
-*Example output:*
+**
 +
-[subs=+quotes]
+.Example output:
+[%collapsible]
+====
 ----
-Discovery Log Number of Records 8, Generation counter 18
-=====Discovery Log Entry 0====== trtype: tcp
-adrfam: ipv4
-*subtype: current discovery subsystem treq: not specified*
-portid: 0
-trsvcid: 8009 subnqn: nqn.1992-
-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.2.117
-*eflags: explicit discovery connections, duplicate discovery information sectype: none*
-=====Discovery Log Entry 1====== trtype: tcp
-adrfam: ipv4
-subtype: current discovery subsystem treq: not specified
-portid: 1
-trsvcid: 8009 subnqn: nqn.1992-
-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.1.117
-eflags: explicit discovery connections, duplicate discovery information sectype: none
-=====Discovery Log Entry 2====== trtype: tcp
-adrfam: ipv4
-subtype: current discovery subsystem treq: not specified
-portid: 2
-trsvcid: 8009 subnqn: nqn.1992-
-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.2.116
-eflags: explicit discovery connections, duplicate discovery information
+Discovery Log Number of Records 16, Generation counter 14
+=====Discovery Log Entry 0======
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  0
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:discovery
+traddr:  192.168.1.214
+eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
-=====Discovery Log Entry 3====== trtype: tcp
-adrfam: ipv4
-subtype: current discovery subsystem treq: not specified
-portid: 3
-trsvcid: 8009 subnqn: nqn.1992-
-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.1.116
-eflags: explicit discovery connections, duplicate discovery information sectype: none
-=====Discovery Log Entry 4====== trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem treq: not specified portid: 0
-trsvcid: 4420 subnqn: nqn.1992-
-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
-traddr: 192.168.2.117 eflags: not specified sectype: none
-=====Discovery Log Entry 5====== trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem treq: not specified portid: 1
-trsvcid: 4420 subnqn: nqn.1992-
-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
-traddr: 192.168.1.117 eflags: not specified sectype: none
-=====Discovery Log Entry 6====== trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem treq: not specified portid: 2
+=====Discovery Log Entry 1======
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  0
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:discovery
+traddr:  192.168.1.215
+eflags:  explicit discovery connections, duplicate discovery information
+sectype: none
+=====Discovery Log Entry 2======
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  0
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:discovery
+traddr:  192.168.2.215
+eflags:  explicit discovery connections, duplicate discovery information
+sectype: none
+=====Discovery Log Entry 3======
+trtype:  tcp
+adrfam:  ipv4
+subtype: current discovery subsystem
+treq:    not specified
+portid:  0
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:discovery
+traddr:  192.168.2.214
+eflags:  explicit discovery connections, duplicate discovery information
+sectype: none
+=====Discovery Log Entry 4======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
 trsvcid: 4420
-subnqn: nqn.1992- 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
-traddr: 192.168.2.116 eflags: not specified sectype: none
-=====Discovery Log Entry 7====== trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem treq: not specified portid: 3
-trsvcid: 4420 subnqn: nqn.1992-
-08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
-traddr: 192.168.1.116 eflags: not specified sectype: none
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_none
+traddr:  192.168.1.214
+eflags:  none
+sectype: none
+=====Discovery Log Entry 5======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_none
+traddr:  192.168.1.215
+eflags:  none
+sectype: none
+=====Discovery Log Entry 6======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_none
+traddr:  192.168.2.215
+eflags:  none
+sectype: none
+=====Discovery Log Entry 7======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_none
+traddr:  192.168.2.214
+eflags:  none
+sectype: none
+=====Discovery Log Entry 8======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.subsys_CLIENT114
+traddr:  192.168.1.214
+eflags:  none
+sectype: none
+=====Discovery Log Entry 9======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.subsys_CLIENT114
+traddr:  192.168.1.215
+eflags:  none
+sectype: none
+=====Discovery Log Entry 10======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.subsys_CLIENT114
+traddr:  192.168.2.215
+eflags:  none
+sectype: none
+=====Discovery Log Entry 11======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.subsys_CLIENT114
+traddr:  192.168.2.214
+eflags:  none
+sectype: none
+=====Discovery Log Entry 12======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap
+traddr:  192.168.1.214
+eflags:  none
+sectype: none
+=====Discovery Log Entry 13======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap
+traddr:  192.168.1.215
+eflags:  none
+sectype: none
+=====Discovery Log Entry 14======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap
+traddr:  192.168.2.215
+eflags:  none
+sectype: none
+=====Discovery Log Entry 15======
+trtype:  tcp
+adrfam:  ipv4
+subtype: nvme subsystem
+treq:    not specified
+portid:  0
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap
+traddr:  192.168.2.214
+eflags:  none
+sectype: none
 ----
+====
 
 . Create a PDC for the discovery subsystem: 
 +
