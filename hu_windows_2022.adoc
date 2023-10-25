@@ -14,6 +14,8 @@ summary: Using Windows Server 2022 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Windows server 2022 with ONTAP as the target. 
 == Booting the OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
@@ -46,5 +48,5 @@ include::_include/windows/reuse_windows_asa_configuration.adoc[]
 == Recommended settings
 include::_include/windows/reuse_windows_recommended_settings.adoc[]
 
-== Known limitations
-There are no known issues for Windows Server 2022.
+== Known issues
+There are no known issues for the Windows Server 2022 with ONTAP release.

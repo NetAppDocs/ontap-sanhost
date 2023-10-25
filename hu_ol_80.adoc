@@ -14,6 +14,9 @@ summary: Describes how to use Oracle Linux 8.0 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Oracle Linux 8.0 with ONTAP as the target.
+
 == Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
@@ -104,9 +107,9 @@ devices {
 
 NOTE: To configure Oracle Linux 8.0 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_80.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.0.
 
-== Known Problems and Limitations
+== Known issues
 
-There are no known issues for Oracle Linux 8.0.
+There are no known issues for the Oracle Linux 8.0 with ONTAP release.
 
 NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_80.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 8.0.
 

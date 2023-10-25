@@ -14,6 +14,8 @@ summary: Describes how to install the solaris host utilities
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Solaris 11.3 with ONTAP as the target. 
 
 == Install the Solaris Host Utilities
 
@@ -195,7 +197,9 @@ For additional information and recommended changes to default settings, refer to
 
 //BURT 1528592 26 Jan 2023
 
-== Known problems and limitations
+== Known issues
+
+The Solaris 11.3 with ONTAP release has the following known issues:
 
 [cols=4*, options="header"]
 |===
