@@ -389,20 +389,20 @@ nvme list -v
 +
 ----
 Subsystem        Subsystem-NQN                                                                         Controllers
----------------- ------------------------------------------------------------------------------------ --------------
+---------------- ------------------------------------------------------------------------------------ -----------------------
 nvme-subsys0     nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap    nvme0, nvme1, nvme2, nvme3          
 
 
 Device   SN                   MN                                       FR       TxPort Asdress        Subsystem    Namespaces
 -------- -------------------- ---------------------------------------- -------- ---------------------------------------------
-nvme0    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    traddr=192.168.2.214,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1
-nvme1    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp  traddr=192.168.2.215,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1  
-nvme2    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    traddr=192.168.1.214,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
-nvme3    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    traddr=192.168.1.215,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
+nvme0    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller   FFFFFFFF tcp traddr=192.168.2.214,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1
+nvme1    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller   FFFFFFFF tcp traddr=192.168.2.215,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1  
+nvme2    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller   FFFFFFFF tcp traddr=192.168.1.214,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
+nvme3    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller   FFFFFFFF tcp traddr=192.168.1.215,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
 
 
 Device       Generic      NSID       Usage                 Format         Controllers               
------------- ------------ ---------- --------------------------------------------------
+------------ ------------ ---------- -------------------------------------------------------------
 /dev/nvme0n1 /dev/ng0n1   0x1     1.07  GB /   1.07  GB    4 KiB +  0 B   nvme0, nvme1, nvme2, nvme3  
 
 ----
