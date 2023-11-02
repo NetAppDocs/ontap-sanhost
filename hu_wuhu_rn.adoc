@@ -35,7 +35,7 @@ You should be aware of the following known problems and limitations that might i
 |Title	|Description |Workaround
 |Running the `linux_gos_timeout-install.sh` script is no longer required on Hyper-V guests running Red Hat Enterprise Linux or SUSE Linux Enterprise Server |You are no longer required to run the `linux_gos_timeout-install.sh` script to change disk timeouts on Red Hat Enterprise Linux 5, Red Hat Enterprise Linux 6, or SUSE Linux Enterprise Server 11 Hyper-V guests because the default timeout settings are being used. The `linux_gos_timeout-install.sh` script that was included in previous versions of the Host Utilities is no longer included in the Windows Unified Host Utilities 7.1 version. Windows Unified Host Utilities 7.1 uses the default disk timeout settings.|Not Applicable
 |iSCSI sessions do not reconnect after reboot with mixed IPv4 and IPv6 |In a multipath I/O (MPIO) configuration or multiple connections per session (MCS) configuration that has both IPv4 and IPv6 endpoints, some iSCSI sessions might fail to reconnect after rebooting the Windows host.
-|To verify that all of your iSCSI paths are operational after a reboot, use either all IPv4 endpoints or all IPv6. Do not mix IPv4 and IPv6.
+|Use either all IPv4 endpoints or IPv6 endpoints. Do not mix IPv4 and IPv6. 
 |MCS is not supported with iSCSI software boot |When using the iSCSI software boot with iSCSI multiple connections per session (MCS), the iSCSI boot leading connection cannot be protected. This can lead to disconnection from the boot LUN causing host system disruption.
 |Microsoft does not support MCS for iSCSI software booted hosts. Use MPIO as the high availability solution. Note that mixing MPIO and MCS is not supported.
 |===
