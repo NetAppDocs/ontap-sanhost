@@ -388,35 +388,22 @@ nvme list -v
 *Example output:*
 +
 ----
-Subsystem        Subsystem-NQN                                                                                    
----------------- ------------------------------------------------------------------------------------
-nvme-subsys0     nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap               
+Subsystem        Subsystem-NQN                                                                         Controllers
+---------------- ------------------------------------------------------------------------------------ --------------
+nvme-subsys0     nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhchap    nvme0, nvme1, nvme2, nvme3          
 
-Controllers
---------------
-nvme0, nvme1, nvme2, nvme3
 
-Device   SN                   MN                                       FR       TxPort 
--------- -------------------- ---------------------------------------- -------- ------ 
-nvme0    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    
-nvme1    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    
-nvme2    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    
-nvme3    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    
+Device   SN                   MN                                       FR       TxPort Asdress        Subsystem    Namespaces
+-------- -------------------- ---------------------------------------- -------- ---------------------------------------------
+nvme0    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    traddr=192.168.2.214,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1
+nvme1    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp  traddr=192.168.2.215,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1  
+nvme2    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    traddr=192.168.1.214,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
+nvme3    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller                  FFFFFFFF tcp    traddr=192.168.1.215,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
 
-Asdress        Subsystem    Namespaces
--------------- ------------ ----------------
-traddr=192.168.2.214,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1
-traddr=192.168.2.215,trsvcid=4420,host_traddr=192.168.2.14 nvme-subsys0 nvme0n1
-traddr=192.168.1.214,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
-traddr=192.168.1.215,trsvcid=4420,host_traddr=192.168.1.14 nvme-subsys0 nvme0n1
 
-Device       Generic      NSID       Usage                      
------------- ------------ ---------- -------------------------- 
-/dev/nvme0n1 /dev/ng0n1   0x1          1.07  GB /   1.07  GB      
-
-Format           Controllers
----------------- ----------------
-4 KiB +  0 B   nvme0, nvme1, nvme2, nvme3
+Device       Generic      NSID       Usage                 Format         Controllers               
+------------ ------------ ---------- --------------------------------------------------
+/dev/nvme0n1 /dev/ng0n1   0x1     1.07  GB /   1.07  GB    4 KiB +  0 B   nvme0, nvme1, nvme2, nvme3  
 
 ----
 
@@ -435,10 +422,10 @@ nvme list-subsys /dev/<subsystem_name>
 # nvme list-subsys /dev/nvme1n1 nvme-subsys1 - NQN=nqn.1992-
 08.com.netapp:sn.04ba0732530911ea8e8300a098dfdd91:subsystem.nvme_145_1
 \
-+- nvme2 fc traddr=nn-0x208100a098dfdd91:pn- 0x208200a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f *live optimized*
-+- nvme3 fc traddr=nn-0x208100a098dfdd91:pn- 0x208500a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e *live optimized*
-+- nvme4 fc traddr=nn-0x208100a098dfdd91:pn- 0x208400a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e *live non-optimized*
-+- nvme6 fc traddr=nn-0x208100a098dfdd91:pn- 0x208300a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f *live non-optimized*
++- nvme2 *fc* traddr=nn-0x208100a098dfdd91:pn- 0x208200a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f *live optimized*
++- nvme3 *fc* traddr=nn-0x208100a098dfdd91:pn- 0x208500a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e *live optimized*
++- nvme4 *fc* traddr=nn-0x208100a098dfdd91:pn- 0x208400a098dfdd91,host_traddr=nn-0x200000109b579d5e:pn-0x100000109b579d5e *live non-optimized*
++- nvme6 *fc* traddr=nn-0x208100a098dfdd91:pn- 0x208300a098dfdd91,host_traddr=nn-0x200000109b579d5f:pn-0x100000109b579d5f *live non-optimized*
 ----
 --
 
@@ -451,10 +438,10 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:su
 hostnqn=nqn.2014-08.org.nvmexpress:uuid:e58eca24-faff-11ea-8fee-3a68dd3b5c5f
 iopolicy=round-robin
 
- +- nvme0 tcp traddr=192.168.2.214,trsvcid=4420,host_traddr=192.168.2.14 live
- +- nvme1 tcp traddr=192.168.2.215,trsvcid=4420,host_traddr=192.168.2.14 live
- +- nvme2 tcp traddr=192.168.1.214,trsvcid=4420,host_traddr=192.168.1.14 live
- +- nvme3 tcp traddr=192.168.1.215,trsvcid=4420,host_traddr=192.168.1.14 live
+ +- nvme0 *tcp* traddr=192.168.2.214,trsvcid=4420,host_traddr=192.168.2.14 *live*
+ +- nvme1 *tcp* traddr=192.168.2.215,trsvcid=4420,host_traddr=192.168.2.14 *live*
+ +- nvme2 *tcp* traddr=192.168.1.214,trsvcid=4420,host_traddr=192.168.1.14 *live*
+ +- nvme3 *tcp* traddr=192.168.1.215,trsvcid=4420,host_traddr=192.168.1.14 *live*
 ----
 --
 ====
@@ -473,14 +460,10 @@ Example output:
 
 ----
 
-Device           Vserver                   Namespace Path                                     
----------------- ------------------------- ---------------------------------------
-/dev/nvme0n1     vs_CLIENT114              /vol/CLIENT114_vol_0_10/CLIENT114_ns10             
-
-NSID UUID                                   Size
----- -------------------------------------- ---------
-1    c6586535-da8a-40fa-8c20-759ea0d69d33   1.07GB
-
+Device           Vserver                   Namespace Path                               NSID UUID                                   Size      
+---------------- ------------------------- -----------------------------------------------------------------------------------------------
+/dev/nvme0n1     vs_CLIENT114              /vol/CLIENT114_vol_0_10/CLIENT114_ns10       1    c6586535-da8a-40fa-8c20-759ea0d69d33   1.07GB    
+    
 ----
 --
 
@@ -520,8 +503,7 @@ Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (P
 ----
 nvme discover -t trtype -w host-traddr -a traddr
 ----
-+
-**
+
 +
 .Example output:
 [%collapsible]
