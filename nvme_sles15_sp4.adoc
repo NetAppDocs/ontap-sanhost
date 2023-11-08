@@ -268,10 +268,10 @@ subtype: *current discovery subsystem* treq: not specified
 portid: 0
 trsvcid: 8009 subnqn: nqn.1992-
 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.2.117
-eflags: explicit discovery connections, duplicate discovery information sectype: none
+eflags: *explicit discovery connections, duplicate discovery information sectype: none*
 =====Discovery Log Entry 1====== trtype: tcp
 adrfam: ipv4
-subtype: current discovery subsystem treq: not specified
+subtype: *current discovery subsystem* treq: not specified
 portid: 1
 trsvcid: 8009 subnqn: nqn.1992-
 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.1.117
@@ -282,8 +282,7 @@ subtype: *current discovery subsystem* treq: not specified
 portid: 2
 trsvcid: 8009 subnqn: nqn.1992-
 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:discovery traddr: 192.168.2.116
-eflags: *explicit discovery connections, duplicate discovery information
-sectype: none*
+eflags: *explicit discovery connections, duplicate discovery information sectype: none*
 =====Discovery Log Entry 3====== trtype: tcp
 adrfam: ipv4
 subtype: *current discovery subsystem* treq: not specified
@@ -529,8 +528,7 @@ portid:  0
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:discovery
 traddr:  192.168.1.214
-eflags:  *explicit discovery connections, duplicate discovery information*
-sectype: none
+eflags:  *explicit discovery connections, duplicate discovery information sectype: none*
 =====Discovery Log Entry 1======
 trtype:  tcp
 adrfam:  ipv4
@@ -551,8 +549,7 @@ portid:  0
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:discovery
 traddr:  192.168.2.215
-eflags:  *explicit discovery connections, duplicate discovery information
-sectype: none*
+eflags:  *explicit discovery connections, duplicate discovery information sectype: none*
 =====Discovery Log Entry 3======
 trtype:  tcp
 adrfam:  ipv4
@@ -562,8 +559,7 @@ portid:  0
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:discovery
 traddr:  192.168.2.214
-eflags:  *explicit discovery connections, duplicate discovery information
-sectype: none*
+eflags:  *explicit discovery connections, duplicate discovery information sectype: none*
 =====Discovery Log Entry 4======
 trtype:  tcp
 adrfam:  ipv4
@@ -788,7 +784,7 @@ vserver nvme subsystem host add -vserver <svm_name> -subsystem <subsystem> -host
 
 +
 ----
-nvme connect -t tcp -w <ip_address> -a <ip_address> -n <host_nqn> -S <authentication_host_secret> -C <authentication_controller_secret>
+nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authentication_host_secret> -C <authentication_controller_secret>
 ----
 
 . Validate the `nvme connect authentication` command by verifying the host and controller dhchap keys: 
