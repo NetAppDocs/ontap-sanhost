@@ -27,7 +27,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
-== SAN Booting
+== SAN booting
 
 .What you'll need
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=84067;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
@@ -71,20 +71,20 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
-== Recommended Settings
+== Recommended settings
 
 SUSE Linux Enterprise Server 15 SP4 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 
-The `multipath.conf` file must exist for the multipath daemon to start, but you can create an empty, zero- byte file using the command:
-`touch /etc/multipath.conf`
+The `multipath.conf` file must exist for the multipath daemon to start, but you can create an empty, zero-byte file by using the command:
+`touch /etc/multipath.conf`.
  
 The first time you create this file, you might need to enable and start the multipath services.
 
-There is no requirement to add anything directly to `multipath.conf` file, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
+There is no requirement to add anything directly to the `multipath.conf` file, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
 
 You can add the following syntax to the `multipath.conf` file to exclude the unwanted devices.
 
-Replace the `<DevId>` with the `WWID` string of the device you want to exclude. Use the following command to determine the `WWID`:
+Replace `<DevId>` with the `WWID` string of the device you want to exclude. Use the following command to determine the `WWID`:
 
 
 .Example
@@ -98,8 +98,7 @@ In this example, `sda` is the local SCSI disk that we need to add to the blackli
 360030057024d0730239134810c0cb833
 ----
 
-
-.	Add this `WWID` to the blacklist stanza in the `/etc/multipath.conf`:
+.	Add the `WWID` value to the blacklist stanza in the `/etc/multipath.conf` file:
 +
 ----
 blacklist {
@@ -109,9 +108,9 @@ devnode "^cciss.*"
 }
 ----
 
-You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that may be overriding default settings.
+You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that might be overriding default settings.
 
-The table below shows the critical multipathd parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in `multipath.conf` that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs may not work as expected. These defaults should only be overridden in consultation with NetApp and/or OS vendor and only when the impact is fully understood.
+The table below shows the critical multipathd parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in `multipath.conf` that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs might not work as expected. These defaults should only be overridden in consultation with NetApp and/or OS vendor and only when the impact is fully understood.
 
 
 [cols=2]
@@ -141,7 +140,7 @@ The table below shows the critical multipathd parameters for ONTAP LUNs and the 
 
 .Example
 
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
+The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If these parameters cannot be removed because other SAN arrays are still attached to the host, they can instead be corrected specifically for ONTAP LUNs with a device stanza.
 
 ----
 defaults {
