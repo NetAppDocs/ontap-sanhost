@@ -322,7 +322,7 @@ traddr: 192.168.1.116 eflags: not specified sectype: none
 nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
 +
-*Example*
+*Example output:*
 +
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.32 
@@ -336,7 +336,7 @@ nvme discover -t tcp -w <host-traddr> -a <traddr>
 nvme connect-all -t tcp -w host-traddr -a traddr -l <ctrl_loss_timeout_in_seconds>
 ----
 +
-*Example*
+*Example output:*
 +
 ----
 # nvme connect-all -t tcp -w 192.168.1.4 -a 192.168.1.31 -l -1
