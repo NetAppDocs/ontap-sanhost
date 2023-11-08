@@ -202,7 +202,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 You can use the following procedure to enable NVMe services.
 
-Between the two NVMe/FC boot services included in the `nvme-cli` package, _only_ `nvmefc-boot-connections.service` is enabled to start during system boot;  `nvmf-autoconnect.service` is not enabled. Therefore, you need to manually enable `nvmf-autoconnect.service` to start during system boot.
+There are two NVMe/FC boot services included in the `nvme-cli` package, however, _only_ `nvmefc-boot-connections.service` is enabled to start during system boot;  `nvmf-autoconnect.service` is not enabled. Therefore, you need to manually enable `nvmf-autoconnect.service` to start during system boot.
 
 .Steps
 
@@ -216,7 +216,7 @@ Created symlink /etc/systemd/system/default.target.wants/nvmf-autoconnect.servic
 . Reboot the host. 
 . Verify that `nvmf-autoconnect.service` and `nvmefc-boot-connections.service` are running after the system boots up: 
 +
-*Example*
+*Example output:*
 +
 ----
 # systemctl status nvmf-autoconnect.service
@@ -826,7 +826,7 @@ DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsE
 --
 You can use the `/etc/nvme/config.json` file with the `nvme connect-all` command when multiple NVMe subsystems are available on the ONTAP controller configuration. 
 
-You can generate the JSON file using `-o` option. Refer to the ONTAP man pages for more syntax options.
+You can generate the JSON file using `-o` option. Refer to the link:https://docs.netapp.com/us-en/ontap/concepts/manual-pages.html[ONTAP man pages^] for more syntax options.
 
 
 .Steps
