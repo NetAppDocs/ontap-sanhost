@@ -140,7 +140,7 @@ The table below shows the critical multipathd parameters for ONTAP LUNs and the 
 
 .Example
 
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays being still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
+The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If these parameters cannot be removed because other SAN arrays are still attached to the host, they can instead be corrected specifically for ONTAP LUNs with a device stanza.
 
 ----
 defaults {
