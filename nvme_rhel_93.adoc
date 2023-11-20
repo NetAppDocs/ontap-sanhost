@@ -50,7 +50,7 @@ You can use the following procedure to validate the minimum supported RHEL 9.3 s
 *Example output:*
 +
 ----
-5.14.0-354.el9.x86_64
+5.14.0-362.8.1.el9_3.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -62,7 +62,7 @@ You can use the following procedure to validate the minimum supported RHEL 9.3 s
 *Example output:*
 +
 ----
-nvme-cli-2.4-8.el9.x86_64
+nvme-cli-2.4-10.el9.x86_64
 ----
 
 . Install the `libnvme` package:
