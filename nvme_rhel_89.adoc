@@ -33,7 +33,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Enable in-kernel multipath
 
-You can use the following procedure to enable in-kernal multipath.
+You can use the following procedure to enable in-kernel multipath.
 
 .Steps
 
@@ -149,8 +149,8 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev 
-14.0.639.18, sli-4:2:c
-14.0.639.18, sli-4:2:c
+14.2.539.16, sli-4:2:c
+14.2.539.16, sli-4:2:c
 ----
 +
 ----
@@ -205,6 +205,7 @@ Total FCP Cmpl 00000000000001ac Issue 00000000000001ad OutIO 0000000000000001
 FCP CMPL: xb 00000002 Err 00000003
 
 
+
 ----
 
 
@@ -225,7 +226,6 @@ FCP CMPL: xb 00000002 Err 00000003
 ----
 QLE2742 FW: v9.10.11 DVR: v10.02.08.200-k
 QLE2742 FW: v9.10.11 DVR: v10.02.08.200-k
-
 ----
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
@@ -283,6 +283,7 @@ subnqn:  nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b: discovery
 traddr:  192.168.111.15
 sectype: none ..........
 
+
 ----
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data:
@@ -299,6 +300,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 # nvme	discovery	-t   tcp    -w	192.168.211.79   -a	192.168.211.14
 # nvme	discovery	-t   tcp    -w	192.168.211.79   -a	192.168.211.15
 
+
 ----
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes, and set the controller loss timeout period for at least 30 minutes or 1800 seconds:
@@ -314,6 +316,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 # nvme	connect-all	-t	tcp	-w	192.168.111.79	-a	192.168.111.15	-l	1800
 # nvme	connect-all	-t	tcp	-w	192.168.211.79	-a	192.168.211.14	-l	1800
 # nvme	connect-all	-t	tcp	-w	192.168.211.79	-a	192.168.211.15	-l	1800
+
 
 ----
 
@@ -384,6 +387,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.8e501f8ebafa11ec9b99d039ea359e4b:su
 +- nvme1 fc traddr=nn-0x204dd039ea36a105:pn-0x2050d039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 live non-optimized
 +- nvme2 fc traddr=nn-0x204dd039ea36a105:pn-0x204fd039ea36a105 host_traddr=nn-0x20000024ff7f4995:pn-0x21000024ff7f4995 live optimized
 +- nvme3 fc traddr=nn-0x204dd039ea36a105:pn-0x204ed039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 live optimized 
+
 ----
 --
 .NVMe/TCP
@@ -400,6 +404,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:su
 +- nvme1 tcp traddr=192.168.111.14 trsvcid=4420 host_traddr=192.168.111.79 live optimized
 +- nvme2 tcp traddr=192.168.211.15 trsvcid=4420 host_traddr=192.168.211.79 live non-optimized
 +- nvme3 tcp traddr=192.168.211.14 trsvcid=4420 host_traddr=192.168.211.79 live optimized
+
 ----
 --
 ====
@@ -436,20 +441,21 @@ NSID       UUID                                   Size
 *Example output*
 ----
 {
-  "ONTAPdevices" : [
+  "ONTAPdevices”: [
     {
-      "Device" : "/dev/nvme0n1",
-      "Vserver" : "vs_tcp79",
-      "Namespace_Path" : "/vol/vol1/ns1",
-      "NSID" : 1,
-      "UUID" : "338d73ce-b5a8-4847-9cc9-b127c75d8855",
-      "Size" : "21.47GB",
-      "LBA_Data_Size" : 4096,
-      "Namespace_Size" : 5242880
+      "Device”: "/dev/nvme0n1",
+      "Vserver”: "vs_tcp79",
+      "Namespace Path”: "/vol/vol1/ns",
+      "NSID”: 1,
+      "UUID”: "aa197984-3f62-4a80-97de-e89436360cec",
+      "Size”: "21.47GB",
+      "LBA_Data_Size”: 4096,
+      "Namespace Size" : 5242880
     },
 ]
 
 }
+
 
 ----
 --
