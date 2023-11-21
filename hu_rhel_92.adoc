@@ -14,6 +14,9 @@ summary: Describes how to use Red Hat Enterprise Linux 9.2 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 9.2 with ONTAP as the target. 
+
 == Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
@@ -122,7 +125,7 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known issues
 
-The NVMe-oF host configuration for RHEL 9.2 with ONTAP release has the following known issues:
+The RHEL 9.2 with ONTAP release has the following known issues:
 
 [options="header", cols="20, 20, 50,20"]
 |===
