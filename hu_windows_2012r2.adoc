@@ -18,14 +18,17 @@ summary: Using Windows Server 2012 R2 with ONTAP
 You can use the ONTAP SAN host configuration settings to configure Windows server 2012 R2 with ONTAP as the target. 
 
 == Booting the OS
+
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
 === SAN booting
+
 include::_include/windows/reuse_windows_san_booting.adoc[]
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Install Windows hotfixes
+
 We suggest the use of *latest cumulative update* to be installed on the server.
 
 NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2012_R2[Microsoft Update Catalog 2012 R2^] website to obtain and install the required Windows hotfixes for your version of Windows.
@@ -33,31 +36,40 @@ NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Upda
 include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
 == Install the Windows Unified Host Utilities
+
 include::_include/windows/reuse_windows_installing_WUHU.adoc[]
 
 == Multipathing
+
 include::_include/windows/reuse_windows_multipathing.adoc[]
 
 NOTE: When you select MPIO support, the Windows Unified Host Utilities enables the included MPIO feature of Windows Server 2012 R2.
 
 == SAN configuration
+
 === Non-ASA configuration
+
 include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
 
 
 === All SAN array configuration
+
 include::_include/windows/reuse_windows_asa_configuration.adoc[]
 
 == Hyper-V VHD requires alignment for best performance
+
 include::_include/windows/reuse_windows_hyperv_vhd.adoc[]
 
 
 === Reinstall GRUB for Linux guests after correcting MBR alignment with PowerShell Toolkit
+
 include::_include/windows/reuse_windows_reinstalling_GRUB.adoc[]
 
 
 == Recommended settings
+
 include::_include/windows/reuse_windows_recommended_settings.adoc[]
 
 == Known issues
+
 There are no known issues for the Windows Server 2012 R2 with ONTAP release.
