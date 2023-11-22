@@ -262,47 +262,47 @@ Discovery Log Number of Records 8, Generation counter 10
 =====Discovery Log Entry 0======
 trtype:  tcp
 adrfam:  ipv4
-*subtype: current discovery subsystem*
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  0
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.bbfb4ee8dfb611edbd07d039ea165590:discovery
 traddr:  192.168.166.17
-*eflags:  explicit discovery connections, duplicate discovery information*
+eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 1======
 trtype:  tcp
 adrfam:  ipv4
-*subtype: current discovery subsystem*
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  1
 trsvcid: 8009
 subnqn:  nqn.1992 08.com.netapp:sn.bbfb4ee8dfb611edbd07d039ea165590:discovery
 traddr:  192.168.167.17
-*eflags:  explicit discovery connections, duplicate discovery information*
+eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 2======
 trtype:  tcp
 adrfam:  ipv4
-*subtype: current discovery subsystem*
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  2
 trsvcid: 8009
 subnqn:  nqn.1992-
 08.com.netapp:sn.bbfb4ee8dfb611edbd07d039ea165590:discovery
 traddr:  192.168.166.16
-*eflags:  explicit discovery connections, duplicate discovery information*
+eflags: *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 3======
 trtype:  tcp
 adrfam:  ipv4
-*subtype: current discovery subsystem*
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  3
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.bbfb4ee8dfb611edbd07d039ea165590:discovery
 traddr:  192.168.167.16
-*eflags:  explicit discovery connections, duplicate discovery information*
+eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 ...
 
