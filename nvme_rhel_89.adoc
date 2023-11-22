@@ -18,7 +18,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.9 with ONTAP
 [.lead]
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 8.9 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-The following support is available for the NVMe-oF host configuration for RHEL 8.9 with ONTAP:
+The following support is available for NVMe-oF host configuration for RHEL 8.9 with ONTAP:
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
@@ -181,12 +181,13 @@ Online
 Online
 ----
 +
+[subs=+quotes]
 ----
 # cat /sys/class/scsi_host/host*/nvme_info 
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x10000090fae0ec88 WWNN x20000090fae0ec88 DID x0a1300 ONLINE
-NVME RPORT       WWPN x2049d039ea36a105 WWNN x2048d039ea36a105 DID x0a0c0a TARGET DISCSRVC ONLINE
+NVME LPORT lpfc0 WWPN x10000090fae0ec88 WWNN x20000090fae0ec88 DID x0a1300 *ONLINE*
+NVME RPORT       WWPN x2049d039ea36a105 WWNN x2048d039ea36a105 DID x0a0c0a *TARGET DISCSRVC ONLINE*
 NVME Statistics
 LS: Xmt 0000000024 Cmpl 0000000024 Abort 00000000
 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
@@ -195,8 +196,8 @@ Total FCP Cmpl 00000000000001aa Issue 00000000000001ab OutIO 0000000000000001
 FCP CMPL: xb 00000002 Err 00000003
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x10000090fae0ec89 WWNN x20000090fae0ec89 DID x0a1200 ONLINE
-NVME RPORT       WWPN x204ad039ea36a105 WWNN x2048d039ea36a105 DID x0a080a TARGET DISCSRVC ONLINE
+NVME LPORT lpfc1 WWPN x10000090fae0ec89 WWNN x20000090fae0ec89 DID x0a1200 *ONLINE*
+NVME RPORT       WWPN x204ad039ea36a105 WWNN x2048d039ea36a105 DID x0a080a *TARGET DISCSRVC ONLINE*
 NVME Statistics
 LS: Xmt 0000000024 Cmpl 0000000024 Abort 00000000
 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
