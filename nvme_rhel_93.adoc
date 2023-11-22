@@ -177,13 +177,14 @@ Online
 Online
 ----
 +
+[subs=+quotes]
 ----
 # cat /sys/class/scsi_host/host*/nvme_info 
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000109b3c081f WWNN x200000109b3c081f DID x062300 ONLINE
-NVME RPORT       WWPN x2143d039ea165877 WWNN x2142d039ea165877 DID x061b15 TARGET DISCSRVC ONLINE
-NVME RPORT       WWPN x2145d039ea165877 WWNN x2142d039ea165877 DID x061115 TARGET DISCSRVC ONLINE
+NVME LPORT lpfc0 WWPN x100000109b3c081f WWNN x200000109b3c081f DID x062300 *ONLINE*
+NVME RPORT       WWPN x2143d039ea165877 WWNN x2142d039ea165877 DID x061b15 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2145d039ea165877 WWNN x2142d039ea165877 DID x061115 *TARGET DISCSRVC ONLINE*
 NVME Statistics
 LS: Xmt 000000040b Cmpl 000000040b Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
@@ -192,9 +193,9 @@ abort 00000630 noxri 00000000 nondlp 00001071 qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 00000630 Err 0001bd4a
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000109b3c0820 WWNN x200000109b3c0820 DID x062c00 ONLINE
-NVME RPORT       WWPN x2144d039ea165877 WWNN x2142d039ea165877 DID x060215 TARGET DISCSRVC ONLINE
-NVME RPORT       WWPN x2146d039ea165877 WWNN x2142d039ea165877 DID x061815 TARGET DISCSRVC ONLINE
+NVME LPORT lpfc1 WWPN x100000109b3c0820 WWNN x200000109b3c0820 DID x062c00 *ONLINE*
+NVME RPORT       WWPN x2144d039ea165877 WWNN x2142d039ea165877 DID x060215 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2146d039ea165877 WWNN x2142d039ea165877 DID x061815 *TARGET DISCSRVC ONLINE*
 NVME Statistics
 LS: Xmt 000000040b Cmpl 000000040b Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
@@ -253,6 +254,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 *Example output:*
 +
+[subs=+quotes]
 ----
 # nvme discover -t tcp -w 192.168.167.1 -a 192.168.167.16
 
@@ -260,47 +262,47 @@ Discovery Log Number of Records 8, Generation counter 10
 =====Discovery Log Entry 0======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+*subtype: current discovery subsystem*
 treq:    not specified
 portid:  0
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.bbfb4ee8dfb611edbd07d039ea165590:discovery
 traddr:  192.168.166.17
-eflags:  explicit discovery connections, duplicate discovery information
+*eflags:  explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 1======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+*subtype: current discovery subsystem*
 treq:    not specified
 portid:  1
 trsvcid: 8009
 subnqn:  nqn.1992 08.com.netapp:sn.bbfb4ee8dfb611edbd07d039ea165590:discovery
 traddr:  192.168.167.17
-eflags:  explicit discovery connections, duplicate discovery information
+*eflags:  explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 2======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+*subtype: current discovery subsystem*
 treq:    not specified
 portid:  2
 trsvcid: 8009
 subnqn:  nqn.1992-
 08.com.netapp:sn.bbfb4ee8dfb611edbd07d039ea165590:discovery
 traddr:  192.168.166.16
-eflags:  explicit discovery connections, duplicate discovery information
+*eflags:  explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 3======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+*subtype: current discovery subsystem*
 treq:    not specified
 portid:  3
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.bbfb4ee8dfb611edbd07d039ea165590:discovery
 traddr:  192.168.167.16
-eflags:  explicit discovery connections, duplicate discovery information
+*eflags:  explicit discovery connections, duplicate discovery information*
 sectype: none
 ...
 
