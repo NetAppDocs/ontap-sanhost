@@ -19,7 +19,7 @@ summary: How to Configure NVMe-oF Host for RHEL 9.3 with ONTAP
 
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.3 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-The following support is available for the NVMe-oF host configuration for RHEL 9.3 with ONTAP:
+The following support is available for NVMe-oF host configuration for RHEL 9.3 with ONTAP:
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
@@ -41,7 +41,7 @@ You can use the following procedure to validate the minimum supported RHEL 9.3 s
 
 .Steps
 
-. Install RHEL 9.3 on the server. After the installation is complete, verify that you are running the specified RHEL 9.3 kernel. 
+. Install RHEL 9.3 on the server. After the installation is complete, verify that you are running the specified RHEL 9.3 kernel: 
 +
 ----
 # uname -r
@@ -118,7 +118,7 @@ You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 --
 .Steps
 
-. Verify that you are using the supported adapter model. 
+. Verify that you are using the supported adapter model: 
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -142,7 +142,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver. 
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver: 
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev
@@ -212,7 +212,7 @@ FCP CMPL: xb 00000629 Err 0001bd3d
 --
 .Steps
 
-. The native inbox qla2xxx driver included in the RHEL 9.3 GA kernel has the latest upstream fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. The native inbox qla2xxx driver included in the RHEL 9.3 GA kernel has the latest fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -308,7 +308,7 @@ sectype: none
 
 ----
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
+. Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
 +
 ----
 nvme discover -t tcp -w host-traddr -a traddr
@@ -487,7 +487,7 @@ NSID       UUID                                   Size
 
 == Known issues
 
-There are no known issues.
+There are no known issues for the NVMe-oF host configuration for RHEL 9.3 with ONTAP release.
 
 
 
