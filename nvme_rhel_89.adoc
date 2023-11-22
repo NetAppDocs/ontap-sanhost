@@ -38,7 +38,7 @@ You can use the following procedure to enable in-kernel multipath.
 .Steps
 
 . Install RHEL 8.9 on the host server. 
-. After the installation is complete, verify that you are running the specified RHEL 8.9 kernel. 
+. After the installation is complete, verify that you are running the specified RHEL 8.9 kernel: 
 +
 ----
 # uname -r
@@ -47,7 +47,7 @@ You can use the following procedure to enable in-kernel multipath.
 *Example output*
 +
 ----
-4.18.0-509.el8.x86_64
+4.18.0-513.5.1.el8_9.x86_64
 ----
 
 . Install the nvme-cli package: 
@@ -65,7 +65,7 @@ nvme-cli-1.16-9.el8.x86_64
 . Enable in -kernel NVMe multipath:
 +
 ----
-# grubby --args=nvme_core.multipath=Y --update-kernel /boot/ vmlinuz-4.18.0-509.el8.x86_64
+# grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-513.5.1.el8_9.x86_64
 ----
 
 . On the host, check the host NQN string at `/etc/nvme/hostnqn`:
@@ -380,13 +380,13 @@ Namespace Usage    Format             FW             Rev
 ----
 
 *Example output:*
-
+[subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.8e501f8ebafa11ec9b99d039ea359e4b:subsystem.rhel_163_Qle2742 
-+- nvme0 fc traddr=nn-0x204dd039ea36a105:pn-0x2050d039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 live non-optimized 
-+- nvme1 fc traddr=nn-0x204dd039ea36a105:pn-0x2050d039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 live non-optimized
-+- nvme2 fc traddr=nn-0x204dd039ea36a105:pn-0x204fd039ea36a105 host_traddr=nn-0x20000024ff7f4995:pn-0x21000024ff7f4995 live optimized
-+- nvme3 fc traddr=nn-0x204dd039ea36a105:pn-0x204ed039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 live optimized 
++- nvme0 *fc* traddr=nn-0x204dd039ea36a105:pn-0x2050d039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 *live non-optimized*
++- nvme1 *fc* traddr=nn-0x204dd039ea36a105:pn-0x2050d039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 *live non-optimized*
++- nvme2 *fc* traddr=nn-0x204dd039ea36a105:pn-0x204fd039ea36a105 host_traddr=nn-0x20000024ff7f4995:pn-0x21000024ff7f4995 *live optimized*
++- nvme3 *fc* traddr=nn-0x204dd039ea36a105:pn-0x204ed039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 *live optimized* 
 
 ----
 --
@@ -397,13 +397,13 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.8e501f8ebafa11ec9b99d039ea359e4b:su
 ----
 
 *Example output:*
-
+[subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rhel_tcp_165\
-+- nvme0 tcp traddr=192.168.111.15 trsvcid=4420 host_traddr=192.168.111.79 live non-optimized
-+- nvme1 tcp traddr=192.168.111.14 trsvcid=4420 host_traddr=192.168.111.79 live optimized
-+- nvme2 tcp traddr=192.168.211.15 trsvcid=4420 host_traddr=192.168.211.79 live non-optimized
-+- nvme3 tcp traddr=192.168.211.14 trsvcid=4420 host_traddr=192.168.211.79 live optimized
++- nvme0 *tcp* traddr=192.168.111.15 trsvcid=4420 host_traddr=192.168.111.79 *live non-optimized*
++- nvme1 *tcp* traddr=192.168.111.14 trsvcid=4420 host_traddr=192.168.111.79 *live optimized*
++- nvme2 *tcp* traddr=192.168.211.15 trsvcid=4420 host_traddr=192.168.211.79 *live non-optimized*
++- nvme3 *tcp* traddr=192.168.211.14 trsvcid=4420 host_traddr=192.168.211.79 *live optimized*
 
 ----
 --
