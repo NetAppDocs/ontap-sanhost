@@ -15,11 +15,11 @@ summary: Windows Unified Host Utilities includes an installation program that se
 :imagesdir: ./media/
 
 [.lead]
-The host utilities require certain registry and parameter settings to verify that the Windows host correctly handles the storage system behavior.
+The Host Utilities require certain registry and parameter settings to verify that the Windows host correctly handles the storage system behavior.
 
 Windows Host Utilities set the parameters that affect how the Windows host responds to a delay or loss of data. The particular values have been selected to verify that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
 
-Not all values apply to the DSM for SANtricity Storage Manager; however, any overlap of values set by the host utilities and those set by the DSM for SANtricity Storage Manager do not result in conflicts.
+Not all values apply to the device-specific module (DSM) for SANtricity Storage Manager; however, any overlap of values set by the Host Utilities and those set by the DSM for SANtricity Storage Manager do not result in conflicts.
 
 FC, NVMe/FC, and iSCSI HBAs also have parameters that you must set to ensure best performance and to successfully handle storage system events.
 
@@ -29,13 +29,14 @@ You must manually set the iSCSI HBA parameters.
 
 The installer sets different values depending on whether you specify multipath I/O (MPIO) support when running the installation program.
 
-You should not change these values unless technical support directs you to do so.
+[NOTE]
+You should not change these values unless NetApp technical support directs you to do so.
 
 == Registry values set by Windows Unified Host Utilities 7.2
 
 The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during the installation. You should be aware of these registry values and the operating system version.
 
-The following values are set by the Windows Unified Host Utilities installer. All values are decimal unless otherwise stated. 
+The following values are set by the Windows Unified Host Utilities installer. All values are in decimal unless otherwise stated. 
 
 [NOTE]
 HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
@@ -162,7 +163,7 @@ Refer to the Microsoft documents for the registry parameter details.
 
 == NVMe parameters
 
-The following NVMe Emulex driver parameters are updated when installing WUHU 7.2:
+The following NVMe Emulex driver parameters are updated when installing Windows Unified Host Utilities:
 
 * EnableNVMe = 1
 * NVMEMode = 0
@@ -170,7 +171,7 @@ The following NVMe Emulex driver parameters are updated when installing WUHU 7.2
  
 == FC HBA values set by Windows Host Utilities
 
-On systems using FC, the host utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
+On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
 
 For Emulex FC HBAs, the installer sets the following parameters:
 
@@ -233,7 +234,7 @@ For QLogic FC HBAs, the installer sets the following parameters:
 [NOTE]
 The names of the parameters might vary slightly depending on the program.
 For example, in the QLogic QConvergeConsole program, the parameter is displayed as `Link Down Timeout`.
-The host utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter.
+The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter.
 
 .Related information
 Refer to Emulex or QLogic site to know more about the timeout parameters.
@@ -242,7 +243,11 @@ Refer to Emulex or QLogic site to know more about the timeout parameters.
 == Registry values set by Windows Unified Host Utilities 7.1
 
 The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
-The following values are set by the Windows Unified Host Utilities installer. All values are decimal unless otherwise noted. HKLM is the abbreviation for HKEY_LOCAL_MACHINE.
+
+The following values are set by the Windows Unified Host Utilities installer. All values are in decimal unless otherwise noted. 
+
+[NOTE]
+`HKLM` is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
 [options="header", cols= "~, 10, ~"]
 |===
@@ -364,9 +369,15 @@ Refer to the https://docs.microsoft.com/en-us/troubleshoot/windows-server/perfor
 
 == FC HBA values set by Windows Host Utilities
 
-On systems using Fibre Channel, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
-For Emulex Fibre Channel HBAs, the installer sets the following parameters when MPIO is selected:
+On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
 
+For Emulex FC HBAs, the installer sets the following parameters:
+
+[role="tabbed-block"]
+====
+
+.When MPIO is selected
+--
 |===
 |Property type |Property value
 
@@ -375,8 +386,10 @@ For Emulex Fibre Channel HBAs, the installer sets the following parameters when 
 |NodeTimeOut
 |10
 |===
+--
 
-For Emulex Fibre Channel HBAs, the installer sets the following parameters when MPIO is not selected:
+.When MPIO is not selected
+--
 
 |===
 |Property type |Property value
@@ -386,9 +399,15 @@ For Emulex Fibre Channel HBAs, the installer sets the following parameters when 
 |NodeTimeOut
 |120
 |===
+--
+====
 
-For QLogic Fibre Channel HBAs, the installer sets the following parameters when MPIO is selected:
+For QLogic Fibre Channel HBAs, the installer sets the following parameters:
 
+[role="tabbed-block"]
+====
+.When MPIO is selected
+--
 |===
 |Property type |Property value
 
@@ -397,8 +416,10 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters when 
 |PortDownRetryCount
 |10
 |===
+--
 
-For QLogic Fibre Channel HBAs, the installer sets the following parameters when MPIO is not selected:
+.When MPIO is not selected
+--
 
 |===
 |Property type |Property value
@@ -408,6 +429,8 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters when 
 |PortDownRetryCount
 |120
 |===
+--
+====
 
 [NOTE]
 The names of the parameters might vary slightly depending on the program.
@@ -434,8 +457,13 @@ When troubleshooting HBA issues, check to make sure these settings have the corr
 
 You can correct the HBA settings by running the Repair option of the Windows Host Utilities installer.
 
-==== Verify the Emulex HBA driver settings on FC systems
-If you have a Fibre Channel system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
+[role="tabbed-block"]
+====
+
+.Verify the Emulex HBA driver settings on FC systems
+--
+
+If you have an FC system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
 
 .Steps
 
@@ -443,23 +471,25 @@ If you have a Fibre Channel system, you must verify the Emulex HBA driver settin
 . Select the appropriate HBA from the list and click the *Driver Parameters* tab.
 +
 The driver parameters appear.
-. If you are using MPIO software, ensure that you have the following driver settings:
+.. If you are using MPIO software, ensure that you have the following driver settings:
 +
 * LinkTimeOut - 1
 * NodeTimeOut - 10
-. If you are not using MPIO software, ensure that you have the following driver settings:
+.. If you are not using MPIO software, ensure that you have the following driver settings:
 +
 * LinkTimeOut - 30
 * NodeTimeOut - 120
+--
 
-==== Verify the QLogic HBA driver settings on FC systems
+.Verify the QLogic HBA driver settings on FC systems
+--
 On FC systems, you need to verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
 
 .Steps
 
 . Open QConvergeConsole, and then click *Connect* on the  toolbar.
 +
-The Connect to Host dialog box appears.
+The *Connect to Host* dialog box appears.
 . Select the appropriate host from the list, and then click *Connect*.
 +
 A list of HBAs appears in the FC HBA pane.
@@ -473,5 +503,6 @@ A list of HBAs appears in the FC HBA pane.
 +
 * Link Down Timeout (linkdwnto) - 30
 * Port Down Retry Count (portdwnrc) - 120
-
+--
+====
 

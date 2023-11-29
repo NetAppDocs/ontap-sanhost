@@ -5,7 +5,7 @@ keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp
 summary: Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 ---
 
-= Upgrade the Windows host utilities
+= Upgrade the Windows Host Utilities
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -15,13 +15,13 @@ summary: Windows Unified Host Utilities includes an installation program that se
 :imagesdir: ./media/
 
 [.lead]
-The new host utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the host utilities interactively in order to upgrade the installation package.
+The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line in order to upgrade the installation package.
 
 [role="tabbed-block"]
 ====
-.Upgrade the host utilities interactively
+.Upgrade the Host Utilities interactively
 --
-To upgrade the host utilities software package interactively, you must run the host utilities installation program and follow the prompts.
+To upgrade the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
 
 .Steps
 
@@ -33,11 +33,11 @@ To upgrade the host utilities software package interactively, you must run the h
 .. Go to *Program and features* and check the host utility version.
 --
 
-.Upgrade the host utilities from a command line
+.Upgrade the Host Utilities from a command line
 --
-You can perform a quiet (unattended) upgrade of the new host utilities by entering the appropriate commands at the Windows command prompt.
+You can perform a quiet (unattended) upgrade of the new Host Utilities by entering the appropriate commands at the Windows command prompt.
 
-The new host utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the host utilities interactively to upgrade the installation package.
+The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively to upgrade the installation package.
 
 .Steps
 
@@ -47,7 +47,7 @@ The new host utilities installation package must be in a path that is accessible
 
 * `installer` is the name of the `.msi` file for your CPU architecture.
 * MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
-* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
+* `inst_path` is the path where the Host Utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
 
 [NOTE]
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at the Windows command prompt. For example, the `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.

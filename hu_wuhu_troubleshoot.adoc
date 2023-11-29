@@ -15,13 +15,11 @@ summary: Windows Unified Host Utilities includes an installation program that se
 :imagesdir: ./media/
 
 [.lead]
-== Troubleshooting
-
 You can use the general troubleshooting techniques for Windows Host Utilities. Be sure to check the latest Release Notes for known issues and solutions.
 
-=== Different areas to identify the possible interoperability issues
+Following are the different areas to identify the possible interoperability issues:
 
-* To identify potential interoperability issues, you must confirm that the host utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
+* To identify potential interoperability issues, you must confirm that the Host Utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
 * You must check the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
 * You must verify that you have the correct iSCSI configuration.
 * If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the *Persistent Targets* tab of the Microsoft iSCSI initiator GUI.
@@ -38,66 +36,3 @@ You can use the general troubleshooting techniques for Windows Host Utilities. B
 * If you are unable to resolve the problem, contact NetApp technical support for assistance.
 
 
-=== Understand the host utilities changes to FC HBA driver settings
-
-During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and in some cases modified.
-
-The host utilities set values for the following parameters:
-
-* LinkTimeOut – Defines the length of time in seconds that the host port waits before resuming I/O operations after a physical link goes down.
-* NodeTimeOut – Defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
-
-When troubleshooting HBA issues, verify that these settings have the correct values. The correct values depend on two factors:
-
-* The HBA vendor
-* Whether you are using MPIO
-
-You can correct the HBA settings by running the *Repair* option of the Windows Host Utilities installer.
-
-[role="tabbed-block"]
-====
-
-.Verify the Emulex HBA driver settings on FC systems
---
-If you have an FC system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
-
-.Steps
-
-. Open OnCommand Manager.
-. Select the appropriate HBA from the list and select the *Driver Parameters* tab.
-+
-The driver parameters appear.
-. If you are using MPIO software, verify that you have the following driver settings:
-+
-* LinkTimeOut - 1
-* NodeTimeOut - 10
-. If you are not using MPIO software, verify that you have the following driver settings:
-+
-* LinkTimeOut - 30
-* NodeTimeOut - 120
---
-
-.Verify the QLogic HBA driver settings on FC systems
---
-On FC systems, you must verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
-
-.Steps
-
-. Open QConvergeConsole, and then select *Connect* on the toolbar.
-+
-The *Connect to Host* dialog box appears.
-. Select the appropriate host from the list, and then select *Connect*.
-+
-A list of HBAs appear in the FC HBA pane.
-. Select the appropriate HBA port from the list, and then select the *Settings* tab.
-. Select *Advanced HBA Port Settings* from the *Select Settings* section.
-. If you are using MPIO software, verify that you have the following driver settings:
-+
-* Link Down Timeout (linkdwnto) - 1
-* Port Down Retry Count (portdwnrc) - 10
-. If you are not using MPIO software, verify that you have the following driver settings:
-+
-* Link Down Timeout (linkdwnto) - 30
-* Port Down Retry Count (portdwnrc) - 120
---
-====
