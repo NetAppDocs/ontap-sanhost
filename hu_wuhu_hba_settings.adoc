@@ -15,8 +15,6 @@ summary: Windows Unified Host Utilities includes an installation program that se
 :imagesdir: ./media/
 
 [.lead]
-== Overview of settings used by the host utilities
-
 The host utilities require certain registry and parameter settings to verify that the Windows host correctly handles the storage system behavior.
 
 Windows Host Utilities set the parameters that affect how the Windows host responds to a delay or loss of data. The particular values have been selected to verify that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
