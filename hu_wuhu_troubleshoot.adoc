@@ -19,15 +19,14 @@ You can use the general troubleshooting techniques for Windows Host Utilities. B
 
 Following are the different areas to identify the possible interoperability issues:
 
-* To identify potential interoperability issues, you must confirm that the Host Utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware.
-* You must check the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
+* To identify potential interoperability issues, you must confirm that the Host Utilities support your combination of host operating system software, host hardware, ONTAP software, and storage system hardware. See the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^] for more information.
 * You must verify that you have the correct iSCSI configuration.
 * If iSCSI LUNs are not available after a reboot, you must verify that the target is listed as persistent on the *Persistent Targets* tab of the Microsoft iSCSI initiator GUI.
 * If applications using the LUNs display errors on startup, you must verify that the applications are configured to depend on the iSCSI service.
 * For FC paths to storage controllers running ONTAP, you must verify that the FC switches are zoned using the WWPNs of the target LIFs, not the WWPNs of the physical ports on the node.
 * You must review the link:hu_wuhu_71_rn.html[Release Notes] for Windows Host Utilities to check for known issues. The Release Notes include a list of known issues and limitations.
-* You must review the troubleshooting information in the SAN Administration Guide for your version of ONTAP.
-* You must search https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] for recently discovered issues.
+* Review the troubleshooting information in the SAN Administration Guide for your version of ONTAP.
+* Search https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] for recently discovered issues.
 ** In the Bug Type field under Advanced Search, you should select *iSCSI - Windows* and then select *Go*. You should repeat the search for Bug Type *FCP -Windows*.
 * You must collect information about your system.
 * Record any error messages that are displayed on the host or storage system console.
