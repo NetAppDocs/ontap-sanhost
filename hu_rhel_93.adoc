@@ -45,13 +45,13 @@ vs_147_32glpe	         /vol/vol2/lun	 /dev/sdax	host12  FCP        10g	cDOT
 == SAN booting
 
 .What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and the ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 9.3, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 9.3 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Red Hat Enterprise Linux (RHEL) 9.3, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 9.3 is compiled with all the settings that are required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -146,6 +146,6 @@ The RHEL 9.3 with ONTAP release has the following known issues:
 [options="header", cols="20, 20, 50,20"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
-|1508554   	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex host bus adapter (HBA) adapter discovery	|In RHEL 9.x, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support host bus adapter (HBA) discovery cannot be found. |Not applicable
+|1508554   	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex host bus adapter (HBA) adapter discovery	|In RHEL 9.x, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support Emulex host bus adapter (HBA) discovery cannot be found. |Not applicable
 |===
 
