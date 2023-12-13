@@ -14,6 +14,9 @@ summary: Describes how to use Red Hat Enterprise Linux 9.1 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 9.1 with ONTAP as the target. 
+
 == Install the Linux Unified Host Utilities
 
 The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site^] in a 64-bit .rpm file. 
@@ -135,7 +138,9 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
-== Known problems and limitations
+== Known issues
+
+The RHEL 9.1 with ONTAP release has the following known issues:
 
 [options="header", cols="20, 20, 50,20"]
 |===

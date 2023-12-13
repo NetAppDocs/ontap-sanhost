@@ -18,7 +18,7 @@ sidebar:
       url: /index.html  
     - title: Overview
       url: /overview.html
-    - title: Install SAN Host Utilities
+    - title: Install SAN host utilities
       entries:
       - title: Overview
         url: /hu_sanhost_index.html
@@ -39,7 +39,7 @@ sidebar:
          - title: Sample command reference
            url: /hu_hpux_60_cmd.html
          
-      - title: Linux unified Host Utilities
+      - title: Linux Unified Host Utilities
         entries:
         - title: Release notes
           url: /hu_luhu_71_rn.html
@@ -48,7 +48,7 @@ sidebar:
         - title: Sample command reference
           url: /hu_luhu_71_cmd.html
         
-      - title: Solaris host utilities
+      - title: Solaris Host Utilities
         entries:
           - title: Release notes
             url: /hu_solaris_62_rn.html
@@ -229,6 +229,8 @@ sidebar:
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
+          - title: 9.3
+            url: /hu_rhel_93.html
           - title: 9.2
             url: /hu_rhel_92.html
           - title: 9.1
@@ -412,6 +414,8 @@ sidebar:
         entries:
         - title: RHEL 9
           entries:
+          - title: 9.3
+            url: /nvme_rhel_93.html
           - title: 9.2
             url: /nvme_rhel_92.html
           - title: 9.1

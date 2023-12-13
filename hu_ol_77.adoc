@@ -14,6 +14,9 @@ summary: Describes how to use Oracle Linux 7.7 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Oracle Linux 7.7 with ONTAP as the target.
+
 == Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
@@ -102,7 +105,9 @@ devices {
 
 NOTE: To configure Oracle Linux 7.7 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_77.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 7.7.
 
-== Known Problems and Limitations
+== Known issues
+
+The Oracle Linux 7.7 with ONTAP release has the following known issues:
 
 [cols=4*,options="header"]
 |===

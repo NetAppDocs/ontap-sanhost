@@ -14,6 +14,9 @@ summary: Describes how to use Oracle Linux 8.6 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Oracle Linux 8.6 with ONTAP as the target.
+
 == Install the Linux Unified Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
@@ -127,8 +130,8 @@ NOTE: To configure Oracle Linux 8.6 RedHat Enterprise Kernel (RHCK), use the lin
 
 You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
 
-== Known Problems and Limitations
+== Known issues
 
-There are no known issues for Oracle Linux 8.6.
+There are no known issues for the Oracle Linux 8.6 with ONTAP release.
 
 NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_86.html#known-problems-and-limitations[known issues] section in the corresponding Red Hat Enterprise Linux release documentation.
