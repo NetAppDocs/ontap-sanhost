@@ -14,6 +14,9 @@ summary: Using Windows Server 2019 with ONTAP
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Windows server 2019 with ONTAP as the target. 
+
 == Booting the OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
@@ -22,14 +25,14 @@ include::_include/windows/reuse_windows_san_booting.adoc[]
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
-== Installing Windows hotfixes
-We suggest the use of *latest cumulative update* to be installed on the server.
+== Install Windows hotfixes
+NetApp recommends that the *latest cumulative update* is installed on the server.
 
 NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2019[Microsoft Update Catalog 2019^] website to obtain and install the required Windows hotfixes for your version of Windows.
 
 include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
-== Installing the Windows Unified Host Utilities
+== Install the Windows Unified Host Utilities
 include::_include/windows/reuse_windows_installing_WUHU.adoc[]
 
 == Multipathing
@@ -48,5 +51,5 @@ include::_include/windows/reuse_windows_asa_configuration.adoc[]
 == Recommended settings
 include::_include/windows/reuse_windows_recommended_settings.adoc[]
 
-== Known limitations
-There are no known issues for Windows Server 2019.
+== Known issues
+There are no known issues for the Windows Server 2019 with ONTAP release.

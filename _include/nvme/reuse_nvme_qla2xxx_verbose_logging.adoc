@@ -4,12 +4,17 @@ There is no specific qla2xxx logging for NVMe/FC similar to that for the `lpfc` 
 
 . Append the `ql2xextended_error_logging=0x1e400000` value to the corresponding `modprobe qla2xxx conf` file.
 
-. Recreate the `initramfs` by running `dracut -f` command and then reboot the host.
+. Execute the `dracut -f` command and then reboot the host.
 
-. After reboot, verify that the verbose logging has been applied as follows:
+. After reboot, verify that the verbose logging has been enabled:
 +
 ----
 # cat /etc/modprobe.d/qla2xxx.conf
+----
++
+Example output:
++
+----
 options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
 # cat /sys/module/qla2xxx/parameters/ql2xextended_error_logging
 507510784

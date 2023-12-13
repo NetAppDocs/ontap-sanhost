@@ -14,6 +14,8 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure HP-UX 11i v3 with ONTAP as the target.
 
 == Install the HP-UX Host Utilities
 
@@ -130,7 +132,9 @@ Following are some recommended parameter settings for HPUX 11i v3 and NetApp ONT
 | esd_secs | 30
 |===
 
-== Known Problems and Limitations
+== Known issues
+
+The HP-UX 11i v3 with ONTAP release has the following known issues:
 
 [cols=4*, options="header"]
 |===

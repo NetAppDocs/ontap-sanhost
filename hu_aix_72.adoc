@@ -14,6 +14,8 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure IBM AIX 7.2 and/or PowerVM (VIOS 3.1) with ONTAP as the target.
 
 == Install the AIX/VIOS host utilities
 
@@ -175,7 +177,9 @@ In an AIX configuration, failovers are disruptive. With each failover, you will 
 
 To configure AIX for SM-BC, refer to the Knowledge Base article link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/How_to_configure_an_AIX_host_for_SnapMirror_Business_Continuity_(SM-BC)[How to configure an AIX host for SnapMirror Business Continuity (SM-BC)^].
 
-== Known problems and limitations
+== Known issues
+
+The IBM AIX 7.2 and/or PowerVM (VIOS 3.1) with ONTAP release has the following known issues:
 
 [cols=4*,options="header"]
 |===
