@@ -101,7 +101,7 @@ If the host NQN strings do not match, you can use the `vserver modify` command t
 
 [NOTE]
 ====
-If you intend to run both NVMe and SCSI co-existent traffic on the same host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:	
+If you intend to run both NVMe and SCSI co-existent traffic on the same host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This should exclude the ONTAP namespaces from dm-multipath and prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:	
 
 ----
 # cat /etc/multipath.conf
@@ -464,7 +464,7 @@ NSID       UUID                                   Size
 
 == Known issues
 
-The NVMe-oF host configuration for RHEL 8.9 with ONTAP release has the following known issues:
+The NVMe-oF host configuration for RHEL 8.9 with ONTAP release has the following known issue:
 
 [cols="10,30,30,10",options="header"]
 |===
