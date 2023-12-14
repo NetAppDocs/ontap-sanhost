@@ -16,7 +16,7 @@ summary: Describes how to use Red Hat Enterprise Linux 8.9 with ONTAP
 
 [.lead]
 
-You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 8.9 with ONTAP as the target. 
+You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux (RHEL) 8.9 with ONTAP as the target. 
 
 == Install the Linux Unified Host Utilities
 
@@ -53,7 +53,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 8.9, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 8.9 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+For RHEL 8.9, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 8.9 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -91,7 +91,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The RHEL 8.9 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+The RHEL 8.9 OS recognizes ONTAP LUNs and automatically sets all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
