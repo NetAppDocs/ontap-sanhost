@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_rhel_88.html
-keywords: host utilities, red hat, rhel, linux, 8.8, netapp, ontap, rhel 
-summary: Describes how to use Red Hat Enterprise Linux 8.8 with ONTAP
+permalink: hu_rhel_89.html
+keywords: host utilities, red hat, rhel, linux, 8.9, netapp, ontap, rhel 
+summary: Describes how to use Red Hat Enterprise Linux 8.9 with ONTAP
 ---
 
-= Use Red Hat Enterprise Linux 8.8 with ONTAP
+= Use Red Hat Enterprise Linux 8.9 with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,7 +14,8 @@ summary: Describes how to use Red Hat Enterprise Linux 8.8 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 8.8 with ONTAP as the target. 
+
+You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux (RHEL) 8.9 with ONTAP as the target. 
 
 == Install the Linux Unified Host Utilities
 
@@ -34,11 +35,12 @@ Example output:
 ----
 controller(7mode/E-Series)/            device     host               lun
 vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
--------------------------------------------------------------------------
-vs_163_32gQlc          /vol/vol1/lun1   /dev/sdb   host14   FCP       10.0g  cDOT
-vs_163_32gQlc          /vol/vol1/lun1   /dev/sdc   host15   FCP       10.0g  cDOT
-vs_163_32gQlc          /vol/vol2/lun2   /dev/sdd   host14   FCP       10.0g  cDOT
-vs_163_32gQlc          /vol/vol2/lun2   /dev/sde   host15   FCP       10.0g  cDOT
+---------------------------------------------------------------------------------------------
+vs_161_32gLpe          /vol/vol19/lun    /dev/sdcd  host15     FCP        10g     cDOT
+vs_161_32gLpe          /vol/vol20/lun    /dev/sdce  host15     FCP        10g     cDOT
+vs_161_32gLpe          /vol/vol18/lun    /dev/sdcc  host15     FCP        10g     cDOT
+vs_161_32gLpe          /vol/vol17/lun    /dev/sdcb  host15     FCP        10g     cDOT
+
 ----
 
 == SAN booting
@@ -50,7 +52,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 8.8, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 8.8 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+For RHEL 8.9, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 8.9 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -58,13 +60,13 @@ include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
 ----
 # multipath -ll
-3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
-size=80G	features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
+3600a098038314778375d53694b536e53 dm-16 NETAPP, LUN C-Mode
+size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 `-+- policy='service-time 0' prio=50 status=active
-  |- 11:0:7:1    sdfi  130:64   active ready running
-  |- 11:0:9:1    sdiy  8:288    active ready running
-  |- 11:0:10:1   sdml  69:464   active ready running
-  |- 11:0:11:1   sdpt  131:304  active ready running
+  |- 14:0:0:0   sda  8:0    active ready running
+  |- 15:0:8:0   sdcf 69:48  active ready running
+  |- 15:0:0:0   sdaq 66:160 active ready running
+  `- 14:0:9:0   sdv  65:80  active ready running
 ----
 
 
@@ -82,14 +84,13 @@ size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 `-+- policy='service-time 0' prio=10 status=enabled
   |- 14:0:0:0 sda  8:0    active ready running
   `- 15:0:1:0 sdv  65:80  active ready running
-
 ----
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The RHEL 8.8 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+The RHEL 8.9 OS recognizes ONTAP LUNs and automatically sets all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -141,6 +142,6 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known issues
 
-There are no known issues for the RHEL 8.8 with ONTAP release.
+There are no known issues for RHEL 8.9.
 
 
