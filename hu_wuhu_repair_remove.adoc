@@ -15,14 +15,14 @@ summary: Windows Unified Host Utilities includes an installation program that se
 :imagesdir: ./media/
 
 [.lead]
-You can use the *Repair* option of the Host Utilities installation program to update the Host bus adapter (HBA) and Windows registry settings. You can remove the Host Utilities entirely, either interactively or from the Windows command line.
+You can use the *Repair* option of the Host Utilities installation program to update the Host bus adapter (HBA) and Windows registry settings. You can also remove the Host Utilities entirely, either interactively or from the Windows command line.
 
 [role="tabbed-block"]
 ====
 
-.Repair or remove Windows Host Utilities interactively
+.Repair or remove interactively
 --
-The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the host utilities entirely.
+The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the Host Utilities entirely.
 
 .Steps
 
@@ -33,9 +33,9 @@ The *Repair* option updates the Windows registry and FC HBAs with the required s
 . Follow the instructions on the screen.
 --
 
-.Repair or remove Windows Host Utilities from command line
+.Repair or remove from command line
 --
-The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the host utilities entirely from a Windows command line.
+The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the Host Utilities entirely from a Windows command line.
 
 .Steps
 
