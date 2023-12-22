@@ -14,7 +14,7 @@ summary: Windows Unified host utilities includes an installation program that se
 
 
 [.lead]
-The Windows Unified Host Utilities enable you to connect a Windows host computer to NetApp storage systems.
+The Windows Unified Host Utilities (WUHU) enable you to connect a Windows host computer to NetApp storage systems.
 
 The Windows Unified Host Utilities supports the following versions of Windows:
 
@@ -58,7 +58,7 @@ Before you install the host utilities, you must verify that the host utilities v
 . Check the hotfixes required for the respective host in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
 [NOTE]
-link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Using Windows server 2022 with ONTAP] document provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the host configurations category to find the relevant hotfix information for earlier versions of Windows server.
+The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Using Windows server 2022 with ONTAP] document provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the host configurations category to find the relevant hotfix information for earlier versions of Windows server.
 
 . Add the iSCSI, FCP, or NVMe-oF license and start the target service.
 +
@@ -118,7 +118,7 @@ To install the Host Utilities software package interactively, you must run the h
 . Reboot the Windows host when prompted.
 --
 
-.Install the host utilities from a command line
+.Install from a command line
 --
 
 You can perform a quiet (unattended) installation of the host utilities by entering the appropriate commands at the Windows command prompt. The system automatically reboots when the installation is complete.

@@ -367,7 +367,7 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters:
 [NOTE]
 The names of the parameters might vary slightly depending on the program.
 For example, in the QLogic QConvergeConsole program, the parameter is displayed as `Link Down Timeout`.
-The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter. See to https://www.broadcom.com/support/download-search[Emulex^] or https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/Netapp_search.aspx[QLogic^] site to know more about the timeout parameters.
+The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter. See https://www.broadcom.com/support/download-search[Emulex^] or https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/Netapp_search.aspx[QLogic^] to learn more about the timeout parameters.
 
 
 === Understand the Host Utilities changes to FC HBA driver settings
