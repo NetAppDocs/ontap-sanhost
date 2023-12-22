@@ -159,85 +159,15 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |===
 
 
-Refer to the Microsoft documents for the registry parameter details.
-
 == NVMe parameters
 
-The following NVMe Emulex driver parameters are updated when installing Windows Unified Host Utilities:
+The following NVMe Emulex driver parameters are updated when installing Windows Unified Host Utilities 7.2:
 
 * EnableNVMe = 1
 * NVMEMode = 0
 * LimTransferSize=1
  
-== FC HBA values set by Windows Host Utilities
 
-On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
-
-For Emulex FC HBAs, the installer sets the following parameters:
-
-[role="tabbed-block"]
-====
-.When MPIO is selected
---
-|===
-|Property type |Property value
-
-|LinkTimeOut
-|1
-|NodeTimeOut
-|10
-|===
---
-
-.When MPIO is not selected
---
-|===
-|Property type |Property value
-
-|LinkTimeOut
-|30
-|NodeTimeOut
-|120
-|===
---
-====
-
-For QLogic FC HBAs, the installer sets the following parameters:
-
-[role="tabbed-block"]
-====
-.When MPIO is selected
---
-|===
-|Property type |Property value
-
-|LinkDownTimeOut
-|1
-|PortDownRetryCount
-|10
-|===
---
-
-.When MPIO is not selected
---
-|===
-|Property type |Property value
-
-|LinkDownTimeOut
-|30
-|PortDownRetryCount
-|120
-|===
---
-====
-
-[NOTE]
-The names of the parameters might vary slightly depending on the program.
-For example, in the QLogic QConvergeConsole program, the parameter is displayed as `Link Down Timeout`.
-The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter.
-
-.Related information
-Refer to Emulex or QLogic site to know more about the timeout parameters.
 
 
 == Registry values set by Windows Unified Host Utilities 7.1
@@ -364,8 +294,10 @@ The following values are set by the Windows Unified Host Utilities installer. Al
 |When your server is Windows Server 2008,Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016 only
 |===
 
-.Related information
-Refer to the https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance/windows-registry-advanced-users[Microsoft documents^] for the registry parameter details.
+See the https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance/windows-registry-advanced-users[Microsoft documents^] for the registry parameter details.
+
+
+
 
 == FC HBA values set by Windows Host Utilities
 
@@ -435,10 +367,7 @@ For QLogic Fibre Channel HBAs, the installer sets the following parameters:
 [NOTE]
 The names of the parameters might vary slightly depending on the program.
 For example, in the QLogic QConvergeConsole program, the parameter is displayed as `Link Down Timeout`.
-The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter.
-
-.Related information
-Refer to https://www.broadcom.com/support/download-search[Emulex^] or https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/Netapp_search.aspx[QLogic^] site to know more about the timeout parameters.
+The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter. See to https://www.broadcom.com/support/download-search[Emulex^] or https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/Netapp_search.aspx[QLogic^] site to know more about the timeout parameters.
 
 
 === Understand the Host Utilities changes to FC HBA driver settings
