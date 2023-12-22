@@ -159,7 +159,7 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |===
 
 
-== NVMe parameters
+=== NVMe parameters
 
 The following NVMe Emulex driver parameters are updated when installing Windows Unified Host Utilities 7.2:
 
@@ -400,6 +400,7 @@ If you have an FC system, you must verify the Emulex HBA driver settings. These 
 . Select the appropriate HBA from the list and click the *Driver Parameters* tab.
 +
 The driver parameters appear.
++
 .. If you are using MPIO software, ensure that you have the following driver settings:
 +
 * LinkTimeOut - 1
