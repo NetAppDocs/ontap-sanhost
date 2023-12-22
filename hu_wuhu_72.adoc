@@ -67,7 +67,7 @@ The FC and iSCSI protocols do not require licenses on E-Series storage systems u
 
 . Verify your cabling.
 +
-See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for your version of ONTAP or https://docs.netapp.com/us-en/e-series/install-hw-cabling/index.html[E-Series hardware cabling^] document for detailed cabling and configuration information.
+See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for your version of ONTAP or https://docs.netapp.com/us-en/e-series/install-hw-cabling/index.html[E-Series hardware cabling^] for detailed cabling and configuration information.
 
 == Configure FC HBAs and switches
 
@@ -86,7 +86,7 @@ Do not change the HBA settings manually.
 . Create zones on the FC switch according to your FC switch documentation.
 . For ONTAP, zone the switch by the WWPN. Be sure to use the WWPN of the logical interfaces (LIFs) and not the WWPN of the physical ports on the storage controllers. See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for more information.
 
-== Install the host utilities
+== Install the Host Utilities
 
 The installation program installs the host utilities package and sets the Windows registry and HBA settings.
 
@@ -105,7 +105,7 @@ You can install the host utilities interactively or using the command line. The 
 [role="tabbed-block"]
 ====
 
-.Install the Host Utilities interactively
+.Install interactively
 --
 
 To install the Host Utilities software package interactively, you must run the host utilities installation program and follow the prompts.

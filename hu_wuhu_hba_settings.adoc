@@ -389,7 +389,7 @@ You can correct the HBA settings by running the Repair option of the Windows Hos
 [role="tabbed-block"]
 ====
 
-.Verify the Emulex HBA driver settings on FC systems
+.Emulex HBA drivers
 --
 
 If you have an FC system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
@@ -410,7 +410,7 @@ The driver parameters appear.
 * NodeTimeOut - 120
 --
 
-.Verify the QLogic HBA driver settings on FC systems
+.QLogic HBA drivers
 --
 On FC systems, you need to verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
 
@@ -419,16 +419,16 @@ On FC systems, you need to verify the QLogic HBA driver settings. These settings
 . Open QConvergeConsole, and then click *Connect* on the  toolbar.
 +
 The *Connect to Host* dialog box appears.
-. Select the appropriate host from the list, and then click *Connect*.
+. Select the appropriate host from the list, and then select *Connect*.
 +
 A list of HBAs appears in the FC HBA pane.
-. Select the appropriate HBA port from the list, and then click the *Settings* tab.
+. Select the appropriate HBA port from the list, and then select the *Settings* tab.
 . Select *Advanced HBA Port Settings* from the *Select Settings* section.
-. If you are using MPIO software, ensure you have the following driver settings:
+. If you are using MPIO software, verify that you have the following driver settings:
 +
 * Link Down Timeout (linkdwnto) - 1
 * Port Down Retry Count (portdwnrc) - 10
-. If you are not using MPIO software, ensure you have the following driver settings:
+. If you are not using MPIO software, verify that you have the following driver settings:
 +
 * Link Down Timeout (linkdwnto) - 30
 * Port Down Retry Count (portdwnrc) - 120
