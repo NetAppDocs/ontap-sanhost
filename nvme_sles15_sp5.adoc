@@ -21,7 +21,7 @@ NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and oth
 
 The following support is available for the NVMe-oF host configuration for SLES 15 SP5 with ONTAP:
 
-*	Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs, you can configure dm-multipath for SCSI mpath devices, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
+* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs, you can configure dm-multipath for SCSI mpath devices, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
@@ -208,9 +208,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 === Enable NVMe services
 
-You can use the following procedure to enable NVMe services.
-
-There are two NVMe/FC boot services included in the `nvme-cli` package, however, _only_ `nvmefc-boot-connections.service` is enabled to start during system boot;  `nvmf-autoconnect.service` is not enabled. Therefore, you need to manually enable `nvmf-autoconnect.service` to start during system boot.
+There are two NVMe/FC boot services included in the `nvme-cli` package, however, _only_ `nvmefc-boot-connections.service` is enabled to start during system boot;  `nvmf-autoconnect.service` is not enabled. Therefore, you need to manually enable `nvmf-autoconnect.service` to start during system boot. 
 
 .Steps
 
@@ -435,6 +433,8 @@ nvme list-subsys /dev/<subsystem_name>
 [role="tabbed-block"]
 ====
 .NVMe/FC 
+
+*Example output*
 --
 [subs=+quotes]
 ----
@@ -450,6 +450,9 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.04ba0732530911ea8e8300a098dfdd91:su
 
 .NVMe/TCP 
 --
+
+*Example output*
+
 [subs=+quotes]
 ----
 # nvme list-subsys
@@ -512,7 +515,8 @@ Device           Vserver                   Namespace Path                       
 --
 ====
 
-== Discovery enhancements
+== Create a persistent discovery controller
+
 
 Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for your SLES 15 SP5 host by using the following procedure. A PDC is required to automatically detect NVMe subsystem add or remove scenarios and changes to the discovery log page data. 
 
@@ -777,7 +781,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 •	-n host NQN to use for key transformation
 ----
 +
-+
+
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
