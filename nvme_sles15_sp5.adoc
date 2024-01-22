@@ -23,7 +23,7 @@ The following support is available for the NVMe-oF host configuration for SLES 1
 
 * Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs, you can configure dm-multipath for SCSI mpath devices, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
 
-* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -36,11 +36,11 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
-* There's no sanlun support for NVMe-oF. Therefore, the host utility support isn't available for NVMe-oF on an SLES15 SP5 host. You can rely on the NetApp plug-in included in the native nvme-cli package for all NVMe-oF transports.
+* There's no `sanlun` support for NVMe-oF. Therefore, the host utility support isn't available for NVMe-oF on an SLES 15 SP5 host. You can rely on the NetApp plug-in included in the native nvme-cli package for all NVMe-oF transports.
 
 == Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex FC adapters or Marvell/Qlogic FC adapters.
+You can configure NVMe/FC for Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 
 [role="tabbed-block"]
 ====
@@ -517,7 +517,6 @@ Device           Vserver                   Namespace Path                       
 
 == Create a persistent discovery controller
 
-
 Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for your SLES 15 SP5 host by using the following procedure. A PDC is required to automatically detect NVMe subsystem add or remove scenarios and changes to the discovery log page data. 
 
 .Steps
@@ -748,7 +747,7 @@ Vserver UUID: 48391d66-c0a6-11ec-aaa5-d039ea165514
 
 == Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure, in-band authentication is supported over NVMe/TCP and NVMe/FC between your SLES 15 SP5 host and your ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between your SLES 15 SP5 host and your ONTAP controller.
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
