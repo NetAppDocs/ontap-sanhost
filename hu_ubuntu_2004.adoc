@@ -29,7 +29,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Ubuntu 20.04, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. Ubuntu 20.04 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Ubuntu 20.04, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. Ubuntu 20.04 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
