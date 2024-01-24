@@ -433,9 +433,10 @@ nvme list-subsys /dev/<subsystem_name>
 [role="tabbed-block"]
 ====
 .NVMe/FC 
+--
 
 *Example output*
---
+
 [subs=+quotes]
 ----
 # nvme list-subsys /dev/nvme1n1 
