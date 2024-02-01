@@ -146,5 +146,8 @@ The RHEL 9.3 with ONTAP release has the following known issues:
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 |1508554   	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex host bus adapter (HBA) adapter discovery	|In RHEL 9.x, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support Emulex host bus adapter (HBA) discovery cannot be found. |Not applicable
+|1593771  	|A Red Hat Enterprise Linux 9.3 QLogic SAN host encounters loss of partial multipaths during storage mobility operations	| During the ONTAP storage controller takeover operation, half of the multipaths are expected to go down or switch to a failover mode and recover to full path count during the giveback workflow. However, with a Red Hat Enterprise Linux (RHEL) 9.3 QLogic host, only partial multipaths are recovered after a storage failover giveback operation. |RHEL 17811
 |===
+
+//ONTAPDOC-1584 1-Feb-2024
 
