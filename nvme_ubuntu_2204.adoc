@@ -41,7 +41,7 @@ You can use the following procedure to validate the minimum supported Ubuntu 22.
 
 .Steps
 
-. Install Ubuntu 22.04 on the server. After the installation is complete, verify that you are running the specified Ubuntu 22.04 kernel. 
+. Install Ubuntu 22.04 on the server. After the installation is complete, verify that you are running the specified Ubuntu 22.04 kernel:
 +
 ----
 # uname -r
