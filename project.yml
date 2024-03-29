@@ -350,6 +350,8 @@ sidebar:
       - title: Ubuntu
         pdf-filename: Ubuntu-FCP
         entries:
+        - title: 22.04
+          url: /hu_ubuntu_2204.html
         - title: 20.04
           url: /hu_ubuntu_2004.html
       - title: Veritas
@@ -470,6 +472,11 @@ sidebar:
             url: /nvme_sles15_sp2.html
           - title: 15 SP1
             url: /nvme_sles15_sp1.html
+      - title: Ubuntu
+        pdf-filename: NVMeoF Ubuntu
+        entries:
+        - title: 22.04
+          url: /nvme_ubuntu_2204.html
       - title: Windows
         entries:
         - title: 2022
