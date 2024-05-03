@@ -16,15 +16,17 @@ summary: This content provides distribution-specific guidance on how to configur
 [.lead]
 SAN hosts should be configured for multipathing and with specific parameters and settings critical for proper operation with ONTAP LUNs.  The host configuration varies depending on the host operating system and the protocol.  Correct configuration is important for best performance and successful failover. 
 
-You should configure your SAN hosts to use the NetApp SAN host utilities. SAN host utilities help you manage and monitor your LUNs and host bus adapters (HBAs).  For example, you can use the SAN host utilities to retrieve a list of all LUNs mapped to a host or to see a list of all the attributes of a specific LUN mapped to a host.  NetApp customer support can also use the SAN host utilities to gather information about your configuration if you have an issue that requires assistance.  NetApp recommends using the SAN host utilities software if it is available for your SAN host.  
+You should configure your SAN hosts to use the NetApp SAN host utilities. SAN host utilities help you manage and monitor your LUNs and host bus adapters (HBAs). For example, you can use the SAN host utilities to retrieve a list of all LUNs mapped to a host or to see a list of all the attributes of a specific LUN mapped to a host. NetApp customer support can also use the SAN host utilities to gather information about your configuration if you have an issue that requires assistance.  
 
-If it is supported by your SAN configuration, you can also configure your host to use SAN booting for simplified deployment and improved scalability.  Using SAN boot, you can deploy multiple new servers by connecting them to SAN and configuring the appropriate boot settings. This saves time by eliminating the need to install the operating system on each server individually. 
+NetApp recommends using the SAN host utilities software if it is available for your SAN host.  
+
+If it is supported by your SAN configuration, you can also configure your host to use SAN booting for simplified deployment and improved scalability. Using SAN boot, you can deploy multiple new servers by connecting them to SAN and configuring the appropriate boot settings. This saves time by eliminating the need to install the operating system on each server individually. 
   
 Your SAN hosts and ONTAP storage can reside either on-premises, in the cloud, or both.
 
 NOTE: In a cloud environment, hosts are typically referred to as clients. All host-specific information in this content also applies to cloud clients.
 
-For example, you can configure on-premises ONTAP storage to connect to on-premises SAN hosts or SAN cloud clients. You can also configure storage services running on cloud environment such as Cloud Volumes ONTAP or Amazon FSx for ONTAP to connect to on-premises SAN hosts or SAN cloud clients.
+For example, you can configure on-premises ONTAP storage to connect to on-premises SAN hosts or SAN cloud clients. You can also configure storage services running on cloud environment such as https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/index.html[Cloud Volumes ONTAP^] or https://docs.netapp.com/us-en/bluexp-fsx-ontap/index.html[Amazon FSx for NetApp ONTAP^] to connect to on-premises SAN hosts or SAN cloud clients.
 
 
 .Related information
