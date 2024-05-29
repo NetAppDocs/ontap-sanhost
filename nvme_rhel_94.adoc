@@ -296,11 +296,6 @@ discovery
 traddr:  192.168.167.7
 eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
-
-
-
-
-
 =====Discovery Log Entry 3======
 trtype:  tcp
 adrfam:  ipv4
@@ -357,8 +352,6 @@ subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:subsystem.nv
 traddr:  192.168.166.7
 eflags:  none
 sectype: none
-
-
 ----
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
