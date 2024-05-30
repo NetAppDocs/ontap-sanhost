@@ -165,7 +165,7 @@ NOTE: Patches are available for Oracle bug 15824910 on various versions of Solar
 
 == Recommended settings for SnapMirror Business Continuity
 
-In order to verify that the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror Business Continuity (SM-BC) environment, you must configure the following setting on the Solaris 11.3 host. This setting overrides the failover module `f_tpgs` to prevent the execution of the code path that detects the contradiction.
+In order to verify that the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror active sync environment, you must configure the following setting on the Solaris 11.3 host. This setting overrides the failover module `f_tpgs` to prevent the execution of the code path that detects the contradiction.
 
 NOTE: Beginning with ONTAP 9.9.1, SM-BC setting configurations are supported in the Solaris 11.3 host.
 
@@ -192,7 +192,7 @@ svl_fops_name = 0xa00298d69e0 "conf f_tpgs"
 ----
 
 NOTE: After `scsi-vhci-failover-override` has been applied, `conf` is added to `svl_fops_name`.
-For additional information and recommended changes to default settings, refer to the NetApp KB article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SM-BC)_configuration[Solaris Host support recommended settings in SnapMirror Business Continuity (SM-BC) configuration^].
+For additional information and recommended changes to default settings, refer to the NetApp KB article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SnapMirror active sync)_configuration[Solaris Host support recommended settings in SnapMirror active sync configuration^].
 
 //BURT 1528592 26 Jan 2023
 
