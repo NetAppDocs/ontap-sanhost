@@ -28,7 +28,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 == Features
 
 * RHEL 9.4 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
-* SAN booting using the NVMe-oF protocol is supported.
+* SAN booting using the NVMe/FC protocol is supported.
 
 == Known limitations
 
@@ -387,7 +387,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 
 [NOTE]
-Beginning with RHEL 9.4, the NVMe/TCP `ctrl_loss_tmo` timeout behaviour is set to infinity by default. Therefore, there is no need to configure a specific timeout period. With default behaviour NVMe/TCP will not timeout and will remain connected indefinitely, eliminating the need for setting a timeout for `nvme connect` or `nvme connect-all` (`argument -1`) in the event of path failure.
+Beginning with RHEL 9.4, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off, which means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the nvme connect or nvme connect-all commands (option -l ). With this default behavior, the NVMe/TCP controllers will not experience timeouts in the event of a path failure and will remain connected indefinitely.
 
 
 == Validate NVMe-oF
