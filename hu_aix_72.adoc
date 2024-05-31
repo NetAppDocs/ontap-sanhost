@@ -168,13 +168,13 @@ Following are some recommended parameter settings for ONTAP LUNs.  The critical 
 
 By default, the AIX operating system enforces a shorter I/O timeout when no paths to a LUN are available. This might occur in configurations including single-switch SAN fabric and MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, refer to link:https://kb.netapp.com/app/answers/answer_view/a_id/1001318[NetApp KB1001318^]
 
-== AIX support with SM-BC
+== AIX support with SnapMirror active sync
 
-Beginning with ONTAP 9.11.1, AIX is supported with SM-BC. With an AIX configuration, the primary cluster is the "active" cluster.
+Beginning with ONTAP 9.11.1, AIX is supported with SnapMirror active sync. With an AIX configuration, the primary cluster is the "active" cluster.
 
 In an AIX configuration, failovers are disruptive. With each failover, you will need to perform a re-scan on the host for I/O operations to resume.
 
-To configure AIX for SM-BC, refer to the Knowledge Base article link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/How_to_configure_an_AIX_host_for_SnapMirror_Business_Continuity_(SM-BC)[How to configure an AIX host for SnapMirror Business Continuity (SM-BC)^].
+To configure AIX for SnapMirror active sync, refer to the Knowledge Base article link:https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/How_to_configure_an_AIX_host_for_SnapMirror_Business_Continuity_(SM-BC)[How to configure an AIX host for SnapMirror active sync^].
 
 == Known issues
 
