@@ -33,13 +33,13 @@ In the following example, the `sanlun lun show` command returns LUN information.
 ----
 Example output:
 ----
-controller(7mode/E-Series)/            device     host               lun
-vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
----------------------------------------------------------------------------------------------
-vs_161_32gLpe          /vol/vol19/lun    /dev/sdcd  host15     FCP        10g     cDOT
-vs_161_32gLpe          /vol/vol20/lun    /dev/sdce  host15     FCP        10g     cDOT
-vs_161_32gLpe          /vol/vol18/lun    /dev/sdcc  host15     FCP        10g     cDOT
-vs_161_32gLpe          /vol/vol17/lun    /dev/sdcb  host15     FCP        10g     cDOT
+controller(7mode/E-Series)/                               device       host                  lun
+vserver(cDOT/FlashRay)     lun-pathname                   filename     adapter    protocol   size    product
+---------------------------------------------------------------------------------------------------------------
+vs_25_2742                 /vol/fc_vol_1_0/dynamic_lun   /dev/sdh      host9      FCP        10g     cDOT
+vs_25_2742                 /vol/fc_vol_1_1/dynamic_lun   /dev/sdb      host9      FCP        10g     cDOT
+vs_25_2742                 /vol/fc_vol_1_3/dynamic_lun   /dev/sdg      host9      FCP        10g     cDOT
+vs_25_2742                 /vol/fc_vol_1_4/dynamic_lun   /dev/sdt      host9      FCP        10g     cDOT
 
 ----
 
