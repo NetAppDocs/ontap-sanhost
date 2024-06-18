@@ -46,7 +46,7 @@ You can use the following procedure to enable in-kernel multipath.
 *Example output*
 +
 ----
-4.18.0-513.5.1.el8_9.x86_64
+4.18.0-553.el8_10.x86_64 
 ----
 
 . Install the nvme-cli package: 
@@ -67,7 +67,7 @@ nvme-cli-1.16-9.el8.x86_64
 +
 ----
 # grubby --args=nvme_core.multipath=Y --update-kernel 
-/boot/vmlinuz-4.18.0-513.5.1.el8_9.x86_64
+/boot/vmlinuz-4.18.0-553.el8_10.x86_64 
 ----
 
 . On the host, check the host NQN string at `/etc/nvme/hostnqn`:
