@@ -306,7 +306,7 @@ The VMware vSphere 8.x with ONTAP release has the following known issues:
 [cols="10,30,30",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description
-|1543660 | I/O error occurs when Linux VMs using vNVMe adapters encounter a long all paths down (APD) window a|Linux VMs running vSphere 8.x and later and using virtual NVMe (vNVME) adapters encounter an I/O error because the vNVMe retry operation is disabled by default. To avoid a disruption on Linux VMs running older kernels during an all paths down (APD) or a heavy I/O load, VMware has introduced a tunable "VSCSIDisableNvmeRetry" to disable the vNVMe retry operation.
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1543660[1543660^] | I/O error occurs when Linux VMs using vNVMe adapters encounter a long all paths down (APD) window a|Linux VMs running vSphere 8.x and later and using virtual NVMe (vNVME) adapters encounter an I/O error because the vNVMe retry operation is disabled by default. To avoid a disruption on Linux VMs running older kernels during an all paths down (APD) or a heavy I/O load, VMware has introduced a tunable "VSCSIDisableNvmeRetry" to disable the vNVMe retry operation.
 |===
 
 .Related information
