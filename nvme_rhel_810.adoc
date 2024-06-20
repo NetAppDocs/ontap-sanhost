@@ -300,10 +300,11 @@ nvme discover -t tcp -w host-traddr -a traddr
 *Example output:*
 +
 ----
-# nvme	discover	-t   tcp    -w	192.168.2.31   -a	192.168.2.25
-# nvme	discover	-t   tcp    -w	192.168.1.31   -a	192.168.1.24
-# nvme	discover  -t   tcp    -w	192.168.2.31   -a	192.168.2.26
-# nvme	discover	-t   tcp    -w	192.168.1.31   -a	192.168.1.25
+# nvme  discover  -t  tcp  -w 192.168.2.31  -a 192.168.2.25
+# nvme  discover  -t  tcp  -w 192.168.1.31  -a 192.168.1.24
+# nvme  discover  -t  tcp  -w 192.168.2.31  -a 192.168.2.26
+# nvme  discover  -t  tcp  -w 192.168.1.31  -a 192.168.1.25
+
 
 ----
 
