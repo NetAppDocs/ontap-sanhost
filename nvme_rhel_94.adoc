@@ -19,9 +19,9 @@ NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and oth
 
 The following support is available for NVMe-oF host configuration for RHEL 9.4 with ONTAP:
 
-* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
-* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA)without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
+* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA) without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -243,7 +243,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-NVMe/TCP does not have an auto-connect functionality. Therefore, we need to perform the NVMe/TCP connect or connect-all functionality manually to discover the NVMe/TCP subsystems and namespaces.
+NVMe/TCP does not have an auto-connect functionality. Therefore, you need to perform the NVMe/TCP connect or connect-all functionality manually to discover the NVMe/TCP subsystems and namespaces.
 
 You can use the following procedure to configure NVMe/TCP.
 
@@ -387,7 +387,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 
 [NOTE]
-Beginning with RHEL 9.4, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off, which means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the nvme connect or nvme connect-all commands (option -l ). With this default behavior, the NVMe/TCP controllers will not experience timeouts in the event of a path failure and will remain connected indefinitely.
+Beginning with RHEL 9.4, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off, which means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 
 == Validate NVMe-oF
