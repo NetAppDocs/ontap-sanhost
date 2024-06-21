@@ -62,8 +62,11 @@ nvme-cli-1.16-5.el8.x86_64
 
 .	Enable in-kernel NVMe multipath:
 +
+*Example*
++
 ----
-# grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-425.3.1.el8.x86_64 
+# grubby --args=nvme_core.multipath=Y --update-kernel 
+/boot/vmlinuz-4.18.0-425.3.1.el8.x86_64 
 ----
 
 .	On the host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. Example:
