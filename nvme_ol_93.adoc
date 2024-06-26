@@ -97,7 +97,7 @@ nqn.2014-08.org.nvmexpress:uuid:2831093d-fa7f-4714-a6bf-548796e82053
 ----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_175_QLe27772   nvme    nqn.2014-08.org.nvmexpress:uuid:2831093d-fa7f-4714-a6bf-548796e82053
+vs_ol_nvme   nvme              nqn.2014-08.org.nvmexpress:uuid:2831093d-fa7f-4714-a6bf-548796e82053
 ----
 +
 [NOTE]
@@ -232,7 +232,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-include::_include/nvme/reuse_configure_nvmetcp.adoc[]
+NVMe/TCP does not have an auto-connect functionality. Therefore, you need to perform the NVMe/TCP connect or connect-all functionality manually to discover the NVMe/TCP subsystems and namespaces. You can use the following procedure to configure NVMe/TCP.
 
 .Steps
 
@@ -297,18 +297,21 @@ nvme discover -t tcp -w host-traddr -a traddr
 # nvme discover -t tcp -w 192.168.165.3 -a 192.168.165.56
 ----
 
-. Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes, and set the controller loss timeout period for at least 30 minutes or 1800 seconds:
+. Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
 ----
-nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
+nvme connect-all -t tcp -w host-traddr -a traddr -l <ctrl_loss_timeout_in_seconds>
 ----
 +
 *Example output:*
 +
 ----
-# nvme connect-all -t tcp -w 192.168.166.4 -a 192.168.166.56 -l -1800
-# nvme connect-all -t tcp -w 192.168.165.3 -a 192.168.165.56 -l -1800
+# nvme connect-all -t tcp -w 192.168.166.4 -a 192.168.166.56 -l -1
+# nvme connect-all -t tcp -w 192.168.165.3 -a 192.168.165.56 -l -1
 ----
++
+[NOTE]
+NetApp recommends setting the `ctrl-loss-tmo` option to `-1` so that the NVMe/TCP initiator attempts to reconnect indefinitely in the event of a path loss.
 
 
 == Validate NVMe-oF
