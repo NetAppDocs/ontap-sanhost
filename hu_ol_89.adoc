@@ -1,0 +1,152 @@
+---
+sidebar: sidebar
+permalink: hu_ol_88.html
+keywords: host utilities, oracle, linux, 8.9, netapp, ontap
+summary: Describes how to use Oracle Linux 8.9 with ONTAP
+---
+
+= Use Oracle Linux 8.9 with ONTAP
+:hardbreaks:
+:toclevels: 1P
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Oracle Linux 8.9 with ONTAP as the target.
+
+== Install the Linux Unified Host Utilities
+
+include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
+
+== SAN toolkit
+
+The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+
+In the following example, the `sanlun lun show` command returns LUN information.
+----
+# sanlun lun show all
+----
+Example output:
+----
+controller(7mode/E-Series)/            device     host               lun
+vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
+-------------------------------------------------------------------------
+data_vserver          /vol/vol1/lun1   /dev/sdb   host16   FCP       80.0g  cDOT
+data_vserver          /vol/vol1/lun1   /dev/sdc   host15   FCP       80.0g  cDOT
+data_vserver          /vol/vol2/lun2   /dev/sdd   host16   FCP       80.0g  cDOT
+data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
+----
+
+== SAN booting
+
+.What you'll need
+
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+
+include::_include/hu/reuse_hu_san_booting_steps.adoc[]
+
+== Multipathing
+
+For Oracle Linux (OL) 8.9 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 8.9 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+
+include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
+
+The following sections provide sample multipath outputs for a LUN mapped to ASA and non-ASA configurations.
+
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+  |- 11:0:7:6   sdbz 68:208  active ready running
+  |- 11:0:11:6  sddn 71:80   active ready running
+  |- 11:0:15:6  sdfb 129:208 active ready running
+  |- 12:0:1:6   sdgp 132:80  active ready running
+----
+
+NOTE: Do not use an excessive number of paths to a single LUN. No more than four paths should be required. More than eight paths might cause path issues during storage failures.
+
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a0980383036347ffb4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+| |- 16:0:6:35 sdwb  69:624  active ready running
+| |- 16:0:5:35 sdun  66:752  active ready running
+`-+- policy='service-time 0' prio=10 status=enabled
+  |- 15:0:0:35 sdaj  66:48   active ready running
+  |- 15:0:1:35 sdbx  68:176  active ready running
+----
+
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+
+
+== Recommended settings
+
+The OL 8.9 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+
+include::_include/hu/reuse_hu_recommended_settings.adoc[]
+
+
+[cols=2*,options="header"]
+|===
+| Parameter
+| Setting
+| detect_prio | yes
+| dev_loss_tmo | infinity
+| failback | immediate
+| fast_io_fail_tmo | 5
+| features | 2 pg_init_retries 50
+| flush_on_last_del | yes
+| hardware_handler | 0
+| no_path_retry | queue
+| path_checker | tur
+| path_grouping_policy | group_by_prio
+| path_selector | service-time 0
+| polling_interval | 5
+| prio | ontap
+| product | LUN.*
+| retain_attached_hw_handler | yes
+| rr_weight | uniform
+| user_friendly_names | no
+| vendor | NETAPP
+|===
+
+.Example
+
+The following example demonstrates how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
+
+----
+defaults {
+ path_checker readsector0
+ no_path_retry fail
+ }
+devices {
+ device {
+ vendor "NETAPP "
+ product "LUN.*"
+ no_path_retry queue
+ path_checker tur
+ }
+}
+----
+
+NOTE: To configure Oracle Linux 8.9 RedHat Enterprise Kernel, use the link:hu_rhel_88.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.9.
+
+== KVM settings
+
+You can also use the recommended settings to configure a Kernel-based Virtual Machine (KVM). There are no changes required to configure a KVM as the LUN is mapped to the hypervisor.
+
+== Known issues
+
+There are no known issues for the Oracle Linux 8.9 with ONTAP release.
+
+
+
+
