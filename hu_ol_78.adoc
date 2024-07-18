@@ -38,7 +38,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 For Oracle Linux (OL) 7.8 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. OL 7.8 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
-The following sections provide sample multipath output for a LUN mapped non-ASA personas.
+The following sections provide sample multipath outputs for a LUN mapped non-ASA personas.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 

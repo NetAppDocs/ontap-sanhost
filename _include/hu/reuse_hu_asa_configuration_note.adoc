@@ -1,1 +1,1 @@
-NOTE: Do not use an excessive number of paths to a single LUN. No more than four paths should be required. More than eight paths might cause path issues during storage failures.
+NOTE: A single LUN should require no more than four paths. More than eight paths might cause path issues during storage failures.

@@ -1,19 +1,16 @@
-The `multipath.conf` file must exist for the multipath daemon to start, but you can create an empty, zero-byte file by using the following command:
+The `multipath.conf` file must exist for the multipath daemon to start. If this file does not exist, you can create an empty, zero-byte file by using the following command: 
 
 `touch /etc/multipath.conf`
 
-The first time you create this file, you might need to enable and start the multipath services:
+The first time you create the `multipath.conf` file, you might need to enable and start the multipath services by using the following commands:
 
 ----
-# systemctl enable multipathd
-# systemctl start multipathd
+# chkconfig multipathd on
+# /etc/init.d/multipathd start
 ----
 
-* There is no requirement to add anything directly to the `multipath.conf` file, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
+There is no requirement to add anything directly to the `multipath.conf` file unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. To exclude unwanted devices, you add the following syntax to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude:
 
-* To exclude unwanted devices, add the following syntax to the `multipath.conf` file .
-
-+
 ----
 blacklist {
         wwid <DevId>
@@ -22,21 +19,20 @@ blacklist {
         devnode "^cciss.*"
 }
 ----
-Replace the `<DevId>` with the `WWID` string of the device you want to exclude.
-+
+
 .Example
-In this example, we are going to determine the WWID of a device and add to the `multipath.conf` file.
+In this example, you determine the WWID of a device and add to the `multipath.conf` file.
 +
 .Steps
 
-. Run the following command to determine the WWID:
+. Determine the WWID:
 +
 ----
 # /lib/udev/scsi_id -gud /dev/sda
 360030057024d0730239134810c0cb833
 ----
 +
-`sda` is the local SCSI disk that we need to add it to the blacklist.
+`sda` is the local SCSI disk that you want to add it to the blacklist.
 
 . Add the `WWID` to the blacklist stanza in `/etc/multipath.conf`:
 +
@@ -51,4 +47,4 @@ blacklist {
 
 You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that might be overriding the default settings.
 
-The following table demonstrates the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in the `multipath.conf` file that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs might not work as expected. These defaults should only be overridden in consultation with NetApp and/or an OS vendor and only when the impact is fully understood.
+The following table demonstrates the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in the `multipath.conf` file that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs might not work as expected. You should only override these defaults in consultation with NetApp and/or an OS vendor and only when the impact is fully understood.

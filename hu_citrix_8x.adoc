@@ -29,7 +29,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 For Citrix Hypervisor (CH) 8.x the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. CH 8.x is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 You can use the `/sbin/mpathutil` status command to verify the settings for your ONTAP LUNs.
-The following sections provide sample multipath output for a LUN mapped to ASA personas.
+The following sections provide sample multipath outputs for a LUN mapped to ASA personas.
 
 === All SAN Array (ASA) Configuration
 
