@@ -1,19 +1,16 @@
-The `multipath.conf` file must exist for the multipath daemon to start, but you can create an empty, zero-byte file by using the following command:
+The `multipath.conf` file must exist for the multipath daemon to start. If this file does not exist, you can create an empty, zero-byte file by using the following command: 
 
 `touch /etc/multipath.conf`
 
-The first time you create this file, you might need to enable and start the multipath services:
+The first time you create the `multipath.conf` file, you might need to enable and start the multipath services by using the following commands:
 
 ----
-# systemctl enable multipathd
-# systemctl start multipathd
+# chkconfig multipathd on
+# /etc/init.d/multipathd start
 ----
 
-* There is no requirement to add anything directly to the `multipath.conf` file, unless you have devices that you do not want multipath to manage or you have existing settings that override defaults.
+There is no requirement to add anything directly to the `multipath.conf` file unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. To exclude unwanted devices, you add the following syntax to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude:
 
-* To exclude unwanted devices, add the following syntax to the `multipath.conf` file .
-
-+
 ----
 blacklist {
         wwid <DevId>
@@ -22,11 +19,10 @@ blacklist {
         devnode "^cciss.*"
 }
 ----
-Replace the `<DevId>` with the `WWID` string of the device you want to exclude.
-+
+
 .Example
 In this example, we are going to determine the WWID of a device and add to the `multipath.conf` file.
-+
+
 .Steps
 
 . Run the following command to determine the WWID:
