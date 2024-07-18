@@ -4,7 +4,7 @@ The paths with the higher priorities are Active/Optimized, meaning they are serv
 
 The paths with the lower priorities are active but are non-optimized because they are served from a different controller.
 
-NOTE: The non-optimized paths are only used when no optimized paths are available.
+NOTE: The non-optimized paths are only used when optimized paths are not available.
 
 .Example
 

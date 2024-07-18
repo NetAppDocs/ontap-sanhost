@@ -509,7 +509,7 @@ The NVMe-oF host configuration for OL 8.7 with ONTAP release has the following k
 
 |Oracle Linux 8.7 NVMe-oF Hosts create duplicate Persistent Discovery Controllers
 
-|On OL 8.7 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, only one PDC is expected to be created with each invocation of the `nvme discover` command. However, beginning with OL 8.x, NVMe-oF hosts end up creating duplicate PDCs with each invocation of the `nvme discover` command with the `-p` option. This wastes resources on both the host and the target.
+|On OL 8.7 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with OL 8.x, NVMe-oF hosts create duplicate PDCs. This wastes resources on both the host and the target.
 |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 

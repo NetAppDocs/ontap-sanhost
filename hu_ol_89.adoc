@@ -4,7 +4,6 @@ permalink: hu_ol_89.html
 keywords: host utilities, oracle, linux, 8.9, netapp, ontap
 summary: Describes how to use Oracle Linux 8.9 with ONTAP
 ---
-
 = Use Oracle Linux 8.9 with ONTAP
 :hardbreaks:
 :toclevels: 1P
@@ -30,26 +29,26 @@ In the following example, the `sanlun lun show` command returns LUN information.
 ----
 Example output:
 ----
-controller(7mode/E-Series)/            device     host               lun
-vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
--------------------------------------------------------------------------
-data_vserver          /vol/vol1/lun1   /dev/sdb   host16   FCP       80.0g  cDOT
-data_vserver          /vol/vol1/lun1   /dev/sdc   host15   FCP       80.0g  cDOT
-data_vserver          /vol/vol2/lun2   /dev/sdd   host16   FCP       80.0g  cDOT
-data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
+controller(7mode/E-Series)/              device     host               lun
+vserver(cDOT/FlashRay)  lun-pathname     filename   adapter  protocol  size   Product
+-------------------------------------------------------------------------------------
+data_vserver            /vol/vol1/lun1   /dev/sdb   host16   FCP       80.0g  cDOT
+data_vserver            /vol/vol1/lun1   /dev/sdc   host15   FCP       80.0g  cDOT
+data_vserver            /vol/vol2/lun2   /dev/sdd   host16   FCP       80.0g  cDOT
+data_vserver            /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
 ----
 
 == SAN booting
 
 .What you'll need
 
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+Your configuration supports SAN booting. See the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Oracle Linux (OL) 8.9 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 8.9 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+For Oracle Linux (OL) 8.9, the `/etc/multipath.conf` file must exist. You don't need to make changes to this file because OL 8.9 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
@@ -68,7 +67,7 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 12:0:1:6   sdgp 132:80  active ready running
 ----
 
-NOTE: Do not use an excessive number of paths to a single LUN. No more than four paths should be required. More than eight paths might cause path issues during storage failures.
+NOTE: No more than four paths should be required to a single LUN. More than eight paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
@@ -89,7 +88,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The OL 8.9 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+The OL 8.9 OS is compiled to recognize ONTAP LUNs and automatically set the correct configuration parameters for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 

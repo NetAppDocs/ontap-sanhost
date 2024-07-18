@@ -4,7 +4,6 @@ permalink: nvme_ol_89.html
 keywords: nvme, oracle linux, 8.9, host configuration
 summary: NVMe-oF Host Configuration for Oracle Linux 8.9 with ONTAP
 ---
-
 = NVMe-oF Host Configuration for Oracle Linux 8.9 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -18,9 +17,9 @@ NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and oth
 
 The following support is available for the NVMe-oF host configuration for OL 8.9 with ONTAP:
 
-* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays the ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
-* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs, you can configure dm-multipath for SCSI mpath devices, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
+* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
 
 * There is no sanlun support for NVMe-oF. Therefore, there is no host utility support for NVMe-oF on an OL 8.9 host. You can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 
@@ -28,8 +27,8 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Features 
 
-* Oracle Linux 8.9 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
-* SAN booting using the NVMe/FC protocol is supported.
+* Oracle Linux 8.9 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
+* You can use the NVMe/FC protocol for SAN booting.
 
 == Known limitations
 
@@ -37,11 +36,11 @@ There are no known limitations.
 
 == Validate software versions
 
-You can use the following procedure to validate the minimum supported OL 8.9 software versions.
+Validate the minimum supported OL 8.9 software versions.
 
 .Steps
 
-. Install OL 8.9 GA on the server. After the installation is complete, verify that you are running the specified OL 8.9 GA kernel. 
+. Install OL 8.9 GA on the server. After the installation is complete, verify that you are running the specified OL 8.9 GA kernel:
 +
 ----
 # uname -r
@@ -116,7 +115,7 @@ Restart the multipathd daemon by running a `systemctl restart multipathd` comman
 
 == Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
+Configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
 ====
@@ -209,7 +208,6 @@ LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
 Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
-
 ----
 --
 
@@ -252,6 +250,8 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 *Example output:*
 +
+[%collapsible]
+====
 ----
 #  nvme discover -t tcp -w 192.168.6.13 -a 192.168.6.15
 Discovery Log Number of Records 6, Generation counter 8
@@ -296,9 +296,8 @@ subnqn: nqn.1992-08.com.netapp:sn.1c6ac66338e711eda41dd039ea3ad566:subsystem.hos
 traddr: 192.168.6.17
 sectype: none
 ..........
-
-
 ----
+====
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
@@ -443,18 +442,18 @@ nvme-subsys0 - NQN=nqn.1992- 08.com.netapp: sn.44986b09cadc11eeb309d039eab31e9d:
 
 ----
 Device        Vserver     Namespace Path                                                          
------------------------ ------------------------------ 
+------------  ----------  ----------------- 
 /dev/nvme0n1	vs_nvme177	/vol/vol1/ns1
 /dev/nvme0n2	vs_nvme177	/vol/vol2/ns2
 /dev/nvme0n3	vs_nvme177	/vol/vol3/ns3
           
 
 
-NSID       UUID                                   Size
-------------------------------------------------------------
-1	         72b887b1-5fb6-47b8-be0b-33326e2542e2	  85.90GB
-2	         04bf9f6e-9031-40ea-99c7-a1a61b2d7d08	  85.90GB
-3	         264823b1-8e03-4155-80dd-e904237014a4	  85.90GB
+NSID     UUID                                   Size
+-------- -------------------------------------- -----------
+1	       72b887b1-5fb6-47b8-be0b-33326e2542e2	  85.90GB
+2	       04bf9f6e-9031-40ea-99c7-a1a61b2d7d08	  85.90GB
+3	       264823b1-8e03-4155-80dd-e904237014a4	  85.90GB
 
 
 
@@ -505,14 +504,14 @@ NSID       UUID                                   Size
 
 The NVMe-oF host configuration for OL 8.9 with ONTAP release has the following known issues:
 
-[options="header", cols="20, 20, 50, 20]
+[cols="1a, 2a, 6a, 1a, options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	|Bugzilla ID
 |link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1517321[1517321^]
 
 |Oracle Linux 8.9 NVMe-oF hosts create duplicate PDCs
 
-|On OL 8.9 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, only one PDC is expected to be created with each invocation of the `nvme discover` command. However, beginning with OL 8.x, NVMe-oF hosts end up creating duplicate PDCs with each invocation of the `nvme discover` command with the `-p` option. This wastes resources on both the host and the target.
+|On OL 8.9 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with OL 8.x, NVMe-oF hosts create duplicate. This wastes resources on both the host and the target.
 |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 

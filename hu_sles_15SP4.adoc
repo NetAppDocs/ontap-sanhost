@@ -79,7 +79,7 @@ The `multipath.conf` file must exist for the multipath daemon to start, but you 
  
 The first time you create this file, you might need to enable and start the multipath services.
 
-There is no requirement to add anything directly to the `multipath.conf` file, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults.
+There is no requirement to add anything directly to the `multipath.conf` file, unless you have devices that you do not want multipath to manage or you have existing settings that override defaults.
 
 You can add the following syntax to the `multipath.conf` file to exclude the unwanted devices.
 
@@ -109,7 +109,7 @@ devnode "^cciss.*"
 
 You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that might be overriding default settings.
 
-The table below shows the critical multipathd parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in `multipath.conf` that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs might not work as expected. These defaults should only be overridden in consultation with NetApp and/or OS vendor and only when the impact is fully understood.
+The table below shows the critical multipathd parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in `multipath.conf` that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs might not work as expected. You should only override these defaults in consultation with NetApp and/or OS vendor and only when the impact is fully understood.
 
 
 [cols=2]
