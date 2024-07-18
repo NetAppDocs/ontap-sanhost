@@ -184,6 +184,9 @@ Online
 Online
 ----
 +
+.Show example
+[%collapsible]
+====
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
@@ -209,6 +212,7 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
+====
 --
 
 .Marvell/QLogic FC Adapter for NVMe/FC
@@ -248,8 +252,7 @@ include::_include/nvme/reuse_configure_nvmetcp.adoc[]
 nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
-*Example output:*
-+
+.Show example output
 [%collapsible]
 ====
 ----
