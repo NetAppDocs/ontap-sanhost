@@ -132,9 +132,8 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 In the following example, one initiator port is enabled and connected with two target LIFs.
 +
-.Example output:
-[%collapsible]
-====
+*Example output*
+
 [subs=+quotes]
 ----
 NVME Initiator Enabled
@@ -160,7 +159,6 @@ Total FCP Cmpl 0000000014e39f78 Issue 0000000014e2b832 OutIO ffffffffffff18ba
  abort 0000082d noxri 00000000 nondlp 00000028 qdepth 00000000 wqerr 00000007 err 00000000
 FCP CMPL: xb 0000082d Err 000283bb
 ----
-====
 
 . Reboot the host.
 --
@@ -238,6 +236,7 @@ Main PID: 1647 (code=exited, status=0/SUCCESS)
 systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot... systemd[1]: 
 nvmefc-boot-connections.service: Succeeded. systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
 ----
+====
 
 == Configure NVMe/TCP
 
@@ -251,7 +250,7 @@ NVMe/TCP does not have an auto-connect functionality. Therefore, you need to per
 nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
 +
-.Example output:
+.Show example output:
 [%collapsible]
 ====
 [subs=+quotes]
@@ -348,7 +347,6 @@ eflags: none
 sectype: none
 ----
 ====
-
 . Verify that all other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
 ----
@@ -556,7 +554,7 @@ nvme discover -t <trtype> -w <host-traddr> -a <traddr>
 ----
 
 +
-.Example output:
+.Show example output:
 [%collapsible]
 ====
 [subs=+quotes]
@@ -778,7 +776,6 @@ DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsE
 DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
 DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
 ----
-
 --
 
 .JSON file
@@ -808,31 +805,18 @@ You can use the `-o` option to generate the JSON file. Refer to the NVMe connect
             "ports":[
                {
                     "transport":"tcp", 
-
                     "traddr":" 192.168.111.66 ", 
-
                     "host_traddr":" 192.168.111.79", 
-
                     "trsvcid":"4420", 
-
                     "dhchap_ctrl_key":"DHHC- 
-
 1:01:0h58bcT/uu0rCpGsDYU6ZHZvRuVqsYKuBRS0Nu0VPx5HEwaZ:" 
-
                }, 
-
                { 
-
                     "transport":"tcp", 
-
                     "traddr":" 192.168.111.66 ", 
-
                     "host_traddr":" 192.168.111.79", 
-
                     "trsvcid":"4420", 
-
                     "dhchap_ctrl_key":"DHHC- 
-
 1:01:0h58bcT/uu0rCpGsDYU6ZHZvRuVqsYKuBRS0Nu0VPx5HEwaZ:" 
 
                }, 
