@@ -108,7 +108,7 @@ devices {
 
 == Known issues
 
-The SLES 15 SP2 with ONTAP release has the following known issues:
+The SUSE Linux Enterprise Server 15 SP2 with ONTAP release has the following known issues:
 
 [cols="1,1,3,1"]
 [options="header"]
@@ -120,9 +120,9 @@ The SLES 15 SP2 with ONTAP release has the following known issues:
 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1308744[1308744^]
 
-| iSCSI boot from SAN fails to boot with a static IP configuration after completing an SLES15SP2 OS installation
+| iSCSI boot from SAN fails to boot with a static IP configuration after completing an SUSE Linux Enterprise Server 15S P2 OS installation
 
-a| iSCSI sanbooted LUN failed to boot up after completing an SLES 15 SP2 OS installation with a static IP configuration. Bootup failure occurs every time with the static IP configuration. This leads to the server refusing to continue the boot up process with the following error message:
+a| iSCSI sanbooted LUN failed to boot up after completing an SUSE Linux Enterprise Server 15 SP2 OS installation with a static IP configuration. Bootup failure occurs every time with the static IP configuration. This leads to the server refusing to continue the boot up process with the following error message:
 
 ----
 dracut-cmdline[241]: warning: Empty autoconf values default to dhcp

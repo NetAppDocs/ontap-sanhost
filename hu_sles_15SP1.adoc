@@ -123,7 +123,7 @@ devices {
 
 == Known issues
 
-The SLES 15 SP1 with ONTAP release has the following known issues:
+The SUSE Linux Enterprise Server 15 SP1 with ONTAP release has the following known issues:
 
 [cols=4,options="header" width="80%"]
 |===
@@ -131,7 +131,7 @@ The SLES 15 SP1 with ONTAP release has the following known issues:
 | Title
 | Description
 | Bugzilla ID
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246622[1246622^] | Remote ports transit to a blocked state on SLES15SP1 with Emulex LPe12002 8GB FC during storage failover operations. | Remote ports transit to a blocked state on SLES15SP1 with Emulex LPe12002 8GB Fibre Channel (FC) during storage failover operations. When the storage node returns to an optimal state, the LIFs also come up and the remote port state should read "online." Occasionally, the remote port state might continue to read as "blocked” or "not present." This state can lead to a "failed faulty" path to LUNs at the multipath layer as well as an I/O outage for those LUNs. You can check the remoteport's details against the following sample commands:
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246622[1246622^] | Remote ports transit to a blocked state on SLES 15SP1 with Emulex LPe12002 8GB FC during storage failover operations. | Remote ports transit to a blocked state on SLES15SP1 with Emulex LPe12002 8GB Fibre Channel (FC) during storage failover operations. When the storage node returns to an optimal state, the LIFs also come up and the remote port state should read "online." Occasionally, the remote port state might continue to read as "blocked” or "not present." This state can lead to a "failed faulty" path to LUNs at the multipath layer as well as an I/O outage for those LUNs. You can check the remoteport's details against the following sample commands:
 
 ----
 cat/sys/class/fc_host/host*/device/rport*/fc_remote_ports/rport*/port_name

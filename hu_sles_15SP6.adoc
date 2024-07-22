@@ -14,7 +14,7 @@ summary: Describes how to use SUSE Linux Enterprise Server 15 SP6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server (SLES) 15 SP6 with ONTAP as the target. 
+You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP6 with ONTAP as the target. 
 
 == Install the Linux Unified Host Utilities
 
@@ -35,7 +35,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For SLES 15 SP6, the `/etc/multipath.conf` file must exist. You don't need to make changes to this file because SLES 15 SP6 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+For SUSE Linux Enterprise Server 15 SP6, the `/etc/multipath.conf` file must exist. You don't need to make changes to this file because SUSE Linux Enterprise Server 15 SP6 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing.adoc[]
 
@@ -72,7 +72,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The SLES 15 SP6 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+The SUSE Linux Enterprise Server 15 SP6 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -124,6 +124,6 @@ devices {
 
 == Known issues
 
-There are no known issues for the SLES 15 SP6 with ONTAP release.
+There are no known issues for the SUSE Linux Enterprise Server 15 SP6 with ONTAP release.
 
 
