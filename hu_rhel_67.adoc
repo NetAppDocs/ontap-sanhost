@@ -4,7 +4,6 @@ permalink: hu_rhel_67.html
 keywords: host utilities, red hat, rhel, linux, 6.7, netapp, ontap
 summary: Describes how to use Red Hat Enterprise Linux 6.7 with ONTAP
 ---
-
 = Use Red Hat Enterprise Linux 6.7 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -123,6 +122,7 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
+[[known-problems-and-limitations]]
 == Known issues
 
 There are no known issues for the RHEL 6.7 with ONTAP release.

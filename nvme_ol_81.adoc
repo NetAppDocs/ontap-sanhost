@@ -4,7 +4,6 @@ permalink: nvme_ol_81.html
 keywords: nvme, linux, oracle, 8.1
 summary: Setting up VMe/FC Host Configuration for Oracle Linux 8.1 with ONTAP, with examples
 ---
-
 = NVMe/FC Host Configuration for Oracle Linux 8.1 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -12,6 +11,9 @@ summary: Setting up VMe/FC Host Configuration for Oracle Linux 8.1 with ONTAP, w
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
+
+[.lead]
+You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running Oracle Linux 8.1 and ONTAP as the target.
 
 == Supportability
 
