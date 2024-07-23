@@ -4,7 +4,6 @@ permalink: nvme_ol_78.html
 keywords: nvme, linux, oracle, 7.8
 summary: Setting up VMe/FC Host Configuration for Oracle Linux 7.8 with ONTAP, with examples
 ---
-
 = NVMe/FC Host Configuration for Oracle Linux 7.8 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -12,6 +11,9 @@ summary: Setting up VMe/FC Host Configuration for Oracle Linux 7.8 with ONTAP, w
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
+
+[.lead]
+You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running Oracle Linux 7.8 and ONTAP as the target.
 
 == Supportability
 

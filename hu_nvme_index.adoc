@@ -12,4 +12,5 @@ summary: You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF)
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
 You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF) protocol, which includes NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP), with ONTAP as the target. Depending on your host operating system and ONTAP version, you configure and validate the NVMe/FC or NVMe/TCP protocol, or both on the host.
