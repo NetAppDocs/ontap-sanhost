@@ -12,8 +12,6 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
-:source-highlighter: highlighter.js
-
    
 [.lead]
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server 15 SP5 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
@@ -42,7 +40,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 You can configure NVMe/FC for Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 
 [role="tabbed-block"]
-====
+=====
 .Broadcom/Emulex
 --
 
@@ -136,6 +134,8 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 In this example, one initiator port is enabled and connected with two target LIFs.
 +
+[%collapsible]
+====
 [subs=+quotes]
 ----
 NVME Initiator Enabled
@@ -171,6 +171,8 @@ abort 00000b73 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr
 FCP CMPL: xb 0000159d Err 000135c3
 
 ----
+====
+
 . Reboot the host.
 --
 
@@ -199,7 +201,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 1
 ----
 --
-====
+=====
 
 === Enable 1MB I/O size (Optional)
 
@@ -263,8 +265,9 @@ You can use the following procedure to configure NVMe/TCP.
 nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
 +
-*Example output*:
-+
+.Show example output
+[%collapsible]
+====
 [subs=+quotes]
 ----
 # nvme discover -t tcp -w 192.168.1.4 -a 192.168.1.31
@@ -323,6 +326,7 @@ trsvcid: 4420 subnqn: nqn.1992-
 08.com.netapp:sn.48391d66c0a611ecaaa5d039ea165514:subsystem.subsys_CLIEN T116
 traddr: 192.168.1.116 eflags: not specified sectype: none
 ----
+====
 
 . Verify that all other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
@@ -528,7 +532,7 @@ nvme discover -t <trtype> -w <host-traddr> -a <traddr>
 ----
 
 +
-.Example output:
+.Show example output
 [%collapsible]
 ====
 [subs=+quotes]
