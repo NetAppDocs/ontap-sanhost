@@ -242,9 +242,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-NVMe/TCP does not have an auto-connect functionality. Therefore, you need to perform the NVMe/TCP connect or connect-all functionality manually to discover the NVMe/TCP subsystems and namespaces.
-
-You can use the following procedure to configure NVMe/TCP.
+NVMe/TCP does not have an auto-connect functionality. Therefore, you should use the following procedure to discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP connect or connect-all functionality manually. 
 
 .Steps
 
@@ -386,7 +384,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 
 [NOTE]
-Beginning with RHEL 9.4, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off, which means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+Beginning with RHEL 9.4, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 
 == Validate NVMe-oF
