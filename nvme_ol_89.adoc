@@ -118,7 +118,7 @@ Restart the multipathd daemon by running a `systemctl restart multipathd` comman
 Configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
-====
+=====
 .Broadcom/Emulex
 --
 .Steps
@@ -234,7 +234,7 @@ QLE2742 FW:v9.12.00 DVR:v10.02.08.100-k
 1
 ----
 --
-====
+=====
 
 === Enable 1MB I/O size (Optional)
 
@@ -242,7 +242,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-include::_include/nvme/reuse_configure_nvmetcp.adoc[]
+NVMe/TCP does not have auto-connect functionality. Therefore, if a path goes down and is not reinstated within the default time out period of 10 minutes, NVMe/TCP cannot automatically reconnect. Therefore, you should set the retry period for storage failover events by using the following procedure. 
 
 .Steps
 
