@@ -4,7 +4,6 @@ permalink: hu_rhel_84.html
 keywords: host utilities, red hat, rhel, linux, 8.4, netapp, ontap
 summary: Describes how to use Red Hat Enterprise Linux 8.4 with ONTAP
 ---
-
 = Use Red Hat Enterprise Linux 8.4 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -122,6 +121,7 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
+[[known-problems-and-limitations]]
 == Known issues
 
 There are no known issues for the RHEL 8.4 with ONTAP release.

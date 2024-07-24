@@ -12,9 +12,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
-:source-highlighter: highlighter.js
 
-   
 [.lead]
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server 15 SP5 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
 
