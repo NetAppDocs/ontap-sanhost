@@ -132,7 +132,7 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 *Example output*:
 +
-In this example, one initiator port is enabled and connected with two target LIFs.
+In the following example, one initiator port is enabled and connected with two target LIFs.
 +
 [subs=+quotes]
 ----

@@ -9,7 +9,7 @@ The first time you create the `multipath.conf` file, you might need to enable an
 # /etc/init.d/multipathd start
 ----
 
-There is no requirement to add anything directly to the `multipath.conf` file unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. To exclude unwanted devices, you add the following syntax to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude:
+There is no requirement to add devices directly to the `multipath.conf` file, unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. To exclude unwanted devices, you add the following syntax to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude:
 
 ----
 blacklist {
@@ -21,7 +21,7 @@ blacklist {
 ----
 
 .Example
-In this example, you determine the WWID of a device and add to the `multipath.conf` file.
+In the following example, you determine the WWID of a device and add to the `multipath.conf` file.
 
 .Steps
 

@@ -4,7 +4,6 @@ permalink: hu_veritas_8x.html
 keywords: host utilities, veritas, infoscale, 8, netapp, ontap, sanhost, iscsi, red, hat linux, oracle, linux
 summary: Provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale 7 series release
 ---
-
 = Use Veritas Infoscale 8 for Linux with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -63,7 +62,7 @@ You must verify that your configuration meets the system requirements. For more 
 
 .Example
 
-In this example, the `vxdmpadm` command is used to verify that the VxDMP Multipath has the ONTAP target array attached.
+In the following example, the `vxdmpadm` command is used to verify that the VxDMP Multipath has the ONTAP target array attached.
 ----
 # vxdmpadm listenclosure
 ENCLR_NAME   ENCLR_TYPE  ENCLR_SNO     STATUS      ARRAY_TYPE    LUN_COUNT    FIRMWARE

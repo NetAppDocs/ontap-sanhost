@@ -85,10 +85,10 @@ The first time you create the `multipath.conf` file, you might need to enable an
 # /etc/init.d/multipathd start
 ----
 
-There is no requirement to add anything directly to the `multipath.conf` file unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. To exclude the unwanted devices, you add the syntax shown in the following example to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude.
+There is no requirement to add devices directly to the `multipath.conf` file, unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. To exclude the unwanted devices, you add the syntax shown in the following example to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude.
 
 .Example
-In this example, `sda` is the local SCSI disk that we need to add to the blacklist.
+In the following example, `sda` is the local SCSI disk that we need to add to the blacklist.
 
 .Steps
 . Run the following command to determine the `WWID`:

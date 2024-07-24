@@ -128,12 +128,11 @@ Online
 +
 ----
 cat /sys/class/scsi_host/host*/nvme_info
-----
-+
-*Example output*:
+----   
 +
 In this example, one initiator port is enabled and connected with two target LIFs.
 +
+.Show example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -224,8 +223,9 @@ Created symlink /etc/systemd/system/default.target.wants/nvmf- autoconnect.servi
 . Reboot the host. 
 . Verify that `nvmf-autoconnect.service` and `nvmefc-boot-connections.service` are running after the system boots up: 
 +
-*Example output:*
-+
+.Show example output
+[%collapsible]
+====
 ----
 # systemctl status nvmf-autoconnect.service
 nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
@@ -252,6 +252,7 @@ systemd[1]: nvmefc-boot-connections.service: Succeeded.
 systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
 
 ----
+====
 
 == Configure NVMe/TCP
 
@@ -405,8 +406,9 @@ round-robin
 nvme list -v 
 ----
 +
-*Example output:*
-+
+.Show example output
+[%collapsible]
+====
 ----
 Subsystem        Subsystem-NQN                                                                         Controllers
 ---------------- ------------------------------------------------------------------------------------ -----------------------
@@ -426,6 +428,7 @@ Device       Generic      NSID       Usage                 Format         Contro
 /dev/nvme0n1 /dev/ng0n1   0x1     1.07  GB /   1.07  GB    4 KiB +  0 B   nvme0, nvme1, nvme2, nvme3  
 
 ----
+====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
@@ -759,7 +762,7 @@ To set up secure authentication, each host or controller must be associated with
 You can set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
 
 [role="tabbed-block"]
-====
+=====
 
 .CLI
 --
@@ -852,6 +855,9 @@ You can generate the JSON file using `-o` option. Refer to the NVMe connect-all 
 
 . Configure the JSON file:
 +
+.Show example output
+[%collapsible]
+====
 ----
 # cat /etc/nvme/config.json 
 [
@@ -900,10 +906,11 @@ You can generate the JSON file using `-o` option. Refer to the NVMe connect-all 
    ]
  }
 ]
-
+----
+====
++
 [NOTE]
 In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
-----
 
 . Connect to the ONTAP controller using the config JSON file:
 +
@@ -956,8 +963,7 @@ DHHC-
 
 ----
 --
-====
-
+=====
 
 == Known issues 
 
