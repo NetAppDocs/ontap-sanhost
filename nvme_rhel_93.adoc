@@ -12,7 +12,6 @@ summary: How to Configure NVMe-oF Host for RHEL 9.3 with ONTAP
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
-:source-highlighter: highlighter.js
 
 [.lead]
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.3 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
