@@ -4,7 +4,6 @@ permalink: hu_rhel_65.html
 keywords: host utilities, red hat, rhel, linux, 6.5, netapp, ontap
 summary: Describes how to use Red Hat Enterprise Linux 6.5 with ONTAP
 ---
-
 = Use Red Hat Enterprise Linux 6.5 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -123,6 +122,7 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
+[[known-problems-and-limitations]]
 == Known issues
 
 The RHEL 6.5 with ONTAP release has the following known issues:

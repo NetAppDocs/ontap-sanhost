@@ -4,7 +4,6 @@ permalink: nvme_ol_86.html
 keywords: 
 summary: 
 ---
-
 = NVMe/FC Host Configuration for Oracle Linux 8.6 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -12,6 +11,9 @@ summary:
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
+
+[.lead]
+You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running Oracle Linux 8.6 and ONTAP as the target.
 
 == Supportability
 

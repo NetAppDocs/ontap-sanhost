@@ -232,9 +232,9 @@ The Solaris 11.4 with ONTAP release has the following known issues:
 | Title
 | Description
 | Oracle ID
-| 1362435 | HUK 6.2 and Solaris_11.4 FC driver binding changes | Refer to Solaris 11.4 and HUK recommendations. FC driver binding is changed from `ssd (4D)` to `sd (4D)`. Move the existing configuration from `ssd.conf` to `sd.conf` as mentioned in Oracle DOC: 2595926.1). The behavior varies across newly installed Solaris 11.4 systems and systems upgraded from Solaris 11.3 or earlier versions.
+| link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1362435[1362435^] | HUK 6.2 and Solaris_11.4 FC driver binding changes | Refer to Solaris 11.4 and HUK recommendations. FC driver binding is changed from `ssd (4D)` to `sd (4D)`. Move the existing configuration from `ssd.conf` to `sd.conf` as mentioned in Oracle DOC: 2595926.1). The behavior varies across newly installed Solaris 11.4 systems and systems upgraded from Solaris 11.3 or earlier versions.
  | (Doc ID 2595926.1)
-| 1366780 | Solaris LIF issue noticed during storage failover (SFO) giveback operation with Emulex 32G host bus adapter (HBA) on x86 Arch | Solaris LIF issue noticed with Emulex firmware version 12.6.x and later on the x86_64 platform. | SR 3-24746803021
-| 1368957 | Solaris 11.x `cfgadm -c configure` resulting in I/O error with end-to-end Emulex configuration | Running `cfgadm -c configure` on Emulex end-to-end configuration results in an I/O error. This is fixed in ONTAP 9.5P17, 9.6P14 , 9.7P13, and 9.8P2 | Not Applicable
-| 1345622 | Abnormal path reporting on Solaris hosts with ASA/PPorts using OS native commands | Intermittent path reporting issues are noticed on Solaris 11.4 with All SAN Array (ASA). | Not Applicable
+| link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1366780[1366780^] | Solaris LIF issue noticed during storage failover (SFO) giveback operation with Emulex 32G host bus adapter (HBA) on x86 Arch | Solaris LIF issue noticed with Emulex firmware version 12.6.x and later on the x86_64 platform. | SR 3-24746803021
+| link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1368957[1368957^] | Solaris 11.x `cfgadm -c configure` resulting in I/O error with end-to-end Emulex configuration | Running `cfgadm -c configure` on Emulex end-to-end configuration results in an I/O error. This is fixed in ONTAP 9.5P17, 9.6P14 , 9.7P13, and 9.8P2 | Not Applicable
+| link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1345622[1345622^] | Abnormal path reporting on Solaris hosts with ASA/PPorts using OS native commands | Intermittent path reporting issues are noticed on Solaris 11.4 with All SAN Array (ASA). | Not Applicable
 |===
