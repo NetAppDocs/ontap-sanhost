@@ -4,7 +4,6 @@ permalink: nvme_ol_93.html
 keywords: nvme, oracle linux, 9.3, host configuration
 summary: NVMe-oF Host Configuration for Oracle Linux 9.3 with ONTAP
 ---
-
 = NVMe-oF Host Configuration for Oracle Linux 9.3 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -108,7 +107,7 @@ If the `hostnqn` strings do not match, you can use the `vserver modify` command 
 You can configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
-====
+=====
 .Broadcom/Emulex
 --
 .Steps
@@ -175,6 +174,9 @@ Online
 Online
 ----
 +
+.Show example output
+[%collapsible]
+====
 ----
 # cat /sys/class/scsi_host/host*/nvme_info
 NVME Initiator Enabled
@@ -203,6 +205,7 @@ Total FCP Cmpl 00000000b9a9f03f Issue 00000000b96e622e OutIO ffffffffffc471ef
 abort 0000090d noxri 00000000 nondlp 00003b3f qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 000010a5 Err 000147e4
 ----
+====
 --
 
 .Marvell/QLogic FC Adapter for NVMe/FC
@@ -224,7 +227,7 @@ QLE2872 FW:v9.14.02 DVR:v 10.02.09.100-k
 1
 ----
 --
-====
+=====
 
 === Enable 1MB I/O size (Optional)
 
@@ -242,8 +245,9 @@ NVMe/TCP does not have an auto-connect functionality. Therefore, you need to per
 nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
-*Example output:*
-+
+.Show example
+[%collapsible]
+====
 ----
 # nvme discover -t tcp -w 192.168.166.4 -a 192.168.166.56
 
@@ -283,6 +287,7 @@ eflags:  none
 sectype: none
 ..........
 ----
+====
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
@@ -481,14 +486,6 @@ NSID       UUID                                   Size
 
 == Known issues
 
-There are no known issues.
-
-
+There are no known issues for the Oracle Linux 9.3 with ONTAP release.
 
 // JIRA-1289 20-Sep-2023
-
-
-
-
-
-
