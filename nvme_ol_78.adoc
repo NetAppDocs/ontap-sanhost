@@ -4,7 +4,6 @@ permalink: nvme_ol_78.html
 keywords: nvme, linux, oracle, 7.8
 summary: Setting up VMe/FC Host Configuration for Oracle Linux 7.8 with ONTAP, with examples
 ---
-
 = NVMe/FC Host Configuration for Oracle Linux 7.8 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -13,9 +12,12 @@ summary: Setting up VMe/FC Host Configuration for Oracle Linux 7.8 with ONTAP, w
 :linkattrs:
 :imagesdir: ./media/
 
+[.lead]
+You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running Oracle Linux 7.8 and ONTAP as the target.
+
 == Supportability
 
-NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 7.8. Oracle Linux 7.8 host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. Note that the Broadcom initiator can serve both NVMe/FC and FCP traffic through the same FC adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 7.8. The Oracle Linux 7.8 host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. Note that the Broadcom initiator can serve both NVMe/FC and FCP traffic through the same FC adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 

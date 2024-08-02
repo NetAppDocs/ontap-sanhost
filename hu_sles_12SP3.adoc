@@ -130,7 +130,7 @@ The SLES 15 SP3 with ONTAP release has the following known issues:
 | Title
 | Description
 | Bugzilla ID
-| link:https://https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1089555[1089555^] | Kernel disruption observed on kernel version SLES12 SP3 with Emulex LPe16002 16GB FC during storage failover operation | A kernel disruption might occur during storage failover operations on kernel version SLES12 SP3 with Emulex LPe16002 HBA. The kernel disruption prompts a reboot of the operating system, which in turn causes an application disruption. If the kdump is configured, the kernel disruption generates a vmcore file under /var/crash/directory. You can investigate the cause of the failure in the vmcore file.
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1089555[1089555^] | Kernel disruption observed on kernel version SLES12 SP3 with Emulex LPe16002 16GB FC during storage failover operation | A kernel disruption might occur during storage failover operations on kernel version SLES12 SP3 with Emulex LPe16002 HBA. The kernel disruption prompts a reboot of the operating system, which in turn causes an application disruption. If the kdump is configured, the kernel disruption generates a vmcore file under /var/crash/directory. You can investigate the cause of the failure in the vmcore file.
 Example:
 In the observed case, the kernel disruption was observed in the module “lpfc_sli_ringtxcmpl_put+51” and is logged in the vmcore file
 – exception RIP: lpfc_sli_ringtxcmpl_put+51.
