@@ -28,11 +28,10 @@ For additional details on supported configurations, see the link:https://mysuppo
 == Features 
 
 * Oracle Linux 8.9 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
-* You can use the NVMe/FC protocol for SAN booting.
 
 == Known limitations
 
-There are no known limitations.
+* SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Validate software versions
 
@@ -40,7 +39,7 @@ Validate the minimum supported OL 8.9 software versions.
 
 .Steps
 
-. Install OL 8.9 GA on the server. After the installation is complete, verify that you are running the specified OL 8.9 GA kernel:
+. Install 5.15.0-200.131.27.el8uek.x86_64 on the server. After the installation is complete, verify that you are running the specified OL 8.9 GA kernel:
 +
 ----
 # uname -r
@@ -519,4 +518,5 @@ The NVMe-oF host configuration for OL 8.9 with ONTAP release has the following k
 |===
 
 
+// SME feeedback, finalize for writer on vacation
 // JIRA-1289 20-Sep-2023
