@@ -4,7 +4,6 @@ permalink: nvme_ubuntu_2204.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for Ubuntu 22.04 with ONTAP
 ---
-
 = NVMe-oF host configuration for Ubuntu 22.04 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -444,9 +443,22 @@ NSID       UUID                                   Size
 
 == Known issues
 
-Theere are no known issues for the NVMe-oF host configuration for Ubuntu 22.04 with ONTAP release.
+The NVMe-oF host configuration for Ubuntu 22.04 with ONTAP release has the following known issue:
+
+[options="header", cols="20, 20, 50, 20]
+|===
+|NetApp Bug ID	|Title	|Description	|Bugzilla ID
+|CONTAPEXT-1231
+
+|Ubuntu 22.04 NVMe-oF hosts create duplicate persistent discovery controllers
+
+|On NVMe-oF hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are Ubuntu 22.04 on an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
+
+|Not applicable
+
+|===
 
 
+// 2024 AUG 13, ONTAPDOC-2294
+// 2023 SEP 20, JIRA-1289
 // 2022,12-06, Jira IEOPS-690
-
-// JIRA-1289 20-Sep-2023
