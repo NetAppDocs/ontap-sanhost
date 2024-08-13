@@ -39,7 +39,7 @@ Validate the minimum supported OL 8.9 software versions.
 
 .Steps
 
-. Install 5.15.0-200.131.27.el8uek.x86_64 on the server. After the installation is complete, verify that you are running the specified OL 8.9 GA kernel:
+. Install OL 8.9 GA on the server. After the installation is complete, verify that you are running the specified OL 8.9 GA kernel:
 +
 ----
 # uname -r
@@ -48,7 +48,7 @@ Validate the minimum supported OL 8.9 software versions.
 *Example output:*
 +
 ----
-5.15.0-206.153.7.el8uek.x86_64
+5.15.0-200.131.27.el8uek.x86_64
 ----
 
 . Install the `nvme-cli` package:
