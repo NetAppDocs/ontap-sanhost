@@ -90,7 +90,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The Oracle Linux 9.3 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+The Oracle Linux 9.3 OS recognizes ONTAP LUNs and automatically sets all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -138,7 +138,7 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 9.3 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_91.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.3.
+NOTE: To configure Oracle Linux 9.3 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_91.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.3.
 
 == KVM settings
 
