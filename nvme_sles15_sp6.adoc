@@ -162,7 +162,6 @@ FCP CMPL: xb 0000082d Err 000283bb
 ----
 ====
 
-. Reboot the host.
 --
 
 .Marvell/QLogic
@@ -195,50 +194,6 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 === Enable 1MB I/O size (Optional)
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
-
-=== Enable NVMe services
- 
-The `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` NVMe/FC boot services are included in the `nvme-cli` package; however, only `nvmefc-boot-connections.service` is enabled by default to start during system boot.
-
-Use the following procedure to manually enable `nvmf-autoconnect.service` to start during system boot. 
-
-.Steps
-
-. Enable `nvmf-autoconnect.service`:
-+
-----
-# systemctl enable nvmf-autoconnect.service
-Created symlink /etc/systemd/system/default.target.wants/nvmf- autoconnect.service → /usr/lib/systemd/system/nvmf-autoconnect.service.
-----
-
-. Reboot the host. 
-. Verify that `nvmf-autoconnect.service` and `nvmefc-boot-connections.service` are running after the system boots up: 
-+
-.Show example output
-[%collapsible]
-====
-[subs=+quotes]
-----
-# systemctl status nvmf-autoconnect.service
-nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
-Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service; enabled; vendor preset: disabled)
-Active: inactive (dead) since Thu 2023-05-25 14:55:00 IST; 11min ago
-Process: 2108 ExecStartPre=/sbin/modprobe nvme-fabrics (code=exited, status=0/SUCCESS)
-Process: 2114 ExecStart=/usr/sbin/nvme connect-all (code=exited, status=0/SUCCESS) Main 
-PID: 2114 (code=exited, status=0/SUCCESS)
-systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot... nvme[2114]: 
-traddr=nn-0x201700a098fd4ca6:pn-0x201800a098fd4ca6 is already connected systemd[1]: nvmfautoconnect.service: Deactivated successfully.
-systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
-# systemctl status nvmefc-boot-connections.service
-nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
-Loaded: loaded (/usr/lib/systemd/system/nvmefc-bootconnections.service; enabled; vendor preset: 
-enabled)
-Active: inactive (dead) since Thu 2023-05-25 14:55:00 IST; 11min ago
-Main PID: 1647 (code=exited, status=0/SUCCESS)
-systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot... systemd[1]: 
-nvmefc-boot-connections.service: Succeeded. systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
-----
-====
 
 == Configure NVMe/TCP
 
@@ -367,7 +322,7 @@ nvme discover -t tcp -w <host-traddr> -a <traddr>
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
 ----
-nvme connect-all -t tcp -w host-traddr -a traddr -l <ctrl_loss_timeout_in_seconds>
+nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 +
 *Example output:*
