@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_ol_92.html
-keywords: host utilities, oracle, linux, 9.2, netapp, ontap
-summary: Describes how to use Oracle Linux 9.2 with ONTAP
+permalink: hu_ol_93.html
+keywords: host utilities, oracle, linux, 9.3, netapp, ontap
+summary: Describes how to use Oracle Linux 9.3 with ONTAP
 ---
 
-= Use Oracle Linux 9.2 with ONTAP
+= Use Oracle Linux 9.3 with ONTAP
 :hardbreaks:
 :toclevels: 1P
 :nofooter:
@@ -14,7 +14,7 @@ summary: Describes how to use Oracle Linux 9.2 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Oracle Linux 9.2 with ONTAP as the target.
+You can use the ONTAP SAN host configuration settings to configure Oracle Linux 9.3 with ONTAP as the target.
 
 == Install the Linux Unified Host Utilities
 
@@ -33,10 +33,11 @@ Example output:
 controller(7mode/E-Series)/            device     host               lun
 vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
 -------------------------------------------------------------------------
-data_vserver          /vol/vol1/lun1   /dev/sdb   host16   FCP       80.0g  cDOT
-data_vserver          /vol/vol1/lun1   /dev/sdc   host15   FCP       80.0g  cDOT
-data_vserver          /vol/vol2/lun2   /dev/sdd   host16   FCP       80.0g  cDOT
-data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
+vs_175_vserver          /vol/vol1/lun1   /dev/sdb   host16   FCP       10g  cDOT
+vs_175_vserver          /vol/vol1/lun1   /dev/sdc   host15   FCP       10g  cDOT
+vs_175_vserver          /vol/vol2/lun2   /dev/sdd   host16   FCP       10g  cDOT
+vs_175_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       10g  cDOT
+
 ----
 
 == SAN booting
@@ -49,7 +50,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For OL 9.2 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.2 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+For OL 9.3 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.3 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
@@ -89,7 +90,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
-The Oracle Linux 9.2 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+The Oracle Linux 9.3 OS recognizes ONTAP LUNs and automatically sets all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
@@ -137,7 +138,7 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 9.2 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_92.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.2.
+NOTE: To configure Oracle Linux 9.3 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_91.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.3.
 
 == KVM settings
 
@@ -145,7 +146,7 @@ You can also use the recommended settings to configure Kernel-based Virtual Mach
 
 == Known issues
 
-The Oracle Linux 9.2 with ONTAP release has the following known issues:
+The Oracle Linux 9.3 with ONTAP release has the following known issues:
 
 [cols="10,30,30,10",options="header"]
 |===
