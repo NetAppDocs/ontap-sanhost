@@ -63,7 +63,7 @@ Validate the minimum supported OL 8.9 software versions.
 nvme-cli-1.16-9.el8.x86_64
 ----
 
-.	On the Oracle Linux 8.9 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+. On the Oracle Linux 8.9 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 ----
 # cat /etc/nvme/hostnqn
