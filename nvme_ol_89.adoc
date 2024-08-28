@@ -13,33 +13,33 @@ summary: NVMe-oF Host Configuration for Oracle Linux 8.9 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Oracle Linux (OL) 8.9 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Oracle Linux 8.9 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-The following support is available for the NVMe-oF host configuration for OL 8.9 with ONTAP:
+The following support is available for the NVMe-oF host configuration for Oracle Linux 8.9 with ONTAP:
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays the ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
 * Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
 
-* There is no sanlun support for NVMe-oF. Therefore, there is no host utility support for NVMe-oF on an OL 8.9 host. You can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+* There is no sanlun support for NVMe-oF. Therefore, there is no host utility support for NVMe-oF on an Oracle Linux 8.9 host. You can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 == Features 
 
-* Oracle Linux 8.9 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
+Oracle Linux 8.9 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
 
 == Known limitations
 
-* SAN booting using the NVMe-oF protocol is currently not supported.
+SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Validate software versions
 
-Validate the minimum supported OL 8.9 software versions.
+Validate the minimum supported Oracle Linux 8.9 software versions.
 
 .Steps
 
-. Install OL 8.9 GA on the server. After the installation is complete, verify that you are running the specified OL 8.9 GA kernel:
+. Install Oracle Linux 8.9 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.9 GA kernel:
 +
 ----
 # uname -r
@@ -109,8 +109,6 @@ defaults {
 Restart the multipathd daemon by running a `systemctl restart multipathd` command. This allows the new setting to take effect. 
 
 ====
-
- 
 
 == Configure NVMe/FC
 
@@ -218,7 +216,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 --
 .Steps
 
-.  The native inbox qla2xxx driver included in the OL 8.9 GA kernel has the latest fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. The native inbox qla2xxx driver included in the Oracle Linux 8.9 GA kernel has the latest fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
@@ -504,7 +502,7 @@ NSID     UUID                                   Size
 
 == Known issues
 
-The NVMe-oF host configuration for OL 8.9 with ONTAP release has the following known issues:
+The NVMe-oF host configuration for Oracle Linux 8.9 with ONTAP release has the following known issues:
 
 [cols="1a, 2a, 6a, 1a, options="header"]
 |===
@@ -513,7 +511,7 @@ The NVMe-oF host configuration for OL 8.9 with ONTAP release has the following k
 
 |Oracle Linux 8.9 NVMe-oF hosts create duplicate PDCs
 
-|On OL 8.9 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with OL 8.x, NVMe-oF hosts create duplicate. This wastes resources on both the host and the target.
+|On Oracle Linux 8.9 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with Oracle Linux 8.x, NVMe-oF hosts create duplicate. This wastes resources on both the host and the target.
 |https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 
