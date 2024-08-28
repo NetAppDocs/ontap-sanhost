@@ -52,7 +52,7 @@ NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 pa
 
 === Non-ASA Configuration
 
-For non-ASA configuration there should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when no optimized paths are available.
+For non-ASA configuration there should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths are not available.
 
 .Example
 The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/non-Optimized paths:
@@ -88,7 +88,7 @@ Main PID:  3789 (multipathd)
             3789  /sbin/multipathd
 ----
 
-There is no requirement to append content to the `/etc/multipath.conf` file, unless you have devices that you do not want to be managed by multipath or you have existing settings that override defaults. You can add the following syntax to the multipath.conf file to exclude the unwanted devices.
+There is no requirement to append content to the `/etc/multipath.conf` file, unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. You can add the following syntax to the multipath.conf file to exclude the unwanted devices.
 
 ----
 # cat /etc/multipath.conf
