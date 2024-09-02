@@ -504,17 +504,16 @@ NSID     UUID                                   Size
 
 The NVMe-oF host configuration for Oracle Linux 8.9 with ONTAP release has the following known issues:
 
-[cols="1a, 2a, 6a, 1a, options="header"]
+[cols="1a,4a,4a, options="header"]
 |===
-|NetApp Bug ID	|Title	|Description	|Bugzilla ID
+|NetApp Bug ID	|Title	|Description	
 |link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1517321[1517321^]
 
 |Oracle Linux 8.9 NVMe-oF hosts create duplicate PDCs
 
 |On Oracle Linux 8.9 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with Oracle Linux 8.x, NVMe-oF hosts create duplicate. This wastes resources on both the host and the target.
-|https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 
-
+// 2024 SEP 2, ONTAPDOC-2345
 // SME feeedback, finalize for writer on vacation
 // JIRA-1289 20-Sep-2023

@@ -368,13 +368,13 @@ NSID        UUID                                  Size
 
 The NVMe-oF host configuration for OL 8.4 with ONTAP has the following known issues:
 
-[cols="10,30,30,10",options="header"]
+[cols="20,40,40",options="header"]
 |===
-|NetApp Bug ID	|Title	|Description	|Bugzilla ID
+|NetApp Bug ID	|Title	|Description
 
-|1517321	|Oracle Linux 8.4 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On Oracle Linux 8.4 NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.4 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.	|https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
+|1517321	|Oracle Linux 8.4 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On Oracle Linux 8.4 NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination. However, if you are running ONTAP 9.10.1 and Oracle Linux 8.4 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
 |===
 
 
-
+// 2024 SEP 2, ONTAPDOC-2345
 // JIRA-1289 20-Sep-2023
