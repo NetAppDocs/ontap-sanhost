@@ -44,7 +44,7 @@ The NetApp AIX Host Utilities software package is available on the link:https://
 
 . Log in to your host.
 * On an AIX host, log in as *root*.
-* On a PowerVM host, log in as *padmin*, and then enter the `oem_setup_env` command to become root.
+* On a PowerVM host, log in as *padmin*, and then enter the `oem_setup_env` command to become a root user.
 
 . Go to the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^] and download the compressed file containing the Host Utilities to a directory on your host.
 
@@ -52,25 +52,25 @@ The NetApp AIX Host Utilities software package is available on the link:https://
 
 . Decompress the file and extract the SAN toolkit software package.
 +
-`tar -xvf ntap_aix_host_utilities_6.1.tar.gz`
+`# tar -xvf ntap_aix_host_utilities_6.1.tar.gz`
 
 +
 The following directory is created when you decompress the file: `ntap_aix_host_utilities_6.1`. This directory will have one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
 
 . Install the AIX MPIO:
 +
-`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
+`# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
 . Install the SAN toolkit:
 +
-`installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
+`# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
 
 . Reboot the host.
 
 . Verify the installation:
 +
 ----
-`sanlun version`
+`# sanlun version`
 ----
 
 == SAN Toolkit
@@ -82,7 +82,7 @@ AIX Host Utilities is a NetApp host software that provides a command line toolki
 In the following example, the `sanlun lun show` command returns the LUN information.
 
 ----
-#sanlun lun show all
+# sanlun lun show all
 ----
 *Example output*
 ----
