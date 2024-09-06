@@ -22,14 +22,14 @@ For specific information about the operating system versions and updates that th
 
 Recent releases of AIX Host Utilities contain the following new features and enhancements:
 
-* AIX Host Utilities 7.0 supports SCSI UNMAP of the AIX host OS. With AIX Host Utilities 7.0, SCSI thin provisioning functions seamlessly with AIX and NetApp LUNs for FC devices.
+* AIX Host Utilities 7.0 supports SCSI UNMAP on the AIX host OS. With AIX Host Utilities 7.0, SCSI thin provisioning functions seamlessly with AIX and NetApp LUNs for FC devices.
 
 * AIX Host Utilities 6.1 added support for the memory fault issue that occurred in earlier versions of the AIX host OS. With AIX Host Utilities 6.1, only the sanlun binary has changed. The MPIO and related ODM remain unchanged.
 
 
 == Fixed in this release
 
-There are no fixed issues in the AIX 7.0 release. 
+There are no fixed issues in the AIX Host Utilities 7.0 release. 
 
 == Known problems and limitations
 You should be aware of the following known problems and limitations that might impact performance on your specific host.
