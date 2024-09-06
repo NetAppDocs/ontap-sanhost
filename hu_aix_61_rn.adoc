@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
 permalink: hu_aix_61_rn.html
-keywords: host utilities, aix, 6.1 netapp, ontap, powervm
+keywords: host utilities, aix, 6.1 netapp, 7.0, ontap, powervm
 summary: Release Notes for AIX Host Utilities 6.1
 ---
 
-= AIX Host Utilities 6.1 Release Notes
+= AIX Host Utilities Release Notes
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -20,17 +20,16 @@ For specific information about the operating system versions and updates that th
 
 == What's new
 
-The AIX Host Utilities 6.1 release contains the following new features and enhancements:
+The AIX Host Utilities release contains the following new features and enhancements:
+
+* AIX Host Utilities 7.0 added SCSI UNMAP support of the AIX host OS. With AIX Host Utilities 7.0, SCSI THIN provisioning functions seamlessly with AIX and NetApp LUNs for FC devices.
 
 * AIX Host Utilities 6.1 added support for the memory fault issue that occurred in earlier versions of the AIX host OS. With AIX Host Utilities 6.1, only the sanlun binary has changed. The MPIO and related ODM remain unchanged.
 
+
 == Fixed in this release
 
-[cols=3,options="header"]
-|===
-|BugID	|Title	|Description
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/872113[872113^]	|`sanlun lun show –p` command might cause a memory fault on some versions of AIX host OS	|Intermittent instances of AIX coredump are reported while running the `sanlun lun show -p` command. Sanlun’s `lun show -p` option provides the multipathing information for all the LUNs discovered on a host. It arranges this information to present which SCSI device is sourced from which LUN, the path state (primary or secondary), and other details. However, on some AIX hosts running the `sanlun lun show -p` command might cause a memory fault. This issue is observed only when you run the sanlun command with the `-p` option.
-|===
+There are no fixed issues in this release. 
 
 == Known problems and limitations
 You should be aware of the following known problems and limitations that might impact performance on your specific host.
