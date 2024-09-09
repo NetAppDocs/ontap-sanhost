@@ -21,7 +21,7 @@ blacklist {
 ----
 
 .Example
-In this example, we are going to determine the WWID of a device and add to the `multipath.conf` file.
+The following example determines the WWID of a device and adds it to the `multipath.conf` file.
 
 .Steps
 
@@ -47,4 +47,4 @@ blacklist {
 
 You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that might be overriding the default settings.
 
-The following table demonstrates the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in the `multipath.conf` file that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs might not work as expected. You should only override these defaults in consultation with NetApp, the OS vendor, or both, and only when the impact is fully understood.
+The following table demonstrates the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they must be corrected by later stanzas in the `multipath.conf` file that applies specifically to ONTAP LUNs. Without this correction, the ONTAP LUNs might not work as expected. You should only override these defaults in consultation with NetApp, the OS vendor, or both, and only when the impact is fully understood.
