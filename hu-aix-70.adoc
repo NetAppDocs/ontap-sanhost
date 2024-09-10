@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: hu_aix_61.html
-keywords: host utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
-summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTAP
+permalink: hu-aix-70.html
+keywords: host utilities, aix, powervm, vios, 3.1, 7.0, netapp, ontap
+summary: The AIX Unified Host Utilities assists you to manage NetApp ONTAP storage attached to an AIX host.
 ---
 
-= Install AIX Host Utilities 6.1
+= Install AIX Host Utilities 7.0
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -29,7 +29,7 @@ AIX Host Utilities support the following environments:
 +
 For more information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
 
-.What you'll need
+.Before you begin
 
 * For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
 +
@@ -38,7 +38,7 @@ You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B6
 * Dynamic tracking must be enabled for all FC and FCoE initiators.
 
 [NOTE]
-The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with NetApp ONTAP Storage.
+The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with NetApp ONTAP Storage.
 
 .Steps
 
@@ -46,31 +46,72 @@ The NetApp AIX Host Utilities software package is available on the link:https://
 * On an AIX host, log in as *root*.
 * On a PowerVM host, log in as *padmin*, and then enter the `oem_setup_env` command to become a root user.
 
-. Go to the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^] and download the compressed file containing the Host Utilities to a directory on your host.
+. Go to the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab[NetApp Support Site^] and download the compressed file containing the Host Utilities to a directory on your host.
 
 . Go to the directory containing the download.
 
-. Decompress the file and extract the SAN toolkit software package.
+. Decompress the file and extract the SAN toolkit software package:
 +
-`# tar -xvf ntap_aix_host_utilities_6.1.tar.gz`
+`# tar -xvf ntap_aix_host_utilities_7.0.tar.gz`
 
 +
-The following directory is created when you decompress the file: `ntap_aix_host_utilities_6.1`. This directory will have one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
+The following directory is created when you decompress the file: `ntap_aix_host_utilities_7.0`. This directory contains one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
 
 . Install the AIX MPIO:
 +
-`# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
+`# installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
 . Install the SAN toolkit:
 +
-`# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
+`# installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/SAN_Tool_Kit/NetApp.SAN_toolkit`
 
 . Reboot the host.
 
 . Verify the installation:
 +
+`# lslpp -l |grep -i netapp`
++
 ----
-# sanlun version
+NetApp.MPIO_Host_Utilities_Kit.config
+                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.fcp
+                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.iscsi
+                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.pcmodm
+                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities	
+NetApp.SAN_toolkit.sanlun  7.0.0.0  COMMITTED  NetApp SAN Toolkit sanlun
+----
+
+. Confirm the software version:
++
+`# sanlun version`
++
+----
+7.0.725.3521
+----
+
+. Verify that the SCSI UNMAP `lbp_enabled` parameter is added to the ODM by running the following commands:
++
+`# odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"`
++
+----
+attribute = "lbp_enabled"
+----
++
+`# odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
++
+----
+PdAt:
+        uniquetype = "disk/fcp/NetAppMPIO"
+        attribute = "lbp_enabled"
+        deflt = "true"
+        values = "true,false"
+        width = ""
+        type = "R"
+        generic = ""
+        rep = "s"
+        nls_index = 18
 ----
 
 == SAN Toolkit
@@ -99,3 +140,4 @@ data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
 [NOTE] 
 This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions.
 
+// 2024 Sep 06, AIX 7.0
