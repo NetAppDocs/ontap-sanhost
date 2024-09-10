@@ -1,0 +1,143 @@
+---
+sidebar: sidebar
+permalink: hu-aix-70.html
+keywords: host utilities, aix, powervm, vios, 3.1, 7.0, netapp, ontap
+summary: The AIX Unified Host Utilities assists you to manage NetApp ONTAP storage attached to an AIX host.
+---
+
+= Install AIX Host Utilities 7.0
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The AIX Unified Host Utilities assists you to manage NetApp ONTAP storage attached to an AIX host.
+
+AIX Host Utilities support the following protocols:
+
+* FC
+* FCoE
+* iSCSI
+
+AIX Host Utilities support the following environments:
+
+* AIX MPIO (Native OS)
+* PowerVM 
++
+For more information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
+
+.Before you begin
+
+* For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
++
+You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
+
+* Dynamic tracking must be enabled for all FC and FCoE initiators.
+
+[NOTE]
+The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with NetApp ONTAP Storage.
+
+.Steps
+
+. Log in to your host.
+* On an AIX host, log in as *root*.
+* On a PowerVM host, log in as *padmin*, and then enter the `oem_setup_env` command to become a root user.
+
+. Go to the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] and download the compressed file containing the Host Utilities to a directory on your host.
+
+. Go to the directory containing the download.
+
+. Decompress the file and extract the SAN toolkit software package:
++
+`# tar -xvf ntap_aix_host_utilities_7.0.tar.gz`
+
++
+The following directory is created when you decompress the file: `ntap_aix_host_utilities_7.0`. This directory contains one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
+
+. Install the AIX MPIO:
++
+`# installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/MPIO NetApp.MPIO_Host_Utilities_Kit`
+
+. Install the SAN toolkit:
++
+`# installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/SAN_Tool_Kit/NetApp.SAN_toolkit`
+
+. Reboot the host.
+
+. Verify the installation:
++
+`# lslpp -l |grep -i netapp`
++
+----
+NetApp.MPIO_Host_Utilities_Kit.config
+                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.fcp
+                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.iscsi
+                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.pcmodm
+                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities	
+NetApp.SAN_toolkit.sanlun  7.0.0.0  COMMITTED  NetApp SAN Toolkit sanlun
+----
+
+. Confirm the software version:
++
+`# sanlun version`
++
+----
+7.0.725.3521
+----
+
+. Verify that the SCSI UNMAP `lbp_enabled` parameter is added to the ODM by running the following commands:
++
+`# odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"`
++
+----
+attribute = "lbp_enabled"
+----
++
+`# odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
++
+----
+PdAt:
+        uniquetype = "disk/fcp/NetAppMPIO"
+        attribute = "lbp_enabled"
+        deflt = "true"
+        values = "true,false"
+        width = ""
+        type = "R"
+        generic = ""
+        rep = "s"
+        nls_index = 18
+----
+
+== SAN Toolkit
+
+AIX Host Utilities is a NetApp host software that provides a command line toolkit on your IBM AIX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+
+*Example*
+
+In the following example, the `sanlun lun show` command returns the LUN information.
+
+----
+# sanlun lun show all
+----
+*Example output*
+----
+controller(7mode)/ device host lun
+
+vserver(Cmode) lun-pathname filename adapter protocol size mode
+----------------------------------------------------------------
+data_vserver   /vol/vol1/lun1 hdisk0 fcs0    FCP      60g C
+data_vserver   /vol/vol2/lun2 hdisk0 fcs0    FCP      20g C
+data_vserver   /vol/vol3/lun3 hdisk11 fcs0   FCP      20g C
+data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
+----
+
+[NOTE] 
+This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions.
+
+// 2024 Sep 06, AIX 7.0
