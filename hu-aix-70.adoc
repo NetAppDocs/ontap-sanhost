@@ -38,7 +38,7 @@ You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B6
 * Dynamic tracking must be enabled for all FC and FCoE initiators.
 
 [NOTE]
-The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with NetApp ONTAP Storage.
+The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with NetApp ONTAP Storage.
 
 .Steps
 
@@ -46,7 +46,7 @@ The NetApp AIX Host Utilities software package is available on the link:https://
 * On an AIX host, log in as *root*.
 * On a PowerVM host, log in as *padmin*, and then enter the `oem_setup_env` command to become a root user.
 
-. Go to the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab[NetApp Support Site^] and download the compressed file containing the Host Utilities to a directory on your host.
+. Go to the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] and download the compressed file containing the Host Utilities to a directory on your host.
 
 . Go to the directory containing the download.
 
