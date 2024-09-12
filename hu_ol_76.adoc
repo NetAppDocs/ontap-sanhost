@@ -108,13 +108,12 @@ NOTE: To configure Oracle Linux 7.6 Red Hat Enterprise Kernel (RHCK), use the li
 
 The Oracle Linux 7.6 with ONTAP release has the following known issues:
 
-[cols=4*,options="header"]
+[cols=3*,options="header"]
 |===
 | NetApp Bug ID
 | Title
 | Description
-| Bugzilla ID
-| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. To learn more, see  link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^]. | N/A
+| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. To learn more, see  link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^]. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1202736[1202736^] | LUNs might not be available during host discovery due to "Not Present" state of remote ports on a OL7U6 host with QLogic QLE2742 adapter |During host discovery, the status of Fibre Channel (FC) remote ports on a OL7U6 host with a QLogic QLE2742 adapter might enter into "Not Present" state. Remote ports with a "Not Present" state might cause paths to LUNs to become unavailable. During storage failover, the path redundancy might be reduced and result in an I/O outage.
 You can check the remote port status by entering the following command:
 # cat /sys/class/fc_remote_ports/rport-*/port_state
@@ -123,14 +122,14 @@ The following is an example of the output that is displayed:
   Online
   Not Present
   Online
-  Online | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16613[16613^]
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1204078[1204078^] | Kernel disruption occurs on Oracle Linux 7.6 running with Qlogic(QLE2672) 16GB FC HBA during storage failover operations | During storage failover operations on the Oracle Linux 7.6 with a Qlogic QLE2672 Fibre Channel (FC) host bus adapter (HBA), a kernel disruption occurs due to a panic in the kernel. The kernel panic causes Oracle Linux 7.6 to reboot, which leads to an application disruption.   If the kdump mechanism is enabled, the kernel panic generates a vmcore file located in the /var/crash/ directory. You can analyze the vmcore file to determine the cause of the panic.  After the kernel disruption, you can reboot the host OS and recover the operating system, and then you can restart any applications as required. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16606[16606^]
+  Online 
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1204078[1204078^] | Kernel disruption occurs on Oracle Linux 7.6 running with Qlogic(QLE2672) 16GB FC HBA during storage failover operations | During storage failover operations on the Oracle Linux 7.6 with a Qlogic QLE2672 Fibre Channel (FC) host bus adapter (HBA), a kernel disruption occurs due to a panic in the kernel. The kernel panic causes Oracle Linux 7.6 to reboot, which leads to an application disruption.   If the kdump mechanism is enabled, the kernel panic generates a vmcore file located in the /var/crash/ directory. You can analyze the vmcore file to determine the cause of the panic.  After the kernel disruption, you can reboot the host OS and recover the operating system, and then you can restart any applications as required. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1204351[1204351^] | Kernel disruption might occur on Oracle Linux 7.6 running with Qlogic(QLE2742) 32GB FC HBA during storage failover operations | During storage failover operations on the Oracle Linux 7.6 with a Qlogic QLE2742 Fibre Channel (FC) host bus adapter (HBA), a kernel disruption might occur due to a panic in the kernel. The kernel panic causes Oracle Linux 7.6 to reboot, which leads to an application disruption. If the kdump mechanism is enabled, the kernel panic generates a vmcore file located in the /var/crash/ directory. You can analyze the vmcore file to determine the cause of the panic.
-After the kernel disruption, you can reboot the host OS and recover the operating system, and then you can restart any applications as required. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16605[16605^]
+After the kernel disruption, you can reboot the host OS and recover the operating system, and then you can restart any applications as required. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1204352[1204352^] | Kernel disruption might occur on Oracle Linux 7.6 running with Emulex (LPe32002-M2)32GB FC HBA during storage failover operations | During storage failover operations on the Oracle Linux 7.6 with an Emulex LPe32002-M2 Fibre Channel (FC) host bus adapter (HBA), a kernel disruption might occur due to a panic in the kernel. The kernel panic causes Oracle Linux 7.6 to reboot, which leads to an application disruption.
  If the kdump mechanism is enabled, the kernel panic generates a vmcore file located in the /var/crash/ directory. You can analyze the vmcore file to determine the cause of the panic.
-After the kernel disruption, you can reboot the host OS and recover the operating system, and then you can restart any applications as required. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16607[16607^]
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246134[11246134^] | No I/O progress on Oracle Linux 7.6 with UEK5U2 kernel, running with an Emulex LPe16002B-M6 16G FC HBA during storage failover operations | During storage failover operations on the Oracle Linux 7.6 with the UEK5U2 kernel running with an Emulex LPe16002B-M6 16G Fibre Channel (FC) host bus adapter (HBA), I/O progress might stop due to reports getting blocked. The storage failover operation reports change from an "online" state to a "blocked" state, causing a delay in read and write operations. After the operation has completed successfully, the reports fail to move back to an "online" state and continue to remain in a "blocked" state. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16852[16852^]
+After the kernel disruption, you can reboot the host OS and recover the operating system, and then you can restart any applications as required. 
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246134[11246134^] | No I/O progress on Oracle Linux 7.6 with UEK5U2 kernel, running with an Emulex LPe16002B-M6 16G FC HBA during storage failover operations | During storage failover operations on the Oracle Linux 7.6 with the UEK5U2 kernel running with an Emulex LPe16002B-M6 16G Fibre Channel (FC) host bus adapter (HBA), I/O progress might stop due to reports getting blocked. The storage failover operation reports change from an "online" state to a "blocked" state, causing a delay in read and write operations. After the operation has completed successfully, the reports fail to move back to an "online" state and continue to remain in a "blocked" state. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246327[1246327^] | Remote port status on QLogic QLE2672 16G host blocked during storage failover operations | Fibre Channel (FC) remote ports might be blocked on Red Hat Enterprise Linux (RHEL) 7.6 with the QLogic QLE2672 16G host during storage failover operations. Because the logical interfaces go down when a storage node is down, the remote ports set the storage node status to blocked. IO progress might stop due to the blocked ports if you are running both a QLogic QLE2672 16G host and a QLE2742 32GB Fibre Channel (FC) host bus adapter (HBA).
 When the storage node returns to its optimal state, the logical interfaces also come up and the remote ports should be online. However, the remote ports might still be blocked. This blocked state registers as failed faulty to LUNS at the multipath layer. You can verify the state of the remote ports with the following command:
  # cat /sys/class/fc_remote_ports/rport-*/port_stat
@@ -140,8 +139,8 @@ When the storage node returns to its optimal state, the logical interfaces also 
  Blocked
  Blocked
  Online
- Online | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16853[16853^]
+ Online 
 |===
 
-
+// 2024 SEP 2, ONTAPDOC-2345
 // BURT 1440718, 2022-05-20
