@@ -113,16 +113,15 @@ NOTE: To configure Oracle Linux 6.9 Red Hat Enterprise Kernel (RHCK), use the li
 
 The Oracle Linux 6.9 with ONTAP release has the following known issues:
 
-[cols=4*,options="header"]
+[cols=3*,options="header"]
 |===
 | NetApp Bug ID
 | Title
 | Description
-| Bugzilla ID
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1082780[1082780^] | Firmware dumps are observed occasionally on OL6.9 hypervisor with the QLE8362 card | During storage failover operations on OL6.9 hypervisor with QLE8362 card, the firmware dumps are observed occasionally. The firmware dumps might result in an I/O outage on the host which might go up to a thousand seconds. After the adapter completes the firmware dump, the I/O operation resumes in the normal manner. No further recovery procedure is required on the host. To indicate the firmware dump, the following message is displayed in the /var/log/message file:
  qla2xxx [0000:0c:00.3]-d001:3: Firmware dump saved to temp buffer (3/ffffc90008901000), dump status flags (0x3f).
-| link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16039[16039^]
 |===
 
 NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_69.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 6.9.
 
+// 2024 SEP 2, ONTAPDOC-2345

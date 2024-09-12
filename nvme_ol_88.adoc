@@ -507,16 +507,15 @@ NSID       UUID                                   Size
 
 The NVMe-oF host configuration for OL 8.8 with ONTAP release has the following known issues:
 
-[options="header", cols="20, 20, 50, 20]
+[options="header", cols="20,40,40]
 |===
-|NetApp Bug ID	|Title	|Description	|Bugzilla ID
+|NetApp Bug ID	|Title	|Description
 |1517321
 
 |Oracle Linux 8.8 NVMe-oF hosts create duplicate PDCs
 
 |On OL 8.8 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the `-p` option to the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with OL 8.x, NVMe-oF hosts create duplicate PDCs. This wastes resources on both the host and the target.
-|https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=18118[18118^]
 |===
 
-
+// 2024 SEP 2, ONTAPDOC-2345
 // JIRA-1289 20-Sep-2023

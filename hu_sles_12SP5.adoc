@@ -124,14 +124,13 @@ devices {
 
 The SLES 12 SP5 with ONTAP release has the following known issues:
 
-[cols=4*,options="header"]
+[cols=3*,options="header"]
 |===
 | NetApp Bug ID
 | Title
 | Description
-| Bugzilla ID
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1284293[1284293^] | Kernel disruption occurs on SLES12 SP5 with QLogic QLE2562 8GB FC HBA during storage failover operations | Kernel disruption occurs during storage failover operations on the SLES12 SP5 kernel with a QLogic QLE2562 Fibre Channel (FC) host bus adapter (HBA). The kernel disruption causes SLES12 SP5 to reboot, leading to application disruption. If the kdump mechanism is enabled, the kernel disruption generates a vmcore file located in the /var/crash/ directory. Check the vmcore file to determine the cause of the disruption. A storage failover with a QLogic QLE2562 HBA event affects the "THREAD_INFO: ffff8aedf723c2c0" module. Locate this event in the vmcore file by finding the following string: " [THREAD_INFO: ffff8aedf723c2c0]".
 After the kernel disruption, reboot the host OS to enable it to recover. Then restart the applications.
- | link:http://bugzilla.suse.com/show_bug.cgi?id=1157966[1157966^]
 |===
 
+// 2024 SEP 2, ONTAPDOC-2345
