@@ -385,20 +385,20 @@ nvme list -v
 *Example output:*
 +
 ----
-Subsystem Subsystem-NQN Controllers
----------------- ------------------------------------------------------------------------------------ -----------------------
-nvme-subsys2 nqn.1992-08.com.netapp:sn.06303c519d8411eea468d039ea36a106:subsystem.nvme
-nvme4, nvme6
-Device SN MN FR TxPort Asdress Subsystem Namespaces
+Subsystem        Subsystem-NQN                                                                         Controllers
+---------------- ------------------------------------------------------------------------------------- ---------------------
+nvme-subsys0     nqn.1992- 08.com.netapp:sn.0501daf15dda11eeab68d039eaa7a232:subsystem.unidir_dhcha p  nvme0, nvme1, nvme2, nvme3
+ 
+Device   SN                   MN                                       FR       TxPort Asdress        Subsystem    Namespaces
 -------- -------------------- ---------------------------------------- -------- ---------------------------------------------
-nvme4 81H75BVkrQflAAAAAAAB NetApp ONTAP Controller FFFFFFFF tcp traddr=192.168.111.66 
-,trsvcid=4420,host_traddr=192.168.111.79 nvme-subsys2 nvme0n1
-nvme6 81H75BVkrQflAAAAAAAB NetApp ONTAP Controller FFFFFFFF tcp 
-traddr=192.168.111.67,trsvcid=4420,host_traddr=1192.168.111.79 nvme-subsys2 nvme0n1
-Device Generic NSID Usage Format Controllers
------------- ------------ ---------- -------------------------------------------------------------
-/dev/nvme0n1 /dev/ng0n1 0x1 1.07 GB / 1.07 GB 4 KiB + 0 B nvme4, nvme6
+nvme0    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller   FFFFFFFF tcp traddr=192.168.111.66,trsvcid=4420,host_traddr=192.168.111.79 nvme-subsys0 nvme0n1
+nvme1    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller   FFFFFFFF tcp traddr=192.168.111.67,trsvcid=4420,host_traddr=192.168.111.79 nvme-subsys0 nvme0n1
+nvme2    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller   FFFFFFFF tcp traddr=192.168.211.66,trsvcid=4420,host_traddr=192.168.211.79 nvme-subsys0 nvme0n1
+nvme3    81LGgBUqsI3EAAAAAAAE NetApp ONTAP Controller   FFFFFFFF tcp traddr=192.168.211.67,trsvcid=4420,host_traddr=192.168.211.79 nvme-subsys0 nvme0n1
 
+Device        Generic     NSID       Usage                 Format         Controllers
+------------ ------------ ---------- -------------------------------------------------------------
+/dev/nvme0n1 /dev/ng0n1   0x1     1.07  GB /   1.07  GB    4 KiB +  0 B   nvme0, nvme1, nvme2, nvme3
 ----
 
 . Verify that the controller state of each path is live and has the correct ANA status:
