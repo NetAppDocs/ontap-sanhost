@@ -24,13 +24,12 @@ include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
 The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
-.Example
-
 In the following example, the `sanlun lun show` command returns LUN information.
 ----
 # sanlun lun show all
 ----
-Example output:
+
+.Example output:
 ----
 controller(7mode/E-Series)/            device     host               lun
 vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product

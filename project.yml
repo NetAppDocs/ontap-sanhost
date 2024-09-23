@@ -25,7 +25,9 @@ sidebar:
       - title: AIX Host Utilities
         entries:
           - title: Release notes
-            url: /hu_aix_61_rn.html
+            url: /hu_aix_rn.html
+          - title: Install AIX HU 7.0
+            url: /hu-aix-70.html
           - title: Install AIX HU 6.1
             url: /hu_aix_61.html
           - title: Sample command reference
@@ -163,6 +165,8 @@ sidebar:
           url: /hu_ol_asm_release_notes.html
         - title: OL 9
           entries:
+          - title: "9.3"
+            url: /hu_ol_93.html
           - title: "9.2"
             url: /hu_ol_92.html
           - title: "9.1"
@@ -172,6 +176,8 @@ sidebar:
         - title: OL 8
           pdf-filename: OL-8-FCP
           entries:
+          - title: "8.9"
+            url: /hu_ol_89.html
           - title: "8.8"
             url: /hu_ol_88.html
           - title: "8.7"
@@ -397,6 +403,8 @@ sidebar:
         - title: OL 9
           pdf-filename: NVMeF OL
           entries:
+          - title: "9.3"
+            url: /nvme_ol_93.html
           - title: "9.2"
             url: /nvme_ol_92.html
           - title: "9.1"
@@ -406,6 +414,8 @@ sidebar:
         - title: OL 8
           pdf-filename: NVMeF OL
           entries:
+          - title: "8.9"
+            url: /nvme_ol_89.html
           - title: "8.8"
             url: /nvme_ol_88.html
           - title: "8.7"

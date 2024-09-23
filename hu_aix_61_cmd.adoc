@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
 permalink: hu_aix_61_cmd.html
-keywords: host utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
-summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTAP
+keywords: host utilities, aix, powervm, vios, 3.1, 7.2, 7.0, netapp, ontap
+summary: You can use the AIX Host Utilities sample command reference for an end-to-end validation of the NetApp storage configuration using the host utilities tool.
 ---
 
-= AIX Host Utilities 6.1 sample command reference
+= AIX Host Utilities sample command reference
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,7 +15,7 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 
 [.lead]
 
-You can use the AIX Host Utilities 6.1 sample command reference for an end-to-end validation of the NetApp storage configuration using the host utilities tool.
+You can use the AIX Host Utilities sample command reference for an end-to-end validation of the NetApp storage configuration using the host utilities tool.
 
 == List all host initiators mapped to host
 
