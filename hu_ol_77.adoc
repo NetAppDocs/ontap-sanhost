@@ -102,22 +102,21 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 7.7 RedHat Enterprise Kernel (RHCK), use the link:hu_rhel_77.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 7.7.
+NOTE: To configure Oracle Linux 7.7 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_77.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 7.7.
 
 == Known issues
 
 The Oracle Linux 7.7 with ONTAP release has the following known issues:
 
-[cols=4*,options="header"]
+[cols=3*,options="header"]
 |===
 | NetApp Bug ID
 | Title
 | Description
-| Bugzilla ID
-| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. To learn more, see  link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^]. | N/A
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1311575[1311575^] | IO delays observed due to Read/Write operations failed to switch through secondary paths during storage failover with Qlogic QLE2672(16G) | I/O operations might fail to resume through secondary paths during storage failover operations on Oracle Linux 7.7 kernel (5.4.17-2011.0.7.el7uek.x86_6) with QLogic QLE2672 16G HBA. If I/O progress stops due to blocked primary paths during storage failover, the I/O operation might not resume through secondary paths causing an I/O delay. The I/O operation resumes only after primary paths come online after the completion of the storage failover giveback operation. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17171[17171^]
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1311576[1311576^] | IO delays observed due to Read/Write operation failing to switch through secondary paths during storage failover with Emulex LPe16002(16G) | I/O operations might fail to resume through secondary paths during storage failover operations on Oracle Linux 7.7 kernel (5.4.17-2011.0.7.el7uek.x86_6) with Emulex LPe16002 16G HBA. If I/O progress stops due to blocked primary paths during storage failover, the I/O operation might not resume through secondary paths causing an I/O delay. The I/O operation resumes only after primary paths come online after the completion of the storage failover giveback operation. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=17172[17172^]
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246134[1246134^] | IO delays observed and reports are moving to blocked, NOT PRESENT state during storage failover with Emulex LPe16002(16G) | During storage failover operations on the Oracle Linux 7.6 with the UEK5U2 kernel running with an Emulex LPe16002B-M6 16G Fibre Channel (FC) host bus adapter (HBA), I/O progress might stop due to reports getting blocked. The storage failover operation reports change from "online" state to "blocked" state, causing a delay in read and write operations. After the operation is completed successfully, the reports fail to move back to "online" state and continue to remain in "blocked" state. | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16852[16852^]
+| 1440718 | If you unmap or map a LUN without performing a SCSI rescan, it might lead to data corruption on the host. | When you set the 'disable_changed_wwids' multipath configuration parameter to YES, it disables access to the path device in the event of a WWID change. Multipath will disable access to the path device until the WWID of the path is restored to the WWID of the multipath device. To learn more, see  link:https://kb.netapp.com/Advice_and_Troubleshooting/Flash_Storage/AFF_Series/The_filesystem_corruption_on_iSCSI_LUN_on_the_Oracle_Linux_7[NetApp Knowledge Base: The filesystem corruption on iSCSI LUN on the Oracle Linux 7^]. 
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1311575[1311575^] | IO delays observed due to Read/Write operations failed to switch through secondary paths during storage failover with Qlogic QLE2672(16G) | I/O operations might fail to resume through secondary paths during storage failover operations on Oracle Linux 7.7 kernel (5.4.17-2011.0.7.el7uek.x86_6) with QLogic QLE2672 16G HBA. If I/O progress stops due to blocked primary paths during storage failover, the I/O operation might not resume through secondary paths causing an I/O delay. The I/O operation resumes only after primary paths come online after the completion of the storage failover giveback operation. 
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1311576[1311576^] | IO delays observed due to Read/Write operation failing to switch through secondary paths during storage failover with Emulex LPe16002(16G) | I/O operations might fail to resume through secondary paths during storage failover operations on Oracle Linux 7.7 kernel (5.4.17-2011.0.7.el7uek.x86_6) with Emulex LPe16002 16G HBA. If I/O progress stops due to blocked primary paths during storage failover, the I/O operation might not resume through secondary paths causing an I/O delay. The I/O operation resumes only after primary paths come online after the completion of the storage failover giveback operation. 
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246134[1246134^] | IO delays observed and reports are moving to blocked, NOT PRESENT state during storage failover with Emulex LPe16002(16G) | During storage failover operations on the Oracle Linux 7.6 with the UEK5U2 kernel running with an Emulex LPe16002B-M6 16G Fibre Channel (FC) host bus adapter (HBA), I/O progress might stop due to reports getting blocked. The storage failover operation reports change from "online" state to "blocked" state, causing a delay in read and write operations. After the operation is completed successfully, the reports fail to move back to "online" state and continue to remain in "blocked" state. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246327[1246327^] | IO delays observed and Rports are moving to blocked, NOT PRESENT state during storage failover with Qlogic QLE2672(16G) and QLE2742(32G) | Fibre Channel (FC) remote ports might be blocked on Red Hat Enterprise Linux (RHEL) 7.6 with the QLogic QLE2672 16G host during storage failover operations. Because the logical interfaces go down when a storage node is down, the remote ports set the storage node status to blocked. IO progress might stop due to the blocked ports if you are running both a QLogic QLE2672 16G host and a QLE2742 32GB Fibre Channel (FC) host bus adapter (HBA).
 When the storage node returns to its optimal state, the logical interfaces also come up and the remote ports should be online. However, the remote ports might still be blocked. This blocked state registers as failed faulty to LUNS at the multipath layer. You can verify the state of the remote ports with the following command:
 # cat /sys/class/fc_remote_ports/rport-*/port_stat
@@ -127,7 +126,8 @@ Blocked
 Blocked
 Blocked
 Online
-Online | link:https://bugzilla.oracle.com/bugzilla/show_bug.cgi?id=16853[16853^]
+Online 
 |===
 
+// 2024 SEP 2, ONTAPDOC-2345
 // BURT 1440718, 2022-05-20
