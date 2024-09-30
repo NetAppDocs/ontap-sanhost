@@ -450,7 +450,7 @@ The NVMe-oF host configuration for Ubuntu 22.04 with ONTAP release has the follo
 |NetApp Bug ID	|Title	|Description
 |CONTAPEXT-2037
 
-|Ubuntu 22.04 NVMe-oF hosts create duplicate persistent discovery controllers
+|Ubuntu 22.04 NVMe-oF hosts create duplicate Persistent Discovery Controllers
 
 |On NVMe-oF hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). This command should only create one PDC for each initiator-target combination. However, if you are running Ubuntu 22.04 on an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
 
