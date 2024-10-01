@@ -4,7 +4,6 @@ permalink: hu_ubuntu_2204.html
 keywords: host utilities, red hat, rhel, linux, 20.04, netapp, ontap, ubuntu 
 summary: Describes how to use Ubuntu 22.04 with ONTAP
 ---
-
 = Use Ubuntu 22.04 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -107,8 +106,8 @@ defaults {
 
 devices {
    device {
-      vendor         "NETAPP  "
-      product         "LUN.*"
+      vendor         "NETAPP"
+      product         "LUN"
       no_path_retry    queue
       path_checker     tur
    }
@@ -120,3 +119,5 @@ include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 == Known issues
 
 There are no known issues for the Ubuntu 22.04 with ONTAP release.
+
+// 2024 AUG 13, ONTAPDOC-2294
