@@ -14,7 +14,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP3 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. Using this procedure, you can enable NVMe-oF with in-kernel NVMe Multipath using ANA on SUSE Linux Enterprise Server 15 SP3 and ONTAP.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP3 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. Using this procedure, you can enable NVMe-oF with in-kernel NVMe Multipath using ANA on SUSE Linux Enterprise Server 15 SP3 and ONTAP as the target.
 
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
@@ -207,7 +207,7 @@ Now the Broadcom NVMe/FC host should be able to send up 1MB I/O requests on the 
 
 === Marvell/QLogic
 
-The native inbox qla2xxx driver included in the newer SUSE Linux Enterprise Server 15 SP3 MU kernel has the latest upstream fixes, which are. These fixes are essential for ONTAP support.
+The native inbox qla2xxx driver included in the newer SUSE Linux Enterprise Server 15 SP3 MU kernel has the latest upstream fixes. These fixes are essential for ONTAP support.
 
 . Verify that you are running the supported adapter driver and firmware versions, for example:
 +

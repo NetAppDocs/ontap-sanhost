@@ -174,9 +174,12 @@ FCP CMPL: xb 0000159d Err 000135c3
 
 .Marvell/QLogic
 --
+
+The native inbox qla2xxx driver included in the SUSE Linux Enterprise Server 15 SP5 kernel has the latest fixes. These fixes are essential for ONTAP support.
+
 .Steps
 
-. The native inbox qla2xxx driver included in the SUSE Linux Enterprise Server 15 SP5 kernel has the latest fixes. These fixes are essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 cat /sys/class/fc_host/host*/symbolic_name 

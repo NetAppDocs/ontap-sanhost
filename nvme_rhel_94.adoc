@@ -215,7 +215,7 @@ The native inbox qla2xxx driver included in the RHEL 9.4 GA kernel has the lates
 
 .Steps
 
-. The native inbox qla2xxx driver included in the RHEL 9.4 GA kernel has the latest fixes. These fixes are essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 # cat /sys/class/fc_host/host*/symbolic_name
