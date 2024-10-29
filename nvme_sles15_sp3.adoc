@@ -14,7 +14,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP3 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. You can enable NVMe-oF with in-kernel NVMe Multipath using ANA on SUSE Linux Enterprise Server 15 SP3 and ONTAP using this procedure.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with SUSE Linux Enterprise Server 15 SP3 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. Using this procedure, you can enable NVMe-oF with in-kernel NVMe Multipath using ANA on SUSE Linux Enterprise Server 15 SP3 and ONTAP.
 
 Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
 
@@ -153,7 +153,7 @@ Online
 ----
 +
 .	Verify that the NVMe/FC initiator ports are enabled, you are able to see the target ports, and all ports are up and running. +
-In the following example, only 1 initiator port is enabled and connected with two target LIFs as seen in the output:
+In the following example, only one initiator port is enabled and connected with two target LIFs:
 +
 [subs=+quotes]
 ----
@@ -207,7 +207,7 @@ Now the Broadcom NVMe/FC host should be able to send up 1MB I/O requests on the 
 
 === Marvell/QLogic
 
-The native inbox qla2xxx driver included in the newer SUSE Linux Enterprise Server 15 SP3 MU kernel has the latest upstream fixes, which are essential for ONTAP support.
+The native inbox qla2xxx driver included in the newer SUSE Linux Enterprise Server 15 SP3 MU kernel has the latest upstream fixes, which are. These fixes are essential for ONTAP support.
 
 . Verify that you are running the supported adapter driver and firmware versions, for example:
 +

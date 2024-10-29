@@ -17,7 +17,7 @@ You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running O
 
 == Supportability
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC) is supported with Oracle Linux 8.3 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVMe-oF environment and is currently implemented with in-kernel NVMe Multipath. You can enable NVMe-oF with in-kernel NVMe Multipath using ANA on OL 8.3 and ONTAP as the target using this procedure.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC) is supported with Oracle Linux 8.3 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVMe-oF environment and is currently implemented with in-kernel NVMe Multipath. Using this procedure, you can enable NVMe-oF with in-kernel NVMe Multipath using ANA on OL 8.3 and ONTAP as the target.
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
@@ -187,7 +187,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support.
+. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes. These fixes are. These fixes are. These fixes are. These fixes are. These fixes are. These fixes are. These fixes are. These fixes are. These fixes are. These fixes are. These fixes are essential for ONTAP support.
 
 +
 ----
