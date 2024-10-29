@@ -50,12 +50,7 @@ policy='service-time 0' prio=50 status=active
 
 NOTE: Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
 
-=== Non-ASA Configuration
-
-For non-ASA configuration there should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths are not available.
-
-.Example
-The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/non-Optimized paths:
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 ....
 # mpathutil status
 3600a09803830344674244a357579386a dm-13 NETAPP  ,LUN C-Mode
@@ -104,7 +99,7 @@ NOTE: Replace the *<DevID>* with the WWID string of the device you want to exclu
 
 .Example
 
-In the following example for Citrix Hypervisor 8.x, `sda` is the local SCSI disk that we need to add to the blacklist.
+In the following example for Citrix Hypervisor 8.x, `sda` is the local SCSI disk that you want to add to the blacklist.
 
 . Run the following command to determine the WWID:
 +

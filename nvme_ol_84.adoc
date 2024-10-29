@@ -25,7 +25,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 *	Oracle Linux 8.4 has in-kernel NVMe multipath enabled by default for NVMe namepsaces.
 
-*	With Oracle Linux 8.4, `nvme-fc auto-connect` scripts are included in the native `nvme-cli` package. You can rely on these native auto-connect scripts instead of installing external vendor provided outbox auto-connect scripts.
+*	With Oracle Linux 8.4, `nvme-fc auto-connect` scripts are included in the native `nvme-cli` package. You can use these native auto-connect scripts instead of installing external vendor provided outbox auto-connect scripts.
 
 *	With Oracle Linux 8.4, a native `udev` rule is provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. Therefore, you do not need to manually create this rule anymore.
 

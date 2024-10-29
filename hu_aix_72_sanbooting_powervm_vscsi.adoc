@@ -40,7 +40,7 @@ The LUNs appear on the host as disks. You can use these disks the same way you u
 +
 Write down the hdisk instance numbers. You use them when you perform the path configuration.
 +
-The `lsdev -type disk` command produces the following type of output. The output in the following example has been truncated.
+The `lsdev -type disk` command produces the following type of output. The output in the following example is truncated.
 +
 ----
 vioserver$ lsdev -type disk NetApp
