@@ -34,7 +34,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
-* There's no `sanlun` support for NVMe-oF. Therefore, the host utility support isn't available for NVMe-oF on an SUSE Linux Enterprise Server 15 SP6 host. You can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+* There's no `sanlun` support for NVMe-oF. Therefore, the host utility support isn't available for NVMe-oF on an SUSE Linux Enterprise Server 15 SP6 host. You can use the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 
 == Configure NVMe/FC
 
@@ -157,8 +157,10 @@ FCP CMPL: xb 0000082d Err 000283bb
 --
 .Marvell/QLogic
 --
+The native inbox qla2xxx driver included in the SUSE Linux Enterprise Server 15 SP6 kernel has the latest fixes. These fixes are essential for ONTAP support. 
+
 .Steps
-. The native inbox qla2xxx driver included in the SUSE Linux Enterprise Server 15 SP6 kernel has the latest fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 cat /sys/class/fc_host/host*/symbolic_name 
@@ -472,7 +474,7 @@ Device           Vserver    Namespace Path                       NSID UUID      
 
 == Create a persistent discovery controller
 
-Beginning with ONTAP 9.11.1, you can create a PDC for your SUSE Linux Enterprise Server 15 SP6 host. A PDC is required to automatically detect an NVMe subsystem add or remove scenario and changes to the discovery log page data. 
+Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for your SUSE Linux Enterprise Server 15 SP6 host. A PDC is required to automatically detect an NVMe subsystem add or remove scenario and changes to the discovery log page data. 
 
 .Steps
 
