@@ -17,7 +17,7 @@ You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running O
 
 == Supportability
 
-NVMe over Fabrics or NVMe-oF (including NVMe/FC) is supported with Oracle Linux 8.3 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVMe-oF environment and is currently implemented with in-kernel NVMe Multipath. This document contains the details for enabling NVMe-oF with in-kernel NVMe Multipath using ANA on OL 8.3 and ONTAP as the target.
+NVMe over Fabrics or NVMe-oF (including NVMe/FC) is supported with Oracle Linux 8.3 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVMe-oF environment and is currently implemented with in-kernel NVMe Multipath. Using this procedure, you can enable NVMe-oF with in-kernel NVMe Multipath using ANA on OL 8.3 and ONTAP as the target.
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
@@ -25,7 +25,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * Oracle Linux 8.3 has in-kernel NVMe multipath enabled by default for NVMe namespaces.
 
-* With Oracle Linux 8.3, `nvme-fc auto-connect` scripts are included in the native nvme-cli package. You can rely on these native auto-connect scripts instead of installing external vendor provided outbox auto-connect scripts.
+* With Oracle Linux 8.3, `nvme-fc auto-connect` scripts are included in the native nvme-cli package. You can use these native auto-connect scripts instead of installing external vendor provided outbox auto-connect scripts.
 
 * With Oracle Linux 8.3, a native `udev` rule is provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. Therefore, you do not need to manually create this rule anymore.
 
@@ -185,9 +185,11 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure the Marvell/QLogic FC adapter for NVMe/FC
 
+The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support.
+
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions. The native inbox qla2xxx driver included in the OL 8.3 GA kernel has the latest upstream fixes essential for ONTAP support.
+. Verify that you are running the supported adapter driver and firmware versions: 
 
 +
 ----
