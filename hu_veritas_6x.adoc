@@ -4,7 +4,6 @@ permalink: hu_veritas_6x.html
 keywords: host utilities, veritas, infoscale, 6.x, netapp, ontap, san, lun, multipathing, iscsi
 summary: Provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale 6 series release
 ---
-
 = Use Veritas Storage Foundation 6 for Linux with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -65,7 +64,7 @@ You must verify that your configuration meets the system requirements.  For more
 
 .Example
 
-In this example, the `vxdmpadm` command is used to verify that the VxDMP Multipath has the ONTAP target array attached.
+In the following example, the `vxdmpadm` command is used to verify that the VxDMP Multipath has the ONTAP target array attached.
 
 ----
 # vxdmpadm listenclosure
