@@ -21,7 +21,7 @@ See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix
 
 == Features
 
-*	Beginning with RHEL 8.2, `nvme-fc auto-connect` scripts are included in the native `nvme-cli` package. You can rely on these native auto-connect scripts instead of having to install the external vendor provided outbox auto-connect scripts.
+*	Beginning with RHEL 8.2, `nvme-fc auto-connect` scripts are included in the native `nvme-cli` package. You can use these native auto-connect scripts instead of having to install the external vendor provided outbox auto-connect scripts.
 
 *	Beginning with RHEL 8.2, a native `udev` rule is already provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. You need not manually create this rule any more (as was done in RHEL 8.1).
 

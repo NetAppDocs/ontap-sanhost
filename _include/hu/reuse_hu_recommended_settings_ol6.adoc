@@ -1,20 +1,16 @@
-The `multipath.conf` file must exist for the multipath daemon to start, but you can create an empty, zero-byte file by using the following command:
+The `multipath.conf` file must exist for the multipath daemon to start. If this file does not exist, you can create an empty, zero-byte file by using the following command: 
 
-`touch /etc/multipath.conf`.
+`touch /etc/multipath.conf`
 
-The first time you create this file, you might need to enable and start the multipath services.
+The first time you create the `multipath.conf` file, you might need to enable and start the multipath services by using the following commands:
 
 ----
 # chkconfig multipathd on
 # /etc/init.d/multipathd start
 ----
 
-* There is no requirement to add anything directly to the `multipath.conf` file unless you have devices that you do not want multipath to manage or you have existing settings that override defaults.
+There is no requirement to add devices directly to the `multipath.conf` file, unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. To exclude the unwanted devices, you add the following syntax to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude:
 
-* You can add the following syntax to the `multipath.conf` file to exclude the unwanted devices:
-
-** Replace the <DevId> with the WWID string of the device you want to exclude:
-+
 ----
 blacklist {
         wwid <DevId>
@@ -26,7 +22,7 @@ blacklist {
 
 .Example
 
-In this example, `sda` is the local SCSI disk that we need to add to the blacklist.
+In the following example, `sda` is the local SCSI disk that you want to add to the blacklist.
 
 .Steps
 

@@ -15,7 +15,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 
 [.lead]
 
-NVMe/FC is supported on ONTAP 9.6 and above with SLES15 SP2. SLES15 SP2 host can run both NVMe/FC, & FCP traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
+NVMe/FC is supported on ONTAP 9.6 and above with SUSE Linux Enterprise Server 15 SP2. The SUSE Linux Enterprise Server 15 SP2 host can run both NVMe/FC, & FCP traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 
 For the most current list of supported configurations & versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
@@ -25,9 +25,9 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 SAN booting using the NVMe-oF protocol is currently not supported.
 
-==	Enable NVMe/FC on SLES15 SP2
+==	Enable NVMe/FC on SUSE Linux Enterprise Server 15 SP2
 
-. Upgrade to the recommended SLES15 SP2 MU kernel version.
+. Upgrade to the recommended SUSE Linux Enterprise Server 15 SP2 MU kernel version.
 +
 .	Upgrade the native nvme-cli package.
 +
@@ -38,7 +38,7 @@ This native nvme-cli package contains the NVMe/FC auto-connect scripts, ONTAP ud
 nvme-cli-1.10-2.38.x86_64
 ----
 
-.	On the SLES15 SP2 host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. For example:
+.	On the SUSE Linux Enterprise Server 15 SP2 host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. For example:
 +
 ----
 # cat /etc/nvme/hostnqn

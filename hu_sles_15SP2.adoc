@@ -37,7 +37,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 For SUSE Linux Enterprise Server 15 SP2 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. SUSE Linux Enterprise Server 15 SP2 is compiled with all settings required to recognize and correctly manage ONTAP LUNs. Use the `+multipath -ll+` command verify the settings for your ONTAP LUNs.
 
-There should be two groups of paths with different priorities. The paths with the higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with the lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths are not available.
+There should be two groups of paths with different priorities. The paths with higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths are not available.
 
 .Example
 The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths.
@@ -108,7 +108,7 @@ devices {
 
 == Known issues
 
-The SLES 15 SP2 with ONTAP release has the following known issues:
+The SUSE Linux Enterprise Server 15 SP2 with ONTAP release has the following known issues:
 
 [cols="1,3,3"]
 [options="header"]
@@ -119,9 +119,9 @@ The SLES 15 SP2 with ONTAP release has the following known issues:
 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1308744[1308744^]
 
-| iSCSI boot from SAN fails to boot with a static IP configuration after completing an SLES15SP2 OS installation
+| iSCSI boot from SAN fails to boot with a static IP configuration after completing an SUSE Linux Enterprise Server 15S P2 OS installation
 
-a| iSCSI sanbooted LUN failed to boot up after completing an SLES 15 SP2 OS installation with a static IP configuration. Bootup failure occurs every time with the static IP configuration. This leads to the server refusing to continue the boot up process with the following error message:
+a| iSCSI sanbooted LUN failed to boot up after completing an SUSE Linux Enterprise Server 15 SP2 OS installation with a static IP configuration. Bootup failure occurs every time with the static IP configuration. This leads to the server refusing to continue the boot up process with the following error message:
 
 ----
 dracut-cmdline[241]: warning: Empty autoconf values default to dhcp
