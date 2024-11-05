@@ -19,9 +19,10 @@ NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and oth
 
 The following support is available for the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP6 with ONTAP:
 
-* Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs, you can configure dm-multipath for SCSI mpath devices, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
+* Running NVMe and SCSI traffic on the same co-existent host. For example, you can configure dm-multipath for SCSI `mpath` devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 
-* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+* Support for NVMe over TCP (NVMe/TCP) and NVMe/FC. Therefore, the NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
@@ -29,12 +30,13 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 * Support for NVMe secure, in-band authentication
 * Support for persistent discovery controllers (PDCs) using a unique discovery NQN
+* TLS 1.3 encryption support for NVMe/TCP 
 
 == Known limitations
 
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
-* There's no `sanlun` support for NVMe-oF. Therefore, the host utility support isn't available for NVMe-oF on an SUSE Linux Enterprise Server 15 SP6 host. You can use the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+* The host utility support isn't available for NVMe-oF on an SUSE Linux Enterprise Server 15 SP6 host because there's no `sanlun` support for NVMe-oF. Instead, you can use the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 
 == Configure NVMe/FC
 
@@ -702,6 +704,7 @@ DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsE
 --
 When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 You can use the `-o` option to generate the JSON file. Refer to the NVMe connect-all manual pages for more syntax options.
+
 .Steps
 . Configure the JSON file:
 +
@@ -760,9 +763,11 @@ You can use the `-o` option to generate the JSON file. Refer to the NVMe connect
  } 
 ] 
 ----
++
 ==== 
 [NOTE]
 In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
+
 . Connect to the ONTAP controller using the config JSON file:
 +
 ----
@@ -814,6 +819,92 @@ DHHC-
 --
 =====
 
+== Configure Transport Layer Security
+
+Beginning with ONTAP 9.15.1, you can configure Transport Layer Security (TLS) 1.3 using the CLI and a configured pre-shared key (PSK). TLS provides secure end-to-end encryption for NVMe connections between NVMe/TCP hosts and an ONTAP array.
+
+
+.Steps
+. Verify that the tlshd daemon is running:
+
+. Generate the TLS PSK by using the `nvme gen-tls-key`:
++
+----
+# cat /etc/nvme/hostnqn
+nqn.2014-08.org.nvmexpress:uuid:e58eca24-faff-11ea-8fee-3a68dd3b5c5f
+# nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15
+NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD:
+----
+
+. Add the TLS PSK to the ONTAP subsystem:
++
+----
+::*> nvme subsystem host add -vserver sles15_tls -subsystem sles15 -host-nqn nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc -tls-configured-psk NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD:
+  (vserver nvme subsystem host add)
+----
+. Insert the TLS PSK into the host kernel keyring:
++
+----
+# nvme check-tls-key --identity=1 --subsysnqn=nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bf --keydata=NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD: --insert
+Inserted TLS key 22152a7e
+----
+
+. Verify that the TLS PSK is inserted correctly:
++
+----
+# cat /proc/keys | grep NVMe
+22152a7e I--Q---     1 perm 3b010000     0     0 psk       NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 UoP9dEfvuCUzzpS0DYxnshKDapZYmvA0/RJJ8JAqmAo=: 32
+----
++
+NOTE: The PSK shows as "NVMe1R01" because it uses "identity v1" from the TLS handshake algorithm. This is the only version that ONTAP supports.
+
+. Connect to the ONTAP subsystem using the inserted TLS PSK:
++
+----
+# nvme connect -t tcp -w 20.20.10.80 -a 20.20.10.14 -n nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 --tls_key=0x22152a7e --tls
+connecting to device: nvme0
+# nvme list-subsys
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc
+               iopolicy=round-robin
+\
+ +- nvme0 tcp traddr=20.20.10.14,trsvcid=4420,host_traddr=20.20.10.80,src_addr=20.20.10.80 live
+----
+. Add the target, and verify the TLS connection to the specified ONTAP subsystem:
++
+----
+::*> nvme subsystem controller show -vserver sles15_tls -subsystem sles15 -instance
+  (vserver nvme subsystem controller show)
+                       Vserver Name: sles15_tls
+                          Subsystem: sles15
+                      Controller ID: 0040h
+                  Logical Interface: sles15t_e1a_1
+                               Node: A900-17-174
+                           Host NQN: nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc
+                 Transport Protocol: nvme-tcp
+        Initiator Transport Address: 20.20.10.80
+                    Host Identifier: ffa0c815e28b4bb18d4c7c6d5e610bfc
+               Number of I/O Queues: 4
+                   I/O Queue Depths: 128, 128, 128, 128
+                  Admin Queue Depth: 32
+              Max I/O Size in Bytes: 1048576
+          Keep-Alive Timeout (msec): 5000
+                       Vserver UUID: 1d59a6b2-416b-11ef-9ed5-d039ea50acb3
+                     Subsystem UUID: 9b81e3c5-5037-11ef-8a90-d039ea50ac83
+             Logical Interface UUID: 8185dcac-5035-11ef-8abb-d039ea50acb3
+              Header Digest Enabled: false
+                Data Digest Enabled: false
+       Authentication Hash Function: -
+Authentication Diffie-Hellman Group: -
+                Authentication Mode: none
+       Transport Service Identifier: 4420
+                       TLS Key Type: configured
+                   TLS PSK Identity: NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 UoP9dEfvuCUzzpS0DYxnshKDapZYmvA0/RJJ8JAqmAo=
+                         TLS Cipher: TLS-AES-128-GCM-SHA256
+----
+
 == Known issues 
 
 There are no known issues for the SUSE Linux Enterprise Server 15 SP6 with ONTAP release. 
+
+// 2024 NOV 5, ONTAPDOC-2390
