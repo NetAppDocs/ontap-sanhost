@@ -425,8 +425,9 @@ round-robin
 nvme list -v 
 ----
 +
-.Example output
-+
+.Show example output:
+[%collapsible]
+====
 ----
 Subsystem        Subsystem-NQN                                                                         Controllers
 ---------------- ------------------------------------------------------------------------------------- ---------------------
@@ -442,6 +443,7 @@ Device        Generic     NSID       Usage                 Format         Contro
 ------------ ------------ ---------- -------------------------------------------------------------
 /dev/nvme0n1 /dev/ng0n1   0x1     1.07  GB /   1.07  GB    4 KiB +  0 B   nvme0, nvme1, nvme2, nvme3
 ----
+====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
@@ -450,7 +452,7 @@ nvme list-subsys /dev/<subsystem_name>
 ----
 +
 [role="tabbed-block"]
-====
+=====
 .NVMe/FC 
 --
 .Example output
@@ -459,7 +461,9 @@ nvme list-subsys /dev/<subsystem_name>
 ----
 nvme list-subsys /dev/nvme2n1
 ----
-.Example output
+.Show example output:
+[%collapsible]
+====
 ----
 nvme-subsys2 - NQN=nqn.1992-
 08.com.netapp:sn.06303c519d8411eea468d039ea36a106:subs
@@ -472,6 +476,7 @@ ystem.nvme
 +- nvme6 fc traddr=nn-0x208fd039ea359e4a:pn-0x210ad039ea359e4a,host_traddr=nn-0x2000f4c7aa0cd7aa:pn-0x2100f4c7aa0cd7aa live optimized
  
 ----
+====
 --
 .NVMe/TCP 
 --
@@ -482,7 +487,9 @@ ystem.nvme
 nvme list-subsys
 ----
 
-.Example output
+.Show example output:
+[%collapsible]
+====
 ----
 nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:subsystem.nvme_tcp_1
  hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
@@ -493,13 +500,14 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:su
 +- nvme2 tcp traddr=192.168.111.67,trsvcid=4420,host_traddr=192.168.111.79,src_addr=192.168.111.79 live
 +- nvme1 tcp traddr=192.168.211.67,trsvcid=4420,host_traddr=192.168.211.79,src_addr=192.168.111.79 live
 ----
---
 ====
+--
+=====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device: 
 +
 [role="tabbed-block"]
-====
+=====
 .Column
 --
 [source,cli]
@@ -515,11 +523,16 @@ Device           Vserver    Namespace Path                       NSID UUID      
 ----
 --
 .JSON
-[source,cli]
---
-`nvme netapp ontapdevices -o json`
 
-.Example output
+--
+[source,cli]
+----
+nvme netapp ontapdevices -o json`
+----
+
+.Show example output:
+[%collapsible]
+====
 ----
 {
 "ONTAPdevices":[
@@ -536,8 +549,9 @@ Device           Vserver    Namespace Path                       NSID UUID      
 ]
 }
 ----
---
 ====
+--
+=====
 
 == Create a persistent discovery controller
 
@@ -668,8 +682,9 @@ nvme discover -t tcp -w 192.168.111.79 -a 192.168.111.666 -p
 vserver nvme show-discovery-controller -instance -vserver <vserver_name>
 ----
 +
-.Example output
-+
+.Show example output:
+[%collapsible]
+====
 [subs=+quotes]
 ----
 vserver nvme show-discovery-controller -instance -vserver vs_nvme79
@@ -685,6 +700,7 @@ Host Identifier: 59de25be738348f08a79df4bce9573f3 Admin Queue Depth: 32
 Header Digest Enabled: false Data Digest Enabled: false
 Vserver UUID: 48391d66-c0a6-11ec-aaa5-d039ea165514
 ----
+====
 
 == Set up secure in-band authentication
 
@@ -743,8 +759,9 @@ nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authenticati
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 ----
 +
-.Example output for a unidirectional configuration
-+
+.Sow example output for a unidirectional configuration
+[%collapsible]
+====
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
 DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
@@ -752,6 +769,7 @@ DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFS
 DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
 DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFSMkBQH3pTKGdYR1OV9gx00=:
 ----
+====
 +
 .. Verify the controller dhchap keys:
 +
@@ -760,8 +778,9 @@ DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFS
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 ----
 +
-.Example output for a bidirectional configuration
-+
+.Show example output for a bidirectional configurationt:
+[%collapsible]
+====
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_ctrl_secret
 DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
@@ -769,11 +788,13 @@ DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsE
 DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
 DHHC-1:03:WorVEV83eYO53kV4Iel5OpphbX5LAphO3F8fgH3913tlrkSGDBJTt3crXeTUB8fCwGbPsEyz6CXxdQJi6kbn4IzmkFU=:
 ----
+====
 --
 .JSON file
 --
 When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
-You can use the `-o` option to generate the JSON file. Refer to the NVMe connect-all manual pages for more syntax options.
+
+To generate the JSON file, you can use the `-o` option. See the NVMe connect-all manual pages for more syntax options.
 
 .Steps
 . Configure the JSON file:
@@ -845,8 +866,9 @@ In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 nvme connect-all -J /etc/nvme/config.json
 ----
 +
-.Example output
-+
+.Show example output
+[%collapsible]
+====
 ----
 traddr=192.168.111.66 is already connected
 traddr=192.168.211.66 is already connected 
@@ -861,6 +883,8 @@ traddr=192.168.211.67 is already connected
 traddr=192.168.111.67 is already connected 
 traddr=192.168.111.67 is already connected
 ----
+====
+
 . Verify that the dhchap secrets have been enabled for the respective controllers for each subsystem:
 +
 .. Verify the host dhchap keys:
