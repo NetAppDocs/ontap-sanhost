@@ -12,7 +12,6 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :icons: font
 :linkattrs:
 :imagesdir: ./media/
-:source-highlighter: highlighter.js
 
 [.lead]
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
@@ -821,12 +820,71 @@ DHHC-
 
 == Configure Transport Layer Security
 
-Beginning with ONTAP 9.16.1, you can configure Transport Layer Security (TLS) 1.3 using the CLI and a configured pre-shared key (PSK). TLS provides secure end-to-end encryption for NVMe connections between NVMe/TCP hosts and an ONTAP array.
-
+TLS provides secure end-to-end encryption for NVMe connections between NVMe/TCP hosts and an ONTAP array.Beginning with ONTAP 9.16.1, you can configure Transport Layer Security (TLS) 1.3 using the CLI and a configured pre-shared key (PSK). 
 
 .Steps
-. Verify that the tlshd daemon is running:
+. Check that you have the following ktls-utils, openssl, and libopenssl packages installed on the host: 
++
+----
+# rpm -qa | grep ktls
+ktls-utils-0.10+12.gc3923f7-150600.1.2.x86_64
+----
++
+----
+# rpm -qa | grep ssl
+openssl-3-3.1.4-150600.5.7.1.x86_64
+libopenssl1_1-1.1.1w-150600.5.3.1.x86_64
+libopenssl3-3.1.4-150600.5.7.1.x86_64
+----
 
+. Verify that you have the correct setup for `/etc/tlshd.conf`:
++
+# cat /etc/tlshd.conf
++
+.Example output
+[%collapsible]
+====
+[subs=+quotes]
+----
+[debug]
+loglevel=0
+tls=0
+nl=0
+[authenticate]
+*keyrings=.nvme*
+[authenticate.client]
+#x509.truststore= <pathname>
+#x509.certificate= <pathname>
+#x509.private_key= <pathname>
+[authenticate.server]
+#x509.truststore= <pathname>
+#x509.certificate= <pathname>
+#x509.private_key= <pathname>
+----
+====
+
+. Enable tlshd to start at system boot:
++
+`# systemctl enable tlshd`
+
+. Verify that the tlshd daemon is running:
++
+`# systemctl status tlshd`
++
+.Example output
+[%collapsible]
+====
+tlshd.service - Handshake service for kernel TLS consumers
+   Loaded: loaded (/usr/lib/systemd/system/tlshd.service; enabled; preset: disabled)
+   Active: active (running) since Wed 2024-08-21 15:46:53 IST; 4h 57min ago
+     Docs: man:tlshd(8)
+Main PID: 961 (tlshd)
+   Tasks: 1
+     CPU: 46ms
+   CGroup: /system.slice/tlshd.service
+       └─961 /usr/sbin/tlshd
+Aug 21 15:46:54 RX2530-M4-17-153 tlshd[961]: Built from ktls-utils 0.11-dev on Mar 21 2024 12:00:00
+====
 . Generate the TLS PSK by using the `nvme gen-tls-key`:
 +
 ----
@@ -872,8 +930,12 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:su
 ----
 . Add the target, and verify the TLS connection to the specified ONTAP subsystem:
 +
+`::*> nvme subsystem controller show -vserver sles15_tls -subsystem sles15 -instance`
++
+.Example output
+[%collapsible]
+====
 ----
-::*> nvme subsystem controller show -vserver sles15_tls -subsystem sles15 -instance
   (vserver nvme subsystem controller show)
                        Vserver Name: sles15_tls
                           Subsystem: sles15
@@ -902,6 +964,7 @@ Authentication Diffie-Hellman Group: -
                    TLS PSK Identity: NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 UoP9dEfvuCUzzpS0DYxnshKDapZYmvA0/RJJ8JAqmAo=
                          TLS Cipher: TLS-AES-128-GCM-SHA256
 ----
+====
 
 == Known issues 
 
