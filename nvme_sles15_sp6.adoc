@@ -195,7 +195,39 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 
 === Enable 1MB I/O size (Optional)
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data. This means the maximum I/O request size can be up to 1MB. To issue I/O requests of size 1 MB for a Broadcom NVMe/FC host, you must increase the `lpfc` value of the `lpfc_sg_seg_cnt` parameter to 256 from the default value of 64.
+
+.Steps
+
+. Set the `lpfc_sg_seg_cnt` parameter to 256:
++
+[source,cli]
+----
+cat /etc/modprobe.d/lpfc.conf
+----
++
+.Example output
+----
+options lpfc lpfc_sg_seg_cnt=256
+----
+
+. Run a `dracut -f` command, and reboot the host:
+
+. Verify that `lpfc_sg_seg_cnt` is 256:
++
+[source,cli]
+----
+cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
+----
++
+.Expected output
+----
+256
+----
++
+[NOTE] 
+This is not applicable to Qlogic NVMe/FC hosts.
+
 
 == Configure NVMe/TCP
 
@@ -338,7 +370,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 +
 [NOTE]
-Beginning with SUSE Linux Enterprise Server 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). As a result, you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+Beginning with SUSE Linux Enterprise Server 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 == Validate NVMe-oF
 
@@ -471,7 +503,8 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:su
 .Column
 --
 [source,cli]
-`nvme netapp ontapdevices -o column`
+nvme netapp ontapdevices -o column
+----
 
 .Example output 
 ----
@@ -920,12 +953,15 @@ nl=0
 . Enable tlshd to start at system boot:
 +
 [source,cli]
-`systemctl enable tlshd`
-
+----
+systemctl enable tlshd
+----
 . Verify that the tlshd daemon is running:
 +
 [source,cli]
-`systemctl status tlshd`
+----
+systemctl status tlshd
+----
 +
 .Example output
 [%collapsible]
@@ -943,7 +979,7 @@ Main PID: 961 (tlshd)
 Aug 21 15:46:54 RX2530-M4-17-153 tlshd[961]: Built from ktls-utils 0.11-dev on Mar 21 2024 12:00:00
 ----
 ====
-. Generate the TLS PSK by using the `nvme gen-tls-key`:
+. Using the following commands, generate the TLS PSK by using the `nvme gen-tls-key`:
 +
 [source,cli]
 ----
@@ -997,7 +1033,7 @@ cat /proc/keys | grep NVMe
 22152a7e I--Q---     1 perm 3b010000     0     0 psk       NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 UoP9dEfvuCUzzpS0DYxnshKDapZYmvA0/RJJ8JAqmAo=: 32
 ----
 
-. Connect to the ONTAP subsystem using the inserted TLS PSK:
+. Using the following commands, connect to the ONTAP subsystem using the inserted TLS PSK:
 +
 [source,cli]
 ----
