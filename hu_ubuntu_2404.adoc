@@ -29,12 +29,18 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Ubuntu 24.04, the `/etc/multipath.conf` file must exist, but you don't need to make specific changes to the file. Ubuntu 24.04 is compiled with the settings required to recognize and correctly manage ONTAP LUNs.
+For Ubuntu 24.04, the `/etc/multipath.conf` file must exist, but you don't need to make changes to the file because Ubuntu 24.04 is compiled with the settings required to recognize and correctly manage ONTAP LUNs.
 
-include::_include/hu/reuse_hu_multipathing.adoc[]
+For All SAN Array (ASA) and Non-ASA configurations, you can use the `multipath -ll` command to verify the settings for an ONTAP LUN, as shown in the following examples.
 
-include::_include/hu/reuse_hu_asa_configuration.adoc[]
+NOTE: A single LUN shouldn't require more than four paths. More than eight paths might cause path issues during storage failures.
 
+=== ASA configurations
+In All SAN Array (ASA) configurations, all paths to a given LUN are active and optimized. This improves performance by serving I/O operations through all paths at the same time.
+
+.Example
+
+The following example displays the correct output for an ONTAP LUN mapped to an ASA persona:
 ----
 # # multipath -ll
 3600a098038314559533f524d6c652f62 dm-24 NETAPP,LUN C-Mode
@@ -46,9 +52,11 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   `- 12:0:3:13 sdbx 68:176 active ready running
 ----
 
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+=== Non-ASA configurations
+For non-ASA configurations, there should be two groups of paths with different priorities. The paths with higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths are not available.
 
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+.Example
+The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths mapped to a non-ASA persona:
 
 ----
 # multipath -ll
@@ -61,8 +69,6 @@ size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
   |- 14:0:0:0 sda  8:0    active ready running
   `- 15:0:1:0 sdv  65:80  active ready running
 ----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
