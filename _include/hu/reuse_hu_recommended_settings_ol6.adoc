@@ -1,6 +1,4 @@
-The `multipath.conf` file must exist for the multipath daemon to start. If this file does not exist, you can create an empty, zero-byte file by using the following command: 
-
-`touch /etc/multipath.conf`
+The `multipath.conf` file must exist for the multipath daemon to start. If this file doesn't exist, you can create an empty, zero-byte file by using the `touch /etc/multipath.conf` command.
 
 The first time you create the `multipath.conf` file, you might need to enable and start the multipath services by using the following commands:
 
