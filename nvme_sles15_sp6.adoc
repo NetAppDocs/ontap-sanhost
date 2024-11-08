@@ -48,7 +48,6 @@ You can configure NVMe/FC for Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 .Steps
 . Verify that you are using the recommended adapter model:
 +
-[source,cli]
 ----
 cat /sys/class/scsi_host/host*/modelname
 ----
@@ -74,7 +73,6 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 . Verify that you are using the recommended Emulex host bus adapter (HBA) firmware versions:
 +
-[source,cli]
 ----
 cat /sys/class/scsi_host/host*/fwrev 
 ----
@@ -87,7 +85,6 @@ cat /sys/class/scsi_host/host*/fwrev
 ----
 . Verify that you are using the recommended LPFC driver version:
 +
-[source,cli]
 ----
 cat /sys/module/lpfc/version
 ----
@@ -99,7 +96,6 @@ cat /sys/module/lpfc/version
 ----
 . Verify that you can view your initiator ports:
 +
-[source,cli]
 ----
 cat /sys/class/fc_host/host*/port_name
 ----
@@ -112,7 +108,6 @@ cat /sys/class/fc_host/host*/port_name
 ----
 . Verify that your initiator ports are online:
 +
-[source,cli]
 ----
 cat /sys/class/fc_host/host*/port_state 
 ----
@@ -125,7 +120,6 @@ Online
 ----
 . Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
 +
-[source,cli]
 ----
 cat /sys/class/scsi_host/host*/nvme_info
 ----
@@ -169,7 +163,6 @@ The native inbox qla2xxx driver included in the SUSE Linux Enterprise Server 15 
 .Steps
 . Verify that you are running the supported adapter driver and firmware versions:
 +
-[source,cli]
 ----
 cat /sys/class/fc_host/host*/symbolic_name 
 ----
@@ -182,7 +175,6 @@ QLE2742 FW:v9.14.01 DVR: v10.02.09.200-k
 ----
 . Verify that the `ql2xnvmeenable` parameter is set to 1:
 +
-[source,cli]
 ----
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
@@ -201,7 +193,6 @@ ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller d
 
 . Set the `lpfc_sg_seg_cnt` parameter to 256:
 +
-[source,cli]
 ----
 cat /etc/modprobe.d/lpfc.conf
 ----
@@ -215,7 +206,6 @@ options lpfc lpfc_sg_seg_cnt=256
 
 . Verify that `lpfc_sg_seg_cnt` is 256:
 +
-[source,cli]
 ----
 cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
 ----
@@ -355,7 +345,6 @@ nvme discover -t tcp -w <host-traddr> -a <traddr>
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
-[source,cli]
 ----
 nvme connect-all -t tcp -w host-traddr -a traddr
 ----
@@ -380,7 +369,6 @@ Use the following procedure to validate NVMe-oF.
 
 . Verify that in-kernel NVMe multipath is enabled:
 +
-[source,cli]
 ----
 cat /sys/module/nvme_core/parameters/multipath
 ----
@@ -392,7 +380,6 @@ Y
 
 . Verify that the host has the correct controller model for the ONTAP NVMe namespaces:
 +
-[source,cli]
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys*/model 
 ----
@@ -406,7 +393,6 @@ NetApp ONTAP Controller
 
 . Verify the NVMe I/O policy for the respective ONTAP NVMe I/O controller:
 +
-[source,cli]
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
 ----
@@ -420,7 +406,6 @@ round-robin
 
 . Verify that the ONTAP namespaces are visible to the host:
 +
-[source,cli]
 ----
 nvme list -v 
 ----
@@ -457,7 +442,6 @@ nvme list-subsys /dev/<subsystem_name>
 --
 .Example output
 [subs=+quotes]
-[source,cli]
 ----
 nvme list-subsys /dev/nvme2n1
 ----
@@ -482,7 +466,6 @@ ystem.nvme
 --
 .Example output
 [subs=+quotes]
-[source,cli]
 ----
 nvme list-subsys
 ----
@@ -510,7 +493,7 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:su
 =====
 .Column
 --
-[source,cli]
+----
 nvme netapp ontapdevices -o column
 ----
 
@@ -525,7 +508,6 @@ Device           Vserver    Namespace Path                       NSID UUID      
 .JSON
 
 --
-[source,cli]
 ----
 nvme netapp ontapdevices -o json`
 ----
@@ -717,7 +699,6 @@ You can set up secure in-band authentication using the CLI or a config JSON file
 .Steps
 . Obtain the host NQN:
 +
-[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
@@ -754,7 +735,6 @@ nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authenticati
 +
 .. Verify the host dhchap keys:
 +
-[source,cli]
 ----
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 ----
@@ -773,7 +753,6 @@ DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFS
 +
 .. Verify the controller dhchap keys:
 +
-[source,cli]
 ----
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 ----
@@ -861,7 +840,6 @@ In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 
 . Connect to the ONTAP controller using the config JSON file:
 +
-[source,cli]
 ----
 nvme connect-all -J /etc/nvme/config.json
 ----
@@ -889,7 +867,6 @@ traddr=192.168.111.67 is already connected
 +
 .. Verify the host dhchap keys:
 +
-[source,cli]
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
@@ -902,7 +879,6 @@ DHHC-1:01:NunEWY7AZlXqxITGheByarwZdQvU4ebZg9HOjIr6nOHEkxJg:
 +
 .. Verify the controller dhchap keys:
 +
-[source,cli]
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
@@ -923,7 +899,6 @@ TLS provides secure end-to-end encryption for NVMe connections between NVMe/TCP 
 .Steps
 . Check that you have the following ktls-utils, openssl, and libopenssl packages installed on the host using the following commands: 
 +
-[source,cli]
 ----
 rpm -qa | grep ktls
 ----
@@ -933,7 +908,6 @@ rpm -qa | grep ktls
 ktls-utils-0.10+12.gc3923f7-150600.1.2.x86_64
 ----
 +
-[source,cli]
 ----
 rpm -qa | grep ssl
 ----
@@ -947,7 +921,6 @@ libopenssl3-3.1.4-150600.5.7.1.x86_64
 
 . Verify that you have the correct setup for `/etc/tlshd.conf`:
 +
-[source,cli]
 ----
 cat /etc/tlshd.conf
 ----
@@ -976,13 +949,11 @@ nl=0
 
 . Enable tlshd to start at system boot:
 +
-[source,cli]
 ----
 systemctl enable tlshd
 ----
 . Verify that the tlshd daemon is running:
 +
-[source,cli]
 ----
 systemctl status tlshd
 ----
@@ -1005,7 +976,6 @@ Aug 21 15:46:54 RX2530-M4-17-153 tlshd[961]: Built from ktls-utils 0.11-dev on M
 ====
 . Using the following commands, generate the TLS PSK by using the `nvme gen-tls-key`:
 +
-[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
@@ -1015,7 +985,6 @@ cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:e58eca24-faff-11ea-8fee-3a68dd3b5c5f
 ----
 +
-[source,cli]
 ----
 nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15
 ----
@@ -1027,13 +996,11 @@ NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD:
 
 . Add the TLS PSK to the ONTAP subsystem:
 +
-[source,cli]
 ----
 nvme subsystem host add -vserver sles15_tls -subsystem sles15 -host-nqn nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc -tls-configured-psk NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD:
 ----
 . Insert the TLS PSK into the host kernel keyring:
 +
-[source,cli]
 ----
 nvme check-tls-key --identity=1 --subsysnqn=nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bf --keydata=NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD: --insert
 ----
@@ -1047,7 +1014,6 @@ NOTE: The PSK shows as "NVMe1R01" because it uses "identity v1" from the TLS han
 
 . Verify that the TLS PSK is inserted correctly:
 +
-[source,cli]
 ----
 cat /proc/keys | grep NVMe
 ----
@@ -1059,7 +1025,6 @@ cat /proc/keys | grep NVMe
 
 . Using the following commands, connect to the ONTAP subsystem using the inserted TLS PSK:
 +
-[source,cli]
 ----
 nvme connect -t tcp -w 20.20.10.80 -a 20.20.10.14 -n nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 --tls_key=0x22152a7e --tls
 ----
