@@ -195,7 +195,7 @@ ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller d
 options lpfc lpfc_sg_seg_cnt=256
 -----
 
-. Run a `dracut -f` command, and reboot the host.
+. Run the `dracut -f` command, and reboot the host.
 . After reboot, verify that the above setting has been applied by checking the corresponding sysfs value:
 +
 ----
