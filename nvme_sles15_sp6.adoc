@@ -44,6 +44,7 @@ You can configure NVMe/FC for Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 [role="tabbed-block"]
 =====
 .Broadcom/Emulex
+Configure NVMe/FC for a Broadcom/Emulex FC adapter.
 --
 .Steps
 . Verify that you are using the recommended adapter model:
@@ -179,6 +180,7 @@ QLE2742 FW:v9.14.01 DVR: v10.02.09.200-k
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
+.Expected output
 ----
 1
 ----
@@ -704,7 +706,7 @@ cat /etc/nvme/hostnqn
 ----
 . Generate the dhchap key for the SUSE Linux Enterprise Server 15 SP6 host.
 +
-The following example shows the descriptions of the command paramters:
+The following output describes the `gen-dhchap-key` command paramters:
 +
 ----
 nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function {0|1|2|3} -n host_nqn 
@@ -897,20 +899,16 @@ DHHC-
 TLS provides secure end-to-end encryption for NVMe connections between NVMe/TCP hosts and an ONTAP array.Beginning with ONTAP 9.16.1, you can configure Transport Layer Security (TLS) 1.3 using the CLI and a configured pre-shared key (PSK). 
 
 .Steps
-. Check that you have the following ktls-utils, openssl, and libopenssl packages installed on the host using the following commands: 
-+
-----
-rpm -qa | grep ktls
-----
+. Check that you have the following ktls-utils, openssl, and libopenssl packages installed on the host: 
+
+.. `rpm -qa | grep ktls`
 +
 .Example output
 ----
 ktls-utils-0.10+12.gc3923f7-150600.1.2.x86_64
 ----
-+
-----
-rpm -qa | grep ssl
-----
+
+.. `rpm -qa | grep ssl`
 +
 .Example output
 ----
@@ -974,20 +972,16 @@ Main PID: 961 (tlshd)
 Aug 21 15:46:54 RX2530-M4-17-153 tlshd[961]: Built from ktls-utils 0.11-dev on Mar 21 2024 12:00:00
 ----
 ====
-. Using the following commands, generate the TLS PSK by using the `nvme gen-tls-key`:
-+
-----
-cat /etc/nvme/hostnqn
-----
+. Generate the TLS PSK by using the `nvme gen-tls-key`:
+
+.. `cat /etc/nvme/hostnqn`
 +
 .Example output
 ----
 nqn.2014-08.org.nvmexpress:uuid:e58eca24-faff-11ea-8fee-3a68dd3b5c5f
 ----
-+
-----
-nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15
-----
+
+.. `nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15`
 +
 .Example output
 ----
@@ -1023,20 +1017,16 @@ cat /proc/keys | grep NVMe
 22152a7e I--Q---     1 perm 3b010000     0     0 psk       NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:ffa0c815-e28b-4bb1-8d4c-7c6d5e610bfc nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 UoP9dEfvuCUzzpS0DYxnshKDapZYmvA0/RJJ8JAqmAo=: 32
 ----
 
-. Using the following commands, connect to the ONTAP subsystem using the inserted TLS PSK:
-+
-----
-nvme connect -t tcp -w 20.20.10.80 -a 20.20.10.14 -n nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 --tls_key=0x22152a7e --tls
-----
+. Connect to the ONTAP subsystem using the inserted TLS PSK:
+
+.. `nvme connect -t tcp -w 20.20.10.80 -a 20.20.10.14 -n nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 --tls_key=0x22152a7e --tls`
 +
 .Example output
 ----
 connecting to device: nvme0
 ----
-+
-----
-nvme list-subsys
-----
+
+.. `nvme list-subsys`
 +
 .Example output
 ----
