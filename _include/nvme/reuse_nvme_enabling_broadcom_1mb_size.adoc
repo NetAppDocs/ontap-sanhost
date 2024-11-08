@@ -5,7 +5,7 @@ ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller d
 . Set the `lpfc_sg_seg_cnt` parameter to 256:
 +
 ----
-# cat /etc/modprobe.d/lpfc.conf
+cat /etc/modprobe.d/lpfc.conf
 ----
 +
 .Example output
@@ -18,7 +18,7 @@ options lpfc lpfc_sg_seg_cnt=256
 . Verify that `lpfc_sg_seg_cnt` is 256:
 +
 ----
-# cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
+cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
 ----
 +
 .Expected output

@@ -106,24 +106,20 @@ Configure NVMe/FC for a Broadcom/Emulex adapter.
 .Steps
 
 . Verify that you're using the supported adapter model: 
+
+.. `cat /sys/class/scsi_host/host*/modelname`
 +
-----
-cat /sys/class/scsi_host/host*/modelname
-----
-+
-*Example output:*
+.Example output
 +
 ----
 LPe36002-M64
 LPe36002-M64 
 
 ----
+
+.. `cat /sys/class/scsi_host/host*/modeldesc`
 +
-----
-cat /sys/class/scsi_host/host*/modeldesc
-----
-+
-*Example output:*
+.Example output
 +
 ----
 Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
@@ -132,20 +128,16 @@ Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 ----
 
 . Verify that you're using the recommended Broadcom `lpfc` firmware and inbox driver. 
-+
-----
-cat /sys/class/scsi_host/host*/fwrev
-----
+
+.. `cat /sys/class/scsi_host/host*/fwrev`
 +
 .Example output
 ----
 14.4.317.10, sli-4:6:d
 14.4.317.10, sli-4:6:d
 ----
-+
-----
-cat /sys/module/lpfc/version
-----
+
+.. `cat /sys/module/lpfc/version`
 +
 .Example output
 ----
@@ -166,30 +158,24 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 ----
 
 . Verify that the initiator ports are up and running and that you can see the target LIFs:
-+
-----
-cat /sys/class/fc_host/host*/port_name
-----
+
+.. `cat /sys/class/fc_host/host*/port_name`
 +
 .Example output
 ----
 0x100000109bf0447b
 0x100000109bf0447c 
 ----
-+
-----
-cat /sys/class/fc_host/host*/port_state
-----
+
+.. `cat /sys/class/fc_host/host*/port_state`
 +
 .Expected output
 ----
 Online
 Online
 ----
-+
-----
-cat /sys/class/scsi_host/host*/nvme_info
-----
+
+.. `cat /sys/class/scsi_host/host*/nvme_info`
 +
 .Show example output
 [%collapsible]
@@ -420,20 +406,16 @@ Y
 ----
 
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly display on the host:
-+
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/model
-----
+
+.. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
 +
 .Example output
 ----
 NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
-+
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
-----
+
+.. `cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy`
 +
 .Example output
 ---- 
