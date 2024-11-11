@@ -324,13 +324,15 @@ sidebar:
           url: /hu_solaris_114.html
         - title: "11.3"
           url: /hu_solaris_113.html
-      - title: SLES
+      - title: SUSE Linux Enterprise Server
         entries:
         - title: Release notes
           url: /hu_sles_asm_release_notes.html
-        - title: SLES 15
+        - title: SUSE Linux Enterprise Server 15
           pdf-filename: SLES-15-FCP
           entries:
+          - title: 15 SP6
+            url: /hu_sles_15SP6.html
           - title: 15 SP5
             url: /hu_sles_15SP5.html
           - title: 15 SP4
@@ -343,7 +345,7 @@ sidebar:
             url: /hu_sles_15SP1.html
           - title: "15"
             url: /hu_sles_15.html
-        - title: SLES 12
+        - title: SUSE Linux Enterprise Server 12
           entries:
           - title: 12 SP 5
             url: /hu_sles_12SP5.html
@@ -475,11 +477,13 @@ sidebar:
             url: /nvme_rhel_82.html
           - title: "8.1"
             url: /nvme_rhel_81.html
-      - title: SLES
+      - title: SUSE Linux Enterprise Server
         pdf-filename: NVMeoF SLES
         entries:
-        - title: SLES 15
+        - title: SUSE Linux Enterprise Server 15
           entries:
+          - title: 15 SP6
+            url: /nvme_sles15_sp6.html
           - title: 15 SP5
             url: /nvme_sles15_sp5.html
           - title: 15 SP4
@@ -508,5 +512,5 @@ sidebar:
       - title: Troubleshoot
         url: /troubleshoot.html
     - title: Legal notices
-      url: /legal_notices.html
+      url: /legal-notices.html
       

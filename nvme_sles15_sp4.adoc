@@ -17,7 +17,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 [.lead]
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server (SLES) 15 SP4 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
 
-The following support is available for the NVMe-oF host configuration for SLES 15 SP4 with ONTAP:
+The following support is available for the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP4 with ONTAP:
 
 *	Both NVMe and SCSI traffic can be run on the same co-existent host. Therefore, for SCSI LUNs, you can configure dm-multipath for SCSI mpath devices, whereas you might use NVMe multipath to configure NVMe-oF namespace devices on the host.
 
@@ -34,7 +34,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
-* There's no sanlun support for NVMe-oF. Therefore, the host utility support isn't available for NVMe-oF on an SLES15 SP5 host. You can rely on the NetApp plug-in included in the native nvme-cli package for all NVMe-oF transports.
+* There's no sanlun support for NVMe-oF. Therefore, the host utility support isn't available for NVMe-oF on an SUSE Linux Enterprise Server 15 SP5 host. You can use the NetApp plug-in included in the native nvme-cli package for all NVMe-oF transports.
 
 == Configure NVMe/FC
 
@@ -132,7 +132,7 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 *Example output*:
 +
-In this example, one initiator port is enabled and connected with two target LIFs.
+In the following example, one initiator port is enabled and connected with two target LIFs.
 +
 [subs=+quotes]
 ----
@@ -169,9 +169,12 @@ FCP CMPL: xb 0000159d Err 000135c3
 
 .Marvell/QLogic
 --
+
+The native inbox qla2xxx driver included in the SUSE Linux Enterprise Server 15 SP4 kernel has the latest fixes. These fixes are essential for ONTAP support. 
+
 .Steps
 
-. The native inbox qla2xxx driver included in the SLES 15 SP4 kernel has the latest fixes essential for ONTAP support. Verify that you are running the supported adapter driver and firmware versions:
+. Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
 cat /sys/class/fc_host/host*/symbolic_name 
@@ -498,7 +501,7 @@ Device           Vserver                   Namespace Path                       
 
 == Create a persistent discovery controller
 
-Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for your SLES 15 SP4 host by using the following procedure. A PDC is required to automatically detect NVMe subsystem add or remove scenarios and changes to the discovery log page data. 
+Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for your SUSE Linux Enterprise Server 15 SP4 host. A PDC is required to automatically detect an NVMe subsystem add or remove scenario and changes to the discovery log page data. 
 
 .Steps
 
@@ -728,7 +731,7 @@ Vserver UUID: 48391d66-c0a6-11ec-aaa5-d039ea165514
 
 == Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure, in-band authentication is supported over NVMe/TCP and NVMe/FC between your SLES 15 SP4 host and your ONTAP controller.
+Beginning with ONTAP 9.12.1, secure, in-band authentication is supported over NVMe/TCP and NVMe/FC between your SUSE Linux Enterprise Server 15 SP4 host and your ONTAP controller.
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -749,7 +752,7 @@ You can set up secure in-band authentication using the CLI or a config JSON file
 cat /etc/nvme/hostnqn
 ----
 
-. Generate the dhchap key for the SLES15 SP4 host:
+. Generate the dhchap key for the SUSE Linux Enterprise Server 15 SP4 host:
 +
 ----
 nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function {0|1|2|3} -n host_nqn 
@@ -936,11 +939,8 @@ DHHC-1:03:2YJinsxa2v3+m8qqCiTnmgBZoH6mIT6G/6f0aGO8viVZB4VLNLH4z8CvK7pVYxN6S5fOAt
 
 == Known issues 
 
-There are no known issues for the SLES 15 SP4 with ONTAP release. 
+There are no known issues for the SUSE Linux Enterprise Server 15 SP4 with ONTAP release. 
 
 //BURT 1529116 30 Jan 2023
 //JIRA 1164 31 Aug 2023
-
-
-//
 // JIRA-1289 20-Sep-2023
