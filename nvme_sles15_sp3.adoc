@@ -21,7 +21,7 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 == Features
 
 *	SUSE Linux Enterprise Server 15 SP3 supports NVMe/FC and other transports.
-*	There is no sanlun support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SUSE Linux Enterprise Server 15 SP3. You can use the NetApp plug-in included in the native nvme-cli package for NVMe-oF. This should support all NVMe-oF transports.
+*	There is no sanlun support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SUSE Linux Enterprise Server 15 SP3. You can rely on the NetApp plug-in included in the native nvme-cli package for NVMe-oF. This should support all NVMe-oF transports.
 *	Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
 
 ==	Known limitations
