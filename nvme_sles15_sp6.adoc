@@ -901,10 +901,10 @@ DHHC-
 
 == Configure Transport Layer Security
 
-TLS provides secure end-to-end encryption for NVMe connections between NVMe-oF hosts and an ONTAP array in a SUSE Linux Enterprise Server 15 SP6 with ONTAP configuration. Beginning with ONTAP 9.16.1, you can configure Transport Layer Security (TLS) 1.3 using the CLI and a configured pre-shared key (PSK). 
+TLS provides secure end-to-end encryption for NVMe connections between NVMe-oF hosts and an ONTAP array. Beginning with ONTAP 9.16.1, you can configure Transport Layer Security (TLS) 1.3 using the CLI and a configured pre-shared key (PSK). 
 
 .Steps
-. Check that you have the following ktls-utils, openssl, and libopenssl packages installed on the host: 
+. Check that you have the following ktls-utils, openssl, and libopenssl packages installed on the SUSE Linux Enterprise Server 15 SP6 host: 
 
 .. `rpm -qa | grep ktls`
 +
