@@ -1,6 +1,10 @@
-On systems using FC, the following timeout values for Emulex and QLogic FC HBAs are required when MPIO is selected.
+On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs when MPIO is selected. For more information on recommended settings, see the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_71_rn.html[Windows Unified Host Utilities documentation] and select the installation procedure for your WUHU version.
 
-For Emulex Fibre Channel HBAs:
+[role="tabbed-block"]
+====
+.Emulex FC
+--
+For Emulex FC HBAs, the installer sets the following parameters:
 
 [cols=2*,options="header"]
 |===
@@ -9,9 +13,10 @@ For Emulex Fibre Channel HBAs:
 | LinkTimeOut | 1
 | NodeTimeOut | 10
 |===
-
-
-For QLogic Fibre Channel HBAs:
+--
+.QLogic FC
+--
+For QLogic FC HBAs, the installer sets the following parameters:
 
 [cols=2*,options="header"]
 |===
@@ -20,5 +25,7 @@ For QLogic Fibre Channel HBAs:
 | LinkDownTimeOut | 1
 | PortDownRetryCount | 10
 |===
+--
+====
 
-NOTE: Windows Unified Host Utility will set these values. For detailed recommended settings, refer to the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_71_rn.html[Windows Host Utilities documentation] and select the installation procedure for your Windows Unified Host Utilities version.
+

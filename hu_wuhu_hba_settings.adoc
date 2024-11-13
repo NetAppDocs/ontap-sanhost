@@ -4,7 +4,6 @@ permalink: hu_wuhu_hba_settings.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
 summary: Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 ---
-
 = Configure registry settings
 :toc: macro
 :hardbreaks:
@@ -23,7 +22,7 @@ Not all values apply to the device-specific module (DSM) for SANtricity Storage 
 
 FC, NVMe/FC, and iSCSI HBAs also have parameters that you must set to ensure best performance and to successfully handle storage system events.
 
-The installation program supplied with Windows Unified Host Utilities sets the Windows, FC, and NVMe/FC HBA parameters to the supported values.
+The installation program supplied with Windows Unified Host Utilities (WUHU) sets the Windows, FC, and NVMe/FC HBA parameters to the supported values.
 
 You must manually set the iSCSI HBA parameters.
 
@@ -34,9 +33,9 @@ You should not change these values unless NetApp technical support directs you t
 
 == Registry values set by Windows Unified Host Utilities 7.2
 
-The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during the installation. You should be aware of these registry values and the operating system version.
+The WUHU installer automatically sets registry values that are based on the choices that you make during the installation. You should be aware of these registry values and the operating system version.
 
-The following values are set by the Windows Unified Host Utilities installer. All values are in decimal unless otherwise stated. 
+The following values are set by the WUHU installer. All values are in decimal unless otherwise stated. 
 
 [NOTE]
 HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
@@ -49,14 +48,12 @@ HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
 |120
-|When MPIO support is specified and your server is Windows Server 2012 R2,
-Windows Server 2016 and Windows 2019, or Windows Server 2022
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet
 \Services\msdsm\Parameters
 \DsmMaximumStateTransitionTime
 |120
-|When MPIO support is specified and your server is Windows Server 2012 R2,
-or Windows Server 2016, Windows 2019 or Windows Server 2022
+|When MPIO support is specified and your server is Windows Server 025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPP LUN", "NETAPP LUN C-
@@ -97,8 +94,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
 |30
-|When your server is Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathVerifyEnabled
 |1
@@ -106,8 +102,7 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |1
-|When MPIO support is specified and your server is Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\PathVerifyEnabled
 |0
@@ -119,8 +114,7 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is  Windows Server 2012 R2,
-Windows Server 2016 , Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\PDORemovePeriod
 |130
@@ -132,8 +126,7 @@ Windows Server 2016 , Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryInterval
 |1
@@ -141,8 +134,7 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is  Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\RetryInterval
 |1
@@ -154,14 +146,13 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
-|When MPIO support is specified and your server is  Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |===
 
 
 === NVMe parameters
 
-The following NVMe Emulex driver parameters are updated when installing Windows Unified Host Utilities 7.2:
+The following NVMe Emulex driver parameters are updated when installing WUHU 7.2:
 
 * EnableNVMe = 1
 * NVMEMode = 0
@@ -172,9 +163,9 @@ The following NVMe Emulex driver parameters are updated when installing Windows 
 
 == Registry values set by Windows Unified Host Utilities 7.1
 
-The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
+The WUHU installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
 
-The following values are set by the Windows Unified Host Utilities installer. All values are in decimal unless otherwise noted. 
+The following values are set by the WUHU installer. All values are in decimal unless otherwise noted. 
 
 [NOTE]
 `HKLM` is the abbreviation for `HKEY_LOCAL_MACHINE`.
@@ -296,9 +287,6 @@ The following values are set by the Windows Unified Host Utilities installer. Al
 
 See the https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance/windows-registry-advanced-users[Microsoft documents^] for the registry parameter details.
 
-
-
-
 == FC HBA values set by Windows Host Utilities
 
 On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
@@ -334,7 +322,7 @@ For Emulex FC HBAs, the installer sets the following parameters:
 --
 ====
 
-For QLogic Fibre Channel HBAs, the installer sets the following parameters:
+For QLogic FC HBAs, the installer sets the following parameters:
 
 [role="tabbed-block"]
 ====
