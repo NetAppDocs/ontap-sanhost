@@ -1,0 +1,45 @@
+---
+sidebar: sidebar
+permalink: hu_windows_2025.html
+keywords: windows, enterprise
+summary: Using Windows Server 2022 with ONTAP
+---
+= Use Windows Server 2025 with ONTAP
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Windows server 2025 with ONTAP as the target. 
+
+== Boot the OS
+include::_include/windows/reuse_windows_booting_OS.adoc[]
+
+=== SAN booting
+include::_include/windows/reuse_windows_san_booting.adoc[]
+
+
+== Install the Windows Unified Host Utilities
+include::_include/windows/reuse_windows_installing_WUHU.adoc[]
+
+== Multipathing
+include::_include/windows/reuse_windows_multipathing.adoc[]
+
+NOTE: When you select MPIO support, the Windows Unified Host Utilities enables the included MPIO feature of Windows Server 2022.
+
+== SAN configuration
+=== Non-ASA configuration
+include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
+
+
+=== All SAN array configuration
+include::_include/windows/reuse_windows_asa_configuration.adoc[]
+
+== Recommended settings
+include::_include/windows/reuse_windows_recommended_settings.adoc[]
+
+== Known issues
+There are no known issues for the Windows Server 2022 with ONTAP release.
