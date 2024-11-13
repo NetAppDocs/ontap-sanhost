@@ -1,5 +1,7 @@
-If you opt to use SAN booting, it must be supported by your configuration. You can use the NetApp Interoperability Matrix Tool to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+Verify that your configuration supports by SAN booting. Use the link:https://imt.netapp.com/matrix/#welcome[NetApp Interoperability Matrix Tool^] to check the support for your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version.
 
+.Steps
 . Map the SAN boot LUN to the host.
 . Verify that multiple paths are available. 
 +
