@@ -14,7 +14,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported for SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FCP environments and is implemented with in-kernel NVMe multipath.
 
 The following support is available for the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP6 with ONTAP:
 
@@ -226,7 +226,7 @@ This is not applicable to Qlogic NVMe/FC hosts.
 
 == Configure NVMe/TCP
 
-NVMe/TCP does not have an auto-connect functionality. Therefore, you should use the following procedure to discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP connect or connect-all functionality manually. 
+NVMe/TCP does not have an auto-connect functionality. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually. 
 
 .Steps
 
@@ -950,12 +950,12 @@ nl=0
 ----
 ====
 
-. Enable tlshd to start at system boot:
+. Enable `tlshd` to start at system boot:
 +
 ----
 systemctl enable tlshd
 ----
-. Verify that the tlshd daemon is running:
+. Verify that the `tlshd` daemon is running:
 +
 ----
 systemctl status tlshd
