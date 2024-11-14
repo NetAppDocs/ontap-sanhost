@@ -6,6 +6,7 @@ NOTE: You should only use the number of paths to a single LUN that is necessary.
 
 For an All SAN Array (ASA) configuration, there should be one group of paths with single priorities. All paths are active/optimized, which means they are serviced by the controller and the I/O is sent on all the active paths.
 
+The following example displays the correct output for an ONTAP LUN with active/optimized paths.
 
 image::asa.png[Screenshot of ONTAP LUN with active/optimized paths]
 

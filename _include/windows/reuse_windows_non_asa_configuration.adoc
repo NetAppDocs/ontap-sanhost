@@ -2,8 +2,6 @@ For a non-ASA configuration, there should be two groups of paths with different 
 
 NOTE: The non-optimized paths are only used when optimized paths are not available.
 
-.Example
-
 The following example displays the correct output for an ONTAP LUN with two active/optimized paths and two active/non-optimized paths.
 
 image::nonasa.png[Screenshot of an ONTAP LUN with two active/optimized paths and two active/non-optimized paths]
