@@ -100,7 +100,7 @@ You must specify whether to include multipathing support when you install the Wi
 The MPIO selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
 For Hyper-V guests, raw (pass-through) disks do not appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you cannot use both in the guest OS.
 
-You can install the host utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line.
+You can install the host utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host.
 
 [role="tabbed-block"]
 ====
