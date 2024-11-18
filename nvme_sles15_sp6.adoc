@@ -240,7 +240,7 @@ Created symlink /etc/systemd/system/default.target.wants/nvmf- autoconnect.servi
 ----
 
 . Reboot the host. 
-. Verify that `nvmf-autoconnect.service` and `nvmefc-boot-connections.service` are running after the system boots up: 
+. Verify that `nvmf-autoconnect.service` and `nvmefc-boot-connections.service` are running after the system boot: 
 
 .. `systemctl status nvmf-autoconnect.service`
 +
