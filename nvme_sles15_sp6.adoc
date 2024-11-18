@@ -286,7 +286,7 @@ NVMe/TCP doesn't have an auto-connect functionality. Instead, you can discover t
 nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
 +
-.Show example output:
+.Show example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -464,7 +464,7 @@ round-robin
 nvme list -v 
 ----
 +
-.Show example output:
+.Show example output
 [%collapsible]
 ====
 ----
@@ -494,12 +494,10 @@ nvme list-subsys /dev/<subsystem_name>
 =====
 .NVMe/FC 
 --
-.Example output
-[subs=+quotes]
 ----
 nvme list-subsys /dev/nvme2n1
 ----
-.Show example output:
+.Show example output
 [%collapsible]
 ====
 ----
@@ -518,13 +516,11 @@ ystem.nvme
 --
 .NVMe/TCP 
 --
-.Example output
-[subs=+quotes]
 ----
 nvme list-subsys
 ----
 
-.Show example output:
+.Show example output
 [%collapsible]
 ====
 ----
@@ -566,7 +562,7 @@ Device           Vserver    Namespace Path                       NSID UUID      
 nvme netapp ontapdevices -o json
 ----
 
-.Show example output:
+.Show example output
 [%collapsible]
 ====
 ----
@@ -602,7 +598,7 @@ nvme discover -t <trtype> -w <host-traddr> -a <traddr>
 ----
 
 +
-.Show example output:
+.Show example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -718,7 +714,7 @@ nvme discover -t tcp -w 192.168.111.79 -a 192.168.111.666 -p
 vserver nvme show-discovery-controller -instance -vserver <vserver_name>
 ----
 +
-.Show example output:
+.Show example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -795,7 +791,7 @@ nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authenticati
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 ----
 +
-.Sow example output for a unidirectional configuration
+.Show example output for a unidirectional configuration
 [%collapsible]
 ====
 ----
@@ -813,7 +809,7 @@ DHHC-1:03:je1nQCmjJLUKD62mpYbzlpuw0OIws86NB96uNO/t3jbvhp7fjyR9bIRjOHg8wQtye1JCFS
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 ----
 +
-.Show example output for a bidirectional configuration:
+.Show example output for a bidirectional configuration
 [%collapsible]
 ====
 ----
@@ -981,7 +977,7 @@ libopenssl3-3.1.4-150600.5.7.1.x86_64
 # cat /etc/tlshd.conf
 ----
 +
-.Example output
+.Show example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -1014,7 +1010,7 @@ nl=0
 # systemctl status tlshd
 ----
 +
-.Example output
+.Show example output
 [%collapsible]
 ====
 ----
@@ -1098,7 +1094,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:su
 +
 `# nvme subsystem controller show -vserver sles15_tls -subsystem sles15 -instance`
 +
-.Example output
+.Show example output
 [%collapsible]
 ====
 ----
