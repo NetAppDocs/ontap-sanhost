@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: nvme_ubuntu_2404.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for Ubuntu 22.04 with ONTAP
+summary: How to Configure NVMe-oF Host for Ubuntu 24.04 with ONTAP
 ---
-= NVMe-oF host configuration for Ubuntu 22.04 with ONTAP
+= NVMe-oF host configuration for Ubuntu 24.04 with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -180,11 +180,12 @@ Online
 .Show example output
 [%collapsible]
 ====
+[subs=+quotes]
 ----
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000109bf0447b WWNN x200000109bf0447b DID x022600 ONLINE
-NVME RPORT       WWPN x200fd039eaa8138b WWNN x200ad039eaa8138b DID x021006 TARGET DISCSRVC ONLINE
+NVME LPORT lpfc0 WWPN x100000109bf0447b WWNN x200000109bf0447b DID x022600 *ONLINE*
+NVME RPORT       WWPN x200fd039eaa8138b WWNN x200ad039eaa8138b DID x021006 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
 LS: Xmt 0000000187 Cmpl 0000000187 Abort 00000000
@@ -195,8 +196,8 @@ FCP CMPL: xb 00000048 Err 00000077
 
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000109bf0447c WWNN x200000109bf0447c DID x022300 ONLINE
-NVME RPORT       WWPN x2010d039eaa8138b WWNN x200ad039eaa8138b DID x021106 TARGET DISCSRVC ONLINE
+NVME LPORT lpfc1 WWPN x100000109bf0447c WWNN x200000109bf0447c DID x022300 *ONLINE*
+NVME RPORT       WWPN x2010d039eaa8138b WWNN x200ad039eaa8138b DID x021106 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
 LS: Xmt 0000000187 Cmpl 0000000187 Abort 00000000
@@ -249,66 +250,67 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-NVMe/TCP doesn't have auto-connect functionality. This means that if a path goes down and isn't reinstated within the default time out period of 10 minutes, NVMe/TCP cannot automatically reconnect. To prevent a time out, you should set the retry period for failover events to at least 30 minutes.
+NVMe/TCP doesn't support the auto-connect functionality. Instead, you can discover the NVMe/TCP subsystems and namespaces by manually performing NVMe/TCP `connect` or `connect-all`.
 
 .Steps
 
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
 ----
-nvme discover -t tcp -w host-traddr -a traddr
+nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
 +
 .Show example
 [%collapsible]
 ====
+[subs=+quotes]
 ----
 # nvme discover -t tcp -w 192.168.167.150 -a 192.168.167.155
 Discovery Log Number of Records 8, Generation counter 10
 =====Discovery Log Entry 0======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  4
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:discovery
 traddr:  192.168.167.156
-eflags:  explicit discovery connections, duplicate discovery information
-sectype: none
+eflags:  *explicit discovery connections, duplicate discovery information*
+sectype: *none*
 =====Discovery Log Entry 1======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  2
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:discovery
 traddr:  192.168.166.156
-eflags:  explicit discovery connections, duplicate discovery information
-sectype: none
+eflags:  *explicit discovery connections, duplicate discovery information*
+sectype: *none*
 =====Discovery Log Entry 2======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  3
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:discovery
 traddr:  192.168.167.155
-eflags:  explicit discovery connections, duplicate discovery information
-sectype: none
+eflags:  *explicit discovery connections, duplicate discovery information*
+sectype: *none*
 =====Discovery Log Entry 3======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  1
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:discovery
 traddr:  192.168.166.155
-eflags:  explicit discovery connections, duplicate discovery information
-sectype: none
+eflags:  *explicit discovery connections, duplicate discovery information*
+sectype: *none*
 =====Discovery Log Entry 4======
 trtype:  tcp
 adrfam:  ipv4
@@ -359,7 +361,7 @@ sectype: none
 . Verify that the other NVMe/TCP initiator-target LIF combinations can fetch discovery log page data:
 +
 ----
-nvme discover -t tcp -w host-traddr -a traddr
+nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
 +
 .Example output
@@ -374,7 +376,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
 ----
-nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
+nvme connect-all -t tcp -w <host-traddr> -a <traddr>
 ----
 +
 .Example output
@@ -405,7 +407,7 @@ cat /sys/module/nvme_core/parameters/multipath
 Y
 ----
 
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly display on the host:
+. Verify that the appropriate NVMe-oF settings (such as, model set to "NetApp ONTAP Controller" and load balancing iopolicy set to "round-robin") for the respective ONTAP namespaces correctly display on the host:
 
 .. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
 +
@@ -453,13 +455,13 @@ nvme list-subsys /dev/nvme0n1
 ----
 
 .Example output
-
+[subs=+quotes]
 ----
 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:subsystem. ubuntu_24.04 \
-+- nvme1 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a7d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live optimized
-+- nvme2 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a8d039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live optimized
-+- nvme3 fc traddr=nn-0x20a6d039ea954d17:pn-0x20aad039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live non-optimized
-+- nvme5 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a9d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live non-optimized
++- nvme1 *fc* traddr=nn-0x20a6d039ea954d17:pn-0x20a7d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef *live optimized*
++- nvme2 *fc* traddr=nn-0x20a6d039ea954d17:pn-0x20a8d039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 *live optimized*
++- nvme3 *fc* traddr=nn-0x20a6d039ea954d17:pn-0x20aad039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 *live non-optimized*
++- nvme5 *fc* traddr=nn-0x20a6d039ea954d17:pn-0x20a9d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef *live non-optimized*
 ----
 --
 
@@ -470,15 +472,16 @@ nvme list-subsys /dev/nvme1n1
 ----
 
 .Example output
+[subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:subsystem.ubuntu_24.04_tcp_211
                hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0050-3410-8035-c3c04f4a5933
                iopolicy=round-robin
 \
- +- nvme0 tcp traddr=192.168.166.155,trsvcid=4420,host_traddr=192.168.166.150,src_addr=192.168.166.150 live optimized
- +- nvme1 tcp traddr=192.168.167.155,trsvcid=4420,host_traddr=192.168.167.150,src_addr=192.168.167.150 live optimized
- +- nvme2 tcp traddr=192.168.166.156,trsvcid=4420,host_traddr=192.168.166.150,src_addr=192.168.166.150 live non-optimized
- +- nvme3 tcp traddr=192.168.167.156,trsvcid=4420,host_traddr=192.168.167.150,src_addr=192.168.167.150 live non-optimized
+ +- nvme0 *tcp* traddr=192.168.166.155,trsvcid=4420,host_traddr=192.168.166.150,src_addr=192.168.166.150 *live optimized*
+ +- nvme1 *tcp* traddr=192.168.167.155,trsvcid=4420,host_traddr=192.168.167.150,src_addr=192.168.167.150 *live optimized*
+ +- nvme2 *tcp* traddr=192.168.166.156,trsvcid=4420,host_traddr=192.168.166.150,src_addr=192.168.166.150 *live non-optimized*
+ +- nvme3 *tcp* traddr=192.168.167.156,trsvcid=4420,host_traddr=192.168.167.150,src_addr=192.168.167.150 *live non-optimized*
 
 ----
 
@@ -500,7 +503,7 @@ nvme netapp ontapdevices -o column
 
 ----
 Device        Vserver        Namespace Path          NSID UUID                                   Size
-------- ----- -------------------------------------- ---- -------------------------------------- ---------
+------------- -------------  ----------------------- ---- -------------------------------------- ---------
 /dev/nvme0n1   vs_211_tcp    /vol/tcpvol1/ns1        1    1cc7bc78-8d7b-4d8e-a3c4-750f9461a6e9   21.47GB
 ----
 --

@@ -19,15 +19,15 @@ You can use the ONTAP SAN host configuration settings to configure Ubuntu 24.04 
 [NOTE]
 The NetApp Linux Unified Host Utilities software package isn't available for the Ubuntu 24.04 OS.
 
-== SAN booting
+== Use SAN booting
 If you decide to use SAN booting, it must be supported by your configuration.
 
 .Before you begin
-Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
-== Multipathing
+== Use multipathing
 
 For Ubuntu 24.04, the `/etc/multipath.conf` file must exist, but you don't need to make changes to the file because Ubuntu 24.04 is compiled with the settings required to recognize and correctly manage ONTAP LUNs.
 
@@ -36,9 +36,7 @@ For All SAN Array (ASA) and Non-ASA configurations, you can use the `multipath -
 NOTE: A single LUN shouldn't require more than four paths. More than eight paths might cause path issues during storage failures.
 
 === ASA configurations
-In All SAN Array (ASA) configurations, all paths to a given LUN are active and optimized. This improves performance by serving I/O operations through all paths at the same time.
-
-.Example
+In ASA configurations, all paths to a given LUN are active and optimized. This improves performance by serving I/O operations through all paths at the same time.
 
 The following example displays the correct output for an ONTAP LUN mapped to an ASA persona:
 ----
@@ -53,9 +51,8 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 ----
 
 === Non-ASA configurations
-For non-ASA configurations, there should be two groups of paths with different priorities. The paths with higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths are not available.
+For non-ASA configurations, there should be two groups of paths with different priorities. The paths with higher priorities are Active/Optimized, meaning they are serviced by the controller where the aggregate is located. The paths with lower priorities are active but are non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths aren't available.
 
-.Example
 The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths mapped to a non-ASA persona:
 
 ----
