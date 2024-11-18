@@ -301,8 +301,8 @@ portid: 4
 trsvcid: 8009
 subnqn: nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:discovery
 traddr: 192.168.211.67
-eflags: *explicit discovery connections, duplicate discovery information
-sectype: none*
+eflags: *explicit discovery connections, duplicate discovery information*
+sectype: *none*
 =====Discovery Log Entry 1======
 trtype: tcp
 adrfam: ipv4
@@ -312,8 +312,8 @@ portid: 2
 trsvcid: 8009
 subnqn: nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:discovery
 traddr: 192.168.111.67
-eflags: *explicit discovery connections, duplicate discovery information
-sectype: none*
+eflags: *explicit discovery connections, duplicate discovery information*
+sectype: *none*
 =====Discovery Log Entry 2======
 trtype: tcp
 adrfam: ipv4
@@ -323,8 +323,8 @@ portid: 3
 trsvcid: 8009
 subnqn: nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:discovery
 traddr: 192.168.211.66
-eflags: *explicit discovery connections, duplicate discovery information
-sectype: none*
+eflags: *explicit discovery connections, duplicate discovery information*
+sectype: *none*
 =====Discovery Log Entry 3======
 trtype: tcp
 adrfam: ipv4
@@ -334,8 +334,8 @@ portid: 1
 trsvcid: 8009
 subnqn: nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:discovery
 traddr: 192.168.111.66
-eflags: *explicit discovery connections, duplicate discovery information
-sectype: none*
+eflags: *explicit discovery connections, duplicate discovery information*
+sectype: *none*
 =====Discovery Log Entry 4======
 trtype: tcp
 adrfam: ipv4
