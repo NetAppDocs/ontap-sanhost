@@ -17,8 +17,9 @@ You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.
 
 == Supportability
 
-* Beginning with ONTAP 9.10.1, NVMe/TCP protocol is supported for ONTAP.
+* Beginning with ONTAP 9.16.1 space allocation is enabled by default for all newly created NVMe namespaces.
 * Beginning with ONTAP 9.9.1 P3, NVMe/FC protocol is supported for ESXi 8 and later. 
+* Beginning with ONTAP 9.10.1, NVMe/TCP protocol is supported for ONTAP.
 
 == Features
 
@@ -236,6 +237,34 @@ tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.167:4420-uuid.f4f14337c3ad4a639edf0
    Path Config: {ANA_GRP_id=6,*ANA_GRP_state=AO*,health=UP}
 ----
 
+== Enable space allocation
+
+Space allocation is supported for ESXi 8.x and later. 
+
+When space allocation is enabled, if a namespace runs out of space, ONTAP communicates to the host that no free space is available for write operations; the namespace remains online and read operations continue to be serviced. Write operations resume when additional free space becomes available. Space allocation also allows the host to perform `UNMAP` (sometimes called `TRIM`) operations. UNMAP operations allow a host to identify blocks of data that are no longer required because they no longer contain valid data. The storage system can then deallocate those data blocks so that the space can be consumed elsewhere. 
+
+.Before you begin
+
+link:https://docs.netapp.com/us-en/ontap/san-admin/enable-space-allocation.html[Enable space allocation on your ONTAP storage system^].  Then you should perform the following steps on your ESXi host.  
+
+.Steps
+
+. On your ESXi host, verify that the DSM is disabled:
++
+`esxcfg-advcfg -g /SCSi/NVmeUseDsmTp4040`
++
+The expected value is 0.
+
+. Enable the NVMe DSM:
++
+`esxcfg-advcfg -s 1 /Scsi/NvmeUseDsmTp4040`
+
+. Verify that the DSM is enabled: 
++
+`esxcfg-advcfg -g /SCSi/NVmeUseDsmTp4040`
++
+The expected value is 1.
+
 == Known issues
 
 The NVMe-oF host configuration for ESXi 8.x with ONTAP has the following known issues:
@@ -256,4 +285,5 @@ link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap
 link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)^]
 link:https://kb.vmware.com/s/article/83370[VMware vSphere 6.x and 7.x support with NetApp SnapMirror active sync^]
 
+// 2024 Nov 04, ONTAPDOC 2209
 //BURT 1525630 20-Jan-2023
