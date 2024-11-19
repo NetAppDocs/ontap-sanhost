@@ -183,10 +183,7 @@ QLE2742 FW:v9.14.01 DVR: v10.02.09.200-k
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
-.Expected output
-----
-1
-----
+The expected value is 1.
 --
 =====
 
@@ -217,12 +214,7 @@ options lpfc lpfc_sg_seg_cnt=256
 cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
 ----
 +
-.Expected output
-----
-256
-----
-+
-
+The expected value is 256.
 
 === Verify NVMe services
 
@@ -424,10 +416,7 @@ Use the following procedure to validate NVMe-oF for a SUSE Linux Enterprise Serv
 cat /sys/module/nvme_core/parameters/multipath
 ----
 +
-.Expected output
-----
-Y
-----
+The expected value is "Y".
 
 . Verify that the host has the correct controller model for the ONTAP NVMe namespaces:
 +
