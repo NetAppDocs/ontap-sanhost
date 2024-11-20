@@ -573,7 +573,7 @@ nvme netapp ontapdevices -o json
 
 == Create a persistent discovery controller
 
-Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SP6 host. A PDC is required to automatically detect an NVMe subsystem add or remove scenario and changes to the discovery log page data. 
+Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SP6 host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
 
 .Steps
 
