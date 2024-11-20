@@ -461,6 +461,7 @@ nvme list-subsys /dev/nvme2n1
 .Show example output
 [%collapsible]
 ====
+[subs=+quotes]
 ----
 nvme-subsys2 - NQN=nqn.1992-
 08.com.netapp:sn.06303c519d8411eea468d039ea36a106:subs
@@ -484,6 +485,7 @@ nvme list-subsys
 .Show example output
 [%collapsible]
 ====
+[subs=+quotes]
 ----
 nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:subsystem.nvme_tcp_1
  hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
