@@ -67,12 +67,12 @@ size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
   `- 15:0:1:0 sdv  65:80  active ready running
 ----
 
+[[recommend_settings_2404]]
 == Recommended settings
 
-The Ubuntu 24.04 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+The Ubuntu 24.04 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for ASA and non-ASA configurations. You can use the following recommended settings to further optimize the performance of your host configuration:
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
-
 [cols=2*,options="header"]
 |===
 | Parameter
@@ -96,11 +96,9 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 | user_friendly_names | no
 | vendor | NETAPP
 |===
-
-.Example
-
++
 The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
-
++
 ----
 defaults {
    path_checker      readsector0
@@ -117,7 +115,8 @@ devices {
 }
 ----
 
-include::_include/hu/reuse_hu_kvm_configuration.adoc[]
+=== KVM settings
+You can use the <<recommend_settings_2404,recommended settings>> to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
 
 == Known issues
 
