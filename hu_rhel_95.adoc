@@ -1,0 +1,145 @@
+---
+sidebar: sidebar
+permalink: hu_rhel_94.html
+keywords: host utilities, red hat, rhel, linux, 9.4, netapp, ontap, rhel 
+summary: Describes how to use Red Hat Enterprise Linux 9.4 with ONTAP
+---
+= Use Red Hat Enterprise Linux 9.4 with ONTAP
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 9.4 with ONTAP as the target. 
+
+== Install the Linux Unified Host Utilities
+
+include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
+
+== SAN Tool Kit
+
+include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
+
+In the following example, the `sanlun lun show` command returns LUN information.
+
+[source,cli]
+----
+# sanlun lun show all
+----
+*Example output:*
+----
+controller(7mode/E-Series)/            device     host               lun
+vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
+------------------------------------------------------------------------------------
+vs_147_32glpe	         /vol/vol1/lun	 /dev/sdb	Host11  FCP        10g	cDOT				
+vs_147_32glpe	         /vol/vol1/lun	 /dev/sdx	Host11  FCP        10g	cDOT				
+vs_147_32glpe	         /vol/vol2/lun	 /dev/sdbt  host12 FCP        10g	cDOT				
+vs_147_32glpe	         /vol/vol2/lun	 /dev/sdax	host12  FCP        10g	cDOT				
+----
+
+== SAN booting
+
+.What you'll need
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and the ONTAP version are supported.
+
+include::_include/hu/reuse_hu_san_booting_steps.adoc[]
+
+== Multipathing
+
+For Red Hat Enterprise Linux (RHEL) 9.4, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 9.4 is compiled with all the settings that are required to recognize and correctly manage ONTAP LUNs.
+
+include::_include/hu/reuse_hu_multipathing.adoc[]
+
+include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a098038314359725d516c69733471 dm-22 NETAPP,LUN C-Mode
+size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+|- 11:0:3:0	sdau 66:224 active ready running
+|- 12:0:4:0	sdco 69:192 active ready running
+|- 12:0:0:0	sdav 66:240 active ready running
+`- 11:0:2:0	sdat 66:208 active ready running
+
+----
+
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+
+include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+
+----
+# multipath -ll
+3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode
+size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+| |- 16:0:3:0  sdcg 69:64  active ready running
+| `- 10:0:0:0  sdb  8:16   active ready running
+`-+- policy='service-time 0' prio=10 status=enabled
+  |- 10:0:1:0  sdc  8:32   active ready running
+  `- 16:0:2:0  sdcf 69:48  active ready running
+----
+
+include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
+
+== Recommended settings
+
+The RHEL 9.4 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
+
+include::_include/hu/reuse_hu_recommended_settings.adoc[]
+
+[cols=2*,options="header"]
+|===
+| Parameter
+| Setting
+| detect_prio | yes
+| dev_loss_tmo | "infinity"
+| failback | immediate
+| fast_io_fail_tmo | 5
+| features | "2 pg_init_retries 50"
+| flush_on_last_del | "yes"
+| hardware_handler | "0"
+| no_path_retry | queue
+| path_checker | "tur"
+| path_grouping_policy | "group_by_prio"
+| path_selector | "service-time 0"
+| polling_interval | 5
+| prio | "ontap"
+| product | LUN.*
+| retain_attached_hw_handler | yes
+| rr_weight | "uniform"
+| user_friendly_names | no
+| vendor | NETAPP
+|===
+
+.Example
+
+The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
+
+----
+defaults {
+   path_checker      readsector0
+   no_path_retry     fail
+}
+
+devices {
+   device {
+      vendor         "NETAPP  "
+      product         "LUN.*"
+      no_path_retry    queue
+      path_checker     tur
+   }
+}
+----
+
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
+
+== Known issues
+
+There are no known issues for the FC host configuration for RHEL 9.4 with ONTAP release.
+
+//ONTAPDOC-1584 1-Feb-2024
+
