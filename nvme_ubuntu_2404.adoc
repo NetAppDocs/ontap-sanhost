@@ -250,7 +250,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-NVMe/TCP doesn't support the auto-connect functionality. Instead, you can discover the NVMe/TCP subsystems and namespaces by manually performing NVMe/TCP `connect` or `connect-all`.
+NVMe/TCP doesn't support the auto-connect functionality. Instead, you can manually discover the NVMe/TCP subsystems and namespaces by using the `connect` or `connect-all` commands.
 
 .Steps
 
@@ -465,7 +465,7 @@ nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:su
 ----
 --
 
-.NVME/TCP
+.NVMe/TCP
 --
 ----
 nvme list-subsys /dev/nvme1n1

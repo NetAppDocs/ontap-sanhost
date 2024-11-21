@@ -19,7 +19,7 @@ You can use the ONTAP SAN host configuration settings to configure Ubuntu 24.04 
 [NOTE]
 The NetApp Linux Unified Host Utilities software package isn't available for the Ubuntu 24.04 OS.
 
-== Use SAN booting
+== SAN booting
 If you decide to use SAN booting, it must be supported by your configuration.
 
 .Before you begin
@@ -27,7 +27,7 @@ Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solut
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
-== Use multipathing
+== Multipathing
 
 For Ubuntu 24.04, the `/etc/multipath.conf` file must exist, but you don't need to make changes to the file because Ubuntu 24.04 is compiled with the settings required to recognize and correctly manage ONTAP LUNs.
 
@@ -70,7 +70,7 @@ size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 [[recommend_settings_2404]]
 == Recommended settings
 
-The Ubuntu 24.04 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for ASA and non-ASA configurations. You can use the following recommended settings to further optimize the performance of your host configuration:
+The Ubuntu 24.04 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for ASA and non-ASA configurations. In addition, you can use the following recommended settings to further optimize the performance of your host configuration.
 
 include::_include/hu/reuse_hu_recommended_settings.adoc[]
 [cols=2*,options="header"]
@@ -96,9 +96,9 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 | user_friendly_names | no
 | vendor | NETAPP
 |===
-+
+
 The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
-+
+
 ----
 defaults {
    path_checker      readsector0
