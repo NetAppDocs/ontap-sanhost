@@ -29,7 +29,7 @@ The following example determines the WWID of a device and adds it to the `multip
 +
 ----
 # /lib/udev/scsi_id -gud /dev/sda
-360030057024d0730239134810c0cb833
+3600a098038314c4a433f5774717a3046
 ----
 +
 `sda` is the local SCSI disk that you want to add to the blacklist.
@@ -38,7 +38,7 @@ The following example determines the WWID of a device and adds it to the `multip
 +
 ----
 blacklist {
-     wwid   360030057024d0730239134810c0cb833
+     wwid   3600a098038314c4a433f5774717a3046
      devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
      devnode "^hd[a-z]"
      devnode "^cciss.*"
@@ -48,3 +48,5 @@ blacklist {
 You should always check your `/etc/multipath.conf` file for legacy settings, especially in the defaults section, that might be overriding the default settings.
 
 The following table demonstrates the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they must be corrected by later stanzas in the `multipath.conf` file that apply specifically to ONTAP LUNs. Without this correction, the ONTAP LUNs might not work as expected. You should only override these defaults in consultation with NetApp, the OS vendor, or both, and only when the impact is fully understood.
+
+//ONTAPDOC-2561 25-Nov-2024
