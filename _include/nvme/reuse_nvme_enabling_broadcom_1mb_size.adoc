@@ -7,7 +7,7 @@ NOTE: The following steps don't apply to Qlogic NVMe/FC hosts.
 . Set the `lpfc_sg_seg_cnt` parameter to 256:
 +
 ----
-cat /etc/modprobe.d/lpfc.conf
+# cat /etc/modprobe.d/lpfc.conf 
 ----
 +
 .Example output
@@ -20,7 +20,10 @@ options lpfc lpfc_sg_seg_cnt=256
 . Verify that `lpfc_sg_seg_cnt` is 256:
 +
 ----
-cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt
+# cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt 256
 ----
 +
-The expected value is 256.
+[NOTE]
+This is not applicable to Qlogic NVMe/FC hosts.
+
+//ONTAPDOC-2561 25-Nov-2024
