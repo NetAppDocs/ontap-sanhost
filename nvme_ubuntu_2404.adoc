@@ -459,7 +459,6 @@ nvme list-subsys /dev/nvme1n1
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:subsystem.ubuntu_24.04_tcp_211
                hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0050-3410-8035-c3c04f4a5933
                iopolicy=round-robin
-\
  +- nvme0 *tcp* traddr=192.168.166.155,trsvcid=4420,host_traddr=192.168.166.150,src_addr=192.168.166.150 *live optimized*
  +- nvme1 *tcp* traddr=192.168.167.155,trsvcid=4420,host_traddr=192.168.167.150,src_addr=192.168.167.150 *live optimized*
  +- nvme2 *tcp* traddr=192.168.166.156,trsvcid=4420,host_traddr=192.168.166.150,src_addr=192.168.166.150 *live non-optimized*
