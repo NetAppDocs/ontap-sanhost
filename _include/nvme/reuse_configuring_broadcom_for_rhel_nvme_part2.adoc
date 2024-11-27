@@ -55,7 +55,7 @@ The `lpfc_sg_seg_cnt` parameter needs to be set to 256 for the lpfc driver to is
 options lpfc lpfc_sg_seg_cnt=256
 ----
 +
-. Run a `dracut -f` command and then reboot the host.
+. Run the `dracut -f` command and then reboot the host.
 +
 . After the host boots up, verify that lpfc_sg_seg_cnt is set to 256.
 +
