@@ -4,4 +4,4 @@ For All SAN Array (ASA) configuration, there should be one group of paths with s
 image::asa.png[Screenshot of ONTAP LUN with active/optimized paths]
 
 
-NOTE: Do not use an excessive number of paths to a single LUN. No more than four paths should be required. More than eight paths might cause path issues during storage failures.
+NOTE: A single LUN shouldn't require more than four paths. Having more than four paths might cause path issues during storage failures.
