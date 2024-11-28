@@ -16,22 +16,19 @@ summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 [.lead]
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.5 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-The following support is available for NVMe-oF host configuration for RHEL 9.5 with ONTAP:
+== About this task 
+The following support and features are available with the NVMe-oF host configuration for RHEL 9.5 with ONTAP storage. You should also review the known limitations before starting the configuration process.
 
-* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-
-* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA) without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
-
+* Support available:
+** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
++
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
-
-== Features
-
-* RHEL 9.5 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
-* SAN booting using the NVMe/FC protocol is supported.
-
-== Known limitations
-
-There are no known limitations.
+* Features available:
+** RHEL 9.5 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
+** Support for SAN booting using the NVMe/FC protocol.
+* Known limitations: 
+** There are no known limitations.
 
 == Validate software versions
 
@@ -94,8 +91,9 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 ::> vserver nvme subsystem host show -vserver vs_coexistence_LPE36002
 ----
 +
-*Example output:*
-+
+.Show example output
+[%collapsible]
+====
 ----
 Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
@@ -110,6 +108,7 @@ vs_coexistence_LPE36002
                   regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 4 entries were displayed.
 ----
+====
 +
 [NOTE]
 If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
@@ -152,6 +151,9 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 
 . Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver: 
 +
+.Show example output
+[%collapsible]
+====
 ----
 # cat /sys/class/scsi_host/host*/fwrev 
 14.4.317.10, sli-4:6:d
@@ -160,6 +162,7 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 # cat /sys/module/lpfc/version 
 0:14.4.0.2
 ----
+====
 +
 For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
