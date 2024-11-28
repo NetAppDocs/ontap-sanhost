@@ -69,7 +69,7 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 12:0:1:6   sdgp 132:80  active ready running
 ----
 
-NOTE: Do not use an excessive number of paths to a single LUN. No more than four paths should be required. More than eight paths might cause path issues during storage failures.
+NOTE: A single LUN shouldn't require more than four paths. Having more than four paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
