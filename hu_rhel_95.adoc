@@ -19,7 +19,7 @@ You can use the ONTAP SAN host configuration settings to configure Red Hat Enter
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN Tool Kit
+== SAN Toolkit
 
 include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
 
@@ -41,10 +41,12 @@ vs_coexistence_QLE2742        /vol/fc_vol_2_7/dynamic_lun    /dev/sdce       hos
 vs_coexistence_QLE2742        /vol/fc_vol_2_6/dynamic_lun    /dev/sdcd       host17     FCP        10g     cDOT
 ----
 
-== SAN booting
+== Enable SAN booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and the ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration.
+
+.Before you begin
+Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, and the HBA boot BIOS, and the ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
