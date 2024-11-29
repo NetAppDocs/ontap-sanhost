@@ -41,7 +41,7 @@ data_vserver            /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cD
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 
 Your configuration supports SAN booting. See the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 

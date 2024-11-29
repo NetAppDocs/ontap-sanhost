@@ -27,7 +27,7 @@ The following support is available for NVMe/FC host configuration for an AIX hos
 * Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is _only_ supported through NPIV (N_PortID Virtualization) storage virtualization mode using the Power10 IBM server.
 
 
-.What you'll need
+.Before you begin
 
 * Verify that you have 32GB FC Emulex adapters (EN1A, EN1B, EN1L, EN1M) or 64GB FC adapters (EN1N, EN1P) with adapter firmware 12.4.257.30 and later versions.
 
