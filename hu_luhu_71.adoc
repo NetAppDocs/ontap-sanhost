@@ -34,7 +34,7 @@ You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;647
 
 * You must install the host bus adapter (HBA) management packages available on the vendor support site.
 +
-The management software enables the SAN toolkit commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are correctly installed:
+The management software enables the SAN Toolkit commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are correctly installed:
 
 ** Marvell QLogic HBA – QConvergeConsole CLI
 ** Broadcom Emulex HBA - OneCommand Manager core application CLI
@@ -101,7 +101,7 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 ====
 * This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. 
 
-* The SAN toolkit is not supported on Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
+* The SAN Toolkit is not supported on Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
 ====
 
 
