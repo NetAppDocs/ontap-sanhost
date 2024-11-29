@@ -31,13 +31,13 @@ NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Upda
 
 include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
-== Install the Windows Unified Host Utilities
+== Install the Windows Host Utilities
 include::_include/windows/reuse_windows_installing_WUHU.adoc[]
 
 == Multipathing
 include::_include/windows/reuse_windows_multipathing.adoc[]
 
-NOTE: When you select MPIO support, the Windows Unified Host Utilities enables the included MPIO feature of Windows Server 2019.
+NOTE: When you select MPIO support, the Windows Host Utilities enables the included MPIO feature of Windows Server 2019.
 
 == SAN configuration
 === Non-ASA configuration

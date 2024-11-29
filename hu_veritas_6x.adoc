@@ -127,7 +127,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 ==== Settings for Veritas Multipath
 
-The following Veritas VxDMP tunables are recommended by NetApp for optimum system configuration in storage failover operations.
+NetApp recommends the following Veritas VxDMP tunables for optimum system configuration in storage failover operations.
 
 
 [cols=2*,options="header"]
@@ -207,7 +207,7 @@ NOTE: For all other settings specific to Veritas, refer to the standard Veritas 
 
 == Multipath Coexistence
 
-If you have a heterogenous multipath environment including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, please refer to the Veritas Product Administration guide for configuration settings.
+If you have a heterogenous multipath environment including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, please refer to the Veritas Product Administration documentation for configuration settings.
 
 == Known issues
 

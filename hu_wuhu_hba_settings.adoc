@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_wuhu_hba_settings.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
-summary: Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 ---
 
 = Configure registry settings
@@ -23,7 +23,7 @@ Not all values apply to the device-specific module (DSM) for SANtricity Storage 
 
 FC, NVMe/FC, and iSCSI HBAs also have parameters that you must set to ensure best performance and to successfully handle storage system events.
 
-The installation program supplied with Windows Unified Host Utilities sets the Windows, FC, and NVMe/FC HBA parameters to the supported values.
+The installation program supplied with Windows Host Utilities sets the Windows, FC, and NVMe/FC HBA parameters to the supported values.
 
 You must manually set the iSCSI HBA parameters.
 
@@ -32,11 +32,11 @@ The installer sets different values depending on whether you specify multipath I
 [NOTE]
 You should not change these values unless NetApp technical support directs you to do so.
 
-== Registry values set by Windows Unified Host Utilities 7.2
+== Registry values set by Windows Host Utilities 7.2
 
-The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during the installation. You should be aware of these registry values and the operating system version.
+The Windows Host Utilities installer automatically sets registry values that are based on the choices that you make during the installation. You should be aware of these registry values and the operating system version.
 
-The following values are set by the Windows Unified Host Utilities installer. All values are in decimal unless otherwise stated. 
+The following values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated. 
 
 [NOTE]
 HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
@@ -161,7 +161,7 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 
 === NVMe parameters
 
-The following NVMe Emulex driver parameters are updated when installing Windows Unified Host Utilities 7.2:
+The following NVMe Emulex driver parameters are updated when installing Windows Host Utilities 7.2:
 
 * EnableNVMe = 1
 * NVMEMode = 0
@@ -170,11 +170,11 @@ The following NVMe Emulex driver parameters are updated when installing Windows 
 
 
 
-== Registry values set by Windows Unified Host Utilities 7.1
+== Registry values set by Windows Host Utilities 7.1
 
-The Windows Unified Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
+The Windows Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
 
-The following values are set by the Windows Unified Host Utilities installer. All values are in decimal unless otherwise noted. 
+The following values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise noted. 
 
 [NOTE]
 `HKLM` is the abbreviation for `HKEY_LOCAL_MACHINE`.

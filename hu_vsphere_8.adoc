@@ -27,7 +27,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 ESXi provides an extensible multipathing module called Native Multipathing Plug-In (NMP) that manages the sub-plugins, Storage Array Type Plugins (SATPs) and Path Selection Plugins (PSPs). By default, these SATP rules are available in ESXi.
 
-For NetApp ONTAP storage, `VMW_SATP_ALUA` plugin is used by default with `VMW_PSP_RR` as a path selection policy (PSP). You can confirm by using the following command:
+For ONTAP storage, `VMW_SATP_ALUA` plugin is used by default with `VMW_PSP_RR` as a path selection policy (PSP). You can confirm by using the following command:
 
 ----
 `esxcli storage nmp satp rule list -s VMW_SATP_ALUA`

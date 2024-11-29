@@ -4,7 +4,6 @@ permalink: hu_aix_72.html
 keywords: host utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
 summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTAP
 ---
-
 = Use IBM AIX 7.2 and/or PowerVM (VIOS 3.1) with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -18,11 +17,11 @@ You can use the ONTAP SAN host configuration settings to configure IBM AIX 7.2 a
 
 == Install the AIX/VIOS host utilities
 
-You must install the AIX Host Utilities Kit while using AIX MPIO with NetApp ONTAP storage.
+You must install the AIX Host Utilities Kit while using AIX MPIO with ONTAP storage.
 
 You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^]. After you have the file, you must decompress it to get the two software packages you need to install the host utilities.
 
-NetApp AIX Host Utilities 6.1 is the latest release. This release addresses the memory leak issue that was reported in the previous releases. Refer to release notes section for additional information.
+The AIX Host Utilities 6.1 release addresses the memory leak issue that was reported in the previous releases. Refer to the release notes section for additional information.
 
 .Steps
 
