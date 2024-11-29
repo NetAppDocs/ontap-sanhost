@@ -153,7 +153,7 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 +
 .Show example output
 [%collapsible]
-====
+=====
 ----
 # cat /sys/class/scsi_host/host*/fwrev 
 14.4.317.10, sli-4:6:d
@@ -162,7 +162,7 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 # cat /sys/module/lpfc/version 
 0:14.4.0.2
 ----
-====
+=====
 +
 For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
