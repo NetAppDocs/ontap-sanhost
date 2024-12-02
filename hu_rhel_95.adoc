@@ -52,9 +52,9 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-For Red Hat Enterprise Linux (RHEL) 9.5, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 9.5 is compiled with all the settings that are required to recognize and correctly manage ONTAP LUNs.
+You can use multipathing with Red Hat Enterprise Linux (RHEL) 9.5 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf` file must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the touch `/etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` file because RHEL 9.5 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
-include::_include/hu/reuse_hu_multipathing.adoc[]
+NOTE: A single LUN shouldn't require more than four paths. More than four paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
@@ -69,8 +69,6 @@ size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
   `- 17:0:3:0  sdch 69:80  active ready running
 ----
 
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 ----
@@ -84,8 +82,6 @@ size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
   |- 10:0:1:0  sdc  8:32   active ready running
   `- 16:0:2:0  sdcf 69:48  active ready running
 ----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 == Recommended settings
 
