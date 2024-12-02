@@ -126,7 +126,7 @@ The Oracle Linux 6.4 with ONTAP release has the following known issues:
  This is observed with the kernel version:
  On OL6.4: kernel-uek-2.6.39-400.17.1.el6uek
  On OL5.9: kernel-uek-2.6.39-400.17.1.el5uek
-| link:htthttps://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=715217[715217^] | 	Delay in path recovery on OL6.4 or OL5.9 hosts with UEK2 may result in delayed I/O resumption on controller or fabric faults | When a controller fault (storage failover or giveback, reboots and so on) or a fabric fault (FC port disable or enable) occurs with I/O on Oracle Linux 6.4 or Oracle Linux 5.9 hosts with UEK2 Kernel, the path recovery by DM-Multipath takes a long time (4mins. to 10 mins).
+| link:htthttps://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=715217[715217^] | 	Delay in path recovery on OL6.4 or OL5.9 hosts with UEK2 might result in delayed I/O resumption on controller or fabric faults | When a controller fault (storage failover or giveback, reboots and so on) or a fabric fault (FC port disable or enable) occurs with I/O on Oracle Linux 6.4 or Oracle Linux 5.9 hosts with UEK2 Kernel, the path recovery by DM-Multipath takes a long time (4mins. to 10 mins).
 Sometimes, during the paths recovering to active state, the following lpfc driver errors are also seen:
  kernel: sd 0:0:8:3: [sdlt]  Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK
 
