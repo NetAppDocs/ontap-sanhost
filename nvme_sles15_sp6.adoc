@@ -4,7 +4,7 @@ permalink: nvme_sles15_sp6.html
 keywords: nvme, linux, suse, sles, 15, SP6, server, enterprise
 summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 SP6 with ONTAP.
 ---
-= NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP6 with ONTAP
+= Configure NVMe-oF on SUSE Linux Enterprise Server 15 SP6 for ONTAP
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-NetApp SAN host configurations support the NVMe over Fabrics (NVMe-oF) protocol on SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA) for ONTAP storage. This includes support for the NVMe over Fibre Channel (NVMe/FC) and NVMe/FC protocols. In NVMe-oF environments, ANA is equivalent to ALUA multipathing in iSCSI and FCP environments and is implmented with the in-kernel NVMe multipath feature.   
+NetApp SAN host configurations support the NVMe over Fabrics (NVMe-oF) protocol on SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA) for operation with ONTAP LUNs. This includes support for the NVMe over Fibre Channel (NVMe/FC) and NVMe/FC protocols. In NVMe-oF environments, ANA is equivalent to ALUA multipathing in iSCSI and FCP environments and is implemented with the in-kernel NVMe multipath feature.   
 
 .About this task
 The following support and features are available with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP6. You should also review the known limitations before starting the configuration process.
@@ -363,7 +363,7 @@ Beginning with SUSE Linux Enterprise Server 15 SP6, the default setting for the 
 
 == Validate NVMe-oF
 
-Verify the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces for the NVMe-oF host configuraiton.
+Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
 
 .Steps
 
