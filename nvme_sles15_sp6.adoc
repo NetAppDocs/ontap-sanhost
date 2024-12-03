@@ -14,13 +14,13 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-NetApp SAN host configurations support the NVMe over Fabrics (NVMe-oF) protocol with SUSE Linux Enterprise Server 15 SP6 and Asymmetric Namespace Access (ANA) for ONTAP storage. This includes support for the NVMe over Fibre Channel (NVMe/FC) and NVMe/FC protocols. In NVMe-oF environments, ANA is equivalent to ALUA multipathing in iSCSI and FCP environments and is implmented with the in-kernel NVMe multipath feature.   
+NetApp SAN host configurations support the NVMe over Fabrics (NVMe-oF) protocol on SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA) for ONTAP storage. This includes support for the NVMe over Fibre Channel (NVMe/FC) and NVMe/FC protocols. In NVMe-oF environments, ANA is equivalent to ALUA multipathing in iSCSI and FCP environments and is implmented with the in-kernel NVMe multipath feature.   
 
 .About this task
 The following support and features are available with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP6. You should also review the known limitations before starting the configuration process.
 
 * Support available: 
-** Running NVMe and SCSI traffic on the same co-existent host. For example, you can configure dm-multipath for SCSI `mpath` devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+** Running NVMe and SCSI traffic simultaneously on the same host. For example, you can configure dm-multipath for SCSI `mpath` devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 ** Support for NVMe over TCP (NVMe/TCP) and NVMe/FC. This gives the NetApp plug-in in the native `nvme-cli` package the capability to display the ONTAP information for both NVMe/FC and NVMe/TCP namespaces.
 
 +
@@ -35,13 +35,13 @@ For additional information on supported configurations, see the link:https://mys
 * Known limitations:
 
 ** SAN booting using the NVMe-oF protocol is currently not supported.
-** the NetApp `sanlun` Host Utilities support isn't available for NVMe-oF on a SUSE Linux Enterprise Server 15 SP6 host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+** NetApp `sanlun` Host Utilities support isn't available for NVMe-oF on a SUSE Linux Enterprise Server 15 SP6 host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 
 Depending on your host configuration, you can configure NNMe/FC, NVMe/TCP, or both protocols for SUSE Linux Enterprise Server 15 SP6.
 
 == Configure NVMe/FC
 
-You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters and you should also verify that the boot services were enabled during the system boot. Optionally, you can enable I/O requests of size 1 MB for a Broadcom NVMe/FC host.
+You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1 MB. To complete the configuration, you should verify that the boot services were enabled during the system boot.
 
 [role="tabbed-block"]
 =====
