@@ -14,14 +14,13 @@ cat /etc/modprobe.d/lpfc.conf
 options lpfc lpfc_sg_seg_cnt=256
 ----
 
-. Run the `dracut -f` command, and reboot the host:
+. Run the `dracut -f` command, and reboot the host.
 
-. Verify that `lpfc_sg_seg_cnt` is 256:
+. Verify that the expected value of `lpfc_sg_seg_cnt` is 256:
 +
 ----
 cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt 
 ----
-The expected value is 256.
 +
 [NOTE]
 
