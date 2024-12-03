@@ -17,7 +17,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 NetApp SAN host configurations support the NVMe over Fabrics (NVMe-oF) protocol on SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA) for operation with ONTAP LUNs. This includes support for the NVMe over Fibre Channel (NVMe/FC) and NVMe/FC protocols. In NVMe-oF environments, ANA is equivalent to ALUA multipathing in iSCSI and FCP environments and is implemented with the in-kernel NVMe multipath feature.   
 
 .About this task
-The following support and features are available with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP6. You should also review the known limitations before starting the configuration process.
+You can use the following support and ONTAP features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP6. You should also review the known limitations before starting the configuration process.
 
 * Support available: 
 ** Running NVMe and SCSI traffic simultaneously on the same host. For example, you can configure dm-multipath for SCSI `mpath` devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
