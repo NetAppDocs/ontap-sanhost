@@ -13,7 +13,7 @@ summary: Describes how to use Red Hat Enterprise Linux 9.5 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 9.5 with ONTAP as the target. 
+You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux (RHEL) 9.5 with ONTAP as the target. 
 
 == Install the Linux Unified Host Utilities
 
@@ -29,7 +29,10 @@ In the following example, the `sanlun lun show` command returns LUN information.
 ----
 # sanlun lun show all
 ----
-*Example output:*			
+.Show example output
+[%collapsible%]
+====
+Change title above and paste content here		
 ----
 controller(7mode/E-Series)/                                  device          host                  lun
 vserver(cDOT/FlashRay)        lun-pathname                   filename        adapter    protocol   size    product
@@ -40,6 +43,7 @@ vs_coexistence_QLE2742        /vol/fc_vol_2_8/dynamic_lun    /dev/sdcf       hos
 vs_coexistence_QLE2742        /vol/fc_vol_2_7/dynamic_lun    /dev/sdce       host17     FCP        10g     cDOT
 vs_coexistence_QLE2742        /vol/fc_vol_2_6/dynamic_lun    /dev/sdcd       host17     FCP        10g     cDOT
 ----
+====
 
 == Enable SAN booting
 
@@ -52,14 +56,17 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-You can use multipathing with Red Hat Enterprise Linux (RHEL) 9.5 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf` file must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the touch `/etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` file because RHEL 9.5 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+You can use multipathing with RHEL 9.5 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf` file must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the touch `/etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` file because RHEL 9.5 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 NOTE: A single LUN shouldn't require more than four paths. More than four paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
+.Show example output
+[%collapsible%]
+====
 ----
-# multipath -ll
+multipath -ll
 3600a098038314c4a433f577471797958 dm-2 NETAPP,LUN C-Mode
 size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 `-+- policy='service-time 0' prio=50 status=active
@@ -68,11 +75,15 @@ size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
   |- 14:0:3:0  sdar 66:176 active ready running
   `- 17:0:3:0  sdch 69:80  active ready running
 ----
+====
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
+.Show example output
+[%collapsible%]
+====
 ----
-# multipath -ll
+multipath -ll
 3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode
 size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
@@ -82,6 +93,7 @@ size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
   |- 10:0:1:0  sdc  8:32   active ready running
   `- 16:0:2:0  sdcf 69:48  active ready running
 ----
+====
 
 == Recommended settings
 
@@ -117,6 +129,9 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
 
+.Show example output
+[%collapsible%]
+====
 ----
 defaults {
    path_checker      readsector0
@@ -132,6 +147,7 @@ devices {
    }
 }
 ----
+====
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
