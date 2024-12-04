@@ -338,12 +338,16 @@ sectype: none
 nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
 +
+.Show example output
+[%collapsible]
+====
 ----
 #nvme discover -t tcp -w 192.168.111.79 -a 192.168.111.66 
 #nvme discover -t tcp -w 192.168.111.79 -a 192.168.111.67 
 #nvme discover -t tcp -w 192.168.211.79 -a 192.168.211.66 
 #nvme discover -t tcp -w 192.168.211.79 -a 192.168.211.67  
 ----
+====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
@@ -351,12 +355,16 @@ nvme discover -t tcp -w <host-traddr> -a <traddr>
 nvme connect-all -t tcp -w <host-traddr> -a <traddr>
 ----
 +
+.Show example output
+[%collapsible]
+====
 ----
 # nvme connect-all -t tcp -w 192.168.111.79 -a 192.168.111.66  
 # nvme connect-all -t tcp -w 192.168.111.79 -a 192.168.111.67  
 # nvme connect-all -t tcp -w 192.168.211.79 -a 192.168.211.66  
 # nvme connect-all -t tcp -w 192.168.211.79 -a 192.168.211.67  
 ----
+====
 +
 [NOTE]
 Beginning with SUSE Linux Enterprise Server 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
