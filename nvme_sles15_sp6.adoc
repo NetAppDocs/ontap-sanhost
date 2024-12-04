@@ -14,14 +14,14 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-NetApp SAN host configurations support the NVMe over Fabrics (NVMe-oF) protocol on SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA) for operation with ONTAP LUNs. This includes support for the NVMe over Fibre Channel (NVMe/FC) and NVMe/FC protocols. In NVMe-oF environments, ANA is equivalent to ALUA multipathing in iSCSI and FCP environments and is implemented with the in-kernel NVMe multipath feature.   
+NetApp SAN host configurations support the NVMe over Fabrics (NVMe-oF) protocol on SUSE Linux Enterprise Server 15 SP6 with Asymmetric Namespace Access (ANA). You can use NVMe-oF with ONTAP LUNs. In NVMe-oF environments, ANA is equivalent to ALUA multipathing in iSCSI and FCP environments; it is implemented with the in-kernel NVMe multipath feature.
 
 .About this task
 You can use the following support and ONTAP features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP6. You should also review the known limitations before starting the configuration process.
 
 * Support available: 
+** Support for NVMe over TCP (NVMe/TCP) and NVMe over Fibre Channel (NVMe/FC). This gives the NetApp plug-in in the native `nvme-cli` package the capability to display the ONTAP information for both NVMe/FC and NVMe/TCP namespaces.
 ** Running NVMe and SCSI traffic simultaneously on the same host. For example, you can configure dm-multipath for SCSI `mpath` devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Support for NVMe over TCP (NVMe/TCP) and NVMe/FC. This gives the NetApp plug-in in the native `nvme-cli` package the capability to display the ONTAP information for both NVMe/FC and NVMe/TCP namespaces.
 
 +
 For additional information on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
@@ -173,7 +173,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 --
 =====
 
-=== Enable 1MB I/O size (Optional)
+=== Enable 1 MB I/O size (Optional)
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
@@ -373,7 +373,9 @@ To support correct operation for ONTAP LUNs, verify that the in-kernel NVMe mult
 cat /sys/module/nvme_core/parameters/multipath
 ----
 +
-The expected value is "Y".
+----
+Y
+----
 
 . Verify that the host has the correct controller model for the ONTAP NVMe namespaces:
 +
@@ -962,15 +964,19 @@ Main PID: 961 (tlshd)
 Aug 21 15:46:54 RX2530-M4-17-153 tlshd[961]: Built from ktls-utils 0.11-dev on Mar 21 2024 12:00:00
 ----
 ====
-. Generate the TLS PSK by using the `nvme gen-tls-key`:
+. Generate the TLS PSK by using `nvme gen-tls-key`:
 
-.. `# cat /etc/nvme/hostnqn`
+.. Generate `nvme gen-tls-key`:  
++
+`# cat /etc/nvme/hostnqn`
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:e58eca24-faff-11ea-8fee-3a68dd3b5c5f
 ----
 
-.. `# nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15`
+.. Generate the TLS PSK:
++
+`# nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15`
 +
 ----
 NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD:
