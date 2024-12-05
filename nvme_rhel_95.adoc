@@ -14,10 +14,10 @@ summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-Red Hat Enterprise Linux (RHEL) 9.5 supports NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, with Asymmetric Namespace Access (ANA). In NVMe-oF environments, in-kernel NVMe multipath implements ANA, which is the equivalent of ALUA multipathing in iSCSI and FC environments.
+Red Hat Enterprise Linux (RHEL) 9.5 supports NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, with Asymmetric Namespace Access (ANA). In NVMe-oF environments, in-kernel NVMe multipath implements ANA, which is the equivalent of asymmetric logical unit access (ALUA) multipathing in iSCSI and FC environments.
 
 == About this task 
-The following support and features are available with the NVMe-oF host configuration for RHEL 9.5 with ONTAP storage. You should also review the known limitations before starting the configuration process.
+ONTAP provides the following support for NVMe-oF host configuration for RHEL 9.5. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
@@ -25,7 +25,7 @@ The following support and features are available with the NVMe-oF host configura
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 * Features available:
-** RHEL 9.5 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
+** RHEL 9.5 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 ** Support for SAN booting using the NVMe/FC protocol.
 * Known limitations: 
 ** There are no known limitations.
@@ -156,7 +156,7 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 3
 ----
 
-. Verify that the initiator ports are up and running and that you can see the target LIFs:
+. Verify that the initiator ports are up and running and that you can see the target logical interfaces (LIFs):
 
 .. `cat /sys/class/fc_host/host*/port_name`
 +
@@ -268,7 +268,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-NVMe/TCP does not have an auto-connect functionality. Therefore, you should use the following procedure to discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` functionality manually.
+NVMe/TCP does not have auto-connect functionality. Therefore, you should use the following procedure to discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` functionality manually.
 
 .Steps
 
@@ -698,6 +698,6 @@ nvme netapp ontapdevices -o json
 
 == Known issues
 
-There are no known issues for the NVMe-oF host configuration for RHEL 9.5 with ONTAP release.
+No known issues exist for the NVMe-oF host configuration on RHEL 9.5 with ONTAP release.
 
 //ONTAPDOC-2561 25-Nov-2024
