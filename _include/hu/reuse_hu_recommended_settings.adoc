@@ -1,10 +1,10 @@
 The first time you create the `multipath.conf` file, you might need to enable and start the multipath services by using the following commands:
 
 ----
-`chkconfig multipathd on`
+chkconfig multipathd on
 ----
 ----
-`/etc/init.d/multipathd start`
+/etc/init.d/multipathd start
 ----
 
 You don't need to add anything directly to the `multipath.conf` file unless you have devices that you don't want multipath to manage or you have existing settings that override defaults. To exclude unwanted devices, add the following syntax to the `multipath.conf` file, replacing <DevId> with the worldwide identifier (WWID) string of the device you want to exclude:

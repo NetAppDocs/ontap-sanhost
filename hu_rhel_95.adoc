@@ -19,7 +19,7 @@ You can use the ONTAP SAN host configuration settings to configure Red Hat Enter
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN Toolkit
+== Use SAN Toolkit
 
 include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
 
@@ -27,12 +27,11 @@ In the following example, the `sanlun lun show` command returns LUN information.
 
 [source,cli]
 ----
-# sanlun lun show all
+sanlun lun show all
 ----
 .Show example output
 [%collapsible%]
 ====
-Change title above and paste content here		
 ----
 controller(7mode/E-Series)/                                  device          host                  lun
 vserver(cDOT/FlashRay)        lun-pathname                   filename        adapter    protocol   size    product
@@ -50,11 +49,11 @@ vs_coexistence_QLE2742        /vol/fc_vol_2_6/dynamic_lun    /dev/sdcd       hos
 If you decide to use SAN booting, it must be supported by your configuration.
 
 .Before you begin
-Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, and the HBA boot BIOS, and the ONTAP version are supported.
+Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and the ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
-== Multipathing
+== Enable multipathing
 
 You can use multipathing with RHEL 9.5 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf` file must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the touch `/etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` file because RHEL 9.5 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
