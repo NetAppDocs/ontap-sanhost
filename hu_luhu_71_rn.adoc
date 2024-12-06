@@ -57,9 +57,9 @@ The Linux Host Utilities 7.1 release has the following known problems and limita
 |1457017	|`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit. | When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be 
 located:
 
-[root@hostname ~]# sanlun fcp show adapter -v
+`[root@hostname ~]# sanlun fcp show adapter -v
 Unable to locate /usr/lib64/libHBAAPI.so library
-Make sure the package installing the library is installed & loaded
+Make sure the package installing the library is installed & loaded`
 Refer to NetApp Bugs Online - link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^].
 |===
 

@@ -22,7 +22,7 @@ NVMe/FC is supported on ONTAP 9.6 or later for the following versions of SUSE Li
 +
 The SUSE Linux Enterprise Server 15 SP1 host can run both NVMe/FC and FCP traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 +
-For the current list of supported configurations & versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+For the current list of supported configurations and versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
 * Native NVMe/FC auto-connect scripts are included in the nvme-cli package. You can use the native inbox lpfc driver on SUSE Linux Enterprise Server 15 SP1.
 

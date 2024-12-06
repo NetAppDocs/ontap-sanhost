@@ -141,7 +141,7 @@ Sometimes, during the paths recovering to active state, the following lpfc drive
  device-mapper-1.02.77-9.el5
  device-mapper-multipath-0.4.9-64.0.1.el5
  kernel-uek-2.6.39-400.17.1.el5uek
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=709911[709911^] | DM Multipath on OL6.4 & OL5.9 iSCSI with UEK2 kernel takes long time to update LUN path status after storage faults |  On systems running Oracle Linux 6 Update4 and Oracle Linux 5 Update9 iSCSI with Unbreakable Enterprise Kernel Release 2 (UEK2), a problem has been seen during storage fault events where DM Multipath (DMMP) takes around 15 minutes to update the path status of Device Mapper (DM) devices (LUNs).
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=709911[709911^] | DM Multipath on OL6.4 and OL5.9 iSCSI with UEK2 kernel takes long time to update LUN path status after storage faults |  On systems running Oracle Linux 6 Update4 and Oracle Linux 5 Update9 iSCSI with Unbreakable Enterprise Kernel Release 2 (UEK2), a problem has been seen during storage fault events where DM Multipath (DMMP) takes around 15 minutes to update the path status of Device Mapper (DM) devices (LUNs).
 If you run the "multipath -ll" command during this interval, the path status is shown as "failed ready running" for that DM device (LUN). The path status is eventually updated as "active ready running."
 This issue is seen with following version:
  Oracle Linux 6 Update 4:
