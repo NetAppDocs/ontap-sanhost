@@ -38,7 +38,7 @@ data_vserver            /vol/vol2/lun2   /dev/sdd   host16   FCP       80.0g  cD
 data_vserver            /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
 ----
 
-== SAN booting
+== Enable SAN booting
 
 If you decide to use SAN booting, it must be supported by your configuration.
 
