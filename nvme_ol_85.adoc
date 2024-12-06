@@ -45,7 +45,7 @@ Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability M
 
 .Steps
 
-.	Install Oracle Linux 8.5 General Availability (GA) on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.5 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.	Install Oracle Linux 8.5 General Availability (GA) on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.5 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the current list of supported versions.
 +
 ----
 # uname -r
@@ -97,7 +97,7 @@ Restart the `multipathd` daemon by running the `systemctl restart multipathd` co
 
 .Steps
 
-.	Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+.	Verify that you are using the supported adapter. For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -108,7 +108,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev

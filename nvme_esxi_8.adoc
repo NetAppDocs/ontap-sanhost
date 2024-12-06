@@ -23,7 +23,7 @@ You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.
 
 == Features
 
-* ESXi initiator hosts can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
+* ESXi initiator hosts can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported configurations and versions.
 
 * For ESXi 8.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
 

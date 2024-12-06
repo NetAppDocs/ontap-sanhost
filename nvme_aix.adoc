@@ -103,7 +103,7 @@ You can use the following procedure to configure NVMe/FC for Broadcom/Emulex ada
 
 .Steps
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. Verify that you are using the supported adapter. For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 . By default, the NVMe/FC protocol support is enabled in the physical FC; however, the NVMe/FC protocol support is disabled in the Virtual Fibre Channel (VFC) on Virtual I/O Server (VIOS).
 +
