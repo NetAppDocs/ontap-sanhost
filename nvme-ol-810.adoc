@@ -110,7 +110,7 @@ defaults {
 } 
 ----
 
-.. Restart the `multipathd` daemon. This allows the new setting to take effect: 
+.. Restart the `multipathd` daemon to apply the new setting:
 +
 `systemctl restart multipathd`
 
@@ -514,5 +514,5 @@ The NVMe-oF host configuration for Oracle Linux 8.10 with ONTAP release has the 
 
 |Oracle Linux 8.10 NVMe-oF hosts create duplicate PDCs
 
-|On Oracle Linux 8.10 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by passing the -p option to the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with Oracle Linux 8.x, NVMe-oF hosts create a duplicate PDC. This wastes resources on both the host and the target.
+|On Oracle Linux 8.10 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by using the `-p` option with the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with Oracle Linux 8.x, NVMe-oF hosts create a duplicate PDC. This wastes resources on both the host and the target.
 |===
