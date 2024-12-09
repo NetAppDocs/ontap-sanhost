@@ -2,8 +2,8 @@ The `multipath.conf` file must exist for the multipath daemon to start. If this 
 
 The first time you create the `multipath.conf` file, you might need to enable and start the multipath services by using the following commands:
 
-`# chkconfig multipathd on`
-`# /etc/init.d/multipathd start`
+`chkconfig multipathd on`
+`/etc/init.d/multipathd start`
 
 You don't need to add anything directly to the `multipath.conf` file unless you have devices that you don't want multipath to manage or you have existing settings that override defaults. To exclude unwanted devices, add the following syntax to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude:
 
@@ -23,7 +23,7 @@ The following example determines the WWID of a device and adds it to the `multip
 . Determine the WWID:
 +
 ----
-# /lib/udev/scsi_id -gud /dev/sda
+/lib/udev/scsi_id -gud /dev/sda
 360030057024d0730239134810c0cb833
 ----
 +
