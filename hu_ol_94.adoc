@@ -20,15 +20,17 @@ You can use the ONTAP SAN host configuration settings to configure Oracle Linux 
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN toolkit
+== Use SAN Toolkit
 
-The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 In the following example, the `sanlun lun show` command returns LUN information.
 ----
 sanlun lun show all
 ----
-Example output:
+.Show example output
+[%collapsible]
+====
 ----
 controller(7mode/E-Series)/                                  device          host                  lun
 vserver(cDOT/FlashRay)        lun-pathname                   filename        adapter    protocol   size    product
@@ -39,25 +41,29 @@ vs_coexistence_147            /vol/fc_vol_2_7/dynamic_lun    /dev/sdck       hos
 vs_coexistence_147            /vol/fc_vol_2_6/dynamic_lun    /dev/sdcj       host12     FCP        10g     cDO
 
 ----
+====
 
-== SAN booting
+== Enable SAN booting
 
-.What you'll need
+.Before you begin
 
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
-== Multipathing
+== Enable Multipathing
 
 For OL 9.4 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.4 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
 include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
 
-The following sections provide sample multipath output for a LUN mapped to ASA and non-ASA configurations.
+The following sections provide sample multipath output for a LUN mapped to All SAN Array (ASA) and non-ASA configurations.
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
+.Show example output
+[%collapsible]
+====
 ----
 multipath -ll
 3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
@@ -68,11 +74,15 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 11:0:15:6  sdfb 129:208 active ready running
   |- 12:0:1:6   sdgp 132:80  active ready running
 ----
+====
 
 NOTE: A single LUN shouldn't require more than four paths. Having more than four paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
+.Show example output
+[%collapsible]
+====
 ----
 multipath -ll
 3600a0980383036347ffb4d59646c4436 dm-28 NETAPP,LUN C-Mode
@@ -84,6 +94,7 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 15:0:0:35 sdaj  66:48   active ready running
   |- 15:0:1:35 sdbx  68:176  active ready running
 ----
+====
 
 include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
