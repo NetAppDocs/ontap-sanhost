@@ -25,7 +25,7 @@ The following example determines the WWID of a device and adds it to the `multip
 +
 ----
 /lib/udev/scsi_id -gud /dev/sda
-
+----
 360030057024d0730239134810c0cb833
 ----
 +
