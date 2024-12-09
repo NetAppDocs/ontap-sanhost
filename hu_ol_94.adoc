@@ -134,6 +134,9 @@ include::_include/hu/reuse_hu_recommended_settings.adoc[]
 
 The following example demonstrates how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
 
+.Show example output
+[%collapsible]
+====
 ----
 defaults {
  path_checker readsector0
@@ -148,10 +151,11 @@ devices {
  }
 }
 ----
+====
 
 NOTE: To configure Oracle Linux 9.4 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_94.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.4.
 
-== KVM settings
+=== Configure KVM settings
 
 You can also use the recommended settings to configure Kernel-based Virtual Machine (KVM). There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
 
