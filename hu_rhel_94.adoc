@@ -89,7 +89,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 The RHEL 9.4 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 [cols=2*,options="header"]
 |===
