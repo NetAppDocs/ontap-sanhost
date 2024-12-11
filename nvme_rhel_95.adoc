@@ -17,9 +17,9 @@ summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 include::_include/nvme/reuse-nvme-introduction.adoc[]
 
 == About this task 
-You can use the following support and features with the NVMe-oF host configuration for RHEL 9.5. You should also review the known limitations before starting the configuration process.
+You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.5. You should also review the known limitations before starting the configuration process.
 
-* The following support is available for the NVMe-oF host configuration for RHEL 9.5 with ONTAP:
+* Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 +
@@ -157,23 +157,28 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 3
 ----
 
-. Verify that the initiator ports are up and running and that you can see the target logical interfaces (LIFs):
+. Verify that you can view your initiator ports:
 
-.. `cat /sys/class/fc_host/host*/port_name`
++
+`cat /sys/class/fc_host/host*/port_name`
 +
 ---- 
 0x100000109bf044b1
 0x100000109bf044b2
 ----
 
-.. `cat /sys/class/fc_host/host*/port_state`
+. Verify that your initiator ports are online:
++
+`cat /sys/class/fc_host/host*/port_state`
 +
 ----
 Online
 Online
 ----
 
-.. `cat /sys/class/scsi_host/host*/nvme_info`
+. Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
++
+`cat /sys/class/scsi_host/host*/nvme_info`
 +
 .Show example
 [%collapsible]
@@ -210,10 +215,12 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 --
 
-.Marvell/QLogic FC Adapter for NVMe/FC
+.Marvell/QLogic
 --
 
-The native inbox qla2xxx driver included in the RHEL 9.5 GA kernel has the latest fixes. These fixes are essential for ONTAP support. 
+Configure NVMe/FC for a Marvell/QLogic adapter.
+
+NOTE: The native inbox qla2xxx driver included in the RHEL 9.5 GA kernel has the latest fixes. These fixes are essential for ONTAP support. 
 
 .Steps
 
@@ -235,7 +242,6 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
 The expected ouptut is 1.
-----
 --
 ====
 
@@ -830,7 +836,6 @@ To generate the JSON file, you can use the `-o` option. See the NVMe connect-all
 }
 ]
 ----
-+
 ==== 
 [NOTE]
 In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
@@ -868,8 +873,6 @@ traddr=192.168.1.25 is already connected
 # cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
 +
-.Example output
-+
 ----
 DHHC-1:01:zGlgmRyWbplWfUCPMuaP3mAypX0+GHuSczx5vX4Yod9lMPim:
 ----
@@ -879,8 +882,6 @@ DHHC-1:01:zGlgmRyWbplWfUCPMuaP3mAypX0+GHuSczx5vX4Yod9lMPim:
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
-+
-.Example output
 +
 ----
 DHHC-1:03:L52ymUoR32zYvnqZFe5OHhMg4gxD79jIyxSShHansXpVN+WiXE222aVc651JxGZlQCI863iVOz5dNWvgb+14F4B4bTQ=:
