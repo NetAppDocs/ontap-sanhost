@@ -98,7 +98,7 @@ size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 
 The RHEL 9.5 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
-include::_include\hu\reuse-hu-systemctl-multipathd.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 [cols=2*,options="header"]
 |===
