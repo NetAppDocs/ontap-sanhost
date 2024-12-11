@@ -27,9 +27,9 @@ You can use the following support and features with the NVMe-oF host configurati
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 * Features available:
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with RHEL 9.5.
 ** RHEL 9.5 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 ** Support for SAN booting using the NVMe/FC protocol.
-** Support for NVMe secure, in-band authentication.
 * Known limitations: 
 ** There are no known limitations.
 
@@ -174,13 +174,14 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 Online
 Online
 ----
+
+.. `cat /sys/class/scsi_host/host*/nvme_info`
 +
 .Show example
 [%collapsible]
 =====
 [subs=+quotes]
 ----
-cat /sys/class/scsi_host/host*/nvme_info 
 NVME Initiator Enabled
 XRI Dist lpfc2 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc2 WWPN x100000109bf044b1 WWNN x200000109bf044b1 DID x022a00 *ONLINE*
@@ -529,6 +530,9 @@ include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 +
 ----
 cat /sys/module/nvme_core/parameters/multipath
+----
++
+----
 Y
 ----
 
