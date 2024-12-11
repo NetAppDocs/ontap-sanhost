@@ -14,8 +14,6 @@ summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-Red Hat Enterprise Linux (RHEL) 9.5 supports NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, with Asymmetric Namespace Access (ANA).
-
 include::_include/nvme/reuse-nvme-introduction.adoc[]
 
 == About this task 
@@ -259,8 +257,10 @@ nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
-[%collapsible%]
-====
+[%collapsible]
+=====
+[subs=+quotes]
+----
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24
 
 Discovery Log Number of Records 20, Generation counter 25
@@ -484,7 +484,7 @@ subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem.nv
 traddr:  192.168.1.24
 eflags:  none
 sectype: none
-====
+=====
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
 +
@@ -494,12 +494,14 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible%]
-====
+=====
+[subs=+quotes]
+----
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24 
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.24 
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.25 
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.25
-====
+=====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
@@ -509,12 +511,14 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible%]
-====
+=====
+[subs=+quotes]
+----
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.24
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.24
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.25
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25					
-====
+=====
 
 [NOTE]
 Beginning with RHEL 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
