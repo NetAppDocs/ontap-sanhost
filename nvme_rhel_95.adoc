@@ -159,7 +159,8 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 
 . Verify that you can view your initiator ports:
 
-.. `cat /sys/class/fc_host/host*/port_name`
++
+`cat /sys/class/fc_host/host*/port_name`
 +
 ---- 
 0x100000109bf044b1
