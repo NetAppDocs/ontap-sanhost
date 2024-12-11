@@ -4,8 +4,6 @@ The first time you create the `multipath.conf` file, you might need to enable an
 
 ----
 chkconfig multipathd on
-----
-----
 /etc/init.d/multipathd start
 ----
 
