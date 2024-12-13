@@ -13,8 +13,6 @@ summary: NVMe-oF Host Configuration for Oracle Linux 8.10 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NetApp SAN host configurations support the NVMe over Fabrics (NVMe-oF) protocol on Oracle Linux 8.10 with Asymmetric Namespace Access (ANA). 
-
 include::_include/nvme/reuse-nvme-introduction.adoc[]
 
 .About this task
@@ -212,8 +210,6 @@ NOTE: The native inbox qla2xxx driver included in the Oracle Linux 10 GA kernel 
 +
 `cat /sys/class/fc_host/host*/symbolic_name`
 +
-.Example ouptut
-+
 ----
 QLE2772 FW:v9.15.00 DVR:v10.02.09.100-k
 QLE2772 FW:v9.15.00 DVR:v10.02.09.100-k
@@ -358,8 +354,6 @@ include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 . Verify that the NVMe-oF settings (such as model set to "NetApp ONTAP Controller" and load balancing iopolicy set to "round-robin") for the respective ONTAP namespaces correctly display on the host:
 
 .. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
-+
-.Example ouput
 +
 ----
 NetApp ONTAP Controller
