@@ -13,20 +13,26 @@ summary: NVMe-oF Host Configuration for Oracle Linux 9.4 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Oracle Linux (OL) 9.4 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+include::_include/nvme/reuse-nvme-introduction.adoc[]
 
 .About this task
 
-The following support and features are available with the NVMe-oF host configuration for OL 9.4 with ONTAP storage. You should also review the known limitations before starting the configuration process.
+The following support and features are available with the NVMe-oF host configuration for Oracle Linux 9.4 with ONTAP storage. You should also review the known limitations before starting the configuration process.
 
 * Support available:
+<<<<<<< HEAD
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
 +
+=======
+** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+
+>>>>>>> 23c92d9e8d76a2785aace0f33417fae7854bbde7
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 * Features available:
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with OL 9.4
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with Oracle Linux 9.4
 ** Support for in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
 
 * Known limitations: 
@@ -34,11 +40,11 @@ For additional details on supported configurations, see the link:https://mysuppo
  
 == Validate software versions
 
-You can use the following procedure to validate the minimum supported OL 9.4 software versions.
+You can use the following procedure to validate the minimum supported Oracle Linux 9.4 software versions.
 
 .Steps
 
-. Install OL 9.4 GA on the server. After the installation is complete, verify that you are running the specified OL 9.4 GA kernel. 
+. Install Oracle Linux 9.4 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 9.4 GA kernel. 
 +
 ----
 uname -r
@@ -92,16 +98,18 @@ vs_coexistence_149
 ----
 +
 [NOTE]
-If the `hostnqn` strings do not match, you can use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings don't match, you can use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 == Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex adapters or Marvell/Qlogic adapters.
+You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1 MB.
 
 [role="tabbed-block"]
 ====
 .Broadcom/Emulex
 --
+Configure NVMe/FC for a Broadcom/Emulex adapter.
+
 .Steps
 
 . Verify that you are using the supported adapter model:
@@ -200,7 +208,10 @@ FCP CMPL: xb 00000b53 Err 0000ba63
 .Marvell/QLogic
 --
 
-The native inbox qla2xxx driver included in the OL 9.4 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support. 
+Configure NVMe/FC for a Marvell/QLogic adapter.
+
+NOTE: The native inbox qla2xxx driver included in the RHEL 9.5 GA kernel has the latest fixes. These fixes are essential for ONTAP support. 
+
 
 .Steps
 
@@ -233,7 +244,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Configure NVMe/TCP
 
-NVMe/TCP does not have an auto-connect functionality. Therefore, you need to perform the NVMe/TCP connect or connect-all functionality manually to discover the NVMe/TCP subsystems and namespaces. You can use the following procedure to configure NVMe/TCP.
+include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
@@ -311,17 +322,17 @@ nvme connect-all -t tcp -w 192.168.165.3 -a 192.168.165.56
 ----
 +
 [NOTE]
-Beginning with OL 9.4, the default setting for the NVMe/TCP `ctrl_loss_tmo timeout` is turned off and there are no limits on the number of retries (indefinite retry). 
-It is not required to manually configure a specific `ctrl_loss_tmo timeout` duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+Beginning with Oracle Linux 9.4, the default setting for the NVMe/TCP `ctrl_loss_tmo timeout` is turned off and there are no limits on the number of retries (indefinite retry). 
+You don't have to manually configure a specific `ctrl_loss_tmo timeout` duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 
 == Validate NVMe-oF
 
-You can use the following procedure to validate NVMe-oF.
+include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
 .Steps
 
-. Verify the following NVMe/FC settings on the OL 9.4 host:
+. Verify the following NVMe/FC settings on the Oracle Liniux 9.4 host:
 
 .. `cat /sys/module/nvme_core/parameters/multipath`
 +
