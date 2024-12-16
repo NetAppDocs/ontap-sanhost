@@ -206,7 +206,8 @@ The native inbox qla2xxx driver included in the OL 9.4 GA kernel has the latest 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
 ----
-`cat /sys/class/fc_host/host*/symbolic_name`
+cat /sys/class/fc_host/host*/symbolic_name
+----
 +
 ----
 QLE2872 FW:v9.15.00 DVR:v10.02.09.100-k
@@ -216,9 +217,12 @@ QLE2872 FW:v9.15.00 DVR:v10.02.09.100-k
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
 +
 ----
-`cat /sys/module/qla2xxx/parameters/ql2xnvmeenable`
+cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
+----
 +
+----
 1
+----
 --
 ====
 
