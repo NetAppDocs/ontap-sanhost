@@ -44,22 +44,23 @@ vs_coexistence_147            /vol/fc_vol_2_6/dynamic_lun    /dev/sdcj       hos
 ====
 
 == Enable SAN booting
+If you decide to use SAN booting, it must be supported by your configuration.
 
 .Before you begin
 
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and the ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Enable multipathing
 
-For OL 9.4 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.4 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+You can use multipathing with Oracle Linux 9.4 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf` file must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the touch `/etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` file because Oracle Linux 9.4 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
-include::_include/hu/reuse_hu_multipathing_non_asa.adoc[]
-
-The following sections provide sample multipath output for a LUN mapped to All SAN Array (ASA) and non-ASA configurations.
+NOTE: A single LUN shouldn't require more than four paths. More than four paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
+
+
 
 .Show example
 [%collapsible]
@@ -76,7 +77,6 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 ----
 ====
 
-NOTE: A single LUN shouldn't require more than four paths. Having more than four paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
