@@ -14,7 +14,7 @@ summary: Describes how to use Oracle Linux 9.4 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Oracle Linux 9.4 with ONTAP as the target.
+You can use the ONTAP SAN host configuration settings to configure Oracle Linux (OL) 9.4 with ONTAP as the target.
 
 == Install the Linux Unified Host Utilities
 
@@ -22,7 +22,7 @@ include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
 == Use the SAN Toolkit
 
-The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
 
 In the following example, the `sanlun lun show` command returns LUN information.
 ----
@@ -51,7 +51,7 @@ If you decide to use SAN booting, it must be supported by your configuration. Yo
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
-== Enable Multipathing
+== Enable multipathing
 
 For OL 9.4 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.4 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
 
@@ -96,14 +96,11 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 ----
 ====
 
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-
 == Recommended settings
 
 The Oracle Linux 9.4 OS recognizes ONTAP LUNs and automatically sets all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
-include::_include\hu\reuse-hu-systemctl-multipathd.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 
 [cols=2*,options="header"]
@@ -144,7 +141,7 @@ defaults {
  }
 devices {
  device {
- vendor "NETAPP "
+ vendor "NETAPP"
  product "LUN"
  no_path_retry queue
  path_checker tur
