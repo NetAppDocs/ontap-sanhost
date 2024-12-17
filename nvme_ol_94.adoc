@@ -147,7 +147,7 @@ For the most current list of supported adapter driver and firmware versions, see
 3
 ----
 
-. Verify that the initiator ports are up and running, and that you can see the target LIFs:
+. Verify that you can view your initiator ports:
 
 .. `cat /sys/class/fc_host/host*/port_name`
 +
