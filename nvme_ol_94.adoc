@@ -165,7 +165,9 @@ Online
 Online
 ----
 
-.. `cat /sys/class/scsi_host/host*/nvme_info NVME Initiator Enabled`
+. Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
++
+`cat /sys/class/scsi_host/host*/nvme_info NVME Initiator Enabled`
 +
 .Show example
 [%collapsible]
