@@ -156,7 +156,9 @@ For the most current list of supported adapter driver and firmware versions, see
 0x100000109b3c0820
 ----
 
-.. `cat /sys/class/fc_host/host*/port_state`
+. Verify that your initiator ports are online:
++
+`cat /sys/class/fc_host/host*/port_state`
 +
 ----
 Online
