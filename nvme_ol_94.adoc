@@ -84,12 +84,25 @@ nqn.2014-08.org.nvmexpress:uuid:9c5d23fe-21c5-472f-9aa4-dc68de0882e9
 vserver nvme subsystem host show -vserver vs_coexistence_149
 ----
 +
+.Show example
+[%collapsible]
+=====
+[subs=+quotes]
 ----
-Vserver     Subsystem          Host NQN
------------ --------------- ----------------------------------------------------------
+Vserver Subsystem Priority  Host NQN
+------- --------- --------  ------------------------------------------------
 vs_coexistence_149
         nvme
+                  regular   nqn.2014-08.org.nvmexpress:uuid:9c5d23fe-21c5-472f-9aa4-dc68de0882e9
+        nvme_1
+                  regular   nqn.2014-08.org.nvmexpress:uuid:9c5d23fe-21c5-472f-9aa4-dc68de0882e9
+        nvme_2
+                  regular   nqn.2014-08.org.nvmexpress:uuid:9c5d23fe-21c5-472f-9aa4-dc68de0882e9
+        nvme_3
+                  regular   nqn.2014-08.org.nvmexpress:uuid:9c5d23fe-21c5-472f-9aa4-dc68de0882e9
+4 entries were displayed.
 ----
+===== 
 +
 [NOTE]
 If the `hostnqn` strings don't match, you can use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
@@ -163,13 +176,14 @@ Online
 Online
 ----
 
-.. `cat /sys/class/scsi_host/host*/nvme_info NVME Initiator Enabled`
+.. `cat /sys/class/scsi_host/host*/nvme_info`
 +
 .Show example
 [%collapsible]
 =====
 [subs=+quotes]
 ----
+NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc0 WWPN x100000109b3c081f WWNN x200000109b3c081f DID x081600 *ONLINE*
 NVME RPORT       WWPN x2020d039eab0dadc WWNN x201fd039eab0dadc DID x08010c *TARGET DISCSRVC ONLINE*
@@ -204,7 +218,7 @@ FCP CMPL: xb 00000b53 Err 0000ba63
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-NOTE: The native inbox qla2xxx driver included in the RHEL 9.5 GA kernel has the latest fixes. These fixes are essential for ONTAP support. 
+NOTE: The native inbox qla2xxx driver included in the Oracle Linux 9.4 GA kernel has the latest fixes. These fixes are essential for ONTAP support. 
 
 
 .Steps
@@ -411,14 +425,12 @@ nvme list-subsys /dev/nvme1n22
 ====
 [subs=+quotes]
 ----
-nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.1aa7146e775411ef8394d039eab0dadd:subsystem.nvme_sanboot
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:9c5d23fe-21c5-472f-9aa4-dc68de0882e9
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.cf84a53c81b111ef8446d039ea9ea481:subsystem.nvme_tcp_1
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:9796c1ec-0d34-11eb-b6b2-3a68dd3bab57
                iopolicy=round-robin
 \
- +- nvme20 fc traddr=nn-0x2063d039eab0dadc:pn-0x2067d039eab0dadc,host_traddr=nn-0x2000f4c7aa0d45b1:pn-0x2100f4c7aa0d45b1 *live*
- +- nvme2 fc traddr=nn-0x2063d039eab0dadc:pn-0x2065d039eab0dadc,host_traddr=nn-0x2000f4c7aa0d45b0:pn-0x2100f4c7aa0d45b0 *live*
- +- nvme14 fc traddr=nn-0x2063d039eab0dadc:pn-0x2066d039eab0dadc,host_traddr=nn-0x2000f4c7aa0d45b1:pn-0x2100f4c7aa0d45b1 *live*
- +- nvme1 fc traddr=nn-0x2063d039eab0dadc:pn-0x2064d039eab0dadc,host_traddr=nn-0x2000f4c7aa0d45b0:pn-0x2100f4c7aa0d45b0 *live*
+ +- nvme2 tcp traddr=192.168.166.56,trsvcid=4420,host_traddr=192.168.166.4,src_addr=192.168.166.4 *live optimized*
+ +- nvme4 tcp traddr=192.168.165.56,trsvcid=4420,host_traddr=192.168.165.3,src_addr=192.168.165.3 *live non-optimized*
 ----
 --
 =====
