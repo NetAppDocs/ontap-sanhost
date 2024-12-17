@@ -160,23 +160,27 @@ For the most current list of supported adapter driver and firmware versions, see
 3
 ----
 
-. Verify that the initiator ports are up and running, and that you can see the target LIFs:
-
-.. `cat /sys/class/fc_host/host*/port_name`
+. Verify that you can view your initiator ports:
++
+`cat /sys/class/fc_host/host*/port_name`
 +
 ----
 0x100000109b3c081f
 0x100000109b3c0820
 ----
 
-.. `cat /sys/class/fc_host/host*/port_state`
+. Verify that your initiator ports are online:
++
+`cat /sys/class/fc_host/host*/port_state`
 +
 ----
 Online
 Online
 ----
 
-.. `cat /sys/class/scsi_host/host*/nvme_info`
+. Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
++
+`cat /sys/class/scsi_host/host*/nvme_info NVME Initiator Enabled`
 +
 .Show example
 [%collapsible]
