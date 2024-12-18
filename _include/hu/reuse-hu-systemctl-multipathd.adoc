@@ -28,7 +28,10 @@ In the following example, you determine the WWID of a device and add the device 
 . Determine the WWID:
 +
 ----
-# /lib/udev/scsi_id -gud /dev/sda
+/lib/udev/scsi_id -gud /dev/sda
+----
++
+----
 360030057024d0730239134810c0cb833
 ----
 +
