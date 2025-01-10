@@ -16,16 +16,19 @@ summary: How to Configure NVMe/FC Host for AIX with ONTAP
 [.lead]
 You can enable NVMe over Fibre Channel (NVMe/FC) on IBM AIX and VIOS/PowerVM hosts using ONTAP storage as the target. For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
-The following support is available for NVMe/FC host configuration for an AIX host with ONTAP:
+== About this task 
+You can use the following support and features with the NVMe/FC host configuration for an AIX host with ONTAP. You should also review the known limitations before starting the configuration process.
 
-* Beginning with ONTAP 9.13.1, NVMe/FC support is added for IBM AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2, and VIOS 3.1.4.21 releases with SAN boot support for both physical and virtual stacks. See the IBM documentation for more information on setting up SAN boot support.
+* Support available:
+** Beginning with ONTAP 9.13.1, NVMe/FC support is added for IBM AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2, and VIOS 3.1.4.21 releases with SAN boot support for both physical and virtual stacks. See the IBM documentation for more information on setting up SAN boot support.
+** NVMe/FC is supported with Power9 and Power10 IBM servers.
+** No separate PCM (Path Control Module), such as Host Utilities for AIX SCSI Multipath I/O (MPIO) support, is required for NVMe devices.
+** Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is _only_ supported through NPIV (N_PortID Virtualization) storage virtualization mode using the Power10 IBM server.
+* Known limitations: 
+NVMe/FC host configuration for AIX with ONTAP has the following known limitations.
 
-* NVMe/FC is supported with Power9 and Power10 IBM servers.
-
-* No separate PCM (Path Control Module), such as Host Utilities for AIX SCSI Multipath I/O (MPIO) support, is required for NVMe devices.
-
-* Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is _only_ supported through NPIV (N_PortID Virtualization) storage virtualization mode using the Power10 IBM server.
-
+** Qlogic/Marvel 32G FC HBAs on an AIX host does not support NVMe/FC.
+** SAN boot is not supported for NVMe/FC devices using Power9 IBM server.
 
 .Before you begin
 
@@ -71,13 +74,6 @@ The following table demonstrates HBAs assigned to the VIOS with NPIV-enabled sup
 |Host OS	|Power Arch	|Power FW version	|Mode	|Comments
 |VIOS/PowerVM 3.1.4.21	|Power10	|FW 1010 or later	|Virtual stack	|Support starts from AIX 7.3 TL1 SP2 for VIOC
 |===
-
-== Known limitations
-
-NVMe/FC host configuration for AIX with ONTAP has the following known limitations:
-
-* Qlogic/Marvel 32G FC HBAs on an AIX host does not support NVMe/FC.
-* SAN boot is not supported for NVMe/FC devices using Power9 IBM server.
 
 == Multipathing
 
