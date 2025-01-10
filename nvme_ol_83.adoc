@@ -29,7 +29,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * With Oracle Linux 8.3, a native `udev` rule is provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. Therefore, you do not need to manually create this rule anymore.
 
-* With Oracle Linux 8.3, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. So for SCSI, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
+* With Oracle Linux 8.3, both NVMe and SCSI traffic can be run on the same host. In fact, that is expected to be the commonly deployed host configuration. So for SCSI, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
 * With Oracle Linux 8.3, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
 
@@ -81,7 +81,7 @@ If the hostnqn strings do not match, you should use the `vserver modify` command
 +
 [NOTE] 
 ====
-If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.3 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and `dm-multipath` for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in `dm-multipath` to prevent `dm-multipath` from claiming these namespace devices. This can be done by adding the _enable_foreign_ setting to the `/etc/multipath.conf` file:
+If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.3 host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and `dm-multipath` for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in `dm-multipath` to prevent `dm-multipath` from claiming these namespace devices. This can be done by adding the _enable_foreign_ setting to the `/etc/multipath.conf` file:
 
 ----
 #cat /etc/multipath.conf

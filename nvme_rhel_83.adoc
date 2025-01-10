@@ -102,7 +102,7 @@ TIP: If the host NQN strings do not match, use the `vserver modify` command to u
 +
 [NOTE]
 ====
-If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 co-existent host, NetApp recommends that you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below:
+If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 host, NetApp recommends that you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below:
 
 ----
 # cat /etc/multipath.conf

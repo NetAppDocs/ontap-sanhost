@@ -25,7 +25,7 @@ See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix
 
 *	Beginning with RHEL 8.2, a native `udev` rule is already provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. You need not manually create this rule any more (as was done in RHEL 8.1).
 
-*	Beginning with RHEL 8.2, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, this is the expected deployed host configuration. Therefore, for SCSI, you can configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath can be used to configure NVMe-oF multipath devices on the host.
+*	Beginning with RHEL 8.2, both NVMe and SCSI traffic can be run on the same host. In fact, this is the expected deployed host configuration. Therefore, for SCSI, you can configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath can be used to configure NVMe-oF multipath devices on the host.
 
 *	Beginning with RHEL 8.2, the NetApp plug-in in the native `nvme-cli` package is capable of displaying ONTAP details for ONTAP namespaces.
 
@@ -90,7 +90,7 @@ If the host NQN strings do not match, use the `vserver modify` command to update
 +
 . Update the `enable_foreign` setting _(optional)_.
 +
-If you intend to run both NVMe and SCSI traffic on the same RHEL 8.2 co-existent host, NetApp recommends using in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the `/etc/multipath.conf`, as shown below.
+If you intend to run both NVMe and SCSI traffic on the same RHEL 8.2 host, NetApp recommends using in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the `/etc/multipath.conf`, as shown below.
 +
 ----
 # cat /etc/multipath.conf
