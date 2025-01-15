@@ -30,9 +30,6 @@ The following example determines the WWID of a device and adds it to the `multip
 +
 ----
 3600a098038314c4a433f5774717a3046
-/lib/udev/scsi_id -gud /dev/sda
-----
-360030057024d0730239134810c0cb833
 ----
 +
 `sda` is the local SCSI disk that you want to add to the blacklist.
