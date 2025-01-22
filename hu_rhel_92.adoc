@@ -20,13 +20,13 @@ You can use the ONTAP SAN host configuration settings to configure Red Hat Enter
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN Tool Kit
+== SAN Toolkit
 
 include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
@@ -74,7 +74,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 The RHEL 9.2 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 [cols=2*,options="header"]
 |===
@@ -129,7 +129,7 @@ The RHEL 9.2 with ONTAP release has the following known issues:
 [options="header", cols="20,40,40"]
 |===
 |NetApp Bug ID	|Title	|Description
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.2, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. 
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.2, the NetApp Linux SAN Host Utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. 
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1537359[1537359^] |A Red Hat Linux 9.2 SAN booted host with Emulex HBA encounters stalled tasks leading to kernel disruption |During a storage failover giveback operation, a Red Hat Linux 9.2 SAN booted host with an Emulex host bus adapeter (HBA) encounters stalled tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
 |===
 

@@ -19,7 +19,7 @@ You can use the ONTAP SAN host configuration settings to configure Oracle Linux 
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN toolkit
+== SAN Toolkit
 
 The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
@@ -41,7 +41,7 @@ data_vserver            /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cD
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 
 Your configuration supports SAN booting. See the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
@@ -68,7 +68,7 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 12:0:1:6   sdgp 132:80  active ready running
 ----
 
-NOTE: No more than four paths should be required to a single LUN. More than eight paths might cause path issues during storage failures.
+NOTE: A single LUN shouldn't require more than four paths. Having more than four paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 

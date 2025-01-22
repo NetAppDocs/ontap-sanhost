@@ -21,13 +21,13 @@ include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
-== SAN toolkit
+== SAN Toolkit
 
 include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 Your configuration supports SAN booting. See the link:https://mysupport.netapp.com/matrix/imt.jsp?components=84067;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
@@ -73,58 +73,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 The SUSE Linux Enterprise Server 15 SP6 OS recognizes ONTAP LUNs and automatically sets all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
-The `multipath.conf` file must exist for the multipath daemon to start. If this file doesn't exist, you can create an empty, zero-byte file by using the `touch /etc/multipath.conf` command. 
-
-
-
-The first time you create the `multipath.conf` file, you might need to enable and start the multipath services by using the following commands:
-
-----
-# systemctl enable multipathd
-# systemctl start multipathd
-----
-
-There is no requirement to add devices directly to the `multipath.conf` file, unless you have devices that you do not want multipath to manage or you have existing settings that override defaults. You can exclude unwanted devices by adding the following syntax to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude:
-
-----
-blacklist {
-        wwid <DevId>
-        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
-        devnode "^hd[a-z]"
-        devnode "^cciss.*"
-}
-----
-
-.Example
-In the following example, you determine the WWID of a device and add to the `multipath.conf` file.
-
-.Steps
-
-. Determine the WWID:
-+
-----
-# /lib/udev/scsi_id -gud /dev/sda
-360030057024d0730239134810c0cb833
-----
-+
-`sda` is the local SCSI disk that you want to add it to the blacklist.
-
-. Add the `WWID` to the blacklist stanza in `/etc/multipath.conf`:
-+
-----
-blacklist {
-     wwid   360030057024d0730239134810c0cb833
-     devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
-     devnode "^hd[a-z]"
-     devnode "^cciss.*"
-}
-----
-
-You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the default settings.
-
-The following table demonstrates the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they will need to be corrected by later stanzas in the `multipath.conf` file that apply specifically to ONTAP LUNs. If this is not done, the ONTAP LUNs might not work as expected. You should only override these defaults in consultation with NetApp and/or an OS vendor and only when the impact is fully understood.
-
-
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 
 [cols=2]

@@ -1,11 +1,13 @@
-The `multipath.conf` file must exist for the multipath daemon to start. If this file does not exist, you can create an empty, zero-byte file by using the `touch /etc/multipath.conf` command  
+The `multipath.conf` file must exist for the multipath daemon to start. If this file doesn't exist, you can create an empty, zero-byte file by using the `touch /etc/multipath.conf` command.  
 
 The first time you create the `multipath.conf` file, you might need to enable and start the multipath services by using the following commands:
 
-`# chkconfig multipathd on`
-`# /etc/init.d/multipathd start`
+----
+chkconfig multipathd on
+/etc/init.d/multipathd start
+----
 
-You don't need to add anything directly to the `multipath.conf` file unless you have devices that you don't want multipath to manage or you have existing settings that override defaults. To exclude unwanted devices, add the following syntax to the `multipath.conf` file, replacing <DevId> with the WWID string of the device you want to exclude:
+You don't need to add anything directly to the `multipath.conf` file unless you have devices that you don't want multipath to manage or you have existing settings that override defaults. To exclude unwanted devices, add the following syntax to the `multipath.conf` file, replacing <DevId> with the worldwide identifier (WWID) string of the device you want to exclude:
 
 ----
 blacklist {
@@ -23,24 +25,33 @@ The following example determines the WWID of a device and adds it to the `multip
 . Determine the WWID:
 +
 ----
-# /lib/udev/scsi_id -gud /dev/sda
+/lib/udev/scsi_id -gud /dev/sda
+----
++
+----
+3600a098038314c4a433f5774717a3046
+/lib/udev/scsi_id -gud /dev/sda
+----
 360030057024d0730239134810c0cb833
 ----
 +
 `sda` is the local SCSI disk that you want to add to the blacklist.
 
 . Add the `WWID` to the blacklist stanza in `/etc/multipath.conf`:
+[source,cli]
 +
 ----
 blacklist {
-     wwid   360030057024d0730239134810c0cb833
+     wwid   3600a098038314c4a433f5774717a3046
      devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
      devnode "^hd[a-z]"
      devnode "^cciss.*"
 }
 ----
 
-You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that can override default settings.
+Always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding default settings.
 
-The following table demonstrates the critical `multipathd` parameters for ONTAP LUNs and the required setting. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they must be corrected by later stanzas in the `multipath.conf` file that apply specifically to ONTAP LUNs. Without this correction, the ONTAP LUNs might not work as expected. You should only override these defaults in consultation with NetApp, the OS vendor, or both, and only when the impact is fully understood.
+The following table demonstrates the critical `multipathd` parameters for ONTAP LUNs and the required values. If a host is connected to LUNs from other vendors and any of these parameters are overridden, they must be corrected by later stanzas in the `multipath.conf` file that apply specifically to ONTAP LUNs. Without this correction, the ONTAP LUNs might not work as expected. You should only override these defaults in consultation with NetApp, the OS vendor, or both, and only when the impact is fully understood.
 
+//ONTAPDOC-2578 9-Dec-2024
+//ONTAPDOC-2561 25-Nov-202

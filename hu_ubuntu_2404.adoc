@@ -33,7 +33,7 @@ For Ubuntu 24.04, the `/etc/multipath.conf` file must exist, but you don't need 
 
 For All SAN Array (ASA) and Non-ASA configurations, you can use the `multipath -ll` command to verify the settings for an ONTAP LUN, as shown in the following examples.
 
-NOTE: A single LUN shouldn't require more than four paths. More than eight paths might cause path issues during storage failures.
+NOTE: A single LUN shouldn't require more than four paths. More than four paths might cause path issues during storage failures.
 
 === ASA configurations
 In ASA configurations, all paths to a given LUN are active and optimized. This improves performance by serving I/O operations through all paths at the same time.
@@ -72,7 +72,7 @@ size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 
 The Ubuntu 24.04 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for ASA and non-ASA configurations. In addition, you can use the following recommended settings to further optimize the performance of your host configuration.
 
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 [cols=2*,options="header"]
 |===
 | Parameter
