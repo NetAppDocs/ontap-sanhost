@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: hu_ol_71.html
-keywords: host utilities, oracle, linux, 7.1, netapp, ontap
+keywords: Host Utilities, oracle, linux, 7.1, netapp, ontap
 summary: Describes how to use Oracle Linux 7.1 with ONTAP
 ---
 
@@ -28,7 +28,7 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN Booting
 
-.What you'll need
+.Before you begin
 If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=70671;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]

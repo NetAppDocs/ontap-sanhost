@@ -42,7 +42,7 @@ You can use the following procedure to enable in-kernel NVMe multipath.
 
 .	Install RHEL 9.1 on the server. 
 
-.	After the installation is complete, verify that you are running the specified RHEL 9.1 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported versions.
+.	After the installation is complete, verify that you are running the specified RHEL 9.1 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported versions.
 +
 Example:
 +
@@ -91,7 +91,7 @@ You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 --
 .Steps
 
-.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported adapters.
+.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported adapters.
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -106,7 +106,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 +
 
-.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported adapter driver and firmware versions.
+.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported adapter driver and firmware versions.
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev

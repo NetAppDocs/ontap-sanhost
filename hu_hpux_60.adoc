@@ -24,7 +24,7 @@ The HP-UX Host Utilities supports multiple protocols and the following environme
 [NOTE] 
 To indicate which environment is being used, this document sometimes specifies "DMP" for the Veritas DMP environment and "MPIO" for the HP-UX native environment. In some cases, the commands you use might vary depending on which drivers you are using. In those cases, both the environment and driver types are specified.
 
-.What you'll need
+.Before you begin
 
 * For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
 
