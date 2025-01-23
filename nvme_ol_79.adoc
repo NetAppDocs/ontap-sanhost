@@ -17,7 +17,7 @@ You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running O
 
 == Supportability
 
-NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 7.9. The Oracle Linux 7.9 host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the most current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 7.9. The Oracle Linux 7.9 host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
@@ -79,7 +79,7 @@ If the `+hostnqn+` strings do not match, you should use the `vserver modify` com
 
 == Configure the Broadcom FC Adapter for NVMe/FC
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+. Verify that you are using the supported adapter. For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname

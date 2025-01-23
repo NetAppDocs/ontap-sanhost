@@ -27,7 +27,7 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN Booting
 
-.What you'll need
+.Before you begin
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
@@ -73,7 +73,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 The RHEL 8.4 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
 
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 [cols=2*,options="header"]
 |===

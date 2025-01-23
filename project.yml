@@ -18,7 +18,7 @@ sidebar:
       url: /index.html  
     - title: Overview
       url: /overview.html
-    - title: Install SAN host utilities
+    - title: Install SAN Host Utilities
       entries:
       - title: Overview
         url: /hu_sanhost_index.html
@@ -165,6 +165,8 @@ sidebar:
           url: /hu_ol_asm_release_notes.html
         - title: OL 9
           entries:
+          - title: "9.4"
+            url: /hu_ol_94.html
           - title: "9.3"
             url: /hu_ol_93.html
           - title: "9.2"
@@ -245,6 +247,8 @@ sidebar:
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
+          - title: "9.5"
+            url: /hu_rhel_95.html
           - title: "9.4"
             url: /hu_rhel_94.html
           - title: "9.3"
@@ -407,6 +411,8 @@ sidebar:
         - title: OL 9
           pdf-filename: NVMeF OL
           entries:
+          - title: "9.4"
+            url: /nvme_ol_94.html
           - title: "9.3"
             url: /nvme_ol_93.html
           - title: "9.2"
@@ -451,6 +457,8 @@ sidebar:
         entries:
         - title: RHEL 9
           entries:
+          - title: "9.5"
+            url: /nvme_rhel_95.html
           - title: "9.4"
             url: /nvme_rhel_94.html
           - title: "9.3"
