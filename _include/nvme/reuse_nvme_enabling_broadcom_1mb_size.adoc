@@ -21,6 +21,4 @@ options lpfc lpfc_sg_seg_cnt=256
 ----
 cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt 
 ----
-+
-The expected value is 256.
 
