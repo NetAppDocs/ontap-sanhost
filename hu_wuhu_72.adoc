@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: hu_wuhu_72.html
-keywords: windows, 7.2, host utilities, SAN, windows, unified
+keywords: windows, 7.2, host utilities, SAN, windows
 summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 ---
 = Install Windows Host Utilities 7.2
@@ -44,12 +44,12 @@ The following programs and files are installed on the Windows host computer. The
 |Displays the version of the Host Utilities and FC HBAs.
 |===
 
-The host utilities support different Windows host configurations, protocols, and multipathing options. For more information, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+The Host Utilities support different Windows host configurations, protocols, and multipathing options. For more information, see the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 
 == Verify your host and storage system configuration
 
-Before you install the host utilities, you must verify that the host utilities version supports your host and storage system configuration so that the software installs correctly.
+Before you install the Host Utilities, you must verify that the Host Utilities version supports your host and storage system configuration so that the software installs correctly.
 
 .Steps
 
@@ -87,7 +87,7 @@ Do not change the HBA settings manually.
 
 == Install the Host Utilities
 
-The installation program installs the host utilities package and sets the Windows registry and HBA settings.
+The installation program installs the Host Utilities package and sets the Windows registry and HBA settings.
 
 You must specify whether to include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following options. You can also run a quiet (unattended) installation from a Windows command prompt.
 
@@ -99,7 +99,7 @@ You must specify whether to include multipathing support when you install the Wi
 The MPIO selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
 For Hyper-V guests, raw (pass-through) disks do not appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you cannot use both in the guest OS.
 
-You can install the host utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line.
+You can install the Host Utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line.
 
 [role="tabbed-block"]
 ====
@@ -107,7 +107,7 @@ You can install the host utilities interactively or using the command line. The 
 .Install interactively
 --
 
-To install the Host Utilities software package interactively, you must run the host utilities installation program and follow the prompts.
+To install the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
 
 .Steps
 
@@ -120,7 +120,7 @@ To install the Host Utilities software package interactively, you must run the h
 .Install from a command line
 --
 
-You can perform a quiet (unattended) installation of the host utilities by entering the appropriate commands at the Windows command prompt. The system automatically reboots when the installation is complete.
+You can perform a quiet (unattended) installation of the Host Utilities by entering the appropriate commands at the Windows command prompt. The system automatically reboots when the installation is complete.
 
 .Steps
 
@@ -130,7 +130,7 @@ You can perform a quiet (unattended) installation of the host utilities by enter
 
 * `installer` is the name of the `.msi` file for your CPU architecture.
 * MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
-* `inst_path` is the path where the host utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
+* `inst_path` is the path where the Host Utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
 
 [NOTE]
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at the Windows command prompt. For example, the `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.

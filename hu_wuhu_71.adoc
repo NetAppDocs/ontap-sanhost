@@ -46,7 +46,7 @@ The following programs and files are installed on the Windows host computer. The
 |===
 
 
-The Host Utilities support different Windows host configurations, protocols, and multipathing options. See the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations.
+The Host Utilities support different Windows host configurations, protocols, and multipathing options. See the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported configurations.
 
 == Verify your host and storage system configurations
 
@@ -101,7 +101,7 @@ For Hyper-V guests, raw (pass-through) disks do not appear in the guest OS if yo
 
 
 
-You can install the host utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line.
+You can install the Host Utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line.
 
 [role="tabbed-block"]
 ====

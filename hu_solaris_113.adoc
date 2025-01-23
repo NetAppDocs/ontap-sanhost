@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_solaris_113.html
 keywords: host utilities, solaris, 113, netapp, ontap
-summary: Describes how to install the solaris host utilities
+summary: Describes how to install the solaris Host Utilities
 ---
 
 = Use Solaris 11.3 with ONTAP
@@ -64,7 +64,7 @@ The `host_config` command does the following:
 . Reboot the host.
 
 
-== SAN toolkit
+== SAN Toolkit
 
 include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
 
@@ -84,7 +84,7 @@ data_vserver       /vol/vol2/lun2  /dev/rdsk/c0t600A098038314362705D51465A626475
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.

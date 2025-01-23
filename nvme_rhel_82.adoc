@@ -17,7 +17,7 @@ summary: How to Configure NVMe/FC Host for RHEL 8.2 with ONTAP
 
 NVMe/FC is supported on ONTAP 9.6 or later for Red Hat Enterprise Linux (RHEL) 8.2. The RHEL 8.2 host runs both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. 
 
-See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations.
+See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported configurations.
 
 == Features
 
@@ -25,7 +25,7 @@ See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix
 
 *	Beginning with RHEL 8.2, a native `udev` rule is already provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. You need not manually create this rule any more (as was done in RHEL 8.1).
 
-*	Beginning with RHEL 8.2, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, this is the expected deployed host configuration. Therefore, for SCSI, you can configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath can be used to configure NVMe-oF multipath devices on the host.
+*	Beginning with RHEL 8.2, both NVMe and SCSI traffic can be run on the same host. In fact, this is the expected deployed host configuration. Therefore, for SCSI, you can configure `dm-multipath` as usual for SCSI LUNs resulting in `mpath` devices, whereas NVMe multipath can be used to configure NVMe-oF multipath devices on the host.
 
 *	Beginning with RHEL 8.2, the NetApp plug-in in the native `nvme-cli` package is capable of displaying ONTAP details for ONTAP namespaces.
 
@@ -54,7 +54,7 @@ include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
 4.18.0-193.el8.x86_64
 ----
 +
-See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported versions.
+See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported versions.
 
 . Install the nvme-cli package.
 +
@@ -90,7 +90,7 @@ If the host NQN strings do not match, use the `vserver modify` command to update
 +
 . Update the `enable_foreign` setting _(optional)_.
 +
-If you intend to run both NVMe and SCSI traffic on the same RHEL 8.2 co-existent host, NetApp recommends using in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the `/etc/multipath.conf`, as shown below.
+If you intend to run both NVMe and SCSI traffic on the same RHEL 8.2 host, NetApp recommends using in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the `/etc/multipath.conf`, as shown below.
 +
 ----
 # cat /etc/multipath.conf

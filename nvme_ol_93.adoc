@@ -149,7 +149,7 @@ Emulex LightPulse LPe36002-M2 2-Port 64Gb Fibre Channel Adapter
 0:14.2.0.13
 ----
 +
-For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
 +

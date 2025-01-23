@@ -28,7 +28,7 @@ AIX Host Utilities support the following environments:
 +
 For more information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
 
-.What you'll need
+.Before you begin
 
 * For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
 +
@@ -49,7 +49,7 @@ The AIX Host Utilities software package is available on the link:https://mysuppo
 
 . Go to the directory containing the download.
 
-. Decompress the file and extract the SAN toolkit software package.
+. Decompress the file and extract the SAN Toolkit software package.
 +
 `# tar -xvf ntap_aix_host_utilities_6.1.tar.gz`
 
@@ -60,7 +60,7 @@ The following directory is created when you decompress the file: `ntap_aix_host_
 +
 `# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
-. Install the SAN toolkit:
+. Install the SAN Toolkit:
 +
 `# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
 
@@ -96,5 +96,5 @@ data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
 ----
 
 [NOTE] 
-This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions.
+This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions.
 

@@ -37,7 +37,7 @@ You can use the following procedure to enable in-kernel NVMe multipath.
 
 .	Install RHEL 8.4 GA on the server. 
 
-.	After the installation is complete, verify that you are running the specified RHEL 8.4 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.	After the installation is complete, verify that you are running the specified RHEL 8.4 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the current list of supported versions.
 +
 Example:
 +
@@ -82,7 +82,7 @@ NOTE: If the host NQN strings do not match, you should use the `vserver modify` 
 +
 [NOTE]
 ====
-If you intend to run both NVMe & SCSI co-existent traffic on the same host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the enable_foreign setting to the `/etc/multipath.conf` file:
+If you intend to run both NVMe and SCSI co-existent traffic on the same host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the enable_foreign setting to the `/etc/multipath.conf` file:
 
 ----
 # cat /etc/multipath.conf
@@ -104,7 +104,7 @@ You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 --
 .Steps
 
-.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported adapters.
+.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported adapters.
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -116,7 +116,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 +
 
-.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported adapter driver and firmware versions.
+.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported adapter driver and firmware versions.
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev

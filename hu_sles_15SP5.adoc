@@ -4,7 +4,6 @@ permalink: hu_sles_15SP5.html
 keywords: host utilities, suse linux enterprise server 15 sp5, suse, linux, 15 sp5, netapp, ontap
 summary: Describes how to use SUSE Linux Enterprise Server 15 SP5 with ONTAP
 ---
-
 = Use SUSE Linux Enterprise Server 15 SP5 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -22,13 +21,13 @@ include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
-== SAN toolkit
+== SAN Toolkit
 
 include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=84067;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
@@ -74,7 +73,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 SUSE Linux Enterprise Server 15 SP5 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 
 
