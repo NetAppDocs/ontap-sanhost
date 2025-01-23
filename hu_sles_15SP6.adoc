@@ -4,7 +4,7 @@ permalink: hu_sles_15SP6.html
 keywords: host utilities, suse linux enterprise server 15 sp6, suse, linux, 15 sp6, netapp, ontap
 summary: Describes how to use SUSE Linux Enterprise Server 15 SP6 with ONTAP
 ---
-= Use SUSE Linux Enterprise Server 15 SP6 with ONTAP
+= Configure SUSE Linux Enterprise Server 15 SP6 with FCP or iSCSI for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,11 +13,11 @@ summary: Describes how to use SUSE Linux Enterprise Server 15 SP6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP6 with ONTAP as the target.   
+You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP6 with FCP or iSCSI for ONTAP storage.   
 
 == Install the Linux Unified Host Utilities
 
-NetApp strongly recommends installing the Linux Unified Host Utilities. The Host Utilities don't change any settings on your Linux host, they help you manage ONTAP LUNs and assist NetApp customer support with gathering information about your configuration.
+NetApp strongly recommends installing the Linux Unified Host Utilities. The Host Utilities help you manage ONTAP LUNs and assist NetApp customer support with gathering information about your configuration. The Host Utilities don't change any settings on your Linux host.
 
 .Steps
 . link:../hu_luhu_71.html[Install Linux Unified Host Utilities 7.1].
@@ -26,27 +26,31 @@ NetApp strongly recommends installing the Linux Unified Host Utilities. The Host
 The SAN Toolkit software is automatically installed with the Linux Host Utilities.
 
 == Enable SAN booting
-Configure your host to use SAN booting.
+If it is supported by your SAN configuration, you should configure your host to use SAN booting to simplify deployment and improve scalability.
 
 .Before you begin
-Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=84067;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and the ONTAP version support SAN booting.
+Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=84067;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and the ONTAP versionssupport SAN booting.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-You can use multipathing with RHEL 9.5 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf file` must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the `touch /etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` zero-byte file because RHEL 9.5 is compiled with the settings (default settings) required to recognize and correctly manage ONTAP LUNs. RHEL 9.5 also configures the parameters for all ASA and non-ASA configurations.
+You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs. 
+
+To use multipathing, the `/etc/multipath.conf file` must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the `touch /etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` zero-byte file because SUSE Linux Enterprise Server 15 SP6 is compiled with the settings (default settings) required to recognize and correctly manage ONTAP LUNs. 
+
+SUSE Linux Enterprise Server 15 SP6 also configures the parameters for all SAN Array (ASA) and non-ASA configurations.
 
 === Use multipathing to optimize performance
 
 You can use the `multipath.conf` file with the recommended settings for ONTAP LUNs to optimize the performance of your host configuration: 
 
-* You can add devices to a blacklist devices that you don’t want multipath to manage.
+* You can exclude devices from multipath by adding them to a blacklist.
 * You can restore default settings for ONTAP LUNs.
 
 .Blacklist devices
 
-If you have a device that you don’t want multipath to manage, you exclude it by using the following syntax to add the WWID for the unwanted device to the blacklist for the `multipath.conf` file:
+If you have a device that you don’t want multipath to manage, you can exclude it by adding the WWID for the unwanted device to the blacklist for the `multipath.conf` file using the following command syntax:
 
 ----
 blacklist {
@@ -80,9 +84,9 @@ blacklist {
 
 [[restore-default-setting]]
 .Restore default settings for ONTAP LUNs
-The recommended settings are required to support correct operation of ONTAP LUNs. You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the recommended settings. For example, a host can override default settings for ONTAP LUNs when it is connected to LUNs from other vendors. You can add a device stanza to the `/etc/multipath.conf` file to restore the recommended settings for ONTAP LUNs.
+The recommended settings are required to support correct operation of ONTAP LUNs. You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the recommended settings. For example, a host can override default settings for ONTAP LUNs when it's connected to LUNs from other vendors. You can restore the recommended settings for ONTAP LUNs by adding a device stanza to the `/etc/multipath.conf` file.
 
-The following example shows a `multipath.conf` file that defines values for path_checker and no_path_retry (readsector0 and fail) that aren't compatible with ONTAP LUNs. When SAN arrays are attached to the host, you correct the values for path_checker and no_path_retry to the recommended values, "queue" and "tur", by adding a device stanza to the `multipath.conf` file that applies specifically to ONTAP LUNs:
+The following example shows a `multipath.conf` file that defines values for path_checker and no_path_retry (readsector0 and fail) that aren't compatible with ONTAP LUNs. When SAN arrays are attached to the host, you can correct the values for path_checker and no_path_retry to the recommended values, "queue" and "tur", by adding a device stanza to the `multipath.conf` file that applies specifically to ONTAP LUNs:
 
 ----
 defaults {
@@ -146,7 +150,7 @@ The following table shows the critical multipathd parameters for ONTAP LUNs and 
 If required, <<restore-default-setting, restore a default setting for an ONTAP LUN>>.
 
 === Examples of all ASA and non-ASA configurations
-In all SAN Array (ASA) and non- ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
+In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
 
 .All ASA configuration
 The following example displays the `multipath -ll` output  for an ONTAP LUN with an ASA configuration. This output shows the correct settings for the ONTAP LUN:
