@@ -116,7 +116,8 @@ devices {
 ----
 
 === KVM settings
-You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
+
+You don't need to configure settings for a Kernel-based Virtual Machine on Ubuntu 24.04 because the LUN is mapped to the hypervisor.
 
 == Known issues
 
