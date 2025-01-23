@@ -13,4 +13,9 @@ summary:
 :imagesdir: ./media/
 
 [.lead]
-You can configure certain SAN hosts for FCP or iSCSI with ONTAP as the target. First you install the relevant operating system host utility package, which includes the SAN tool kit. You then verify the multipath settings for the ONTAP LUNs. 
+You can configure certain SAN hosts for FCP or iSCSI with ONTAP as the target. SAN host utilities help you manage and monitor your LUNs and host bus adapters (HBAs). NetApp customer support can also use the SAN host utilities to gather information about your configuration if you have an issue that requires assistance. 
+
+You first install the relevant operating system host utility package, which includes the SAN tool kit. If it is supported by your SAN configuration, you can also configure your host to use SAN booting. You then verify the multipath settings for the NetApp ONTAP LUNs and apply the recommended settings. 
+
+.Related information
+https://docs.netapp.com/us-en/ontap/san-admin/index.html[SAN administration^].

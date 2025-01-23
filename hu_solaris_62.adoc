@@ -52,13 +52,15 @@ At the time this documentation was prepared, the compressed files were called:
 +
 `# gunzip netapp_solaris_host_utilities_6_2_sparc.tar.gz`
 
-. Unzip the file ysing the `tar xvf` command:
+. Unzip the file using the `tar xvf` command:
 +
 `# tar xvf netapp_solaris_host_utilities_6_2_sparc.tar`
 
-. Add the packages that you extracted from tar file to your host.
+. Add the packages that you extracted from tar file to your host by using the `pkgadd` command. 
 +
-The packages are added to the `/opt/NTAP/SANToolkit/bin` directory. The following example uses the `pkgadd` command to install the Solaris installation package:
+The packages are added to the `/opt/NTAP/SANToolkit/bin` directory. 
++
+The following example uses the `pkgadd` command to install the Solaris installation package:
 +
 `# pkgadd -d ./NTAPSANTool.pkg`
 

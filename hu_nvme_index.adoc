@@ -17,7 +17,7 @@ You can configure the NVMe over Fabrics (NVMe-oF) protocol on certain SAN hosts 
 
 Depending on your host operating system, you configure NVMe/FC, NVMe/TCP, or both protocols on a SAN host. 
 
-Depending on your ONTAP version, you can use the following features:
+Depending on your ONTAP version, you can use the following ONTAP features:
 
 * Beginning with ONTAP 9.16.1, configure Transport Layer Security to provide end-to-end encryption for NVMe connections between and an NVMe-oF host and ONTAP array.
 * Beginning with ONTAP 9.12.1, set up secure in-band authentication over NVMe/TCP and NVMe/FC between a host and ONTAP controller.
