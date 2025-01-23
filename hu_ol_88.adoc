@@ -140,9 +140,7 @@ devices {
 
 NOTE: To configure Oracle Linux 8.8 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_88.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.8.
 
-== KVM settings
-
-You don't need to configure settings for a Kernel-based Virtual Machine on Oracle Linux 8.8 because the LUN is mapped to the hypervisor.
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known issues
 
