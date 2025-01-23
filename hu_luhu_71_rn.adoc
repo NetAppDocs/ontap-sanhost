@@ -4,7 +4,6 @@ permalink: hu_luhu_71_rn.html
 keywords: host utilities, linux, 7.1, netapp, ontap, release, notes, linux
 summary: Release Notes for Linux Unified Host Utilities 7.1
 ---
-
 = Linux Unified Host Utilities 7.1 Release Notes
 :hardbreaks:
 :toclevels: 1
@@ -19,7 +18,7 @@ The release notes describe new features and enhancements, known problems and lim
 For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
 
 == What's New 
-The Linux Host Utilities 7.1 release contains the following new features and enhancements:
+The Linux Unified Host Utilities 7.1 release contains the following new features and enhancements:
 
 * Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series storage systems running SANtricity as well as AFF, FAS, and ASA systems running ONTAP.
 +
@@ -49,7 +48,7 @@ The intermittent host OS failure issue that occurs when running the `sanlun lun 
 
 == Known problems and limitations
 
-The Linux Host Utilities 7.1 release has the following known problems and limitations.
+The Linux Unified Host Utilities 7.1 release has the following known problems and limitations.
 
 [cols=3,options="header", cols= "10, 30, 30"]
 |===

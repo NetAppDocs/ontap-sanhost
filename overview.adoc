@@ -4,7 +4,6 @@ permalink: overview.html
 keywords: ontap, san, host, rhel, red, hat, linux, sles, suse, esxi, nvme, oracle, linux, windows, enterprise, fc, fcp, isci, aix, powervm, vios, centos, citrix, hp-ux, solaris, veritas, cvo, cloud, volume, ontap, clients, configuration, FSx, instance, netapp
 summary: This content provides distribution-specific guidance on how to configure cloud clients connected to Cloud Volumes ONTAP and Amazon FSx for ONTAP and SAN hosts connected to on-premises ONTAP storage.
 ---
-
 = SAN host configuration overview
 :hardbreaks:
 :toclevels: 1
@@ -14,13 +13,13 @@ summary: This content provides distribution-specific guidance on how to configur
 :imagesdir: ./media/
 
 [.lead]
-SAN hosts should be configured for multipathing and with specific parameters and settings critical for proper operation with ONTAP LUNs.  The host configuration varies depending on the host operating system and the protocol.  Correct configuration is important for best performance and successful failover. 
+You should configure SAN hosts for multipathing and with specific parameters and settings critical for correct operation with ONTAP LUNs. The host configuration varies depending on the host operating system and the protocol. Correct configuration is important for best performance and successful failover. 
 
-You should configure your SAN hosts to use the NetApp SAN Host Utilities. SAN Host Utilities help you manage and monitor your LUNs and host bus adapters (HBAs). For example, you can use the SAN Host Utilities to retrieve a list of all LUNs mapped to a host or to see a list of all the attributes of a specific LUN mapped to a host. NetApp customer support can also use the SAN Host Utilities to gather information about your configuration if you have an issue that requires assistance.  
+You should configure SAN hosts to use the NetApp SAN Host Utilities. SAN host utilities help you manage and monitor your LUNs and host bus adapters (HBAs). For example, you can use the SAN host utilities to retrieve a list of all LUNs mapped to a host or to see a list of all the attributes of a specific LUN mapped to a host. NetApp customer support can also use the SAN host utilities to gather information about your configuration if you have an issue that requires assistance.  
 
 NetApp recommends using the SAN Host Utilities software if it is available for your SAN host.  
 
-If it is supported by your SAN configuration, you can also configure your host to use SAN booting for simplified deployment and improved scalability. Using SAN boot, you can deploy multiple new servers by connecting them to SAN and configuring the appropriate boot settings. This saves time by eliminating the need to install the operating system on each server individually. 
+If your SAN configuration supports SAN booting, you can also configure your host for SAN booting to simplify deployment and improve scalability. Using SAN boot, you can deploy multiple new servers by connecting them to SAN and configuring the appropriate boot settings. This saves time by eliminating the need to install the operating system on each server individually. 
   
 Your SAN hosts and ONTAP storage can reside either on-premises, in the cloud, or both.
 
@@ -31,7 +30,7 @@ For example, you can configure on-premises ONTAP storage to connect to on-premis
 
 .Related information
 
-* The link:https://docs.netapp.com/us-en/ontap/san-config/index.html[ONTAP SAN Configuration^] for your version of ONTAP
-* The link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP SAN Administration Guide^] for your version of ONTAP
-* The link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP Release Notes^] for your version of ONTAP
-* The link:https://docs.netapp.com/us-en/e-series/index.html[E-Series documentation^] to find SANtricity related documentation.
+* link:https://docs.netapp.com/us-en/ontap/san-config/index.html[ONTAP SAN configuration reference^]
+* link:https://docs.netapp.com/us-en/ontap/san-management/index.html[ONTAP SAN storage management^] 
+* link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2492508[ONTAP 9 Release Notes^]
+* SANtricity related documentation in the link:https://docs.netapp.com/us-en/e-series/index.html[E-Series systems documentation^] 

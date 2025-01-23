@@ -2,10 +2,9 @@
 sidebar: sidebar
 permalink: hu_wuhu_71.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
-summary: Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
 ---
-
-= Install Windows Unified Host Utilities 7.1
+= Install Windows Host Utilities 7.1
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -15,9 +14,9 @@ summary: Windows Unified Host Utilities includes an installation program that se
 :imagesdir: ./media/
 
 [.lead]
-The Windows Unified Host Utilities (WUHU) enable you to connect a Windows host computer to NetApp storage systems.
+The Windows Host Utilities enable you to connect a Windows host computer to NetApp storage systems.
 
-The Windows Unified Host Utilities supports the following versions of Windows:
+The Windows Host Utilities supports the following versions of Windows:
 
 * Windows 2022
 * Windows 2019
@@ -25,7 +24,7 @@ The Windows Unified Host Utilities supports the following versions of Windows:
 * Windows 2012R2
 * Windows 2012
 
-Windows Unified Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for NetApp ONTAP and E-Series platforms.
+Windows Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for ONTAP and E-Series platforms.
 
 When you install the Host Utilities software, the installer sets the required Windows registry and Host Bus Adapter (HBA) parameters.
 
@@ -90,7 +89,7 @@ Do not change the HBA settings manually.
 == Install the Host Utilities
 The installation program installs the Host Utilities package and sets the Windows registry and HBA settings.
 
-You must specify whether to include multipathing support when you install the Windows Unified Host Utilities software package. The installer prompts you for the following choice. You can also run a quiet (unattended) installation from a Windows command prompt.
+You must specify whether to include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following choice. You can also run a quiet (unattended) installation from a Windows command prompt.
 
 .Multipathing support
 

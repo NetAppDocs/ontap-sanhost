@@ -27,7 +27,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * By default, round-robin load balancing is not enabled in NVMe Multipath. You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on Oracle Linux 7.8.
 
-* There is no sanlun support for NVMe/FC and, as a consequence, no Linux Unified Host Utilities (LUHU) support for NVMe/FC on Oracle Linux 7.8. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
+* There is no sanlun support for NVMe/FC and, as a consequence, no Linux Unified Host Utilities support for NVMe/FC on Oracle Linux 7.8. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
 
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
@@ -208,7 +208,7 @@ Device   Vserver  Namespace Path             NSID   UUID   Size
 ]
 ----
 
-== Enabling 1MB I/O size for Broadcom NVMe/FC
+== Enabling 1 MB I/O size for Broadcom NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 

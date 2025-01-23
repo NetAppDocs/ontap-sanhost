@@ -2,9 +2,8 @@
 sidebar: sidebar
 permalink: hu-aix-70.html
 keywords: host utilities, aix, powervm, vios, 3.1, 7.0, netapp, ontap
-summary: The AIX Unified Host Utilities assists you to manage NetApp ONTAP storage attached to an AIX host.
+summary: The AIX Host Utilities assists you to manage ONTAP storage attached to an AIX host.
 ---
-
 = Install AIX Host Utilities 7.0
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +13,7 @@ summary: The AIX Unified Host Utilities assists you to manage NetApp ONTAP stora
 :imagesdir: ./media/
 
 [.lead]
-The AIX Unified Host Utilities assists you to manage NetApp ONTAP storage attached to an AIX host.
+The AIX Host Utilities assists you to manage ONTAP storage attached to an AIX host.
 
 AIX Host Utilities support the following protocols:
 
@@ -38,7 +37,7 @@ You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B6
 * Dynamic tracking must be enabled for all FC and FCoE initiators.
 
 [NOTE]
-The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with NetApp ONTAP Storage.
+The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with ONTAP Storage.
 
 .Steps
 

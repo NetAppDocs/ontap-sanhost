@@ -4,7 +4,7 @@ permalink: hu_nvme_index.html
 keywords: nvme, san, host, aix, linux, vsphere, windows
 summary: You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF) protocol.
 ---
-= Overview
+= Overview of NVMe-oF host configurations with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,4 +13,15 @@ summary: You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF)
 :imagesdir: ./media/
 
 [.lead]
-You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF) protocol, which includes NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP), with ONTAP as the target. Depending on your host operating system and ONTAP version, you configure and validate the NVMe/FC or NVMe/TCP protocol, or both on the host.
+You can configure the NVMe over Fabrics (NVMe-oF) protocol on certain SAN hosts for operation with ONTAP LUNs. NVMe-oF supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols.
+
+Depending on your host operating system, you configure NVMe/FC, NVMe/TCP, or both protocols on a SAN host. 
+
+Depending on your ONTAP version, you can use the following ONTAP features:
+
+* Beginning with ONTAP 9.16.1, configure Transport Layer Security to provide end-to-end encryption for NVMe connections between and an NVMe-oF host and ONTAP array.
+* Beginning with ONTAP 9.12.1, set up secure in-band authentication over NVMe/TCP and NVMe/FC between a host and ONTAP controller.
+* Beginning with ONTAP 9.11.1, create a persistent discovery controller for a host.
+
+.Related information
+https://docs.netapp.com/us-en/ontap/san-admin/manage-nvme-concept.html[Learn about using NVMe to provide storage in a SAN environment^].

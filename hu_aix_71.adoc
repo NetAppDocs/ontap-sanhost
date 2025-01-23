@@ -18,7 +18,7 @@ You can use the ONTAP SAN host configuration settings to configure IBM AIX 7.1 w
 
 == Install the AIX Host Utilities
 
-You must install the AIX Host Utilities Kit while using AIX MPIO with NetApp ONTAP storage.
+You must install the AIX Host Utilities Kit while using AIX MPIO with ONTAP storage.
 
 You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^]. After you have the file, you must extract it to get the two software packages you need to install the Host Utilities.
 
@@ -132,7 +132,7 @@ up     primary  path3  fcs1    fc_aix_4     1
 
 == Recommended Settings
 
-Following are some recommended parameter settings for ONTAP LUNs.  The critical parameters for ONTAP LUNs are set automatically after installing the NetApp Host Utilities Kit.
+Following are some recommended parameter settings for ONTAP LUNs. The critical parameters for ONTAP LUNs are set automatically after installing the NetApp Host Utilities Kit.
 
 [cols=4*, options="header"]
 |===
