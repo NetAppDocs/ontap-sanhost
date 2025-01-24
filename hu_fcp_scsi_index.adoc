@@ -4,7 +4,7 @@ permalink: hu_fcp_scsi_index.html
 keywords:
 summary: 
 ---
-= Overview
+= Learn about FCP and iSCSI host configurations for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,9 +13,9 @@ summary:
 :imagesdir: ./media/
 
 [.lead]
-You can configure certain SAN hosts for FCP or iSCSI with ONTAP as the target. SAN host utilities help you manage and monitor your LUNs and host bus adapters (HBAs). NetApp customer support can also use the SAN host utilities to gather information about your configuration if you have an issue that requires assistance. 
+You can configure FCP and iSCSI protocols on certain SAN hosts for operation with ONTAP LUNs using the SAN Host Utilities software, if is available for your host. SAN Host Utilities help you manage and monitor your LUNs and host bus adapters (HBAs). NetApp customer support can also use the SAN Host Utilities to gather information about your configuration if you have an issue that requires assistance. 
 
-You first install the relevant operating system host utility package, which includes the SAN tool kit. If it is supported by your SAN configuration, you can also configure your host to use SAN booting. You then verify the multipath settings for the ONTAP LUNs and apply the recommended settings. 
+You first install the relevant operating system host utility software package, which includes the SAN Toolkit. If it is supported by your SAN configuration, you can also configure your host to use SAN booting. You then verify the multipath settings for the ONTAP LUNs and apply the recommended settings. 
 
 .Related information
-https://docs.netapp.com/us-en/ontap/san-admin/index.html[SAN administration^].
+https://docs.netapp.com/us-en/ontap/san-admin/index.html[SAN provisioning^].

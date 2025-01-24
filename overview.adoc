@@ -15,7 +15,7 @@ summary: This content provides distribution-specific guidance on how to configur
 [.lead]
 You should configure SAN hosts for multipathing and with specific parameters and settings critical for correct operation with ONTAP LUNs. The host configuration varies depending on the host operating system and the protocol. Correct configuration is important for best performance and successful failover. 
 
-You should configure SAN hosts to use the NetApp SAN Host Utilities. SAN host utilities help you manage and monitor your LUNs and host bus adapters (HBAs). For example, you can use the SAN host utilities to retrieve a list of all LUNs mapped to a host or to see a list of all the attributes of a specific LUN mapped to a host. NetApp customer support can also use the SAN host utilities to gather information about your configuration if you have an issue that requires assistance.  
+You should configure SAN hosts to use the NetApp SAN Host Utilities. SAN Host Utilities help you manage and monitor your LUNs and host bus adapters (HBAs). For example, you can use the SAN Host Utilities to retrieve a list of all LUNs mapped to a host or to see a list of all the attributes of a specific LUN mapped to a host. NetApp customer support can also use the SAN Host Utilities to gather information about your configuration if you have an issue that requires assistance.  
 
 NetApp recommends using the SAN Host Utilities software if it is available for your SAN host.  
 

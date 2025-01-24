@@ -4,7 +4,7 @@ permalink: hu_nvme_index.html
 keywords: nvme, san, host, aix, linux, vsphere, windows
 summary: You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF) protocol.
 ---
-= Overview of NVMe-oF host configurations with ONTAP
+= Learn about NVMe-oF host configurations for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -24,4 +24,4 @@ Depending on your ONTAP version, you can use the following ONTAP features:
 * Beginning with ONTAP 9.11.1, create a persistent discovery controller for a host.
 
 .Related information
-https://docs.netapp.com/us-en/ontap/san-admin/manage-nvme-concept.html[Learn about using NVMe to provide storage in a SAN environment^].
+https://docs.netapp.com/us-en/ontap/san-admin/manage-nvme-concept.html[NVMe provisioning^].
