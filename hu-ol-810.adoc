@@ -125,10 +125,9 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.10 RedHat Enterprise Kernel, use the link:hu_rhel_810.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.10.
+NOTE: To configure Oracle Linux 8.10 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_810.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.10.
 
-== KVM settings
-You do not need to configure settings for a Kernel-based Virtual Machine on Oracle Linux 8.10 because the LUN is mapped to the hypervisor.
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known issues
 There are no known issues for the Oracle Linux 8.10 with ONTAP release.
