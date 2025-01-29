@@ -15,12 +15,12 @@ summary: Describes how to use SUSE Linux Enterprise Server 15 SP6 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP6 with FCP and iSCSI for operation with ONTAP LUNs.   
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
-NetApp strongly recommends installing the Linux Unified Host Utilities. The Host Utilities help you manage ONTAP LUNs and assist NetApp customer support with gathering information about your configuration. The Host Utilities don't change any settings on your Linux host.
+NetApp strongly recommends installing the Linux Host Utilities. The Host Utilities help you manage ONTAP LUNs and assist NetApp customer support with gathering information about your configuration. The Host Utilities don't change any settings on your Linux host.
 
 .Steps
-. link:../hu_luhu_71.html[Install Linux Unified Host Utilities 7.1].
+. link:../hu_luhu_71.html[Install Linux Host Utilities 7.1].
 . link:../hu_luhu_71.html#san-toolkit[Learn about the SAN Toolkit]. 
 +
 The SAN Toolkit software is automatically installed with the Linux Host Utilities.
