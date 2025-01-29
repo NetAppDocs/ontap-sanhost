@@ -85,9 +85,10 @@ The following table shows the critical multipathd parameters for ONTAP LUNs and 
 
 You can use the `multipath.conf` file with the recommended settings for ONTAP LUNs to optimize the performance of your host configuration: 
 
-* You can exclude devices from multipath by adding them to a blacklist.
-* You can restore default settings for ONTAP LUNs.
+* <<exclude-devices,Exclude devices from multipath by adding them to a blacklist>>
+* <<restore-default-setting,Restore default settings for ONTAP LUNs>>
 
+[[exclude-devices]]
 ==== Blacklist devices
 
 If you want to exclude a device from multipath, you can add the WWID for the unwanted device to the blacklist for the `multipath.conf` file using the following device stanza:
