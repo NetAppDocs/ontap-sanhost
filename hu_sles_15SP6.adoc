@@ -4,7 +4,7 @@ permalink: hu_sles_15SP6.html
 keywords: host utilities, suse linux enterprise server 15 sp6, suse, linux, 15 sp6, netapp, ontap
 summary: Describes how to use SUSE Linux Enterprise Server 15 SP6 with ONTAP
 ---
-= Configure SUSE Linux Enterprise Server 15 SP6 with FCP or iSCSI for ONTAP storage
+= Configure SUSE Linux Enterprise Server 15 SP6 with FCP and iSCSI for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,7 +13,7 @@ summary: Describes how to use SUSE Linux Enterprise Server 15 SP6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP6 with FCP or iSCSI for operation with ONTAP storage.   
+You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP6 with FCP and iSCSI for operation with ONTAP LUNs.   
 
 == Install the Linux Unified Host Utilities
 
@@ -78,8 +78,8 @@ The following table shows the critical multipathd parameters for ONTAP LUNs and 
 | user_friendly_names | no
 | vendor | NETAPP
 |===
-+
-If required, <<restore-default-setting, restore a default setting for an ONTAP LUN>>.
+
+. If required, <<restore-default-setting, restore a default setting for an ONTAP LUN>>.
 
 === Use multipathing to optimize performance
 
@@ -101,10 +101,10 @@ blacklist {
 }
 ----
 
-The following example determines a WWID and adds it to a blacklist.
+The following example determines a WWID and adds it to a blacklist stanza.
 
 .Steps
-.	Determine the WWID:
+. Determine the WWID:
 +
 `# /lib/udev/scsi_id -gud /dev/sda`
 +
@@ -112,7 +112,7 @@ The following example determines a WWID and adds it to a blacklist.
 +
 "sda" is the local SCSI disk that you want to add it to the blacklist.
 
-.	Add the WWID to the blacklist stanza in `/etc/multipath.conf`:
+. Add the WWID to the blacklist stanza in `/etc/multipath.conf`:
 +
 ----
 blacklist {
@@ -146,10 +146,10 @@ devices {
 ----
 
 === Examples of all ASA and non-ASA configurations
-In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
+In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure. In the following examples, the outputs show the correct settings for the ONTAP LUN.
 
 .All ASA configuration
-The following example displays the `multipath -ll` output  for an ONTAP LUN with an ASA configuration. This output shows the correct settings for the ONTAP LUN:
+The following example displays the `multipath -ll` output for an ONTAP LUN with an ASA configuration:
 ----
 # multipath -ll
 3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
@@ -164,7 +164,7 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 .Non-ASA configuration
 For non-ASA configurations, there should be two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
 
-The following example displays the `multipath -ll` output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths. This output shows the correct settings for the ONTAP LUN:
+The following example displays the `multipath -ll` output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 
 ----
 # multipath -ll
