@@ -15,7 +15,7 @@ summary: You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts runnin
 [.lead]
 You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.x and ONTAP as the target.
 
-== About this task 
+.About this task 
 You can use the following support and features with the NVMe-oF host configuration for an ESXi host with ONTAP. You should also review the known limitations before starting the configuration process.
 
 * Support available:
@@ -23,7 +23,7 @@ You can use the following support and features with the NVMe-oF host configurati
 ** Beginning with ONTAP 9.9.1 P3, NVMe over Fibre Channel (NVMe/FC) protocol is supported for ESXi 8 and later. 
 ** Beginning with ONTAP 9.10.1, NVMe over TCP (NVMe/TCP) protocol is supported for ONTAP.
 * Features available:
-** ESXi initiator hosts can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported configurations and versions.
+** ESXi initiator hosts can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported configurations and versions.
 ** For ESXi 8.0 and later releases, High Performance Plugin (HPP) is the default plugin for NVMe devices.
 * Known limitations: 
 ** Raw Device Mapping (RDM) mapping is not supported.
@@ -60,7 +60,7 @@ If the host NQN strings do not match, you should use the `vserver nvme subsystem
 
 The `lpfc` driver and the `qlnativefc` driver in vSphere 8.x have the NVMe/FC capability enabled by default.
 
-See link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] to check whether the configuration is supported with the driver or firmware.
+See link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] to check whether the configuration is supported with the driver or firmware.
 
 ==	Validate NVMe/FC
 
@@ -269,10 +269,7 @@ The NVMe-oF host configuration for ESXi 8.x with ONTAP has the following known i
 [cols="10,30,30",options="header"]
 |===
 h|NetApp Bug ID	h|Title	h|Description
-|link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|ONTAP node non-operational when NVMe/FC protocol is used with ONTAP version 9.9.1 |ONTAP 9.9.1 has introduced support for the NVMe "abort" command. When ONTAP 
-receives the "abort" command to abort an NVMe fused command that is waiting for 
-its partner command, an ONTAP node disruption occurs. The issue is noticed only with hosts 
-that use NVMe fused commands (for example, ESX) and FC transport. 
+|link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|ONTAP node non-operational when NVMe/FC protocol is used with ONTAP version 9.9.1 |ONTAP 9.9.1 has introduced support for the NVMe "abort" command. When ONTAP receives the "abort" command to abort an NVMe fused command that is waiting for its partner command, an ONTAP node disruption occurs. The issue is noticed only with hosts that use NVMe fused commands (for example, ESX) and FC transport. 
 |1543660 | I/O error occurs when Linux VMs using vNVMe adapters encounter a long All Paths Down (APD) window a|Linux VMs running vSphere 8.x and later and using virtual NVMe (vNVME) adapters encounter an I/O error because the vNVMe retry operation is disabled by default. To avoid a disruption on Linux VMs running older kernels during an APD or a heavy I/O load, VMware has introduced a tunable "VSCSIDisableNvmeRetry" to disable the vNVMe retry operation.
 |===
 

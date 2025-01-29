@@ -80,11 +80,11 @@ data_vserver       /vol/vol2/lun2  /dev/rdsk/c0t600A098038314362705D51465A626475
 == SAN booting
 
 .Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
 
-You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on a SAN boot LUNs in a Solaris MPIO (Multipath I/O) environment.
+You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on a SAN boot LUNs in a Solaris MPIO (Microsoft Multipath I/O) environment.
 
 == Multipathing
 
@@ -172,7 +172,7 @@ By default, the Solaris OS will fail to execute the I/O operations after *20s* i
 
 * NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
 
-* Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, do not need specific qualifications as they do not have direct access to NetApp LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
+* Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, do not need specific qualifications as they do not have direct access to NetApp LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^].
 
 === Recommended settings for virtualization
 

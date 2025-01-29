@@ -17,7 +17,7 @@ You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running O
 
 == Supportability
 
-NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 8.1. The Oracle Linux 8.1 host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. Note that the Broadcom initiator can serve both NVMe/FC and FCP traffic through the same FC adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+Beginning with ONTAP 9.6, NVMe/FC is supported for Oracle Linux 8.1. The Oracle Linux 8.1 host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. Note that the Broadcom initiator can serve both NVMe/FC and FCP traffic through the same FC adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
@@ -27,7 +27,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * By default, round-robin load balancing is not enabled in NVMe Multipath. You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on Oracle Linux 8.1.
 
-* There is no sanlun support for NVMe/FC and, as a consequence, no Linux Unified Host Utilities support for NVMe/FC on Oracle Linux 8.1. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
+* There is no sanlun support for NVMe/FC and, as a consequence, no Linux Host Utilities support for NVMe/FC on Oracle Linux 8.1. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
 
 * SAN booting using the NVMe-oF protocol is currently not supported.
 

@@ -15,7 +15,7 @@ summary: NVMe-oF Host Configuration for Oracle Linux 9.4 with ONTAP
 [.lead]
 include::_include/nvme/reuse-nvme-introduction.adoc[]
 
-== About this task
+.About this task
 
 The following support and features are available with the NVMe-oF host configuration for Oracle Linux 9.4 with ONTAP storage. You should also review the known limitations before starting the configuration process.
 
@@ -23,7 +23,7 @@ The following support and features are available with the NVMe-oF host configura
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 +
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 * Features available:
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with Oracle Linux 9.4
@@ -150,7 +150,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 0:14.2.0.13
 ----
 +
-For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
 +

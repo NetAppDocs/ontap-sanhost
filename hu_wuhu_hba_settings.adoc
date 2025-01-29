@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_wuhu_hba_settings.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
-summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
 
 = Configure registry settings
@@ -27,7 +27,7 @@ The installation program supplied with Windows Host Utilities sets the Windows, 
 
 You must manually set the iSCSI HBA parameters.
 
-The installer sets different values depending on whether you specify multipath I/O (MPIO) support when running the installation program.
+The installer sets different values depending on whether you specify Microsoft Multipath I/O (MPIO) support when running the installation program.
 
 [NOTE]
 You should not change these values unless NetApp technical support directs you to do so.

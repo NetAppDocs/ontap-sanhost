@@ -18,13 +18,13 @@ You can use the ONTAP SAN host configuration settings to configure IBM AIX 7.1 w
 
 == Install the AIX Host Utilities
 
-You must install the AIX Host Utilities Kit while using AIX MPIO with ONTAP storage.
+You must install the AIX Host Utilities Kit while using AIX Microsoft Multipath I/O (MPIO) with ONTAP storage.
 
-You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^]. After you have the file, you must extract it to get the two software packages you need to install the Host Utilities.
+You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^]. After downloading the file, you need to extract it to get the two software packages required to install the Host Utilities.
 
 .Steps
 
-. Login to your host.
+. Log in to your host.
 +
 * On an AIX host, log in as *root*.
 +
@@ -73,7 +73,7 @@ data_vserver      /vol/vol4/lun4    hdisk14     fcs0       FCP       20g    C
 == SAN Booting
 
 .Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX host.  You can set up a SAN boot LUN to work in an AIX MPIO environment that is running the AIX Host Utilities with either the FC or FCoE protocol. The method you use for creating a SAN boot LUN and installing a new OS image on it in an AIX MPIO environment can vary, depending on which protocol you are using.
 
@@ -132,7 +132,7 @@ up     primary  path3  fcs1    fc_aix_4     1
 
 == Recommended Settings
 
-Following are some recommended parameter settings for ONTAP LUNs. The critical parameters for ONTAP LUNs are set automatically after installing the NetApp Host Utilities Kit.
+NetApp recommends the following parameter settings for ONTAP LUNs. The critical parameters for ONTAP LUNs are set automatically after installing the NetApp Host Utilities Kit.
 
 [cols=4*, options="header"]
 |===

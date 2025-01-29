@@ -1,8 +1,8 @@
-For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 .Steps
 
-. Verify that you are using the supported adapter.
+. Verify that you are using asupported adapter.
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname

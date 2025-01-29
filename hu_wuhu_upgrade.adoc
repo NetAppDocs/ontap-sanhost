@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_wuhu_upgrade.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
-summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
 
 = Upgrade the Windows Host Utilities
@@ -46,7 +46,7 @@ You can perform a quiet (unattended) upgrade of the new Host Utilities by enteri
 `msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
 
 * `installer` is the name of the `.msi` file for your CPU architecture.
-* MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
+* MULTIPATHING specifies whether Microsoft Multipath I/O (MPIO) support is installed. The allowed values are "0" for no and "1" for yes.
 * `inst_path` is the path where the Host Utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
 
 [NOTE]

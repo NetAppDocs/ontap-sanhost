@@ -23,7 +23,7 @@ AIX Host Utilities support the following protocols:
 
 AIX Host Utilities support the following environments:
 
-* AIX MPIO (Native OS)
+* AIX Microsoft Multipath I/O (MPIO) (Native OS)
 * PowerVM 
 +
 For more information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
@@ -32,12 +32,12 @@ For more information about PowerVM, see the IBM PowerVM Live Partition Mobility 
 
 * For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
 +
-You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
+You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^] to verify your configuration.
 
 * Dynamic tracking must be enabled for all FC and FCoE initiators.
 
 [NOTE]
-The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with ONTAP Storage.
+The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] in a compressed `tar.gz file`. You must install the AIX Host Utilities kit while using AIX MPIO with ONTAP Storage.
 
 .Steps
 
@@ -137,6 +137,6 @@ data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
 ----
 
 [NOTE] 
-This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions.
+This toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions
 
 // 2024 Sep 06, AIX 7.0

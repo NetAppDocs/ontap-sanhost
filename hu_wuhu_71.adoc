@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_wuhu_71.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
-summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
 = Install Windows Host Utilities 7.1
 :toc: macro
@@ -46,7 +46,7 @@ The following programs and files are installed on the Windows host computer. The
 |===
 
 
-The Host Utilities support different Windows host configurations, protocols, and multipathing options. See the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the current list of supported configurations.
+The Host Utilities support different Windows host configurations, protocols, and multipathing options. See the https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported configurations.
 
 == Verify your host and storage system configurations
 
@@ -54,7 +54,7 @@ Before you install the Host Utilities, you must verify that the Host Utilities v
 
 .Steps
 
-. Check the supported configuration in the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
+. Check the supported configuration in the http://mysupport.netapp.com/matrix[Interoperability Matrix Tool^].
 . Check the hotfixes required for the respective host on the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
 [NOTE]
@@ -96,7 +96,7 @@ You must specify whether to include multipathing support when you install the Wi
 * Choose `MPIO` if you have more than one path from the Windows host or virtual machine to the storage system.
 * Choose `no MPIO` only if you are using a single path to the storage system.
 
-The MPIO selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
+The Microsoft Multipath I/O (MPIO) selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
 For Hyper-V guests, raw (pass-through) disks do not appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you cannot use both in the guest OS.
 
 

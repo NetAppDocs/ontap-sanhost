@@ -15,7 +15,7 @@ summary:
 [.lead]
 You can configure FCP and iSCSI protocols on certain SAN hosts for operation with ONTAP LUNs using the SAN Host Utilities software, if is available for your host. SAN Host Utilities help you manage and monitor your LUNs and host bus adapters (HBAs). NetApp customer support can also use the SAN Host Utilities to gather information about your configuration if you have an issue that requires assistance. 
 
-You first install the relevant operating system host utility software package, which includes the SAN Toolkit. If it is supported by your SAN configuration, you can also configure your host to use SAN booting. You then verify the multipath settings for the ONTAP LUNs and apply the recommended settings. 
+You first install the relevant operating system host utility software package, which includes the SAN Toolkit. If it's supported by your SAN configuration, you can also configure your host to use SAN booting. You then verify the multipath settings for the ONTAP LUNs and apply the recommended settings. 
 
 .Related information
 https://docs.netapp.com/us-en/ontap/san-admin/index.html[SAN provisioning^].

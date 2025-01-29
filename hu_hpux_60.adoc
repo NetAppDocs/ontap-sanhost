@@ -17,7 +17,7 @@ The NetApp HP-UX Host Utilities enable you to connect an HP-UX host to ONTAP sto
 
 The HP-UX Host Utilities supports multiple protocols and the following environments:
 
-*	Native MPIO
+*	Native Microsoft Multipath I/O (MPIO)
 *	Veritas Dynamic Multipathing (DMP)
 
 [NOTE] 
@@ -27,7 +27,7 @@ To indicate which environment is being used, this document sometimes specifies "
 
 * For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
 
-You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
+You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^] to verify your configuration.
 
 
 .About this task
@@ -80,6 +80,6 @@ sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0  fclp0 
 ----
 
 [NOTE]
-This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance.
+This toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions.
 
 

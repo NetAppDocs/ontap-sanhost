@@ -20,7 +20,7 @@ The following support is available for the NVMe-oF host configuration for RHEL 8
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 
 == Known limitations
@@ -156,7 +156,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 0:14.0.0.18
 ----
 +
-For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
 +

@@ -29,7 +29,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 *	With Oracle Linux 8.6, a native `udev` rule is provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. Therefore, you need not manually create this rule anymore.
 
-*	With Oracle Linux 8.6, both NVMe and SCSI traffic can be run on the same host. In fact, that is expected to be the commonly deployed host configuration. Therefore, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
+*	With Oracle Linux 8.6, both NVMe and SCSI traffic can be run on the same host. This is most commonly deployed host configuration. You can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices and also use NVMe multipath to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
 *	With Oracle Linux 8.6, the NetApp plug-in in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
 

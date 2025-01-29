@@ -17,7 +17,7 @@ You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running O
 
 == Supportability
 
-NVMe/FC is supported on ONTAP 9.6 or later for Oracle Linux 8.2. The Oracle Linux 8.2 host can run both NVMe/FC and FCP traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+Beginning with ONTAP 9.6, NVMe/FC is supported for Oracle Linux 8.2. The Oracle Linux 8.2 host can run both NVMe/FC and FCP traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 

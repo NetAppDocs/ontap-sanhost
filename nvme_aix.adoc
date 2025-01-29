@@ -14,15 +14,15 @@ summary: How to Configure NVMe/FC Host for AIX with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can enable NVMe over Fibre Channel (NVMe/FC) on IBM AIX and VIOS/PowerVM hosts using ONTAP storage as the target. For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+You can enable NVMe over Fibre Channel (NVMe/FC) on IBM AIX and VIOS/PowerVM hosts using ONTAP storage as the target. For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
-== About this task 
+.About this task 
 You can use the following support and features with the NVMe/FC host configuration for an AIX host with ONTAP. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Beginning with ONTAP 9.13.1, NVMe/FC support is added for IBM AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2, and VIOS 3.1.4.21 releases with SAN boot support for both physical and virtual stacks. See the IBM documentation for more information on setting up SAN boot support.
 ** NVMe/FC is supported with Power9 and Power10 IBM servers.
-** You do not need a separate Path Control Module (PCM), such as Host Utilities for AIX SCSI Multipath I/O (MPIO) support, for NVMe devices.
+** You do not need a separate Path Control Module (PCM), such as Host Utilities for AIX SCSI Microsoft Multipath I/O (MPIO) support, for NVMe devices.
 ** Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is _only_ supported through NPIV (N_PortID Virtualization) storage virtualization mode using the Power10 IBM server.
 * Known limitations: 
 The following limitations apply to NVMe/FC host configuration for AIX with ONTAP.
@@ -98,7 +98,7 @@ You can use the following procedure to configure NVMe/FC for Broadcom/Emulex ada
 
 .Steps
 
-. Verify that you are using the supported adapter. For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. Verify that you are using a supported adapter. For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 . The NVMe/FC protocol support is enabled by default in the physical FC but disabled in the Virtual Fibre Channel (VFC) on Virtual I/O Server (VIOS).
 +
@@ -239,7 +239,7 @@ vs_s922-55-lpar2 subsystem_s922-55-lpar2 nqn.2014-08.org.nvmexpress:uuid:64e039b
 
 == Validate NVMe/FC
 
-You need to verify that the host correctly reflects ONTAP namespaces. Run the following command to do so:
+You need to verify that the host correctly reflects ONTAP namespaces:
 ----
 [root@aix_server /]: lsdev -Cc disk |grep NVMe
 ----
@@ -273,7 +273,7 @@ The NVMe/FC host configuration for AIX with ONTAP has the following known issues
 |Burt ID |Title |Description
 
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1553249[1553249^] |AIX NVMe/FC default All Path Down (APD) time to be modified for supporting MCC Unplanned Switchover events	| By default, AIX operating systems use an APD timeout value of 20sec for NVMe/FC.  However, ONTAP MetroCluster Automatic Unplanned Switchover (AUSO) and TieBreaker initiated switchover workflows might take a little longer than the APD timeout window, causing I/O errors.
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1546017[1546017^] |AIX NVMe/FC caps ANATT at 60s, instead of 120s as advertised by ONTAP | ONTAP advertises the Asymmetric Namespace Access (ANA) transition timeout in controller identify at 120sec. Currently, with ifix, AIX reads the ANA transition timeout from controller identify, but effectively clamps it to 60sec if it is over that limit.	
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1546017[1546017^] |AIX NVMe/FC caps ANATT at 60s, instead of 120s as advertised by ONTAP | ONTAP advertises the Asymmetric Namespace Access (ANA) transition timeout in controller identify at 120sec. Currently, with ifix, AIX reads the ANA transition timeout from controller identify, but effectively clamps it to 60sec if it's over that limit.	
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1541386[1541386^] |AIX NVMe/FC hits EIO after ANATT expiry	|For any Storage Failover (SFO) events, if the ANA transitioning exceeds the ANA transition timeout cap on a given path, the AIX NVMe/FC host fails with an I/O error despite having alternate healthy paths available to the namespace.
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1541380[1541380^] |AIX NVMe/FC waits for half/full ANATT to expire before resuming I/O after ANA AEN | IBM AIX NVMe/FC does not support some Asynchronous Notifications (AENs) that ONTAP publishes. This sub-optimal ANA handling will result in sub optimal performance during SFO operations.
 |===

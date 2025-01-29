@@ -25,7 +25,7 @@ Depending on your host configuration, you configure NNMe/FC, NVMe/TCP, or both p
 ** Running NVMe and SCSI traffic simultaneously on the same host. For example, you can configure dm-multipath for SCSI `mpath` devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 
 +
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 * Features available: 
 ** The in-kernel NVMe multipath feature is enabled for NVMe namespaces by default in Oracle Linux 8.10. You don't need to configure explicit settings.
@@ -149,7 +149,7 @@ Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 0:14.2.0.13 
 ----
 +
-For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 . Verify that `lpfc_enable_fc4_type` is set to "3":
 +
 `cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type`

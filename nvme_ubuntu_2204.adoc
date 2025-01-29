@@ -22,7 +22,7 @@ The following support is available for the NVMe-oF host configuration for Ubuntu
 
 * Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
 
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 == Features
 
@@ -144,7 +144,7 @@ Emulex LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 
 ----
 +
-For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
 +

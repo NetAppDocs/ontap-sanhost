@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: hu_luhu_71_rn.html
 keywords: host utilities, linux, 7.1, netapp, ontap, release, notes, linux
-summary: Release Notes for Linux Unified Host Utilities 7.1
+summary: Release Notes for Linux Host Utilities 7.1
 ---
-= Linux Unified Host Utilities 7.1 Release Notes
+= Linux Host Utilities 7.1 Release Notes
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,10 +15,10 @@ summary: Release Notes for Linux Unified Host Utilities 7.1
 [.lead]
 The release notes describe new features and enhancements, known problems and limitations, and important cautions for configuring and managing your specific host with your ONTAP storage system.
 
-For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
+For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^].
 
 == What's New 
-The Linux Unified Host Utilities 7.1 release contains the following new features and enhancements:
+The Linux Host Utilities 7.1 release contains the following new features and enhancements:
 
 * Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series storage systems running SANtricity as well as AFF, FAS, and ASA systems running ONTAP.
 +
@@ -39,7 +39,7 @@ Any mention of Host Utilities or Linux Host Utilities in this document refers to
 * Adds support for 32GB FC adapters from Broadcom Emulex and Marvell Qlogic.
 
 [NOTE]
-NetApp continues to work with the Host Utilities to add support for features after the initial release. For latest information about the features that are supported and the new features that have been added, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
+NetApp continues to work with the Host Utilities to add support for features after the initial release. For latest information about the features that are supported and the new features that have been added, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^].
 
 == Fixed in this release
 
@@ -48,12 +48,12 @@ The intermittent host OS failure issue that occurs when running the `sanlun lun 
 
 == Known problems and limitations
 
-The Linux Unified Host Utilities 7.1 release has the following known problems and limitations.
+The Linux Host Utilities 7.1 release has the following known problems and limitations.
 
 [cols=3,options="header", cols= "10, 30, 30"]
 |===
 |NetApp Bug ID	|Title | Description
-|1457017	|`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit. | When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be 
+|1457017	|`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit. | When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be 
 located:
 
 `[root@hostname ~]# sanlun fcp show adapter -v
