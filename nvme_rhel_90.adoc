@@ -37,7 +37,7 @@ You can use the following procedure to enable in-kernel NVMe multipath.
 .Steps
 . Install RHEL 9.0 on the server. 
 
-. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the current list of supported versions.
+. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
 +
 ----
 # uname -r
@@ -92,7 +92,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-. Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the current list of supported adapter driver and firmware versions, see link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+. Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the current list of supported adapter driver and firmware versions, see link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev

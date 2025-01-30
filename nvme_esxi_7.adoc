@@ -25,7 +25,7 @@ You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 7.
 
 == Features
 
-*	ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the current list of supported configurations and versions.
+*	ESXi initiator host can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported configurations and versions.
 *	Beginning with ONTAP 9.9.1 P3, NVMe/FC feature is supported for ESXi 7.0 update 3.
 *	For ESXi 7.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
 
@@ -53,7 +53,7 @@ Host NQN: nqn.2014-08.com.vmware:nvme:nvme-esx
 
 === Configure Broadcom/Emulex
 
-.	Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+.	Check whether the configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 .	Set the lpfc driver parameter `lpfc_enable_fc4_type=3` for enabling NVMe/FC support in the `lpfc` driver and reboot the host.
 
@@ -82,7 +82,7 @@ vmhba65   lpfc     link-up     fc.200000109b954570:100000109b954570             
 
 .Steps
 
-.	Check whether configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+.	Check whether configuration is supported with required driver/firmware by referring to link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 .	Set the `qlnativefc` driver parameter `ql2xnvmesupport=1` for enabling NVMe/FC support in the `qlnativefc` driver and reboot the host.
 +

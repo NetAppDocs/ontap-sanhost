@@ -170,9 +170,9 @@ By default, the Solaris OS will fail to execute the I/O operations after *20s* i
 
 * In some cases, multiple options can be used together such as a Solaris Container within a particular Solaris Logical Domain.
 
-* NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix^] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
+* NetApp generally supports the use of these virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
 
-* Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, do not need specific qualifications as they do not have direct access to NetApp LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://mysupport.netapp.com/matrix/imt.jsp?components=95803;&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^].
+* Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, do not need specific qualifications as they do not have direct access to NetApp LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
 
 === Recommended settings for virtualization
 
