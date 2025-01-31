@@ -21,4 +21,4 @@ The AIX, HP-UX, Linux, and Solaris Host Utilities software provide a command lin
 
 The Windows Host Utilities enable you to connect a Windows host computer to NetApp storage systems. The software includes an installation program that sets the required Windows registry and HBA parameters. This enables the Windows host to correctly handle the storage system behaviors for ONTAP and E-Series platforms.
 
-NOTE: For reliable operation after installation, use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[Interoperability Matrix Tool^] to verify that your host supports the complete NVMe over Fabrics (including NVMe over TCP and NVMe over Fibre Channel), iSCSI, FC, or FCoE configuration.
+NOTE: For reliable operation after installation, use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your host supports the complete NVMe over Fabrics (including NVMe over TCP and NVMe over Fibre Channel), iSCSI, FC, or FCoE configuration.
