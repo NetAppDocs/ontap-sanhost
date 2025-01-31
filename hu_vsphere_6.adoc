@@ -4,7 +4,6 @@ permalink: hu_vsphere_6.html
 keywords: host utilities, veritas, infoscale, 6.5. 6.7, netapp, ontap
 summary: Describes how to use Veritas Infoscale 6.5 and 6.7 for Linux with ONTAP
 ---
-
 = Use VMware vSphere 6.5 and 6.7 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -18,16 +17,16 @@ You can use ONTAP SAN host configuration settings for the vSphere 6.5.x and 6.7.
 
 == Hypervisor SAN Booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-ESXi provides an extensible multipathing module called Native Multipathing Plug-In (NMP) that manages the sub-plugins Storage Array Type Plugins (SATPs), and Path Selection Plugins (PSPs). These SATP rules are available by default in ESXi.
+ESXi provides an extensible multipathing module called Native Multipathing Plug-In (NMP) that manages the sub-plugins, Storage Array Type Plugins (SATPs), and Path Selection Plugins (PSPs). These SATP rules are available by default in ESXi.
 
-For NetApp ONTAP storage, VMW_SATP_ALUA plugin is used by default with `VMW_PSP_RR`  as a path selection policy (PSP). This can be confirmed by using the below command:
+For ONTAP storage, the "VMW_SATP_ALUA" plugin is used by default with "VMW_PSP_RR" as a path selection policy (PSP). You can run the following command to confirm the PSP:
 
 
 *`esxcli storage nmp satp rule list -s VMW_SATP_ALUA`*
@@ -135,7 +134,7 @@ Virtual Volumes (vVols) are a VMware object type that corresponds to a Virtual M
 
 ONTAP tools for VMware vSphere includes the VASA Provider for ONTAP, which provides the integration point for a VMware vCenter to leverage vVols based storage. When you deploy the ONTAP tools OVA, it is automatically registered with the vCenter server and enables the VASA Provider.
 
-When you create a vVols datastore using the vCenter user interface, it guides you to create FlexVols as backup storage for the datastore. vVols within a vVols datastores are accessed by ESXi hosts using a protocol endpoint (PE). In SAN environments, one 4MB LUN is created on each FlexVol in the datastore for use as a PE. A SAN PE is an administrative logical unit (ALU); vVols are subsidiary logical units (SLUs).
+When you create a vVols datastore using the vCenter UI, it guides you to create FlexVols as backup storage for the datastore. vVols within a vVols datastores are accessed by ESXi hosts using a protocol endpoint (PE). In SAN environments, one 4MB LUN is created on each FlexVol volume volume volume in the datastore for use as a PE. A SAN PE is an administrative logical unit (ALU); vVols are subsidiary logical units (SLUs).
 
 Standard requirements and best practices for SAN environments apply when using vVols, including (but not limited to) the following:
 
@@ -149,11 +148,11 @@ Standard requirements and best practices for SAN environments apply when using v
 
 NOTE: You must deploy ONTAP tools for VMware vSphere to enable the VASA Provider. The VASA Provider will manage all of your igroup settings for you, so there is no need to create or manage iGroups in a vVols environment.
 
-NetApp does not recommend changing any vVols settings from default at this time.
+NetApp doesn't recommend changing any vVols settings from default at this time.
 
-Refer to the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] for specific versions of ONTAP tools, or legacy VASA Provider for your specific versions of vSphere and ONTAP.
+Refer to the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] for specific versions of ONTAP tools, or legacy VASA Provider for your specific versions of vSphere and ONTAP.
 
-For detailed information on provisioning and managing vVols, please refer to ONTAP tools for VMware vSphere documentation as well as https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597^] and link:https://www.netapp.com/pdf.html?item=/media/13555-tr4400pdf.pdf[TR-4400.^]
+For detailed information on provisioning and managing vVols, refer to ONTAP tools for VMware vSphere documentation as well as https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597^] and link:https://www.netapp.com/pdf.html?item=/media/13555-tr4400pdf.pdf[TR-4400.^]
 
 
 == Recommended Settings
@@ -195,7 +194,7 @@ max.throttle = 32
 min.throttle = 8
 |===
 
-=== Validating the vSphere tunable
+=== Validate the vSphere tunable
 
 Use the following command to verify the `HardwareAcceleratedLocking` setting:
 
@@ -213,7 +212,7 @@ Use the following command to verify the `HardwareAcceleratedLocking` setting:
    Description: Enable hardware accelerated VMFS locking (requires compliant hardware). Please see http://kb.vmware.com/kb/2094604 before disabling this option.
 ----
 
-=== Validating the Disk IOPs setting
+=== Validate the disk IOPs setting
 
 Use the following command to verify the IOPs setting:
 
@@ -230,7 +229,7 @@ naa.600a098038304731783f506670553355
    Is USB: false
 ----
 
-=== Validating the QFullSampleSize
+=== Validate the QFullSampleSize
 
 Use the following command to verify the QFullSampleSize:
 

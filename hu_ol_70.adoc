@@ -16,7 +16,7 @@ summary: Describes how to use Oracle Linux 7.0 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Oracle Linux 7.0 with ONTAP as the target.
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -28,8 +28,8 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN Booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=68625;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -128,14 +128,14 @@ The Oracle Linux 7.0 with ONTAP release has the following known issues:
 | Title
 | Description
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=901558[901558^] | OL7.0 : Host loses all paths to the lun and hangs due to "RSCN timeout" error on OL 7.0 UEK r3U5 Beta on Emulex 8G(LPe12002) host | You might observe that the Emulex 8G(LPe12002) host hangs and there is a high I/O outage during storage failover operations with I/O. You might observe paths not recovering, which is a result of the RSCN timeout, due to which the host loses all the paths and hangs. Probability of hitting this issue is high. 
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=901557[901557^] | OL 7.0: High IO outage observed on QLogic 8G FC (QLE2562) SAN host during storage failover operations with IO | You might observe high IO outage on QLogic 8G FC (QLE2562) host during storage failover operations with IO. Aborts and Device resets manifests as IO outage on the host. Probability of hitting this IO outage is high. 
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=901557[901557^] | OL 7.0: High I/O outage observed on QLogic 8G FC (QLE2562) SAN host during storage failover operations with I/O | You might observe high I/O outage on QLogic 8G FC (QLE2562) host during storage failover operations with I/O. Aborts and Device resets manifests as I/O outage on the host. Probability of hitting this I/O outage is high. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=894766[894766^] |  OL7.0: Dracut fails to include scsi_dh_alua.ko module in initramfs on UEKR3U5 alpha | The scsi_dh_alua module might not load even after adding the parameter "rdloaddriver=scsi_dh_alua" in the kernel command line and creating Dracut. As a result, ALUA is not enabled for NetApp LUNs as recommended. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=894796[894796^] | Anaconda displays an iSCSI login failure message although logins are successful during OL 7.0 OS installation |  When you are installing OL 7.0, the anaconda installation screen displays that iSCSI login to multiple target IPs have failed though the iSCSI logins are successful. Anaconda displays following error message:
  "Node Login Failed"
  You will observe this error only when you select multiple target IPs for iSCSI login.
  You can continue the OS installation by clicking the "ok" button. This bug does not hamper either the iSCSI or the OL 7.0 OS installation. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=894771[894771^] | OL7.0 : Anaconda does not add bootdev argument in kernel cmd line to set IP address for iSCSI SANboot OS install | Anaconda does not add a bootdev argument in the kernel command line where you set the IPv4 address during the OL 7.0 OS installation on an iSCSI multipath'd LUN. Owing to this, you cannot assign IP addresses to any of the Ethernet interfaces that were configured to establish iSCSI sessions with the storage subsystem during the OL 7.0 boot. Since iSCSI sessions are not established, the root LUN is not discovered when the OS boots and hence the OS boot fails. 
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=916501[916501^] |	Qlogic 10G FCoE (QLE8152) host kernel crash observed during storage failover operations with IO | You may observe a kernel crash in Qlogic driver module on 10G FCoE Qlogic (QLE8152) host. The crash occurs during storage failover operations with IO. Probability of hitting this crash is high which leads to longer IO outage on the host. 
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=916501[916501^] |	Qlogic 10G FCoE (QLE8152) host kernel crash observed during storage failover operations with I/O | You might observe a kernel crash in Qlogic driver module on 10G FCoE Qlogic (QLE8152) host. The crash occurs during storage failover operations with I/O. Probability of hitting this crash is high which leads to longer I/O outage on the host. 
 |===
 
 // 2024 SEP 2, ONTAPDOC-2345

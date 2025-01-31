@@ -1,10 +1,9 @@
 ---
 sidebar: sidebar
 permalink: hu_aix_72.html
-keywords: host utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
+keywords: Host Utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
 summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTAP
 ---
-
 = Use IBM AIX 7.2 and/or PowerVM (VIOS 3.1) with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -16,13 +15,13 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure IBM AIX 7.2 and/or PowerVM (VIOS 3.1) with ONTAP as the target.
 
-== Install the AIX/VIOS host utilities
+== Install the AIX/VIOS Host Utilities
 
-You must install the AIX Host Utilities Kit while using AIX MPIO with NetApp ONTAP storage.
+You must install the AIX Host Utilities Kit while using AIX Microsoft Multipath I/O (MPIO) with ONTAP storage.
 
-You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^]. After you have the file, you must decompress it to get the two software packages you need to install the host utilities.
+You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^]. After you have the file, you must decompress it to get the two software packages you need to install the Host Utilities.
 
-NetApp AIX Host Utilities 6.1 is the latest release. This release addresses the memory leak issue that was reported in the previous releases. Refer to release notes section for additional information.
+The AIX Host Utilities 6.1 release addresses the memory leak issue that was reported in the previous releases. Refer to the link:hu_aix_rn.html[release notes] for additional information.
 
 .Steps
 
@@ -52,7 +51,7 @@ The following directory is created when you decompress the file: `ntap_aix_host_
 
 . Reboot the host.
 
-== SAN toolkit
+== SAN Toolkit
 
 include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
 
@@ -75,9 +74,9 @@ data_vserver      /vol/vol4/lun4    hdisk14     fcs0       FCP       20g    C
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX/PowerVM host.  You can set up a SAN boot LUN to work in an AIX MPIO environment that is running the AIX Host Utilities with either the FC or FCoE protocol. The method you use for creating a SAN boot LUN and installing a new OS image on it in an AIX MPIO environment can vary, depending on which protocol you are using.
 
@@ -136,7 +135,7 @@ up     primary  path3  fcs1    fc_aix_4     1
 
 == Recommended Settings
 
-Following are some recommended parameter settings for ONTAP LUNs.  The critical parameters for ONTAP LUNs are set automatically after installing the NetApp Host Utilities Kit.
+Following are some recommended parameter settings for ONTAP LUNs. The critical parameters for ONTAP LUNs are set automatically after installing the NetApp Host Utilities Kit.
 
 [cols=4*, options="header"]
 |===
@@ -192,7 +191,7 @@ The IBM AIX 7.2 and/or PowerVM (VIOS 3.1) with ONTAP release has the following k
 
 | link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1414700[1414700^] | AIX 7.2 TL04 encountered I/O disruption on virtual iSCSI disks(VIOS 3.1.1.x) during storage failover | I/O disruption can happen during storage failover operations on AIX 7.2 TL4 hosts on the virtual iSCSI disks mapped through the VIOS 3.1.1.x. By default, the `rw_timeout` value of vSCSI adapter on VIOC is 45 seconds. If an I/O delay of  more than 45 seconds happens during a storage failover, I/O failure might  occur. To avoid this situation, refer to the workaround mentioned in the BURT. | NA
 
-| link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1307653[1307653^] | Seeing I/O issues on VIOS 3.1.1.10 during SFO faults and straight I/O | On VIOS 3.1.1 IO failures may be seen on NPIV client disk which are backed by 16/32Gb FC adapters.  Also, a `vfchost` driver may get into a state where it stops processing I/O requests from the client. Applying IBM APAR IJ22290 IBM APAR IJ23222 will fix the issue. | NA
+| link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1307653[1307653^] | I/O issues occur on VIOS 3.1.1.10 during SFO faults and straight I/O |On VIOS 3.1.1, I/O failures might occur on NPIV client disks that are backed by 16 GB or 32 GB FC adapters.  Additionally, the `vfchost` driver might stop processing I/O requests from the client. Applying IBM APAR IJ22290 IBM APAR IJ23222 fixes the issue. | NA
 
 |===
 

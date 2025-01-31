@@ -29,7 +29,7 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 *	With Oracle Linux 8.5, a native `udev` rule is provided as part of the `nvme-cli` package which enables round-robin load balancing for NVMe multipath. Therefore, you do not need to manually create this rule anymore.
 
-*	With Oracle Linux 8.5, both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host configuration. Therefore, you can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices whereas NVMe multipath can be used to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
+*	With Oracle Linux 8.5, both NVMe and SCSI traffic can be run on the same host. This is the commonly deployed host configuration. You can configure dm-multipath as usual for SCSI LUNs resulting in mpath devices and also use NVMe multipath to configure NVMe-oF multipath devices (for example, `/dev/nvmeXnY`) on the host.
 
 *	With Oracle Linux 8.5, the NetApp plugin in the native `nvme-cli` package is capable of displaying ONTAP details as well as ONTAP namespaces.
 
@@ -39,13 +39,13 @@ SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Configuration requirements
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for exact details regarding supported configurations. 
+Refer to the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for exact details regarding supported configurations. 
  
 == Enable NVMe/FC with Oracle Linux 8.5
 
 .Steps
 
-.	Install Oracle Linux 8.5 General Availability (GA) on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.5 GA kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.	Install Oracle Linux 8.5 General Availability (GA) on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.5 GA kernel. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
 +
 ----
 # uname -r
@@ -78,7 +78,7 @@ If the `hostnqn` strings do not match, you should use the `vserver modify` comma
 +
 [NOTE] 
 ====
-If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.5 co-existent host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
+If you intend to run both NVMe and SCSI traffic on the same Oracle Linux 8.5 host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This also means the ONTAP namespaces should be blacklisted in dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:
 
 ----
 #cat /etc/multipath.conf
@@ -97,7 +97,7 @@ Restart the `multipathd` daemon by running the `systemctl restart multipathd` co
 
 .Steps
 
-.	Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+.	Verify that you are using the supported adapter. For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -108,7 +108,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
-.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the most current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev

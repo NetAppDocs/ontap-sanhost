@@ -1,4 +1,4 @@
-For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 .Steps
 
@@ -64,9 +64,9 @@ abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 +
-. Enable 1 MB I/O size _(optional)_.
+. Enable 1MB I/O size _(optional)_.
 +
-The `lpfc_sg_seg_cnt` parameter needs to be set to 256 for the lpfc driver to issue I/O requests up to 1 MB in size.
+The `lpfc_sg_seg_cnt` parameter needs to be set to 256 for the lpfc driver to issue I/O requests up to 1MB in size.
 +
 ----
 # cat /etc/modprobe.d/lpfc.conf
