@@ -4,7 +4,6 @@ permalink: hu_ol_81.html
 keywords: host utilities, oracle, linux, 8.1, netapp, ontap
 summary: Describes how to use Oracle Linux 8.1 with ONTAP
 ---
-
 = Use Oracle Linux 8.1 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -104,11 +103,11 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.1 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_81.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.1.
+NOTE: To configure Oracle Linux 8.1 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_81.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.1.
 
 == Known issues
 
 There are no known issues for the Oracle Linux 8.1 with ONTAP release.
 
-NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_81.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 8.1.
+NOTE: For Oracle Linux RHCK known issues, see the link:hu_rhel_81.html#known-problems-and-limitations[known issues] for RHEL 8.1.
 
