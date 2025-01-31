@@ -15,11 +15,11 @@ summary: Describes how to use Oracle Linux 9.0 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Oracle Linux 9.0 with ONTAP as the target.
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN toolkit
+== SAN Toolkit
 
 The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and HBAs. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
@@ -40,9 +40,9 @@ data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -147,7 +147,7 @@ The Oracle Linux 9.0 with NetApp ONTAP release has the following known issues:
 [cols="20,40,40",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description
-|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA needs symbolic links from library packages	a|When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for a host bus adapter (HBA) discovery cannot be located:
+|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA needs symbolic links from library packages	a|When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for a host bus adapter (HBA) discovery cannot be located:
 ----
 [root@hostname ~]# sanlun fcp show adapter -v
 Unable to locate /usr/lib64/libHBAAPI.so library

@@ -16,13 +16,13 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 [.lead]
 You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running SUSE Linux Enterprise Server 15 SP1 and ONTAP as the target.
 
-NVMe/FC is supported on ONTAP 9.6 or later for the following versions of SUSE Linux Enterprise Server:
+Beginning with ONTAP 9.6, NVMe/FC is supported for the following versions of SUSE Linux Enterprise Server:
 
 * SUSE Linux Enterprise Server 15 SP1
 +
 The SUSE Linux Enterprise Server 15 SP1 host can run both NVMe/FC and FCP traffic through the same fibre channel initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 +
-For the most current list of supported configurations & versions, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+For the current list of supported configurations and versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 * Native NVMe/FC auto-connect scripts are included in the nvme-cli package. You can use the native inbox lpfc driver on SUSE Linux Enterprise Server 15 SP1.
 
@@ -62,7 +62,7 @@ nqn.2014-08.org.nvmexpress:uuid:75953f3b-77fe-4e03-bf3c-09d5a156fbcd
 
 ==	Configure the Broadcom FC Adapter for NVMe/FC
 
-.	Verify that you are using the supported adapter. For the most current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^].
+.	Verify that you are using the supported adapter. For the current list of supported adapters see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname

@@ -16,7 +16,7 @@ summary: Describes how to use Oracle Linux 6.4 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Oracle Linux 6.4 with ONTAP as the target.
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -28,8 +28,8 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN Booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -117,7 +117,7 @@ The Oracle Linux 6.4 with ONTAP release has the following known issues:
 | NetApp Bug ID
 | Title
 | Description
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=713555[713555^] | QLogic adapter resets are seen on OL6.4 and OL5.9 with UEK2 on controller faults such as takeover/giveback, and reboot | QLogic adapter resets are seen on OL6.4 hosts with UEK2 (kernel-uek-2.6.39-400.17.1.el6uek) or OL5.9 hosts with UEK2 (kernel-uek-2.6.39 400.17.1.el5uek) when controller faults happen (such as takeover, giveback, and reboots). These resets are intermittent. When these adapter resets happen, a prolonged I/O outage (sometimes, more than 10 minutes) might occur until the adapter resets succeed and the paths' status are updated by dm-multipath.
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=713555[713555^] | QLogic adapter resets are seen on OL 6.4 and OL 5.9 with UEK2 on controller faults such as takeover/giveback, and reboot | QLogic adapter resets are seen on OL6.4 hosts with UEK2 (kernel-uek-2.6.39-400.17.1.el6uek) or OL5.9 hosts with UEK2 (kernel-uek-2.6.39 400.17.1.el5uek) when controller faults happen (such as takeover, giveback, and reboots). These resets are intermittent. When these adapter resets happen, a prolonged I/O outage (sometimes, more than 10 minutes) might occur until the adapter resets succeed and the paths' status are updated by dm-multipath.
 
  In /var/log/messages, messages similar to the following are seen when this bug
  is hit:
@@ -126,7 +126,7 @@ The Oracle Linux 6.4 with ONTAP release has the following known issues:
  This is observed with the kernel version:
  On OL6.4: kernel-uek-2.6.39-400.17.1.el6uek
  On OL5.9: kernel-uek-2.6.39-400.17.1.el5uek
-| link:htthttps://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=715217[715217^] | 	Delay in path recovery on OL6.4 or OL5.9 hosts with UEK2 may result in delayed I/O resumption on controller or fabric faults | When a controller fault (storage failover or giveback, reboots and so on) or a fabric fault (FC port disable or enable) occurs with I/O on Oracle Linux 6.4 or Oracle Linux 5.9 hosts with UEK2 Kernel, the path recovery by DM-Multipath takes a long time (4mins. to 10 mins).
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=715217[715217^] | 	Delay in path recovery on OL 6.4 or OL 5.9 hosts with UEK2 might result in delayed I/O resumption on controller or fabric faults | When a controller fault (storage failover or giveback, reboots and so on) or a fabric fault (FC port disable or enable) occurs with I/O on Oracle Linux 6.4 or Oracle Linux 5.9 hosts with UEK2 Kernel, the path recovery by DM-Multipath takes a long time (4mins. to 10 mins).
 Sometimes, during the paths recovering to active state, the following lpfc driver errors are also seen:
  kernel: sd 0:0:8:3: [sdlt]  Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK
 
@@ -141,7 +141,7 @@ Sometimes, during the paths recovering to active state, the following lpfc drive
  device-mapper-1.02.77-9.el5
  device-mapper-multipath-0.4.9-64.0.1.el5
  kernel-uek-2.6.39-400.17.1.el5uek
-| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=709911[709911^] | DM Multipath on OL6.4 & OL5.9 iSCSI with UEK2 kernel takes long time to update LUN path status after storage faults |  On systems running Oracle Linux 6 Update4 and Oracle Linux 5 Update9 iSCSI with Unbreakable Enterprise Kernel Release 2 (UEK2), a problem has been seen during storage fault events where DM Multipath (DMMP) takes around 15 minutes to update the path status of Device Mapper (DM) devices (LUNs).
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=709911[709911^] | DM Multipath on OL 6.4 and OL 5.9 iSCSI with UEK2 kernel takes long time to update LUN path status after storage faults |  On systems running Oracle Linux 6 Update4 and Oracle Linux 5 Update9 iSCSI with Unbreakable Enterprise Kernel Release 2 (UEK2), a problem has been seen during storage fault events where DM Multipath (DMMP) takes around 15 minutes to update the path status of Device Mapper (DM) devices (LUNs).
 If you run the "multipath -ll" command during this interval, the path status is shown as "failed ready running" for that DM device (LUN). The path status is eventually updated as "active ready running."
 This issue is seen with following version:
  Oracle Linux 6 Update 4:

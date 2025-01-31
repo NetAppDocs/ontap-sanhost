@@ -59,8 +59,8 @@ sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c12t0d0 fc
 
 == SAN Booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=71102;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a HP-UX host. The Host Utilities support SAN booting with FC and FCoE protocols in HP-UX environments.
 
@@ -143,7 +143,7 @@ The HP-UX 11i v3 with ONTAP release has the following known issues:
 | Partner ID
 | 1447287 | AUFO event on the isolated master cluster in SnapMirror active sync configuration causes temporary disruption on the HP-UX host | This issue occurs when there is an automatic unplanned failover (AUFO) event on the isolated master cluster in the SnapMirror active sync configuration. It might take more than 120 seconds for I/O to resume on the HP-UX host, but this might not cause any I/O disruption or error messages. This issue causes dual event failure because the connection between the primary and the secondary cluster is lost and the connection between the primary cluster and the mediator is also lost. This is considered a rare event, unlike other AUFO events. | NA
 | 1344935 | HP-UX 11.31 Host intermittently reporting path status incorrectly on ASA setup. | Path reporting issues with ASA configuration. | NA
-| 1306354 | HP-UX LVM creation sends I/O of block size above 1MB | SCSI Maximum Transfer Length of 1 MB is enforced in ONTAP All SAN Array. To restrict the Maximum Transfer Length from HP-UX hosts when connected to ONTAP All SAN Array, it is required to set the Maximum I/O size allowed by the HP-UX SCSI subsystem to 1 MB.
+| 1306354 | HP-UX LVM creation sends I/O of block size above 1MB | SCSI Maximum Transfer Length of 1MB is enforced in ONTAP All SAN Array. To restrict the Maximum Transfer Length from HP-UX hosts when connected to ONTAP All SAN Array, it is required to set the Maximum I/O size allowed by the HP-UX SCSI subsystem to 1MB.
 
 Refer HP-UX vendor documentation for details. | NA
 |===

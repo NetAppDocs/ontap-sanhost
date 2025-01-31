@@ -16,13 +16,13 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 [.lead]
 NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported for SUSE Linux Enterprise Server 15 SP3 with ANA (Asymmetric Namespace Access). ANA is the ALUA equivalent in NVMe-oF environments, and is currently implemented with in-kernel NVMe Multipath. Using this procedure, you can enable NVMe-oF with in-kernel NVMe Multipath using ANA on SUSE Linux Enterprise Server 15 SP3 and ONTAP as the target.
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for accurate details regarding supported configurations.
 
 == Features
 
 *	SUSE Linux Enterprise Server 15 SP3 supports NVMe/FC and other transports.
-*	There is no sanlun support for NVMe-oF. Therefore, there is no LUHU support for NVMe-oF on SUSE Linux Enterprise Server 15 SP3. You can rely on the NetApp plug-in included in the native nvme-cli package for NVMe-oF. This should support all NVMe-oF transports.
-*	Both NVMe and SCSI traffic can be run on the same co-existent host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you may configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
+*	There is no sanlun support for NVMe-oF. Therefore, there is no Linux Host Utilities support for NVMe-oF on SUSE Linux Enterprise Server 15 SP3. You can rely on the NetApp plug-in included in the native nvme-cli package for NVMe-oF. This should support all NVMe-oF transports.
+*	Both NVMe and SCSI traffic can be run on the same host. In fact, that is expected to be the commonly deployed host config for customers. Therefore, for SCSI, you might configure `dm-multipath` as usual for SCSI LUNs resulting in mpath devices, whereas NVMe multipath might be used to configure NVMe-oF multipath devices on the host.
 
 ==	Known limitations
 
@@ -30,13 +30,13 @@ SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Enable in-kernel NVMe Multipath
 
-In-kernel NVMe multipath is already enabled by default on SUSE Linux Enterprise Server hosts, such as SUSE Linux Enterprise Server 15 SP3. Therefore, no additional setting is required here. Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
+In-kernel NVMe multipath is already enabled by default on SUSE Linux Enterprise Server hosts, such as SUSE Linux Enterprise Server 15 SP3. Therefore, no additional setting is required here. Refer to the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for accurate details regarding supported configurations.
 
 == NVMe-oF initiator packages
 
-Refer to the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for accurate details regarding supported configurations.
+Refer to the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for accurate details regarding supported configurations.
 
-. Verify that you have the requisite kernel & nvme-cli MU packages installed on the SUSE Linux Enterprise Server 15 SP3 MU host.
+. Verify that you have the requisite kernel and nvme-cli MU packages installed on the SUSE Linux Enterprise Server 15 SP3 MU host.
 +
 Example:
 +
@@ -186,7 +186,7 @@ FCP CMPL: xb 0000159d Err 000135c3
 
 ==== Enable 1MB I/O Size (Optional)
 
-ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1 MB. However, to issue I/O requests of size 1 MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data which means the maximum I/O request size should be up to 1MB. However, to issue I/O requests of size 1MB for the Broadcom NVMe/FC host, the lpfc parameter `lpfc_sg_seg_cnt` should also be bumped up to 256 from the default value of 64. Use the following instructions to do so:
 
 . Append the value 256 in the respective `modprobe lpfc.conf` file:
 +

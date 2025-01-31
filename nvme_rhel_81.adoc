@@ -14,9 +14,9 @@ summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe/FC is supported on ONTAP 9.6 or later for Red Hat Enterprise Linux (RHEL) 8.1. A RHEL 8.1 host can run both NVMe and SCSI traffic through the same FC initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
+Beginning with ONTAP 9.6, NVMe/FC is supported for Red Hat Enterprise Linux (RHEL) 8.1. A RHEL 8.1 host can run both NVMe and SCSI traffic through the same FC initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 
-See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations.
+See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported configurations.
 
 ==	Known limitations
 
@@ -43,7 +43,7 @@ You can use the following procedure to enable NVMe/FC.
 4.18.0-147.el8.x86_64
 ----
 +
-See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported versions.
+See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
 
 . Install the `nvme-cli-1.8.1-3.el8` package:
 +
@@ -91,7 +91,7 @@ You can use the following procedure to configure a Broadcom FC adapter.
 
 .Steps
 
-. Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported adapters.
+. Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported adapters.
 
 +
 ----

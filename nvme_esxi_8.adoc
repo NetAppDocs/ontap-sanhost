@@ -63,7 +63,7 @@ If the host NQN strings do not match, you should use the `vserver nvme subsystem
 
 The `lpfc` driver and the `qlnativefc` driver in vSphere 8.x have the NVMe/FC capability enabled by default.
 
-See link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] to check whether the configuration is supported with the driver or firmware.
+See link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] to check whether the configuration is supported with the driver or firmware.
 
 ==	Validate NVMe/FC
 

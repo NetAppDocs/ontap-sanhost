@@ -18,7 +18,7 @@ sidebar:
       url: /index.html  
     - title: Overview
       url: /overview.html
-    - title: Install SAN host utilities
+    - title: Install SAN Host Utilities
       entries:
       - title: Overview
         url: /hu_sanhost_index.html
@@ -41,11 +41,11 @@ sidebar:
          - title: Sample command reference
            url: /hu_hpux_60_cmd.html
          
-      - title: Linux Unified Host Utilities
+      - title: Linux Host Utilities
         entries:
         - title: Release notes
           url: /hu_luhu_71_rn.html
-        - title: Install LUHU 7.1
+        - title: Install Linux Host Utilities 7.1
           url: /hu_luhu_71.html
         - title: Sample command reference
           url: /hu_luhu_71_cmd.html
@@ -58,17 +58,17 @@ sidebar:
             url: /hu_solaris_62.html
           - title: Sample command reference
             url: /hu_solaris_62_cmd.html
-      - title: Windows Unified Host Utilities
+      - title: Windows Host Utilities
         entries:
           - title: Release notes
             url: /hu_wuhu_71_rn.html
-          - title: Install WUHU 7.2
+          - title: Install Windows Host Utilities 7.2
             url: /hu_wuhu_72.html
-          - title: Install WUHU 7.1
+          - title: Install Windows Host Utilities 7.1
             url: /hu_wuhu_71.html 
-          - title: Upgrade WUHU
+          - title: Upgrade Windows Host Utilities
             url: /hu_wuhu_upgrade.html
-          - title: Repair and remove WUHU
+          - title: Repair and remove Windows Host Utilities
             url: /hu_wuhu_repair_remove.html
           - title: Configure registry settings
             url: /hu_wuhu_hba_settings.html

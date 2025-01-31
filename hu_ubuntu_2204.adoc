@@ -16,12 +16,12 @@ summary: Describes how to use Ubuntu 22.04 with ONTAP
 You can use the ONTAP SAN host configuration settings to configure Ubuntu 22.04 with ONTAP as the target. 
 
 [NOTE]
-NetApp Linux Unified Host Utilities software package is not available for Ubuntu 22.04 OS.
+The NetApp Linux Host Utilities software package is not available for Ubuntu 22.04 OS.
 
 == SAN booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
