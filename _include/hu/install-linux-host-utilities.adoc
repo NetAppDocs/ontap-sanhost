@@ -1,0 +1,7 @@
+NetApp strongly recommends installing the Linux Host Utilities. The Host Utilities help you manage ONTAP LUNs and assist NetApp customer support with gathering information about your configuration. The Host Utilities don't change any settings on your Linux host.
+
+.Steps
+. link:hu_luhu_71.html[Install Linux Host Utilities 7.1].
+. link:hu_luhu_71.html#san-toolkit[Learn about the SAN LUN utilities]. 
++
+The SAN LUN utilities software is automatically installed with the Linux Host Utilities.

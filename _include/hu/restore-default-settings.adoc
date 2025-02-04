@@ -1,0 +1,21 @@
+==== Restore default settings for ONTAP LUNs
+
+The recommended settings are required to support correct operation of ONTAP LUNs. You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the recommended settings. For example, a host can override default settings for ONTAP LUNs when it's connected to LUNs from other vendors. You can restore the recommended settings for ONTAP LUNs by adding a device stanza to the `/etc/multipath.conf` file.
+
+The following example shows a `multipath.conf` file that defines values for path_checker and no_path_retry (readsector0 and fail) that aren't compatible with ONTAP LUNs. When SAN arrays are attached to the host, you can correct the values for path_checker and no_path_retry to the recommended values, "queue" and "tur", by adding a device stanza to the `multipath.conf` file that applies specifically to ONTAP LUNs:
+
+----
+defaults {
+   path_checker      readsector0
+   no_path_retry     fail
+}
+
+devices {
+   device {
+      vendor         "NETAPP"
+      product         "LUN"
+      no_path_retry    queue
+      path_checker     tur
+   }
+}
+----

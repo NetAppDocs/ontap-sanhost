@@ -1,0 +1,4 @@
+In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure. In the following examples, the outputs show the correct settings for the ONTAP LUN.
+
+.All ASA configuration
+The following example displays the `multipath -ll` output for an ONTAP LUN with an ASA configuration:

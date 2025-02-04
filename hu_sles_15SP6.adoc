@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: hu_sles_15SP6.html
-keywords: host utilities, suse linux enterprise server 15 sp6, suse, linux, 15 sp6, netapp, ontap
-summary: Describes how to use SUSE Linux Enterprise Server 15 SP6 with ONTAP
+keywords: host utilities, suse linux enterprise server 15 sp6, suse, linux, 15 sp6, netapp, ontap, fcp, iscsi
+summary: use the ONTAP SAN host configuration settings to configure the SUSE Linux Enterprise Server 15 SP6 host with the FCP and iSCSI protocols for operation with ONTAP LUNs.
 ---
-= Configure SUSE Linux Enterprise Server 15 SP6 with FCP and iSCSI for ONTAP storage
+= Configure SUSE Linux Enterprise Server 15 SP6 for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,144 +13,36 @@ summary: Describes how to use SUSE Linux Enterprise Server 15 SP6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP6 with FCP and iSCSI for operation with ONTAP LUNs.   
+You can use the ONTAP SAN host configuration settings to configure the SUSE Linux Enterprise Server 15 SP6 host with the FCP and iSCSI protocols for operation with ONTAP LUNs.   
 
 == Install the Linux Host Utilities
 
-NetApp strongly recommends installing the Linux Host Utilities. The Host Utilities help you manage ONTAP LUNs and assist NetApp customer support with gathering information about your configuration. The Host Utilities don't change any settings on your Linux host.
-
-.Steps
-. link:../hu_luhu_71.html[Install Linux Host Utilities 7.1].
-. link:../hu_luhu_71.html#san-toolkit[Learn about the SAN Toolkit]. 
-+
-The SAN Toolkit software is automatically installed with the Linux Host Utilities.
+include::_include/hu/install-linux-host-utilities.adoc[]
 
 == Enable SAN booting
-include::_include/hu/reuse_hu_san_booting.adoc[]
+include::_include/hu/enable-san-boot-linux.adoc[]
 
 == Multipathing
 
 You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs. 
 
-To use multipathing, the `/etc/multipath.conf file` must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the `touch /etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` zero-byte file because SUSE Linux Enterprise Server 15 SP6 is compiled with the settings (default settings) required to recognize and correctly manage ONTAP LUNs. 
+To use multipathing, the `/etc/multipath.conf file` must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the `touch /etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` zero-byte file because SUSE Linux Enterprise Server 15 SP6 is compiled with the settings (recommended settings) required to recognize and correctly manage ONTAP LUNs. 
 
 SUSE Linux Enterprise Server 15 SP6 also configures the parameters for all SAN Array (ASA) and non-ASA configurations.
 
-=== Configure multipathing
+include::_include/hu/configure-multipathing-and-optimize-performance-intro.adoc[]
 
-The first time you create the `multipath.conf` file, you might need to enable and start the multipath services. You should also verify that the host is configured with the recommended settings for the ONTAP LUNs.
-
-.Steps
-
-. If required, enable and start the multipath services:
-+
-`# systemctl enable multipathd`
-+
-`# systemctl start multipathd`
-
-. Verify that you have the recommended settings for ONTAP LUNs:
-+
-`multipath -ll`
-+
-The following table shows the critical multipathd parameters for ONTAP LUNs and the recommended values.
-+
-[cols=2]
-[options="header"]
-|===
-| Parameter
-| Setting
-| detect_prio | yes
-| dev_loss_tmo | "infinity"
-| failback | immediate
-| fast_io_fail_tmo | 5
-| features | "2 pg_init_retries 50"
-| flush_on_last_del | "yes"
-| hardware_handler | "0"
-| no_path_retry | queue
-| path_checker | "tur"
-| path_grouping_policy | "group_by_prio"
-| path_selector | "service-time 0"
-| polling_interval | 5
-| prio | "ontap"
-| product | LUN.*
-| retain_attached_hw_handler | yes
-| rr_weight | "uniform"
-| user_friendly_names | no
-| vendor | NETAPP
-|===
-
-. If required, <<restore-default-setting, restore a default setting for an ONTAP LUN>>.
-
-=== Use multipathing to optimize performance
-
-You can use the `multipath.conf` file with the recommended settings for ONTAP LUNs to optimize the performance of your host configuration: 
-
-* <<exclude-devices,Exclude devices from multipath by adding them to a blacklist>>
-* <<restore-default-setting,Restore default settings for ONTAP LUNs>>
+* <<restore-default-setting-slessp15sp6,Restore default settings for ONTAP LUNs>>
 
 [[exclude-devices]]
-==== Blacklist devices
 
-If you want to exclude a device from multipath, you can add the WWID for the unwanted device to the blacklist for the `multipath.conf` file using the following device stanza:
+include::_include/hu/blacklist-devices.adoc[]
 
-----
-blacklist {
-        wwid <DevId>
-        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
-        devnode "^hd[a-z]"
-        devnode "^cciss.*"
-}
-----
-
-The following example determines a WWID and adds it to a blacklist stanza.
-
-.Steps
-. Determine the WWID:
-+
-`# /lib/udev/scsi_id -gud /dev/sda`
-+
-`360030057024d0730239134810c0cb833`
-+
-"sda" is the local SCSI disk that you want to add it to the blacklist.
-
-. Add the WWID to the blacklist stanza in `/etc/multipath.conf`:
-+
-----
-blacklist {
-	     wwid   360030057024d0730239134810c0cb833
-        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
-        devnode "^hd[a-z]"
-        devnode "^cciss.*"
-}
-----
-
-[[restore-default-setting]]
-==== Restore default settings for ONTAP LUNs
-The recommended settings are required to support correct operation of ONTAP LUNs. You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the recommended settings. For example, a host can override default settings for ONTAP LUNs when it's connected to LUNs from other vendors. You can restore the recommended settings for ONTAP LUNs by adding a device stanza to the `/etc/multipath.conf` file.
-
-The following example shows a `multipath.conf` file that defines values for path_checker and no_path_retry (readsector0 and fail) that aren't compatible with ONTAP LUNs. When SAN arrays are attached to the host, you can correct the values for path_checker and no_path_retry to the recommended values, "queue" and "tur", by adding a device stanza to the `multipath.conf` file that applies specifically to ONTAP LUNs:
-
-----
-defaults {
-   path_checker      readsector0
-   no_path_retry     fail
-}
-
-devices {
-   device {
-      vendor         "NETAPP"
-      product         "LUN"
-      no_path_retry    queue
-      path_checker     tur
-   }
-}
-----
+[[restore-default-setting-slessp15sp6]]
+include::_include/hu/restore-default-settings.adoc[]
 
 === Examples of all ASA and non-ASA configurations
-In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure. In the following examples, the outputs show the correct settings for the ONTAP LUN.
-
-.All ASA configuration
-The following example displays the `multipath -ll` output for an ONTAP LUN with an ASA configuration:
+include::_include/hu/asa-configuration-intro-and-all-asa-example.adoc[]
 ----
 # multipath -ll
 3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
@@ -162,11 +54,7 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   `- 14:0:7:9   sdiw 8:256   active ready running
 ----
 
-.Non-ASA configuration
-For non-ASA configurations, there should be two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
-
-The following example displays the `multipath -ll` output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
-
+include::_include/hu/non-asa-configuration-example.adoc[]
 ----
 # multipath -ll
 3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
@@ -178,7 +66,6 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 14:0:2:0   sdfk 130:96  active ready running
   `- 14:0:5:0   sdgz 132:240 active ready running
 ----
-
 
 == Known issues
 
