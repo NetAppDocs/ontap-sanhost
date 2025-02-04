@@ -33,7 +33,7 @@ FCP: Rd 0000000000000073 Wr 0000000000000005 IO 0000000000000031
 Cmpl 00000000000000a8 Outstanding 0000000000000001
 ----
 
-* If the target LIFs are not displayed as above in the `nvme_info` command output, check the `/var/log/messages` and `dmesg` command outputs for any suspicious NVMe/FC failures, and report or fix accordingly.
+* If the `nvme_info` command output doesn't display the target LIFs as shown in the example above, check the `/var/log/messages` and `dmesg` command outputs for any suspicious NVMe/FC failures, and report or fix accordingly.
 
 |`No discovery log entries to fetch`  a|Generally observed when the `/etc/nvme/hostnqn` string has not been added to the corresponding subsystem on the NetApp array or an incorrect `hostnqn` string has been added to the respective subsystem. a|Verify that the exact `/etc/nvme/hostnqn` string is added to the corresponding subsystem on the NetApp array (verify using the `vserver nvme subsystem host show` command).
 

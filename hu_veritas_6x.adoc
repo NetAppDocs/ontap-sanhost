@@ -13,9 +13,9 @@ summary: Provides guidance on ONTAP SAN host configuration settings for the Veri
 :imagesdir: ./media/
 
 [.lead]
-You can use ONTAP SAN host configuration settings for the Veritas Storage Foundation 6 series release for Red Hat Enterprise Linux & Oracle Linux (RHCK based) platforms with FC, FCoE and iSCSI protocols.
+You can use ONTAP SAN host configuration settings for the Veritas Storage Foundation 6 series release for Red Hat Enterprise Linux and Oracle Linux (Red Hat Compatible Kernel based) platforms with FC, FCoE and iSCSI protocols.
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
@@ -48,9 +48,9 @@ enabled     up      active/non-optimized sdas   13:0:1:0   lif_9      66:192
 
 == SAN Booting
 
-.What you'll need
+.Before you begin
 
-If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 Refer to Veritas Support Portal (Product Matrix, Platform Lookup, HCL Matrix) to verify SAN Boot configuration supportability and known caveats.
 
@@ -60,7 +60,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 == Multipathing
 
-You must verify that your configuration meets the system requirements.  For more information, see the https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] and the Veritas HCL Matrix.
+You must verify that your configuration meets the system requirements.  For more information, see the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] and the Veritas HCL Matrix.
 
 .Example
 
@@ -127,7 +127,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 ==== Settings for Veritas Multipath
 
-The following Veritas VxDMP tunables are recommended by NetApp for optimum system configuration in storage failover operations.
+NetApp recommends the following Veritas VxDMP tunables for optimum system configuration in storage failover operations.
 
 
 [cols=2*,options="header"]
@@ -207,7 +207,7 @@ NOTE: For all other settings specific to Veritas, refer to the standard Veritas 
 
 == Multipath Coexistence
 
-If you have a heterogenous multipath environment including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, please refer to the Veritas Product Administration guide for configuration settings.
+If you have a heterogenous multipath environment including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, refer to the Veritas Product Administration documentation for configuration settings.
 
 == Known issues
 

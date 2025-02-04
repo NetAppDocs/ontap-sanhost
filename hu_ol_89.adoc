@@ -15,13 +15,13 @@ summary: Describes how to use Oracle Linux 8.9 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Oracle Linux 8.9 with ONTAP as the target.
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN toolkit
+== SAN Toolkit
 
-The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 In the following example, the `sanlun lun show` command returns LUN information.
 ----
@@ -41,9 +41,9 @@ data_vserver            /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cD
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 
-Your configuration supports SAN booting. See the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+Your configuration supports SAN booting. See the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -137,11 +137,9 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 8.9 RedHat Enterprise Kernel, use the link:hu_rhel_89.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.9.
+NOTE: To configure Oracle Linux 8.9 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_89.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.9.
 
-== KVM settings
-
-You can also use the recommended settings to configure a Kernel-based Virtual Machine (KVM). There are no changes required to configure a KVM as the LUN is mapped to the hypervisor.
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known issues
 

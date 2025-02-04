@@ -2,10 +2,9 @@
 sidebar: sidebar
 permalink: hu_wuhu_71_rn.html
 keywords: host utilities, linux, 7.1, 7.2, netapp, ontap, release, notes
-summary: Release Notes for Windows Unified Host Utilities 
+summary: Release Notes for Windows Host Utilities
 ---
-
-= Windows Unified Host Utilities Release Notes
+= Windows Host Utilities Release Notes
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -16,24 +15,24 @@ summary: Release Notes for Windows Unified Host Utilities
 [.lead]
 The release notes describe new features and enhancements, issues fixed in the current release, known problems and limitations, and important cautions related to configuring and managing your specific Windows host with your ONTAP storage system.
 
-For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://mysupport.netapp.com/matrix/imt.jsp?components=65623;64703;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^].
+For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
 
 == What's new
 
-* Windows Unified Host Utilities 7.2 includes support for NVMe/FC driver parameter settings and bug fixes for new vendor cards.
+* Windows Host Utilities 7.2 includes support for NVMe/FC driver parameter settings and bug fixes for new vendor cards.
 
-* Windows Unified Host Utilities 7.1 includes support for E-Series storage systems, support for ONTAP 9 and later versions, and enhanced iSCSI timeouts for faster failover.
+* Windows Host Utilities 7.1 includes support for E-Series storage systems, support for ONTAP 9 and later, and enhanced iSCSI timeouts for faster failover.
 
 
 == Known problems and limitations
 
-You should be aware of the following known problems and limitations that might impact performance on your specific host. A few unexpected and potentially undesired behaviors, and workarounds to avoid these behaviors, have been identified in the Windows Unified Host Utilities 7.1 release. 
+You should be aware of the following known problems and limitations that might impact performance on your specific host. A few unexpected and potentially undesired behaviors, and workarounds to avoid these behaviors, have been identified in the Windows Host Utilities 7.1 release. 
 
 [cols=3,options="header", cols= "30, 30, 20"]
 |===
 |Title	|Description |Workaround
-|Running the `linux_gos_timeout-install.sh` script is no longer required on Hyper-V guests running Red Hat Enterprise Linux or SUSE Linux Enterprise Server |You are no longer required to run the `linux_gos_timeout-install.sh` script to change disk timeouts on Red Hat Enterprise Linux 5, Red Hat Enterprise Linux 6, or SUSE Linux Enterprise Server 11 Hyper-V guests because the default timeout settings are being used. The `linux_gos_timeout-install.sh` script that was included in previous versions of the Host Utilities is no longer included in the Windows Unified Host Utilities 7.1 version. Windows Unified Host Utilities 7.1 uses the default disk timeout settings.|Not Applicable
-|iSCSI sessions do not reconnect after reboot with mixed IPv4 and IPv6 |In a multipath I/O (MPIO) configuration or multiple connections per session (MCS) configuration that has both IPv4 and IPv6 endpoints, some iSCSI sessions might fail to reconnect after rebooting the Windows host.
+|Running the `linux_gos_timeout-install.sh` script is no longer required on Hyper-V guests running Red Hat Enterprise Linux or SUSE Linux Enterprise Server |You are no longer required to run the `linux_gos_timeout-install.sh` script to change disk timeouts on Red Hat Enterprise Linux 5, Red Hat Enterprise Linux 6, or SUSE Linux Enterprise Server 11 Hyper-V guests because the default timeout settings are being used. The `linux_gos_timeout-install.sh` script that was included in previous versions of the Host Utilities is no longer included in the Windows Host Utilities 7.1 version. Windows Host Utilities 7.1 uses the default disk timeout settings.|Not Applicable
+|iSCSI sessions do not reconnect after reboot with mixed IPv4 and IPv6 |In a Microsoft Multipath I/O (MPIO) configuration or multiple connections per session (MCS) configuration that has both IPv4 and IPv6 endpoints, some iSCSI sessions might fail to reconnect after rebooting the Windows host.
 |Use either all IPv4 endpoints or IPv6 endpoints. Do not mix IPv4 and IPv6. 
 |Multiple connections per session (MCS) is not supported with iSCSI software boot |When using the iSCSI software boot with iSCSI MCS, the iSCSI boot leading connection cannot be protected. This can lead to disconnection from the boot LUN and cause host system disruption.
 |Microsoft does not support MCS for iSCSI software booted hosts. Use MPIO as the high availability solution. Note that mixing MPIO and MCS is not supported.

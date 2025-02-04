@@ -16,7 +16,7 @@ summary: Describes how to use Oracle Linux 9.4 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Oracle Linux 9.4 with ONTAP as the target.
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
@@ -48,7 +48,7 @@ If you decide to use SAN booting, it must be supported by your configuration.
 
 .Before you begin
 
-Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and the ONTAP version are supported.
+Use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and the ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -150,11 +150,9 @@ devices {
 ----
 ====
 
-NOTE: To configure Oracle Linux 9.4 Red Hat Enterprise Kernel (RHEK), use the link:hu_rhel_94.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.4.
+NOTE: To configure Oracle Linux 9.4 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_94.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.4.
 
-=== Configure KVM settings
-
-You can also use the recommended settings to configure Kernel-based Virtual Machine (KVM). There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known issues
 

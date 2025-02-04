@@ -16,7 +16,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.6 with ONTAP
 [.lead]
 NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with Red Hat Enterprise Linux (RHEL) 8.6 with ANA (Asymmetric Namespace Access). ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. During this procedure, you enable NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.6 and ONTAP as the target
 
-See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for accurate details regarding supported configurations.
+See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for accurate details regarding supported configurations.
 
 == Features
 
@@ -38,9 +38,9 @@ You can use the following procedure to enable in-kernel NVMe multipath.
 
 .Steps
 
-.	Install RHEL 8.6 on the server. After the installation is complete, verify that you are running the specified RHEL 8.6 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.	Install RHEL 8.6 on the server. After the installation is complete, verify that you are running the specified RHEL 8.6 kernel. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
 
-.	After the installation is complete, verify that you are running the specified RHEL 8.6 kernel. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported versions.
+.	After the installation is complete, verify that you are running the specified RHEL 8.6 kernel. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
 +
 Example:
 +
@@ -107,7 +107,7 @@ You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 --
 .Steps
 
-.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported adapters.
+.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported adapters.
 +
 ----
 # cat /sys/class/scsi_host/host*/modelname
@@ -119,7 +119,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 +
 
-.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix^] for the most current list of supported adapter driver and firmware versions.
+.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported adapter driver and firmware versions.
 +
 ----
 # cat /sys/class/scsi_host/host*/fwrev

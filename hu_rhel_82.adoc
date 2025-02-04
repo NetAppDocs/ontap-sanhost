@@ -15,7 +15,7 @@ summary: Describes how to use Red Hat Enterprise Linux 8.2 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 8.2 with ONTAP as the target. 
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
@@ -26,8 +26,8 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN Booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=96167;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 

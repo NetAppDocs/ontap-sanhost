@@ -16,20 +16,9 @@ summary: Describes how to use Red Hat Enterprise Linux 9.1 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 9.1 with ONTAP as the target. 
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
-The NetApp Linux Unified Host Utilities software package is available on the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site^] in a 64-bit .rpm file. 
-
-Install the Linux Unified Host Utilities is strongly recommended by NetApp, but not mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration.
-
-If you have a version of Linux Unified Host Utilities currently installed, you should either upgrade it, or remove it and use the following steps to install the latest version.
-
-.Steps
-
-. Download the 64-bit Linux Unified Host Utilities software package from the link:https://mysupport.netapp.com/site/downloads[NetApp Support Site] to your host.
-
-. Install the software package:
-`rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_64`
+include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
@@ -39,8 +28,8 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -142,7 +131,7 @@ The RHEL 9.1 with ONTAP release has the following known issues:
 [options="header", cols="20,40,40"]
 |===
 |NetApp Bug ID	|Title	|Description
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, the NetApp Linux SAN host utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. 
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, the NetApp Linux SAN Host Utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. 
 
 |===
 

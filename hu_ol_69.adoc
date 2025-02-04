@@ -16,7 +16,7 @@ summary: Describes how to use Oracle Linux 6.9 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Oracle Linux 6.9 with ONTAP as the target.
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -29,8 +29,8 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN Booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=78284;78283;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -107,7 +107,7 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 6.9 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_69.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 6.9.
+NOTE: To configure Oracle Linux 6.9 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_69.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 6.9.
 
 == Known issues
 
@@ -122,6 +122,6 @@ The Oracle Linux 6.9 with ONTAP release has the following known issues:
  qla2xxx [0000:0c:00.3]-d001:3: Firmware dump saved to temp buffer (3/ffffc90008901000), dump status flags (0x3f).
 |===
 
-NOTE: For Oracle Linux (Red Hat compatible kernel) known issues, see the link:hu_rhel_69.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 6.9.
+NOTE: For Oracle Linux RHCK known issues, see the link:hu_rhel_69.html#known-problems-and-limitations[known issues] for RHEL 6.9.
 
 // 2024 SEP 2, ONTAPDOC-2345

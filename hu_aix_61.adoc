@@ -4,8 +4,7 @@ permalink: hu_aix_61.html
 keywords: host utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
 summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTAP
 ---
-
-= Install AIX Host Utilities 6.1
+= Install AIX Host Utilities 6.1 for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,7 +13,7 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 :imagesdir: ./media/
 
 [.lead]
-The AIX Unified Host Utilities assists you to manage NetApp ONTAP storage attached to an AIX host.
+The AIX Host Utilities assists you to manage ONTAP storage attached to an AIX host.
 
 AIX Host Utilities support the following protocols:
 
@@ -24,21 +23,21 @@ AIX Host Utilities support the following protocols:
 
 AIX Host Utilities support the following environments:
 
-* AIX MPIO (Native OS)
+* AIX Microsoft Multipath I/O (MPIO) (Native OS)
 * PowerVM 
 +
 For more information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
 
-.What you'll need
+.Before you begin
 
 * For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
 +
-You can use the https://mysupport.netapp.com/matrix/imt.jsp?components=65623%3B64703%3B&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify your configuration.
+You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify your configuration.
 
-* Dynamic tracking must be enabled for all FC and FCoE initiators.
+* Enable dynamic tracking for all FC and FCoE initiators.
 
 [NOTE]
-The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^] in a compressed tar.gz file. You must install the AIX Host Utilities kit while using AIX MPIO with NetApp ONTAP Storage.
+The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^] in a compressed `tar.gz file`. You must install the AIX Host Utilities kit while using AIX MPIO with ONTAP storage.
 
 .Steps
 
@@ -50,7 +49,7 @@ The NetApp AIX Host Utilities software package is available on the link:https://
 
 . Go to the directory containing the download.
 
-. Decompress the file and extract the SAN toolkit software package.
+. Decompress the file and extract the SAN Toolkit software package.
 +
 `# tar -xvf ntap_aix_host_utilities_6.1.tar.gz`
 
@@ -61,7 +60,7 @@ The following directory is created when you decompress the file: `ntap_aix_host_
 +
 `# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
-. Install the SAN toolkit:
+. Install the SAN Toolkit:
 +
 `# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
 
@@ -75,7 +74,7 @@ The following directory is created when you decompress the file: `ntap_aix_host_
 
 == SAN Toolkit
 
-AIX Host Utilities is a NetApp host software that provides a command line toolkit on your IBM AIX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+AIX Host Utilities is a NetApp host software that provides a command line toolkit on your IBM AIX host. The toolkit is installed when you install the Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 *Example*
 
@@ -97,5 +96,6 @@ data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
 ----
 
 [NOTE] 
-This toolkit is common across all Host Utilities configurations and protocols. As a result, some of its contents apply to one configuration, but not another. Having unused components does not affect your system performance. The SAN toolkit is supported on AIX and PowerVM/VIOS OS versions.
+
+This toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions
 

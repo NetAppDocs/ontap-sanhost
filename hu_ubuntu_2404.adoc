@@ -17,13 +17,13 @@ summary: Describes how to use Ubuntu 24.04 with ONTAP
 You can use the ONTAP SAN host configuration settings to configure Ubuntu 24.04 with ONTAP as the target. 
 
 [NOTE]
-The NetApp Linux Unified Host Utilities software package isn't available for the Ubuntu 24.04 OS.
+The NetApp Linux Host Utilities software package isn't available for the Ubuntu 24.04 OS.
 
 == SAN booting
 If you decide to use SAN booting, it must be supported by your configuration.
 
 .Before you begin
-Use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and ONTAP version are supported.
+Use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -115,8 +115,7 @@ devices {
 }
 ----
 
-=== KVM settings
-You can use the recommended settings to configure Kernel-based Virtual Machine (KVM) as well. There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known issues
 
