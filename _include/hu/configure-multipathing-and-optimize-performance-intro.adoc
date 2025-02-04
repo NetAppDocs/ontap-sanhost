@@ -4,7 +4,7 @@ The first time you create the `multipath.conf` file, you might need to enable an
 
 .Steps
 
-. Verify that the `multipath.conf` file enabled and running the multipath services:
+. Verify that the `multipath.conf` file is enabled and running the multipath services:
 +
 `# systemctl enable multipathd`
 +
