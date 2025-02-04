@@ -1,4 +1,4 @@
-==== Restore default settings for ONTAP LUNs
+==== Restore recommended settings for ONTAP LUNs
 
 The recommended settings are required to support correct operation of ONTAP LUNs. You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the recommended settings. For example, a host can override default settings for ONTAP LUNs when it's connected to LUNs from other vendors. You can restore the recommended settings for ONTAP LUNs by adding a device stanza to the `/etc/multipath.conf` file.
 

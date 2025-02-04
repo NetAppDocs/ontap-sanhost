@@ -32,14 +32,14 @@ SUSE Linux Enterprise Server 15 SP6 also configures the parameters for all SAN A
 
 include::_include/hu/configure-multipathing-and-optimize-performance-intro.adoc[]
 
-* <<restore-default-setting-slessp15sp6,Restore default settings for ONTAP LUNs>>
+* <<restore-recommended-setting-slessp15sp6,Restore recommended settings for ONTAP LUNs>>
 
 [[exclude-devices]]
 
 include::_include/hu/blacklist-devices.adoc[]
 
-[[restore-default-setting-slessp15sp6]]
-include::_include/hu/restore-default-settings.adoc[]
+[[restore-recommended-setting-slessp15sp6]]
+include::_include/hu/restore-recommended-settings.adoc[]
 
 === Examples of all ASA and non-ASA configurations
 include::_include/hu/asa-configuration-intro-and-all-asa-example.adoc[]
