@@ -30,7 +30,7 @@ The cfgdev command causes:
 +
 * The system to check for new devices.
 +
-* The system to create new device entries where the new LUNs are mapped as MPIO devices using the default PCM.
+* The system to create new device entries where the new LUNs are mapped as Microsoft Multipath I/O (MPIO) devices using the default PCM.
 
 . To verify that the hdisk MPIO devices were created, enter the following command:
 +
@@ -54,7 +54,7 @@ hdisk5   Available   MPIO NetApp FCP Default PCM Disk
 hdisk6   Available   MPIO NetApp FCP Default PCM Disk
 ----
 
-. To get information about you setup, enter the following command:
+. Retrieve information about your setup:
 +
 `lsdev -dev hdisk_name -attr`
 +
@@ -90,7 +90,7 @@ start_timeout   60                               START unit time out value      
 ww_name         0x500a0984994ae0e0               FC World Wide Name                      False
 ----
 
-. If your configuration does not support ALUA, you must execute the dotpaths utility to set the path priorities. The dotpaths utility is installed when you install the Host Utilities. Do not use the dotpaths utility if ALUA is enabled. Switch to the `oem_setup_env` mode to execute the dotpaths by entering the following command:
+. If your configuration does not support ALUA, you need to use the dotpaths utility to set the path priorities. The dotpaths utility is installed when you install the Host Utilities. Do not use the dotpaths utility if ALUA is enabled. Switch to the `oem_setup_env` mode to execute the dotpaths by entering the following command:
 +
 `oem_setup_env`
 +
@@ -108,9 +108,9 @@ When you enter the `oem_setup_env` mode, the command line prompt changes from a 
 +
 `igroup set igroup_name alua yes`
 +
-. If your configuration does not support ALUA, you must execute the dotpaths utility to set the path priorities. The dotpaths utility is installed when you install the Host Utilities. Do not use the dotpaths utility if ALUA is enabled.
+. If your configuration does not support ALUA, you need to use the dotpaths utility to set the path priorities. The dotpaths utility is installed when you install the Host Utilities. Do not use the dotpaths utility if ALUA is enabled.
 
-.. To set the priority for all Data ONTAP LUNs enter:
+.. To set the priority for all ONTAP LUNs enter:
 +
 `dotpaths`
 

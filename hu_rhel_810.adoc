@@ -17,13 +17,13 @@ summary: Describes how to use Red Hat Enterprise Linux 8.10 with ONTAP
 
 You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux (RHEL) 8.10 with ONTAP as the target. 
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN Tool Kit
+== SAN Toolkit
 
-The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 In the following example, the `sanlun lun show` command returns LUN information.
 ----
@@ -44,8 +44,8 @@ vs_25_2742                 /vol/fc_vol_1_4/dynamic_lun   /dev/sdt      host9    
 
 == SAN booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -91,7 +91,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 The RHEL 8.10 OS recognizes ONTAP LUNs and automatically sets all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 [cols=2*,options="header"]
 |===

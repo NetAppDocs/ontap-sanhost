@@ -4,7 +4,6 @@ permalink: hu_ol_91.html
 keywords: host utilities, oracle, linux, 9.1, netapp, ontap
 summary: Describes how to use Oracle Linux 9.1 with ONTAP
 ---
-
 = Use Oracle Linux 9.1 with ONTAP
 :hardbreaks:
 :toclevels: 1P
@@ -16,13 +15,13 @@ summary: Describes how to use Oracle Linux 9.1 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure Oracle Linux 9.1 with ONTAP as the target.
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
 
-== SAN toolkit
+== SAN Toolkit
 
-The tool kit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
 In the following example, the `sanlun lun show` command returns LUN information.
 ----
@@ -42,9 +41,9 @@ data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
 
 == SAN booting
 
-.What you'll need
+.Before you begin
 
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91863;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -69,7 +68,7 @@ size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 12:0:1:6   sdgp 132:80  active ready running
 ----
 
-NOTE: You should only use the number of paths to a single LUN that is necessary. Up to four paths is usually required. More than eight paths might cause path issues during storage failures.
+NOTE: A single LUN shouldn't require more than four paths. Having more than four paths might cause path issues during storage failures.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
@@ -92,7 +91,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 The Oracle Linux 9.1 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
 
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 
 [cols=2*,options="header"]
@@ -138,11 +137,9 @@ devices {
 }
 ----
 
-NOTE: To configure Oracle Linux 9.1 Red Hat Enterprise Kernel (RHCK), use the link:hu_rhel_91.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.1.
+NOTE: To configure Oracle Linux 9.1 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_91.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 9.1.
 
-== KVM settings
-
-You can also use the recommended settings to configure Kernel-based Virtual Machine (KVM). There are no changes required to configure KVM as the LUN is mapped to the hypervisor.
+include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
 == Known issues
 
@@ -151,7 +148,7 @@ The Oracle Linux 9.1 with NetApp ONTAP release has the following known issues:
 [cols="20,40,40",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description
-|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA needs symbolic links from library packages	a|When you execute the Linux Unified Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for a host bus adapter (HBA) discovery cannot be located:
+|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA needs symbolic links from library packages	a|When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for a host bus adapter (HBA) discovery cannot be located:
 ----
 [root@hostname ~]# sanlun fcp show adapter -v
 Unable to locate /usr/lib64/libHBAAPI.so library

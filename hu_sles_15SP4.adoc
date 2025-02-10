@@ -16,7 +16,7 @@ summary: Describes how to use SUSE Linux Enterprise Server 15 SP3 with ONTAP
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP4 with ONTAP as the target. 
 
-== Install the Linux Unified Host Utilities
+== Install the Linux Host Utilities
 
 include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
 
@@ -28,8 +28,8 @@ include::_include/hu/reuse_hu_san_toolkit.adoc[]
 
 == SAN booting
 
-.What you'll need
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=84067;&solution=1&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+.Before you begin
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
@@ -74,7 +74,7 @@ include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
 
 SUSE Linux Enterprise Server 15 SP4 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration. You can further optimize performance for your host configuration with the following recommended settings.
 
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
+include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 
 
 [cols=2]

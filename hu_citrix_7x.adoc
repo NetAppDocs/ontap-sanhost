@@ -19,9 +19,9 @@ You can configure ONTAP SAN host configuration settings for Citrix XenServer 7 s
 
 == SAN Booting
 
-.What you'll need
+.Before you begin
 
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://mysupport.netapp.com/matrix/imt.jsp?components=91241;&solution=236&isHWU&src=IMT[NetApp Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 .Steps
 
@@ -31,7 +31,7 @@ include::_include/hu/reuse_hu_san_booting_steps.adoc[]
 
 Multipath support in Citrix XenServer is based on the Device Mapper Multipathd components.  Device mapper nodes are not automatically created for all LUNs presented to the XenServer and are only provisioned when LUNs are actively used by the Storage Management Layer (API).  Citrix XenServer Storage Manager API plugin handles activating and deactivating multipath nodes automatically.
 
-Due to incompatibilities with the Integrated Multipath Management architecture, Citrix recommends that you use the Citrix XenCenter application for managing the storage configuration.  If it is necessary to query the status of Device Mapper tables manually, or list active device mapper multipath nodes on the system, you can use the `/sbin/mpathutil status` command to verify the settings for your ONTAP LUNs. For more information refer to the standard vendor documentation for Citrix XenServer.
+Due to incompatibilities with the Integrated Multipath Management architecture, Citrix recommends that you use the Citrix XenCenter application for managing the storage configuration.  If it's necessary to query the status of Device Mapper tables manually, or list active device mapper multipath nodes on the system, you can use the `/sbin/mpathutil status` command to verify the settings for your ONTAP LUNs. For more information refer to the standard vendor documentation for Citrix XenServer.
 
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 

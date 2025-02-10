@@ -2,10 +2,9 @@
 sidebar: sidebar
 permalink: hu_wuhu_71.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
-summary: Windows Unified Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for NetApp ONTAP and E-Series platforms.
+summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
-
-= Install Windows Unified Host Utilities 7.1
+= Install Windows Host Utilities 7.1
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -15,9 +14,9 @@ summary: Windows Unified Host Utilities includes an installation program that se
 :imagesdir: ./media/
 
 [.lead]
-The Windows Unified Host Utilities (WUHU) enable you to connect a Windows host computer to NetApp storage systems.
+The Windows Host Utilities enable you to connect a Windows host computer to NetApp storage systems.
 
-The Windows Unified Host Utilities supports the following versions of Windows:
+The Windows Host Utilities supports the following versions of Windows:
 
 * Windows 2022
 * Windows 2019
@@ -25,7 +24,7 @@ The Windows Unified Host Utilities supports the following versions of Windows:
 * Windows 2012R2
 * Windows 2012
 
-Windows Unified Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for NetApp ONTAP and E-Series platforms.
+Windows Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for ONTAP and E-Series platforms.
 
 When you install the Host Utilities software, the installer sets the required Windows registry and Host Bus Adapter (HBA) parameters.
 
@@ -47,7 +46,7 @@ The following programs and files are installed on the Windows host computer. The
 |===
 
 
-The Host Utilities support different Windows host configurations, protocols, and multipathing options. See the https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations.
+The Host Utilities support different Windows host configurations, protocols, and multipathing options. See the https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported configurations.
 
 == Verify your host and storage system configurations
 
@@ -55,7 +54,7 @@ Before you install the Host Utilities, you must verify that the Host Utilities v
 
 .Steps
 
-. Check the supported configuration in the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix Tool^].
+. Check the supported configuration in the http://mysupport.netapp.com/matrix[Interoperability Matrix Tool^].
 . Check the hotfixes required for the respective host on the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
 [NOTE]
@@ -90,19 +89,19 @@ Do not change the HBA settings manually.
 == Install the Host Utilities
 The installation program installs the Host Utilities package and sets the Windows registry and HBA settings.
 
-You must specify whether to include multipathing support when you install the Windows Unified Host Utilities software package. The installer prompts you for the following choice. You can also run a quiet (unattended) installation from a Windows command prompt.
+You must specify whether to include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following choice. You can also run a quiet (unattended) installation from a Windows command prompt.
 
 .Multipathing support
 
 * Choose `MPIO` if you have more than one path from the Windows host or virtual machine to the storage system.
 * Choose `no MPIO` only if you are using a single path to the storage system.
 
-The MPIO selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
+The Microsoft Multipath I/O (MPIO) selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
 For Hyper-V guests, raw (pass-through) disks do not appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you cannot use both in the guest OS.
 
 
 
-You can install the host utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host. 
+You can install the Host Utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line.
 
 [role="tabbed-block"]
 ====

@@ -1,7 +1,4 @@
-Boot your host operating system using a SAN boot.
-
-.Before you begin
-Use the link:https://imt.netapp.com/matrix/#welcome[NetApp Interoperability Matrix Tool^] to confirm that your configuration fully supports SAN booting. The operating system, HBA, HBA firmware, HBA boot BIOS, and ONTAP version should be supported.
+If you opt to use SAN booting, it must be supported by your configuration. You can use the Interoperability Matrix Tool to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
 .Steps
 . Map the SAN boot LUN to the host.

@@ -11,3 +11,4 @@ The following example displays the correct output for an ONTAP LUN with active/o
 image::asa.png[Screenshot of ONTAP LUN with active/optimized paths]
 
 
+NOTE: A single LUN shouldn't require more than four paths. Having more than four paths might cause path issues during storage failures.
