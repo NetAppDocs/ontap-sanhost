@@ -1,10 +1,10 @@
-On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs when MPIO is selected.
+When you select MPIO on systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
 
 [role="tabbed-block"]
 ====
 .Emulex FC
 --
-For Emulex FC HBAs, the installer sets the following parameters:
+The timeout values for Emulex FC HBAs:
 
 [cols=2*,options="header"]
 |===
@@ -16,7 +16,7 @@ For Emulex FC HBAs, the installer sets the following parameters:
 --
 .QLogic FC
 --
-For QLogic FC HBAs, the installer sets the following parameters:
+The timeout values ror QLogic FC HBAs
 
 [cols=2*,options="header"]
 |===
@@ -28,4 +28,4 @@ For QLogic FC HBAs, the installer sets the following parameters:
 --
 ====
 
-NOTE: Windows Host Utility sets these values. For detailed recommended settings, refer to the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_71_rn.html[Windows Host Utilities documentation] and select the installation procedure for your Windows Host Utilities version.
+NOTE: For more information on the recommended settings, see the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_71_rn.html[Windows Host Utilities documentation] and select the installation procedure for your Windows Host Utilities version.
