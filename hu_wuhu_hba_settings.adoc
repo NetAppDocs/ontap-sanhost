@@ -176,11 +176,11 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
-|120 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|120 |When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
 \DsmMaximumStateTransitionTime
-|120 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|120 |When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\DsmSupportedDeviceList
 |"NETAPPLUN" |When MPIO support is specified
@@ -226,7 +226,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |0
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msiscdsm\Parameters\PathVerifyEnabled
 |0
@@ -242,7 +242,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm
 \Parameters\PDORemovePeriod
 |130
@@ -258,7 +258,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msiscdsm\Parameters\RetryCount
 |6
@@ -274,7 +274,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is  detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is  detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\RetryInterval |1 |When MPIO support is specified, except if Data ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet
