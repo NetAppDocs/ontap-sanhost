@@ -1,5 +1,6 @@
-With the Broadcom adapter for FC/NVMe in a Windows environment, a `+hostnqn+` is associated with each host bus adapter (HBA) port. The `+hostnqn+` is formatted as follows.
+The Broadcom initiator can serve both NVMe/FC and FCP traffic through the same 32G FC adapter ports. For FCP and FC/NVMe, you should use the Microsft device-specific module (DSM) as the Microsoft Multipath I/O (MPIO) option.
 
-.Example
+A `+hostnqn+` is associated with each host bus adapter (HBA) port for the Broadcom adapter with FC/NVMe in a Windows environment. The `+hostnqn+` is formatted as shown in the following example:
+
  nqn.2017-01.com.broadcom:ecd:nvmf:fc:100000109b1b9765
  nqn.2017-01.com.broadcom:ecd:nvmf:fc:100000109b1b9766

@@ -13,22 +13,20 @@ summary: NVMe/FC Host Configuration for Windows Server 2052 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2025 for operation with ONTAP storage.
+You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2025 for operation with ONTAP LUNs.
 
 .About this task
-You can use the following support with the NVMe-oF host configuration for Windows 2025. You should also review the known limitations before starting the configuration process.
+You can use the following support with the NVMe/FC host configuration for Windows 2025. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 +
-Beginning with ONTAP 9.7, NVMe/FC is supported Windows Server 2025.
-+
-The Broadcom initiator can serve both NVMe/FC and FCP traffic through the same 32G FC adapter ports. For FCP and FC/NVMe, you should use Microsft device-specific module (DSM) as the Microsoft Multipath I/O (MPIO) option.
+Beginning with ONTAP 9.7, NVMe/FC is supported for Windows Server 2025.
 
 * Known limitations:
 +
-Windows Failover Cluster (WFC) is not supported with NVMe/FC because ONTAP doesn't currently support persistent reservations with NVMe/FC.
+Windows Failover Cluster (WFC) isn't supported with NVMe/FC because ONTAP doesn't currently support persistent reservations with NVMe/FC.
 +
-NOTE: The external driver shipped by Broadcom for Windows NVMe/FC isn't a true NVMe/FC driver but a translational SCSI ⇄ NVMe driver. This translational overhead doesn't necessarily impact performance, but it does negate the performance benefits of NVMe/FC. As a result,  NVMe/FC and FCP performance is the same on Windows servers, unlike on other operating systems such as Linux, where NVMe/FC performance is significantly better than that of FCP.
+NOTE: Broadcom ships an external driver for Windows NVMe/FC that is a translational SCSI ⇄ NVMe driver and not a true NVMe/FC driver. The translational overhead doesn't necessarily impact performance, but it does negate the performance benefits of NVMe/FC. As a result,  NVMe/FC and FCP performance is the same on Windows servers, unlike other operating systems such as Linux, where NVMe/FC performance is significantly better than that of FCP.
 
 == Enable NVMe/FC 
 
