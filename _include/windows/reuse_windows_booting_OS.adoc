@@ -13,7 +13,7 @@ Perform a local boot by installing the Windows OS on the local hard disk (SSD, S
 If you opt to use SAN booting, it must be supported by your configuration.
 
 .Before you begin
-Use the https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+Use the https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Windows OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
 
 .Steps
 . Map the SAN boot LUN to the host.

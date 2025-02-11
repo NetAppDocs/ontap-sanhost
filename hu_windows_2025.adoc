@@ -18,6 +18,14 @@ You can use the ONTAP SAN host configuration settings to configure Windows Serve
 == Boot the Windows OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
+== Install Windows hotfixes
+NetApp recommends installing the *latest cumulative update* on the server.
+
+.Steps
+
+. Download the hotfixes from the link:https://www.catalog.update.microsoft.com/Search.aspx?q=update%20%22windows%20server%202025%22[Microsoft Update Catalog^].
+
+include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
 == Install the Windows Unified Host Utilities
 include::_include/windows/reuse_windows_installing_WUHU.adoc[]
@@ -25,12 +33,9 @@ include::_include/windows/reuse_windows_installing_WUHU.adoc[]
 == Multipathing
 include::_include/windows/reuse_windows_multipathing.adoc[]
 
-[NOTE]
-====
-When you select MPIO support, the Windows Host Utilities enables the MPIO feature included in Windows Server 2025.
+The MPIO software presents a single disk to the Windows OS for all paths, and a device-specific module (DSM) manages path failover. On a Windows system, the two main components in any MPIO solution are the DSM and the Windows MPIO. When you select MPIO support, the Windows Host Utilities enables the MPIO feature included in Windows Server 2025. 
 
-Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
-====
+NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
 
 == SAN configuration
 

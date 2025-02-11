@@ -1,14 +1,12 @@
-Depending on your SAN configuration, the host uses one or two groups of paths to access the LUNs.
-
-NOTE: You should only use the number of paths to a single LUN that is necessary. Up to four paths is usually required. More than eight paths might cause path issues during storage failures.
+Depending on your SAN configuration, the host uses All SAN Array (ASA) or non-ASA configurations to access ONTAP LUNs. In both ASA and non-ASA configurations, you shouldn't require more than four paths to access a single ONTAP LUN. Having more than four paths might cause issues with the paths during a storage failure.
 
 === All SAN array configuration
 
-For an All SAN Array (ASA) configuration, there should be one group of paths with single priorities. All paths are active/optimized, which means they are serviced by the controller and the I/O is sent on all the active paths.
+An ASA configuration should have one group of active/optimized paths with single priorities. This means the paths are serviced by the controller and the I/O is sent on all the active paths.
 
 The following example displays the correct output for an ONTAP LUN with active/optimized paths.
 
 image::asa.png[Screenshot of ONTAP LUN with active/optimized paths]
 
 
-NOTE: A single LUN shouldn't require more than four paths. Having more than four paths might cause path issues during storage failures.
+
