@@ -1,3 +1,6 @@
+You need to enable MPIO for NVMe devices to complete the NVMe configuration on the Windows host. 
+
+.Steps
 
 . Install link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.1/downloads[Windows Host Utility Kit 7.1] to set the driver parameters that are common to both FC and NVMe.
 . Open the MPIO properties.
@@ -6,8 +9,8 @@
 MPIO becomes aware of the NVMe devices, which are visible under disk management.
 +
 . Open  *Disk Management* and go to *Disk Properties*.
-. From the *MPIO* tab, click *Details*.
-. Set the following MSDSM settings:
+. From the *MPIO* tab, select *Details*.
+. Set the following Microsoft DSM settings:
 +
 * PathVerifiedPeriod: *10*
 * PathVerifyEnabled: *Enable*
@@ -25,5 +28,4 @@ HKLM\SYSTEM\CurrentControlSet\Services\mpio \Parameters\ UseCustomPathRecoveryIn
 ----
 +
 . Reboot the host.
-+
-The NVMe configuration is now complete on the Windows host.
+

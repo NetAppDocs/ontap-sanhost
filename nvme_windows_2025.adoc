@@ -1,0 +1,47 @@
+---
+sidebar: sidebar
+permalink: nvme_windows_2025.html
+keywords: nvme, windows, enterprise
+summary: NVMe/FC Host Configuration for Windows Server 2052 with ONTAP
+---
+= Configure Windows Server 2025 with NVMe/FC for ONTAP
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2025 for operation with ONTAP storage.
+
+.About this task
+You can use the following support with the NVMe-oF host configuration for Windows 2025. You should also review the known limitations before starting the configuration process.
+
+* Support available:
++
+Beginning with ONTAP 9.7, NVMe/FC is supported Windows Server 2025.
++
+The Broadcom initiator can serve both NVMe/FC and FCP traffic through the same 32G FC adapter ports. For FCP and FC/NVMe, you should use Microsft device-specific module (DSM) as the Microsoft Multipath I/O (MPIO) option.
+
+* Known limitations:
++
+Windows Failover Cluster (WFC) is not supported with NVMe/FC because ONTAP doesn't currently support persistent reservations with NVMe/FC.
++
+NOTE: The external driver shipped by Broadcom for Windows NVMe/FC isn't a true NVMe/FC driver but a translational SCSI ⇄ NVMe driver. This translational overhead doesn't necessarily impact performance, but it does negate the performance benefits of NVMe/FC. As a result,  NVMe/FC and FCP performance is the same on Windows servers, unlike on other operating systems such as Linux, where NVMe/FC performance is significantly better than that of FCP.
+
+== Enable NVMe/FC 
+
+include::_include/nvme/reuse_enabling_on_windows_init_host.adoc[]
+
+== Configure the Broadcom FC adapter
+
+include::_include/nvme/reuse_configuring_broadcom_for_windows.adoc[]
+
+=== Enable MPIO for NVMe devices
+
+include::_include/nvme/reuse_enabling_mpio_for_nvme_on_windows_host.adoc[]
+
+== Validate the NVMe/FC configuration
+
+include::_include/nvme/reuse_validating_nvme_fc_windows.adoc[]

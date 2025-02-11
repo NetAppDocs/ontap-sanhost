@@ -1,8 +1,14 @@
+To support correct operation for ONTAP LUNs, verify that the NVMe subsystems have been discovered and the ONTAP namespaces are correct for the NVMe-oF configuration.
+
+.Steps
 
 . Validate that the Port Type is FC+NVMe.
 +
 Now that NVMe is enabled, you should see the `+Port Type+` listed as `+FC+NVMe+`, as follows.
 +
+.Show example
+[%collapsible]
+====
 ----
 PS C:\Program Files\Emulex\Util\OCManager> .\hbacmd listhba
 
@@ -36,12 +42,15 @@ PCI Function   : 1
 Port Type      : FC+NVMe
 Model          : LPe32002-M2
 ----
+====
 
-
-. Validate that NVMe/FC subsystems have been discovered.
+. Verify that the NVMe/FC subsystems have been discovered.
 +
 The `+nvme-list+` command lists the NVMe/FC discovered subsystems.
 +
+.Show example
+[%collapsible]
+====
 ----
 PS C:\Program Files\Emulex\Util\OCManager> .\hbacmd nvme-list 10:00:00:10:9b:1b:97:65
 
@@ -68,7 +77,11 @@ Total Capacity          :  Not Available
 Unallocated Capacity    :  Not Available
 Note: At present Namespace Management is not supported by NetApp Arrays.
 ----
+====
 +
+.Show example
+[%collapsible]
+====
 ----
 PS C:\Program Files\Emulex\Util\OCManager> .\hbacmd nvme-list 10:00:00:10:9b:1b:97:66
 
@@ -96,11 +109,15 @@ Unallocated Capacity    :  Not Available
 
 Note: At present Namespace Management is not supported by NetApp Arrays.
 ----
+====
 
-. Validate that namespaces have been created.
+. Verify that the namespaces have been created.
 +
 The `+nvme-list-ns+` command lists the namespaces for a specified NVMe target that lists the namespaces connected to the host.
 +
+.Show example
+[%collapsible]
+====
 ----
 PS C:\Program Files\Emulex\Util\OCManager> .\HbaCmd.exe nvme-list-ns 10:00:00:10:9b:1b:97:66 20:08:d0:39:ea:14:11:04 nq
 .1992-08.com.netapp:sn.a3b74c32db2911eab229d039ea141105:subsystem.win_nvme_interop-57-159 0
@@ -121,3 +138,4 @@ Active Namespaces (attached to controller 0x0141):
 0x00000008   \\.\PHYSICALDRIVE16        0               1              7
 
 ----
+====
