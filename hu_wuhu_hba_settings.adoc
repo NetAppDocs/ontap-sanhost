@@ -118,7 +118,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryCount
 |6
@@ -176,20 +176,20 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
-|120 |When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
+|120 |When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
 \DsmMaximumStateTransitionTime
-|120 |When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
+|120 |When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\DsmSupportedDeviceList
 |"NETAPPLUN" |When MPIO support is specified
-|"NETAPP LUN", "NETAPP LUN C-Mode" |When MPIO support is specified, except if Data ONTAP DSM is detected
+|"NETAPP LUN", "NETAPP LUN C-Mode" |When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Control\Class
 \{iSCSI_driver_GUID}\ instance_ID\Parameters
 \IPSecConfigTimeout
 |60
-|Always, except when Data ONTAP DSM is detected
+|Always, except when ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Control
 \Class\{iSCSI_driver_GUID}
 \ instance_ID\Parameters\LinkDownTime
@@ -197,20 +197,20 @@ The following values are set by the Windows Host Utilities installer. All values
 |Always
 |HKLM\SYSTEM\CurrentControlSet\Services\ClusDisk
 \Parameters\ManageDisksOnSystemBuses
-|1|Always, except when Data ONTAP DSM is detected
+|1|Always, except when ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet\Control
 \Class\{iSCSI_driver_GUID}
 \ instance_ID\Parameters\MaxRequestHoldTime
 |120
 |When no MPIO support is selected
 |30
-|Always, except when Data ONTAP DSM is detected
+|Always, except when ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet
 \Control\MPDEV\MPIOSupportedDeviceList
 |"NETAPP LUN"
 |When MPIO support is specified
 |"NETAPP LUN", "NETAPP LUN C-Mode"
-|When MPIO is support-specified, except if Data ONTAP DSM is detected
+|When MPIO is support-specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
 |40
@@ -218,67 +218,67 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathVerifyEnabled
 |0
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PathVerifyEnabled
 |0
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |0
-|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msiscdsm\Parameters\PathVerifyEnabled
 |0
-|When MPIO support is specified and your server is Windows Server 2003, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2003, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\PathVerifyEnabled
 |0
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is Windows Server 2003, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2003, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \mpio\Parameters\RetryCount
 |6
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msiscdsm\Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2003, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2003, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\RetryCount
 |6
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \mpio\Parameters\RetryInterval
 |1
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
-\vnetapp\Parameters\RetryInterval |1 |When MPIO support is specified, except if Data ONTAP DSM is detected
+\vnetapp\Parameters\RetryInterval |1 |When MPIO support is specified, except if ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet
-\Services\disk\TimeOutValue |120 |When no MPIO support is selected, except if Data ONTAP DSM is detected |60 |When MPIO support is specified, except if Data ONTAP DSM is detected
+\Services\disk\TimeOutValue |120 |When no MPIO support is selected, except if ONTAP DSM is detected |60 |When MPIO support is specified, except if ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1

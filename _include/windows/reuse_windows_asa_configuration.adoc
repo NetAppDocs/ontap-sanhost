@@ -2,9 +2,9 @@ Depending on your SAN configuration, the host uses All SAN Array (ASA) or non-AS
 
 === All SAN array configuration
 
-An ASA configuration should have one group of active/optimized paths with single priorities. This means the paths are serviced by the controller and the I/O is sent on all the active paths.
+An ASA configuration should have one group of Active/Optimized paths with single priorities. This means the paths are serviced by the controller and the I/O is sent on all the active paths.
 
-The following example displays the correct output for an ONTAP LUN with active/optimized paths.
+The following example displays the correct output for an ONTAP LUN with Active/Optimized paths.
 
 image::asa.png[Screenshot of ONTAP LUN with active/optimized paths]
 
