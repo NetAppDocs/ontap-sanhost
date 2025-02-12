@@ -13,18 +13,17 @@ summary: Using Windows Server 2022 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Windows Server 2022 with ONTAP as the target. 
+You can use the ONTAP SAN host configuration settings to configure Windows Server 2022 for operation with ONTAP storage. 
 
-== Booting the OS
+== Boot the Windows OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
-=== SAN booting
-include::_include/windows/reuse_windows_san_booting.adoc[]
-
 == Install Windows hotfixes
-NetApp recommends that the *latest cumulative update* is installed on the server.
+NetApp recommends installing the *latest cumulative update* available from the Microsoft Update Catalog on the host server.
 
-NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=update%20%22windows%20server%202022%22[Microsoft Update Catalog 2022^] website to obtain and install the required Windows hotfixes for your version of Windows.
+.Steps
+
+. Download the hotfixes from the link:https://www.catalog.update.microsoft.com/Search.aspx?q=update%20%22windows%20server%202022%22[Microsoft Update Catalog 2022^].
 
 include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
@@ -34,15 +33,17 @@ include::_include/windows/reuse_windows_installing_WUHU.adoc[]
 == Multipathing
 include::_include/windows/reuse_windows_multipathing.adoc[]
 
-NOTE: When you select MPIO support, the Windows Host Utilities enables the MPIO feature included in Windows Server 2022.
+The MPIO software presents a single disk to the Windows OS for all paths, and a device-specific module (DSM) manages path failover. On a Windows system, the two main components in any MPIO solution are the DSM and the Windows MPIO. When you select MPIO support, the Windows Host Utilities enables the MPIO feature included in Windows Server 2022. 
+
+NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
 
 == SAN configuration
+
+include::_include/windows/reuse_windows_asa_configuration.adoc[]
+
+
 === Non-ASA configuration
 include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
-
-
-=== All SAN array configuration
-include::_include/windows/reuse_windows_asa_configuration.adoc[]
 
 == Recommended settings
 include::_include/windows/reuse_windows_recommended_settings.adoc[]
