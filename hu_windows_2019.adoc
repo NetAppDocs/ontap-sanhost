@@ -18,7 +18,7 @@ You can use the ONTAP SAN host configuration settings to configure Windows serve
 == Boot the Windows OS
 include::_include/windows/reuse_windows_booting_OS.adoc[]
 
-You can use the configuration settings provided in this document to configure cloud clients connected to link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/index.html[Cloud Volumes ONTAP^] and https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/index.html[Amazon FSx for ONTAP^].
+include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 == Install Windows hotfixes
 NetApp recommends installing the *latest cumulative update* available from the Microsoft Update Catalog on the host server.
