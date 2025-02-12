@@ -53,7 +53,7 @@ HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 \Services\msdsm\Parameters
 \DsmMaximumStateTransitionTime
 |120
-|When MPIO support is specified and your server is Windows Server 025, 2022, 2019, 2016, or 2012 R2
+|When MPIO support is specified and your server is Windows Server 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPP LUN", "NETAPP LUN C-
@@ -274,7 +274,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is  detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\RetryInterval |1 |When MPIO support is specified, except if Data ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet
@@ -282,7 +282,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
-|When your server is Windows Server 2008,Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016 only
+|When your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008 
 |===
 
 See the https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance/windows-registry-advanced-users[Microsoft documents^] for the registry parameter details.
