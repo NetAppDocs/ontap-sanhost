@@ -1,4 +1,4 @@
-Depending on your SAN configuration, the host uses All SAN Array (ASA) or non-ASA configurations to access ONTAP LUNs. In both ASA and non-ASA configurations, you shouldn't require more than four paths to access a single ONTAP LUN. Having more than four paths might cause issues with the paths during a storage failure.
+Depending on your SAN configuration, the host uses All SAN Array (ASA) or non-ASA configurations to access ONTAP LUNs. In both ASA and non-ASA configurations, you shouldn't require more than four paths to access a single ONTAP LUN. If you have more than four paths, it might cause issues with the paths during a storage failure.
 
 === All SAN array configuration
 

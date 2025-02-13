@@ -14,32 +14,32 @@ The PowerShell Toolkit cmdlet has completed on the VHD file for the virtual mach
 . Take the defaults for Anaconda (the blue/red configuration screens). Networking is optional.
 . Launch GRUB by entering: `grub`
 . If there is only one virtual disk in this VM, or if there are multiple disks and the first is the boot disk, run the following GRUB commands:
-
++
 ----
 root (hd0,0)
 setup (hd0)
 quit
 ----
-
++
 If you have multiple virtual disks in the VM, and the boot disk isn't the first disk, or you are fixing GRUB by booting from the misaligned backup VHD, enter the following command to identify the boot disk:
-
++
 ----
 find /boot/grub/stage1
 ----
-
++
 
 Then run the following commands:
-
++
 ----
 root (boot_disk,0)
 setup (boot_disk)
 quit
 ----
-
++
 NOTE: In `setup (boot_disk)`, `boot_disk` is a placeholder for the actual disk identifier of the boot disk.
 
 [start=10]
 
 . Press *Ctrl-D* to log out.
-
++
 Linux rescue shuts down and then reboots.
