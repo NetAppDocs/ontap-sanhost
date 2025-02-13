@@ -2,10 +2,9 @@
 sidebar: sidebar
 permalink: nvme_windows_2022.html
 keywords: nvme, windows, enterprise
-summary: NVMe/FC Host Configuration for Windows Server 2022 with ONTAP
+summary: You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2022 for operation with ONTAP LUNs.
 ---
-
-= NVMe/FC Host Configuration for Windows Server 2022 with ONTAP
+= Configure Windows Server 2022 with NVMe/FC for ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,17 +13,20 @@ summary: NVMe/FC Host Configuration for Windows Server 2022 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2022 using ONTAP as the target.
+You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2022 for operation with ONTAP LUNs.
 
-NVMe/FC is supported on ONTAP 9.7 or later for Windows Server 2022.
+.About this task
+You can use the following support with the NVMe/FC host configuration for Windows 2022. You should also review the known limitations before starting the configuration process.
 
+* Support available:
++
+Beginning with ONTAP 9.7, NVMe/FC is supported for Windows Server 2022.
++
 include::_include/nvme/reuse_supportability_notes.adoc[]
 
-== Known limitations
-
-Windows Failover Cluster (WFC) is not supported with ONTAP NVMe/FC because ONTAP does not currently support persistent reservations with NVMe/FC.
-
-NOTE: The external driver shipped by Broadcom for Windows NVMe/FC is not a true NVMe/FC driver but a translational SCSI ⇄ NVMe driver. This translational overhead does not necessarily impact performance, but it does negate the performance benefits of NVMe/FC. Thus, on Windows servers, NVMe/FC and FCP performance is the same, unlike on other operating systems such as Linux, where NVMe/FC performance is significantly better than that of FCP.
+* Known limitations:
++
+include::_include/nvme/reuse-nvme-windows-wfc-limitation.adoc[]
 
 == Enable NVMe/FC on a Windows initiator host
 

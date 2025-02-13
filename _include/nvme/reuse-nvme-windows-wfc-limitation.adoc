@@ -1,0 +1,3 @@
+Windows Failover Cluster isn't supported with NVMe/FC because ONTAP doesn't currently support persistent reservations with NVMe/FC.
++
+NOTE: Broadcom ships an external driver for Windows NVMe/FC that is a translational SCSI ⇄ NVMe driver and not a true NVMe/FC driver. The translational overhead doesn't necessarily impact performance, but it does negate the performance benefits of NVMe/FC. As a result,  NVMe/FC and FCP performance is the same on Windows servers, unlike other operating systems such as Linux, where NVMe/FC performance is significantly better than that of FCP.
