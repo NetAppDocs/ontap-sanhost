@@ -16,7 +16,8 @@ summary: You can use the ONTAP SAN host configuration settings to configure Wind
 You can use the ONTAP SAN host configuration settings to configure Windows Server 2025 for operation with ONTAP storage. 
 
 == Boot the Windows OS
-include::_include/windows/reuse_windows_booting_OS.adoc[]
+
+include::_include/windows/reuse-windows-san-boot-2022-and-later.adoc[]
 
 == Install Windows hotfixes
 NetApp recommends installing the *latest cumulative update* available from the Microsoft Update Catalog on the host server.
@@ -31,11 +32,11 @@ include::_include/windows/reuse_windows_hotfix_install.adoc[]
 include::_include/windows/reuse_windows_installing_WUHU.adoc[]
 
 == Multipathing
-include::_include/windows/reuse_windows_multipathing.adoc[]
 
-The MPIO software presents a single disk to the Windows OS for all paths, and a device-specific module (DSM) manages path failover. On a Windows system, the two main components in any MPIO solution are the DSM and the Windows MPIO. When you select MPIO support, the Windows Host Utilities enables the MPIO feature included in Windows Server 2025. 
+You need to install the Microsoft Multipath I/O (MPIO) software and enable multipathing if your Windows host has more than one path to the storage system. 
 
-NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
+include::_include/windows/reuse-windows-multipathing.adoc[]
+
 
 == SAN configuration
 

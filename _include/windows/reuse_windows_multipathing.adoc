@@ -1,3 +1,0 @@
-You need to install the Microsoft Multipath I/O (MPIO) software and have multipathing set up if your Windows host has more than one path to the storage system. 
-
-CAUTION: Without the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
