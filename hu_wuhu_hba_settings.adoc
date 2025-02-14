@@ -162,7 +162,7 @@ The following NVMe Emulex driver parameters are updated when installing Windows 
 * NVMEMode = 0
 * LimTransferSize=1
 +
-The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 7.2. After installation, you need to manually change LimTransferSize to "0" and reboot the server.
+The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 7.2. After installation, you need to manually change the LimTransferSize value to "0" and reboot the server.
 
 == Registry values set by Windows Host Utilities 7.1
 
