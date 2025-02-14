@@ -28,15 +28,15 @@ include::_include/nvme/reuse_supportability_notes.adoc[]
 +
 include::_include/nvme/reuse-nvme-windows-wfc-limitation.adoc[]
 
-== Enable NVMe/FC on a Windows initiator host
+== Enable NVMe/FC
 
 include::_include/nvme/reuse_enabling_on_windows_init_host.adoc[]
 
-== Configure the Broadcom FC adapter in Windows for NVMe/FC
+== Configure the Broadcom FC adapter
 
 include::_include/nvme/reuse_configuring_broadcom_for_windows.adoc[]
 
-=== Enable MPIO for NVMe devices on the Windows host
+=== Enable MPIO for NVMe devices
 
 include::_include/nvme/reuse_enabling_mpio_for_nvme_on_windows_host.adoc[]
 
