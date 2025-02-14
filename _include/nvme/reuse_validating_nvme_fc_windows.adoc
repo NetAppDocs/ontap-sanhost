@@ -1,13 +1,16 @@
+Verify that the NVMe subsystems have been discovered and the ONTAP namespaces are correct for the NVMe-oF configuration.
 
-. Validate that the Port Type is FC+NVMe.
+.Steps
+
+. Verify that "Port Type" is `+FC+NVMe+`:
 +
-Now that NVMe is enabled, you should see the `+Port Type+` listed as `+FC+NVMe+`, as follows.
+`listhba`
 +
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
-PS C:\Program Files\Emulex\Util\OCManager> .\hbacmd listhba
-
-Manageable HBA List
-
 Port WWN       : 10:00:00:10:9b:1b:97:65
 Node WWN       : 20:00:00:10:9b:1b:97:65
 Fabric Name    : 10:00:c4:f5:7c:a5:32:e0
@@ -19,7 +22,7 @@ Port Number    : 0
 Mode           : Initiator
 PCI Bus Number : 94
 PCI Function   : 0
-Port Type      : FC+NVMe
+*Port Type*      : *FC+NVMe*
 Model          : LPe32002-M2
 
 Port WWN       : 10:00:00:10:9b:1b:97:66
@@ -36,17 +39,16 @@ PCI Function   : 1
 Port Type      : FC+NVMe
 Model          : LPe32002-M2
 ----
+====
 
-
-. Validate that NVMe/FC subsystems have been discovered.
+. Verify that the NVMe/FC subsystems have been discovered:
 +
-The `+nvme-list+` command lists the NVMe/FC discovered subsystems.
+* `+nvme-list+`
 +
+.Show example
+[%collapsible]
+====
 ----
-PS C:\Program Files\Emulex\Util\OCManager> .\hbacmd nvme-list 10:00:00:10:9b:1b:97:65
-
-Discovered NVMe Subsystems for 10:00:00:10:9b:1b:97:65
-
 NVMe Qualified Name     :  nqn.1992-08.com.netapp:sn.a3b74c32db2911eab229d039ea141105:subsystem.win_nvme_interop-57-159
 Port WWN                :  20:09:d0:39:ea:14:11:04
 Node WWN                :  20:05:d0:39:ea:14:11:04
@@ -68,12 +70,14 @@ Total Capacity          :  Not Available
 Unallocated Capacity    :  Not Available
 Note: At present Namespace Management is not supported by NetApp Arrays.
 ----
+====
+
+* `nvme-list`
 +
+.Show example
+[%collapsible]
+====
 ----
-PS C:\Program Files\Emulex\Util\OCManager> .\hbacmd nvme-list 10:00:00:10:9b:1b:97:66
-
-Discovered NVMe Subsystems for 10:00:00:10:9b:1b:97:66
-
 NVMe Qualified Name     :  nqn.1992-08.com.netapp:sn.a3b74c32db2911eab229d039ea141105:subsystem.win_nvme_interop-57-159
 Port WWN                :  20:07:d0:39:ea:14:11:04
 Node WWN                :  20:05:d0:39:ea:14:11:04
@@ -96,16 +100,16 @@ Unallocated Capacity    :  Not Available
 
 Note: At present Namespace Management is not supported by NetApp Arrays.
 ----
+====
 
-. Validate that namespaces have been created.
+. Verify that the namespaces have been created:
 +
-The `+nvme-list-ns+` command lists the namespaces for a specified NVMe target that lists the namespaces connected to the host.
+`+nvme-list-ns+`
 +
+.Show example
+[%collapsible]
+====
 ----
-PS C:\Program Files\Emulex\Util\OCManager> .\HbaCmd.exe nvme-list-ns 10:00:00:10:9b:1b:97:66 20:08:d0:39:ea:14:11:04 nq
-.1992-08.com.netapp:sn.a3b74c32db2911eab229d039ea141105:subsystem.win_nvme_interop-57-159 0
-
-
 Active Namespaces (attached to controller 0x0141):
 
                                        SCSI           SCSI           SCSI
@@ -121,3 +125,4 @@ Active Namespaces (attached to controller 0x0141):
 0x00000008   \\.\PHYSICALDRIVE16        0               1              7
 
 ----
+====

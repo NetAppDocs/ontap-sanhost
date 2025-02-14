@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: nvme_windows_2022.html
+permalink: nvme-windows-2025.html
 keywords: nvme, windows, enterprise
-summary: You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2022 for operation with ONTAP LUNs.
+summary: NVMe/FC Host Configuration for Windows Server 2052 with ONTAP
 ---
-= Configure Windows Server 2022 with NVMe/FC for ONTAP
+= Configure Windows Server 2025 with NVMe/FC for ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,14 +13,14 @@ summary: You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Wi
 :imagesdir: ./media/
 
 [.lead]
-You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2022 for operation with ONTAP LUNs.
+You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2025 for operation with ONTAP LUNs.
 
 .About this task
-You can use the following support with the NVMe/FC host configuration for Windows 2022. You should also review the known limitations before starting the configuration process.
+You can use the following support with the NVMe/FC host configuration for Windows 2025. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 +
-Beginning with ONTAP 9.7, NVMe/FC is supported for Windows Server 2022.
+Beginning with ONTAP 9.10.1, NVMe/FC is supported for Windows Server 2025.
 +
 include::_include/nvme/reuse_supportability_notes.adoc[]
 
@@ -28,7 +28,7 @@ include::_include/nvme/reuse_supportability_notes.adoc[]
 +
 include::_include/nvme/reuse-nvme-windows-wfc-limitation.adoc[]
 
-== Enable NVMe/FC
+== Enable NVMe/FC 
 
 include::_include/nvme/reuse_enabling_on_windows_init_host.adoc[]
 
@@ -40,6 +40,6 @@ include::_include/nvme/reuse_configuring_broadcom_for_windows.adoc[]
 
 include::_include/nvme/reuse_enabling_mpio_for_nvme_on_windows_host.adoc[]
 
-== Validate NVMe/FC
+== Validate the NVMe/FC configuration
 
 include::_include/nvme/reuse_validating_nvme_fc_windows.adoc[]

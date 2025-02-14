@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: hu_windows_2022.html
+permalink: hu-windows-2025.html
 keywords: windows, enterprise
-summary: Using Windows Server 2022 with ONTAP
+summary: You can use the ONTAP SAN host configuration settings to configure Windows Server 2025 for operation with ONTAP storage.
 ---
-= Use Windows Server 2022 with ONTAP
+= Configure Windows Server 2025 for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,7 +13,7 @@ summary: Using Windows Server 2022 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Windows Server 2022 for operation with ONTAP storage. 
+You can use the ONTAP SAN host configuration settings to configure Windows Server 2025 for operation with ONTAP storage. 
 
 == Boot the Windows OS
 
@@ -24,7 +24,7 @@ NetApp recommends installing the *latest cumulative update* available from the M
 
 .Steps
 
-. Download the hotfixes from the link:https://www.catalog.update.microsoft.com/Search.aspx?q=update%20%22windows%20server%202022%22[Microsoft Update Catalog 2022^].
+. Download the hotfixes from the link:https://www.catalog.update.microsoft.com/Search.aspx?q=update%20%22windows%20server%202025%22[Microsoft Update Catalog 2025^].
 
 include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
@@ -33,7 +33,7 @@ include::_include/windows/reuse_windows_installing_WUHU.adoc[]
 
 == Multipathing
 
-You need to install the Microsoft Multipath I/O (MPIO) software and enable multipathing if your Windows host has more than one path to the storage system. When you select MPIO support, the Windows Host Utilities enables the MPIO feature included in Windows Server 2022. If you're not using the Windows Host Utilities, you need to enable multipathing manually.
+You need to install the Microsoft Multipath I/O (MPIO) software and enable multipathing if your Windows host has more than one path to the storage system. 
 
 include::_include/windows/reuse-windows-multipathing.adoc[]
 
@@ -50,4 +50,4 @@ include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
 include::_include/windows/reuse_windows_recommended_settings.adoc[]
 
 == Known issues
-There are no known issues for the Windows Server 2022 with ONTAP release.
+There are no known issues for the Windows Server 2025 with ONTAP release.
