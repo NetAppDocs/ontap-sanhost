@@ -2,10 +2,9 @@
 sidebar: sidebar
 permalink: nvme_windows_2012r2.html
 keywords: nvme, windows, enterprise
-summary: NVMe/FC Host Configuration for Windows Server 2012 R2 with ONTAP
+summary: You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2012 R2 for operation with ONTAP LUNs.
 ---
-
-= NVMe/FC Host Configuration for Windows Server 2012 R2 with ONTAP
+= Configure Windows Server 2012 R2 with NVMe/FC for ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,29 +13,32 @@ summary: NVMe/FC Host Configuration for Windows Server 2012 R2 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2012 R2 using ONTAP as the target.
+You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2012 R2 for operation with ONTAP LUNs.
 
-NVMe/FC is supported on ONTAP 9.7 or later for Windows Server 2012.
-
-include::_include/nvme/reuse_supportability_notes.adoc[]
+.About this task
+You can use the following support with the NVMe/FC host configuration for Windows 2012 R2. You should also review the known limitations before starting the configuration process.
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
-== Known limitations
+* Support available:
++
+Beginning with ONTAP 9.7, NVMe/FC is supported for Windows Server 2012 R2.
++
+include::_include/nvme/reuse_supportability_notes.adoc[]
 
-Windows Failover Cluster (WFC) is not supported with ONTAP NVMe/FC because ONTAP does not currently support persistent reservations with NVMe/FC.
+* Known limitations:
++
+include::_include/nvme/reuse-nvme-windows-wfc-limitation.adoc[]
 
-NOTE: The external driver shipped by Broadcom for Windows NVMe/FC is not a true NVMe/FC driver but a translational SCSI ⇄ NVMe driver. This translational overhead does not necessarily impact performance, but it does negate the performance benefits of NVMe/FC. Thus, on Windows servers, NVMe/FC and FCP performance is the same, unlike on other operating systems such as Linux, where NVMe/FC performance is significantly better than that of FCP.
-
-== Enable NVMe/FC on a Windows initiator host
+== Enable NVMe/FC
 
 include::_include/nvme/reuse_enabling_on_windows_init_host.adoc[]
 
-== Configure the Broadcom FC adapter in Windows for NVMe/FC
+== Configure the Broadcom FC adapter
 
 include::_include/nvme/reuse_configuring_broadcom_for_windows.adoc[]
 
-=== Enable MPIO for NVMe devices on the Windows host
+=== Enable MPIO for NVMe devices
 
 include::_include/nvme/reuse_enabling_mpio_for_nvme_on_windows_host.adoc[]
 

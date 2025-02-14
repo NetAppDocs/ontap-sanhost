@@ -4,8 +4,7 @@ permalink: hu_windows_2019.html
 keywords: windows, enterprise
 summary: Using Windows Server 2019 with ONTAP
 ---
-
-= Using Windows Server 2019 with ONTAP
+= Use Windows Server 2019 with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,20 +13,18 @@ summary: Using Windows Server 2019 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Windows server 2019 with ONTAP as the target. 
+You can use the ONTAP SAN host configuration settings to configure Windows server 2019 with ONTAP for operation with ONTAP storage. 
 
-== Booting the OS
-include::_include/windows/reuse_windows_booting_OS.adoc[]
+== Boot the Windows OS
 
-=== SAN booting
-include::_include/windows/reuse_windows_san_booting.adoc[]
-
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+include::_include/windows/reuse-windows-san-boot-2012r2-to-2019.adoc[]
 
 == Install Windows hotfixes
-NetApp recommends that the *latest cumulative update* is installed on the server.
+NetApp recommends installing the *latest cumulative update* available from the Microsoft Update Catalog on the host server.
 
-NOTE: Go to the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2019[Microsoft Update Catalog 2019^] website to obtain and install the required Windows hotfixes for your version of Windows.
+.Steps
+
+. Download the hotfixes from the link:https://www.catalog.update.microsoft.com/Search.aspx?q=Update+Windows+Server+2019[Microsoft Update Catalog 2019^].
 
 include::_include/windows/reuse_windows_hotfix_install.adoc[]
 
@@ -35,17 +32,18 @@ include::_include/windows/reuse_windows_hotfix_install.adoc[]
 include::_include/windows/reuse_windows_installing_WUHU.adoc[]
 
 == Multipathing
-include::_include/windows/reuse_windows_multipathing.adoc[]
 
-NOTE: When you select MPIO, the Windows Host Utilities enables the included MPIO feature of Windows Server 2019.
+You need to install the Microsoft Multipath I/O (MPIO) software and enable multipathing if your Windows host has more than one path to the storage system. When you select MPIO support, the Windows Host Utilities enables the MPIO feature included in Windows Server 2019. If you're not using the Windows Host Utilities, you need to enable multipathing manually.
+
+include::_include/windows/reuse-windows-multipathing.adoc[]
 
 == SAN configuration
+
+include::_include/windows/reuse_windows_asa_configuration.adoc[]
+
+
 === Non-ASA configuration
 include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
-
-
-=== All SAN array configuration
-include::_include/windows/reuse_windows_asa_configuration.adoc[]
 
 == Recommended settings
 include::_include/windows/reuse_windows_recommended_settings.adoc[]
