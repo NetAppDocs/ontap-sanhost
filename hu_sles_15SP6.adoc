@@ -24,7 +24,12 @@ include::_include/hu/enable-san-boot-linux.adoc[]
 
 == Multipathing
 
-You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs. 
+You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf file` must exist. If the `/etc/multipath.conf` file doesn't exist, you need to create an empty, zero-byte file:
+
+[source,cli]
+----
+touch /etc/multipath.conf
+----
 
 include::_include/hu/multipathing.adoc[]
 
