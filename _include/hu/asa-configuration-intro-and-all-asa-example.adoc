@@ -1,4 +1,8 @@
-In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure. In the following examples, the outputs show the correct settings for the ONTAP LUN.
+The default multipath parameters loaded from an empty, zero-byte `/etc/multipath.conf` file support both NetApp ASA (all-flash SAN array) and non-ASA configurations.
+
+In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure. 
+
+In the following examples, the outputs show the correct settings for the ONTAP LUN.
 
 .ASA configuration
 An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time. 

@@ -33,6 +33,31 @@ touch /etc/multipath.conf
 
 include::_include/hu/multipathing.adoc[]
 
+=== Examples of ASA and non-ASA configurations
+include::_include/hu/asa-configuration-intro-and-all-asa-example.adoc[]
+----
+# multipath -ll
+3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+  |- 3:0:7:9    sdco 69:192  active ready running
+  |- 3:0:8:9    sddi 71:0    active ready running
+  |- 14:0:8:9   sdjq 65:320  active ready running
+  `- 14:0:7:9   sdiw 8:256   active ready running
+----
+
+include::_include/hu/non-asa-configuration-example.adoc[]
+----
+# multipath -ll
+3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+| |- 3:0:3:0    sdd  8:48    active ready running
+| |- 3:0:4:0    sdx  65:112  active ready running
+`-+- policy='service-time 0' prio=10 status=enabled
+  |- 14:0:2:0   sdfk 130:96  active ready running
+  `- 14:0:5:0   sdgz 132:240 active ready running
+----
 
 === Exclude a device from multipath
 
@@ -95,31 +120,6 @@ devices {
 }
 ----
 
-=== Examples of ASA and non-ASA configurations
-include::_include/hu/asa-configuration-intro-and-all-asa-example.adoc[]
-----
-# multipath -ll
-3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-`-+- policy='service-time 0' prio=50 status=active
-  |- 3:0:7:9    sdco 69:192  active ready running
-  |- 3:0:8:9    sddi 71:0    active ready running
-  |- 14:0:8:9   sdjq 65:320  active ready running
-  `- 14:0:7:9   sdiw 8:256   active ready running
-----
-
-include::_include/hu/non-asa-configuration-example.adoc[]
-----
-# multipath -ll
-3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-|-+- policy='service-time 0' prio=50 status=active
-| |- 3:0:3:0    sdd  8:48    active ready running
-| |- 3:0:4:0    sdx  65:112  active ready running
-`-+- policy='service-time 0' prio=10 status=enabled
-  |- 14:0:2:0   sdfk 130:96  active ready running
-  `- 14:0:5:0   sdgz 132:240 active ready running
-----
 
 == Known issues
 

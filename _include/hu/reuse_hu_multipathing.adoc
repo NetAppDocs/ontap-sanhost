@@ -9,4 +9,4 @@ You don't need to make changes to the `/etc/multipath.conf` zero-byte file for S
 
 An empty `/etc/multipath.conf` file automatically loads the NetApp recommended host multipath parameters as the default settings when the operating system boots.
 
-The default multipath parameters loaded from an empty `/etc/multipath.conf` zero-byte file support both All SAN Array (ASA) and non-ASA array configurations
+The default multipath parameters loaded from an empty `/etc/multipath.conf` zero-byte file support both All SAN Array (ASA) and non-ASA configurations

@@ -40,8 +40,6 @@ An empty `/etc/multipath.conf` file automatically loads the NetApp recommended h
 | vendor | NETAPP
 |===
 
-The default multipath parameters loaded from an empty, zero-byte `/etc/multipath.conf` file support both NetApp ASA (all-flash SAN array) and non-ASA array configurations.
-
 You can use the following multipath command to verify the settings for your ONTAP LUNs:
 
 [source,cli]
