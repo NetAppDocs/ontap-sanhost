@@ -24,7 +24,7 @@ include::_include/hu/enable-san-boot-linux.adoc[]
 
 == Multipathing
 
-You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf file` must exist. If the `/etc/multipath.conf` file doesn't exist, you need to create an empty, zero-byte file:
+You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf file` must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file:
 
 [source,cli]
 ----
@@ -52,7 +52,6 @@ blacklist {
 
 The following example determines a WWID and adds it to a "blacklist" stanza.
 
-.Steps
 . Determine the WWID:
 +
 `# /lib/udev/scsi_id -gud /dev/sda`
@@ -61,7 +60,7 @@ The following example determines a WWID and adds it to a "blacklist" stanza.
 +
 "sda" is the local SCSI disk that you want to add it to the blacklist.
 
-. Add the WWID to the "blacklist" stanza in `/etc/multipath.conf`:
+. Add the WWID to the "blacklist" stanza:
 +
 ----
 blacklist {
@@ -76,7 +75,9 @@ blacklist {
 .Recommended settings for ONTAP LUNs
 You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the default settings. 
 
-The following table shows the critical multipathd parameters for ONTAP LUNs. These parameters are compiled with native device mapper multipath libraries. If a host is connected to LUNs from other vendors and any of these parameters are overridden, you need to correct them by using stanzas later in the multipath.conf file that apply specifically to ONTAP LUNs. If you don't do this, the ONTAP LUNs might not work as expected. You should only override these default settings in consultation with NetApp support, an OS vendor, or both, and only when the impact is fully understood.
+The following table shows the critical multipathd parameters for ONTAP LUNs. These parameters are compiled with built-in Device Mapper Multipathing libraries. If your host is connected to LUNs from other vendors and any of these parameters are overridden, you need to correct them by using stanzas later in the multipath.conf file that apply specifically to ONTAP LUNs. If you don't do this, the ONTAP LUNs might not work as expected. 
+
+NOTE: You should not override the recommended parameter setting for an ONTAP LUN because it can negatively impact performance.
 
 [cols=2]
 [options="header"]
@@ -103,7 +104,7 @@ The following table shows the critical multipathd parameters for ONTAP LUNs. The
 | vendor | NETAPP
 |===
 
-The following example shows how to correct an overriden default setting in a `multipath.conf` file that defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs. In this case, you cannot remove these parameters because SAN arrays are attached to the host. Instead, you can correct the values to "queue" and "tur" by adding a device stanza to the `multipath.conf` file that applies specifically to the ONTAP LUNs.
+The following example shows how to correct an overridden default. In this example, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs. You cannot remove these parameters because ASAs arrays are still attached to the host. Instead, you correct the values for `path_checker` and `no_path_retry` by adding a device stanza to the `multipath.conf` file that applies specifically to the ONTAP LUNs.
 
 [subs=+quotes]
 ----
@@ -122,9 +123,7 @@ devices {
 }
 ----
 
-
-
-=== Examples of all ASA and non-ASA configurations
+=== Examples of ASA and non-ASA configurations
 include::_include/hu/asa-configuration-intro-and-all-asa-example.adoc[]
 ----
 # multipath -ll
