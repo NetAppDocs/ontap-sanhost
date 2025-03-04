@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: hu_sles_15SP6.html
 keywords: host utilities, suse linux enterprise server 15 sp6, suse, linux, 15 sp6, netapp, ontap, fcp, iscsi
-summary: use the ONTAP SAN host configuration settings to configure the SUSE Linux Enterprise Server 15 SP6 host with the FCP and iSCSI protocols for operation with ONTAP LUNs.
+summary: Use the ONTAP SAN host configuration settings to configure the SUSE Linux Enterprise Server 15 SP6 host with the FCP and iSCSI protocols for operation with ONTAP LUNs.
 ---
-= Configure SUSE Linux Enterprise Server 15 SP6 for ONTAP storage
+= Configure SUSE Linux Enterprise Server 15 SP6 with FCP and iSCSI for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -34,10 +34,7 @@ touch /etc/multipath.conf
 include::_include/hu/multipathing.adoc[]
 
 
-=== Use multipathing to optimize performance
-You can use the `multipath.conf` file to optimize the performance of your host configuration.
-
-.Exclude a device from multipath
+=== Exclude a device from multipath
 
 If you want to exclude a device from multipath, you can add the WWID for the unwanted device to the "blacklist" for the `multipath.conf` file using the following device stanza:
 
@@ -72,39 +69,14 @@ blacklist {
 ----
 
 
-.Recommended settings for ONTAP LUNs
-You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the default settings. 
+=== Customize multipath parameters for ONTAP LUNs
+You should always check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the <<multipath-parameter-settings,multipath parameter default settings>>. 
 
-The following table shows the critical multipathd parameters for ONTAP LUNs. These parameters are compiled with built-in Device Mapper Multipathing libraries. If your host is connected to LUNs from other vendors and any of these parameters are overridden, you need to correct them by using stanzas later in the multipath.conf file that apply specifically to ONTAP LUNs. If you don't do this, the ONTAP LUNs might not work as expected. 
+If your host is connected to LUNs from other vendors and any of these parameter settings are overridden, you need to correct them by using stanzas later in the `multipath.conf` file that apply specifically to ONTAP LUNs. If you don't do this, the ONTAP LUNs might not work as expected. 
 
-NOTE: You should not override the recommended parameter setting for an ONTAP LUN because it can negatively impact performance.
+CAUTION: You should not override the recommended parameter settings for ONTAP LUNs. These settings are required for optimal performance of your host configuration. Contact NetApp support, your OS vendor, or both for more information.
 
-[cols=2]
-[options="header"]
-|===
-| Parameter
-| Setting
-| detect_prio | yes
-| dev_loss_tmo | "infinity"
-| failback | immediate
-| fast_io_fail_tmo | 5
-| features | "2 pg_init_retries 50"
-| flush_on_last_del | "yes"
-| hardware_handler | "0"
-| no_path_retry | queue
-| path_checker | "tur"
-| path_grouping_policy | "group_by_prio"
-| path_selector | "service-time 0"
-| polling_interval | 5
-| prio | "ontap"
-| product | LUN.*
-| retain_attached_hw_handler | yes
-| rr_weight | "uniform"
-| user_friendly_names | no
-| vendor | NETAPP
-|===
-
-The following example shows how to correct an overridden default. In this example, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs. You cannot remove these parameters because ASAs arrays are still attached to the host. Instead, you correct the values for `path_checker` and `no_path_retry` by adding a device stanza to the `multipath.conf` file that applies specifically to the ONTAP LUNs.
+The following example shows how to correct an overridden default. In this example, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs. You cannot remove these parameters when ONTAP storage arrays are still attached to the host. Instead, you correct the values for `path_checker` and `no_path_retry` by adding a device stanza to the `multipath.conf` file that applies specifically to the ONTAP LUNs.
 
 [subs=+quotes]
 ----
