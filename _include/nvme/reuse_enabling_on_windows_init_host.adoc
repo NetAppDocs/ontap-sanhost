@@ -1,7 +1,7 @@
 Enable FC/NVMe on the Windows initiator host.
 
 .Steps
-. Install OneCommand Manager utility on the Windows host.
+. Install the Emulex HBA Manager utility on the Windows host.
 
 . On each of the HBA initiator ports, set the following HBA driver parameters:
 +
@@ -10,4 +10,5 @@ Enable FC/NVMe on the Windows initiator host.
 +
 . Reboot the host.
 
+// 2025 FEB 21, ONTAPDOC-2770
 // 2025 FEB 14, ONTAPDOC-2521
