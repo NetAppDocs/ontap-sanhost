@@ -124,6 +124,8 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
+include::_include/hu/hu-asm-mirroring.adoc[]
+
 == Known issues
 
 For CentOS (Red Hat compatible kernel) known issues, see the link:hu_rhel_64.html#known-problems-and-limitations[known issues] for Red Hat Enterprise Linux (RHEL) 6.4.

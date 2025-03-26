@@ -109,6 +109,8 @@ devices {
 
 NOTE: To configure Oracle Linux 6.9 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_69.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 6.9.
 
+include::_include/hu/hu-asm-mirroring.adoc[]
+
 == Known issues
 
 The Oracle Linux 6.9 with ONTAP release has the following known issues:
