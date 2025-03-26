@@ -108,6 +108,8 @@ devices {
 
 NOTE: To configure Oracle Linux 7.8 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_78.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 7.8.
 
+include::_include/hu/hu-asm-mirroring.adoc[]
+
 == Known issues
 
 The Oracle Linux 7.8 with ONTAP release has the following known issues:

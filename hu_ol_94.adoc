@@ -154,6 +154,8 @@ NOTE: To configure Oracle Linux 9.4 Red Hat Compatible Kernel (RHCK), use the li
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
+include::_include/hu/hu-asm-mirroring.adoc[]
+
 == Known issues
 
 There are no known issues for the FC host configuration for OL 9.4 with ONTAP release.
