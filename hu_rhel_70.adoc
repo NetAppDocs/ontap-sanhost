@@ -122,6 +122,8 @@ devices {
 
 include::_include/hu/reuse_hu_kvm_configuration.adoc[]
 
+include::_include/hu/hu-asm-mirroring.adoc[]
+
 == Known issues
 
 The RHEL 7.0 with ONTAP release has the following known issues:

@@ -33,7 +33,7 @@ The following sections provide sample multipath outputs for a LUN mapped to ASA 
 
 === All SAN Array (ASA) Configuration
 
-For All SAN Array (ASA) configuration there should be one group of paths with single priorities. All the paths are Active/Optimized, which means they are serviced by the controller and I/O is sent on all the active paths.
+For All SAN Array (ASA) configuration there should be one group of paths with single priorities. All the paths are Active/Optimized. This means they are serviced by the controller and I/O is sent on all the active paths.
 
 .Example
 The following example displays the correct output for an ONTAP LUN with four Active/Optimized paths:

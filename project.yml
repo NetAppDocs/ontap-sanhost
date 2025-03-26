@@ -16,11 +16,11 @@ sidebar:
   entries:
     - title: Configure SAN hosts and cloud clients
       url: /index.html  
-    - title: Overview
+    - title: Learn about SAN host configurations
       url: /overview.html
     - title: Install SAN Host Utilities
       entries:
-      - title: Overview
+      - title: Learn about SAN Host Utilities
         url: /hu_sanhost_index.html
       - title: AIX Host Utilities
         entries:
@@ -86,8 +86,6 @@ sidebar:
           url: /hu_aix_71.html
       - title: CentOS
         entries:
-        - title: Release notes
-          url: /hu_centos_asm_release_notes.html
         - title: CentOS 8
           entries:
           - title: "8.5"
@@ -161,8 +159,6 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
-        - title: Release notes
-          url: /hu_ol_asm_release_notes.html
         - title: OL 9
           entries:
           - title: "9.4"
@@ -242,8 +238,6 @@ sidebar:
             url: /hu_ol_64.html
       - title: RHEL
         entries:
-        - title: Release notes
-          url: /hu_rhel_asm_release_notes.html
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
@@ -332,8 +326,6 @@ sidebar:
           url: /hu_solaris_113.html
       - title: SUSE Linux Enterprise Server
         entries:
-        - title: Release notes
-          url: /hu_sles_asm_release_notes.html
         - title: SUSE Linux Enterprise Server 15
           pdf-filename: SLES-15-FCP
           entries:
@@ -385,6 +377,8 @@ sidebar:
       - title: Windows
         pdf-filename: Windows-FCP
         entries:
+        - title: "2025"
+          url: /hu-windows-2025.html
         - title: "2022"
           url: /hu_windows_2022.html
         - title: "2019"
@@ -517,6 +511,8 @@ sidebar:
           url: /nvme_ubuntu_2204.html
       - title: Windows
         entries:
+        - title: "2025"
+          url: /nvme-windows-2025.html  
         - title: "2022"
           url: /nvme_windows_2022.html
         - title: "2019"

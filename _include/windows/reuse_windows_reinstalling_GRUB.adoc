@@ -1,43 +1,45 @@
 
 After running `mbralign` on disks for correcting MBR alignment with PowerShell Toolkit on Linux guest operating systems using the GRUB boot loader, you must reinstall GRUB to ensure that the guest operating system boots correctly.
 
-The PowerShell Toolkit cmdlet has completed on the VHD file for the virtual machine. This topic applies only to Linux guest operating systems using the GRUB boot loader and `SystemRescueCd`.
+.About this task
+The PowerShell Toolkit cmdlet has completed on the VHD file for the virtual machine. This procedure applies only to Linux guest operating systems using the GRUB boot loader and `SystemRescueCd`.
 
+.Steps
 . Mount the ISO image of Disk 1 of the installation CDs for the correct version of Linux for the virtual machine.
 . Open the console for the virtual machine in Hyper-V Manager.
-. If the VM is running and hung at the GRUB screen, click in the display area to make sure it is active, then click the *Ctrl-Alt-Delete* toolbar icon to reboot the VM. If the VM is not running, start it, and then immediately click in the display area to make sure it is active.
+. If the VM is running and frozen at the GRUB screen, click in the display area to make sure it is active, then select the *Ctrl-Alt-Delete* toolbar icon to reboot the VM. If the VM is not running, start it, and then immediately click in the display area to make sure it is active.
 . As soon as you see the VMware BIOS splash screen, press the *Esc* key once. The boot menu displays.
 . At the boot menu, select *CD-ROM*.
 . At the Linux boot screen, enter: `linux rescue`
 . Take the defaults for Anaconda (the blue/red configuration screens). Networking is optional.
 . Launch GRUB by entering: `grub`
-. If there is only one virtual disk in this VM, or if there are multiple disks, but the first is the boot disk, run the following GRUB commands:
-
+. If there is only one virtual disk in this VM, or if there are multiple disks and the first is the boot disk, run the following GRUB commands:
++
 ----
 root (hd0,0)
 setup (hd0)
 quit
 ----
-
-If you have multiple virtual disks in the VM, and the boot disk is not the first disk, or you are fixing GRUB by booting from the misaligned backup VHD, enter the following command to identify the boot disk:
-
++
+If you have multiple virtual disks in the VM, and the boot disk isn't the first disk, or you are fixing GRUB by booting from the misaligned backup VHD, enter the following command to identify the boot disk:
++
 ----
 find /boot/grub/stage1
 ----
-
++
 
 Then run the following commands:
-
++
 ----
 root (boot_disk,0)
 setup (boot_disk)
 quit
 ----
-
-NOTE: Note that `boot_disk`, above, is a placeholder for the actual disk identifier of the boot disk.
++
+NOTE: In `setup (boot_disk)`, `boot_disk` is a placeholder for the actual disk identifier of the boot disk.
 
 [start=10]
 
 . Press *Ctrl-D* to log out.
-
++
 Linux rescue shuts down and then reboots.

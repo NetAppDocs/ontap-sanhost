@@ -4,8 +4,7 @@ permalink: hu_wuhu_hba_settings.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
 summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
-
-= Configure registry settings
+= Configure registry settings for Windows Host Utilities
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -30,7 +29,11 @@ You must manually set the iSCSI HBA parameters.
 The installer sets different values depending on whether you specify Microsoft Multipath I/O (MPIO) support when running the installation program.
 
 [NOTE]
-You should not change these values unless NetApp technical support directs you to do so.
+====
+You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2, see <<nvme_parameters, NVMe parameters>>.
+
+For all other parameters and registry keys for Windows Host Utilities 7.2 and 7.1, you should not change the values unless technical support tells you to do so.
+====
 
 == Registry values set by Windows Host Utilities 7.2
 
@@ -49,14 +52,12 @@ HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
 |120
-|When MPIO support is specified and your server is Windows Server 2012 R2,
-Windows Server 2016 and Windows 2019, or Windows Server 2022
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet
 \Services\msdsm\Parameters
 \DsmMaximumStateTransitionTime
 |120
-|When MPIO support is specified and your server is Windows Server 2012 R2,
-or Windows Server 2016, Windows 2019 or Windows Server 2022
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPP LUN", "NETAPP LUN C-
@@ -97,8 +98,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
 |30
-|When your server is Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathVerifyEnabled
 |1
@@ -106,8 +106,7 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |1
-|When MPIO support is specified and your server is Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\PathVerifyEnabled
 |0
@@ -119,12 +118,11 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is  Windows Server 2012 R2,
-Windows Server 2016 , Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified, except if Data ONTAP DSM is detected
+|When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryCount
 |6
@@ -132,8 +130,7 @@ Windows Server 2016 , Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryInterval
 |1
@@ -141,8 +138,7 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is  Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\RetryInterval
 |1
@@ -154,11 +150,10 @@ Windows Server 2016, Windows Server 2019, or Windows Server 2022
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
-|When MPIO support is specified and your server is  Windows Server 2012 R2,
-Windows Server 2016, Windows Server 2019, or Windows Server 2022
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |===
 
-
+[[nvme_parameters]]
 === NVMe parameters
 
 The following NVMe Emulex driver parameters are updated when installing Windows Host Utilities 7.2:
@@ -166,9 +161,8 @@ The following NVMe Emulex driver parameters are updated when installing Windows 
 * EnableNVMe = 1
 * NVMEMode = 0
 * LimTransferSize=1
- 
-
-
++
+The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 7.2. After installation, you need to manually change the LimTransferSize value to "0" and reboot the server.
 
 == Registry values set by Windows Host Utilities 7.1
 
@@ -185,11 +179,11 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
-|120 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|120 |When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
 \DsmMaximumStateTransitionTime
-|120 |When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|120 |When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\DsmSupportedDeviceList
 |"NETAPPLUN" |When MPIO support is specified
@@ -235,7 +229,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |0
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msiscdsm\Parameters\PathVerifyEnabled
 |0
@@ -251,7 +245,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\msiscdsm
 \Parameters\PDORemovePeriod
 |130
@@ -267,7 +261,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msiscdsm\Parameters\RetryCount
 |6
@@ -283,7 +277,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is Windows Server 2008, Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016, except if Data ONTAP DSM is  detected
+|When MPIO support is specified and your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\RetryInterval |1 |When MPIO support is specified, except if Data ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet
@@ -291,13 +285,10 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
-|When your server is Windows Server 2008,Windows Server 2008 R2, Windows Server 2012, Windows Server 2012 R2, or Windows Server 2016 only
+|When your server is Windows Server 2016, 2012 R2, 2012, 2008 R2, or 2008 
 |===
 
 See the https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance/windows-registry-advanced-users[Microsoft documents^] for the registry parameter details.
-
-
-
 
 == FC HBA values set by Windows Host Utilities
 
@@ -334,7 +325,7 @@ For Emulex FC HBAs, the installer sets the following parameters:
 --
 ====
 
-For QLogic Fibre Channel HBAs, the installer sets the following parameters:
+For QLogic FC HBAs, the installer sets the following parameters:
 
 [role="tabbed-block"]
 ====
@@ -436,3 +427,4 @@ A list of HBAs appears in the FC HBA pane.
 --
 ====
 
+// 2025 FEB 14, ONTAPDOC-2521

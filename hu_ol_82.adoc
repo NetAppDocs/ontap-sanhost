@@ -121,6 +121,8 @@ devices {
 
 NOTE: To configure Oracle Linux 8.2 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_82.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 8.2.
 
+include::_include/hu/hu-asm-mirroring.adoc[]
+
 == Known issues
 
 There are no known issues for the Oracle Linux 8.2 with ONTAP release.

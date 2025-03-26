@@ -1,3 +1,0 @@
-You must install Microsoft Multipath I/O (MPIO) software and have multipathing set up if your Windows host has more than one path to the storage system. Without MPIO software, the operating system might see each path as a separate disk, which can lead to data corruption. The MPIO software presents a single disk to the operating system for all paths, and a device-specific module (DSM) manages path failover.
-
-On a Windows system, the two main components to any MPIO solution are a DSM and the Windows MPIO. MPIO is not supported for Windows XP or Windows Vista running in a Hyper- V virtual machine.

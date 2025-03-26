@@ -11,7 +11,7 @@ See https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Provisi
 . Verify that multiple paths are available.
 +
 [NOTE] 
-Multiple paths become available after the host operating system is up and running on the paths.
+Multiple paths become available after the host OS is up and running on the paths.
 
 . Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
 +

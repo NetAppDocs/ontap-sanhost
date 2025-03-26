@@ -15,8 +15,9 @@ summary: Windows Host Utilities includes an installation program that sets the r
 [.lead]
 The Windows Host Utilities enable you to connect a Windows host computer to NetApp storage systems.
 
-The Windows Host Utilities supports the following versions of Windows:
+The Windows Host Utilities support the following versions of Windows:
 
+* Windows 2025
 * Windows 2022
 * Windows 2019
 * Windows 2016
@@ -57,7 +58,7 @@ Before you install the Host Utilities, you must verify that the Host Utilities v
 . Check the hotfixes required for the respective host in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
 [NOTE]
-The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Using Windows server 2022 with ONTAP] document provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the host configurations category to find the relevant hotfix information for earlier versions of Windows server.
+The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Use Windows server 2022 with ONTAP] document provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the host configurations category to find the relevant hotfix information for earlier versions of Windows server.
 
 . Add the iSCSI, FCP, or NVMe-oF license and start the target service.
 +
