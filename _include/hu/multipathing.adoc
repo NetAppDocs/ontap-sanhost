@@ -1,19 +1,35 @@
-The first time you create the `multipath.conf` file, you might need to enable and start the multipath services: 
+To ensure that multipathing is configured correctly for you host, verify that the `/etc/multipath.conf file` is defined and that the you have the NetApp recommended settings configured for your ONTAP LUNs. 
 
+.Steps 
+
+. When you configure the host for the first time, the `/etc/multipath.conf`is created. 
++
+Verify that the /etc/multipath.conf file exits. If the  file doesn't exist, create an empty, zero-byte file:
++
+[source,cli]
+----
+touch /etc/multipath.conf
+----
++
+The first time you create the `multipath.conf` file, you might need to enable and start the multipath services: 
++
 [source,cli]
 ----
 systemctl enable multipathd
 ----
-
++
 [source,cli]
 ----
 systemctl start multipathd
 ----
 
-You don't need to make changes to the `/etc/multipath.conf` zero-byte file for SUSE Linux Enterprise Server 15 SP6 because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly. 
-
-An empty `/etc/multipath.conf` file automatically loads the NetApp recommended host multipath parameters as the default settings when the operating system boots. The following table shows the critical multipath parameters for ONTAP LUNs. These parameters are compiled with built-in Device Mapper Multipathing libraries. 
-
+. Verify the parameter settings in the /etc/multipath.conf file. 
++
+The following table shows the critical multipath parameters for ONTAP LUNs. These parameters are compiled with built-in Device Mapper Multipathing libraries. 
++
+.Show parameter settings
+[%collapsible]
+====
 [[multipath-parameter-settings]]
 [cols=2]
 [options="header"]
@@ -39,10 +55,55 @@ An empty `/etc/multipath.conf` file automatically loads the NetApp recommended h
 | user_friendly_names | no
 | vendor | NETAPP
 |===
+====
++
+When you boot the host, the empty /etc/multipath.conf file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` zero-byte file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly. If you need to correct a setting, see <<customize-parameters,Customize multipath parameters for ONTAP LUNs>>.
 
-You can use the following multipath command to verify the settings for your ONTAP LUNs:
-
+. Verify the settings for your ONTAP LUNs:
++
 [source,cli]
 ----
 multipath -ll
 ----
++
+The following examples outputs show the correct settings for the ONTAP LUNs for an ASA and non-ASA configuration. In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
++
+NOTE: The default multipath parameters loaded from an empty, zero-byte `/etc/multipath.conf` file support both ASA and non-ASA configurations for AFF, FAS, and cloud systems.
++
+[role="tabbed-block"]
+====
+.ASA configuration
+--
+An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time. 
+
+----
+# multipath -ll
+3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+  |- 3:0:7:9    sdco 69:192  active ready running
+  |- 3:0:8:9    sddi 71:0    active ready running
+  |- 14:0:8:9   sdjq 65:320  active ready running
+  `- 14:0:7:9   sdiw 8:256   active ready running
+----
+--
+
+.Non-ASA configuration
+--
+For non-ASA configurations, there should be two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
+
+The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
+
+----
+# multipath -ll
+3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
+size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+| |- 3:0:3:0    sdd  8:48    active ready running
+| |- 3:0:4:0    sdx  65:112  active ready running
+`-+- policy='service-time 0' prio=10 status=enabled
+  |- 14:0:2:0   sdfk 130:96  active ready running
+  `- 14:0:5:0   sdgz 132:240 active ready running
+----
+--
+====

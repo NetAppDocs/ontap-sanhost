@@ -1,4 +1,6 @@
-You should configure your host to use SAN booting to simplify deployment and improve scalability.
+== Step 2: Enable SAN booting
+
+You can configure your host to use SAN booting to simplify deployment and improve scalability.
 
 .Before you begin
 Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
@@ -17,4 +19,4 @@ Multiple paths become available after the host OS is up and running on the paths
 +
 For information on how to enable the HBA BIOS, see your vendor-specific documentation.
 
-. Reboot the host to verify that the boot was successful.
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
