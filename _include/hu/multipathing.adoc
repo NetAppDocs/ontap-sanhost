@@ -1,17 +1,15 @@
-To ensure that multipathing is configured correctly for you host, verify that the `/etc/multipath.conf file` is defined and that the you have the NetApp recommended settings configured for your ONTAP LUNs. 
+To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is defined and that the you have the NetApp recommended settings configured for your ONTAP LUNs. 
 
 .Steps 
 
-. When you configure the host for the first time, the `/etc/multipath.conf`is created. 
-+
-Verify that the /etc/multipath.conf file exits. If the  file doesn't exist, create an empty, zero-byte file:
+. The `/etc/multipath.conf` file is created when you configure your host for the first time. Verify that the `/etc/multipath.conf` file exits. If the file doesn't exist, create an empty, zero-byte file:
 +
 [source,cli]
 ----
 touch /etc/multipath.conf
 ----
-+
-The first time you create the `multipath.conf` file, you might need to enable and start the multipath services: 
+
+. The first time you create the `multipath.conf` file, you might need to enable and start the multipath services: 
 +
 [source,cli]
 ----
@@ -66,7 +64,7 @@ When you boot the host, the empty /etc/multipath.conf file automatically loads t
 multipath -ll
 ----
 +
-The following examples outputs show the correct settings for the ONTAP LUNs for an ASA and non-ASA configuration. In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
+The following examples outputs show the correct settings for ONTAP LUNs for an ASA and non-ASA configuration. In ASA and non-ASA configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
 +
 NOTE: The default multipath parameters loaded from an empty, zero-byte `/etc/multipath.conf` file support both ASA and non-ASA configurations for AFF, FAS, and cloud systems.
 +

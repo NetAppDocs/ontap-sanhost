@@ -21,7 +21,7 @@ include::_include/hu/install-linux-host-utilities.adoc[]
 
 include::_include/hu/enable-san-boot-linux.adoc[]
 
-== Confirm multipathing for you host
+== Confirm multipathing for your host
 
 You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs.
 
@@ -30,7 +30,7 @@ include::_include/hu/multipathing.adoc[]
 
 === Optionally, exclude a device from multipath
 
-You can exclude a device from multipath by adding the WWID for the unwanted device to the "blacklist" for the `multipath.conf` file using the following device stanza:
+If required, you can exclude a device from multipath by adding the WWID for the unwanted device to the "blacklist" for the `multipath.conf` file using the following device stanza:
 
 ----
 blacklist {
