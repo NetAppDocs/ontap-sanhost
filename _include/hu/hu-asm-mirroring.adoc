@@ -1,0 +1,3 @@
+== ASM Mirroring
+
+Automatic Storage Management (ASM) mirroring might require changes to the Linux multipath settings to allow ASM to recognize a problem and switch over to an alternate failure group. Most ASM configurations on ONTAP use external redundancy, which means that data protection is provided by the external array and ASM doesn't mirror data. Some sites use ASM with normal redundancy to provide two-way mirroring, normally across different sites. See link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/oracle-overview.html[Oracle databases on ONTAP^] for further information.

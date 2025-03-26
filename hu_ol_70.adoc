@@ -118,6 +118,8 @@ devices {
 
 NOTE: To configure Oracle Linux 7.0 Red Hat Compatible Kernel (RHCK), use the link:hu_rhel_70.html#recommended-settings[recommended settings] for Red Hat Enterprise Linux (RHEL) 7.0.
 
+include::_include/hu/hu-asm-mirroring.adoc[]
+
 == Known issues
 
 The Oracle Linux 7.0 with ONTAP release has the following known issues:

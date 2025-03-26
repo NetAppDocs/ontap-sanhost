@@ -173,7 +173,7 @@ NetApp does not recommend changing any vVols settings from the default at this t
 
 Refer to the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] for specific versions of ONTAP tools, or legacy VASA Provider for your specific versions of vSphere and ONTAP.
 
-For detailed information on provisioning and managing vVols, refer to ONTAP tools for VMware vSphere documentation as well as link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597-VMware vSphere with ONTAP^] and link:https://www.netapp.com/pdf.html?item=/media/13555-tr4400pdf.pdf[TR-4400^].
+For detailed information on provisioning and managing vVols, refer to the ONTAP tools for VMware vSphere documentation as well as link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html[VMware vSphere with ONTAP^] and link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vvols-overview.html[Virtual Volumes (vVols) with ONTAP tools 10^].
 
 
 == Recommended Settings
@@ -274,6 +274,6 @@ There are no known issues for the VMware vSphere 7.x with ONTAP release.
 
 .Related information
 
-* link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html[TR-4597-VMware vSphere with ONTAP^]
+* link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html[VMware vSphere with ONTAP^]
 * link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster (2031038)^]
 * link:https://kb.vmware.com/s/article/83370[NetApp ONTAP with NetApp SnapMirror active sync with VMware vSphere Metro Storage Cluster (vMSC)^]
