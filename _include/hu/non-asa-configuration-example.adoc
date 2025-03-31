@@ -1,4 +1,0 @@
-.Non-ASA configuration
-For non-ASA configurations, there should be two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
-
-The following example displays the `multipath -ll` output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
