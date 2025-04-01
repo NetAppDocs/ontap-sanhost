@@ -13,81 +13,21 @@ summary: Use the ONTAP SAN host configuration settings to configure the SUSE Lin
 :imagesdir: ./media/
 
 [.lead]
-The Linux Host Utilities software has the configuration parameters that enable you to connect a Linux host to ONTAP storage. When you install the Linux Host Utilities software, these parameters configure the SUSE Linux Enterprise Server 15 SP6 host with the FCP and iSCSI protocols for operation with ONTAP LUNs. 
-
-NetApp strongly recommends installing the Linux Host Utilities to help you manage ONTAP LUNs and assist NetApp technical support with gathering information about your configuration. 
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP6 host, it supports managing FCP and iSCSI protocol operations with ONTAP LUNs. NetApp strongly recommends installing the Linux Host Utilities to support ONTAP LUN management and assist technical support with gathering configuration data.
 
 include::_include/hu/install-linux-host-utilities.adoc[]
 
-include::_include/hu/enable-san-boot-linux.adoc[]
-
-== Confirm multipathing for your host
+== Step 2: Confirm multipathing for your host
 
 You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs.
 
 include::_include/hu/multipathing.adoc[]
 
+include::_include/hu/enable-san-boot-linux.adoc[]
 
-=== Optionally, exclude a device from multipath
+include::_include/hu/exclude-device.adoc[]
 
-If required, you can exclude a device from multipath by adding the WWID for the unwanted device to the "blacklist" for the `multipath.conf` file using the following device stanza:
-
-----
-blacklist {
-        wwid <DevId>
-        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
-        devnode "^hd[a-z]"
-        devnode "^cciss.*"
-}
-----
-
-The following example determines a WWID and adds it to a "blacklist" stanza.
-
-. Determine the WWID:
-+
-`# /lib/udev/scsi_id -gud /dev/sda`
-+
-`360030057024d0730239134810c0cb833`
-+
-"sda" is the local SCSI disk that you want to add it to the blacklist.
-
-. Add the WWID to the "blacklist" stanza:
-+
-----
-blacklist {
-	     wwid   360030057024d0730239134810c0cb833
-        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
-        devnode "^hd[a-z]"
-        devnode "^cciss.*"
-}
-----
-
-[[customize-parameters]]
-=== Customize multipath parameters for ONTAP LUNs
-Check your `/etc/multipath.conf` file, especially in the defaults section, for legacy settings that might be overriding the <<multipath-parameter-settings,default settings for multipath parameters>>. 
-
-If your host is connected to LUNs from other vendors and any of these parameter settings are overridden, you need to correct them by using stanzas later in the `multipath.conf` file that apply specifically to ONTAP LUNs. If you don't do this, the ONTAP LUNs might not work as expected. 
-
-CAUTION: You shouldn't override the recommended parameter settings for ONTAP LUNs. These settings are required for optimal performance of your host configuration. Contact NetApp support, your OS vendor, or both for more information.
-
-The following example shows how to correct an overridden default. In this example, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs. You cannot remove these parameters when ONTAP storage arrays are still attached to the host. Instead, you correct the values for `path_checker` and `no_path_retry` by adding a device stanza to the `multipath.conf` file that applies specifically to the ONTAP LUNs.
-
-[subs=+quotes]
-----
-defaults {
-   path_checker      *readsector0*
-   no_path_retry     *fail*
-}
-
-devices {
-   device {
-      vendor          "NETAPP"
-      product         "LUN"
-      no_path_retry   *queue*
-      path_checker    *tur*
-   }
-}
-----
+include::_include/hu/customize-parameters.adoc[]
 
 include::_include/hu/hu-asm-mirroring.adoc[]
 
