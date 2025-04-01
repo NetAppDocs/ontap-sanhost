@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
 permalink: nvme_rockylinux_810.html
-keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 8.10 with ONTAP
+keywords: nvme, linux, rocky linux, enterprise
+summary: How to Configure NVMe-oF Host for Rocky Linux 8.10 with ONTAP
 ---
 
-= NVMe-oF host configuration for RHEL 8.10 with ONTAP
+= NVMe-oF host configuration for Rocky Linux 8.10 with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,9 +14,9 @@ summary: How to Configure NVMe-oF Host for RHEL 8.10 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 8.10 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Rocky Linux 8.10 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-The following support is available for NVMe-oF host configuration for RHEL 8.10 with ONTAP:
+The following support is available for NVMe-oF host configuration for Rocky Linux 8.10 with ONTAP:
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
@@ -25,8 +25,8 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Known limitations
 
-* In-kernel NVMe multipath is disabled by default for RHEL 8.10 NVMe-oF hosts. Therefore, you need to enable it manually.
-* On RHEL 8.10 hosts, NVMe/TCP is a technology preview feature due to open issues.
+* In-kernel NVMe multipath is disabled by default for Rocky Linux 8.10 NVMe-oF hosts. Therefore, you need to enable it manually.
+* On Rocky Linux 8.10 hosts, NVMe/TCP is a technology preview feature due to open issues.
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Enable in-kernel multipath
@@ -35,8 +35,8 @@ You can use the following procedure to enable in-kernel multipath.
 
 .Steps
 
-. Install RHEL 8.10 on the host server. 
-. After the installation is complete, verify that you are running the specified RHEL 8.10 kernel: 
+. Install Rocky Linux 8.10 on the host server. 
+. After the installation is complete, verify that you are running the specified Rocky Linux 8.10 kernel: 
 +
 ----
 # uname -r
@@ -92,7 +92,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3410-8035-b8c04f4c5132
 ----
 Vserver     Subsystem       Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_25_2742 rhel_101_QLe2772    nqn.2014-08.org.nvmexpress:uuid:546399fc-160f-11e5-89aa-98be942440ca
+vs_25_2742 rockylinux_101_QLe2772    nqn.2014-08.org.nvmexpress:uuid:546399fc-160f-11e5-89aa-98be942440ca
 ----
 +
 [NOTE]
@@ -219,7 +219,7 @@ FCP CMPL: xb 00000368 Err 00000382
 .Marvell/QLogic FC Adapter for NVMe/FC
 --
 
-The native inbox qla2xxx driver included in the RHEL 8.10 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support.
+The native inbox qla2xxx driver included in the Rocky Linux 8.10 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support.
 
 .Steps
 
@@ -472,13 +472,13 @@ NSID       UUID                                   Size
 
 == Known issues
 
-The NVMe-oF host configuration for RHEL 8.10 with ONTAP has the following known issue:
+The NVMe-oF host configuration for Rocky Linux 8.10 with ONTAP has the following known issue:
 
 [cols="20,40,40",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	
 
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|RHEL 8.10 NVMe-oF hosts create duplicate persistent discovery controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running Red Hat Enterprise Linux (RHEL) 8.10 on an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|Rocky Linux 8.10 NVMe-oF hosts create duplicate persistent discovery controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running Rocky Linux 8.10 on an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
 |===
 
 // 2024 SEP 2, ONTAPDOC-2345

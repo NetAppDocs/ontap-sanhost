@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
 permalink: nvme_rockylinux_92.html
-keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 9.2 with ONTAP
+keywords: nvme, linux, rocky linux, enterprise
+summary: How to Configure NVMe-oF Host for Rocky Linux 9.2 with ONTAP
 ---
 
-= NVMe-oF host configuration for RHEL 9.2 with ONTAP
+= NVMe-oF host configuration for Rocky Linux 9.2 with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,9 +15,9 @@ summary: How to Configure NVMe-oF Host for RHEL 9.2 with ONTAP
 
 [.lead]
 
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Rocky Linux 9.2 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-The following support is available for the NVMe-oF host configuration for RHEL 9.2 with ONTAP:
+The following support is available for the NVMe-oF host configuration for Rocky Linux 9.2 with ONTAP:
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
@@ -27,7 +27,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Features
 
-* RHEL 9.2 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
+* Rocky Linux 9.2 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
 
 == Known limitations
 
@@ -35,11 +35,11 @@ SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Validate software versions
 
-You can use the following procedure to validate the minimum supported RHEL 9.2 software versions.
+You can use the following procedure to validate the minimum supported Rocky Linux 9.2 software versions.
 
 .Steps
 
-. Install RHEL 9.2 on the server. After the installation is complete, verify that you are running the specified RHEL 9.2 kernel. 
+. Install Rocky Linux 9.2 on the server. After the installation is complete, verify that you are running the specified Rocky Linux 9.2 kernel. 
 +
 ----
 # uname -r
@@ -76,7 +76,7 @@ nvme-cli-2.2.1-2.el9.x86_64
 libnvme-1.2-2.el9.x86_64
 ----
 
-. On the RHEL 9.2 host, check the hostnqn string at `/etc/nvme/hostnqn`:
+. On the Rocky Linux 9.2 host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -99,7 +99,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
 ----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_nvme207   rhel_207_LPe32002    nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-11ec-8489-3a68dd61a4df
+vs_nvme207   rockylinux_207_LPe32002    nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-11ec-8489-3a68dd61a4df
 ----
 +
 [NOTE]
@@ -206,7 +206,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 .Marvell/QLogic FC Adapter for NVMe/FC
 --
 
-The native inbox qla2xxx driver included in the RHEL 9.2 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support. 
+The native inbox qla2xxx driver included in the Rocky Linux 9.2 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support. 
 
 .Steps
 
@@ -385,7 +385,7 @@ Namespace Usage    Format             FW             Rev
 *Example output:*
 
 ----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:subsystem.rhel_207_LB \
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:subsystem.rockylinux_207_LB \
 +- nvme1 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a7d039ea954d17,host_traddr=nn-0x200000109b1b95ef:pn-0x100000109b1b95ef live optimized 
 +- nvme2 fc traddr=nn-0x20a6d039ea954d17:pn-0x20a8d039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live optimized 
 +- nvme3 fc traddr=nn-0x20a6d039ea954d17:pn-0x20aad039ea954d17,host_traddr=nn-0x200000109b1b95f0:pn-0x100000109b1b95f0 live non-optimized 
@@ -403,7 +403,7 @@ nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:su
 
 ----
 
-nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:subsystem.rhel_tcp97 \
+nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:subsystem.rocky linux_tcp97 \
 +- nvme1 tcp traddr=192.168.167.23,trsvcid=4420,host_traddr=192.168.167.5 live non-optimized 
 +- nvme2 tcp traddr=192.168.167.22,trsvcid=4420,host_traddr=192.168.167.5 live non-optimized 
 +- nvme3 tcp traddr=192.168.166.23,trsvcid=4420,host_traddr=192.168.166.5 live optimized 

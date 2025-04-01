@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
 permalink: nvme_rockylinux_88.html
-keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 8.8 with ONTAP
+keywords: nvme, linux, rocky linux, enterprise
+summary: How to Configure NVMe-oF Host for Rocky Linux 8.8 with ONTAP
 ---
 
-= NVMe-oF host configuration for RHEL 8.8 with ONTAP
+= NVMe-oF host configuration for Rocky Linux 8.8 with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,9 +14,9 @@ summary: How to Configure NVMe-oF Host for RHEL 8.8 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 8.8 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Rocky Linux 8.8 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
 
-The following support is available for the NVMe-oF host configuration for RHEL 8.8 with ONTAP:
+The following support is available for the NVMe-oF host configuration for Rocky Linux 8.8 with ONTAP:
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 
@@ -25,8 +25,8 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 == Known limitations
 
-* In-kernel NVMe multipath is disabled by default for RHEL 8.8 NVMe-oF hosts. Therefore, you need to enable it manually.
-* On RHEL 8.8 hosts, NVMe/TCP is a technology preview feature due to open issues.
+* In-kernel NVMe multipath is disabled by default for Rocky Linux 8.8 NVMe-oF hosts. Therefore, you need to enable it manually.
+* On Rocky Linux 8.8 hosts, NVMe/TCP is a technology preview feature due to open issues.
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Enable in-kernel multipath
@@ -35,8 +35,8 @@ You can use the following procedure to enable in-kernal multipath.
 
 .Steps
 
-. Install RHEL 8.8 on the host server. 
-. After the installation is complete, verify that you are running the specified RHEL 8.8 kernel. 
+. Install Rocky Linux 8.8 on the host server. 
+. After the installation is complete, verify that you are running the specified Rocky Linux 8.8 kernel. 
 +
 ----
 # uname -r
@@ -89,7 +89,7 @@ nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
 ----
 Vserver     Subsystem       Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_nvme161 rhel_161_LPe32002    nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
+vs_nvme161 rockylinux_161_LPe32002    nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
 ----
 +
 [NOTE]
@@ -211,7 +211,7 @@ FCP CMPL: xb 00000821 Err 00012fcd
 
 .Marvell/QLogic FC Adapter for NVMe/FC
 --
-The native inbox qla2xxx driver included in the RHEL 8.8 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support. 
+The native inbox qla2xxx driver included in the Rocky Linux 8.8 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support. 
 
 .Steps
 
@@ -387,7 +387,7 @@ Namespace Usage    Format             FW             Rev
 *Example output:*
 
 ----
-nvme-subsys3 - NQN=nqn.1992-08.com.netapp:sn.ab4fa6a5ba8b11ecbe3dd039ea359e4b:subsystem.rhel_161_Lpe32002
+nvme-subsys3 - NQN=nqn.1992-08.com.netapp:sn.ab4fa6a5ba8b11ecbe3dd039ea359e4b:subsystem.rockylinux_161_Lpe32002
 \
  +- nvme0 fc traddr=nn-0x2048d039ea36a105:pn-0x204cd039ea36a105 host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 live non-optimized
  +- nvme1 fc traddr=nn-0x2048d039ea36a105:pn-0x204ad039ea36a105 host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 live optimized
@@ -404,7 +404,7 @@ nvme-subsys3 - NQN=nqn.1992-08.com.netapp:sn.ab4fa6a5ba8b11ecbe3dd039ea359e4b:su
 *Example output:*
 
 ----
-nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rhel_tcp_165
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rockylinux_tcp_165
 \
  +- nvme0 tcp traddr=192.168.111.15 trsvcid=4420 host_traddr=192.168.111.79 live non-optimized
  +- nvme1 tcp traddr=192.168.111.14 trsvcid=4420 host_traddr=192.168.111.79 live optimized
@@ -467,13 +467,13 @@ NSID       UUID                                   Size
 
 == Known issues
 
-The NVMe-oF host configuration for RHEL 8.8 with ONTAP release has the following known issues:
+The NVMe-oF host configuration for Rocky Linux 8.8 with ONTAP release has the following known issues:
 
 [cols="20,40,40",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description
 
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047]	|RHEL 8.8 NVMe-oF hosts create duplicate persistent discovery controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running Red Hat Enterprise Linux (RHEL) 8.8 on an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047]	|Rocky Linux 8.8 NVMe-oF hosts create duplicate persistent discovery controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running Rocky Linux 8.8 on an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
 |===
 
 // 2022,12-06, Jira IEOPS-690
