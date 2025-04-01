@@ -485,6 +485,39 @@ sidebar:
             url: /nvme_rhel_82.html
           - title: "8.1"
             url: /nvme_rhel_81.html
+      - title: RHEL
+        pdf-filename: NVMeoF Rocky Linux
+        entries:
+        - title: Rocky Linux 9
+          entries:
+          - title: "9.5"
+            url: /nvme_rockylinux_95.html 
+          - title: "9.4"
+            url: /nvme_rockylinux_94.html
+          - title: "9.3"
+            url: /nvme_rockylinux_93.html
+          - title: "9.2"
+            url: /nvme_rockylinux_92.html
+          - title: "9.1"
+            url: /nvme_rockylinux_91.html
+          - title: "9.0"
+            url: /nvme_rockylinux_90.html
+        - title: Rocky Linux 8
+          entries:
+          - title: "8.10"
+            url: /nvme_rockylinux_810.html
+          - title: "8.9"
+            url: /nvme_rockylinux_89.html
+          - title: "8.8"
+            url: /nvme_rockylinux_88.html
+          - title: "8.7"
+            url: /nvme_rockylinux_87.html
+          - title: "8.6"
+            url: /nvme_rockylinux_86.html
+          - title: "8.5"
+            url: /nvme_rockylinux_85.html
+          - title: "8.4"
+            url: /nvme_rockylinux_84.html
       - title: SUSE Linux Enterprise Server
         pdf-filename: NVMeoF SLES
         entries:
