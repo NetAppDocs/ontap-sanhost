@@ -17,11 +17,13 @@ The Linux Host Utilities software provides management and diagnostic tools for L
 
 include::_include/hu/install-linux-host-utilities.adoc[]
 
-== Step 2: Confirm multipathing for your host
+== Step 2: Confirm the multipath configuration for your host
 
 You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs.
 
 include::_include/hu/multipathing.adoc[]
+
+include::_include/hu/use-linux-host-utilities.adoc[]
 
 include::_include/hu/enable-san-boot-linux.adoc[]
 

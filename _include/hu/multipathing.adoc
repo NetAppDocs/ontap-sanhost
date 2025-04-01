@@ -21,9 +21,9 @@ systemctl enable multipathd
 systemctl start multipathd
 ----
 
-. Verify the parameter settings in the /etc/multipath.conf file. 
+. Verify the parameter settings in the `/etc/multipath.conf` file.
 +
-The following table shows the critical multipath parameter settings for ONTAP LUNs. These parameters are compiled with built-in Device Mapper Multipathing libraries. 
+The following table shows the critical multipath parameter settings for ONTAP LUNs.
 +
 .Show parameter settings
 [%collapsible]
@@ -55,7 +55,7 @@ The following table shows the critical multipath parameter settings for ONTAP LU
 |===
 ====
 +
-When you boot the host, the empty /etc/multipath.conf file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` zero-byte file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
+When you boot the host, the empty `/etc/multipath.conf` file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` zero-byte file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
 
 . Verify the settings for your ONTAP LUNs:
 +
