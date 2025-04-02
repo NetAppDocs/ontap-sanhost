@@ -1,4 +1,4 @@
-To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is defined and that you have the NetApp recommended settings configured for your ONTAP LUNs. The `/etc/multipath.conf` file is created when you configure your host for the first time. 
+To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is defined and that you have the NetApp recommended settings configured for your ONTAP LUNs.
 
 .Steps 
 
@@ -21,7 +21,7 @@ systemctl enable multipathd
 systemctl start multipathd
 ----
 
-. Verify the parameter settings in the `/etc/multipath.conf` file.
+. When you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. 
 +
 The following table shows the critical multipath parameter settings for ONTAP LUNs.
 +
@@ -55,7 +55,7 @@ The following table shows the critical multipath parameter settings for ONTAP LU
 |===
 ====
 +
-When you boot the host, the empty `/etc/multipath.conf` file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` zero-byte file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
+You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
 
 . Verify the settings for your ONTAP LUNs:
 +
@@ -64,7 +64,7 @@ When you boot the host, the empty `/etc/multipath.conf` file automatically loads
 multipath -ll
 ----
 +
-The default multipath parameters loaded from an empty, zero-byte `/etc/multipath.conf` file support ASA and non-ASA configurations. In both configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
+The default multipath parameters support ASA and non-ASA configurations. In both configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
 +
 The following example outputs show the correct settings for ONTAP LUNs for an ASA and non-ASA configuration. 
 +
