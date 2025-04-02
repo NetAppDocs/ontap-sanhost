@@ -13,7 +13,7 @@ summary: Use the ONTAP SAN host configuration settings to configure the SUSE Lin
 :imagesdir: ./media/
 
 [.lead]
-The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP6 host, it supports managing FCP and iSCSI protocol operations with ONTAP LUNs. NetApp strongly recommends installing the Linux Host Utilities to support ONTAP LUN management and assist technical support with gathering configuration data.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP6 host, it supports managing FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/install-linux-host-utilities.adoc[]
 
