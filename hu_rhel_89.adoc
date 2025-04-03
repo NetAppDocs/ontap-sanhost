@@ -2,10 +2,9 @@
 sidebar: sidebar
 permalink: hu_rhel_89.html
 keywords: host utilities, red hat, rhel, linux, 8.9, netapp, ontap, rhel 
-summary: Describes how to use Red Hat Enterprise Linux 8.9 with ONTAP
+summary: Install the Linux Host Utilities on a RHEL 8.9 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-
-= Use Red Hat Enterprise Linux 8.9 with ONTAP
+= Configure RHEL 8.9 with FCP and iSCSI for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,135 +13,28 @@ summary: Describes how to use Red Hat Enterprise Linux 8.9 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Red Hat Enterprise Linux (RHEL) 8.9 host, you can use the Host Utilities to support managing FCP and iSCSI protocol operations with ONTAP LUNs.
 
-You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux (RHEL) 8.9 with ONTAP as the target. 
+include::_include/hu/install-linux-host-utilities.adoc[]
 
-== Install the Linux Host Utilities
+== Step 2: Confirm the multipath configuration for your host
 
-include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
+You can use multipathing with RHEL 8.9 to manage ONTAP LUNs.
 
-== SAN Toolkit
+include::_include/hu/rhel-multipathing.adoc[]
 
-The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+include::_include/hu/use-linux-host-utilities.adoc[]
 
-In the following example, the `sanlun lun show` command returns LUN information.
-----
-# sanlun lun show all
-----
+include::_include/hu/enable-san-boot-linux.adoc[]
 
-.Example output:
-----
-controller(7mode/E-Series)/            device     host               lun
-vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
----------------------------------------------------------------------------------------------
-vs_161_32gLpe          /vol/vol19/lun    /dev/sdcd  host15     FCP        10g     cDOT
-vs_161_32gLpe          /vol/vol20/lun    /dev/sdce  host15     FCP        10g     cDOT
-vs_161_32gLpe          /vol/vol18/lun    /dev/sdcc  host15     FCP        10g     cDOT
-vs_161_32gLpe          /vol/vol17/lun    /dev/sdcb  host15     FCP        10g     cDOT
+include::_include/hu/exclude-device.adoc[]
 
-----
-
-== SAN booting
-
-.Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
-
-include::_include/hu/reuse_hu_san_booting_steps.adoc[]
-
-== Multipathing
-
-For RHEL 8.9, the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 8.9 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
-
-include::_include/hu/reuse_hu_multipathing.adoc[]
-
-include::_include/hu/reuse_hu_asa_configuration.adoc[]
-
-----
-# multipath -ll
-3600a098038314778375d53694b536e53 dm-16 NETAPP, LUN C-Mode
-size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-`-+- policy='service-time 0' prio=50 status=active
-  |- 14:0:0:0   sda  8:0    active ready running
-  |- 15:0:8:0   sdcf 69:48  active ready running
-  |- 15:0:0:0   sdaq 66:160 active ready running
-  `- 14:0:9:0   sdv  65:80  active ready running
-----
-
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
-
-----
-# multipath -ll
-3600a098038314837352453694b542f4a dm-0 NETAPP,LUN C-Mode
-size=160G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-|-+- policy='service-time 0' prio=50 status=active
-| |- 14:0:3:0 sdbk 67:224 active ready running
-| `- 15:0:2:0 sdbl 67:240 active ready running
-`-+- policy='service-time 0' prio=10 status=enabled
-  |- 14:0:0:0 sda  8:0    active ready running
-  `- 15:0:1:0 sdv  65:80  active ready running
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-== Recommended settings
-
-The RHEL 8.9 OS recognizes ONTAP LUNs and automatically sets all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
-
-include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
-
-[cols=2*,options="header"]
-|===
-| Parameter
-| Setting
-| detect_prio | yes
-| dev_loss_tmo | "infinity"
-| failback | immediate
-| fast_io_fail_tmo | 5
-| features | "2 pg_init_retries 50"
-| flush_on_last_del | "yes"
-| hardware_handler | "0"
-| no_path_retry | queue
-| path_checker | "tur"
-| path_grouping_policy | "group_by_prio"
-| path_selector | "service-time 0"
-| polling_interval | 5
-| prio | "ontap"
-| product | LUN.*
-| retain_attached_hw_handler | yes
-| rr_weight | "uniform"
-| user_friendly_names | no
-| vendor | NETAPP
-|===
-
-.Example
-
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because other SAN arrays are still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
-
-----
-defaults {
-   path_checker      readsector0
-   no_path_retry     fail
-}
-
-devices {
-   device {
-      vendor         "NETAPP  "
-      product         "LUN.*"
-      no_path_retry    queue
-      path_checker     tur
-   }
-}
-----
-
-include::_include/hu/reuse_hu_kvm_configuration.adoc[]
+include::_include/hu/rhel-customize-parameters.adoc[]
 
 include::_include/hu/hu-asm-mirroring.adoc[]
 
 == Known issues
 
-There are no known issues for RHEL 8.9.
+There are no known issues for RHEL 8.9 with ONTAP release.
 
 
