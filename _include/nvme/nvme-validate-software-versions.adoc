@@ -1,0 +1,75 @@
+== Step 1: Validate software versions
+
+Validate the minimum supported Rocky Linux software versions.
+
+.Steps
+
+. Install Rocky Linux on the server. 
+
+. Verify that you are running the specified Rocky Linux kernel: 
++
+----
+uname -r
+----
++
+----
+5.14.0-503.11.1.el9_5.x86_64
+----
+
+. Install the `nvme-cli` package:
++
+----
+rpm -qa|grep nvme-cli
+----
++
+----
+nvme-cli-2.9.1-6.el9.x86_64
+----
+
+. Install the `libnvme` package:
++
+----
+rpm -qa|grep libnvme
+----
++
+----
+libnvme-1.9-3.el9.x86_64
+----
+
+. On the host, check the hostnqn string at `/etc/nvme/hostnqn`:
++
+----
+cat /etc/nvme/hostnqn
+----
++
+----
+nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+----
+
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
++
+----
+::> vserver nvme subsystem host show -vserver vs_coexistence_LPE36002
+----
++
+.Show example
+[%collapsible]
+====
+----
+Vserver Subsystem Priority  Host NQN
+------- --------- --------  ------------------------------------------------
+vs_coexistence_LPE36002
+        nvme
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+        nvme_1
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+        nvme_2
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+        nvme_3
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+4 entries were displayed.
+----
+====
++
+[NOTE]
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.

@@ -5,7 +5,7 @@ keywords: nvme, linux, rocky linux, enterprise
 summary: How to Configure NVMe-oF Host for Rocky Linux 9.3 with ONTAP
 ---
 
-= NVMe-oF host configuration for Rocky Linux 9.3 with ONTAP
+= Configure Rocky Linux 9.3 with NVMe-oF for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,7 +14,9 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 9.3 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Rocky Linux 9.3 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+You can configure Rocky Linux 9.3 with NVMe protocols to manage ONTAP LUNs.
+[.lead]
+include::_include\nvme\nvme-introduction.adoc[]
 
 The following support is available for NVMe-oF host configuration for Rocky Linux 9.3 with ONTAP:
 
