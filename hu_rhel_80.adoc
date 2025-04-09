@@ -23,18 +23,14 @@ You can use multipathing with RHEL 8.0 to manage ONTAP LUNs.
 
 include::_include/hu/rhel-multipathing.adoc[]
 
-include::_include/hu/use-linux-host-utilities.adoc[]
-
 include::_include/hu/enable-san-boot-linux.adoc[]
 
 include::_include/hu/exclude-device.adoc[]
 
 include::_include/hu/rhel-customize-parameters.adoc[]
 
-include::_include/hu/hu-asm-mirroring.adoc[]
-
 [[known-problems-and-limitations]]
-== Known issues
+== Step 6: Review the known issues
 
 The RHEL 8.0 with ONTAP release has the following known issues:
 
@@ -50,5 +46,11 @@ The RHEL 8.0 with ONTAP release has the following known issues:
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1231087[1231087^] | Remote ports transit to a blocked state on RHEL8 with Emulex LPe16002 16GB FC during storage failover operations | Remote ports transit to a blocked state on RHEL8 with Emulex LPe16002 16GB Fibre Channel (FC) during storage failover operations. When the storage node returns to an optimal state, the LIFs also come up and the remote port state should read "online".  Occasionally, the remote port state might continue to read as "blocked” or "not present". This state can lead to a "failed faulty" path to LUNs at the multipath layer 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1231098[1231098^] |Remote ports transit to blocked state on RHEL8 with Emulex LPe32002 32GB FC during storage failover operations | Remote ports transit to a blocked state on RHEL8 with Emulex LPe32002 32GBFibre Channel (FC) during storage failover operations. When the storage node returns to an optimal state, the LIFs also come up and the remote port state should read "online".  Occasionally, the remote port state might continue to read as "blocked” or "not present". This state can lead to a "failed faulty" path to LUNs at the multipath layer. 
 |===
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
 
 // 2024 SEP 2, ONTAPDOC-2345

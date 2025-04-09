@@ -55,16 +55,16 @@ The following table shows the Linux OS native compiled multipath parameter setti
 |===
 ====
 
-. Verify the parameter settings for your ONTAP LUNs:
+. Verify the parameter settings and path status for your ONTAP LUNs:
 +
 [source,cli]
 ----
 multipath -ll
 ----
 +
-The default multipath parameters support ASA and non-ASA configurations. In both configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
+The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
 +
-The following example outputs show the correct settings for ONTAP LUNs for an ASA and non-ASA configuration. 
+The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration. 
 +
 [role="tabbed-block"]
 ====
@@ -84,9 +84,9 @@ size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 ----
 --
 
-.Non-ASA configuration
+.AFF or FAS configuration
 --
-For non-ASA configurations, there should be two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
+An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
 
 The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 

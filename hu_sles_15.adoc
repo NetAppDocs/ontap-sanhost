@@ -23,17 +23,13 @@ You can use multipathing with SUSE Linux Enterprise Server 15 to manage ONTAP LU
 
 include::_include/hu/multipathing.adoc[]
 
-include::_include/hu/use-linux-host-utilities.adoc[]
-
 include::_include/hu/enable-san-boot-linux.adoc[]
 
 include::_include/hu/exclude-device.adoc[]
 
 include::_include/hu/customize-parameters.adoc[]
 
-include::_include/hu/hu-asm-mirroring.adoc[]
-
-== Known issues
+== Step 6: Review the known issues
 
 The SUSE Linux Enterprise Server 15 with ONTAP release has the following known issue:
 
@@ -45,5 +41,11 @@ The SUSE Linux Enterprise Server 15 with ONTAP release has the following known i
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1154309[1154309^] | SLES 15 host with more than 20 mapped LUNs might go into maintenance mode after a reboot | SLES 15 host with more than 20 mapped LUNs might go into maintenance mode after a reboot. The maintenance mode becomes single user mode following the message:
 `Give root password for maintenance (or press Control-D to continue)`
 |===
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
 
 // 2024 SEP 2, ONTAPDOC-2345

@@ -23,16 +23,14 @@ You can use multipathing with SUSE Linux Enterprise Server 12 to manage ONTAP LU
 
 include::_include/hu/multipathing.adoc[]
 
-include::_include/hu/use-linux-host-utilities.adoc[]
-
 include::_include/hu/enable-san-boot-linux.adoc[]
 
 include::_include/hu/exclude-device.adoc[]
 
 include::_include/hu/customize-parameters.adoc[]
 
-include::_include/hu/hu-asm-mirroring.adoc[]
-== Known issues
+
+== Step 6: Review the known issues
 
 The SUSE Linux Enterprise Server 12 with ONTAP release has the following known issues:
 
@@ -46,5 +44,11 @@ The SUSE Linux Enterprise Server 12 with ONTAP release has the following known i
 "conflicting device node '/dev/mapper/360xx' found".
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=847490[847490^] | Multipath daemon shows path failures on SLES 12 | You might observe path failures on the SLES12 multipath daemon during I/O with storage or fabric faults. 
 |===
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
 
 // 2024 SEP 2, ONTAPDOC-2345
