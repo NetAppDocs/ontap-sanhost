@@ -51,7 +51,6 @@ For the current list of supported adapter driver and firmware versions, see the 
 ----
 
 . Verify that you can view your initiator ports:
-
 +
 `cat /sys/class/fc_host/host*/port_name`
 +

@@ -16,7 +16,7 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 9.5 with ONTAP
 [.lead]
 You can configure Rocky Linux 9.5 with NVMe protocols to manage ONTAP LUNs.
 [.lead]
-include::_include\nvme\nvme-introduction[] 
+include::_include/nvme/nvme-introduction.adoc[] 
 
 .About this task 
 You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 9.5. You should also review the known limitations before starting the configuration process.
@@ -33,13 +33,13 @@ For additional details on supported configurations, see the link:https://mysuppo
 * Known limitations: 
 ** There are no known limitations.
 
-include::_include\nvme\nvme-validate-software-versions[] 
+include::_include/nvme/nvme-validate-software-versions.adoc[] 
 
-include::_include\nvme\nvme-configure-nvme-fc[]
+include::_include/nvme/nvme-configure-nvme-fc.adoc[]
 
-include::_include\nvme\nvme-enable-san-boot[]
+include::_include/nvme/nvme-enable-san-boot.adoc[]
 
-include::_include\nvme\nvme-configure-nvme-tcp[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 == Configure NVMe/TCP
 
