@@ -112,7 +112,7 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-NOTE: The native inbox qla2xxx driver included in the Rocky Linux 9.5 GA kernel has the latest fixes. These fixes are essential for ONTAP support. 
+NOTE: The native inbox qla2xxx driver included in the Rocky Linux kernel has the latest fixes. These fixes are essential for ONTAP support. 
 
 .Steps
 
