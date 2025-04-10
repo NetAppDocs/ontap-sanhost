@@ -1,5 +1,3 @@
-== Step 4: Configure NVMe/TCP
-
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP connect or connect-all operations manually.
 
 .Steps
