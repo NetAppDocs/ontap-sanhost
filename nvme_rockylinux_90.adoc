@@ -14,385 +14,41 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 9.0 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
+You can configure Rocky Linux 9.0 with NVMe protocols to manage ONTAP LUNs.
+[.lead]
+include::_include/nvme/nvme-introduction.adoc[] 
 
-NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with Rocky Linux 9.0 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF environment, and is currently implemented with in-kernel NVMe Multipath. Using this procedure, you can enable NVMe-oF with in-kernel NVMe Multipath using ANA on Rocky Linux 9.0 and ONTAP as the target.
+.About this task 
+You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 9.0. You should also review the known limitations before starting the configuration process.
 
+* Support available:
+** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
++
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+* Features available:
+** Beginning with ONTAP 9.12.1, you can use secure in-band authentication for NVMe-oF with Rocky Linux 9.0.
+** Rocky Linux 9.0 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
+* Known limitations: 
+** SAN booting using the NVMe-oF protocol is currently not supported.
 
-== Features
+== Step 1: Validate software versions
+include::_include/nvme/nvme-validate-software-versions.adoc[] 
 
-* Beginning with Rocky Linux 9.0, NVMe/TCP is no longer a technology preview feature (unlike Rocky Linux 8) but a fully supported enterprise feature itself.
-* Beginning with Rocky Linux 9.0, in-kernel NVMe multipath is enabled for NVMe namespaces by default, without the need for explicit settings (unlike Rocky Linux 8).
+== Step 2: Configure NVMe/FC
+include::_include/nvme/nvme-configure-nvme-fc.adoc[]
 
+== Step 3: Optionally, enable 1MB I/O 
+include::_include/nvme/nvme-enable-1mb-io.adoc[] 
 
-==  Known limitations
+== Step 4: Configure NVMe/TCP
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
-SAN booting using the NVMe-oF protocol is currently not supported.
+== Step 5: Validate NVMe-oF
+include::_include/nvme/nvme-validate-nvme-of.adoc[] 
 
-
-== Enable in-kernel NVMe Multipath
-
-You can use the following procedure to enable in-kernel NVMe multipath.
-
-.Steps
-. Install Rocky Linux 9.0 on the server. 
-
-. After the installation is complete, verify that you are running the specified Rocky Linux 9.0 kernel. See link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
-+
-----
-# uname -r
-5.14.0-70.13.1.el9_0.x86_64
-----
-. Install the `nvme-cli` package.
-+
-----
-# rpm -qa|grep nvme-cli
-nvme-cli-1.16-3.el9.x86_64
-----
-. On the host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. For example,
-+
-----
-# cat /etc/nvme/hostnqn
-nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
-----
-+
-----
-::> vserver nvme subsystem host show -vserver vs_fcnvme_141
-Vserver     Subsystem Host     NQN
------------ --------------- ----------------------------------------------------------
-vs_fcnvme_14 nvme_141_1 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
-----
-+
-[NOTE]
-If the host NQN strings do not match, you should use the `vserver modify` command to update the host NQN string on your corresponding ONTAP NVMe subsystem to match the host NQN string from `/etc/nvme/hostnqn` on the host.
-
-. Reboot the host.
-
-== Configure NVMe/FC
-
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
-
-[role="tabbed-block"]
-====
-.Broadcom/Emulex
---
-.Steps
-
-. Verify that you are using the supported adapter. For additional details on supported adapters, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-+
-----
-# cat /sys/class/scsi_host/host*/modelname
-LPe32002-M2
-LPe32002-M2
-----
-+
-----
-# cat /sys/class/scsi_host/host*/modeldesc
-Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
-Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
-----
-
-. Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. For the current list of supported adapter driver and firmware versions, see link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-+
-----
-# cat /sys/class/scsi_host/host*/fwrev
-12.8.351.47, sli-4:2:c
-12.8.351.47, sli-4:2:c
-----
-+
-----
-# cat /sys/module/lpfc/version
-0:14.0.0.4
-----
-
-. Verify that `lpfc_enable_fc4_type` is set to `3`.
-+
-----
-# cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
-3
-----
-
-. Verify that the initiator ports are up and running, and you are able to see the target LIFs.
-+
-----
-# cat /sys/class/fc_host/host*/port_name
-0x100000109b1c1204
-0x100000109b1c1205
-----
-+
-----
-# cat /sys/class/fc_host/host*/port_state
-Online
-Online
-----
-+
-----
-# cat /sys/class/scsi_host/host*/nvme_info
-
-NVME Initiator Enabled
-XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 ONLINE
-NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 TARGET DISCSRVC ONLINE
-NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 TARGET DISCSRVC ONLINE
-
-NVME Statistics
-LS: Xmt 0000000f78 Cmpl 0000000f78 Abort 00000000
-LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000002fe29bba Issue 000000002fe29bc4 OutIO 000000000000000a
-abort 00001bc7 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00001e15 Err 0000d906
-
-NVME Initiator Enabled
-XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 ONLINE
-NVME RPORT WWPN x203d00a098dfdd91 WWNN x203700a098dfdd91 DID x010007 TARGET DISCSRVC ONLINE
-NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 TARGET DISCSRVC ONLINE
-
-NVME Statistics
-LS: Xmt 0000000fa8 Cmpl 0000000fa8 Abort 00000000
-LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
-abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00001f50 Err 0000d9f8
-----
---
-
-.Marvell/QLogic
---
-
-The native inbox qla2xxx driver included in the Rocky Linux 9.0 kernel has the latest fixes. These fixes are essential for ONTAP support. 
-
-.Steps
-
-. Verify that you are running the supported adapter driver and firmware versions:
-
-----
-# cat /sys/class/fc_host/host*/symbolic_name
-QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
-QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
-----
-
-. Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator:
-----
-# cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
-1
-----
---
-====
-
-=== Enable 1MB I/O (Optional)
-
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
-
-== Configure NVMe/TCP
-
-include::_include/nvme/reuse_configure_nvmetcp.adoc[]
-
-
-.Steps
-
-. Verify whether the initiator port is able to fetch discovery log page data across the supported NVMe/TCP LIFs:
-+
-----
-# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
-
-Discovery Log Number of Records 10, Generation counter 119
-=====Discovery Log Entry 0======
-trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem
-treq: not specified
-portid: 0
-trsvcid: 4420
-subnqn: nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
-traddr: 192.168.2.56
-sectype: none
-=====Discovery Log Entry 1======
-trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem
-treq: not specified
-portid: 1
-trsvcid: 4420
-subnqn: nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
-traddr: 192.168.1.51
-sectype: none
-=====Discovery Log Entry 2======
-trtype: tcp
-adrfam: ipv4
-subtype: nvme subsystem
-treq: not specified
-portid: 0
-trsvcid: 4420
-subnqn: nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_2
-traddr: 192.168.2.56
-sectype: none
-...
-----
-
-. Similarly, verify that the other NVMe/TCP initiator-target LIF combos are able to successfully fetch the discovery log page data. For example,
-+
-----
-# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
-# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
-# nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
-# nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
-----
-
-. Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Ensure you set a longer `ctrl_loss_tmo` timer retry period (for example, 30 minutes, which can be set through `-l 1800`) during the connect-all so that it would retry for a longer period of time in the event of a path loss. For example,
-+
-----
-# nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
-# nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.52 -l 1800
-# nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.56 -l 1800
-# nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
-----
-
-== Validate NVMe-oF
-
-You can use the following procedure to validate NVMe-oF.
-
-.Steps
-
-. Verify that in-kernel NVMe multipath is indeed enabled by checking:
-+
-----
-# cat /sys/module/nvme_core/parameters/multipath
-Y
-----
-
-. Verify that the appropriate NVMf settings (for example, model set to `NetApp ONTAP Controller` and load balancing `iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/model
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
-round-robin
-round-robin
-----
-
-. Verify that the ONTAP namespaces properly reflect on the host. 
-+
-Example (a):
-+
-----
-# nvme list
-Node         SN                    Model                   Namespace   Usage
-------      ---------------------------------------      ------------------------
-/dev/nvme0n1 814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller  1          85.90 GB / 85.90 GB
-
-Format         FW Rev
----------------------
-4 KiB + 0 B   FFFFFFFF
-----
-+
-Example (b):
-+
-----
-# nvme list
-Node           SN                   Model                    Namespace   Usage
----------------------------------------------------- ------------------------------------
-/dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB NetApp ONTAP Controller   1         85.90 GB / 85.90 GB
-
-Format         FW Rev
------------------------
-4 KiB + 0 B   FFFFFFFF
-----
-
-. Verify that the controller state of each path is live and has a proper ANA status.
-+
-Example (a):
-+
-----
-# nvme list-subsys /dev/nvme0n1
-nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_141_1
-\
-+- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
-+- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
-----
-+
-
-Example (b):
-+
-----
-# nvme list-subsys /dev/nvme0n1
-nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
-\
-+- nvme0 tcp traddr=192.168.1.51 trsvcid=4420 host_traddr=192.168.1.8 live optimized
-+- nvme10 tcp traddr=192.168.2.56 trsvcid=4420 host_traddr=192.168.2.9 live optimized
-+- nvme15 tcp traddr=192.168.2.57 trsvcid=4420 host_traddr=192.168.2.9 live non-optimized
-+- nvme5 tcp traddr=192.168.1.52 trsvcid=4420 host_traddr=192.168.1.8 live non-optimized
-----
-
-. Verify the NetApp plug-in displays proper values for each ONTAP namespace device.
-+
-Example (a):
-+
-----
-# nvme netapp ontapdevices -o column
-Device       Vserver        Namespace Path                            NSID
------------------------ ------------------------------ -------------------------
-/dev/nvme0n1  vs_fcnvme_141  /vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns   1
-
-UUID                                   Size
---------------------------------------------
-72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
-----
-+
-----
-# nvme netapp ontapdevices -o json
-{
-"ONTAPdevices" : [
-    {
-        "Device" : "/dev/nvme0n1",
-        "Vserver" : "vs_fcnvme_141",
-        "Namespace_Path" : "/vol/fcnvme_141_vol_1_1_0/fcnvme_141_ns",
-        "NSID" : 1,
-        "UUID" : "72b887b1-5fb6-47b8-be0b-33326e2542e2",
-        "Size" : "85.90GB",
-        "LBA_Data_Size" : 4096,
-        "Namespace_Size" : 20971520
-    }
-  ]
-}
-----
-Example (b):
-+
-----
-# nvme netapp ontapdevices -o column
-Device               Vserver                   Namespace Path
---------------------- ------------------------- ------------------------------------
-/dev/nvme0n1         vs_tcp_118                /vol/tcpnvme_118_1_0_0/tcpnvme_118_ns
-
-NSID   UUID                               Size
--------------------------------------------------
-1     4a3e89de-b239-45d8-be0c-b81f6418283c 85.90GB
-----
-+
-----
-# nvme netapp ontapdevices -o json
-{
-"ONTAPdevices" : [
-    {
-     "Device" : "/dev/nvme0n1",
-      "Vserver" : "vs_tcp_118",
-      "Namespace_Path" : "/vol/tcpnvme_118_1_0_0/tcpnvme_118_ns",
-      "NSID" : 1,
-      "UUID" : "4a3e89de-b239-45d8-be0c-b81f6418283c",
-      "Size" : "85.90GB",
-      "LBA_Data_Size" : 4096,
-      "Namespace_Size" : 20971520
-    },
-  ]
-
-}
-----
+== Step 6: Set up secure in-band authentication
+include::_include/nvme/nvme-secure-in-band-authentication.adoc[] 
 
 == Known issues
 
