@@ -26,9 +26,6 @@ You can use the following support and features with the NVMe-oF host configurati
 ** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
-** Beginning with ONTAP 9.12.1, you can use secure in-band authentication for NVMe-oF with Rocky Linux 8.5.
-** Rocky Linux 8.5 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 * Known limitations: 
 ** In-kernel NVMe multipath is disabled by default for Rocky Linux 8.5 NVMe-oF hosts. Therefore, you need to enable it manually.
 ** On Rocky Linux 8.5 hosts, NVMe/TCP is a technology preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.5_release_notes/index#technology-preview_file-systems-and-storage[Rocky Linux 8.5 Release Notes^] for details.
@@ -48,9 +45,6 @@ include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 == Step 5: Validate NVMe-oF
 include::_include/nvme/nvme-validate-nvme-of.adoc[] 
-
-== Step 6: Set up secure in-band authentication
-include::_include/nvme/nvme-secure-in-band-authentication.adoc[] 
 
 == Known issues
 

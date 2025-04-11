@@ -27,7 +27,6 @@ You can use the following support and features with the NVMe-oF host configurati
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
-** Beginning with ONTAP 9.12.1, you can use secure in-band authentication for NVMe-oF with Rocky Linux 9.4.
 ** Rocky Linux 9.4 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 ** You can use SAN booting with the NVMe/FC protocol.
 * Known limitations: 
@@ -50,9 +49,6 @@ include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 == Step 6: Optionally, enable SAN booting
 include::_include/nvme/nvme-enable-san-boot.adoc[]
-
-== Step 7: Set up secure in-band authentication
-include::_include/nvme/nvme-secure-in-band-authentication.adoc[]
 
 == Known issues
 
