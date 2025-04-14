@@ -23,17 +23,13 @@ You can use multipathing with Rocky Linux 9.1 to manage ONTAP LUNs.
 
 include::_include/hu/rhel-multipathing.adoc[]
 
-include::_include/hu/use-linux-host-utilities.adoc[]
-
 include::_include/hu/enable-san-boot-linux.adoc[]
 
 include::_include/hu/exclude-device.adoc[]
 
 include::_include/hu/rhel-customize-parameters.adoc[]
 
-include::_include/hu/hu-asm-mirroring.adoc[]
-
-== Known issues
+== Step 6: Review the known issues
 
 The RHEL 9.1 with ONTAP release has the following known issues:
 
@@ -43,3 +39,9 @@ The RHEL 9.1 with ONTAP release has the following known issues:
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, the NetApp Linux SAN Host Utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. 
 
 |===
+
+== What's next?
+ 
+include::_include/hu/use-linux-host-utilities.adoc[]
+ 
+include::_include/hu/asm-mirroring.adoc[]
