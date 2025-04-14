@@ -46,9 +46,9 @@ include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 == Step 5: Validate NVMe-oF
 include::_include/nvme/nvme-validate-nvme-of.adoc[] 
 
-== Known issues
+== Step 6: Review the known issues
 
-There are no known issues for the NVMe-oF host configuration for Rocky Linux 9.3 with ONTAP release.
+No known issues exist for the NVMe-oF host configuration for Rocky Linux 9.3 with ONTAP release.
 
 // 2022,12-06, Jira IEOPS-690
 // JIRA-1289 20-Sep-2023
