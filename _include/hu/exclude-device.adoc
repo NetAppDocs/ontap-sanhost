@@ -14,10 +14,9 @@ If required, you can exclude a device from multipathing by adding the WWID for t
 
 . Add the WWID to the "blacklist" stanza:
 +
-[subs=+quotes]
 ----
 blacklist {
-	     wwid   *360030057024d0730239134810c0cb833*
+	     wwid   360030057024d0730239134810c0cb833
         devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
         devnode "^hd[a-z]"
         devnode "^cciss.*"
