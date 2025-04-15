@@ -54,7 +54,7 @@ The NVMe-oF host configuration for Rocky Linux 9.1 with ONTAP has the following 
 |===
 |NetApp Bug ID	|Title	|Description
 |1503468
-|`nvme list-subsys` command returns repeated nvme controller list for a given subsystem	|The `nvme list-subsys` command should return a unique list of nvme controllers associated to a given subsystem. In Rocky Linux 9.1, the `nvme list-subsys` command returns nvme controllers with its respective ANA state for all namespaces that belong to a given subsystem. However, the ANA state is a per-namespace attribute therefore, it would be ideal to display unique nvme controller entries with the path state if you list the subsystem command syntax for a given namespace. 
+|`nvme list-subsys` command returns repeated NVMe controllers listed for a given subsystem	|The `nvme list-subsys` command should return a unique list of NVMe controllers associated with a given subsystem. In Rocky Linux 9.1, the `nvme list-subsys` command returns NVMe controllers with their respective ANA state for all namespaces that belong to a given subsystem. However, the ANA state is a per-namespace attribute, therefore, unique NVMe controller entries with the path state should be displayed if you list the subsystem command syntax for a given namespace.
 |===
 
 // 2024 SEP 2, ONTAPDOC-2345
