@@ -2,14 +2,21 @@ To ensure that multipathing is configured correctly for your host, verify that t
 
 .Steps 
 
-. Verify that the `/etc/multipath.conf` file exists. If the file doesn't exist, create an empty, zero-byte file:
+. Verify that the `/etc/multipath.conf` file exists:
++
+[source,cli]
+----
+ls /etc/multipath.conf
+----
++
+If the file doesn't exist, create an empty, zero-byte file:
 +
 [source,cli]
 ----
 touch /etc/multipath.conf
 ----
 
-. The first time the `multipath.conf` file is created, you might need to enable and start the multipath services: 
+. The first time the `multipath.conf` file is created, you might need to enable and start the multipath services to load the recommended settings: 
 +
 [source,cli]
 ----
@@ -21,9 +28,9 @@ systemctl enable multipathd
 systemctl start multipathd
 ----
 
-. When you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
+. Each time you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the host operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
 +
-The following table shows the Linux OS native compiled multipath parameter settings for ONTAP LUNs.
+The following table shows the native Linux OS compiled multipath parameter settings for ONTAP LUNs.
 +
 .Show parameter settings
 [%collapsible]
