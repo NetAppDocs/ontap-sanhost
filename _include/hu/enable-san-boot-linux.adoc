@@ -1,4 +1,4 @@
-== Step 3: Optionally, enable SAN booting
+== Step 1: Optionally, enable SAN booting
 
 You can configure your host to use SAN booting to simplify deployment and improve scalability.
 
@@ -16,11 +16,3 @@ See https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Provisi
 For information on how to enable the HBA BIOS, see your vendor-specific documentation.
 
 . Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
-. Multiple paths become available after the host OS is up and running on the paths. 
-+
-Verify that multiple paths are available:
-+
-[source,cli]
-----
-multipath -ll
-----

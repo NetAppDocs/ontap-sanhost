@@ -4,7 +4,7 @@ permalink: hu-rl-810.html
 keywords: host utilities, rocky, linux, 8.10, netapp, ontap, fcp, iscsi
 summary: Install the Linux Host Utilities on a Rocky Linux 8.10 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Configure Rocky Linux 8.10 with FCP and iSCSI for ONTAP storage
+= Configure Rocky Linux 8.10 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -17,9 +17,11 @@ The Linux Host Utilities software provides management and diagnostic tools for L
 
 include::_include/hu/rhel-configure-kvm-note.adoc[]
 
+include::_include/hu/enable-san-boot-linux.adoc[]
+
 include::_include/hu/install-linux-host-utilities.adoc[]
 
-== Step 2: Confirm the multipath configuration for your host
+== Step 3: Confirm the multipath configuration for your host
 
 You can use multipathing with Rocky Linux 8.10 to manage ONTAP LUNs.
 
