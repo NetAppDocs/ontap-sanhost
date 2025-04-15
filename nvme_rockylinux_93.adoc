@@ -14,8 +14,9 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 9.3 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can configure Rocky Linux 9.3 with NVMe protocols to manage ONTAP LUNs.
-include::_include/nvme/nvme-introduction.adoc[] 
+Rocky Linux 9.3 hosts support the NVMe/FC and NVMe/TCP protocols with Asymmetric Namespace Access (ANA). ANA is equivalent to asymmetric logical unit access (ALUA) multipathing in iSCSI and FCP environments and is implemented using the in-kernel NVMe multipath feature.
+
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 .About this task 
 You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 9.3. You should also review the known limitations before starting the configuration process.
@@ -23,8 +24,6 @@ You can use the following support and features with the NVMe-oF host configurati
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-+
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
 ** Rocky Linux 9.3 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 * Known limitations: 
@@ -34,18 +33,15 @@ For additional details on supported configurations, see the link:https://mysuppo
 include::_include/nvme/nvme-validate-software-versions.adoc[] 
 
 == Step 2: Configure NVMe/FC
-include::_include/nvme/nvme-configure-nvme-fc.adoc[]
+include::_include/nvme/nvme-configure.adoc[]
 
 == Step 3: Optionally, enable 1MB I/O 
 include::_include/nvme/nvme-enable-1mb-io.adoc[] 
 
-== Step 4: Configure NVMe/TCP
-include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
-
-== Step 5: Validate NVMe-oF
+== Step 4: Validate NVMe-oF
 include::_include/nvme/nvme-validate-nvme-of.adoc[] 
 
-== Step 6: Review the known issues
+== Step 5: Review the known issues
 
 No known issues exist for the NVMe-oF host configuration for Rocky Linux 9.3 with ONTAP release.
 
