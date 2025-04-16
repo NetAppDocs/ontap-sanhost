@@ -11,7 +11,7 @@ If required, you can exclude a device from multipathing by adding the WWID for t
 # /lib/udev/scsi_id -gud /dev/sda
 ----
 +
-"sda" is the local SCSI disk that you want to add it to the blacklist.
+"sda" is the local SCSI disk that you want to add to the blacklist.
 +
 An example WWID is `360030057024d0730239134810c0cb833`.
 
