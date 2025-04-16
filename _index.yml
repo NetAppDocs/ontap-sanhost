@@ -1,12 +1,12 @@
 indexpage:
-  title: SAN hosts and cloud clients
+  title: ONTAP SAN hosts and cloud clients
   lead: This content provides distribution-specific guidance on how to configure SAN clients connected to ONTAP storage. The SAN clients and ONTAP storage could reside either on-premises or in the cloud.
   summary: This content provides distribution-specific guidance on how to configure SAN clients connected to ONTAP storage. 
   keywords: ontap, san, host, rhel, red, hat, linux, sles, suse, esxi, nvme, oracle, linux, windows, enterprise, fc, fcp, isci, aix, powervm, vios, centos, citrix, hp-ux, solaris, veritas, cvo, cloud, volume, ontap, clients, configuration, FSx, instance, netapp
   tiles:
     - title: Get started
       links:
-        - title: Product overview
+        - title: Learn about SAN host configurations
           url: /overview.html
         - title: AIX Host Utilities release notes
           url: /hu_aix_rn.html
