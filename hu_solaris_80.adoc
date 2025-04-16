@@ -133,7 +133,7 @@ If setup is with FCP on MCC with multipath as MPxIO , where default APD value re
 
 #sanlun version
 
-== Enable SAN toolkit
+== Enable SAN toolkit 
 
 Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
