@@ -15,7 +15,7 @@ summary: Describes how to use the Solaris Host Utilities 8.0 with ONTAP
 [.lead]
 The Solaris Host Utilities assists you in managing ONTAP storage attached to a Solaris host.
 
-The Solaris Host Utilities 6.2 supports several Solaris environments and multiple protocols. The primary Host Utilities environments are: 
+The Solaris Host Utilities 6.2 supports several Solaris environments and multiple protocols. These are the primary Host Utilities environments: 
 
 * Native OS with MPxIO with either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
 * Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor, or the iSCSI protocol on a system using an x86/64 processor.
@@ -27,13 +27,7 @@ The Solaris Host Utilities 6.2 continues to support the following versions of So
 
 .Before you begin
 
-* For reliable operation, verify that your entire iSCSI,FC or FCoE configuration is supported.
-
-You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify your configuration.
-
-
-[NOTE]
-The NetApp Solaris Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] in a compressed  file format for your processor. You can download the Host Utilities software package for your environment from the Support site.
+* Verify that your iSCSI, FC, or FCoE configuration is supported. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify your configuration.
 
 .Steps
 
@@ -66,6 +60,9 @@ The following example uses the `pkgadd` command to install the Solaris installat
 
 . Confirm that the toolkit was successfully installed by using the `pkginfo` command or the `ls - al` command.
 +
+.Show example
+[%collapsible]
+====
 ----
 # ls -alR /opt/NTAP/SANToolkit
 /opt/NTAP/SANToolkit:
@@ -88,6 +85,7 @@ drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
 -r-xr-xr-x   1 root     sys        12266 Sep 13  2017 host_config.1
 -r-xr-xr-x   1 root     sys         9044 Sep 13  2017 sanlun.1
 ----
+====
 
 . After you finish, configure the host parameters for your environment using the `/opt/NTAP/SANToolkit/bin/host_config` command:
 +
@@ -105,6 +103,9 @@ Solaris Host Utilities is a NetApp host software that provides a command line to
 .Example
 
 In the following example, the `sanlun lun show` command returns the LUN information.
+.Show example
+[%collapsible]
+====
 ----
 #sanlun lun show all
 controller(7mode)/ device host lun
@@ -117,9 +118,163 @@ data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A09803830443
 
 
 ----
+====
 
 [NOTE]
 This toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions.
 
 
 
+The Solaris Host Utilities assists you in managing ONTAP storage attached to a Solaris host.
+
+The Solaris Host Utilities 8.0 supports several Solaris environments and multiple protocols. The primary Host Utilities environments are:
+
+Native OS with MPxIO with either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
+Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor, or the iSCSI protocol on a system using an x86/64 processor.
+The Solaris Host Utilities 8.0 supports the following version of Solaris:
+
+Solaris 11.4 series
+Before you begin
+
+For reliable operation, verify that your entire iSCSI,FC or FCoE configuration is supported.
+You can use the Interoperability Matrix Tool to verify your configuration.
+
+
+The NetApp Solaris Host Utilities software package is available on the NetApp Support Site in a compressed file format for your processor. You can download the Host Utilities software package for your environment from the Support site.
+
+Steps
+
+Login to your host as root.
+Download a copy of the compressed file containing the Host Utilities from the NetApp Support Site to a directory on your host.
+At the time this documentation was prepared, the compressed files were called:
+
+SPARC CPU: netapp_solaris_host_utilities_8_0_sparc.tar.gz
+x86/x64 CPU: netapp_solaris_host_utilities_8_0_amd.tar.gz
+Go to the directory containing the download.
+Unzip the file using the gunzip command followed by tar -xvf to extract the files:
+# gunzip netapp_solaris_host_utilities_8_0_sparc.tar.gz
+# tar -xvf netapp_solaris_host_utilities_8_0_sparc.tar
+
+
+
+     3. Add the packages that you extracted from tar file to your host by using the pkgadd command. The packages are added to the /opt/NTAP/SANToolkit/bin directory. 
+
+       Confirm that the toolkit was successfully installed by using the pkgchk command to the installed path. Below is command reference for example.
+
+          
+
+     
+
+        # pkgadd -d ./NTAPSANTool.pkg
+ 
+        # pkgchk -l -p /opt/NTAP/SANToolkit
+ 
+             Pathname: /opt/NTAP/SANToolkit
+             Type: directory
+             Expected mode: 0755
+             Expected owner: root
+             Expected group: sys
+             Referenced by the following packages: NTAPSANTool
+             Current status: installed
+
+
+# ls -alR /opt/NTAP/SANToolkit
+/opt/NTAP/SANToolkit:
+total 1038
+drwxr-xr-x   3 root     sys            4 Mar  7 13:11 .
+drwxr-xr-x   3 root     sys            3 Mar  7 13:11 ..
+drwxr-xr-x   2 root     sys            6 Mar 17 18:32 bin
+-r-xr-xr-x   1 root     sys       432666 Dec 31 13:23 NOTICES.PDF
+ 
+/opt/NTAP/SANToolkit/bin:
+total 3350
+drwxr-xr-x   2 root     sys            6 Mar 17 18:32 .
+drwxr-xr-x   3 root     sys            4 Mar  7 13:11 ..
+-r-xr-xr-x   1 root     sys      1297000 Feb  7 22:22 host_config
+-r-xr-xr-x   1 root     root         996 Mar 17 18:32 san_version
+-r-xr-xr-x   1 root     sys       309700 Feb  7 22:22 sanlun
+-r-xr-xr-x   1 root     sys          677 Feb  7 22:22 vidpid.dat
+
+
+
+# cd /usr/share/man/man1; ls -al host_config.1 sanlun.1
+-r-xr-xr-x   1 root     sys        12266 Feb  7 22:22 host_config.1
+-r-xr-xr-x   1 root     sys         9044 Feb  7 22:22 sanlun.1
+
+
+
+
+
+    4. After you finish, configure the host parameters for your environment using the /opt/NTAP/SANToolkit/bin/host_config command followed by a reboot.
+
+MPxIO
+Veritas DMP
+Command reference:
+
+/opt/NTAP/SANToolkit/bin/host_config ←setup> ←protocol fcp|iscsi|mixed> ←multipath mpxio|dmp| non> [-noalua] [-mcc 60|90|120]
+
+For example:
+
+If setup is with FCP with multipath as MPxIO, the command will be. With this host_config command, to check configuration changes for SM-AS ,please refer NetApp KB Solaris host support in SM-AS 
+
+# /opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath mpxio
+
+   
+
+If setup is with FCP with multipath as DMP, the command will be.
+
+
+# /opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath dmp
+
+If setup is with FCP on MCC with multipath as MPxIO , where default APD value recommended to be increase to 120 Sec from OS default, the command will be. Please refer NetApp KB Solaris host support in MCC
+
+
+# /opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath mpxio --mcc 120
+
+
+
+ 5. Post host config followed by a reboot, below LUN parameters getting updated which includes disksort and cache-nonvolatile values as well.
+
+
+
+# prtconf -v |grep NETAPP
+   value='NETAPP  LUN' +
+   physical-block-size:4096,
+   retries-busy:30,
+   retries-reset:30,
+   retries-notready:300,
+   retries-timeout:10,
+   throttle-max:64,
+   throttle-min:8,
+   disksort:false,
+   cache-nonvolatile:true'
+
+
+    
+
+
+
+ 6. Verify the installation:
+
+      
+
+# sanlun version
+
+SAN Toolkit
+
+Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the sanlun utility which helps you manage LUNs and host bus adapters (HBAs). The sanlun command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+
+Example
+
+In the following example, the sanlun lun show command returns the LUN information.
+
+
+
+# sanlun lun show all
+controller(7mode)/ device host lun
+vserver(Cmode)                     lun-pathname       filename                                       adapter protocol size mode
+-----------------------------------------------------------------------------------------------------------------------------------
+data_vserver                     /vol/vol1/lun1     /dev/rdsk/c0t600A098038304437522B4E694E49792Dd0s2 qlc3   FCP       10g cDOT
+data_vserver                     /vol/vol0/lun2     /dev/rdsk/c0t600A098038304437522B4E694E497938d0s2 qlc3   FCP       10g cDOT
+data_vserver                     /vol/vol2/lun3     /dev/rdsk/c0t600A098038304437522B4E694E497939d0s2 qlc3   FCP       10g cDOT
+data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A098038304437522B4E694E497941d0s2 qlc3   FCP       10g cDOT
