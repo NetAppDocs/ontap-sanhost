@@ -1,0 +1,11 @@
+== Step 1: Optionally, enable SAN booting
+
+You can configure your host to use SAN booting to simplify deployment and improve scalability.
+
+.Before you begin
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.About this task
+SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
+
+You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on a SAN boot LUNs in a Solaris MPIO (Microsoft Multipath I/O) environment.
