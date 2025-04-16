@@ -99,27 +99,25 @@ drwxr-xr-x   3 root     sys            4 Mar  7 13:11 ..
 +
 `sanlun version`
 
-Command reference:
+. Check the command reference:
 
 /opt/NTAP/SANToolkit/bin/host_config ←setup> ←protocol fcp|iscsi|mixed> ←multipath mpxio|dmp| non> [-noalua] [-mcc 60|90|120]
 
-For example:
+For example, if setup is with FCP with multipath as MPxIO, the command will be. With this host_config command, to check configuration changes for SM-AS, please refer link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/Solaris_Host_support_recommended_settings_in_SnapMirror_active_sync_formerly_SM_BC_configuration[NetApp KB Solaris host support in SM-AS].
 
-If setup is with FCP with multipath as MPxIO, the command will be. With this host_config command, to check configuration changes for SM-AS, please refer link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/Solaris_Host_support_recommended_settings_in_SnapMirror_active_sync_formerly_SM_BC_configuration[NetApp KB Solaris host support in SM-AS].
-
-# /opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath mpxio
+#/opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath mpxio
 
 If setup is with FCP with multipath as DMP, the command will be.
 
-# /opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath dmp
+#/opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath dmp
 
 If setup is with FCP on MCC with multipath as MPxIO , where default APD value recommended to be increase to 120 Sec from OS default, the command will be. Please refer link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/Solaris_host_support_considerations_in_a_MetroCluster_configuration[NetApp KB Solaris host support in MCC].
 
-# /opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath mpxio --mcc 120
+#/opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath mpxio --mcc 120
 
 . Post host config followed by a reboot, below LUN parameters getting updated which includes disksort and cache-nonvolatile values as well.
 
-# prtconf -v |grep NETAPP
+#prtconf -v |grep NETAPP
    value='NETAPP  LUN' +
    physical-block-size:4096,
    retries-busy:30,
@@ -133,9 +131,9 @@ If setup is with FCP on MCC with multipath as MPxIO , where default APD value re
 
 . Verify the installation:
 
-# sanlun version
+#sanlun version
 
-== SAN toolkit
+== Enable SAN toolkit
 
 Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
 
