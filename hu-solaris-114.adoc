@@ -52,7 +52,7 @@ To ensure that multipathing is configured correctly for your host, verify that y
 |===
 ====
 +
-You should use load the following recommended settings if they apply to your storage configuration.
+You should also load the following recommended settings if they apply to your storage configuration.
 +
 [role="tabbed-block"]
 ====
@@ -93,7 +93,7 @@ NOTE: Patches are available for Oracle bug 15824910 on several Solaris versions.
 
 .SnapMirror active sync
 --
-Beginning with ONTAP 9.9.1, SnapMirror active sync setting configurations are supported in the Solaris 11.4 host. In order to verify that the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror active sync environment, you must configure the following setting on the Solaris 11.4 host. This setting overrides the failover module `f_tpgs` to prevent the execution of the code path that detects the contradiction.
+Beginning with ONTAP 9.9.1, SnapMirror active sync setting configurations are supported in the Solaris 11.4 host. In order to verify that the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror active sync environment, you must configure the `scsi-vhci-failover-override` setting on the Solaris 11.4 host. This setting overrides the failover module `f_tpgs` to prevent the execution of the code path that detects the contradiction.
 
 .Steps
 
@@ -119,7 +119,7 @@ NOTE: After `scsi-vhci-failover-override` has been applied, `conf` is added to `
 --
 ====
 
-. To support 4KB aligned I/O with zpools using ONTAP LUNs, verify hte following:
+. To support 4KB aligned I/O with zpools using ONTAP LUNs, verify the following:
 
 .. Solaris 11.4 is installed with the latest Support Repository Update (SRU).
 
