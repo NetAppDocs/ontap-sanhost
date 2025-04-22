@@ -23,15 +23,15 @@ include::_include/hu/install-solaris-host-utilities-80.adoc[]
 == Step 3: Confirm the multipath configuration for your host
 You can use multipathing with Solaris 11.4 to manage ONTAP LUNs.
 
-Multipathing enables you to configure multiple network paths between the host and storage systems. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing (MPxIO) is enabled by default for Solaris 11.4.
+Multipathing enables you to configure multiple network paths between the host and storage systems. If one path fails, traffic continues on the remaining paths. Oracle Solaris I/O Multipathing (MPxIO) is enabled by default for Solaris 11.4 and SPARC systems.
 
-To ensure that multipathing is configured correctly for your host, verify that you have the NetApp recommended settings configured for your ONTAP LUNs.
+To ensure that multipathing and the recommended timeout parameters are configured correctly for your host, verify that you're using the NetApp recommended settings for your ONTAP LUNs.
 
 .Steps
 
 . Verify that the default setting in `/kernel/drv/fp.conf` is set to `mpxio-disable="no"`.
 
-. The Solaris 11.4 Host Utilities load the NetApp recommended parameter settings for SPARC and x86_64 processors. For additional Solaris 11.4 system settings, see Oracle DOC ID: 2595926.1.
+. The Solaris 11.4 Host Utilities load the NetApp recommended parameter settings for SPARC and x86_64 processors. For additional information about Solaris 11.4, see Oracle DOC ID: 2595926.1.
 +
 .Show parameter settings
 [%collapsible]
@@ -52,10 +52,10 @@ To ensure that multipathing is configured correctly for your host, verify that y
 |===
 ====
 +
-You should also load the following recommended settings if they apply to your storage configuration.
+. You should also use the following recommended settings if your storage configuration uses MetroCluster, Oracle Solaris virtualization, or SnapMirror active sync.
 +
 [role="tabbed-block"]
-====
+=====
 .MetroCluster
 --
 By default, the Solaris OS fails to execute the I/O operations after *20s* if all paths to a LUN are lost. This is controlled by the `fcp_offline_delay` parameter. The default value for `fcp_offline_delay` is appropriate for standard ONTAP clusters. However, in MetroCluster configurations, you must increase the value of `fcp_offline_delay` to *120s* to ensure that I/O doesn't prematurely time out during operations, including unplanned failovers. 
@@ -65,24 +65,23 @@ For additional information and recommended changes to default settings for Metro
 
 .Oracle Solaris virtualization
 --
-Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies are also referred to as "Oracle Virtual Machines".
+* Solaris virtualization options include Solaris Logical Domains (also called LDOMs or Oracle VM Server for SPARC), Solaris Dynamic Domains, Solaris Zones, and Solaris Containers. These technologies are also referred to as "Oracle Virtual Machines".
 
-You can use multiple options together, such as a Solaris Container within a particular Solaris Logical Domain.
+* You can use multiple options together, such as a Solaris Container within a particular Solaris Logical Domain.
 
-NetApp supports the use of Solaris virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
+* NetApp supports the use of Solaris virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
 
-Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, don't need specific qualifications because they don't have direct access to ONTAP LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
-
-.Recommended settings for virtualization
-
-When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM doesn't correctly detect the block sizes. To prevent this issue, you must patch the LDOM OS for _Oracle Bug 15824910_ and create a `vdc.conf` file that sets the block size of the virtual disk to `4096`. See Oracle DOC: 2157669.1 for more information.
-
-To verify the patch do the following:
+* Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, don't need specific qualifications because they don't have direct access to ONTAP LUNs. Only the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, must be found in the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
 
 .Steps
+When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM doesn't correctly detect the block sizes. To prevent this issue:
 
-. Create a zpool.
-. Run `zdb -C` against the zpool and verify that the value of *ashift* is `12`.
+. Patch the LDOM OS for _Oracle Bug 15824910_ and create a `vdc.conf` file that sets the block size of the virtual disk to `4096`. See Oracle DOC: 2157669.1 for more information. 
+. Verify the patch installation to ensure that the recommended settings have been configured correctly:
+.. Create a zpool:
++
+`zpool create zpool_name disk_list`
+.. Run `zdb -C` against the zpool and verify that the value of *ashift* is `12`.
 +
 If the value of *ashift* isn't `12`, re run `zdb -C11`, and verify that the correct patch was installed and recheck the contents of `vdc.conf`.
 +
@@ -93,7 +92,7 @@ NOTE: Patches are available for Oracle bug 15824910 on several Solaris versions.
 
 .SnapMirror active sync
 --
-Beginning with ONTAP 9.9.1, SnapMirror active sync setting configurations are supported in the Solaris 11.4 host. In order to verify that the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror active sync environment, you must configure the `scsi-vhci-failover-override` setting on the Solaris 11.4 host. This setting overrides the failover module `f_tpgs` to prevent the execution of the code path that detects the contradiction.
+Beginning with ONTAP 9.9.1, SnapMirror active sync setting configurations are supported in the Solaris 11.4 host. To verify that the Solaris client applications are non-disruptive when an unplanned site failover switchover occurs in a SnapMirror active sync environment, you must configure the `scsi-vhci-failover-override` setting on the Solaris 11.4 host. This setting overrides the failover module `f_tpgs` to prevent the execution of the code path that detects the contradiction.
 
 .Steps
 
@@ -103,27 +102,48 @@ Beginning with ONTAP 9.9.1, SnapMirror active sync setting configurations are su
 scsi-vhci-failover-override =
 "NETAPP  LUN","f_tpgs"
 ----
-. Use the `devprop` and `mdb` commands to verify that the override parameter has been successfully applied:
+. Verify that the override parameter has been successfully applied:
 +
+`devprop`
++
+`mdb`
++
+.Show example
+[%collapsible]
+====
 ----
 `root@host-A:~# devprop -v -n /scsi_vhci scsi-vhci-failover-override      scsi-vhci-failover-override=NETAPP  LUN + f_tpgs
 root@host-A:~# echo "*scsi_vhci_dip::print -x struct dev_info devi_child | ::list struct dev_info devi_sibling| ::print struct dev_info devi_mdi_client| ::print mdi_client_t ct_vprivate| ::print struct scsi_vhci_lun svl_lun_wwn svl_fops_name"| mdb -k`
 ----
-+
+
 ----
 svl_lun_wwn = 0xa002a1c8960 "600a098038313477543f524539787938"
 svl_fops_name = 0xa00298d69e0 "conf f_tpgs"
 ----
+====
 
 NOTE: After `scsi-vhci-failover-override` has been applied, `conf` is added to `svl_fops_name`. For additional information and recommended changes to default settings, refer to the NetApp Knowledge Base article https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/Solaris_Host_support_recommended_settings_in_SnapMirror_Business_Continuity_(SM-BC)_configuration[Solaris Host support recommended settings in SnapMirror active sync configuration^].
 --
+=====
+
+. Verify that 4KB aligned I/O with zpools using ONTAP LUNs is supported:
+
+.. Verify that Solaris 11.4 is installed with the latest Support Repository Update (SRU).
+
+.. Verify that the ONTAP LUN has `ostype` as "Solaris", independent of the LUN size:
++
+`lun show -vserver` 
++
+.Show example
+[%collapsible]
 ====
-
-. To support 4KB aligned I/O with zpools using ONTAP LUNs, verify the following:
-
-.. Solaris 11.4 is installed with the latest Support Repository Update (SRU).
-
-.. The NetApp logical unit has `lun/host-type` as `Solaris`, independent of the LUN size. 
+----
+chat-a800-31-33-35-37::*> lun show -vserver solaris_fcp -path /vol/sol_195_zpool_vol_9/lun -fields ostype
+vserver     path                         ostype
+----------- ---------------------------- -------
+solaris_fcp /vol/sol_195_zpool_vol_9/lun solaris
+----
+====
 
 . Verify the output for your ONTAP LUNs:
 +
@@ -131,6 +151,9 @@ NOTE: After `scsi-vhci-failover-override` has been applied, `conf` is added to `
 +
 You should see an output similar to the following example for an ASA, AFF, or FAS configuration:
 +
+.Show example
+[%collapsible]
+====
 ----
 root@sparc-s7-55-148:~# sanlun lun show -pv
  
@@ -142,22 +165,90 @@ root@sparc-s7-55-148:~# sanlun lun show -pv
             Multipath Provider: Sun Microsystems
               Multipath Policy: Native
 ----
+====
 
 . Verify the path status for your ONTAP LUNs:
 +
 `mpathadm show lu <LUN>`
 +
-The path priorities are displayed against the Access State section for each LUN in the output.
-+
-The following example outputs show the correct path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
+The following example outputs show the correct path status for ONTAP LUNs in an ASA, AFF, or FAS configuration. The path priorities are displayed against "Access State" for each LUN in the output.
 +
 [role="tabbed-block"]
-====
+=====
 .ASA configurations
 --
 An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time.
 
-<Dinil to provide example output>
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+root@sparc-s7-55-82:~# mpathadm show lu /dev/rdsk/c0t600A098038313953495D58674777794Bd0s2
+Logical Unit:  /dev/rdsk/c0t600A098038313953495D58674777794Bd0s2
+        mpath-support:  libmpscsi_vhci.so
+        Vendor:  NETAPP
+        Product:  LUN C-Mode
+        Revision:  9171
+        Name Type:  unknown type
+        Name:  600a098038313953495d58674777794b
+        Asymmetric:  yes
+        Current Load Balance:  round-robin
+        Logical Unit Group ID:  NA
+        Auto Failback:  on
+        Auto Probing:  NA
+
+        Paths:
+                Initiator Port Name:  100000109bd30070
+                Target Port Name:  20b9d039ea593393
+                Logical Unit Number:  0
+                Override Path:  NA
+                Path State:  OK
+                Disabled:  no
+
+                Initiator Port Name:  100000109bd30070
+                Target Port Name:  20b8d039ea593393
+                Logical Unit Number:  0
+                Override Path:  NA
+                Path State:  OK
+                Disabled:  no
+
+                Initiator Port Name:  100000109bd3006f
+                Target Port Name:  20b3d039ea593393
+                Logical Unit Number:  0
+                Override Path:  NA
+                Path State:  OK
+                Disabled:  no
+
+                Initiator Port Name:  100000109bd3006f
+                Target Port Name:  20b4d039ea593393
+                Logical Unit Number:  0
+                Override Path:  NA
+                Path State:  OK
+                Disabled:  no
+
+        Target Port Groups:
+                ID:  1003
+                Explicit Failover:  no
+                Access State:  *active optimized*
+                Target Ports:
+                        Name:  20b9d039ea593393
+                        Relative ID:  8
+
+                        Name:  20b4d039ea593393
+                        Relative ID:  3
+
+                ID:  1002
+                Explicit Failover:  no
+                Access State:  *active optimized*
+                Target Ports:
+                        Name:  20b8d039ea593393
+                        Relative ID:  7
+
+                        Name:  20b3d039ea593393
+                        Relative ID:  2
+----
+====
 --
 
 .AFF or FAS configuration
@@ -166,9 +257,81 @@ An AFF or FAS configuration should have two groups of paths with higher and lowe
 
 The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 
-<Dinil to provide example output>
---
+.Show example
+[%collapsible]
 ====
+[subs=+quotes]
+----
+root@chatsol-54-195:~# mpathadm show lu /dev/rdsk/c0t600A0980383044376C3F4E694E506E44d0s2
+Logical Unit:  /dev/rdsk/c0t600A0980383044376C3F4E694E506E44d0s2
+        mpath-support:  libmpscsi_vhci.so
+        Vendor:  NETAPP
+        Product:  LUN C-Mode
+        Revision:  9171
+        Name Type:  unknown type
+        Name:  600a0980383044376c3f4e694e506e44
+        Asymmetric:  yes
+        Current Load Balance:  round-robin
+        Logical Unit Group ID:  NA
+        Auto Failback:  on
+        Auto Probing:  NA
+
+        Paths:
+
+                Initiator Port Name:  100000109b56c5fb
+                Target Port Name:  205200a098ba7afe
+                Logical Unit Number:  1
+                Override Path:  NA
+                Path State:  OK
+                Disabled:  no
+
+                Initiator Port Name:  100000109b56c5fb
+                Target Port Name:  205000a098ba7afe
+                Logical Unit Number:  1
+                Override Path:  NA
+                Path State:  OK
+                Demoted:  yes
+                Disabled:  no
+
+                Initiator Port Name:  100000109b56c5fa
+                Target Port Name:  204f00a098ba7afe
+                Logical Unit Number:  1
+                Override Path:  NA
+                Path State:  OK
+                Demoted:  yes
+                Disabled:  no
+
+                Initiator Port Name:  100000109b56c5fa
+                Target Port Name:  205100a098ba7afe
+                Logical Unit Number:  1
+                Override Path:  NA
+                Path State:  OK
+                Disabled:  no
+
+        Target Port Groups:
+                ID:  1001
+                Explicit Failover:  no
+                Access State:  *active not optimized*
+                Target Ports:
+                        Name:  205200a098ba7afe
+                        Relative ID:  8
+
+                        Name:  205100a098ba7afe
+                        Relative ID:  7
+
+                ID:  1000
+                Explicit Failover:  no
+                Access State:  *active optimized*
+                Target Ports:
+                        Name:  205000a098ba7afe
+                        Relative ID:  6
+
+                        Name:  204f00a098ba7afe
+                        Relative ID:  5
+----
+====
+--
+=====
 
 == Step 4: Review the known issues
 

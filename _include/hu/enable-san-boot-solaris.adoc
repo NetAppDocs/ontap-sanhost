@@ -1,11 +1,30 @@
 == Step 1: Optionally, enable SAN booting
 
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
+A solaris host can support using a local boot or a SAN boot. NetApp recommends using a SAN boot if it is supported by your configuration. 
+
+
+[role="tabbed-block"]
+====
+.Local boot
+--
+Perform a local boot by installing the Solaris OS on the local hard disk, for example, an SSD, SATA, or RAID.
+--
+
+.SAN boot
+--
+SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host. You can set up a SAN boot LUN to work in a Solaris MPxIO environment that is using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN depends on your volume manager and file system.
 
 .Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Solaris OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
 
-.About this task
-SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host.
+.Steps
+. Create a SAN boot LUN and map it to the host.
++
+See link:https://docs.netapp.com/us-en/ontap/san-management/index.html[SAN storage management^].
 
-You can set up a SAN boot LUN to work in a Solaris MPxIO environment using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN can vary depending on your volume manager and file system. See link:hu_solaris_62.html[Install Solaris Host Utilities] for details on a SAN boot LUNs in a Solaris MPIO (Microsoft Multipath I/O) environment.
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped. 
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+--
+====
