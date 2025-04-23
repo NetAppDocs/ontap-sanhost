@@ -52,7 +52,7 @@ sidebar:
         entries:
         - title: Release notes
           url: /hu_solaris_80_rn.html
-        - title: Install
+        - title: Install Solaris Host Utilities
           entries:
           - title: Install Solaris HU 8.0
             url: /hu-solaris-80.html
@@ -60,8 +60,12 @@ sidebar:
             url: /hu_solaris_62.html
         - title: Learn about the SAN Toolkit
           url: /hu-solaris-san-toolkit.html
-        - title: Sample command reference
-          url: /hu_solaris_80_cmd.html
+        - title: Learn about the Solaris command reference
+          entries:
+          - title: Solaris 8.0 command reference
+            url: /hu-solaris-80-cmd.html
+          - title: Solaris 6.2 command reference
+            url: /hu_solaris_62_cmd.html
       - title: Windows Host Utilities
         entries:
         - title: Release notes
