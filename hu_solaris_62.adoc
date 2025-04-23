@@ -13,50 +13,44 @@ summary: Describes how to use the Solaris Host Utilities 6.2 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-The Solaris Host Utilities assists you in managing ONTAP storage attached to a Solaris host.
+The Solaris Host Utilities assist you in managing ONTAP storage attached to a Solaris host. The Solaris Host Utilities supports several Solaris environments and multiple transport protocols.
 
-The Solaris Host Utilities 6.2 supports several Solaris environments and multiple protocols. The primary Host Utilities environments are: 
+These are the primary Solaris Host Utilities environments: 
 
-* Native OS with MPxIO with either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
+* The native OS with MPxIO and either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
 * Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor, or the iSCSI protocol on a system using an x86/64 processor.
 
-The Solaris Host Utilities 6.2 continues to support the following versions of Solaris:
+The Solaris Host Utilities 6.2 support the following Solaris versions:
 
 *	Solaris 11.x series
 *	Solaris 10.x series
 
 .Before you begin
 
-* For reliable operation, verify that your entire iSCSI,FC or FCoE configuration is supported.
-
-You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify your configuration.
-
-
-[NOTE]
-The NetApp Solaris Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] in a compressed  file format for your processor. You can download the Host Utilities software package for your environment from the Support site.
+Verify that your iSCSI, FC, or FCoE configuration is supported. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify your configuration.
 
 .Steps
 
-. Login to your host as root.
+. Log in to your host as root.
 
-. Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your host.
-+
-At the time this documentation was prepared, the compressed files were called:
+. Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your Solaris host.
 +
 * SPARC CPU: `netapp_solaris_host_utilities_6_2_sparc.tar.gz`
 * x86/x64 CPU: `netapp_solaris_host_utilities_6_2_amd.tar.gz`
 
-. Go to the directory containing the download.
+. Go to the directory on your Solaris host containing the download.
 
 . Unzip the file using the `gunzip` command:
 +
 `# gunzip netapp_solaris_host_utilities_6_2_sparc.tar.gz`
 
-. Unzip the file using the `tar xvf` command:
+. Extract the file using the `tar xvf` command:
 +
 `# tar xvf netapp_solaris_host_utilities_6_2_sparc.tar`
 
-. Add the packages that you extracted from tar file to your host by using the `pkgadd` command. 
+. Add the packages that you extracted from tar file to your host
++
+`pkgadd`
 +
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory. 
 +
@@ -64,8 +58,11 @@ The following example uses the `pkgadd` command to install the Solaris installat
 +
 `# pkgadd -d ./NTAPSANTool.pkg`
 
-. Confirm that the toolkit was successfully installed by using the `pkginfo` command or the `ls - al` command.
+. Confirm that the toolkit was successfully installed by using the `pkginfo` or `ls - al` command.
 +
+.Show example output
+[%collapsible]
+====
 ----
 # ls -alR /opt/NTAP/SANToolkit
 /opt/NTAP/SANToolkit:
@@ -88,8 +85,9 @@ drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
 -r-xr-xr-x   1 root     sys        12266 Sep 13  2017 host_config.1
 -r-xr-xr-x   1 root     sys         9044 Sep 13  2017 sanlun.1
 ----
+====
 
-. After you finish, configure the host parameters for your environment using the `/opt/NTAP/SANToolkit/bin/host_config` command:
+. Configure the host parameters for your environment using the `/opt/NTAP/SANToolkit/bin/host_config` command:
 +
 ** MPxIO
 ** Veritas DMP
@@ -98,28 +96,7 @@ drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
 +
 `sanlun version`
 
-== SAN Toolkit
-
-Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
-
-.Example
-
-In the following example, the `sanlun lun show` command returns the LUN information.
-----
-#sanlun lun show all
-controller(7mode)/ device host lun
-vserver(Cmode)                     lun-pathname       filename                                       adapter protocol size mode
------------------------------------------------------------------------------------------------------------------------------------
-data_vserver                     /vol/vol1/lun1     /dev/rdsk/c0t600A098038304437522B4E694E49792Dd0s2 qlc3   FCP       10g cDOT
-data_vserver                     /vol/vol0/lun2     /dev/rdsk/c0t600A098038304437522B4E694E497938d0s2 qlc3   FCP       10g cDOT
-data_vserver                     /vol/vol2/lun3     /dev/rdsk/c0t600A098038304437522B4E694E497939d0s2 qlc3   FCP       10g cDOT
-data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A098038304437522B4E694E497941d0s2 qlc3   FCP       10g cDOT
-
-
-----
-
-[NOTE]
-This toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions.
+include::_include/hu/solaris-install-whats-next.adoc[]
 
 
 

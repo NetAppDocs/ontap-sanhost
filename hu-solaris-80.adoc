@@ -13,9 +13,9 @@ summary: Describes how to use the Solaris Host Utilities 8.0 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-The Solaris Host Utilities 8.0 assist you in managing ONTAP storage attached to a Solaris host. The Solaris Host Utilities 8.0 supports several Solaris environments and multiple transport protocols. 
+The Solaris Host Utilities assist you in managing ONTAP storage attached to a Solaris host. The Solaris Host Utilities supports several Solaris environments and multiple transport protocols. 
 
-These are the primary Solaris Host Utilities 8.0 environments: 
+These are the primary Solaris Host Utilities environments: 
 
 * The native OS with Oracle Solaris I/O Multipathing (MPxIO) and either the FC or iSCSI protocol on a system using either a SPARC or x86/64 processor.
 * Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor, or the iSCSI protocol on a system using an x86/64 processor.
@@ -48,6 +48,10 @@ Verify that your iSCSI, FC, or FCoE configuration is supported. You can use the 
 `pkgadd`
 +
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory.
++
+The following example uses the `pkgadd` command to install the Solaris installation package:
++
+`# pkgadd -d ./NTAPSANTool.pkg`
 
 . Confirm that the toolkit was successfully installed by using the `pkgchk` command to the installed path.
 +
@@ -55,8 +59,6 @@ The packages are added to the `/opt/NTAP/SANToolkit/bin` directory.
 [%collapsible]
 ====
 ----
-# pkgadd -d ./NTAPSANTool.pkg
- 
 # pkgchk -l -p /opt/NTAP/SANToolkit
  
 Pathname: /opt/NTAP/SANToolkit
@@ -144,21 +146,4 @@ The Host Utilities load the following NetApp recommended timeout parameter setti
 +
 `sanlun version`
 
-== Learn about the SAN toolkit 
-
-Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups. The following example output shows the ONTAP LUN information returned for the `sanlun lun show` command:
-
-.Show example
-[%collapsible]
-====
-----
-#sanlun lun show all
-controller(7mode)/ device host lun
-vserver(Cmode)                     lun-pathname       filename                                       adapter protocol size mode
------------------------------------------------------------------------------------------------------------------------------------
-data_vserver                     /vol/vol1/lun1     /dev/rdsk/c0t600A098038304437522B4E694E49792Dd0s2 qlc3   FCP       10g cDOT
-data_vserver                     /vol/vol0/lun2     /dev/rdsk/c0t600A098038304437522B4E694E497938d0s2 qlc3   FCP       10g cDOT
-data_vserver                     /vol/vol2/lun3     /dev/rdsk/c0t600A098038304437522B4E694E497939d0s2 qlc3   FCP       10g cDOT
-data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A098038304437522B4E694E497941d0s2 qlc3   FCP       10g cDOT
-----
-====
+include::_include/hu/solaris-install-whats-next.adoc[]
