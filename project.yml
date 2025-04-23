@@ -51,20 +51,24 @@ sidebar:
       - title: Solaris Host Utilities
         entries:
         - title: Release notes
-          url: /hu_solaris_80_rn.html
+          entries:
+          - title: Solaris Host Utilities 8.0 Release Notes
+            url: /hu-solaris-80-rn.html
+          - title: Solaris Host Utilities 8.0 Release Notes
+            url: /hu_solaris_62_rn.html
         - title: Install Solaris Host Utilities
           entries:
-          - title: Install Solaris HU 8.0
+          - title: Install Solaris Host Utilities 8.0
             url: /hu-solaris-80.html
-          - title: Install Solaris HU 6.2
+          - title: Install Solaris Host Utilities 6.2
             url: /hu_solaris_62.html
-        - title: Learn about the SAN Toolkit
+        - title: Learn about the Solaris SAN Toolkit
           url: /hu-solaris-san-toolkit.html
         - title: Learn about the Solaris command reference
           entries:
-          - title: Solaris 8.0 command reference
+          - title: Solaris Host Utilities 8.0 command reference
             url: /hu-solaris-80-cmd.html
-          - title: Solaris 6.2 command reference
+          - title: Solaris Host Utilities 6.2 command reference
             url: /hu_solaris_62_cmd.html
       - title: Windows Host Utilities
         entries:

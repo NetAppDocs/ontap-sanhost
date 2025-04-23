@@ -1,0 +1,34 @@
+---
+sidebar: sidebar
+permalink: hu_solaris_62_rn.html
+keywords: Host Utilities, solaris, 6.2 netapp, ontap
+summary: Release notes for Solaris Host Utilities 6.2
+---
+= Solaris Host Utilities 6.2 Release Notes
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The Solaris Host Utilities 6.2 release notes describe new features and enhancements, fixed issues fixed, known problems and limitations, and important cautions related to configuring and managing your specific Solaris host with your ONTAP storage system.
+
+For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
+
+== Known problems and limitations
+You should be aware of the following known problems and limitations that might impact performance on your specific host.
+
+[cols=3,options="header"]
+|===
+|Bug ID	|Title	|Description
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1385189[1385189^]
+|Solaris 11.4 FC driver binding changes required in HUK 6.2	|Solaris 11.4 and HUK recommendations:
+FC driver binding is changed from `ssd(4D)` to `sd(4D)`. Move configuration that you have in `ssd.conf` to `sd.conf` as mentioned in Oracle (Doc ID 2595926.1). The behavior varies across newly installed Solaris 11.4 systems and systems upgraded from 11.3 or lower versions.
+|===
+
+link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
+
+*	FCP General: Displays FC and host bus adapter (HBA) bugs that are not associated with a specific host.
+*	FCP - Solaris
