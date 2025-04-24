@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
-permalink: nvme_rockylinux_92.html
+permalink: nvme-rockylinux-85.html
 keywords: nvme, linux, rocky linux, enterprise
-summary: How to Configure NVMe-oF Host for Rocky Linux 9.2 with ONTAP
+summary: How to Configure NVMe-oF Host for Rocky Linux 8.5 with ONTAP
 ---
 
-= Configure Rocky Linux 9.2 with NVMe-oF for ONTAP storage
+= Configure Rocky Linux 8.5 with NVMe-oF for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,19 +14,19 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 9.2 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-Rocky Linux 9.2 hosts support the NVMe/FC and NVMe/TCP protocols with Asymmetric Namespace Access (ANA). ANA is equivalent to asymmetric logical unit access (ALUA) multipathing in iSCSI and FCP environments and is implemented using the in-kernel NVMe multipath feature.
+Rocky Linux 8.5 hosts support the NVMe/FC and NVMe/TCP protocols with Asymmetric Namespace Access (ANA). ANA is equivalent to asymmetric logical unit access (ALUA) multipathing in iSCSI and FCP environments and is implemented using the in-kernel NVMe multipath feature.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 .About this task 
-You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 9.2. You should also review the known limitations before starting the configuration process.
+You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 8.5. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-* Features available:
-** Rocky Linux 9.2 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 * Known limitations: 
+** In-kernel NVMe multipath is disabled by default for Rocky Linux 8.5 NVMe-oF hosts. Therefore, you need to enable it manually.
+** On Rocky Linux 8.5 hosts, NVMe/TCP is a technology preview feature due to open issues. Refer to the https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.5_release_notes/index#technology-preview_file-systems-and-storage[Rocky Linux 8.5 Release Notes^] for details.
 ** SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Step 1: Validate software versions
@@ -43,7 +43,7 @@ include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 == Step 5: Review the known issues 
 
-No known issues exist for the NVMe-oF host configuration for Rocky Linux 9.2 with ONTAP release.
+No known issues exist for the NVMe-oF host configuration on Rocky Linux 8.5 with ONTAP release.
 
-// 2022,12-06, Jira IEOPS-690
+// Jira EOPS-730, 2022-08-12
 // JIRA-1289 20-Sep-2023
