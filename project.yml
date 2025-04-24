@@ -26,10 +26,16 @@ sidebar:
         entries:
           - title: Release notes
             url: /hu_aix_rn.html
-          - title: Install AIX HU 7.0
-            url: /hu-aix-70.html
-          - title: Install AIX HU 6.1
-            url: /hu_aix_61.html
+          - titles: Install AIX Host Utilities
+            entries:
+             - title: Install AIX HU 8.0
+               url: /hu-aix-80.html
+             - title: Install AIX HU 7.0
+               url: /hu-aix-70.html
+             - title: Install AIX HU 6.1
+               url: /hu_aix_61.html
+          - title: Learn about the AIX SAN Toolkit
+            url: /hu-aix-san-toolkit.html
           - title: Sample command reference
             url: /hu_aix_61_cmd.html
       - title: HP-UX Host Utilities
@@ -80,7 +86,9 @@ sidebar:
         url: /hu_fcp_scsi_index.html
       - title: AIX and PowerVM/VIOS
         entries:
-        - title: 7.2/3.1
+        - title: "7.3/4.x"
+          url: /hu-aix-73.html
+        - title: "7.2/3.1"
           url: /hu_aix_72.html
         - title: "7.1"
           url: /hu_aix_71.html

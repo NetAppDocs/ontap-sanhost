@@ -72,30 +72,5 @@ The following directory is created when you decompress the file: `ntap_aix_host_
 # sanlun version
 ----
 
-== SAN Toolkit
-
-AIX Host Utilities is a NetApp host software that provides a command line toolkit on your IBM AIX host. The toolkit is installed when you install the Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
-
-*Example*
-
-In the following example, the `sanlun lun show` command returns the LUN information.
-
-----
-# sanlun lun show all
-----
-*Example output*
-----
-controller(7mode)/ device host lun
-
-vserver(Cmode) lun-pathname filename adapter protocol size mode
-----------------------------------------------------------------
-data_vserver   /vol/vol1/lun1 hdisk0 fcs0    FCP      60g C
-data_vserver   /vol/vol2/lun2 hdisk0 fcs0    FCP      20g C
-data_vserver   /vol/vol3/lun3 hdisk11 fcs0   FCP      20g C
-data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
-----
-
-[NOTE] 
-
-This toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions
+include::_include/hu/aix-whats-next.adoc[]
 

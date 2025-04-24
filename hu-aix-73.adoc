@@ -1,0 +1,263 @@
+---
+sidebar: sidebar
+permalink: hu-aix-73.html
+keywords: Host Utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
+summary: Describes how to use IBM AIX 7.3 and/or PowerVM VIOS 4.x with with ONTAP
+---
+= Configure AIX 7.3/VIOS 4.x for FCP and iSCSI with ONTAP storage 
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The AIX Host Utilities software provides management and diagnostic tools for AIX hosts that are connected to ONTAP storage. When you install the AIX Host Utilities on an AIX 7.3/VIOS 4.x host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs. 
+
+include::_include/hu/aix-enable-san-boot.adoc[]
+
+include::_include/hu/aix-install-host-utilities.adoc[]
+
+link:hu-aix-80.html[Install AIX Host Utilities 8.0].
+
+== Step 3: Confirm the multipath configuration for your host
+
+You can use multipathing with AIX and PowerVM to manage ONTAP LUNs. 
+
+Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues with the remaining paths. The AIX and PowerVM environments of the Host Utilities use the AIXs native multipathing solution (MPIO).  
+
+The Path Control Module (PCM) is responsible for controlling multiple paths for an AIX host. The PCM is a storage vendor supplied code that handles path management and is installed and enabled during the Host Utilities installation.
+
+To ensure that multipathing is configured correctly for your host, verify that you have the NetApp recommended settings configured for your ONTAP LUNs. 
+
+.Steps
+
+. Verify that "MPIO NetApp" is available. "MPIO NetApp" is loaded during the AIX Host Utilities installation and becomes available after you reboot the host.
++
+`# lsdev -Cc disk`
++
+.Example output
++
+`hdisk1  Available 00-00-02 MPIO NetApp FCP Default PCM Disk`
+
+. The AIX Host Utilities load the NetApp recommended parameter settings for ONTAP LUNs.
++
+.Show parameter settings
+[%collapsible]
+====
+[cols=4*, options="header"]
+|===
+| Parameter
+| Environment
+| Value for AIX
+| Note
+| algorithm | MPIO | round_robin | Set by Host Utilities
+| hcheck_cmd | MPIO | inquiry | Set by Host Utilities
+| hcheck_interval | MPIO | 30 | Set by Host Utilities
+| hcheck_mode | MPIO | nonactive | Set by Host Utilities
+| lun_reset_spt | MPIO / non-MPIO | yes | Set by Host Utilities
+| max_transfer | MPIO / non-MPIO | FC LUNs: 0x100000 bytes | Set by Host Utilities
+| qfull_dly | MPIO / non-MPIO | 2-second delay | Set by Host Utilities
+| queue_depth | MPIO / non-MPIO | 64 | Set by Host Utilities
+| reserve_policy | MPIO / non-MPIO | no_reserve | Set by Host Utilities
+| re_timeout (disk) | MPIO / non-MPIO | 30 seconds | Uses OS Default values
+| dyntrk | MPIO / non-MPIO | Yes | Uses OS Default values
+| fc_err_recov | MPIO / non-MPIO | Fast_fail | Uses OS Default values
+| q_type | MPIO / non-MPIO | simple | Uses OS Default values
+| num_cmd_elems | MPIO / non-MPIO | 1024 for AIX
+3072 for VIOS
+| FC EN1B, FC EN1C
+| num_cmd_elems | MPIO / non-MPIO | 1024 for AIX | FC EN0G
+|===
+====
+
+. NetApp recommends configuring the following settings to optimize I/O operations for FC and iSCSI.
++
+[role="tabbed-block"]
+====
+.FCP
+--
+[cols=4*, options="header"]
+|===
+| Parameter
+| AIX versions 
+| Default FC protocol with MPIO/non-MPIO 
+| Modified FC protocol MPIO/non-MPIO 
+.4+| rw_timeout (disk) 
+| AIX 7.3TL3 
+| NPIV :30 s, VSCSI:45s 
+| NPIV :30s , VSCSI:120s 
+| AIX 7.2TL5 
+| NPIV :30s , VSCSI:45s 
+| NPIV :30s , VSCI: 120s 
+| VIOS 3.1 
+| 30s 
+| 30s 
+| VIOS 4.1 
+| 30s 
+| 30s 
+|===
+--
+.iSCSI
+--
+[cols=4*, options="header"]
+|===
+| Parameter 
+| AIX versions 
+| Default iSCSI protocol with MPIO/non-MPIO 
+| Modified iSCSI protocol with MPIO / non-MPIO 
+.5+| rw_timeout (disk) 
+| AIX 7.3TL3 
+| VSCSI: 45s 
+| VSCSI:120s 
+| AIX 7.2TL5 
+| VSCSI: 45s 
+| VSCSI:120s 
+| VIOS 3.1 
+| 120s 
+| 30s 
+| VIOS 4.1 
+| 120s 
+| 30s 
+| All AIX7.2 and AIX 7.3 standalone 
+| 120 s 
+| 30s 
+| isw_err_recov (iscsi0) 
+| All AIX7.2 and AIX 7.3 standalone 
+| delayed_fail 
+| fast_fail 
+|===
+--
+====
+. NetApp recommends making changes to the default settings for MetroCluster or SnapMirror active sync if these options are included in your storage configuration.
++
+[role="tabbed-block"]
+====
+.MetroCluster
+--
+By default, the AIX OS enforces a shorter I/O timeout when there are no available paths to a LUN. This might occur in configurations that include single-switch SAN fabric and in MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/What_are_AIX_Host_support_considerations_in_a_MetroCluster_configuration[What are AIX Host support considerations in a MetroCluster configuration?^].
+--
+
+.SnapMirror active sync
+--
+Beginning with ONTAP 9.11.1, SnapMirror active sync is supported for an AIX host. The primary cluster in an AIX configuration is the "active" cluster. 
+
+In an AIX configuration, failovers are disruptive. With each failover, you need to perform a re-scan on the host for I/O operations to resume. 
+
+To configure AIX for SnapMirror active sync, refer to the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/How_to_configure_AIX_Host_for_SnapMirror_active_sync_in_ONTAP[How to configure an AIX host for SnapMirror active sync^]. 
+--
+====
+
+. Verify the parameter settings and that multiple paths are listed for an ONTAP LUN:
++
+`lsmpio`
++
+In the following example for an AFF or FAS system, the PCM is listed for NetApp.
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+# lsmpio -l hdisk1 
+name    path_id  status   path_status  parent  connection 
+
+hdisk1  0        Enabled  Non          fscsi6  203200a098ba7afe,5b000000000000 
+hdisk1  1        Enabled  Non          fscsi8  203100a098ba7afe,5b000000000000 
+hdisk1  2        Enabled  Sel,Opt      fscsi6  203000a098ba7afe,5b000000000000 
+hdisk1  3        Enabled  Sel,Opt      fscsi8  203800a098ba7afe,5b000000000000 
+# 
+lsattr -El hdisk1 
+*PCM             PCM/friend/NetAppDefaultPCM Path Control Module*                     False 
+PR_key_value    0x6d0000000002              Persistant Reserve Key Value            True 
+algorithm       round_robin                 Algorithm                               True 
+clr_q           no                          Device CLEARS its Queue on error        True 
+dist_err_pcnt   0                           Distributed Error Sample Time           True 
+dist_tw_width   50                          Distributed Error Sample Time           True 
+hcheck_cmd      inquiry                     Health Check Command                    True 
+hcheck_interval 30                          Health Check Interval                   True 
+hcheck_mode     nonactive                   Health Check Mode                       True 
+location                                    Location Label                          True 
+lun_id          0x5b000000000000            Logical Unit Number ID                  False 
+lun_reset_spt   yes                         LUN Level Reset                         True 
+max_transfer    0x100000                    Maximum TRANSFER Size                   True 
+node_name       0x204800a098ba7afe          FC Node Name                            False 
+pvid            none                        Physical volume identifier              False 
+q_err           yes                         Use QERR bit                            True 
+q_type          simple                      Queuing TYPE                            True 
+qfull_dly       2                           Delay in seconds for SCSI TASK SET FULL True 
+queue_depth     64                          Queue DEPTH                             True 
+reassign_to     120                         REASSIGN time out value                 True 
+reserve_policy  PR_shared                   Reserve Policy                          True 
+rw_timeout      30                          READ/WRITE time out value               True 
+scsi_id         0xec409                     SCSI ID                                 False 
+start_timeout   60                          START unit time out value               True 
+timeout_policy  fail_path                   Active/Passive Disk Path Control Module True 
+ww_name         0x203200a098ba7afe          FC World Wide Name                      False 
+----
+====
+. Verify the path status for ONTAP LUNs:
++
+`sanlun lun show`
++
+The following example outputs show the correct path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
++
+[role="tabbed-block"]
+====
+.ASA configurations
+--
+An ASA configuration optimizes all paths to a given LUN, keeping them active (primary). This improves performance by serving I/O operations through all paths at the same time.
+
+----
+# sanlun lun show -p |grep -p hdisk78
+                    ONTAP Path: vs_aix_clus:/vol/chataix_205p2_vol_en_1_7/jfs_205p2_lun_en
+                           LUN: 37
+                      LUN Size: 15g
+                   Host Device: hdisk78
+                          Mode: C
+            Multipath Provider: AIX Native
+        Multipathing Algorithm: round_robin
+------ ------- ------ ------- --------- ----------
+host   vserver  AIX                      AIX MPIO
+path   path     MPIO   host    vserver     path
+state  type     path   adapter LIF       priority
+------ ------- ------ ------- --------- ----------
+up     primary  path0  fcs0    fc_aix_1     1
+up     primary  path1  fcs0    fc_aix_2     1
+up     primary  path2  fcs1    fc_aix_3     1
+up     primary  path3  fcs1    fc_aix_4     1
+----
+--
+.AFF or FAS configuration
+--
+An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
+
+The following example displays the correct output for an ONTAP LUN with two Active/Optimized ("primary") paths and two Active/Non-Optimized ("secondary") paths:
+
+----
+# sanlun lun show -p |grep -p hdisk78
+                    ONTAP Path: vs_aix_clus:/vol/chataix_205p2_vol_en_1_7/jfs_205p2_lun_en
+                           LUN: 37
+                      LUN Size: 15g
+                   Host Device: hdisk78
+                          Mode: C
+            Multipath Provider: AIX Native
+        Multipathing Algorithm: round_robin
+------- ---------- ------ ------- ---------- ----------
+host    vserver    AIX                        AIX MPIO
+path    path       MPIO   host    vserver         path
+state   type       path   adapter LIF         priority
+------- ---------- ------ ------- ---------- ----------
+up      secondary  path0  fcs0    fc_aix_1        1
+up      primary    path1  fcs0    fc_aix_2        1
+up      primary    path2  fcs1    fc_aix_3        1
+up      secondary  path3  fcs1    fc_aix_4        1
+----
+--
+====
+
+
+== Step 4: Review the known issues
+
+The IBM AIX 7.3 and/or PowerVM (VIOS 4.1) with ONTAP storage release has no known issues.
