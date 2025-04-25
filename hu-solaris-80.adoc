@@ -18,7 +18,7 @@ The Solaris Host Utilities assist you in managing ONTAP storage attached to a So
 These are the primary Solaris Host Utilities environments: 
 
 * The native OS with Oracle Solaris I/O Multipathing (MPxIO) and either the FC or iSCSI protocol on a system using either a SPARC or x86/64 processor.
-* Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor, or the iSCSI protocol on a system using an x86/64 processor.
+* Veritas Dynamic Multipathing (DMP) with the FC or iSCSI protocol on a system using a SPARC processor.
 
 The Solaris Host Utilities 8.0 support the Solaris 11.4 series.	
 
@@ -92,30 +92,23 @@ drwxr-xr-x   3 root     sys            4 Mar  7 13:11 ..
 ----
 ====
 
-. Configure the host parameters for your environment using the `/opt/NTAP/SANToolkit/bin/host_config` command:
+. Configure the host parameters for your "MPxIO" or "Veritas DMP" environment using the `/opt/NTAP/SANToolkit/bin/host_config` command based on the following multipath stack from the command reference:
 +
---
-* MPxIO
-* Veritas DMP
---
-+
-You can find the command for your host setup in the command reference:
-+
-`/opt/NTAP/SANToolkit/bin/host_config ←setup> ←protocol fcp|iscsi|mixed> ←multipath mpxio|dmp| non> [-noalua] [-mcc 60|90|120]`
+`/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp|iscsi|mixed -multipath mpxio|dmp| non [-noalua] [-mcc 60|90|120]`
 +
 [cols=2*,options="header"]
 |===
 |For example, if your setup is... | Use the command...
-|FCP with multipath as MPxIO | `#/opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath mpxio`
+|FCP with multipath as MPxIO | `#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath mpxio`
 
 For information on the configuration changes for SnapMirror active sync, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/Solaris_Host_support_recommended_settings_in_SnapMirror_active_sync_formerly_SM_BC_configuration[Solaris Host support recommended settings in SnapMirror active sync (formerly SM-BC) configuration^].
 
 
 
 |FCP with multipath as DMP
-|`#/opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath dmp`
+|`#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath dmp`
 |FCP on MetroCluster with multipath as MPxIO, and the All Paths Down value is set to 120s. (This is the recommended setting for MetroCluster configurations). 
-| `#/opt/NTAP/SANToolkit/bin/host_config --setup --protocol fcp --multipath mpxio --mcc 120` 
+| `#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath mpxio -mcc 120` 
 
 For more information, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
 

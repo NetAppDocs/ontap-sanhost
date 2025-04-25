@@ -31,7 +31,7 @@ To ensure that multipathing and the recommended timeout parameters are configure
 
 .Steps
 
-. Verify that the default setting in `/kernel/drv/fp.conf` is set to `mpxio-disable="no"`.
+. If your host is configured for FC, verify that the default setting in `/kernel/drv/fp.conf` is set to `mpxio-disable="no"`.
 
 . The Solaris Host Utilities load the NetApp recommended parameter settings for SPARC and x86_64 processors. 
 +

@@ -6,7 +6,7 @@
 
 .. Verify that the ONTAP LUN has `ostype` as "Solaris", independent of the LUN size:
 +
-`lun show -vserver` 
+`lun show -vserver` <vsersver_name>
 +
 .Show example
 [%collapsible]

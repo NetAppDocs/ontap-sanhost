@@ -92,7 +92,7 @@ You can retrieve a list of all LUNs mapped to a host from a specific SVM.
 
 [source,cli]
 ----
-sanlun lun show -p -v sanboot_unix
+sanlun lun show -p -v <svm_name>
 ----
 .Show example
 [%collapsible]
@@ -118,6 +118,7 @@ sanlun lun show all
 .Show example
 [%collapsible]
 ====
+[source,curl]
 ----
 controller(7mode/E-Series)/                                         device
 vserver(cDOT/FlashRay)       lun-pathname                           filename
