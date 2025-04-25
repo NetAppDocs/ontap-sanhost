@@ -1,12 +1,9 @@
+== Step 1: Boot the Windows OS
 
 You can boot the Windows OS using a local boot or a SAN boot. NetApp recommends using a SAN boot if it is supported by your configuration. 
 
 [role="tabbed-block"]
 ====
-.Local boot
---
-Perform a local boot by installing the Windows OS on the local hard disk (SSD, SATA, RAID, and so on).
---
 
 .SAN boot
 --
@@ -27,4 +24,10 @@ NOTE: Multiple paths only become available after the host OS is up and running o
 For information on how to enable the HBA BIOS, see your vendor-specific documentation.
 . Reboot the host to verify the boot was successful
 --
+
+.Local boot
+--
+Perform a local boot by installing the Windows OS on the local hard disk (SSD, SATA, RAID, and so on).
+--
+
 ====
