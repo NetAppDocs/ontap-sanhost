@@ -1,12 +1,3 @@
-To use multipathing, the `/etc/multipath.conf file` must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the following command: 
+You can use the `multipath -ll` command to verify the settings for your ONTAP LUNs.
 
-[source,cli]
-----
-`touch /etc/multipath.conf`
-----
-
-You don't need to make changes to the `/etc/multipath.conf` zero-byte file for SUSE Linux Enterprise Server 15 SP6 because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly. 
-
-An empty `/etc/multipath.conf` file automatically loads the NetApp recommended host multipath parameters as the default settings when the operating system boots.
-
-The default multipath parameters loaded from an empty `/etc/multipath.conf` zero-byte file support both All SAN Array (ASA) and non-ASA configurations
+The following sections provide example multipath outputs for a LUN mapped to ASA and non-ASA personas.

@@ -1,13 +1,6 @@
-If it is supported by your SAN configuration, you should configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and the ONTAP versionssupport SAN booting.
-
 .Steps
 
 . Map the SAN boot LUN to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Provision SAN storage].
 . Verify that multiple paths are available.
 +
 [NOTE] 
