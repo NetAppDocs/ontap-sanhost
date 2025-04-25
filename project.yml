@@ -26,10 +26,12 @@ sidebar:
         entries:
           - title: Release notes
             url: /hu_aix_rn.html
-          - title: Install AIX HU 7.0
-            url: /hu-aix-70.html
-          - title: Install AIX HU 6.1
-            url: /hu_aix_61.html
+          - title: Install AIX HU
+            entries:
+            - title: Install AIX HU 6.1
+              url: /hu-aix-70.html
+            - title: Install AIX HU 6.1
+              url: /hu_aix_61.html
           - title: Sample command reference
             url: /hu_aix_61_cmd.html
       - title: HP-UX Host Utilities
