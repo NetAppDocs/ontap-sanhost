@@ -54,7 +54,7 @@ The NetApp AIX Host Utilities software package is available in a compressed `tar
 +
 The `ntap_aix_host_utilities_8.0.` directory is created when you decompress the file. This directory contains one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
 
-. Install the AIX MPIO:
+. Install AIX MPIO:
 +
 `# installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/MPIO NetApp.MPIO_Host_Utilities_Kit`
 
@@ -68,7 +68,9 @@ The `ntap_aix_host_utilities_8.0.` directory is created when you decompress the 
 +
 `# lslpp -l |grep -i netapp`
 +
-.Example output
+.Show example
+[%collapsible]
+====
 ----
 NetApp.MPIO_Host_Utilities_Kit.config
                              8.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
@@ -80,6 +82,7 @@ NetApp.MPIO_Host_Utilities_Kit.config
                              8.0.0.0 COMMITTED  NetApp MPIO PCM Host Utilities
 NetApp.SAN_toolkit.sanlun  8.0.0.0 COMMITTED NetApp SAN Toolkit sanlun
 ----
+====
 
 . Confirm that the software version is 8.0.1f0fc74c:
 +
@@ -96,7 +99,9 @@ attribute = "lbp_enabled"
 
 .. `# odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
 +
-.Example output
+.Show example
+[%collapsible]
+====
 ----
 PdAt:
         uniquetype = "disk/fcp/NetAppMPIO"
@@ -109,6 +114,8 @@ PdAt:
         rep = "s"
         nls_index = 18
 ----
+====
+
 . Display the correct HBA speed <<link to KB Article>>.
 
 include::_include/hu/aix-whats-next.adoc[]
