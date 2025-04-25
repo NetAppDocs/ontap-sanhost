@@ -28,9 +28,10 @@ In the following example, the `sanlun lun show` command returns LUN information.
 [source,cli]
 ----
 sanlun lun show all
+
 ----
 .Show example
-[%collapsible%]
+[%collapsible]
 ====
 ----
 controller(7mode/E-Series)/                                  device          host                  lun
@@ -62,7 +63,7 @@ NOTE: A single LUN shouldn't require more than four paths. More than four paths 
 include::_include/hu/reuse_hu_asa_configuration.adoc[]
 
 .Show example
-[%collapsible%]
+[%collapsible]
 ====
 ----
 multipath -ll
@@ -79,7 +80,7 @@ size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 .Show example
-[%collapsible%]
+[%collapsible]
 ====
 ----
 multipath -ll
@@ -129,7 +130,7 @@ include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
 The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If other SAN arrays are still attached to the host, correct these parameters specifically for ONTAP LUNs by using a device stanza.
 
 .Show example
-[%collapsible%]
+[%collapsible]
 ====
 ----
 defaults {
