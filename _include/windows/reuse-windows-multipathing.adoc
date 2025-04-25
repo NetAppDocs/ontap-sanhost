@@ -1,0 +1,5 @@
+The MPIO software presents a single disk to the Windows OS for all paths, and a device-specific module (DSM) manages path failover. On a Windows system, the two main components in any MPIO solution are the DSM and the Windows MPIO.
+
+CAUTION: If you don't install the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
+
+NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.

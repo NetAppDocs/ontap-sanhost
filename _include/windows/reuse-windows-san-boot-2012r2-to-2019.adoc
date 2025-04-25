@@ -1,11 +1,11 @@
 
-You can boot the Windows OS using a local boot or a SAN boot. NetApp recommends using a SAN boot to simplify deployment and improve scalability. 
+You can boot the Windows OS using a local boot or a SAN boot. NetApp recommends using a SAN boot if it is supported by your configuration.  
 
 [role="tabbed-block"]
 ====
 .Local boot
 --
-Perform a local boot by installing the Windows OS on the local hard disk, for example, on an SSD, SATA, or RAID.
+Perform a local boot by installing the Windows OS on the local hard disk (SSD, SATA, RAID, and so on).
 --
 
 .SAN boot
