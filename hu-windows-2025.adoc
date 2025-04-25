@@ -13,11 +13,13 @@ summary: You can use the ONTAP SAN host configuration settings to configure Wind
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Windows Server 2025 for operation with ONTAP storage.  
+You can use the ONTAP SAN host configuration settings to configure Windows Server 2025 for operation with ONTAP storage. 
 
 == Boot the Windows OS
 
 include::_include/windows/reuse-windows-san-boot-2022-and-later.adoc[]
+
+== Install Windows hotfixes
 NetApp recommends installing the *latest cumulative update* available from the Microsoft Update Catalog on the host server.
 
 .Steps
@@ -39,6 +41,7 @@ include::_include/windows/reuse-windows-multipathing.adoc[]
 == SAN configuration
 
 include::_include/windows/reuse_windows_asa_configuration.adoc[]
+
 
 === Non-ASA configuration
 include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
