@@ -41,14 +41,12 @@ The timeout values for QLogic FC HBAs:
 |===
 --
 ====
-+
-NOTE: For more information on the recommended settings, see link:hu_wuhu_hba_settings.html[Configure registry settings for Windows Host Utilities].
 
-. Verify the settings for your ONTAP LUNs.
+. Verify the path status for your ONTAP LUNs:
 +
-Depending on your SAN configuration, the host uses ASA or non-ASA configurations to access ONTAP LUNs. In both configurations, you shouldn't require more than four paths to access a single ONTAP LUN. If there are more than four paths, it might cause issues with the paths during a storage failure.
+Depending on your SAN configuration, the host uses ASA, AFF, or FAS configurations to access ONTAP LUNs. In both configurations, you shouldn't require more than four paths to access a single ONTAP LUN. If there are more than four paths, it might cause issues with the paths during a storage failure.
 +
-The following example outputs show the correct settings for ONTAP LUNs for an ASA and non-ASA configuration.
+The following example outputs show the correct settings for ONTAP LUNs for an ASA, AFF, or FAS configuration.
 +
 [role="tabbed-block"]
 ====
@@ -59,9 +57,9 @@ An ASA configuration should have one group of Active/Optimized paths with single
 image::asa.png[Screenshot of ONTAP LUN with active/optimized paths]
 --
 
-.Non-ASA configuration
+.AFF or FAS configuration
 --
-A non-ASA configuration should have two groups of paths with different priorities. The paths with higher priorities are Active/Optimized. This means the Active/Optimized paths are serviced by the controller where the aggregate is located. The paths with lower priorities are active but non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths aren't available.
+An AFF or FAS configuration should have two groups of paths with different priorities. The paths with higher priorities are Active/Optimized. This means the Active/Optimized paths are serviced by the controller where the aggregate is located. The paths with lower priorities are active but non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths aren't available.
 
 image::nonasa.png[Screenshot of an ONTAP LUN with two active/optimized paths and two active/non-optimized paths]
 --
