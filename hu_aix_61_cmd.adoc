@@ -4,7 +4,7 @@ permalink: hu_aix_61_cmd.html
 keywords: host utilities, aix, powervm, vios, 3.1, 7.2, 7.0, netapp, ontap
 summary: You can use the AIX Host Utilities sample command reference for an end-to-end validation of the NetApp storage configuration using the Host Utilities tool.
 ---
-= AIX Host Utilities sample command reference
+= Use AIX Host Utilities 6.2 command reference with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -23,7 +23,10 @@ You can retrieve a list of host initiators mapped to a host.
 ----
 # sanlun fcp show adapter -v
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 bash-3.2# sanlun fcp show adapter -v
 adapter name: fcs0
@@ -60,6 +63,7 @@ negotiated speed: Unknown
 OS device name: fcs1
 bash-3.2#
 ----
+====
 
 == List all LUNs mapped to host
 
@@ -69,7 +73,10 @@ You can retrieve a list of all LUNs mapped to a host.
 ----
 # sanlun lun show -p -v all
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 ONTAP Path: vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
 LUN: 88
@@ -88,6 +95,7 @@ up     primary   path1   fcs1    fc_aix_2     1
 up     secondary path2   fcs0    fc_aix_3     1
 up     secondary path3   fcs1    fc_aix_4     1
 ----
+====
 
 == List all LUNs mapped to host from a given SVM
 You can retrieve a list of all LUNs mapped to a host from a specified SVM.
@@ -96,7 +104,10 @@ You can retrieve a list of all LUNs mapped to a host from a specified SVM.
 ----
 # sanlun lun show -p -v sanboot_unix
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 ONTAP Path: sanboot_unix:/vol/aix_205p2_boot_0/boot_205p2_lun
 LUN: 0
@@ -115,6 +126,7 @@ up      primary    path1 fcs1    sanboot_2   1
 up      secondary  path2 fcs0    sanboot_3   1
 up      secondary  path3 fcs1    sanboot_4   1
 ----
+====
 
 == List all attributes of a given LUN mapped to host
 You can retrieve a list of all attributes of a specified LUN mapped to a host.
@@ -123,7 +135,10 @@ You can retrieve a list of all attributes of a specified LUN mapped to a host.
 ----
 # sanlun lun show -p -v vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 ONTAP Path: vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
 LUN: 88
@@ -142,6 +157,7 @@ up       primary   path1 fcs1    fc_aix_2   1
 up       secondary path2 fcs0    fc_aix_3   1
 up       secondary path3 fcs1    fc_aix_4   1
 ----
+====
 
 == List ONTAP LUN attributes by host device filename
 You can retrieve a list of ONTAP LUN attributes by specifying a host device filename.
@@ -151,7 +167,9 @@ You can retrieve a list of ONTAP LUN attributes by specifying a host device file
 #sanlun lun show -d /dev/hdisk1
 ----
 
-*Example output*
+.Show example
+[%collapsible]
+====
 -----
 controller(7mode)/
 device host lun
@@ -191,3 +209,4 @@ hdisk10      fcs0       15g    C
 hdisk11      fcs0       15g    C
 hdisk12      fcs0       15g    C
 -----
+====

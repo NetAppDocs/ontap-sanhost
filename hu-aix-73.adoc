@@ -25,11 +25,7 @@ link:hu-aix-80.html[Install AIX Host Utilities 8.0].
 
 You can use multipathing with AIX and PowerVM to manage ONTAP LUNs. 
 
-Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues with the remaining paths. The AIX and PowerVM environments of the Host Utilities use the AIXs native multipathing solution (MPIO).  
-
-The Path Control Module (PCM) is responsible for controlling multiple paths for an AIX host. The PCM is a storage vendor supplied code that handles path management and is installed and enabled during the Host Utilities installation.
-
-To ensure that multipathing is configured correctly for your host, verify that you have the NetApp recommended settings configured for your ONTAP LUNs. 
+include::_include/hu/aix-multipathing-introduction.adoc[]
 
 .Steps
 
@@ -130,24 +126,8 @@ To ensure that multipathing is configured correctly for your host, verify that y
 |===
 --
 ====
-. Change the default settings for MetroCluster or SnapMirror active sync, if these options are included in your storage configuration.
-+
-[role="tabbed-block"]
-====
-.MetroCluster
---
-By default, the AIX OS enforces a shorter I/O timeout when there are no available paths to a LUN. This might occur in configurations that include single-switch SAN fabric and in MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/What_are_AIX_Host_support_considerations_in_a_MetroCluster_configuration[What are AIX Host support considerations in a MetroCluster configuration?^].
---
 
-.SnapMirror active sync
---
-Beginning with ONTAP 9.11.1, SnapMirror active sync is supported for an AIX host. The primary cluster in an AIX configuration is the "active" cluster. 
-
-In an AIX configuration, failovers are disruptive. With each failover, you need to perform a re-scan on the host for I/O operations to resume. 
-
-Refer to the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/How_to_configure_AIX_Host_for_SnapMirror_active_sync_in_ONTAP[How to configure an AIX host for SnapMirror active sync^]. 
---
-====
+include::_include/hu/aix-recommended-settings-mcc-snapmirror-active-sync.adoc[]
 
 . Verify the parameter settings and that multiple paths are listed for an ONTAP LUN:
 +
@@ -197,66 +177,8 @@ timeout_policy  fail_path                   Active/Passive Disk Path Control Mod
 ww_name         0x203200a098ba7afe          FC World Wide Name                      False 
 ----
 ====
-. Verify the path status for ONTAP LUNs:
-+
-`sanlun lun show`
-+
-The following example outputs show the correct path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
-+
-[role="tabbed-block"]
-====
-.ASA configurations
---
-An ASA configuration optimizes all paths to a given LUN, keeping them active (primary). This improves performance by serving I/O operations through all paths at the same time.
 
-----
-# sanlun lun show -p |grep -p hdisk78
-                    ONTAP Path: vs_aix_clus:/vol/chataix_205p2_vol_en_1_7/jfs_205p2_lun_en
-                           LUN: 37
-                      LUN Size: 15g
-                   Host Device: hdisk78
-                          Mode: C
-            Multipath Provider: AIX Native
-        Multipathing Algorithm: round_robin
------- ------- ------ ------- --------- ----------
-host   vserver  AIX                      AIX MPIO
-path   path     MPIO   host    vserver     path
-state  type     path   adapter LIF       priority
------- ------- ------ ------- --------- ----------
-up     primary  path0  fcs0    fc_aix_1     1
-up     primary  path1  fcs0    fc_aix_2     1
-up     primary  path2  fcs1    fc_aix_3     1
-up     primary  path3  fcs1    fc_aix_4     1
-----
---
-.AFF or FAS configuration
---
-An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
-
-The following example displays the correct output for an ONTAP LUN with two Active/Optimized ("primary") paths and two Active/Non-Optimized ("secondary") paths:
-
-----
-# sanlun lun show -p |grep -p hdisk78
-                    ONTAP Path: vs_aix_clus:/vol/chataix_205p2_vol_en_1_7/jfs_205p2_lun_en
-                           LUN: 37
-                      LUN Size: 15g
-                   Host Device: hdisk78
-                          Mode: C
-            Multipath Provider: AIX Native
-        Multipathing Algorithm: round_robin
-------- ---------- ------ ------- ---------- ----------
-host    vserver    AIX                        AIX MPIO
-path    path       MPIO   host    vserver         path
-state   type       path   adapter LIF         priority
-------- ---------- ------ ------- ---------- ----------
-up      secondary  path0  fcs0    fc_aix_1        1
-up      primary    path1  fcs0    fc_aix_2        1
-up      primary    path2  fcs1    fc_aix_3        1
-up      secondary  path3  fcs1    fc_aix_4        1
-----
---
-====
-
+include::_include/hu/aix-asa-aff-fas-examples.adoc[]
 
 == Step 4: Review the known issues
 
@@ -264,4 +186,4 @@ The IBM AIX 7.3 and/or PowerVM (VIOS 4.1) with ONTAP storage release has no know
 
 == What's next?
 
-link:hu-aix-80-command-reference.html[Learn baout the AIX Host Utilties 8.0 sample command reference].
+link:hu-aix-80-command-reference.html[Learn about the AIX Host Utilties 8.0 sample command reference].
