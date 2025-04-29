@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar
 permalink: hu-windows-2025.html
-keywords: windows, enterprise
-summary: You can use the ONTAP SAN host configuration settings to configure Windows Server 2025 for operation with ONTAP storage.
+keywords: fcp, iscsi, windows, host, utilities, 2025, ontp, luns, configure 
+summary: Install Windows Host Utilities on a Windows Server 2025 host to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
 = Configure Windows Server 2025 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
@@ -13,7 +13,7 @@ summary: You can use the ONTAP SAN host configuration settings to configure Wind
 :imagesdir: ./media/
 
 [.lead]
-The Windows Host Utilities are a set of software programs with documentation that enables you to connect Windows hosts to virtual disks (LUNs) on a NetApp SAN. When you install the Windows Host Utilities on a Windows Server 2025 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs. 
+The Windows Host Utilities are a set of software programs with documentation that enables you to connect Windows hosts to virtual disks (LUNs) on a NetApp SAN. When you install the Windows Host Utilities on a Windows Server 2025 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/windows/windows-san-boot-2022-and-later.adoc[]
 

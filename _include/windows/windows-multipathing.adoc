@@ -1,16 +1,16 @@
 == Step 4: Confirm the multipath configuration for your host
 
-If your Windows host has more than one path to the storage system, you need to enable multipahting.
+Install Microsoft Multipath I/O (MPIO) software and enable multipathing If your Windows host has more than one path to the storage system.
+
+The MPIO software presents a single disk to the Windows OS for all paths, and a device-specific module (DSM) manages path failover. On a Windows system, the two main components in any MPIO solution are the DSM and the Windows MPIO.
+
+CAUTION: If you don't install the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
+
+NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
 
 .Steps
 
-. Install the Microsoft Multipath I/O (MPIO) software and enable multipathing  
-+
-The MPIO software presents a single disk to the Windows OS for all paths, and a device-specific module (DSM) manages path failover. On a Windows system, the two main components in any MPIO solution are the DSM and the Windows MPIO.
-+
-CAUTION: If you don't install the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
-+
-NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
+. Install the MPIO software and enable multipathing. 
 
 . When you select MPIO on systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
 +
