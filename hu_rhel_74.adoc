@@ -21,7 +21,7 @@ include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities.adoc[]
 
-== Step 2: Confirm the multipath configuration for your host
+== Step 3: Confirm the multipath configuration for your host
 
 You can use multipathing with RHEL 7.4 to manage ONTAP LUNs.
 

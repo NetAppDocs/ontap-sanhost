@@ -21,7 +21,7 @@ include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities.adoc[]
 
-== Step 2: Confirm the multipath configuration for your host
+== Step 3: Confirm the multipath configuration for your host
 
 You can use multipathing with RHEL 8.1 to manage ONTAP LUNs.
 
@@ -34,7 +34,7 @@ include::_include/hu/linux-rhel-customize-parameters.adoc[]
 [[known-problems-and-limitations]]
 == Step 6: Review the known issues
 
-The RHEL 8.1 with ONTAP release has the following known issues:
+The RHEL 8.1 with ONTAP storage release has the following known issues:
 
 [cols=3*,options="header"]
 |===
