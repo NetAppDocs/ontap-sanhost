@@ -21,7 +21,7 @@ include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities.adoc[]
 
-== Step 2: Confirm the multipath configuration for your host
+== Step 3: Confirm the multipath configuration for your host
 
 You can use multipathing with RHEL 7.3 to manage ONTAP LUNs.
 
@@ -33,7 +33,7 @@ include::_include/hu/linux-customize-parameters.adoc[]
 
 == Step 6: Review the known issues
 
-There are no known issues for the RHEL 7.3 with ONTAP storage release.
+There are no known issues.
 
 == What's next?
 

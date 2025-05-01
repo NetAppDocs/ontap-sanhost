@@ -21,7 +21,7 @@ include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities.adoc[]
 
-== Step 2: Confirm the multipath configuration for your host
+== Step 3: Confirm the multipath configuration for your host
 
 You can use multipathing with RHEL 9.4 to manage ONTAP LUNs.
 
@@ -33,7 +33,7 @@ include::_include/hu/linux-rhel-customize-parameters.adoc[]
 
 == Step 6: Review the known issues
 
-There are no known issues for the FC host configuration for RHEL 9.4 with ONTAP release.
+There are no known issues.
 
 == What's next?
 

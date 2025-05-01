@@ -21,7 +21,7 @@ include::_include/hu/install-linux-host-utilities.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
-You can use multipathing with SUSE Linux Enterprise Server 15 SP6 to manage ONTAP LUNs.
+You can use multipathing with SUSE Linux Enterprise Server 15 SP5 to manage ONTAP LUNs.
 
 include::_include/hu/multipathing.adoc[]
 
@@ -31,7 +31,7 @@ include::_include/hu/linux-customize-parameters.adoc[]
 
 == Step 6: Review the known issues
 
-There are no known issues for the SUSE Linux Enterprise Server 15 SP5 with ONTAP release.
+There are no known issues.
 
 == What's next?
 
