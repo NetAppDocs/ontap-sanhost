@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: hu_sles_15SP2.html
 keywords: host utilities, suse linux enterprise server 15 sp2, suse, linux, 15 sp2, netapp, ontap
-summary: Describes how to use SUSE Linux Enterprise Server 15 SP2 with ONTAP
+summary: Install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP2 to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Use SUSE Linux Enterprise Server 15 SP2 with ONTAP
+= Configure SUSE Linux Enterprise Server 15 SP2 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,100 +13,23 @@ summary: Describes how to use SUSE Linux Enterprise Server 15 SP2 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure SUSE Linux Enterprise Server 15 SP2 with ONTAP as the target. 
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP2 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
-== Install the Linux Host Utilities
+include::_include/hu/install-linux-host-utilities.adoc[]
 
-include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
+== Step 2: Confirm the multipath configuration for your host
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+You can use multipathing with SUSE Linux Enterprise Server 15 SP2 to manage ONTAP LUNs.
 
-== SAN Toolkit
+include::_include/hu/multipathing.adoc[]
 
-include::_include/hu/reuse_hu_san_toolkit.adoc[]
+include::_include/hu/linux-enable-san-boot.adoc[]
 
-== SAN Booting
+include::_include/hu/exclude-device.adoc[]
 
-.Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+include::_include/hu/linux-customize-parameters.adoc[]
 
-include::_include/hu/reuse_hu_san_booting_steps.adoc[]
-
-== Multipathing
-
-For SUSE Linux Enterprise Server 15 SP2 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. SUSE Linux Enterprise Server 15 SP2 is compiled with all settings required to recognize and correctly manage ONTAP LUNs. Use the `+multipath -ll+` command verify the settings for your ONTAP LUNs.
-
-There should be two groups of paths with different priorities. The paths with higher priorities are Active/Optimized. This means they are serviced by the controller where the aggregate is located. The paths with lower priorities are active but non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths are not available.
-
-The following example displays the correct output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths.
-
-----
-# multipath -ll
-3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-|-+- policy='service-time 0' prio=50 status=enabled
-| |- 11:0:1:0 sdj 8:144 active ready running
-| |- 11:0:2:0 sdr 65:16 active ready running
-`-+- policy='service-time 0' prio=10 status=enabled
-|- 11:0:0:0 sdb 8:i6 active ready running
-|- 12:0:0:0 sdz 65:144 active ready running
-----
-
-Do not use an excessive number of paths to a single LUN. No more than 4 paths should be required. More than 8 paths might cause path issues during storage failures.
-
-== Recommended Settings
-
-SUSE Linux Enterprise Server 15 SP2 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly.
-
-include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
-
-[cols=2]
-[options="header"]
-|===
-| Parameter
-| Setting
-| detect_prio | yes
-| dev_loss_tmo | "infinity"
-| failback | immediate
-| fast_io_fail_tmo | 5
-| features | "2 pg_init_retries 50"
-| flush_on_last_del | "yes"
-| hardware_handler | "0"
-| no_path_retry | queue
-| path_checker | "tur"
-| path_grouping_policy | "group_by_prio"
-| path_selector | "service-time 0"
-| polling_interval | 5
-| prio | "ontap"
-| product | LUN.*
-| retain_attached_hw_handler | yes
-| rr_weight | "uniform"
-| user_friendly_names | no
-| vendor | NETAPP
-|===
-
-.Example
-
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
-
-----
-defaults {
-   path_checker      readsector0
-   no_path_retry      fail
-}
-devices {
-   device {
-      vendor         "NETAPP  "
-      product         "LUN.*"
-      no_path_retry     queue
-      path_checker      tur
-   }
-}
-----
-
-include::_include/hu/hu-asm-mirroring.adoc[]
-
-== Known issues
+== Step 6: Review the known issues
 
 The SUSE Linux Enterprise Server 15 SP2 with ONTAP release has the following known issues:
 
@@ -135,5 +58,11 @@ reboot: System halted
 ----
 
 |===
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
 
 // 2024 SEP 2, ONTAPDOC-2345
