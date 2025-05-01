@@ -4,8 +4,7 @@ permalink: hu_rhel_70.html
 keywords: host utilities, red hat, rhel, linux, 7.0, netapp, ontap
 summary: Describes how to use Red Hat Enterprise Linux 7.0 with ONTAP
 ---
-
-= Use Red Hat Enterprise Linux 7.0 with ONTAP
+= Configure RHEL 7.0 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,119 +13,27 @@ summary: Describes how to use Red Hat Enterprise Linux 7.0 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 7.0 with ONTAP as the target. 
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Red Hat Enterprise Linux (RHEL) 7.0 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
-== Install the Linux Host Utilities
+include::_include/hu/rhel-configure-kvm-note.adoc[]
 
-include::_include/hu/reuse_hu_installing_luhu_with32.adoc[]
+include::_include/hu/linux-enable-san-boot.adoc[]
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+include::_include/hu/install-linux-host-utilities.adoc[]
 
-== SAN Toolkit
+== Step 3: Confirm the multipath configuration for your host
 
-include::_include/hu/reuse_hu_san_toolkit.adoc[]
+You can use multipathing with RHEL 7.0 to manage ONTAP LUNs.
 
-== SAN Booting
+include::_include/hu/linux-rhel-7x-multipathing.adoc[]
 
-.Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+include::_include/hu/exclude-device.adoc[]
 
-include::_include/hu/reuse_hu_san_booting_steps.adoc[]
+include::_include/hu/linux-customize-parameters.adoc[]
 
-== Multipathing
+== Step 6: Review the known issues
 
-For Red Hat Enterprise Linux (RHEL) 7.0 the /etc/multipath.conf file must exist, but you do not need to make specific changes to the file. RHEL 7.0 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
-
-include::_include/hu/reuse_hu_multipathing.adoc[]
-
-include::_include/hu/reuse_hu_asa_configuration.adoc[]
-
-----
-# multipath -ll
-3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
-size=80G  features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
-`-+- policy='service-time 0' prio=50 status=active
-  |- 11:0:7:1    sdfi   130:64   active ready running
-  |- 11:0:9:1    sdiy  8:288     active ready running
-  |- 11:0:10:1  sdml 69:464   active ready running
-  |- 11:0:11:1  sdpt  131:304  active ready running
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
-
-----
-# multipath -ll
-3600a09803831347657244e527766394e dm-5 NETAPP,LUN C-Mode
-size=80G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle’ hwhandler='1 alua' wp=rw
-|-+- policy='service-time 0' prio=50 status=active
-| |- 11:0:1:0 sdj  8:144  active ready running
-| |- 11:0:2:0 sdr  65:16  active ready running
-`-+- policy='service-time 0' prio=10 status=enabled
-  |- 11:0:0:0 sdb  8:i6   active ready running
-  |- 12:0:0:0 sdz  65:144 active ready running
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-== Recommended Settings
-
-The RHEL 7.0 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
-
-include::_include/hu/reuse_hu_recommended_settings.adoc[]
-
-[cols=2*,options="header"]
-|===
-| Parameter
-| Setting
-| detect_prio | yes
-| dev_loss_tmo | "infinity"
-| failback | immediate
-| fast_io_fail_tmo | 5
-| features | "3 queue_if_no_path pg_init_retries 50"
-| flush_on_last_del | "yes"
-| hardware_handler | "0"
-| no_path_retry | queue
-| path_checker | "tur"
-| path_grouping_policy | "group_by_prio"
-| path_selector | "service-time 0"
-| polling_interval | 5
-| prio | "ontap"
-| product | LUN.*
-| retain_attached_hw_handler | yes
-| rr_weight | "uniform"
-| user_friendly_names | no
-| vendor | NETAPP
-|===
-
-.Example
-
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
-
-----
-defaults {
-   path_checker      readsector0
-   no_path_retry      fail
-}
-
-devices {
-   device {
-      vendor         "NETAPP  "
-      product         "LUN.*"
-      no_path_retry     queue
-      path_checker      tur
-   }
-}
-----
-
-include::_include/hu/reuse_hu_kvm_configuration.adoc[]
-
-include::_include/hu/hu-asm-mirroring.adoc[]
-
-== Known issues
-
-The RHEL 7.0 with ONTAP release has the following known issues:
+The RHEL 7.0 with ONTAP storage release has the following known issues:
 
 [cols=3*,options="header"]
 |===
@@ -143,5 +50,11 @@ The RHEL 7.0 with ONTAP release has the following known issues:
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=836875[836875^] | IP addresses are not always assigned during the boot of a RHEL 7.0 OS installed on an iSCSI multipath'd LUN | When you are installing RHEL 7.0, the anaconda installation screen displays that iSCSI login to multiple target IPs have failed though the iSCSI logins are successful. Anaconda displays following error message: “Node Login Failed” You will observe this error only when you select multiple target IPs for iSCSI login. You can continue the OS installation by clicking the "ok" button. This bug does not hamper either the iSCSI or the RHEL 7.0 OS installation. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=836657[836657^] | Anaconda does not add bootdev argument in kernel cmd line to set IP address for RHEL 7.0 OS installed on iSCSI multipath'd LUN | Anaconda does not add a bootdev argument in the kernel command line where you set the IPv4 address during the RHEL 7.0 OS installation on an iSCSI multipath'd LUN. This prevents assigning of IP addresses to any of the Ethernet interfaces that were configured to establish iSCSI sessions with the storage subsystem during the RHEL 7.0 boot. Since iSCSI sessions are not established, the root LUN is not discovered when the OS boots and hence the OS boot fails. 
 |===
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
 
 // 2024 SEP 2, ONTAPDOC-2345
