@@ -15,15 +15,15 @@ summary: Describes how to use the Solaris Host Utilities 8.0 with ONTAP
 [.lead]
 The Solaris Host Utilities help you manage ONTAP storage attached to a Solaris host and assist technical support with gathering configuration data.
 
-.About this task
-The Solaris Host Utilities support several Solaris environments and multiple transport protocols. 
-
-These are the primary Solaris Host Utilities environments: 
+The Solaris Host Utilities support several Solaris environments and multiple transport protocols. These are the primary Solaris Host Utilities environments: 
 
 * The native OS with Oracle Solaris I/O Multipathing (MPxIO) and either the FC or iSCSI protocol on a system using either a SPARC or x86/64 processor.
 * Veritas Dynamic Multipathing (DMP) with the FC or iSCSI protocol on a system using a SPARC processor.
 
 The Solaris Host Utilities 8.0 support the Solaris 11.4 series.	
+
+.About this task
+You download the Solaris Host Utilities from the NetAp Support Site as a `tar.gz` file.
 
 .Before you begin
 

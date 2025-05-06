@@ -13,17 +13,20 @@ summary: Describes how to use the Solaris Host Utilities 6.2 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-The Solaris Host Utilities assist you in managing ONTAP storage attached to a Solaris host. The Solaris Host Utilities support several Solaris environments and multiple transport protocols.
+The Solaris Host Utilities help you manage ONTAP storage attached to a Solaris host and assist technical support with gathering configuration data.
 
-These are the primary Solaris Host Utilities environments: 
+The Solaris Host Utilities support several Solaris environments and multiple transport protocols. These are the primary Solaris Host Utilities environments: 
 
 * The native OS with MPxIO and either the Fibre Channel (FC) or iSCSI protocol on a system using either a SPARC processor or an x86/64 processor.
 * Veritas Dynamic Multipathing (DMP) with either the FC or iSCSI protocol on a system using a SPARC processor, or the iSCSI protocol on a system using an x86/64 processor.
 
-The Solaris Host Utilities 6.2 support the following Solaris versions:
+The Solaris Host Utilities 6.2 support the following Solaris series:
 
-*	Solaris 11.x series
-*	Solaris 10.x series
+* Solaris 11.x
+* Solaris 10.x
+
+.About this task
+You download the Solaris Host Utilities from the NetAp Support Site as a `tar.gz` file.
 
 .Before you begin
 
