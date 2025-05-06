@@ -4,8 +4,7 @@ permalink: nvme_aix.html
 keywords: nvme, linux, rhel, red hat, enterprise, aix, ontap
 summary: How to Configure NVMe/FC Host for AIX with ONTAP
 ---
-
-= NVMe/FC Host Configuration for AIX with ONTAP
+= Configure AIX with NVMe-oF for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,26 +13,35 @@ summary: How to Configure NVMe/FC Host for AIX with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can enable NVMe over Fibre Channel (NVMe/FC) on IBM AIX and VIOS/PowerVM hosts using ONTAP storage as the target. For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+The IBM AIX and Virtual I/O Server (VIOS)VIOS/PowerVM hosts supports the NVMe/FC and NVMe/TCP protocols with Asymmetric Namespace Access (ANA). ANA is equivalent to asymmetric logical unit access (ALUA) multipathing in iSCSI and FCP environments and is implemented using the in-kernel NVMe multipath feature.
 
-The following support is available for NVMe/FC host configuration for an AIX host with ONTAP:
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
-* Beginning with ONTAP 9.13.1, NVMe/FC support is added for IBM AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2, and VIOS 3.1.4.21 releases with SAN boot support for both physical and virtual stacks. See the IBM documentation for more information on setting up SAN boot support.
+.About this task
+You can use the following support and features with the NVMe-oF host configuration for AIX hosts. You should also review the known limitations before starting the configuration process.
 
-* NVMe/FC is supported with Power9 and Power10 IBM servers.
+* Support available:
 
-* No separate PCM (Path Control Module), such as Host Utilities for AIX SCSI Multipath I/O (MPIO) support, is required for NVMe devices.
+** Beginning with ONTAP 9.13.1, NVMe/FC support is added for IBM AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2, and VIOS 3.1.4.21 with SAN boot support for both physical and virtual stacks. See the IBM documentation for more information on setting up SAN boot support.
 
-* Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is _only_ supported through NPIV (N_PortID Virtualization) storage virtualization mode using the Power10 IBM server.
+** NVMe/FC is supported with Power9 and Power10 IBM servers.
 
+** A separate PCM (Path Control Module), such as Host Utilities for AIX SCSI Multipath I/O (MPIO) support, isn't required for NVMe devices.
 
-.What you'll need
+** Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is _only_ supported through NPIV (N_PortID Virtualization) storage virtualization mode using the Power10 IBM server.
+
+* Known limitations:
+
+* Qlogic/Marvel 32G FC HBAs on an AIX host doesn't support NVMe/FC.
+* SAN boot isn't supported for NVMe/FC devices using Power9 IBM server.
+
+.Before you begin
 
 * Verify that you have 32GB FC Emulex adapters (EN1A, EN1B, EN1L, EN1M) or 64GB FC adapters (EN1N, EN1P) with adapter firmware 12.4.257.30 and later versions.
 
 * If you have a MetroCluster configuration, NetApp recommends changing the AIX NVMe/FC default APD (All Path Down) time for supporting MetroCluster unplanned switchover events to avoid the AIX operating system enforcing a shorter I/O timeout. For additional information and the recommended changes to default settings, refer to NetApp Bugs Online - link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1553249[1553249^].
 
-* By default, the Asymmetric Namespace Access Transition Timeout (ANATT) value for the AIX host OS is 30 seconds. IBM provides an Interim Fix (ifix) which caps the ANATT value at 60 seconds; you need to install an ifix from the IBM website to ensure that all the ONTAP workflows are non-disruptive. 
+* By default, the Asymmetric Namespace Access Transition Timeout (ANATT) value for the AIX host OS is 30 seconds. IBM provides an Interim Fix (ifix) which caps the ANATT value at 60 seconds; you need to install an ifix from the IBM website to ensure that all ONTAP workflows are non-disruptive. 
 +
 
 [NOTE]
@@ -50,21 +58,21 @@ The ifix details are as follows:
 For more information on managing ifixes, see link:http://www-01.ibm.com/support/docview.wss?uid=isg3T1012104[Managing Interim Fixes on AIX^].
 +
 [NOTE] 
-You need to install the ifixes on an AIX version with no previously installed ifixes related to `devices.pciex.pciexclass.010802.rte` on the system. If these ifixes are present, they will conflict with the new installation.
+You need to install the ifixes on an AIX version with no previously installed ifixes related to `devices.pciex.pciexclass.010802.rte` on the system. Previously installed ifixes will conflict with the new installation.
 +
-The following table demonstrates HBAs assigned to the AIX LPAR (AIX Logical Partition) or the physical stack:
+The following table shows HBAs assigned to the AIX LPAR (AIX Logical Partition) or the physical stack:
 +
 [cols="10,10,10,10,10",options="header"]
 |===
 
 |Host OS |Power Arch |Power FW version |Mode |Comments
-.2+|AIX 7.2 TL5 SP6 |Power9  |FW 950 or later	|Physical stack	|ifix available through TS012877410.
-|Power10 |FW 1010 or later	|Physical stack	|SAN booting is supported. ifix available through TS012877410.
-.2+|AIX 7.3 TL1 SP2 |Power9	|FW 950 or later	|Physical stack	|ifix available through TS012877410.
-	|Power10	|FW 1010 or later	|Physical and virtual stack	 |ifix available through TS012877410.
+.2+|AIX 7.2 TL5 SP6 |Power9  |FW 950 or later	|Physical stack	|The ifix available through TS012877410.
+|Power10 |FW 1010 or later	|Physical stack	|SAN booting is supported. The ifix available through TS012877410.
+.2+|AIX 7.3 TL1 SP2 |Power9	|FW 950 or later	|Physical stack	|The ifix available through TS012877410.
+|Power10	|FW 1010 or later	|Physical and virtual stack	 |The ifix available through TS012877410.
 |===
 +
-The following table demonstrates HBAs assigned to the VIOS with NPIV-enabled support in a virtualized mode:
+The following table shows HBAs assigned to the VIOS with NPIV-enabled support in a virtualized mode:
 +
 [cols="10,10,10,10,10",options="header"]
 |===
@@ -72,23 +80,22 @@ The following table demonstrates HBAs assigned to the VIOS with NPIV-enabled sup
 |VIOS/PowerVM 3.1.4.21	|Power10	|FW 1010 or later	|Virtual stack	|Support starts from AIX 7.3 TL1 SP2 for VIOC
 |===
 
-== Known limitations
 
-NVMe/FC host configuration for AIX with ONTAP has the following known limitations:
+== Step 1: Confirm the multipath configuration for your host
 
-* Qlogic/Marvel 32G FC HBAs on an AIX host does not support NVMe/FC.
-* SAN boot is not supported for NVMe/FC devices using Power9 IBM server.
+When you install the AIX OS, IBM MPIO used for NVMe multipathing is provided by default.
 
-== Multipathing
+.Steps
 
-IBM MPIO (Multi Path I/O), used for NVMe multipathing, is provided by default when you install the AIX OS.  
-
-You can verify that NVMe multipathing is enabled for an AIX host by using the `lsmpio` command:
-
+. Verify that NVMe multipathing is enabled:
++
 ----
 #[root@aix_server /]: lsmpio -l hdisk1
 ----
-*Example output*
++
+.Show example
+[%collapsible]
+====
 ----
 name     path_id  status   path_status  parent  connection
 hdisk1  8         Enabled  Sel,Opt       nvme12  fcnvme0, 9
@@ -96,25 +103,27 @@ hdisk1  9         Enabled  Sel,Non       nvme65  fcnvme1, 9
 hdisk1  10        Enabled  Sel,Opt       nvme37  fcnvme1, 9
 hdisk1  11        Enabled  Sel,Non       nvme60  fcnvme0, 9
 ----
+====
 
-== Configure NVMe/FC
+== Step 2: Configure NVMe/FC
 
-You can use the following procedure to configure NVMe/FC for Broadcom/Emulex adapters.
+Configure NVMe/FC for Broadcom/Emulex adapters.
+
+The NVMe/FC protocol support is enabled in the physical FC by default but the NVMe/FC protocol support is disabled in the Virtual Fibre Channel (vFC) on VIOS
 
 .Steps
 
-. Verify that you are using the supported adapter. For the most current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^].
+. link:https://mysupport.netapp.com/matrix/[Verify that you are using the supported adapter^].
 
-. By default, the NVMe/FC protocol support is enabled in the physical FC; however, the NVMe/FC protocol support is disabled in the Virtual Fibre Channel (VFC) on Virtual I/O Server (VIOS).
-+
-Retrieve a list of virtual adapters:
+. Retrieve a list of virtual adapters:
 +
 ----
 $ lsmap -all -npiv
 ----
 +
-*Example output*
-+
+.Show example
+[%collapsible]
+====
 ----
 Name          Physloc                            ClntID ClntName       ClntOS
 ------------- ---------------------------------- ------ -------------- -------
@@ -125,6 +134,7 @@ Ports logged in:3
 Flags:0xea<LOGGED_IN,STRIP_MERGE,SCSI_CLIENT,NVME_CLIENT>
 VFC client name:fcs0            VFC client DRC:U9105.22A.785DB61-V4-C2
 ----
+====
 
 . Enable support for the NVMe/FC protocol on an adapter by running the `ioscli vfcctrl` command on the VIOS:
 +
@@ -132,7 +142,7 @@ VFC client name:fcs0            VFC client DRC:U9105.22A.785DB61-V4-C2
 $  vfcctrl -enable -protocol nvme -vadapter vfchost0
 ----
 +
-*Example output*
+.Example output
 +
 ----
 The "nvme" protocol for "vfchost0" is enabled.
@@ -144,8 +154,9 @@ The "nvme" protocol for "vfchost0" is enabled.
 # lsattr -El vfchost0
 ----
 +
-*Example output*
-+
+.Show example
+[%collapsible]
+====
 ----
 alt_site_wwpn       WWPN to use - Only set after migration   False
 current_wwpn  0     WWPN to use - Only set after migration   False
@@ -156,11 +167,11 @@ map_port      fcs4  Physical FC Port                         False
 num_per_nvme  0     Number of NPIV NVME queues per range     True
 num_per_range 0     Number of NPIV SCSI queues per range     True
 ----
+====
 
-. Enable NVMe/Fc protocol for all current adapters or selected adapters:
-.. Enable the NVMe/Fc protocol for all adapters:
-... Change the `dflt_enabl_nvme` attribute value of `viosnpiv0` pseudo device to `yes`.
-... Set the `enable_nvme` attribute value to `yes` for all the VFC host devices.
+. Enable the NVMe/Fc protocol for all adapters:
+.. Change the `dflt_enabl_nvme` attribute value of `viosnpiv0` pseudo device to `yes`.
+.. Set the `enable_nvme` attribute value to `yes` for all the VFC host devices.
 +
 ----
 # chdev -l viosnpiv0 -a dflt_enabl_nvme=yes
@@ -170,8 +181,9 @@ num_per_range 0     Number of NPIV SCSI queues per range     True
 # lsattr -El viosnpiv0
 ----
 +
-*Example output*
-+
+.Show example
+[%collapsible]
+====
 ----
 bufs_per_cmd    10  NPIV Number of local bufs per cmd                    True
 dflt_enabl_nvme yes Default NVME Protocol setting for a new NPIV adapter True
@@ -180,8 +192,9 @@ num_per_nvme    8   NPIV Number of NVME queues per range                 True
 num_per_range   8   NPIV Number of SCSI queues per range                 True
 secure_va_info  no  NPIV Secure Virtual Adapter Information              True
 ----
+====
 
-.. Enable the NVMe/Fc protocol for selected adapters by changing the `enable_nvme` value of the VFC host device attribute to `yes`.
+. Enable the NVMe/Fc protocol for selected adapters by changing the `enable_nvme` value of the VFC host device attribute to `yes`.
 
 . Verify that `FC-NVMe Protocol Device` has been created on the server:
 +
@@ -189,7 +202,7 @@ secure_va_info  no  NPIV Secure Virtual Adapter Information              True
 # [root@aix_server /]: lsdev |grep fcnvme
 ----
 +
-*Exmaple output*
+.Exmaple output
 +
 ----
 fcnvme0       Available 00-00-02    FC-NVMe Protocol Device
@@ -202,25 +215,29 @@ fcnvme1       Available 00-01-02    FC-NVMe Protocol Device
 # [root@aix_server /]: lsattr -El fcnvme0
 ----
 +
-*Example output*
-+
+.Show example
+[%collapsible]
+====
 ----
 attach     switch                                                               How this adapter is connected  False
 autoconfig available                                                            Configuration State            True
 host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8 Host NQN (NVMe Qualified Name) True
 ----
+====
 +
 ----
 [root@aix_server /]: lsattr -El fcnvme1
 ----
 +
-*Example output*
-+
+.Show example
+[%collapsible]
+====
 ----
 attach     switch                                                               How this adapter is connected  False
 autoconfig available                                                            Configuration State            True
 host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8 Host NQN (NVMe Qualified Name) True
 ----
+====
 
 . Check the host NQN and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array:
 +
@@ -228,7 +245,7 @@ host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8 
 ::> vserver nvme subsystem host show -vserver vs_s922-55-lpar2
 ----
 +
-*Example output*
+.Example output
 +
 ----
 Vserver         Subsystem                Host NQN
@@ -238,23 +255,32 @@ vs_s922-55-lpar2 subsystem_s922-55-lpar2 nqn.2014-08.org.nvmexpress:uuid:64e039b
 
 . Verify that the initiator ports are up and running and you can see the target LIFs.
 
-== Validate NVMe/FC
 
-You need to verify that the ONTAP namespaces correctly reflect on the host. Run the following command to do so:
+== Step 3: Validate NVMe/FC
+
+Verify that the ONTAP namespaces are correct for the NVMe/FC configuration.
+
+.Steps
+. Verify that the ONTAP namespaces correctly reflect on the host:
++
 ----
 # [root@aix_server /]: lsdev -Cc disk |grep NVMe
 ----
-*Example output*
++
+.Example output
 ----
 hdisk1  Available 00-00-02 NVMe 4K Disk
 ----
 
-You can check the multipathing status:
-
+. Optionally, check the multipathing status:
++
 ----
 #[root@aix_server /]: lsmpio -l hdisk1
 ----
-*Example output*
++
+.Show example
+[%collapsible]
+====
 ----
 name     path_id  status   path_status  parent  connection
 hdisk1  8        Enabled  Sel,Opt      nvme12  fcnvme0, 9
@@ -262,10 +288,11 @@ hdisk1  9        Enabled  Sel,Non      nvme65  fcnvme1, 9
 hdisk1  10       Enabled  Sel,Opt      nvme37  fcnvme1, 9
 hdisk1  11       Enabled  Sel,Non      nvme60  fcnvme0, 9
 ----
+====
 
-== Known issues 
+== Step 4: Review the known issues 
 
-The NVMe/FC host configuration for AIX with ONTAP has the following known issues:
+The NVMe/FC host configuration for AIX with ONTAP storage has the following known issues:
 
 [cols="10,30,30",options="header"]
 |===
@@ -278,6 +305,6 @@ The NVMe/FC host configuration for AIX with ONTAP has the following known issues
 |===
 
 
-== Troubleshoot
+== Step 5: Troublehsoot
 
-Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant with the Interoperability Matrix Tool (IMT) specifications. If you are still facing issues, contact link:https://mysupport.netapp.com[NetApp support^] for further triage.
+Before troubleshooting any NVMe/FC failures, verify that you are running a configuration that is compliant with the Interoperability Matrix Tool (IMT) specifications. If you are still facing issues, contact link:https://mysupport.netapp.com[NetApp support^].

@@ -82,11 +82,11 @@ include::_include/hu/aix-multipathing-introduction.adoc[]
 | Modified FC protocol MPIO/non-MPIO 
 .4+| rw_timeout (disk) 
 | AIX 7.3TL3 
-| NPIV :30 s, VSCSI:45s 
-| NPIV :30s , VSCSI:120s 
+| NPIV :30 s, vSCSI:45s 
+| NPIV :30s , vSCSI:120s 
 | AIX 7.2TL5 
-| NPIV :30s , VSCSI:45s 
-| NPIV :30s , VSCI: 120s 
+| NPIV :30s , vSCSI:45s 
+| NPIV :30s , vSCSI: 120s 
 | VIOS 3.1 
 | 30s 
 | 30s 
@@ -105,11 +105,11 @@ include::_include/hu/aix-multipathing-introduction.adoc[]
 | Modified iSCSI protocol with MPIO / non-MPIO 
 .5+| rw_timeout (disk) 
 | AIX 7.3TL3 
-| VSCSI: 45s 
-| VSCSI:120s 
+| vSCSI: 45s 
+| vSCSI:120s 
 | AIX 7.2TL5 
-| VSCSI: 45s 
-| VSCSI:120s 
+| vSCSI: 45s 
+| vSCSI:120s 
 | VIOS 3.1 
 | 120s 
 | 30s 

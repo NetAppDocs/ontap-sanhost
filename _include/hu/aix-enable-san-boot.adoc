@@ -5,10 +5,10 @@ You can configure your host to use SAN booting to simplify deployment and improv
 ====
 .SAN boot
 --
-SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX/PowerVM host host. You can set up a SAN boot LUN to work in a AIX Multipath I/O (MPIO) environment that is using the FC protocol and running Solaris Host Utilities with either the FC or FCoE protocol. The method you use to create a SAN boot LUN and install a new OS image in an AIX MPIO environment depends on the protocol that you are using. 
+SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX/PowerVM host host. You can set up a SAN boot LUN to work in a AIX Multipath I/O (MPIO) environment that is using the FC protocol and running AIX Host Utilities with either the FC or FCoE protocol. The method you use to create a SAN boot LUN and install a new OS image in an AIX MPIO environment depends on the protocol that you are using. 
 
 .Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your AIX OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your AIX OS, HBA vendor, and ONTAP version support SAN booting.
 
 .Steps
 Refer to <link to KB article>>
@@ -16,7 +16,7 @@ Refer to <link to KB article>>
 
 .Local boot
 --
-Perform a local boot by installing the Solaris OS on the local hard disk, for example, an SSD, SATA, or RAID.
+Perform a local boot by installing the AIX OS on the local hard disk, for example, an SSD, SATA, or RAID.
 --
 
 ====
