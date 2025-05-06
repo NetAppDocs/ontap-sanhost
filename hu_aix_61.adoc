@@ -38,8 +38,27 @@ For more information about PowerVM, see the IBM PowerVM Live Partition Mobility 
 .Steps
 
 . Log in to your host.
-* On an AIX host, log in as *root*.
-* On a PowerVM host, log in as *padmin*, and then enter the `oem_setup_env` command to become a root user.
++
+[role="tabbed-block"]
+====
+.AIX
+--
+On an AIX host, log in as *root*.
+--
+
+.PowerVM
+--
+On a PowerVM host:
+
+.. Log in as *padmin*.
+.. Become a root user:
++
+[source,cli]
+----
+`oem_setup_env`
+----
+--
+====
 
 . Go to the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^] and download the compressed file containing the Host Utilities to a directory on your host.
 
