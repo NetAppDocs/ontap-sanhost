@@ -13,31 +13,27 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 :imagesdir: ./media/
 
 [.lead]
-The AIX Host Utilities assists you to manage ONTAP storage attached to an AIX host.
+The AIX Host Utilities help you manage ONTAP storage attached to an AIX host and assist technical support with gathering configuration data.
 
-AIX Host Utilities support the following protocols:
+The AIX Host Utilities support the following transport protocols and AIX environments.
 
-* FC
-* FCoE
-* iSCSI
-
-AIX Host Utilities support the following environments:
-
+* FC, FCoE, and iSCSI
 * AIX Microsoft Multipath I/O (MPIO) (Native OS)
 * PowerVM 
 +
 For more information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
 
+.About this task
+* You download the AIX Host Utilities from the NetApp Support site in a compressed `tar.gz` file.
+* You can only install the AIX Host Utilities kit when you're using AIX MPIO with ONTAP storage.
+
 .Before you begin
 
-* For reliable operation, verify that your entire iSCSI, FC, or FCoE configuration is supported.
-+
-You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify your configuration.
+* Use the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that all components in your iSCSI, FC, or FCoE configuration are supported.
 
 * Enable dynamic tracking for all FC and FCoE initiators.
 
-[NOTE]
-The NetApp AIX Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.1/downloads[NetApp Support Site^] in a compressed `tar.gz file`. You must install the AIX Host Utilities kit while using AIX MPIO with ONTAP storage.
+
 
 .Steps
 

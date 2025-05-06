@@ -32,8 +32,8 @@ You can use the following support and features with the NVMe-oF host configurati
 
 * Known limitations:
 
-* Qlogic/Marvel 32G FC HBAs on an AIX host doesn't support NVMe/FC.
-* SAN boot isn't supported for NVMe/FC devices using Power9 IBM server.
+** Qlogic/Marvel 32G FC HBAs on an AIX host doesn't support NVMe/FC.
+** SAN boot isn't supported for NVMe/FC devices using Power9 IBM server.
 
 .Before you begin
 
