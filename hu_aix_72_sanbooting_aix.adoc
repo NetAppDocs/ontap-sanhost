@@ -15,27 +15,31 @@ summary: Describes how to discover and configure LUNS with AIX
 [.lead]
 When you use AIX without PowerVM, you can run the `cfgmgr` command to enable the host to discover the LUNs. You don't need to reboot the host to discover the LUNs. To confirm that the host discovered the LUNS, you can use the sanlun utility.
 
-NOTE: The steps that follow do not apply to a host that is running a PowerVM environment.
+NOTE: The following steps don't apply to a host that is running a PowerVM environment.
 
 .Steps
 
 . Log in as root on the host.
 
-. On the AIX host, enter the following command to discover the newly created LUNs:
+. On the AIX host, discover the newly created LUNs:
 +
-`cfgmgr`
+[source,cli]
+----
+cfgmgr
+----
 +
 The `cfgmgr` command helps with the following:
 +
 * The initiators to log in to the fabric.
-+
 * The system to check for new devices.
-+
 * The system to create new device entries.
 
 . Display all AIX disks, including the NetApp LUNs:
 +
-`lsdev -Cc disk`
+[source,cli]
+----
+lsdev -Cc disk
+----
 +
 The LUNs appear on the host as disks. You can use these disks the same way you use local disks on the host. The host settings ODM file that is installed as part of the Host Utilities causes the LUNs to be displayed as NetApp FCP disks.
 +
@@ -59,7 +63,10 @@ hdisk5 Available 04-08-02  MPIO NetApp FCP Default PCM Disk
 
 . Retrieve information about your setup:
 +
-`lsattr -El hdisk_name`
+[source,cli]
+----
+lsattr -El hdisk_name
+----
 +
 .Show example output
 [%collapsible]
@@ -96,27 +103,42 @@ ww_name         0x500a0984994ae0e0               FC World Wide Name             
 
 . If your configuration supports ALUA, you can use it to set path priority. Verify that ALUA is enabled:
 +
-`lun igroup show -instance igroup_name`
+[source,cli]
+----
+lun igroup show -instance igroup_name
+----
 
 .. If ALUA is not enabled, enable it:
 +
-`igroup set igroup_name alua yes`
-+
+[source,cli]
+----
+igroup set igroup_name alua yes
+----
+
 . If your configuration does not support ALUA, you need to use the dotpaths utility to set the path priorities. The dotpaths utility is installed when you install the Host Utilities. Don't use the dotpaths utility if ALUA is enabled.
 
 .. Set the priority for all ONTAP LUNs:
 +
-`dotpaths`
+[source,cli]
+----
+dotpaths
+----
 
 .. Set the priority for a specific set of disks:
 +
-`dotpaths [-hqv] [hdiskN ...]`
+[source,cli]
+----
+dotpaths [-hqv] [hdiskN ...]
+----
 +
 Use the `-v` option to enable verbose mode and display all the priorities. Use the `-q` option to query all or individual disk priorities.
 
 . Verify that the host has discovered the LUNs:
 +
-`# sanlun lun show`
+[source,cli]
+----
+sanlun lun show
+----
 +
 The following example shows the typical output for the `sanlun lun show` command in a Microsoft Multipath I/O (MPIO) multipathing environment:
 +

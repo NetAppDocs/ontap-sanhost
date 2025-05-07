@@ -4,7 +4,7 @@ permalink: hu-aix-san-toolkit.html
 keywords: san, toolkit, command, line, AIX, hot, utilities
 summary: The AIX Host Utilities host software provides a command line toolkit on your IBM AIX host.
 ---
-= Learn about the Solaris SAN Toolkit for ONTAP storage
+= Learn about the AIX SAN Toolkit for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -31,3 +31,7 @@ data_vserver   /vol/vol4/lun4 hdisk14 fcs0   FCP      20g C
 ====
 
 NOTE: This toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance. The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions.
+
+== What's next?
+
+link:hu-aix-80-command-reference.html[Learn about the AIX Host Utilities 8.0 tool].

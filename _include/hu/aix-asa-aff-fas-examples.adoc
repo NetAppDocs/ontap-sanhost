@@ -1,6 +1,9 @@
-. Verify the path status for ONTAP LUNs:
+. Verify the path status for ONTAP LUNs:[source,cli]
 +
-`sanlun lun show`
+[source,cli]
+----
+sanlun lun show
+----
 +
 The following example outputs show the correct path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
 +

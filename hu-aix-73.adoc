@@ -31,7 +31,10 @@ include::_include/hu/aix-multipathing-introduction.adoc[]
 
 . Verify that "MPIO NetApp" is available. "MPIO NetApp" is loaded during the AIX Host Utilities installation and becomes available after you reboot the host.
 +
-`# lsdev -Cc disk`
+[source,cli]
+----
+lsdev -Cc disk
+----
 +
 .Example output
 +
@@ -131,7 +134,10 @@ include::_include/hu/aix-recommended-settings-mcc-snapmirror-active-sync.adoc[]
 
 . Verify the parameter settings and that multiple paths are listed for an ONTAP LUN:
 +
-`lsmpio`
+[source,cli]
+----
+lsmpio
+----
 +
 In the following example for an AFF or FAS system, the PCM is listed for NetApp.
 +
@@ -182,8 +188,8 @@ include::_include/hu/aix-asa-aff-fas-examples.adoc[]
 
 == Step 4: Review the known issues
 
-The IBM AIX 7.3 and/or PowerVM (VIOS 4.1) with ONTAP storage release has no known issues.
+There are no known issues.
 
 == What's next?
 
-link:hu-aix-80-command-reference.html[Learn about the AIX Host Utilties 8.0 sample command reference].
+link:hu-aix-80-command-reference.html[Learn about the AIX Host Utilties 8.0 tool].

@@ -25,12 +25,11 @@ For more information about PowerVM, see the IBM PowerVM Live Partition Mobility 
 
 .About this task
 * You download the AIX Host Utilities from the NetApp Support site in a compressed `tar.gz` file.
-* You can only install the AIX Host Utilities kit when you're using AIX MPIO with ONTAP storage.
+* You need to install the AIX Host Utilities kit with AIX MPIO to manage ONTAP storage attached to an AIX host.
 
 .Before you begin
 
 * Use the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that all components in your iSCSI, FC, or FCoE configuration are supported.
-
 * Enable dynamic tracking for all FC and FCoE initiators.
 
 
@@ -55,7 +54,7 @@ On a PowerVM host:
 +
 [source,cli]
 ----
-`oem_setup_env`
+oem_setup_env
 ----
 --
 ====
@@ -66,26 +65,34 @@ On a PowerVM host:
 
 . Decompress the file and extract the SAN Toolkit software package.
 +
-`# tar -xvf ntap_aix_host_utilities_6.1.tar.gz`
-
+[source,cli]
+----
+tar -xvf ntap_aix_host_utilities_6.1.tar.gz
+----
 +
 The following directory is created when you decompress the file: `ntap_aix_host_utilities_6.1`. This directory will have one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
 
 . Install the AIX MPIO:
 +
-`# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit`
-
+[source,cli]
+----
+installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/MPIO NetApp.MPIO_Host_Utilities_Kit
+----
 . Install the SAN Toolkit:
 +
-`# installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit`
+[source,cli]
+----
+installp -aXYd /var/tmp/ntap_aix_host_utilities_6.1/SAN_Tool_Kit NetApp.SAN_toolkit
+----
 
 . Reboot the host.
 
 . Verify the installation:
 +
+[source,cli]
 ----
-# sanlun version
+sanlun version
 ----
 
-include::_include/hu/aix-whats-next.adoc[]
+include::_include/hu/aix-install-whats-next.adoc[]
 

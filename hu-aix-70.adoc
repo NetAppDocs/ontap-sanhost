@@ -25,14 +25,12 @@ For more information about PowerVM, see the IBM PowerVM Live Partition Mobility 
 
 .About this task
 * You download the AIX Host Utilities from the NetApp Support site in a compressed `tar.gz` file.
-* You can only install the AIX Host Utilities kit when you're using AIX MPIO with ONTAP storage.
+* You need to install the AIX Host Utilities kit with AIX MPIO to manage ONTAP storage attached to an AIX host.
 
 .Before you begin
 
 * Use the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that all components in your iSCSI, FC, or FCoE configuration are supported.
-
 * Enable dynamic tracking for all FC and FCoE initiators.
-
 
 .Steps
 
@@ -54,7 +52,7 @@ On a PowerVM host:
 +
 [source,cli]
 ----
-`oem_setup_env`
+oem_setup_env
 ----
 --
 ====
@@ -65,24 +63,35 @@ On a PowerVM host:
 
 . Decompress the file and extract the SAN Toolkit software package:
 +
-`# tar -xvf ntap_aix_host_utilities_7.0.tar.gz`
-
+[source,cli]
+----
+tar -xvf ntap_aix_host_utilities_7.0.tar.gz
+----
 +
 The following directory is created when you decompress the file: `ntap_aix_host_utilities_7.0`. This directory contains one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
 
 . Install the AIX MPIO:
 +
-`# installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/MPIO NetApp.MPIO_Host_Utilities_Kit`
+[source,cli]
+----
+installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/MPIO NetApp.MPIO_Host_Utilities_Kit
+----
 
 . Install the SAN Toolkit:
 +
-`# installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/SAN_Tool_Kit/NetApp.SAN_toolkit`
+[source,cli]
+----
+installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/SAN_Tool_Kit/NetApp.SAN_toolkit
+----
 
 . Reboot the host.
 
 . Verify the installation:
 +
-`# lslpp -l |grep -i netapp`
+[source,cli]
+----
+lslpp -l |grep -i netapp
+----
 +
 ----
 NetApp.MPIO_Host_Utilities_Kit.config
@@ -98,21 +107,30 @@ NetApp.SAN_toolkit.sanlun  7.0.0.0  COMMITTED  NetApp SAN Toolkit sanlun
 
 . Confirm the software version:
 +
-`# sanlun version`
+[source,cli]
+----
+sanlun version
+----
 +
 ----
 7.0.725.3521
 ----
 
-. Verify that the SCSI UNMAP `lbp_enabled` parameter is added to the ODM by running the following commands:
+. Verify that the SCSI UNMAP `lbp_enabled` parameter is added to the ODM:
 +
-`# odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"`
+[source,cli]
+----
+odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"
+----
 +
 ----
 attribute = "lbp_enabled"
 ----
 +
-`# odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
+[source,cli]
+----
+odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
+----
 +
 ----
 PdAt:
@@ -127,7 +145,7 @@ PdAt:
         nls_index = 18
 ----
 
-include::_include/hu/aix-whats-next.adoc[]
+include::_include/hu/aix-install-whats-next.adoc[]
 
 
 // 2024 Sep 06, AIX 7.0

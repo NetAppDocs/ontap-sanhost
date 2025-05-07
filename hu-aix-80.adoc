@@ -25,7 +25,7 @@ For more information about PowerVM, see the IBM PowerVM Live Partition Mobility 
 
 .About this task
 * You download the AIX Host Utilities from the NetApp Support site in a compressed `tar.gz` file.
-* You can only install the AIX Host Utilities kit when you're using AIX MPIO with ONTAP storage.
+* You need to install the AIX Host Utilities kit with AIX MPIO to manage ONTAP storage attached to an AIX host.
 
 .Before you begin
 
@@ -64,23 +64,33 @@ On a PowerVM host:
 
 . Decompress the file and extract the SAN Toolkit software package:
 +
-`tar -xvf ntap_aix_host_utilities_8.0.tar.gz`
+[source,cli]
+----
+tar -xvf ntap_aix_host_utilities_8.0.tar.gz
+----
 +
 The `ntap_aix_host_utilities_8.0.` directory is created when you decompress the file. This directory contains one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
 
 . Install AIX MPIO:
 +
-`# installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/MPIO NetApp.MPIO_Host_Utilities_Kit`
-
+[source,cli]
+----
+installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/MPIO NetApp.MPIO_Host_Utilities_Kit
+----
 . Install the SAN Toolkit:
 +
-`# installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/ NetApp.SAN_toolkit`
-
+[source,cli]
+----
+installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/ NetApp.SAN_toolkit
+----
 . Reboot the host.
 
 . Verify the installation:
 +
-`# lslpp -l |grep -i netapp`
+[source,cli]
+----
+lslpp -l |grep -i netapp
+----
 +
 .Show example
 [%collapsible]
@@ -100,18 +110,27 @@ NetApp.SAN_toolkit.sanlun  8.0.0.0 COMMITTED NetApp SAN Toolkit sanlun
 
 . Confirm that the software version is 8.0.1f0fc74c:
 +
-`# sanlun version`
-
+[source,cli]
+----
+sanlun version
+----
 . Verify that the SCSI UNMAP `lbp_enabled` parameter has been added to the ODM:
-
-.. `# odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"`
++ 
+[source,cli]
+----
+odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"
+----
 +
 .Example output
 ----
 attribute = "lbp_enabled"
 ----
 
-.. `# odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
++
+[source,cli]
+----
+odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
+----
 +
 .Show example
 [%collapsible]
@@ -132,7 +151,7 @@ PdAt:
 
 . Display the correct HBA speed <<link to KB Article>>.
 
-include::_include/hu/aix-whats-next.adoc[]
+include::_include/hu/aix-install-whats-next.adoc[]
 
 
 // 2024 Sep 06, AIX 7.0
