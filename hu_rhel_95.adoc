@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: hu_rhel_95.html
 keywords: host utilities, red hat, rhel, linux, 9.5, netapp, ontap, rhel 
-summary: Describes how to use Red Hat Enterprise Linux 9.5 with ONTAP
+summary: Install the Linux Host Utilities on a RHEL 9.5 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Use Red Hat Enterprise Linux 9.5 with ONTAP
+= Configure RHEL 9.5 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,149 +13,33 @@ summary: Describes how to use Red Hat Enterprise Linux 9.5 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux (RHEL) 9.5 with ONTAP as the target. 
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Red Hat Enterprise Linux (RHEL) 9.5 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
-== Install the Linux Host Utilities
+include::_include/hu/rhel-configure-kvm-note.adoc[]
 
-include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
+include::_include/hu/linux-enable-san-boot.adoc[]
 
-== Use the SAN Toolkit
+include::_include/hu/install-linux-host-utilities.adoc[]
 
-include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
+== Step 3: Confirm the multipath configuration for your host
 
-In the following example, the `sanlun lun show` command returns LUN information.
+You can use multipathing with RHEL 9.5 to manage ONTAP LUNs.
 
-[source,cli]
-----
-sanlun lun show all
-----
-.Show example
-[%collapsible%]
-====
-----
-controller(7mode/E-Series)/                                  device          host                  lun
-vserver(cDOT/FlashRay)        lun-pathname                   filename        adapter    protocol   size    product
----------------------------------------------------------------------------------------------------------------
-vs_sanboot                    /vol/vol_2742/lun              /dev/sdch       host17     FCP        180g    cDOT
-vs_coexistence_QLE2742        /vol/fc_vol_2_9/dynamic_lun    /dev/sdcg       host17     FCP        10g     cDOT
-vs_coexistence_QLE2742        /vol/fc_vol_2_8/dynamic_lun    /dev/sdcf       host17     FCP        10g     cDOT
-vs_coexistence_QLE2742        /vol/fc_vol_2_7/dynamic_lun    /dev/sdce       host17     FCP        10g     cDOT
-vs_coexistence_QLE2742        /vol/fc_vol_2_6/dynamic_lun    /dev/sdcd       host17     FCP        10g     cDOT
-----
-====
+include::_include/hu/linux-rhel-multipathing.adoc[]
 
-== Enable SAN booting
+include::_include/hu/exclude-device.adoc[]
 
-If you decide to use SAN booting, it must be supported by your configuration.
+include::_include/hu/linux-rhel-customize-parameters.adoc[]
 
-.Before you begin
-Use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware, HBA boot BIOS, and the ONTAP version are supported.
+== Step 6: Review the known issues
 
-include::_include/hu/reuse_hu_san_booting_steps.adoc[]
+There are no known issues.
 
-== Enable multipathing
+== What's next?
 
-You can use multipathing with RHEL 9.5 to manage ONTAP LUNs. To use multipathing, the `/etc/multipath.conf` file must exist. If the `/etc/multipath.conf` file doesn't exist, you can create an empty, zero-byte file by using the touch `/etc/multipath.conf` command. You don't need to make changes to the `/etc/multipath.conf` file because RHEL 9.5 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+include::_include/hu/use-linux-host-utilities.adoc[]
 
-NOTE: A single LUN shouldn't require more than four paths. More than four paths might cause path issues during storage failures.
-
-include::_include/hu/reuse_hu_asa_configuration.adoc[]
-
-.Show example
-[%collapsible%]
-====
-----
-multipath -ll
-3600a098038314c4a433f577471797958 dm-2 NETAPP,LUN C-Mode
-size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-`-+- policy='service-time 0' prio=50 status=active
-  |- 14:0:0:0  sdc  8:32   active ready running
-  |- 17:0:0:0  sdas 66:192 active ready running
-  |- 14:0:3:0  sdar 66:176 active ready running
-  `- 17:0:3:0  sdch 69:80  active ready running
-----
-====
-
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
-
-.Show example
-[%collapsible%]
-====
-----
-multipath -ll
-3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode
-size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-|-+- policy='service-time 0' prio=50 status=active
-| |- 16:0:3:0  sdcg 69:64  active ready running
-| `- 10:0:0:0  sdb  8:16   active ready running
-`-+- policy='service-time 0' prio=10 status=enabled
-  |- 10:0:1:0  sdc  8:32   active ready running
-  `- 16:0:2:0  sdcf 69:48  active ready running
-----
-====
-
-== Recommended settings
-
-The RHEL 9.5 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configurations. You can further optimize performance for your host configuration with the following recommended settings.
-
-include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
-
-[cols=2*,options="header"]
-|===
-| Parameter
-| Setting
-| detect_prio | yes
-| dev_loss_tmo | "infinity"
-| failback | immediate
-| fast_io_fail_tmo | 5
-| features | "2 pg_init_retries 50"
-| flush_on_last_del | "yes"
-| hardware_handler | "0"
-| no_path_retry | queue
-| path_checker | "tur"
-| path_grouping_policy | "group_by_prio"
-| path_selector | "service-time 0"
-| polling_interval | 5
-| prio | "ontap"
-| product | LUN
-| retain_attached_hw_handler | yes
-| rr_weight | "uniform"
-| user_friendly_names | no
-| vendor | NETAPP
-|===
-
-.Example
-
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If other SAN arrays are still attached to the host, correct these parameters specifically for ONTAP LUNs by using a device stanza.
-
-.Show example
-[%collapsible%]
-====
-----
-defaults {
-   path_checker      readsector0
-   no_path_retry     fail
-}
-
-devices {
-   device {
-      vendor         "NETAPP"
-      product         "LUN"
-      no_path_retry    queue
-      path_checker     tur
-   }
-}
-----
-====
-
-include::_include/hu/reuse_hu_kvm_configuration.adoc[]
-
-include::_include/hu/hu-asm-mirroring.adoc[]
-
-
-== Known issues
-
-There are no known issues for the FC host configuration for RHEL 9.5 with ONTAP release.
+include::_include/hu/asm-mirroring.adoc[]
 
 //ONTAPDOC-2561 25-Nov-2024
 //ONTAPDOC-1584 1-Feb-2024
