@@ -20,7 +20,7 @@ include::_include/hu/rhel-configure-kvm-note.adoc[]
 include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities.adoc[]
-
+[[rhel-rhck]]
 == Step 3: Confirm the multipath configuration for your host
 
 You can use multipathing with RHEL 8.5 to manage ONTAP LUNs.

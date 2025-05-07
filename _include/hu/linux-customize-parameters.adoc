@@ -8,6 +8,9 @@ CAUTION: You shouldn't override the recommended parameter settings for ONTAP LUN
 
 The following example shows how to correct an overridden default. In this example, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs, and you can't remove these parameters because ONTAP storage arrays are still attached to the host. Instead, you correct the values for `path_checker` and `no_path_retry` by adding a device stanza to the `multipath.conf` file that applies specifically to the ONTAP LUNs.
 
+.Show example
+[%collapsible]
+====
 [subs=+quotes]
 ----
 defaults {
@@ -24,3 +27,4 @@ devices {
    }
 }
 ----
+====

@@ -76,14 +76,14 @@ An ASA configuration optimizes all paths to a given LUN, keeping them active. Th
 [%collapsible]
 ====
 ----
-# multipath -ll
-3600a098038314c4a433f577471797958 dm-2 NETAPP,LUN C-Mode
-size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-`-+- policy='service-time 0' prio=50 status=active
-  |- 14:0:0:0  sdc  8:32   active ready running
-  |- 17:0:0:0  sdas 66:192 active ready running
-  |- 14:0:3:0  sdar 66:176 active ready running
-  `- 17:0:3:0  sdch 69:80  active ready running
+multipath -ll
+3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+  |- 11:0:7:6   sdbz 68:208  active ready running
+  |- 11:0:11:6  sddn 71:80   active ready running
+  |- 11:0:15:6  sdfb 129:208 active ready running
+  |- 12:0:1:6   sdgp 132:80  active ready running
 ----
 ====
 --
@@ -98,15 +98,15 @@ The following example displays the output for an ONTAP LUN with two Active/Optim
 [%collapsible]
 ====
 ----
-# multipath -ll
-3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode
-size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+multipath -ll
+3600a0980383036347ffb4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
-| |- 16:0:3:0  sdcg 69:64  active ready running
-| `- 10:0:0:0  sdb  8:16   active ready running
+| |- 16:0:6:35 sdwb  69:624  active ready running
+| |- 16:0:5:35 sdun  66:752  active ready running
 `-+- policy='service-time 0' prio=10 status=enabled
-  |- 10:0:1:0  sdc  8:32   active ready running
-  `- 16:0:2:0  sdcf 69:48  active ready running
+  |- 15:0:0:35 sdaj  66:48   active ready running
+  |- 15:0:1:35 sdbx  68:176  active ready running
 ----
 ====
 --
