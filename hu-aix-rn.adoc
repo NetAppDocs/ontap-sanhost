@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: hu_aix_rn.html
+permalink: hu-aix-rn.html
 keywords: host utilities, aix, 6.1 netapp, 7.0, ontap, powervm
 summary: Release Notes for AIX Host Utilities 6.1
 ---
@@ -20,6 +20,14 @@ For specific information about the operating system versions and updates that th
 The AIX Host Utilities releases contain the following new features and enhancements.
 
 == What's new in AIX Host Utilities 8.0
+There is an IBM Interim Fix (ifix) available for AIX Host Utilities 8.0 that ensures that the `sanlun fcp show adapter –v` command displays the correct HBA speed information, such as supported and negotiated speeds for the adapters. You can install the ifix on the following AIX and VIOS versions:
+
+* AIX: 7.3 TL3 SP0, 7.3 TL2 SP2, 7.3 TL1 SP4, 7.2 TL5 SP9, 7.2 TL5 SP8
+* VIOS: 4.1.1.0, 4.1.0.21, 3.1.4.50, 3.1.4.41
+
+For more details about the IBM ifixes, refer to <<KB_Article>>.
+
+An IBM ifix that displays the correct HBA speed information for all AIX and VIOS version isn't available.
 
 == What's new in AIX Host Utilities 7.0
 AIX Host Utilities 7.0 supports SCSI UNMAP on the AIX host OS. With AIX Host Utilities 7.0, SCSI thin provisioning functions seamlessly with AIX and NetApp LUNs for FC devices.
@@ -27,22 +35,8 @@ AIX Host Utilities 7.0 supports SCSI UNMAP on the AIX host OS. With AIX Host Uti
 == What's new in AIX Host Utilities 6.1
 AIX Host Utilities 6.1 includes support for the memory fault issue that occurred in earlier versions of the AIX host OS. With AIX Host Utilities 6.1, only the sanlun binary has changed. The Microsoft Multipath I/O (MPIO) and related ODM remain unchanged.
 
-== Supported AIX environments and protocols
-You can use the following support and features with the NVMe-oF host configuration for AIX hosts:
-
-* Beginning with ONTAP 9.13.1, NVMe/FC support is added for IBM AIX 7.2 TL5 SP6, AIX 7.3 TL1 SP2, and VIOS 3.1.4.21 with SAN boot support for both physical and virtual stacks. See the IBM documentation for more information on setting up SAN boot support.
-
-* NVMe/FC is supported with Power9 and Power10 IBM servers.
-
-* A separate PCM (Path Control Module), such as Host Utilities for AIX SCSI Multipath I/O (MPIO) support, isn't required for NVMe devices.
-
-* Virtualization support with NetApp (VIOS/PowerVM) is introduced with VIOS 3.1.4.21. This is _only_ supported through NPIV (N_PortID Virtualization) storage virtualization mode using the Power10 IBM server.
-
 == Known problems and limitations
 You should be aware of the following known problems and limitations that might impact performance on your specific host:
-
-** Qlogic/Marvel 32G FC HBAs on an AIX host doesn't support NVMe/FC.
-** SAN boot isn't supported for NVMe/FC devices using Power9 IBM server.
 
 [cols=3,options="header"]
 |===
