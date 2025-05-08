@@ -90,17 +90,18 @@ HBAs assigned to the AIX LPAR (AIX Logical Partition) or the physical stack and 
 |===
 
 |Host OS |Power Arch |Power FW version |Mode |The ifix is available...
-.2+|AIX 7.2 TL5 SP6 |Power9  |FW 950 or later	|Physical stack	|Through TS012877410
-|Power10 |FW 1010 or later	|Physical stack	|Through TS012877410.
-SAN booting is supported. 
+
+.2+|AIX 7.3 TL3 SP0 |Power9 |FW 950 or later |Physical stack |Through TS018079082  
+|Power10 |FW 1010 or later |Physical and virtual stack |Through TS018079082 
 .2+|AIX 7.3 TL1 SP2 |Power9	|FW 950 or later	|Physical stack	|Through TS012877410
 |Power10	|FW 1010 or later	|Physical and virtual stack	 |Through TS012877410
+.2+|AIX 7.2 TL5 SP9 |Power9 |FW 950 or later |Physical stack |Through TS018079082 
+|Power10 |FW 1010 or later |Physical and virtual stack |Through TS018079082 
 .2+|AIX 7.2 TL5 SP8, AIX 7.3 TL2 SP2, AIX 7.3 TL2 SP3 |Power9 |FW 950 or later |Physical stack |By default with the host OS version 
 |Power10 |FW 1010 or later |Physical and virtual stack |By default with the host OS version
-.2+|AIX 7.2 TL5 SP9 |Power9 |FW 950 or later |Physical stack |Through TS018079082 
-|Power10 |FW 1010 or later |Physical and virtual stack |Through TS018079082. 
-.2+|AIX 7.3 TL3 SP0 |Power9 |FW 950 or later |Physical stack |Through TS018079082  
-|Power10 |FW 1010 or later |Physical and virtual stack |Through TS018079082  
+.2+|AIX 7.2 TL5 SP6 |Power9  |FW 950 or later	|Physical stack	|Through TS012877410
+|Power10 |FW 1010 or later	|Physical stack	|Through TS012877410.
+SAN booting is supported.
 |===
 --
 .VIOS/PowerVM
