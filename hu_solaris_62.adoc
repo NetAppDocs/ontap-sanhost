@@ -36,34 +36,70 @@ Verify that your iSCSI, FC, or FCoE configuration is supported. You can use the 
 
 . Log in to your host as root.
 
-. Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your Solaris host.
+. Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your Solaris host:
 +
-* SPARC CPU: `netapp_solaris_host_utilities_6_2_sparc.tar.gz`
-* x86/x64 CPU: `netapp_solaris_host_utilities_6_2_amd.tar.gz`
-
+[role="tabbed-block"]
+====
+.SPARC CPU 
+--
+[source,cli]
+----
+netapp_solaris_host_utilities_6_2_sparc.tar.gz
+----
+--
+.x86/x64 CPU 
+--
+[source,cli]
+----
+netapp_solaris_host_utilities_6_2_amd.tar.gz
+----
+--
+====
 . Go to the directory on your Solaris host containing the download.
 
 . Unzip the file using the `gunzip` command:
 +
-`# gunzip netapp_solaris_host_utilities_6_2_sparc.tar.gz`
+[source,cli]
+----
+gunzip netapp_solaris_host_utilities_6_2_sparc.tar.gz
+----
 
 . Extract the file using the `tar xvf` command:
 +
-`# tar xvf netapp_solaris_host_utilities_6_2_sparc.tar`
+[source,cli]
+----
+tar xvf netapp_solaris_host_utilities_6_2_sparc.tar
+----
 
 . Add the packages that you extracted from tar file to your host
 +
-`pkgadd`
+[source,cli]
+----
+pkgadd
+----
 +
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory. 
 +
 The following example uses the `pkgadd` command to install the Solaris installation package:
 +
-`# pkgadd -d ./NTAPSANTool.pkg`
+[source,cli]
+----
+pkgadd -d ./NTAPSANTool.pkg
+----
 
-. Confirm that the toolkit was successfully installed by using the `pkginfo` or `ls - al` command.
+. Confirm that the toolkit was successfully installed by using one of the following commands:
 +
-.Show example output
+[source,cli]
+----
+pkginfo
+----
++
+[source,cli]
+----
+ls - al
+----
++
+.Show example outputs
 [%collapsible]
 ====
 ----
@@ -90,14 +126,19 @@ drwxr-xr-x   3 root     sys            4 Jul 22  2019 ..
 ----
 ====
 
-. Configure the host parameters for your environment using the `/opt/NTAP/SANToolkit/bin/host_config` command:
+. Configure the host parameters for your MPxIO or Veritas DMP environment:
 +
-** MPxIO
-** Veritas DMP
+[source,cli]
+----
+/opt/NTAP/SANToolkit/bin/host_config
+----
 
 . Verify the installation:
 +
-`sanlun version`
+[source,cli]
+----
+sanlun version
+----
 
 include::_include/hu/solaris-install-whats-next.adoc[]
 

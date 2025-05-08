@@ -8,7 +8,8 @@ You can configure your host to use SAN booting to simplify deployment and improv
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a Solaris host. You can set up a SAN boot LUN to work in a Solaris MPxIO environment that is using the FC protocol and running Solaris Host Utilities. The method you use to set up a SAN boot LUN depends on your volume manager and file system.
 
 .Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Solaris OS, HBA vendor, and ONTAP version support SAN booting.
+* Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Solaris OS, protocol, and ONTAP version support SAN booting.
+* Review the best practices for setting up a SAN boot in the vendor documentation.
 
 .Steps
 . Create a SAN boot LUN and map it to the host.

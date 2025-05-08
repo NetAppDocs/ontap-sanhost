@@ -2,11 +2,17 @@
 
 .. Verify that you Solaris host is installed with the latest Support Repository Update (SRU):
 +
-`# pkg info entire`
+[source,cli]
+----
+pkg info entire`
+----
 
 .. Verify that the ONTAP LUN has `ostype` as "Solaris", independent of the LUN size:
 +
-`lun show -vserver` <vsersver_name>
+[source,cli]
+----
+lun show -vserver` <vsersver_name>
+----
 +
 .Show example
 [%collapsible]
@@ -21,7 +27,10 @@ solaris_fcp /vol/sol_195_zpool_vol_9/lun solaris
 
 . Verify the output for your ONTAP LUNs:
 +
-`sanlun lun show`
+[source,cli]
+----
+sanlun lun show
+----
 +
 You should see an output similar to the following example for an ASA, AFF, or FAS configuration:
 +
@@ -43,7 +52,10 @@ root@sparc-s7-55-148:~# sanlun lun show -pv
 
 . Verify the path status for your ONTAP LUNs:
 +
-`mpathadm show lu <LUN>`
+[source,cli]
+----
+mpathadm show lu <LUN>`
+----
 +
 The following example outputs show the correct path status for ONTAP LUNs in an ASA, AFF, or FAS configuration. The path priorities are displayed against "Access State" for each LUN in the output.
 +

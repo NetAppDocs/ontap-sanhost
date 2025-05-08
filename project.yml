@@ -25,7 +25,7 @@ sidebar:
       - title: AIX Host Utilities
         entries:
           - title: Release notes
-            url: /hu_aix_rn.html
+            url: /hu-aix-rn.html
           - title: Install AIX HU 7.0
             url: /hu-aix-70.html
           - title: Install AIX HU 6.1
@@ -50,12 +50,8 @@ sidebar:
           url: /hu_luhu_71_cmd.html
       - title: Solaris Host Utilities
         entries:
-        - title: Release notes
-          entries:
-          - title: Solaris Host Utilities 8.0 Release Notes
-            url: /hu-solaris-80-rn.html
-          - title: Solaris Host Utilities 8.0 Release Notes
-            url: /hu_solaris_62_rn.html
+        - title: Solaris Host Utilities Release Notes
+          url: /hu-solaris-rn.html
         - title: Install Solaris Host Utilities
           entries:
           - title: Install Solaris Host Utilities 8.0
@@ -73,7 +69,7 @@ sidebar:
       - title: Windows Host Utilities
         entries:
         - title: Release notes
-          url: /hu_wuhu_71_rn.html
+          url: /hu-wuhu-rn.html
         - title: Install Windows Host Utilities 7.2
           url: /hu_wuhu_72.html
         - title: Install Windows Host Utilities 7.1

@@ -15,9 +15,9 @@ For additional information and recommended changes to default settings for Metro
 
 * You can use multiple options together, for example, a Solaris Container within a particular Solaris Logical Domain.
 
-* NetApp supports the use of Solaris virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
+* NetApp supports the use of Solaris virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://imt.netapp.com/matrix/#welcome[IMT] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
 
-* Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, don't need specific qualifications because they don't have direct access to ONTAP LUNs. You only need to verify that the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, is listed on the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
+* Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, don't need specific qualifications because they don't have direct access to ONTAP LUNs. You only need to verify that the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, is listed on the link:https://imt.netapp.com/matrix/#welcome[IMT^].
 
 .Steps
 When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM doesn't correctly detect the block sizes. To prevent this issue:
@@ -27,7 +27,10 @@ When LUNs are used as virtual disk devices within an LDOM, the source of the LUN
 . Verify the patch installation to ensure that the recommended settings have been configured correctly:
 .. Create a zpool:
 +
-`zpool create zpool_name disk_list`
+[source,cli]
+----
+zpool create zpool_name disk_list
+----
 .. Run `zdb -C` against the zpool and verify that the value of *ashift* is `12`.
 +
 If the value of *ashift* isn't `12`, re run `zdb -C11`, and verify that the correct patch was installed and recheck the contents of `vdc.conf`.
@@ -51,11 +54,17 @@ scsi-vhci-failover-override =
 ----
 . Verify that the override parameter has been successfully applied:
 +
-`devprop`
+[source,cli]
+----
+devprop
+----
 +
-`mdb`
+[source,cli]
+----
+mdb
+----
 +
-.Show example
+.Show examples
 [%collapsible]
 ====
 ----
