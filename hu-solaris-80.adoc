@@ -35,9 +35,23 @@ Verify that your iSCSI, FC, or FCoE configuration is supported. You can use the 
 
 . Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.2/downloads[NetApp Support Site^] to a directory on your host.
 +
-* SPARC CPU: `netapp_solaris_host_utilities_8_0_sparc.tar.gz`
-* x86/x64 CPU: `netapp_solaris_host_utilities_8_0_amd.tar.gz`
+[role="tabbed-block"]
+====
+.SPARC CPU
+--
+[source,cli]
+----
+netapp_solaris_host_utilities_8_0_sparc.tar.gz
+----
 
+.x86/x64 CPU
+--
+[source,cli]
+----
+netapp_solaris_host_utilities_8_0_amd.tar.gz
+----
+--
+====
 . Go to the directory on your host containing the download.
 
 . Unzip the file using the `gunzip` command, and then extract the file using `tar -xvf`:
@@ -49,7 +63,7 @@ gunzip netapp_solaris_host_utilities_8_0_sparc.tar.gz
 +
 [source,cli]
 ----
-# tar -xvf netapp_solaris_host_utilities_8_0_sparc.tar
+tar -xvf netapp_solaris_host_utilities_8_0_sparc.tar
 ----
 . Add the packages that you extracted from the tar file to your host:
 +
