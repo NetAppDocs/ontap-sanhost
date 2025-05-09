@@ -42,19 +42,30 @@ Verify that your iSCSI, FC, or FCoE configuration is supported. You can use the 
 
 . Unzip the file using the `gunzip` command, and then extract the file using `tar -xvf`:
 +
-`# gunzip netapp_solaris_host_utilities_8_0_sparc.tar.gz`
+[source,cli]
+----
+gunzip netapp_solaris_host_utilities_8_0_sparc.tar.gz
+----
 +
-`# tar -xvf netapp_solaris_host_utilities_8_0_sparc.tar`
-
+[source,cli]
+----
+# tar -xvf netapp_solaris_host_utilities_8_0_sparc.tar
+----
 . Add the packages that you extracted from the tar file to your host:
 +
-`pkgadd`
+[source,cli]
+----
+pkgadd
+----
 +
 The packages are added to the `/opt/NTAP/SANToolkit/bin` directory.
 +
 The following example uses the `pkgadd` command to install the Solaris installation package:
 +
-`# pkgadd -d ./NTAPSANTool.pkg`
+[source,cli]
+----
+pkgadd -d ./NTAPSANTool.pkg
+----
 
 . Confirm that the toolkit was successfully installed by using the `pkgchk` command to the installed path.
 +
@@ -97,7 +108,7 @@ drwxr-xr-x   3 root     sys            4 Mar  7 13:11 ..
 
 . Configure the host parameters for your "MPxIO" or "Veritas DMP" environment by using the `/opt/NTAP/SANToolkit/bin/host_config` command with the multipath stack from the command reference:
 +
-`/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp|iscsi|mixed -multipath mpxio|dmp| non [-noalua] [-mcc 60|90|120]`
+`/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp|iscsi|mixed -multipath mpxio|dmp|non [-noalua] [-mcc 60|90|120]`
 +
 [cols=2*,options="header"]
 |===
@@ -140,6 +151,9 @@ The Host Utilities load the following NetApp recommended timeout parameter setti
 ====
 . Verify the Host Utilities installation:
 +
-`sanlun version`
+[source,cli]
+----
+sanlun version
+----
 
 include::_include/hu/solaris-install-whats-next.adoc[]
