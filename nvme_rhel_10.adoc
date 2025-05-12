@@ -2,10 +2,10 @@
 sidebar: sidebar
 permalink: nvme_rhel_10.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
+summary: How to Configure NVMe-oF Host for RHEL 10 with ONTAP
 ---
 
-= NVMe-oF host configuration for RHEL 9.5 with ONTAP
+= NVMe-oF host configuration for RHEL 10 with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -17,7 +17,7 @@ summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 include::_include/nvme/reuse-nvme-introduction.adoc[]
 
 .About this task 
-You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.5. You should also review the known limitations before starting the configuration process.
+You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 10. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
@@ -25,26 +25,26 @@ You can use the following support and features with the NVMe-oF host configurati
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with RHEL 9.5.
-** RHEL 9.5 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with RHEL 10.
+** RHEL 10 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 ** Support for SAN booting using the NVMe/FC protocol.
 * Known limitations: 
 ** There are no known limitations.
 
 == Validate software versions
 
-You can use the following procedure to validate the minimum supported RHEL 9.5 software versions.
+You can use the following procedure to validate the minimum supported RHEL 10 software versions.
 
 .Steps
 
-. Install RHEL 9.5 on the server. After the installation is complete, verify that you are running the specified RHEL 9.5 kernel: 
+. Install RHEL 10 on the server. After the installation is complete, verify that you are running the specified RHEL 10 kernel: 
 +
 ----
 uname -r
 ----
 +
 ----
-5.14.0-503.11.1.el9_5.x86_64
+6.12.0-45.el10.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -54,7 +54,7 @@ rpm -qa|grep nvme-cli
 ----
 +
 ----
-nvme-cli-2.9.1-6.el9.x86_64
+nvme-cli-2.11-3.el10.x86_64
 ----
 
 . Install the `libnvme` package:
@@ -64,10 +64,10 @@ rpm -qa|grep libnvme
 ----
 +
 ----
-libnvme-1.9-3.el9.x86_64
+libnvme-1.11.1-1.el10.x86_64
 ----
 
-. On the RHEL 9.5 host, check the hostnqn string at `/etc/nvme/hostnqn`:
+. On the host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
 ----
 cat /etc/nvme/hostnqn
@@ -80,7 +80,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 ----
-::> vserver nvme subsystem host show -vserver vs_coexistence_LPE36002
+::> vserver nvme subsystem host show -vserver vs_nvme_194_rhel10
 ----
 +
 .Show example
@@ -89,15 +89,15 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 ----
 Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
-vs_coexistence_LPE36002
-        nvme
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+vs_ nvme_194_rhel10
+        nvme4
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048- c7c04f425633
         nvme_1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048- c7c04f425633
         nvme_2
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048- c7c04f425633
         nvme_3
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048- c7c04f425633
 4 entries were displayed.
 ----
 ====
@@ -137,14 +137,14 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 .. `cat /sys/class/scsi_host/host*/fwrev` 
 +
 ----
-14.4.317.10, sli-4:6:d
-14.4.317.10, sli-4:6:d
+14.0.539.16, sli-4:6:d
+14.0.539.16, sli-4:6:d
 ----
 
 .. `cat /sys/module/lpfc/version` 
 +
 ----
-0:14.4.0.2
+0:14.4.0.6
 ----
 
 +
@@ -164,8 +164,8 @@ For the current list of supported adapter driver and firmware versions, see the 
 `cat /sys/class/fc_host/host*/port_name`
 +
 ---- 
-0x100000109bf044b1
-0x100000109bf044b2
+0x2100f4c7aa0cd7c2
+0x2100f4c7aa0cd7c3
 ----
 
 . Verify that your initiator ports are online:
