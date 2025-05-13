@@ -246,12 +246,12 @@ The expected ouptut is 1.
 --
 ====
 
-=== Enable 1MB I/O (Optional)
+== Step 3: Optionally, enable 1MB I/O 
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
-== Step 3: Configure NVMe/TCP
+== Step 4: Configure NVMe/TCP
 
 include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
@@ -399,7 +399,7 @@ nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21
 Beginning with RHEL 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 
-== Step 4: Validate NVMe-oF
+== Step 5: Validate NVMe-oF
 
 include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
@@ -552,7 +552,7 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 5: Optionally, enable SAN booting
+== Step 6: Optionally, enable SAN booting
 
 You can configure your host to use SAN booting to simplify deployment and improve scalability.
 
@@ -783,7 +783,7 @@ mzEKUbcWu26I33b93bil2WR09XDho/ld3L45J+0FeCsStBEAfhYgkQU=:
 --
 =====
 
-== Step 7: Review the known issues
+== Step 8: Review the known issues
 
 No known issues exist for the NVMe-oF host configuration on RHEL 10 with ONTAP release.
 
