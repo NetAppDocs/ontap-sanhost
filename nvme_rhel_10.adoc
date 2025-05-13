@@ -578,7 +578,7 @@ For information on how to enable the HBA BIOS, see your vendor-specific document
 
 . Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
 
-== Step 6: Set up secure in-band authentication
+== Step 7: Set up secure in-band authentication
 
 Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between a RHEL 10 host and an ONTAP controller.
 
