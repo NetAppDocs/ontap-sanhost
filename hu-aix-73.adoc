@@ -81,8 +81,8 @@ lsdev -Cc disk
 |===
 | Parameter
 | AIX versions 
-| Default FC protocol with MPIO/non-MPIO 
-| Modified FC protocol MPIO/non-MPIO 
+| AIX OS default value 
+| NetApp recommended value 
 .4+| rw_timeout (disk) 
 | AIX 7.3TL3 
 | NPIV :30 s, vSCSI:45s 
@@ -104,8 +104,8 @@ lsdev -Cc disk
 |===
 | Parameter 
 | AIX versions 
-| Default iSCSI protocol with MPIO/non-MPIO 
-| Modified iSCSI protocol with MPIO / non-MPIO 
+| AIX OS default value 
+| NetApp recommended value  
 .5+| rw_timeout (disk) 
 | AIX 7.3TL3 
 | vSCSI: 45s 

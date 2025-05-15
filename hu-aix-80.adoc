@@ -29,7 +29,7 @@ For more information about PowerVM, see the IBM PowerVM Live Partition Mobility 
 
 .Before you begin
 
-* Use the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that all components in your iSCSI, FC, or FCoE configuration are supported.
+* Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your AIX OS, protocol, and ONTAP version support SAN booting.
 
 * Enable dynamic tracking for all FC and FCoE initiators.
 
@@ -53,7 +53,7 @@ On a PowerVM host:
 +
 [source,cli]
 ----
-`oem_setup_env`
+oem_setup_env
 ----
 --
 ====
@@ -92,7 +92,7 @@ installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/ NetApp.SAN_toolkit
 lslpp -l |grep -i netapp
 ----
 +
-.Show example
+.Show example output
 [%collapsible]
 ====
 ----
@@ -121,7 +121,8 @@ sanlun version
 odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"
 ----
 +
-.Example output
+.Example ouptut
++
 ----
 attribute = "lbp_enabled"
 ----
@@ -132,7 +133,7 @@ attribute = "lbp_enabled"
 odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
 ----
 +
-.Show example
+.Show example output
 [%collapsible]
 ====
 ----

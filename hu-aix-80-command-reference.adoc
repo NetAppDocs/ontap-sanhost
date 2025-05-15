@@ -21,7 +21,7 @@ You can retrieve a list of host initiators mapped to a host.
 
 [source,cli]
 ----
-# sanlun fcp show adapter -v
+sanlun fcp show adapter -v
 ----
 
 .Show example
@@ -70,7 +70,7 @@ You can retrieve a list of all LUNs mapped to a host.
 
 [source,cli]
 ----
-# sanlun lun show -p -v all
+sanlun lun show -p -v all
 ----
 
 .Show example
@@ -100,7 +100,7 @@ You can retrieve a list of all LUNs mapped to a host from a specified SVM.
 
 [source,cli]
 ----
-# sanlun lun show -p -v sanboot_unix
+sanlun lun show -p -v sanboot_unix
 ----
 
 .Show example
@@ -131,7 +131,7 @@ You can retrieve a list of all attributes of a specified LUN mapped to a host.
 
 [source,cli]
 ----
-# sanlun lun show -p -v vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
+sanlun lun show -p -v vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
 ----
 
 .Show example
@@ -162,7 +162,7 @@ You can retrieve a list of ONTAP LUN attributes by specifying a host device file
 
 [source,cli]
 ----
-#sanlun lun show -d /dev/hdisk1
+sanlun lun show -d /dev/hdisk1
 ----
 
 .Show example
@@ -187,7 +187,7 @@ You can retrieve a list of all SVM target LIF WWPNs attached to a host.
 
 [source,cli]
 -----
-# sanlun lun show -wwpn
+sanlun lun show -wwpn
 -----
 
 .Show example

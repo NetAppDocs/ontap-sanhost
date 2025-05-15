@@ -13,7 +13,7 @@ summary: How to Configure NVMe/FC Host for AIX with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-The IBM AIX and Virtual I/O Server (VIOS)VIOS/PowerVM hosts supports the NVMe/FC and NVMe/TCP protocols with Asymmetric Namespace Access (ANA). ANA is equivalent to asymmetric logical unit access (ALUA) multipathing in iSCSI and FCP environments and is implemented using the in-kernel NVMe multipath feature.
+The IBM AIX and Virtual I/O Server (VIOS)/PowerVM hosts supports the NVMe/FC protocol with Asymmetric Namespace Access (ANA). ANA is equivalent to asymmetric logical unit access (ALUA) multipathing in iSCSI and FCP environments.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool (IMT)^].
 
@@ -47,17 +47,19 @@ You can use the following support and features with the NVMe-oF host configurati
 ====
 For NVMe/FC AIX support, you must install an ifix on the GA version of the AIX OS. The ifix isn't required for the VIOS/PowerVM OS.
  
-You need to install the ifixes on an AIX version with no previously installed ifixes related to `devices.pciex.pciexclass.010802.rte` on the system. Previously installed ifixes will conflict with the new installation.
+You need to install the ifixes on an AIX version with no previously installed ifixes related to `devices.pciex.pciexclass.010802.rte` on the system. Previously installed ifixes can conflict with the new installation.
 ====
 +
 [role="tabbed-block"]
 ====
 .Set ANATT to 60 seconds
 --
-The default ANATT for the AIX level 72-TL5-SP6-2320 and AIX level 73-TL1-SP2-2320 releases is 30 seconds. To set the ANATT value to 60 seconds, install the following IBM ifix:
+The default ANATT for the AIX level 72-TL5-SP6-2320 and AIX level 73-TL1-SP2-2320 releases is 30 seconds. IBM provides an ifix that sets the ANATT to 60 seconds. The ifix is available through IBM case ID TS018079082 and you can install it for the following AIX releases:
 
 * For AIX level 72-TL5-SP6-2320, install the `IJ46710s6a.230509.epkg.Z` package.
 * For AIX level 73-TL1-SP2-2320, install the `IJ46711s2a.230509.epkg.Z` package.
+
+
 --
 .Default ANATT is 60 seconds 
 --
@@ -66,59 +68,30 @@ The default ANATT is 60 seconds for the following AIX releases:
 * AIX level 73-TL2-SP3-2446 
 * AIX level 73-TL2-SP2-2420 
 * AIX level 72-TL5-SP8-2420 
+
 --
 .Optionally, set ANATT to 120 seconds
 --
-IBM provides an ifix that sets the ANATT to 120 seconds. When you set the ANATT to 120 seconds, it enhances performance during ONTAP storage failover events. You can install this ifix for the following AIX releases:
+IBM provides an ifix that sets the ANATT to 120 seconds. When you set the ANATT to 120 seconds, it enhances performance during ONTAP storage failover events. The ifix is available through IBM case ID TS012877410 and you can install it for the following AIX releases:
 
 * For AIX level 73-TL3-SP0-2446, install the `IJ53487s0a.250130.epkg.Z` package. 
 * For AIX level 72-TL5-SP9-2446, install the `IJ53445s9a.250130.epkg.Z` package. 
 --
 ====
 +
+[NOTE]
+====
+The minimum server firmware version for Power9 servers for NVMe/FC support is FW 950.
+
+The minimum server firmware version for Power10 servers for NVMe/FC support is FW 1010.
+====
++
 For more information on managing ifixes, see link:http://www-01.ibm.com/support/docview.wss?uid=isg3T1012104[Managing Interim Fixes on AIX^].
-+
-The following tables show HBAs assigned for AIX and VIOS/PowerVM hosts. 
-+
-[role="tabbed-block"]
-====
-.AIX
---
-HBAs assigned to the AIX LPAR (AIX Logical Partition) or the physical stack and the IBM case ID which references the ifix:
 
-[cols="10,10,10,10,10",options="header"]
-|===
-
-|Host OS |Power Arch |Power FW version |Mode |The ifix is available...
-
-.2+|AIX 7.3 TL3 SP0 |Power9 |FW 950 or later |Physical stack |Through TS018079082  
-|Power10 |FW 1010 or later |Physical and virtual stack |Through TS018079082 
-.2+|AIX 7.3 TL1 SP2 |Power9	|FW 950 or later	|Physical stack	|Through TS012877410
-|Power10	|FW 1010 or later	|Physical and virtual stack	 |Through TS012877410
-.2+|AIX 7.2 TL5 SP9 |Power9 |FW 950 or later |Physical stack |Through TS018079082 
-|Power10 |FW 1010 or later |Physical and virtual stack |Through TS018079082 
-.2+|AIX 7.2 TL5 SP8, AIX 7.3 TL2 SP2, AIX 7.3 TL2 SP3 |Power9 |FW 950 or later |Physical stack |By default with the host OS version 
-|Power10 |FW 1010 or later |Physical and virtual stack |By default with the host OS version
-.2+|AIX 7.2 TL5 SP6 |Power9  |FW 950 or later	|Physical stack	|Through TS012877410
-|Power10 |FW 1010 or later	|Physical stack	|Through TS012877410.
-SAN booting is supported.
-|===
---
-.VIOS/PowerVM
---
-HBAs assigned to the VIOS with NPIV-enabled support in a virtualized mode:
-
-[cols="10,10,10,10,10",options="header"]
-|===
-|Host OS	|Power Arch	|Power FW version	|Mode	|Comments
-|VIOS/PowerVM 3.1.4.21	|Power10	|FW 1010 or later	|Virtual stack	|Support starts from AIX 7.3 TL1 SP2 for VIOC
-|===
---
-====
 
 == Step 1: Confirm the multipath configuration for your host
 
-When you install the AIX OS, IBM MPIO used for NVMe multipathing is provided by default.
+When you install the AIX OS, IBM MPIO used for NVMe multipathing is enabled by default.
 
 .Steps
 
@@ -126,7 +99,7 @@ When you install the AIX OS, IBM MPIO used for NVMe multipathing is provided by 
 +
 [source,cli]
 ----
-[root@aix_server /]: lsmpio -l hdisk1
+lsmpio -l hdisk1
 ----
 +
 .Show example
@@ -143,9 +116,7 @@ hdisk1  11        Enabled  Sel,Non       nvme60  fcnvme0, 9
 
 == Step 2: Configure NVMe/FC
 
-Configure NVMe/FC for Broadcom/Emulex adapters.
-
-The NVMe/FC protocol support is enabled in the physical FC by default but the NVMe/FC protocol support is disabled in the Virtual Fibre Channel (vFC) on VIOS
+You need to configure NVMe/FC for Broadcom/Emulex adapters on VIOS because the NVMe/FC protocol support is disabled in the Virtual Fibre Channel (vFC) on VIOS. The NVMe/FC protocol support is enabled in the physical FC by default. 
 
 .Steps
 
@@ -155,7 +126,7 @@ The NVMe/FC protocol support is enabled in the physical FC by default but the NV
 +
 [source,cli]
 ----
-$ lsmap -all -npiv
+lsmap -all -npiv
 ----
 +
 .Show example
@@ -177,7 +148,7 @@ VFC client name:fcs0            VFC client DRC:U9105.22A.785DB61-V4-C2
 +
 [source,cli]
 ----
-$  vfcctrl -enable -protocol nvme -vadapter vfchost0
+vfcctrl -enable -protocol nvme -vadapter vfchost0
 ----
 +
 .Example output
@@ -241,7 +212,7 @@ secure_va_info  no  NPIV Secure Virtual Adapter Information              True
 +
 [source,cli]
 ----
-[root@aix_server /]: lsdev |grep fcnvme
+lsdev |grep fcnvme
 ----
 +
 .Exmaple output
@@ -255,7 +226,7 @@ fcnvme1       Available 00-01-02    FC-NVMe Protocol Device
 +
 [source,cli]
 ----
-[root@aix_server /]: lsattr -El fcnvme0
+lsattr -El fcnvme0
 ----
 +
 .Show example
@@ -270,7 +241,7 @@ host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8 
 +
 [source,cli]
 ----
-[root@aix_server /]: lsattr -El fcnvme1
+lsattr -El fcnvme1
 ----
 +
 .Show example
@@ -310,7 +281,7 @@ Verify that the ONTAP namespaces are correct for the NVMe/FC configuration.
 +
 [source,cli]
 ----
-[root@aix_server /]: lsdev -Cc disk |grep NVMe
+lsdev -Cc disk |grep NVMe
 ----
 +
 .Example output
@@ -322,7 +293,7 @@ hdisk1  Available 00-00-02 NVMe 4K Disk
 +
 [source,cli]
 ----
-[root@aix_server /]: lsmpio -l hdisk1
+lsmpio -l hdisk1
 ----
 +
 .Show example
