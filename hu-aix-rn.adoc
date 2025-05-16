@@ -20,14 +20,12 @@ For specific information about the operating system versions and updates that th
 The AIX Host Utilities releases contain the following new features and enhancements.
 
 == What's new in AIX Host Utilities 8.0
-There is an IBM Interim Fix (ifix) available for AIX Host Utilities 8.0 that ensures that the `sanlun fcp show adapter –v` command displays the correct HBA speed information, such as supported and negotiated speeds for the adapters. You can install the ifix on the following AIX and VIOS versions:
+An IBM Interim Fix (ifix) is available for AIX Host Utilities 8.0 that ensures the `sanlun fcp show adapter –v` command displays the correct HBA speed information, such as supported and negotiated speeds for the adapters. You can install the ifix on the following AIX and VIOS versions:
 
 * AIX: 7.3 TL3 SP0, 7.3 TL2 SP2, 7.3 TL1 SP4, 7.2 TL5 SP9, 7.2 TL5 SP8
 * VIOS: 4.1.1.0, 4.1.0.21, 3.1.4.50, 3.1.4.41
 
-For more details about the IBM ifixes, refer to <<KB_Article>>.
-
-An IBM ifix that displays the correct HBA speed information for all AIX and VIOS version isn't available.
+For more information, refer to <<new KB Article>>.
 
 == What's new in AIX Host Utilities 7.0
 AIX Host Utilities 7.0 supports SCSI UNMAP on the AIX host OS. With AIX Host Utilities 7.0, SCSI thin provisioning functions seamlessly with AIX and NetApp LUNs for FC devices.
