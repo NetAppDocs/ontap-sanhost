@@ -85,17 +85,17 @@ lsdev -Cc disk
 | NetApp recommended value 
 .4+| rw_timeout (disk) 
 | AIX 7.3TL3 
-| NPIV :30 s, vSCSI:45s 
-| NPIV :30s , vSCSI:120s 
+| NPIV:30 seconds, vSCSI:45 seconds 
+| NPIV:30 seconds, vSCSI:120 seconds 
 | AIX 7.2TL5 
-| NPIV :30s , vSCSI:45s 
-| NPIV :30s , vSCSI: 120s 
+| NPIV:30 seconds, vSCSI:45 seconds 
+| NPIV:30 seconds, vSCSI:120 seconds 
 | VIOS 3.1 
-| 30s 
-| 30s 
+| 30 seconds 
+| 30 seconds 
 | VIOS 4.1 
-| 30s 
-| 30s 
+| 30 seconds 
+| 30 seconds 
 |===
 --
 .iSCSI
@@ -108,20 +108,20 @@ lsdev -Cc disk
 | NetApp recommended value  
 .5+| rw_timeout (disk) 
 | AIX 7.3TL3 
-| vSCSI: 45s 
-| vSCSI:120s 
+| vSCSI:45 seconds  
+| vSCSI:120 seconds 
 | AIX 7.2TL5 
-| vSCSI: 45s 
-| vSCSI:120s 
+| vSCSI:45 seconds 
+| vSCSI:120 seconds 
 | VIOS 3.1 
-| 120s 
-| 30s 
+| 120 seconds 
+| 30 seconds 
 | VIOS 4.1 
-| 120s 
-| 30s 
+| 120 seconds 
+| 30 seconds 
 | All AIX7.2 and AIX 7.3 standalone 
-| 120 s 
-| 30s 
+| 120 seconds 
+| 30 seconds 
 | isw_err_recov (iscsi0) 
 | All AIX7.2 and AIX 7.3 standalone 
 | delayed_fail 
