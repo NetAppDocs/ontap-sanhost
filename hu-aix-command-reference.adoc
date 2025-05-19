@@ -15,21 +15,8 @@ summary: You can use the AIX Host Utilities sample command reference for an end-
 [.lead]
 You can use the AIX Host Utilities sample command reference for an end-to-end validation of the NetApp storage configuration using the Host Utilities tool.
 
-[role="tabbed-block"]
-=====
-.AIX Host Utilities 8.0
---
-Use the AIX Host Utilities 8.0 sample command reference:
 
-* <<all-host-initiators-mapped-to-host-80,List all host initiators mapped to host>>
-* <<all-luns-mapped-to-host-80,List all LUNs mapped to host>>
-* <<mapped-to-host-from-svm-80,List all LUNs mapped to host from a given SVM>>
-* <<attributes-of-lun-80,List all attributes of a given LUN mapped to host>>
-* <<attributes-by-host-device-filename-80,List ONTAP LUN attributes by host device filename>>
-* <<svm-target-lif-wwpns-80,List all SVM target LIF WWPNs attached to host>>
-
-[[all-host-initiators-mapped-to-host-80]]
-.List all host initiators mapped to host
+== List all host initiators mapped to host
 
 You can retrieve a list of host initiators mapped to a host.
 
@@ -37,6 +24,11 @@ You can retrieve a list of host initiators mapped to a host.
 ----
 sanlun fcp show adapter -v
 ----
+
+[role="tabbed-block"]
+=====
+.AIX Host Utilities 8.0
+--
 
 .Show example
 [%collapsible]
@@ -77,182 +69,9 @@ OS device name:    fcs5
 bash-3.2#
 ----
 ====
-
-[[all-luns-mapped-to-host-80]]
-.List all LUNs mapped to host
-
-You can retrieve a list of all LUNs mapped to a host.
-
-[source,cli]
-----
-sanlun lun show -p -v all
-----
-
-.Show example
-[%collapsible]
-====
-----
-LUN: 88
-LUN Size: 15g
-Host Device: hdisk9
-Mode: C
-Multipath Provider: AIX Native
-Multipathing Algorithm: round_robin
-
-host    vserver  AIX   AIX MPIO
-path    path     MPIO  host      vserver      path
-state   type     path  adapter   LIF          priority
------------------------------------------------------
-up     primary   path0   fcs0    fc_aix_1     1
-up     primary   path1   fcs1    fc_aix_2     1
-up     secondary path2   fcs0    fc_aix_3     1
-up     secondary path3   fcs1    fc_aix_4     1
-----
-====
-
-[[mapped-to-host-from-svm-80]]
-.List all LUNs mapped to host from a given SVM
-You can retrieve a list of all LUNs mapped to a host from a specified SVM.
-
-[source,cli]
-----
-sanlun lun show -p -v sanboot_unix
-----
-
-.Show example
-[%collapsible]
-====
-----
-ONTAP Path: sanboot_unix:/vol/aix_205p2_boot_0/boot_205p2_lun
-LUN: 0
-LUN Size: 80.0g
-Host Device: hdisk85
-Mode: C
-Multipath Provider: AIX Native
-Multipathing Algorithm: round_robin
-
-host    vserver    AIX   AIX MPIO
-path    path       MPIO  host    vserver    path
-state   type       path  adapter LIF        priority
--------------------------------------------------
-up      primary    path0 fcs0    sanboot_1   1
-up      primary    path1 fcs1    sanboot_2   1
-up      secondary  path2 fcs0    sanboot_3   1
-up      secondary  path3 fcs1    sanboot_4   1
-----
-====
-
-[[attributes-of-lun-80]]
-.List all attributes of a given LUN mapped to host
-You can retrieve a list of all attributes of a specified LUN mapped to a host.
-
-[source,cli]
-----
-sanlun lun show -p -v vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
-----
-
-.Show example
-[%collapsible]
-====
-----
-ONTAP Path: vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
-LUN: 88
-LUN Size: 15g
-Host Device: hdisk9
-Mode: C
-Multipath Provider: AIX Native
-Multipathing Algorithm: round_robin
-
-host     vserver   AIX   AIX MPIO
-path     path      MPIO  host     vserver   path
-state    type      path  adapter  LIF       priority
----------------------------------------------------------
-up       primary   path0 fcs0    fc_aix_1   1
-up       primary   path1 fcs1    fc_aix_2   1
-up       secondary path2 fcs0    fc_aix_3   1
-up       secondary path3 fcs1    fc_aix_4   1
-----
-====
-
-[[attributes-by-host-device-filename-80]]
-.List ONTAP LUN attributes by host device filename
-You can retrieve a list of ONTAP LUN attributes by specifying a host device filename.
-
-[source,cli]
-----
-sanlun lun show -d /dev/hdisk1
-----
-
-.Show example
-[%collapsible]
-====
-----
-controller(7mode)/
-device host lun
-vserver(Cmode)     lun-pathname
------------------------------------------------------------------------------
-vs_aix_clus       /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun
-
-filename adapter protocol size mode
------------------------------------
-hdisk1    fcs0    FCP     15g  C
-----
-====
-
-[[svm-target-lif-wwpns-80]]
-.List all SVM target LIF WWPNs attached to host
-You can retrieve a list of all SVM target LIF WWPNs attached to a host.
-
-[source,cli]
------
-sanlun lun show -wwpn
------
-
-.Show example
-[%collapsible]
-====
-----
-controller(7mode)/
-target device host lun
-vserver(Cmode)          wwpn            lun-pathname
---------------------------------------------------------------------------------
-
-vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun
-vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_0_9/aix_205p2_207p1_lun
-vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_en_0_0/aix_205p2_207p1_lun_en
-vs_aix_clus          202f00a098ba7afe  /vol/gpfs_205p2_207p1_vol_en_0_1/aix_205p2_207p1_lun_en
-
-filename     adapter    size  mode
------------------------------------
-hdisk1       fcs0       15g    C
-hdisk10      fcs0       15g    C
-hdisk11      fcs0       15g    C
-hdisk12      fcs0       15g    C
-----
-====
 --
-
 .AIX Host Utilities 6.1
 --
-Use the AIX Host Utilities 6.1 sample command reference:
-
-* <<all-host-initiators-mapped-to-host,List all host initiators mapped to host>>
-* <<all-luns-mapped-to-host,List all LUNs mapped to host>>
-* <<mapped-to-host-from-svm,List all LUNs mapped to host from a given SVM>>
-* <<attributes-of-lun,List all attributes of a given LUN mapped to host>>
-* <<attributes-by-host-device-filename,List ONTAP LUN attributes by host device filename>>
-* <<svm-target-lif-wwpns,List all SVM target LIF WWPNs attached to host>>
-
-[[all-host-initiators-mapped-to-host]]
-.List all host initiators mapped to host
-
-You can retrieve a list of host initiators mapped to a host.
-
-[source,cli]
-----
-# sanlun fcp show adapter -v
-----
-
 .Show example
 [%collapsible]
 ====
@@ -293,16 +112,48 @@ OS device name: fcs1
 bash-3.2#
 ----
 ====
+--
+=====
 
-[[all-luns-mapped-to-host]]
-.List all LUNs mapped to host
+
+== List all LUNs mapped to host
 
 You can retrieve a list of all LUNs mapped to a host.
 
 [source,cli]
 ----
-# sanlun lun show -p -v all
+sanlun lun show -p -v all
 ----
+
+[role="tabbed-block"]
+=====
+.AIX Host Utilities 8.0
+--
+.Show example
+[%collapsible]
+====
+----
+LUN: 88
+LUN Size: 15g
+Host Device: hdisk9
+Mode: C
+Multipath Provider: AIX Native
+Multipathing Algorithm: round_robin
+
+host    vserver  AIX   AIX MPIO
+path    path     MPIO  host      vserver      path
+state   type     path  adapter   LIF          priority
+-----------------------------------------------------
+up     primary   path0   fcs0    fc_aix_1     1
+up     primary   path1   fcs1    fc_aix_2     1
+up     secondary path2   fcs0    fc_aix_3     1
+up     secondary path3   fcs1    fc_aix_4     1
+----
+====
+--
+
+.AIX Host Utilities 6.1
+--
 
 .Show example
 [%collapsible]
@@ -326,16 +177,46 @@ up     secondary path2   fcs0    fc_aix_3     1
 up     secondary path3   fcs1    fc_aix_4     1
 ----
 ====
+--
+=====
 
-
-[[mapped-to-host-from-svm]]
-.List all LUNs mapped to host from a given SVM
+== List all LUNs mapped to host from a given SVM
 You can retrieve a list of all LUNs mapped to a host from a specified SVM.
 
 [source,cli]
 ----
-# sanlun lun show -p -v sanboot_unix
+sanlun lun show -p -v sanboot_unix
 ----
+
+[role="tabbed-block"]
+=====
+.AIX Host Utilities 8.0
+--
+.Show example
+[%collapsible]
+====
+----
+ONTAP Path: sanboot_unix:/vol/aix_205p2_boot_0/boot_205p2_lun
+LUN: 0
+LUN Size: 80.0g
+Host Device: hdisk85
+Mode: C
+Multipath Provider: AIX Native
+Multipathing Algorithm: round_robin
+
+host    vserver    AIX   AIX MPIO
+path    path       MPIO  host    vserver    path
+state   type       path  adapter LIF        priority
+-------------------------------------------------
+up      primary    path0 fcs0    sanboot_1   1
+up      primary    path1 fcs1    sanboot_2   1
+up      secondary  path2 fcs0    sanboot_3   1
+up      secondary  path3 fcs1    sanboot_4   1
+----
+====
+--
+.AIX Host Utilities 6.1
+--
 
 .Show example
 [%collapsible]
@@ -359,15 +240,48 @@ up      secondary  path2 fcs0    sanboot_3   1
 up      secondary  path3 fcs1    sanboot_4   1
 ----
 ====
+--
+=====
 
-[[attributes-of-lun]]
-.List all attributes of a given LUN mapped to host
+
+== List all attributes of a given LUN mapped to host
 You can retrieve a list of all attributes of a specified LUN mapped to a host.
 
 [source,cli]
 ----
-# sanlun lun show -p -v vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
+sanlun lun show -p -v vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
 ----
+
+[role="tabbed-block"]
+=====
+.AIX Host Utilities 8.0
+--
+.Show example
+[%collapsible]
+====
+----
+ONTAP Path: vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_lun
+LUN: 88
+LUN Size: 15g
+Host Device: hdisk9
+Mode: C
+Multipath Provider: AIX Native
+Multipathing Algorithm: round_robin
+
+host     vserver   AIX   AIX MPIO
+path     path      MPIO  host     vserver   path
+state    type      path  adapter  LIF       priority
+---------------------------------------------------------
+up       primary   path0 fcs0    fc_aix_1   1
+up       primary   path1 fcs1    fc_aix_2   1
+up       secondary path2 fcs0    fc_aix_3   1
+up       secondary path3 fcs1    fc_aix_4   1
+----
+====
+--
+
+.AIX Host Utilities 6.1
+--
 
 .Show example
 [%collapsible]
@@ -391,15 +305,41 @@ up       secondary path2 fcs0    fc_aix_3   1
 up       secondary path3 fcs1    fc_aix_4   1
 ----
 ====
+--
+=====
 
-[[attributes-by-host-device-filename]]
-.List ONTAP LUN attributes by host device filename
+
+== List ONTAP LUN attributes by host device filename
 You can retrieve a list of ONTAP LUN attributes by specifying a host device filename.
 
 [source,cli]
 ----
-#sanlun lun show -d /dev/hdisk1
+sanlun lun show -d /dev/hdisk1
 ----
+
+[role="tabbed-block"]
+=====
+.AIX Host Utilities 8.0
+--
+.Show example
+[%collapsible]
+====
+----
+controller(7mode)/
+device host lun
+vserver(Cmode)     lun-pathname
+-----------------------------------------------------------------------------
+vs_aix_clus       /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun
+
+filename adapter protocol size mode
+-----------------------------------
+hdisk1    fcs0    FCP     15g  C
+----
+====
+--
+
+.AIX Host Utilities 6.1
+--
 
 .Show example
 [%collapsible]
@@ -416,15 +356,47 @@ filename adapter protocol size mode
 hdisk1    fcs0    FCP     15g  C
 ----
 ====
+--
+=====
 
-[[svm-target-lif-wwpns]]
-.List all SVM target LIF WWPNs attached to host
+== List all SVM target LIF WWPNs attached to host
 You can retrieve a list of all SVM target LIF WWPNs attached to a host.
 
 [source,cli]
 -----
-# sanlun lun show -wwpn
+sanlun lun show -wwpn
 -----
+
+[role="tabbed-block"]
+=====
+.AIX Host Utilities 8.0
+--
+.Show example
+[%collapsible]
+====
+----
+controller(7mode)/
+target device host lun
+vserver(Cmode)          wwpn            lun-pathname
+--------------------------------------------------------------------------------
+
+vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_0_0/aix_205p2_207p1_lun
+vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_0_9/aix_205p2_207p1_lun
+vs_aix_clus          203300a098ba7afe  /vol/gpfs_205p2_207p1_vol_en_0_0/aix_205p2_207p1_lun_en
+vs_aix_clus          202f00a098ba7afe  /vol/gpfs_205p2_207p1_vol_en_0_1/aix_205p2_207p1_lun_en
+
+filename     adapter    size  mode
+-----------------------------------
+hdisk1       fcs0       15g    C
+hdisk10      fcs0       15g    C
+hdisk11      fcs0       15g    C
+hdisk12      fcs0       15g    C
+----
+====
+--
+
+.AIX Host Utilities 6.1
+--
 
 .Show example
 [%collapsible]
