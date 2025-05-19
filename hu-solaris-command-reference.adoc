@@ -25,9 +25,9 @@ sanlun fcp show adapter -v
 
 [role="tabbed-block"]
 =====
-.Solaris Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for Solaris Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -67,10 +67,10 @@ OS device name:    /dev/cfg/c5
 ----
 ====
 --
-.Solaris Host Utilities 6.2
+.6.2
 --
 
-.Show example
+.Show example for Solaris Host Utilities 6.2
 [%collapsible]
 ====
 ----
@@ -122,9 +122,9 @@ sanlun lun show -p -v all
 
 [role="tabbed-block"]
 =====
-.Solaris Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for Solaris Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -140,10 +140,10 @@ ONTAP Path: sanboot_unix:/vol/test1/lun1
 ----
 ====
 --
-.Solaris Host Utilities 6.2
+.6.2
 --
 
-.Show example
+.Show example for Solaris Host Utilities 6.2
 [%collapsible]
 ====
 ----
@@ -172,9 +172,9 @@ sanlun lun show -p -v <svm_name>
 
 [role="tabbed-block"]
 =====
-.Solaris Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for Solaris Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -188,10 +188,10 @@ ONTAP Path: sanboot_unix:/vol/test1/lun1
 ----
 ====
 --
-.Solaris Host Utilities 6.2
+.6.2
 --
 
-.Show example
+.Show example for Solaris Host Utilities 6.2
 [%collapsible]
 ====
 ----
@@ -215,9 +215,9 @@ sanlun lun show all
 
 [role="tabbed-block"]
 =====
-.Solaris Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for Solaris Host Utilities 8.0
 [%collapsible]
 ====
 [source,cli]
@@ -235,10 +235,10 @@ qlc1            FCP      20g        cDOT
 ====
 
 --
-.Solaris Host Utilities 6.2
+.6.2
 --
 
-.Show example
+.Show example for Solaris Host Utilities 6.2
 [%collapsible]
 ====
 ----
