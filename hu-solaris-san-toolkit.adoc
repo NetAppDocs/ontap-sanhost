@@ -35,7 +35,4 @@ data_vserver                     /vol/vol3/lun4     /dev/rdsk/c0t600A09803830443
 [NOTE]
 This toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance.
 
-== What's next?
-
-* link:hu-solaris-80-cmd.html[Learn about using the Solaris Host Utilities 8.0 tool].
-* link:hu-solaris-62-cmd.html[Learn about using the Solaris Host Utilities 6.2 tool].
+include::_include/hu/solaris-command-reference-whats-next.adoc[]
