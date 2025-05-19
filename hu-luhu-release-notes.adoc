@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: hu_luhu_71_rn.html
+permalink: hu-luhu-release-notes.html
 keywords: host utilities, linux, 7.1, netapp, ontap, release, notes, linux
 summary: Release Notes for Linux Host Utilities
 ---
@@ -47,23 +47,26 @@ NetApp continues to work with the Linux Host Utilities to add support for featur
 
 The following issues have been fixed in Linux Host Utilities.
 
-[cols=2,options="header", cols= "80, 20"]
+[cols=2,options="header", cols= "20, 80"]
 |===
-|Description | Fixed in version
-
-| The intermittent host OS failure issue that occurs when running the `sanlun lun show -p` command in SUSE Linux Enterprise Server 12 SP1, OL 7.2, RHEL 7.2, and RHEL 6.8.
+| Fixed in version |Description 
 
 | 7.1
+| The intermittent host OS failure issue that occurs when running the `sanlun lun show -p` command in SUSE Linux Enterprise Server 12 SP1, OL 7.2, RHEL 7.2, and RHEL 6.8.
+
 |=== 
 
 == Known issues and limitations
 
 The Linux Host Utilities have the following known issues.
 
-[cols=4,options="header", cols= "10, 30, 40, 10"]
+[cols=4,options="header", cols= "15, 15, 30, 40"]
 |===
-|NetApp Bug ID	|Title | Description | Affects version
-|1457017	|`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit. | When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be 
+|NetApp Bug ID | Affects version |Title | Description
+|1457017
+| 7.1
+|`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit. 
+| When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be 
 located:
 
 `[root@hostname ~]# sanlun fcp show adapter -v
@@ -71,7 +74,6 @@ Unable to locate /usr/lib64/libHBAAPI.so library
 Make sure the package installing the library is installed & loaded`
 Refer to NetApp Bugs Online - link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^].
 
-| 7.1
 |===
 
 link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible.
