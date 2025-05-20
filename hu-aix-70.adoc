@@ -13,7 +13,7 @@ summary: The AIX Host Utilities assists you to manage ONTAP storage attached to 
 :imagesdir: ./media/
 
 [.lead]
-include::_include/hu/aix-install-hu-introduction.adoc[] .
+include::_include/hu/aix-install-hu-introduction.adoc[]
 
 AIX Host Utilities 7.0 support the following transport protocols and AIX environments:
 
@@ -23,9 +23,7 @@ AIX Host Utilities 7.0 support the following transport protocols and AIX environ
 +
 For information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
 
-.About this task
-* You download the AIX Host Utilities from the NetApp Support site in a compressed `tar.gz` file.
-* You need to install the AIX Host Utilities kit with AIX MPIO to manage ONTAP storage attached to an AIX host.
+include::_include/hu/aix-install-hu-about-this-task.adoc[]
 
 .Before you begin
 
