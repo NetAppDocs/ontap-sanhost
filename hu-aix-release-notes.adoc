@@ -38,10 +38,12 @@ You should be aware of the following known problems and limitations that might i
 
 [cols=4,options="header"]
 |===
-|Bug ID	|Title	|Description | Affects version
-|N/A
-|SCSI UNMAP support for ONTAP iSCSI LUNs |AIX Host Utilities 7.0 only supports the SCSI UNMAP feature for FC devices. SCSI UNMAP support for iSCSI devices are not included in this release. | 7.0
+|Bug ID | Affects version|Title	|Description 
+| N/A
+| 7.0
+|SCSI UNMAP support for ONTAP iSCSI LUNs |AIX Host Utilities 7.0 only supports the SCSI UNMAP feature for FC devices. SCSI UNMAP support for iSCSI devices are not included in this release. 
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1069147[1069147^]
+| 
 |AIX HU Sanlun reports incorrect HBA speed	|Instances of sanlun displaying incorrect HBA speeds are reported while running the `sanlun fcp show adapter –v` command.  The `sanlun fcp show adapter –v` command displays the HBA cards information, such as supported and negotiated speeds for the adapters. This seems to be a reporting issue only. To identify the actual speed, use the `fcstat fcsx` command.
 |
 |===
