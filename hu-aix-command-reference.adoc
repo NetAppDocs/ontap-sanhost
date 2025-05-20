@@ -27,10 +27,10 @@ sanlun fcp show adapter -v
 
 [role="tabbed-block"]
 =====
-.AIX Host Utilities 8.0
+.8.0
 --
 
-.Show example
+.Show example for AIX Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -70,9 +70,9 @@ bash-3.2#
 ----
 ====
 --
-.AIX Host Utilities 6.1
+.6.1
 --
-.Show example
+.Show example for AIX Host Utilities 6.1
 [%collapsible]
 ====
 ----
@@ -127,9 +127,9 @@ sanlun lun show -p -v all
 
 [role="tabbed-block"]
 =====
-.AIX Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for AIX Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -152,10 +152,10 @@ up     secondary path3   fcs1    fc_aix_4     1
 ====
 --
 
-.AIX Host Utilities 6.1
+.6.1
 --
 
-.Show example
+.Show example for AIX Host Utilities 6.1
 [%collapsible]
 ====
 ----
@@ -190,9 +190,9 @@ sanlun lun show -p -v sanboot_unix
 
 [role="tabbed-block"]
 =====
-.AIX Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for AIX Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -215,10 +215,10 @@ up      secondary  path3 fcs1    sanboot_4   1
 ----
 ====
 --
-.AIX Host Utilities 6.1
+.6.1
 --
 
-.Show example
+.Show example for AIX Host Utilities 6.1
 [%collapsible]
 ====
 ----
@@ -254,9 +254,9 @@ sanlun lun show -p -v vs_aix_clus:/vol/gpfs_205p2_207p1_vol_0_8/aix_205p2_207p1_
 
 [role="tabbed-block"]
 =====
-.AIX Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for AIX Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -280,10 +280,10 @@ up       secondary path3 fcs1    fc_aix_4   1
 ====
 --
 
-.AIX Host Utilities 6.1
+.6.1
 --
 
-.Show example
+.Show example for AIX Host Utilities 6.1
 [%collapsible]
 ====
 ----
@@ -319,9 +319,9 @@ sanlun lun show -d /dev/hdisk1
 
 [role="tabbed-block"]
 =====
-.AIX Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for AIX Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -338,10 +338,10 @@ hdisk1    fcs0    FCP     15g  C
 ====
 --
 
-.AIX Host Utilities 6.1
+.6.1
 --
 
-.Show example
+.Show example for AIX Host Utilities 6.1
 [%collapsible]
 ====
 ----
@@ -369,9 +369,9 @@ sanlun lun show -wwpn
 
 [role="tabbed-block"]
 =====
-.AIX Host Utilities 8.0
+.8.0
 --
-.Show example
+.Show example for AIX Host Utilities 8.0
 [%collapsible]
 ====
 ----
@@ -395,10 +395,10 @@ hdisk12      fcs0       15g    C
 ====
 --
 
-.AIX Host Utilities 6.1
+.6.1
 --
 
-.Show example
+.Show example for AIX Host Utilities 6.1
 [%collapsible]
 ====
 -----
@@ -422,3 +422,5 @@ hdisk12      fcs0       15g    C
 ====
 --
 =====
+
+// 2025 MAY 20, ONTAPDOC-2878 and ONTAPDOC-2365 

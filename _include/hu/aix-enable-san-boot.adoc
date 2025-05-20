@@ -12,12 +12,19 @@ SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot d
 * Review the best practices for setting up a SAN boot in the vendor documentation.
 
 .Steps
-Refer to <link to KB article>>
+. Create a SAN boot LUN and map it to the host.
++
+See https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Provision SAN storage^].
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
 --
 
 .Local boot
 --
-Perform a local boot by installing the AIX OS on the local hard disk, for example, an SSD, SATA, or RAID.
+Perform a local boot by installing the AIX OS on the local hard disk, for example, on an SSD, SATA, or RAID.
 --
 
 ====
