@@ -13,9 +13,9 @@ summary: Describes how to use the Linux Host Utilities 7.1 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-The Linux Host Utilities assists you to manage ONTAP storage attached to a Linux host. NetApp strongly recommends installing the Linux Host Utilities, but it isn't mandatory. The utilities do not change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration. 
+include::_include/hu/install-linux-hu-introduction.adoc[]
 
-The following Linux distributions are supported:
+Linux Host Utilities 7.1 supports the following distribution types:
 
 *	Red Hat Enterprise Linux
 *	SUSE Linux Enterprise Server
@@ -27,10 +27,11 @@ NOTE: The Linux Host Utilities software doesn't support NVMe over Fibre Channel 
 
 .About this task
 
-The NetApp Linux Host Utilities software package is available on the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.1/downloads[NetApp Support Site^] in a 32-bit or 64-bit .rpm file. 
+* The NetApp Linux Host Utilities software package is available on the NetApp Support Site in a 32-bit or 64-bit .rpm file. 
+* When you install the Linux Host Utilities, they don't change any settings on your Linux host.
 
 .Before you begin
-* For reliable operation, use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify your iSCSI, FC, or FCoE configuration is supported.
+* For reliable operation, use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your iSCSI, FC, or FCoE configuration is supported.
 * Install the host bus adapter (HBA) management packages available on the vendor support site.
 +
 The management software enables the SAN Toolkit commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are correctly installed:

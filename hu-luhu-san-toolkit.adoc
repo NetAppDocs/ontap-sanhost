@@ -35,7 +35,7 @@ data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       120.0g  cDO
 =====
 * For Linux Host Utilities 7.0, the "sanlun" utility is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components doesn't affect your system performance. 
 
-* The "sanlun" utility isn't supported under the following circumstances:
+* The "sanlun" utility isn't supported for the following distribution types:
 +
 [role="tabbed-block"]
 ====
