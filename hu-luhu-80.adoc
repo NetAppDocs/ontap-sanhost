@@ -13,7 +13,7 @@ summary: Describes how to use the Linux Host Utilities 8.0 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-The Linux Host Utilities assists you to manage ONTAP storage attached to a Linux host. NetApp strongly recommends installing the Linux Host Utilities, but it isn't mandatory. The utilities don't change any settings on your Linux host. The utilities improve management and assist NetApp customer support in gathering information about your configuration. 
+The Linux Host Utilities help you manage ONTAP storage attached to a Linux host. When you install the Linux Host Utilities, they don't change any settings on your Linux host. NetApp strongly recommends installing the Linux Host Utilities to improve ONTAP storage management and assist NetApp customer support in gathering information about your configuration. 
 
 The following Linux distributions are supported:
 
@@ -66,7 +66,7 @@ Updating / installing...
 +
 [NOTE]
 ====
-You need to link to the HBA library for an Ubuntu host OS:
+If you are using an Ubuntu host OS, you need to manually link to the HBA library:
 
 [source, cli]
 ----
@@ -84,10 +84,4 @@ sanlun version
 sanlun version 7.1.386.1644
 ----
 
-== What's next?
-
-* Use the recommended driver settings with Linux kernel:
-+
-When you configure an FC environment that uses native inbox drivers that are bundled with the Linux kernel, you can use the default values for the drivers.
-
-* link:hu-luhu-san-toolkit.html[Learn about the Linux SAN Toolkit].
+include::_include/hu/linux-install-hu-whats-next.adoc[]

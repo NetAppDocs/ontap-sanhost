@@ -4,7 +4,7 @@ permalink: hu-luhu-san-toolkit.html
 keywords: host utilities, unified, oracle, linux, 7.1, netapp, ontap
 summary: Describes how to use the Linux Host Utilities 7.1 with ONTAP
 ---
-= Learn about the Linux SAN Toolkit for ONTAP storage
+= Learn about the Linux "sanlun" utility for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,16 +14,42 @@ summary: Describes how to use the Linux Host Utilities 7.1 with ONTAP
 
 [.lead]
 
-Linux Host Utilities is a NetApp host software that provides a command line toolkit on your Linux host.
+Linux Host Utilities is a NetApp host software that provides `sanlun` commands on your Linux host.
 
-include::_include/hu/reuse_hu_san_toolkit.adoc[]
+The `sanlun` utility is installed automatically when you install the NetApp Host Utilities package. This utility provides the `sanlun` commands that you can use to manage ONTAP LUNs and host bus adapters (HBAs). The `sanlun` commands return information about the ONTAP LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
+
+In the following example, the `sanlun lun show all` command returns ONTAP LUN information:
+
+----
+controller(7mode/E-Series)/            device     host               lun
+vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
+------------------------------------------------------------------------------------
+data_vserver          /vol/vol1/lun1   /dev/sdb   host16   FCP       120.0g  cDOT
+data_vserver          /vol/vol1/lun1   /dev/sdc   host15   FCP       120.0g  cDOT
+data_vserver          /vol/vol2/lun2   /dev/sdd   host16   FCP       120.0g  cDOT
+data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       120.0g  cDOT
+----
+
 
 [NOTE] 
-====
-* This toolkit is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components doesn't affect your system performance. 
+=====
+* For Linux Host Utilities 7.0, the "sanlun" utility is common across all configurations and protocols of the Host Utilities. As a result, some of its contents apply to one configuration, but not another. Having unused components doesn't affect your system performance. 
 
-* The SAN Toolkit isn't supported on Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
+* The "sanlun" utility isn't supported under the following circumstances:
++
+[role="tabbed-block"]
 ====
+.8.0
+--
+For Linux Host Utilities 8.0, the "sanlun" utility isn't supported for Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
+--
+
+.7.1
+--
+For Linux Host Utilities 7.1, the "sanlun" utility isn't supported for Citrix XenServer, Oracle VM, and Red Hat Enterprise Virtualization Hypervisor.
+--
+====
+=====
 
 == What's next?
 
