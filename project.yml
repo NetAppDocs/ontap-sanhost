@@ -1,6 +1,6 @@
 ---
 settings:
-  name: ONTAP SAN hosts and cloud clients
+  name: ONTAP SAN Host Utilities
   internal:
     pdf_enabled: true
   prod:
@@ -14,7 +14,7 @@ product-family:
 
 sidebar:
   entries:
-    - title: Configure ONTAP SAN hosts and cloud clients
+    - title: Configure SAN hosts and cloud clients
       url: /index.html  
     - title: Learn about SAN host configurations
       url: /overview.html
