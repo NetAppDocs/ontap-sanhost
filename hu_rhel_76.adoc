@@ -15,7 +15,7 @@ summary: Describes how to use Red Hat Enterprise Linux 7.6 with ONTAP
 [.lead]
 The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Red Hat Enterprise Linux (RHEL) 7.6 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
-include::_include/hu/rhel-configure-kvm-note.adoc[]
+include::_include/hu/linux-configure-kvm-note.adoc[]
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
