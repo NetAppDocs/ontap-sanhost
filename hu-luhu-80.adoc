@@ -27,13 +27,13 @@ NOTE: The Linux Host Utilities software doesn't support NVMe over Fibre Channel 
 .About this task
 
 * The NetApp Linux Host Utilities software package is available on the NetApp Support Site in a 64-bit .rpm file.
-* When you install the Linux Host Utilities, they don't change any settings on your Linux host. 
+* When you install the Linux Host Utilities, it doesn't change any settings on your Linux host. 
 
 .Before you begin
 * For reliable operation, use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your iSCSI, FC, or FCoE configuration is supported.
 * Install the host bus adapter (HBA) management packages available on the vendor support site.
 +
-The management software enables the SAN Toolkit commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are correctly installed:
+The management software enables the `sanlun` commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are correctly installed:
 +
 ** Marvell QLogic HBA – QConvergeConsole CLI
 ** Broadcom Emulex HBA - OneCommand Manager core application CLI
