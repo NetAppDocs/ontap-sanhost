@@ -41,6 +41,10 @@ The Windows Host Utilities installer automatically sets registry values that are
 
 The following values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated. 
 
+[role="tabbed-block"]
+====
+.HKLM paramters
+--
 [NOTE]
 HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
@@ -152,10 +156,12 @@ Mode",
 |1
 |When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |===
+--
 
+
+.NVMe parameters
+--
 [[nvme_parameters]]
-=== NVMe parameters
-
 The following NVMe Emulex driver parameters are updated when installing Windows Host Utilities 7.2:
 
 * EnableNVMe = 1
@@ -163,6 +169,8 @@ The following NVMe Emulex driver parameters are updated when installing Windows 
 * LimTransferSize=1
 +
 The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 7.2. After installation, you need to manually change the LimTransferSize value to "0" and reboot the server.
+--
+====
 
 == Registry values set by Windows Host Utilities 7.1
 

@@ -4,8 +4,7 @@ permalink: hu_wuhu_troubleshoot.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
 summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
-
-= Troubleshoot
+= Troubleshoot Windows Host Utilities
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -24,7 +23,7 @@ The following is a list of the different areas you can investigate for potential
 * If iSCSI LUNs are not available after a reboot, verify that the target is listed as persistent on the *Persistent Targets* tab of the Microsoft iSCSI initiator GUI.
 * If applications using the LUNs display errors on startup, verify that the applications are configured to depend on the iSCSI service.
 * For FC paths to storage controllers running ONTAP, verify that the FC switches are zoned using the WWPNs of the target LIFs, not the WWPNs of the physical ports on the node.
-* Review the link:hu_wuhu_71_rn.html[Release Notes] for Windows Host Utilities to check for known issues. The Release Notes include a list of known issues and limitations.
+* Review the link:hu-wuhu-release-notes.html[Release Notes] for Windows Host Utilities to check for known issues. The Release Notes include a list of known issues and limitations.
 * Review the troubleshooting information in the https://docs.netapp.com/us-en/ontap/san-admin/index.html[ONTAP SAN administration^] documentation.
 * Search https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] for recently discovered issues.
 ** In the Bug Type field under Advanced Search, select *iSCSI - Windows* and then select *Go*. You should repeat the search for Bug Type *FCP -Windows*.

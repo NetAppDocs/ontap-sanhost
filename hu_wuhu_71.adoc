@@ -4,7 +4,7 @@ permalink: hu_wuhu_71.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
 summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
-= Install Windows Host Utilities 7.1
+= Install Windows Host Utilities 7.1 for ONTAP storage
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -25,11 +25,7 @@ Windows Host Utilities supports the following versions of Windows:
 * Windows 2012R2
 * Windows 2012
 
-Windows Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for ONTAP and E-Series platforms.
-
-When you install the Host Utilities software, the installer sets the required Windows registry and Host Bus Adapter (HBA) parameters.
-
-The following programs and files are installed on the Windows host computer. The default directory is `C:\Program Files\NetApp\Windows Host Utilities`.
+include::_include/windows/windows-install-chunk-a.adoc[]
 
 |===
 |Program |Purpose
@@ -49,7 +45,7 @@ The following programs and files are installed on the Windows host computer. The
 
 The Host Utilities support different Windows host configurations, protocols, and multipathing options. See the https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported configurations.
 
-== Verify your host and storage system configurations
+== Step 1: Verify your host and storage system configurations
 
 Verify that your host and storage system configuration are supported before you install Windows Host Utilities for the <<supported-windows-versions-71,supported Windows version>>.
 
@@ -64,13 +60,13 @@ The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Use Wi
 . Add the iSCSI or FCP license and start the target service.
 +
 [NOTE]
-The FC and iSCSI protocols do not require licenses on E-Series storage systems using the SANtricity Storage Manager.
+The FC and iSCSI protocols don't require licenses on E-Series storage systems using the SANtricity Storage Manager.
 
 . Verify your cabling
 +
 See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for your version of ONTAP or https://docs.netapp.com/us-en/e-series/install-hw-cabling/index.html[E-Series hardware cabling^] for detailed cabling and configuration information.
 
-== Configure FC HBAs and switches
+== Step 2: Configure FC HBAs and switches
 
 Install and configure one or more supported FC host bus adapters (HBAs) for FC connections to a storage system.
 
@@ -87,22 +83,7 @@ Do not change the HBA settings manually.
 . Create zones on the FC switch according to your FC switch documentation.
 . For ONTAP, zone the switch by worldwide port name (WWPN). Be sure to use the WWPN of the LIFs and not of the physical ports on the storage controllers. See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for more information.
 
-== Install the Host Utilities
-The installation program installs the Host Utilities package and sets the Windows registry and HBA settings.
-
-You must specify whether to include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following choice. You can also run a quiet (unattended) installation from a Windows command prompt.
-
-.Multipathing support
-
-* Choose `MPIO` if you have more than one path from the Windows host or virtual machine to the storage system.
-* Choose `no MPIO` only if you are using a single path to the storage system.
-
-The Microsoft Multipath I/O (MPIO) selection is not available for Windows XP and Windows Vista systems; multipath I/O is not supported on these guest operating systems.
-For Hyper-V guests, raw (pass-through) disks do not appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you cannot use both in the guest OS.
-
-
-
-You can install the Host Utilities interactively or using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line.
+include::_include/windows/windows-install-host-utilities.adoc[]
 
 [role="tabbed-block"]
 ====
@@ -137,5 +118,7 @@ You can perform a quiet (unattended) installation of the Host Utilities by enter
 To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at a Windows command prompt. For example, the`msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.
 --
 ====
+
+include::_include/windows/windows-install-whats-next.adoc[]
 
 // 2025 ARR 28, ontap-sanhost-issue-218
