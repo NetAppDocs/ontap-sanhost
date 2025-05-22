@@ -20,7 +20,14 @@ For specific information about the operating system versions and updates that th
 == What's New in Linux Host Utilities 8.0
 The Linux Host Utilities 8.0 release contains the following new features and enhancements
 
+Linux Host Utilities 8.0 includes support for 64 bit speed QLogic and Emulex FC host bus adapter (HBA) adapters is offered with this release. 
 
+The following operating systems are now supported:
+
+* Red Hat Enterprise Linux (RHEL) 9 and 8 series
+* SuSE Linux Enterprise Server 
+* Oracle Linux 9 and 8 series
+* Ubuntu
 
 == What's New in Linux Host Utilities 7.1
 The Linux Host Utilities 7.1 release contains the following new features and enhancements:
@@ -30,10 +37,10 @@ The Linux Host Utilities 7.1 release contains the following new features and enh
 * The following operating systems are now supported:
 **	SUSE Linux Enterprise Server 15 series
 **	Oracle VM 3.2 series
-**	Oracle Linux 6 and 7 series
-**	Red Hat Enterprise Linux (RHEL) 6 and 7 series
+**	Oracle Linux 7 and 6 series
+**	RHEL 7 and 6 series
 **	SUSE Linux Enterprise Server 11 SP4
-**	KVM and XEN, RHEV 6.4 and 6.5
+**	KVM and XEN, RHEV 6.5 and 6.4
 **	Citrix XenServer 
 
 * On RHEL 6 and 7 hosts, a tuned package for setting server profiles is now supported. You can use the `tuned-adm` command to set different profiles, depending on the environment. For example, you can use the virtual guest profile as a guest virtual machine and the enterprise storage profile for configurations when LUNs from enterprise storage arrays are used. Using these tuned packages can result in improvement in throughput and latency in ONTAP.
@@ -66,7 +73,7 @@ The Linux Host Utilities have the following known issues.
 |1457017
 | 7.1
 |`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit. 
-| When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be 
+| When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter HBA discovery cannot be 
 located:
 
 `[root@hostname ~]# sanlun fcp show adapter -v

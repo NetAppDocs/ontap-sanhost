@@ -33,7 +33,9 @@ NOTE: The Linux Host Utilities software doesn't support NVMe over Fibre Channel 
 * For reliable operation, use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your iSCSI, FC, or FCoE configuration is supported.
 * Install the host bus adapter (HBA) management packages available on the vendor support site.
 +
-The management software enables the `sanlun` commands to gather information about the FC HBAs, such as their WWPNs. For the `sanlun fcp show adapter` command to work, verify that the following packages are correctly installed:
+The management software enables the `sanlun` commands to gather information about the FC HBAs, such as their WWPNs. 
+
+* Verify that the following packages are correctly installed. These packages are required to support the `sanlun fcp show adapter` command:
 +
 ** Marvell QLogic HBA – QConvergeConsole CLI
 ** Broadcom Emulex HBA - OneCommand Manager core application CLI
@@ -44,7 +46,7 @@ The management software enables the `sanlun` commands to gather information abou
 +
 [source, cli]
 ----
-rpm -e netapp_linux_unified_host_utilities-7-1
+rpm -e netapp_linux_unified_host_utilities-8-0
 ----
 +
 For earlier versions of Linux Host Utilities, go to the directory where the host utility software is installed and enter the uninstall command to remove the installed package.
@@ -55,14 +57,16 @@ For earlier versions of Linux Host Utilities, go to the directory where the host
 +
 [source, cli]
 ----
-rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_xx.rpm
+rpm -ivh netapp_linux_unified_host_utilities-8-0.x86_xx.rpm
 ----
 +
 ----
-Verifying...                          ################################# [100%]
-Preparing...                          ################################# [100%]
+rpm -ivh netapp_linux_unified_host_utilities-8-0.x86_64.rpm
+Verifying...                          ################################# [100%]
+Preparing...                          ################################# [100%]
 Updating / installing...
-   1:netapp_linux_unified_host_utiliti################################# [100%]
+   1:netapp_linux_unified_host_utiliti################################# [100%]
+
 ----
 +
 [NOTE]
@@ -82,7 +86,7 @@ sanlun version
 ----
 +
 ----
-sanlun version 7.1.386.1644
+sanlun version 8.0.386.1644
 ----
 
 include::_include/hu/linux-install-hu-whats-next.adoc[]
