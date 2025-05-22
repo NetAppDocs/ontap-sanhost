@@ -3,14 +3,16 @@
 The installation program installs the Windows Host Utilities package and sets the Windows registry and HBA settings.
 
 .About this task
-You must specify whether to include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following options. You can also run a quiet (unattended) installation from a Windows command prompt.
+You must specify whether to include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following options:
 
 * Choose `MPIO` if you have more than one path from the Windows host or virtual machine to the storage system. 
 * Choose `no MPIO` only if you are using a single path to the storage system.
 
+You can also choose multipathing support using a Windows command line prompt.
+
 The Microsoft Multipath I/O (MPIO) selection isn't available for Windows XP and Windows Vista systems; multipath I/O isn't supported on these guest operating systems.
 
-For Hyper-V guests, raw (pass-through) disks don't appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you cannot use both in the guest OS.
+For Hyper-V guests, raw (pass-through) disks don't appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you can't use both in the guest OS.
 
 .Steps
 
