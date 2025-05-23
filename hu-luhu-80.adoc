@@ -75,7 +75,7 @@ If you are using an Ubuntu host OS, you need to manually link to the HBA library
 
 [source, cli]
 ----
-cp /opt/QLogic_Corporation/QConvergeConsoleCLI/lib64/libHBAAPI.so.2.0.2 /usr/lib64/libHBAAPI.so`
+cp /opt/QLogic_Corporation/QConvergeConsoleCLI/lib64/libHBAAPI.so.2.0.2 /usr/lib64/libHBAAPI.so
 ----
 ====
 . Verify the installation:
