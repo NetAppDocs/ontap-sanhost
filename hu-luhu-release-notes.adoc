@@ -20,12 +20,12 @@ For specific information about the operating system versions and updates that th
 == What's New in Linux Host Utilities 8.0
 The Linux Host Utilities 8.0 release contains the following new features and enhancements
 
-Linux Host Utilities 8.0 includes support for 64 bit speed QLogic and Emulex FC host bus adapter (HBA) adapters is offered with this release. 
+Linux Host Utilities 8.0 includes support for 64-bit speed QLogic and Emulex FC host bus adapter (HBA) adapters. 
 
 The following operating systems are now supported:
 
 * Red Hat Enterprise Linux (RHEL) 9 and 8 series
-* SuSE Linux Enterprise Server 
+* SUSE Linux Enterprise Server 
 * Oracle Linux 9 and 8 series
 * Ubuntu
 
@@ -35,13 +35,14 @@ The Linux Host Utilities 7.1 release contains the following new features and enh
 * Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series storage systems running SANtricity as well as AFF, FAS, and ASA systems running ONTAP.
 
 * The following operating systems are now supported:
-**	SUSE Linux Enterprise Server 15 series
+
+**	Citrix XenServer
+**	KVM and XEN, RHEV 6.5 and 6.4
 **	Oracle VM 3.2 series
 **	Oracle Linux 7 and 6 series
 **	RHEL 7 and 6 series
+**	SUSE Linux Enterprise Server 15 series
 **	SUSE Linux Enterprise Server 11 SP4
-**	KVM and XEN, RHEV 6.5 and 6.4
-**	Citrix XenServer 
 
 * On RHEL 6 and 7 hosts, a tuned package for setting server profiles is now supported. You can use the `tuned-adm` command to set different profiles, depending on the environment. For example, you can use the virtual guest profile as a guest virtual machine and the enterprise storage profile for configurations when LUNs from enterprise storage arrays are used. Using these tuned packages can result in improvement in throughput and latency in ONTAP.
 
