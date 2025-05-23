@@ -19,9 +19,9 @@ For specific information about the operating system versions and updates that th
 
 == What's new in Windows Host Utilities 8.0
 
-Windows Host Utilities 8.0 includes parameter settings for the NVMe/FC driver that enhance the driver performance.
+Windows Host Utilities 8.0 include additional parameter settings for NVMe/FC drivers. These parameters are automatically loaded when you install the Windows Host Utilities 8.0. 
 
-<Add update that license is required for FC and iSCSI protocols on E-Series storage systems using the SANtricity Storage Manager?>
+If the systems in your ONTAP storage configuration use the SANtricity Storage Manager, you require a license for the FC and iSCSI protocols. 
 
 == What's new in Windows Host Utilities 7.2
 

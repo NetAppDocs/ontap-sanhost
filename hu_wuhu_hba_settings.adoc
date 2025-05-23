@@ -57,12 +57,12 @@ HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
 |120
-|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
 |HKLM\SYSTEM\CurrentControlSet
 \Services\msdsm\Parameters
 \DsmMaximumStateTransitionTime
 |120
-|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2  (Windows Host Utilities 7.2 only)
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPP LUN", "NETAPP LUN C-
@@ -103,7 +103,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
 |30
-|When your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|When your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2  (Windows Host Utilities 7.2 only)
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathVerifyEnabled
 |1
@@ -111,7 +111,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |1
-|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\PathVerifyEnabled
 |0
@@ -123,7 +123,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\PDORemovePeriod
 |130
@@ -135,7 +135,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryInterval
 |1
@@ -143,7 +143,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\RetryInterval
 |1
@@ -155,7 +155,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
-|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
 |===
 --
 

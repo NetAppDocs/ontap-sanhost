@@ -25,6 +25,8 @@ The Windows Host Utilities support the following versions of Windows:
 * Windows 2012R2
 * Windows 2012
 
+Windows Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for ONTAP and E-Series platforms.
+
 include::_include/windows/windows-install-chunk-a.adoc[]
 
 |===
@@ -66,7 +68,7 @@ The FC and iSCSI protocols do not require licenses on E-Series storage systems u
 +
 See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation or https://docs.netapp.com/us-en/e-series/install-hw-cabling/index.html[E-Series hardware cabling^] for detailed cabling and configuration information.
 
-== Configure FC HBAs and switches
+== Step 2: Configure FC HBAs and switches
 
 Install and configure one or more supported FC host bus adapters (HBAs) for FC connections to the storage system.
 
