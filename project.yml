@@ -404,9 +404,11 @@ sidebar:
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
-        - title: OL 9
+        - title: Oracle Linux 9
           pdf-filename: NVMeF OL
           entries:
+          - title: "9.5"
+            url: /nvme-ol-95.html
           - title: "9.4"
             url: /nvme_ol_94.html
           - title: "9.3"
@@ -417,7 +419,7 @@ sidebar:
             url: /nvme_ol_91.html
           - title: "9.0"
             url: /nvme_ol_90.html
-        - title: OL 8
+        - title: Oracle Linux 8
           pdf-filename: NVMeF OL
           entries:
           - title: "8.10"
@@ -440,7 +442,7 @@ sidebar:
             url: /nvme_ol_82.html
           - title: "8.1"
             url: /nvme_ol_81.html
-        - title: OL 7
+        - title: Oracle Linux 7
           entries:
           - title: "7.9"
             url: /nvme_ol_79.html
