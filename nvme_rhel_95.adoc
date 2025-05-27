@@ -4,7 +4,6 @@ permalink: nvme_rhel_95.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 ---
-
 = NVMe-oF host configuration for RHEL 9.5 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -491,6 +490,7 @@ subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem.nv
 traddr:  192.168.1.24
 eflags:  none
 sectype: none
+----
 =====
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
@@ -500,7 +500,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
-[%collapsible%]
+[%collapsible]
 =====
 [subs=+quotes]
 ----
@@ -508,6 +508,7 @@ nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.24 
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.25 
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.25
+----
 =====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
@@ -517,7 +518,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
-[%collapsible%]
+[%collapsible]
 =====
 [subs=+quotes]
 ----
@@ -525,6 +526,7 @@ nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.24
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.24
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.25
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25					
+----
 =====
 
 [NOTE]
@@ -606,6 +608,7 @@ iopolicy=round-robin\
 +- nvme10 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2087d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live non-optimized*
 +- nvme3 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2083d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live optimized*
 ----
+====
 --
 .NVMe/TCP
 --
@@ -659,6 +662,7 @@ NSID       UUID                                   Size
 ------------------------------------------------------------
 1    5f7f630d-8ea5-407f-a490-484b95b15dd6   21.47GB                              
 ----
+====
 --
 .JSON
 --
