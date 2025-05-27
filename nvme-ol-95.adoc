@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: nvme-ol-95.html
 keywords: nvme, oracle linux, 9.5, host configuration
-summary: NVMe-oF Host Configuration for Oracle Linux 9.4 with ONTAP
+summary: NVMe-oF Host Configuration for Oracle Linux 9.5 with ONTAP
 ---
 = Configure Oracle Linux 9.5 with NVMe-oF for ONTAP storage 
 :hardbreaks:
@@ -17,7 +17,7 @@ include::_include/nvme/reuse-nvme-introduction.adoc[]
 
 .About this task
 
-The following support and features are available with the NVMe-oF host configuration for Oracle Linux 9.4 with ONTAP storage.
+The following support and features are available with the NVMe-oF host configuration for Oracle Linux 9.5 with ONTAP storage.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
@@ -26,10 +26,28 @@ The following support and features are available with the NVMe-oF host configura
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 * Features available:
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with Oracle Linux 9.4
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with Oracle Linux 9.5
 ** Support for in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
  
-== Step 1: Validate software versions
+== Step 1: Optionally, enable SAN booting
+
+You can configure your host to use SAN booting to simplify deployment and improve scalability.
+
+.Before you begin
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.Steps
+
+. Create a SAN boot namespace and map it to the host.
++
+See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+
+== Step 2: Validate software versions
 
 You can use the following procedure to validate the minimum supported Oracle Linux 9.5 software versions.
 
@@ -65,7 +83,7 @@ rpm -qa|grep libnvme
 libnvme-1.9-3.el9.x86_64
 ----
 
-.	On the Oracle Linux 9.4 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+.	On the Oracle Linux 9.5 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 ----
 cat /etc/nvme/hostnqn
@@ -104,7 +122,7 @@ vs_coexistence_LPE36002
 [NOTE]
 If the `hostnqn` strings don't match, you can use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
-== Step 2: Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 
 Cconfigure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 
@@ -246,11 +264,11 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 --
 ====
 
-== Step 3: Optionally, enable 1MB I/O for NVMe/FC
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
-== Step 4: Verify your NVMe configuration
+== Step 5: Verify your NVMe configuration
 
 include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
@@ -389,13 +407,13 @@ nvme	connect-all	-t	tcp	-w	192.168.166.4	-a	192.168.166.9
 The default setting for the NVMe/TCP `ctrl_loss_tmo timeout` is turned off and there are no limits on the number of retries (indefinite retry). Consequestnly, you don't have to manually configure a specific `ctrl_loss_tmo timeout` duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 
-== Step 5: Verify the multipathing configuration
+== Step 6: Verify the multipathing configuration
 
 include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
 .Steps
 
-. Verify the following NVMe/FC settings on the Oracle Liniux 9.4 host:
+. Verify the following NVMe/FC settings on the Oracle Liniux 9.5 host:
 
 .. `cat /sys/module/nvme_core/parameters/multipath`
 +
@@ -541,13 +559,11 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 6: Optionally, enable SAN booting
 
-include::_include/nvme/linux-enable-san-boot.adoc[]
 
 == Step 7: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between an Oracle Linux 9.5 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between an Oracle Linux 9.5 host and an ONTAP controller.
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
