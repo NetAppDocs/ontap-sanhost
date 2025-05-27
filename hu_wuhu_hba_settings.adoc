@@ -30,12 +30,12 @@ The installer sets different values depending on whether you specify Microsoft M
 
 [NOTE]
 ====
-You need to change the LimTransferSize parameter value after installing Windows Host Utilities 8.0 or 7.2, see <<nvme_parameters, NVMe parameters>>.
+You need to change the LimTransferSize parameter value after installing Windows Host Utilities 8.0 or 7.2.
 
 For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, or 7.1, you don't need to change the values unless technical support tells you to do so.
 ====
 
-== Registry values set by Windows Host Utilities 8.0 or 7.2
+== Registry values set by Windows Host Utilities 8.0
 
 The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You should be aware of these values and the operating system version. 
 
@@ -57,12 +57,12 @@ HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
 |120
-|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
 |HKLM\SYSTEM\CurrentControlSet
 \Services\msdsm\Parameters
 \DsmMaximumStateTransitionTime
 |120
-|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2  (Windows Host Utilities 7.2 only)
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPP LUN", "NETAPP LUN C-
@@ -103,7 +103,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
 |30
-|When your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2  (Windows Host Utilities 7.2 only)
+|When your server is Windows Server 2025, 2022, 2019, or 2016
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathVerifyEnabled
 |1
@@ -111,7 +111,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters\PathVerifyEnabled
 |1
-|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\PathVerifyEnabled
 |0
@@ -123,7 +123,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\PDORemovePeriod
 |130
-|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, or 2016
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\PDORemovePeriod
 |130
@@ -135,7 +135,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryCount
 |6
-|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryInterval
 |1
@@ -143,7 +143,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\msdsm
 \Parameters\RetryInterval
 |1
-|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, or 2016
 |HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
 \Parameters\RetryInterval
 |1
@@ -155,7 +155,7 @@ Mode",
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
-|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2 (Windows Host Utilities 7.2 only)
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, or 2016
 |===
 --
 
@@ -163,13 +163,151 @@ Mode",
 .NVMe parameters
 --
 
-The following NVMe Emulex driver parameters are updated when installing Windows Host Utilities 8.0 or 7.2:
+The following NVMe Emulex driver parameters are updated when installing Windows Host Utilities 8.0:
 
 * EnableNVMe = 1
 * NVMEMode = 0
 * LimTransferSize=1
 +
-The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 8.0 or 7.2. After installation, you need to manually change the LimTransferSize value to "0" and reboot the server.
+The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 8.0. After installation, you need to manually change the LimTransferSize value to "0" and reboot the server.
+--
+====
+
+== Registry values set by Windows Host Utilities 7.2
+
+The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You should be aware of these values and the operating system version. 
+
+[[nvme_parameters]]
+
+[role="tabbed-block"]
+====
+.HKLM values
+--
+The following registry values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated.
+[NOTE]
+HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
+
+[cols=3*,options="header", cols="20,20,30"]
+|===
+|Registry key |Value |When set
+
+|HKLM\SYSTEM\CurrentControlSet\Services
+\msdsm\Parameters
+\DsmMaximumRetryTimeDuringStateTransition
+|120
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|HKLM\SYSTEM\CurrentControlSet
+\Services\msdsm\Parameters
+\DsmMaximumStateTransitionTime
+|120
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|HKLM\SYSTEM\CurrentControlSet\Services
+\msdsm\Parameters\DsmSupportedDeviceList
+|"NETAPP LUN", "NETAPP LUN C-
+Mode"
+"NVMe NetApp ONTAO Con"
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \IPSecConfigTimeout
+|60
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \LinkDownTime
+|10
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Services
+\ClusDisk \Parameters\ManageDisksOnSystemBuses
+|1
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \MaxRequestHoldTime
+|120
+|When no MPIO support is selected
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \MaxRequestHoldTime
+|30
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Control
+\MPDEV\MPIOSupportedDeviceList
+|"NETAPP LUN",
+"NETAPP LUN C-
+Mode",
+"NVMe NetApp ONTAO Con"
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\PathRecoveryInterval
+|30
+|When your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\PathVerifyEnabled
+|1
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services
+\msdsm\Parameters\PathVerifyEnabled
+|1
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|HKLM\SYSTEM\CurrentControlSet\Services
+\vnetapp\Parameters\PathVerifyEnabled
+|0
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services
+\mpio\Parameters\PDORemovePeriod
+|130
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
+\Parameters\PDORemovePeriod
+|130
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
+\Parameters\PDORemovePeriod
+|130
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\RetryCount
+|6
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
+\Parameters\RetryCount
+|6
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\RetryInterval
+|1
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
+\Parameters\RetryInterval
+|1
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
+\Parameters\RetryInterval
+|1
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services
+\disk\TimeOutValue
+|120
+|When no MPIO support is selected
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\UseCustomPathRecoveryInterval
+|1
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|===
+--
+
+
+.NVMe parameters
+--
+
+The following NVMe Emulex driver parameters are updated when installing Windows Host Utilities 7.2:
+
+* EnableNVMe = 1
+* NVMEMode = 0
+* LimTransferSize=1
++
+The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 7.2. After installation, you need to manually change the LimTransferSize value to "0" and reboot the server.
 --
 ====
 

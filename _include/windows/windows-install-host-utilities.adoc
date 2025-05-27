@@ -3,7 +3,7 @@
 The installation program installs the Windows Host Utilities package and sets the Windows registry and HBA settings.
 
 .About this task
-You must specify whether to include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following options:
+Optionally, you can include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following options:
 
 * Choose `MPIO` if you have more than one path from the Windows host or virtual machine to the storage system. 
 * Choose `no MPIO` only if you are using a single path to the storage system.

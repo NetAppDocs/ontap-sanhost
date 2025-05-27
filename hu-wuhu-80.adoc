@@ -47,11 +47,9 @@ Verify that your host and storage system configuration are supported before you 
 .Steps
 
 . Check the supported configuration in the http://mysupport.netapp.com/matrix[Interoperability Matrix Tool^].
-. Check the hotfixes required for the respective host in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
+. Check the hotfixes required for your Windows Server version in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
-[NOTE]
-The link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Use Windows server 2022 with ONTAP] document provides instructions on link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#installing-windows-hotfixes[installing Windows hotfixes] for Windows server 2022. Refer to the  Windows documents in the host configurations category to find the relevant hotfix information for earlier versions of Windows server.
-
+For example, the link:https://review.docs.netapp.com/us-en/ontap-sanhost_pc-fcp-iscsi-improve-ol-7may2025/hu-windows-2025.html[Configure Windows Server 2025 for ONTAP storage] documentation provides instructions on installing Windows hotfixes for Windows Server 2025.
 . Add the iSCSI, FCP, or NVMe-oF license and start the target service.
 
 . Verify your cabling.
@@ -65,7 +63,7 @@ Install and configure one or more supported FC host bus adapters (HBAs) for FC c
 The Windows Host Utilities installer sets the required FC HBA settings.
 
 [CAUTION]
-Don't change the HBA settings manually.
+You should only allow the Windows Host Utilities installer to set the HBA parameters. This ensures that the Windows host can correctly handle the storage system behaviors for ONTAP platforms. 
 
 .Steps
 
