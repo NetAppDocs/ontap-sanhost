@@ -13,16 +13,16 @@ summary: Release Notes for Linux Host Utilities
 :imagesdir: ./media/
 
 [.lead]
-The release notes describe new features and enhancements, known issues and limitations, and important cautions for configuring and managing your specific host with your ONTAP storage system.
+The release notes describe new features, enhancements, known issues, limitations, and important cautions for configuring and managing your specific host with your ONTAP storage system.
 
 For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
 
 == What's New in Linux Host Utilities 8.0
 The Linux Host Utilities 8.0 release contains the following new features and enhancements
 
-Linux Host Utilities 8.0 includes support for 64-bit speed QLogic and Emulex FC host bus adapter (HBA) adapters. 
+Linux Host Utilities 8.0 includes support for 64-bit speed QLogic and Emulex FC host bus adapters (HBA). 
 
-The following operating systems are now supported:
+The following operating systems are supported:
 
 * Red Hat Enterprise Linux (RHEL) 9 and 8 series
 * SUSE Linux Enterprise Server 
@@ -34,7 +34,7 @@ The Linux Host Utilities 7.1 release contains the following new features and enh
 
 * Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series storage systems running SANtricity as well as AFF, FAS, and ASA systems running ONTAP.
 
-* The following operating systems are now supported:
+* The following operating systems are supported:
 
 **	Citrix XenServer
 **	KVM and XEN, RHEV 6.5 and 6.4
@@ -60,7 +60,7 @@ The following issues have been fixed in Linux Host Utilities.
 | Fixed in version |Description 
 
 | 7.1
-| The intermittent host OS failure issue that occurs when running the `sanlun lun show -p` command in SUSE Linux Enterprise Server 12 SP1, OL 7.2, RHEL 7.2, and RHEL 6.8.
+| The intermittent host OS failure issue that occurs when running the `sanlun lun show -p` command in SUSE Linux Enterprise Server 12 SP1, Oracle Linux 7.2, RHEL 7.2, and RHEL 6.8.
 
 |=== 
 
