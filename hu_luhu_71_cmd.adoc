@@ -4,7 +4,7 @@ permalink: hu_luhu_71_cmd.html
 keywords: host utilities, unified, oracle, linux, 7.1, netapp, ontap
 summary: Describes how to use the Linux Host Utilities 7.1 with ONTAP
 ---
-= Linux Host Utilities 7.1 command reference 
+= Use Linux Host Utilities commands to verify ONTAP storage configuration 
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,7 +13,7 @@ summary: Describes how to use the Linux Host Utilities 7.1 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the Linux Host Utilities 7.1 sample command reference for an end-to-end validation of the NetApp storage configuration using the Host Utilities tool.
+You can use the Linux Host Utilities sample command reference for an end-to-end validation of the NetApp storage configuration using the Host Utilities tool.
 
 == List all host initiators mapped to host
 
@@ -21,10 +21,12 @@ You can retrieve a list of all host initiators mapped to a host.
 
 [source,cli]
 ----
-# sanlun fcp show adapter -v
+sanlun fcp show adapter -v
 ----
 
-*Example output*
+.Show example
+[%collapsible]
+====
 ----
 adapter name:      host15
 WWPN:              10000090fa022736
@@ -60,15 +62,19 @@ supported speed:   4 GBit/sec, 8 GBit/sec, 16 GBit/sec
 negotiated speed:  16 GBit/sec
 OS device name:    /sys/class/scsi_host/host16
 ----
+====
 
 == List all LUNs mapped to host
 You can retrieve a list of all LUNs mapped to a host.
 
 [source,cli]
 ----
-# sanlun lun show -p -v all
+sanlun lun show -p -v all
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 
                     ONTAP Path: vs_sanboot:/vol/sanboot_169/lun
@@ -94,6 +100,7 @@ active      up        secondary  sdr    15:0:6:0     lif_19      65:16
 active      up        secondary  sdad   16:0:4:0     lif_27      66:96
 active      up        secondary  sdan   16:0:6:0     lif_28      66:112
 ----
+====
 
 == List all LUNs mapped to host from a given SVM
 
@@ -101,9 +108,12 @@ You can retrieve a list of all LUNs mapped to a host from a specific storage VM 
 
 [source,cli]
 ----
-# sanlun lun show -p -v vs_sanboot
+sanlun lun show -p -v vs_sanboot
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 
                     ONTAP Path: vs_sanboot:/vol/sanboot_169/lun
@@ -129,15 +139,19 @@ active      up        secondary  sdcf    15:0:6:0     lif_16g_2       69:48
 active      up        secondary  sdfj    16:0:4:0     lif_16g_3       130:80
 active      up        secondary  sdfl    16:0:6:0     lif_16g_4       130:112
 ----
+====
 
 == List all attributes of a given LUN mapped to host
 You can retrieve a list of all attributes of a specified LUN mapped to a host.
 
 [source,cli]
 ----
-# sanlun lun show -p -v vs_sanboot:/vol/sanboot_169/lun
+sanlun lun show -p -v vs_sanboot:/vol/sanboot_169/lun
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 
                     ONTAP Path: vs_sanboot:/vol/sanboot_169/lun
@@ -163,15 +177,19 @@ active      up        secondary  sdcf    15:0:6:0     lif_16g_2         69:48
 active      up        secondary  sdfj    16:0:4:0     lif_16g_3         130:80
 active      up        secondary  sdfl    16:0:6:0     lif_16g_4         130:112
 ----
+====
 
 == List the ONTAP SVM identity from which a given LUN is mapped to host
 You can retrieve a list of ONTAP SVM identity from which a specific LUN is mapped to a hist.
 
 [source,cli]
 ----
-# sanlun lun show -m -v vs_sanboot:/vol/sanboot_169/lun
+sanlun lun show -m -v vs_sanboot:/vol/sanboot_169/lun
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
                                                              device          host                  lun
 vserver                       lun-pathname                   filename        adapter    protocol   size    product
@@ -188,15 +206,19 @@ vs_sanboot                    /vol/sanboot_169/lun           /dev/sdfm       hos
            Vserver volume name: sanboot_169     MSID::0x000000000000000000000000809E7CC3
          Vserver snapshot name:
 ----
+====
 
 == List ONTAP LUN attributes by host device filename
 You can retrieve a list of ONTAP LUN attributes by a host device filename.
 
 [source,cli]
 ----
-# sanlun lun show -d /dev/sdce
+sanlun lun show -d /dev/sdce
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 controller(7mode/E-Series)/                          device        host                lun
 vserver(cDOT/FlashRay)      lun-pathname           filename      adapter    protocol   size    product
@@ -204,15 +226,19 @@ vserver(cDOT/FlashRay)      lun-pathname           filename      adapter    prot
 vs_sanboot                 /vol/sanboot_169/lun    /dev/sdce     host15     FCP        160g    cDOT
 [root@sr630-13-169 ~]#
 ----
+====
 
 == List all SVM target LIF WWPNs attached to host
 You can retrieve a list of all SVM target LIF WWPNs attached to a host.
 
 [source,cli]
 ----
-# sanlun lun show -wwpn
+sanlun lun show -wwpn
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 controller(7mode/E-Series)/   target                                            device          host       lun
 vserver(cDOT/FlashRay)        wwpn               lun-pathname                   filename        adapter    size    product
@@ -222,20 +248,24 @@ vs_169_16gEmu                 202cd039ea1308e5   /vol/VOL_8g_169_2_9/lun        
 vs_169_16gEmu                 202cd039ea1308e5   /vol/VOL_8g_169_2_7/lun        /dev/sdln       host18     10g     cDOT
 vs_169_16gEmu                 202cd039ea1308e5   /vol/VOL_8g_169_2_5/lun        /dev/sdll       host18     10g     cDOT
 ----
+====
 
 == List ONTAP LUNs seen on host by a given SVM target LIF WWPN
 You can retrieve a list of ONTAP LUNs noticed on a host by a specified SVM target LIF WWPN.
 
 [source,cli]
 ----
-# sanlun lun show -wwpn 2010d039ea1308e5
+sanlun lun show -wwpn 2010d039ea1308e5
 ----
-*Example output*
+
+.Show example
+[%collapsible]
+====
 ----
 controller(7mode/E-Series)/   target                                     device         host       lun
 vserver(cDOT/FlashRay)        wwpn               lun-pathname            filename       adapter    size    product
 ---------------------------------------------------------------------------------------------------------------
 vs_sanboot                    2010d039ea1308e5   /vol/sanboot_169/lun    /dev/sdfm      host16     160g    cDOT
 ----
-
+====
 
