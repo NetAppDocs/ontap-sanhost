@@ -50,7 +50,9 @@ Verify that your host and storage system configuration are supported before you 
 . Check the hotfixes required for your Windows Server host version in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
 For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu-windows-2025.html[Configure Windows Server 2025 for ONTAP storage] documentation provides the instructions for installing Windows hotfixes for Windows Server 2025.
-. Add the iSCSI, FCP, or NVMe-oF license and start the target service.
+. link:https://docs.netapp.com/us-en/ontap/san-admin/verify-license-fc-iscsi-task.html[Add the iSCSI or FCP license^].
+
+. Start the target service.
 
 . Verify your cabling.
 +

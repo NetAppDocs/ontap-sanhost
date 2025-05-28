@@ -58,11 +58,11 @@ Verify that your host and storage system configuration are supported before you 
 +
 For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Configure Windows Server 2022 for ONTAP storage] documentation provides the instructions for installing Windows hotfixes for Windows server 2022.
 
-. Add the iSCSI, FCP, or NVMe-oF license and start the target service.
+. link:https://docs.netapp.com/us-en/ontap/san-admin/verify-license-fc-iscsi-task.html[Add the iSCSI or FCP license^].
 +
 [NOTE]
-The FC and iSCSI protocols do not require licenses on E-Series storage systems using the SANtricity Storage Manager.
-
+The FC and iSCSI protocols don't require licenses on E-Series storage systems using the SANtricity Storage Manager.
+. Start the target service.
 . Verify your cabling.
 +
 See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation or https://docs.netapp.com/us-en/e-series/install-hw-cabling/index.html[E-Series hardware cabling^] for detailed cabling and configuration information.
