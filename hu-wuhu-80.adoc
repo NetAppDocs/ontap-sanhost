@@ -49,7 +49,7 @@ Verify that your host and storage system configuration are supported before you 
 . Check the supported configuration in the http://mysupport.netapp.com/matrix[Interoperability Matrix Tool^].
 . Check the hotfixes required for your Windows Server host version in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
-For example, the link:https://review.docs.netapp.com/us-en/ontap-sanhost_pc-fcp-iscsi-improve-ol-7may2025/hu-windows-2025.html[Configure Windows Server 2025 for ONTAP storage] documentation provides the instructions for installing Windows hotfixes for Windows Server 2025.
+For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu-windows-2025.html[Configure Windows Server 2025 for ONTAP storage] documentation provides the instructions for installing Windows hotfixes for Windows Server 2025.
 . Add the iSCSI, FCP, or NVMe-oF license and start the target service.
 
 . Verify your cabling.
@@ -95,7 +95,7 @@ NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't s
 
 .Steps
 
-You can install the Host Utilities interactively or by using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host.
+You can install the Host Utilities interactively or by using the command line. The new Host Utilities installation package must be in a path that is accessible to the Windows host.
 
 [role="tabbed-block"]
 ====
