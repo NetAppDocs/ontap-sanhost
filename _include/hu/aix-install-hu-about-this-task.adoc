@@ -1,5 +1,10 @@
 .About this task
 
-* You download the AIX Host Utilities from the NetApp Support site in a compressed `tar.gz` file.
 * You need to install the AIX Host Utilities SAN Toolkit with AIX MPIO to manage ONTAP storage attached to an AIX host.
 * When you install AIX Host Utilities, they don't change any settings on your AIX host. 
+
+.Before you begin
+
+* Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your AIX OS, protocol, and ONTAP version support SAN booting.
+
+* Enable dynamic tracking for all FC and FCoE initiators by running the `chdev -l <fscsi_device> -a dyntrk=ye` command on the AIX host.

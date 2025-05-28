@@ -18,18 +18,14 @@ include::_include/hu/aix-install-hu-introduction.adoc[]
 AIX Host Utilities 8.0 supports the following transport protocols and AIX environments.
 
 * FC, FCoE, and iSCSI 
-* AIX Multipath I/O (MPIO) (Native OS)
+* AIX Multipath I/O (MPIO)
 * PowerVM 
 +
 For information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
 
 include::_include/hu/aix-install-hu-about-this-task.adoc[]
 
-.Before you begin
 
-* Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your AIX OS, protocol, and ONTAP version support SAN booting.
-
-* Enable dynamic tracking for all FC and FCoE initiators.
 
 .Steps
 
