@@ -32,7 +32,7 @@ The installer sets different values depending on whether you specify Microsoft M
 ====
 You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2. See <<nvme_parameter,NVME parameters>>.
 
-For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, or 7.1, you don't need to change the values unless technical support tells you to do so.
+For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, or 7.1, you don't need to change the values unless technical support advises you to do so.
 ====
 
 == Registry values set by Windows Host Utilities 8.0
@@ -162,7 +162,7 @@ Mode",
 .NVMe parameters
 --
 
-The following NVMe Emulex driver parameters are updated when installing Windows Host Utilities 8.0:
+The following NVMe Emulex driver parameters are updated when you install Windows Host Utilities 8.0:
 
 * EnableNVMe = 1
 * NVMEMode = 0
