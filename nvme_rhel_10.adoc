@@ -25,13 +25,32 @@ You can use the following support and features with the NVMe-oF host configurati
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with RHEL 10.
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 10.
 ** RHEL 10 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 ** Support for SAN booting using the NVMe/FC protocol.
+** Beginnging with RHEL 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe over FC or RDMA is not supported.
 * Known limitations: 
 ** There are no known limitations.
 
-== Step 1: Validate software versions
+== Step 1: Optionally, enable SAN booting
+
+You can configure your host to use SAN booting to simplify deployment and improve scalability.
+
+.Before you begin
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.Steps
+
+. Create a SAN boot namespace and map it to the host.
++
+See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+
+== Step 2: Validate software versions
 
 You can use the following procedure to validate the minimum supported RHEL 10 software versions.
 
@@ -105,8 +124,7 @@ vs_ nvme_194_rhel10
 [NOTE]
 If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
-
-== Step 2: Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 
 You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
 
@@ -246,12 +264,12 @@ The expected ouptut is 1.
 --
 ====
 
-== Step 3: Optionally, enable 1MB I/O 
+== Step 4: Optionally, enable 1MB I/O 
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
-== Step 4: Configure NVMe/TCP
+== Step 5: Configure NVMe/TCP
 
 include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
@@ -398,22 +416,11 @@ nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21
 [NOTE]
 Beginning with RHEL 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
-
-== Step 5: Validate NVMe-oF
+== Step 6: Validate NVMe-oF
 
 include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
 .Steps
-
-. Verify that the in-kernel NVMe multipath is enabled:
-+
-----
-cat /sys/module/nvme_core/parameters/multipath
-----
-+
-----
-Y
-----
 
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
 
@@ -552,35 +559,9 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 6: Optionally, enable SAN booting
-
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot LUN and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Provision SAN storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-.	Verify that multiple paths are available.
-+
-Multiple paths become available after the host OS is up and running on the paths.
-
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
-
 == Step 7: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between a RHEL 10 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 10 host and an ONTAP controller.
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
