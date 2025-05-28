@@ -30,7 +30,7 @@ The installer sets different values depending on whether you specify Microsoft M
 
 [NOTE]
 ====
-You need to change the LimTransferSize parameter value after installing Windows Host Utilities 8.0 or 7.2.
+You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2. See <<nvme_parameter,NVME parameters>>.
 
 For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, or 7.1, you don't need to change the values unless technical support tells you to do so.
 ====
@@ -148,9 +148,8 @@ Mode",
 \Parameters\RetryInterval
 |1
 |When MPIO support is specified
-|HKLM\SYSTEM\CurrentControlSet\Services
-\disk\TimeOutValue
-|120
+1.2+|HKLM\SYSTEM\CurrentControlSet
+\Services\disk\TimeOutValue |120 |When no MPIO support is selected, except if Data ONTAP DSM is detected |60 |When MPIO support is specified, except if Data ONTAP DSM is detected
 |When no MPIO support is selected
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
@@ -167,9 +166,7 @@ The following NVMe Emulex driver parameters are updated when installing Windows 
 
 * EnableNVMe = 1
 * NVMEMode = 0
-* LimTransferSize=1
-+
-The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 8.0. After installation, you need to manually change the LimTransferSize value to "0" and reboot the server.
+
 --
 ====
 
@@ -177,10 +174,11 @@ The LimTransferSize parameter is automatically set to "1" when you install Windo
 
 The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You should be aware of these values and the operating system version. 
 
-[[nvme_parameters]]
+[[nvme_parameter]]
 
 [role="tabbed-block"]
 ====
+
 .HKLM values
 --
 The following registry values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated.
@@ -286,17 +284,14 @@ Mode",
 \Parameters\RetryInterval
 |1
 |When MPIO support is specified
-|HKLM\SYSTEM\CurrentControlSet\Services
-\disk\TimeOutValue
-|120
-|When no MPIO support is selected
+1.2+|HKLM\SYSTEM\CurrentControlSet
+\Services\disk\TimeOutValue |120 |When no MPIO support is selected, except if Data ONTAP DSM is detected |60 |When MPIO support is specified, except if Data ONTAP DSM is detected
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
 |When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |===
 --
-
 
 .NVMe parameters
 --

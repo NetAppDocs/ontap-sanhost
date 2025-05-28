@@ -6,13 +6,15 @@ The installation program installs the Windows Host Utilities package and sets th
 Optionally, you can include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following options:
 
 * Choose `MPIO` if you have more than one path from the Windows host or virtual machine to the storage system. 
-* Choose `no MPIO` only if you are using a single path to the storage system.
+* Choose `no MPIO` only if you're using a single path to the storage system.
 
 You can also choose multipathing support using a Windows command line prompt.
 
-The Microsoft Multipath I/O (MPIO) selection isn't available for Windows XP and Windows Vista systems; multipath I/O isn't supported on these guest operating systems.
-
 For Hyper-V guests, raw (pass-through) disks don't appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you can't use both in the guest OS.
+
+CAUTION: If you don't install the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
+
+NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
 
 .Steps
 

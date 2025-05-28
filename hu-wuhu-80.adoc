@@ -73,7 +73,29 @@ You should only allow the Windows Host Utilities installer to set the HBA parame
 . Create zones on the FC switch according to your FC switch documentation.
 . For ONTAP, zone the switch by the WWPN. Be sure to use the WWPN of the logical interfaces (LIFs) and not the WWPN of the physical ports on the storage controllers. See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for more information.
 
-include::_include/windows/windows-install-host-utilities.adoc[]
+== Step 3: Install the Windows Host Utilities
+
+The installation program installs the Windows Host Utilities package and sets the Windows registry and HBA settings.
+
+.About this task
+Optionally, you can include multipathing support when you install the Windows Host Utilities software package. The installer prompts you for the following options:
+
+* Choose `MPIO` if you have more than one path from the Windows host or virtual machine to the storage system. 
++
+The MPIO feature is enabled automatically when you select MPIO support.
+* Choose `no MPIO` only if you're using a single path to the storage system.
+
+You can also choose multipathing support using a Windows command line prompt.
+
+For Hyper-V guests, raw (pass-through) disks don't appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you can't use both in the guest OS.
+
+CAUTION: If you don't install the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
+
+NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
+
+.Steps
+
+You can install the Host Utilities interactively or by using the command line. The new Host Utilities installation package must be in a path that is accessible by the Windows host.
 
 [role="tabbed-block"]
 ====
