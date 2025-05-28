@@ -14,7 +14,7 @@ summary: Windows Host Utilities includes an installation program that sets the r
 :imagesdir: ./media/
 
 [.lead]
-Install new Windows Host Utilities installation software on a path that is accessible by the Windows host. You can upgrade Windows Host Utilities by following the installation instructions interactively or by using the Windows command line.
+You can upgrade Windows Host Utilities by following the installation instructions interactively or by using the Windows command line. You need to install the new Windows Host Utilities installation software on a path that is accessible by the Windows host. 
 
 [role="tabbed-block"]
 ====
@@ -35,8 +35,6 @@ To upgrade the Windows Host Utilities software interactively, run the Host Utili
 .Upgrade from a command line
 --
 You can perform a quiet (unattended) upgrade of the new Windows Host Utilities by entering the appropriate commands at the Windows command prompt.
-
-
 
 .Steps
 
