@@ -14,7 +14,9 @@ summary: Describes how to use the Solaris Host Utilities 8.0 with ONTAP
 
 [.lead]
 
-Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups. The following example output shows the ONTAP LUN information returned for the `sanlun lun show` command:
+Solaris Host Utilities is a NetApp host software that provides a command line toolkit on your Oracle Solaris host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups. 
+
+The following example output shows the ONTAP LUN information returned for the `sanlun lun show` command:
 
 .Show example output
 [%collapsible]
