@@ -25,10 +25,10 @@ You can use the following support and features with the NVMe-oF host configurati
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 10.
-** RHEL 10 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 ** Support for SAN booting using the NVMe/FC protocol.
-** Beginnging with RHEL 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe over FC or RDMA is not supported.
+** Beginning with RHEL 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe over FC or RDMA is not supported.
+** RHEL 10 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 10.
 * Known limitations: 
 ** There are no known limitations.
 
