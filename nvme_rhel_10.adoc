@@ -44,7 +44,7 @@ Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matri
 . Create a SAN boot namespace and map it to the host.
 +
 See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot namespace is mapped.
 +
 For information on how to enable the HBA BIOS, see your vendor-specific documentation.
 
@@ -63,7 +63,7 @@ uname -r
 ----
 +
 ----
-6.12.0-45.el10.x86_64
+6.12.0-55.9.1.el10_0.x86_64 
 ----
 
 . Install the `nvme-cli` package:
