@@ -1015,7 +1015,7 @@ NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD:
 ----
 vserver nvme subsystem host add -vserver sles15_tls -subsystem sles15 -host-nqn nqn.2014-08.org.nvmexpress:uuid:e58eca24-faff-11ea-8fee-3a68dd3b5c5f -tls-configured-psk NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD:
 ----
-. Insert the TLS PSK into the host kernel keyring:
+. On the SUSE Linux Enterprise Server host, insert the TLS PSK into the host kernel keyring:
 +
 ----
 nvme check-tls-key --identity=1 --subsysnqn =nqn.1992-08.com.netapp:sn.1d59a6b2416b11ef9ed5d039ea50acb3:subsystem.sles15 --keydata=NVMeTLSkey-1:01:dNcby017axByCko8GivzOO9zGlgHDXJCN6KLzvYoA+NpT1uD: --insert
