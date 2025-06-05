@@ -4,8 +4,7 @@ permalink: hu_hpux_11iv3.html
 keywords: host utilities, hp_ux, 11iv3, netapp, ontap
 summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTAP
 ---
-
-= Use HP-UX 11i v3 with ONTAP
+= Configure HP-UX 11i v3 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -16,59 +15,65 @@ summary: Describes how to use IBM AIX 7.2 and/or PowerVM VIOS 3.1 with with ONTA
 [.lead]
 You can use the ONTAP SAN host configuration settings to configure HP-UX 11i v3 with ONTAP as the target.
 
-== Install the HP-UX Host Utilities
+The HP-UX Host Utilities software provides management and diagnostic tools for HP-UX hosts that are connected to ONTAP storage. When you install the HP-UX Host Utilities on a HP-UX 11i v3 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
-You can download the compressed file containing the Host Utilities software packages from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.0/downloads[NetApp Support Site^]. After you have the file, you must uncompress it to get the software packages you need to install the Host Utilities.
+== Step 1: Optionally, enable SAN booting
+
+Configure your host to use SAN booting to simplify deployment and improve scalability. SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a HP-UX host. The Host Utilities support SAN booting with FC and FCoE protocols in HP-UX environments.
+
+.Before you begin
+Use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your HP-UX OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.Before you begin
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
 
 .Steps
 
-.	Download a copy of the compressed file containing the Host Utilities from the link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/6.0/downloads[NetApp Support Site^] to a directory on your host.
-
-.	 Go to the directory containing the download.
-
-. Uncompress the file.
+. Create a SAN boot LUN and map it to the host.
 +
-`gunzip netapp_hpux_host_utilities_6.0_ia_pa.depot.gz`
-
-. Enter the following command to install the software:
+See https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Provision SAN storage^].
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
 +
-`swinstall -s /netapp_hpux_host_utilities_6.0_ia_pa.depot NetApp_santoolkit`
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
 
-. Reboot the host.
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
 
 
-== SAN Toolkit
+== Step 2: Install the HP-UX Host Utilities
 
-include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
+NetApp strongly recommends installing the HP-UX Host Utilities to support ONTAP LUN management and assist technical support with gathering configuration data.
 
-.Example
+link:hu_hpux_60.html[Install HP-UX Host Utilities 6.0] 
 
-In the following example, the `sanlun lun show` command returns LUN information.
+== Step 3: Confirm the multipath configuration for your host
 
-----
-#sanlun lun show
+Use multipathing with HP-UX 11i v3 to manage ONTAP LUNs.
 
-controller(7mode)/                            device                         host     lun
-vserver(Cmode)    lun-pathname               filename                       adapter protocol  size  mode
---------------------------------------------------------------------------------
-sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c11t0d0 fcd0   FCP      150g   C
-sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c24t0d0 fcd1   FCP      150g   C
-sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c21t0d0 fcd1   FCP      150g   C
-sanboot_unix      /vol/hpux_215_boot_en_0/goot_hpux_215_lun /dev/rdsk/c12t0d0 fcd0   FCP      150g   C
-----
+Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. For a host to have multiple paths to a LUN, multipathing must be enabled. The HP-UX Host Utilities support different multipathing solutions based on your configuration. The following is for the Native Multipathing solution.
 
-== SAN Booting
+To ensure that multipathing is configured correctly for your host, verify that the /etc/multipath.conf file is defined and that you have the NetApp recommended settings configured for your ONTAP LUNs.
 
-.Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
 
-SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a HP-UX host. The Host Utilities support SAN booting with FC and FCoE protocols in HP-UX environments.
+. The following shows the recommended settings for HPUX 11i v3 and ONTAP LUNs. NetApp uses the default settings for HP-UX.
 
-== Multipathing
+.Show parameter settings
+[%collapsible]
+====
+[cols=2*, options="header"]
+|===
+| Parameter
+| Uses Default Value
+| transient_secs | 120
+| leg_mpath_enable | TRUE
+| max_q_depth  | 8
+| path_fail_secs | 120
+| load_bal_policy | Round_robin
+| lua_enabled  | TRUE
+| esd_secs | 30
+|===
+====
 
-Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. For a host to have multiple paths to a LUN, multipathing must be enabled.  The HP-UX Host Utilities support different multipathing solutions based on your configuration. The following is for the Native Multipathing solution.
-
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
+. include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
 
 ----
 # sanlun lun show -p vs39:/vol/vol24_3_0/lun24_0
@@ -114,26 +119,9 @@ up       primary    /dev/dsk/c10t0d2     fcd1    246_1d_hp
 up       primary    /dev/dsk/c8t0d2      fcd1    248_1d_hp
 ----
 
-== Recommended Settings
+== Step 4: Review the known issues
 
-Following are some recommended parameter settings for HPUX 11i v3 and NetApp ONTAP LUNs.  NetApp uses the default settings for HP-UX.
-
-[cols=2*, options="header"]
-|===
-| Parameter
-| Uses Default Value
-| transient_secs | 120
-| leg_mpath_enable | TRUE
-| max_q_depth  | 8
-| path_fail_secs | 120
-| load_bal_policy | Round_robin
-| lua_enabled  | TRUE
-| esd_secs | 30
-|===
-
-== Known issues
-
-The HP-UX 11i v3 with ONTAP release has the following known issues:
+The HP-UX 11i v3 with ONTAP storage release has the following known issues:
 
 [cols=4*, options="header"]
 |===
@@ -147,5 +135,9 @@ The HP-UX 11i v3 with ONTAP release has the following known issues:
 
 Refer HP-UX vendor documentation for details. | NA
 |===
+
+== What's next
+
+link:hu_hpux_60_cmd.html[Learn about using the HP-UX Host Utilities tool].
 
 // BURT 1451508, 2022-02-01

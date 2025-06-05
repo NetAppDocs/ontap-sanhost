@@ -1,0 +1,42 @@
+---
+sidebar: sidebar
+permalink: hu-hpux-sanlun-utility.html
+keywords: host utilities, unified, oracle, linux, 7.1, netapp, ontap
+summary: Describes how to use the HP-UX Host Utilities 6.0 with ONTAP storage
+---
+= Learn about the HP-UX "sanlun" utility for ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+HP-UX Host Utilities is a NetApp host software that provides a command line toolkit on your HP-UX host. The toolkit is installed when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage ONTAP LUNs and host bus adapters. The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups. 
+
+In the following example, the `sanlun lun show` command returns ONTAP LUN information.
+
+----
+# sanlun lun show all
+
+controller(7mode)/ device host lun
+vserver(Cmode)           lun-pathname                   filename          adapter    protocol   size   mode
+------------------------------------------------------------------------------------------------------------
+sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c34t0d0  fclp1      FCP        150g    C
+sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c23t0d0  fclp1      FCP        150g    C
+sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c12t0d0  fclp0      FCP        150g    C
+sanboot_unix         /vol/hpux_boot/boot_hpux_lun      /dev/rdsk/c81t0d0  fclp0      FCP        150g    C
+
+----
+
+[NOTE]
+====
+This SAN toolkit is common across all Host Utilities configurations and protocols. As a result, all of the components don't apply to every configuration. Unused components don't affect your system performance. 
+
+The SAN Toolkit is supported on AIX and PowerVM/VIOS OS versions.
+====
+
+== What's next? 
+
+link:hu_hpux_60_cmd.html[Learn about using the HP-UX Host Utilities tool].
