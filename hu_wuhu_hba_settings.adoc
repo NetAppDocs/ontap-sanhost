@@ -501,7 +501,7 @@ For example, in the QLogic QConvergeConsole program, the parameter is displayed 
 The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter. See https://www.broadcom.com/support/download-search[Emulex^] or https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/Netapp_search.aspx[QLogic^] to learn more about the timeout parameters.
 
 
-== Understand the Host Utilities changes to FC HBA driver settings
+== Learn about the Host Utilities changes to FC HBA driver settings
 
 During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and, in some cases, modified by Windows Host Utilities.
 

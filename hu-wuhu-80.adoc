@@ -56,7 +56,7 @@ For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu-windows-202
 
 . Verify your cabling.
 +
-See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for detailed cabling and configuration information.
+Refer to the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] for detailed cabling and configuration information.
 
 == Step 2: Configure FC HBAs and switches
 
@@ -71,9 +71,11 @@ You should only allow the Windows Host Utilities installer to set the HBA parame
 
 . Install one or more supported FC HBAs according to the instructions provided by the HBA vendor.
 . Obtain the supported HBA drivers and management utilities and install them according to the instructions provided by the HBA vendor.
-. Connect the HBAs to your FC switches or directly to the storage system.
-. Create zones on the FC switch according to your FC switch documentation.
-. For ONTAP, zone the switch by the WWPN. Be sure to use the WWPN of the logical interfaces (LIFs) and not the WWPN of the physical ports on the storage controllers. See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for more information.
+. https://docs.netapp.com/us-en/ontap/san-management/index.html[Connect the HBAs to your FC switches or directly to the storage system^].
+
+. https://docs.netapp.com/us-en/ontap/san-config/fibre-channel-fcoe-zoning-concept.html[Create zones on the FC switch according to your FC switch documentation^].
+
+. For ONTAP, zone the switch by the WWPN. Be sure to use the WWPN of the logical interfaces (LIFs) and not the WWPN of the physical ports on the storage controllers. Refer to the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] for more information.
 
 == Step 3: Install the Windows Host Utilities
 
@@ -121,8 +123,10 @@ Perform a quiet (unattended) installation of the Windows Host Utilities by enter
 
 . Enter the following command at the Windows command prompt:
 +
-`msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
-
+[source,cli]
+----
+msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]
+----
 * `installer` is the name of the `.msi` file for your CPU architecture.
 * MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
 * `inst_path` is the path where the Host Utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
