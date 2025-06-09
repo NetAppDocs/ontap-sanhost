@@ -1,0 +1,87 @@
+---
+sidebar: sidebar
+permalink: hu-luhu-release-notes.html
+keywords: host utilities, linux, 7.1, netapp, ontap, release, notes, linux
+summary: Release Notes for Linux Host Utilities
+---
+= Linux Host Utilities Release Notes
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The release notes describe new features, enhancements, known issues, limitations, and important cautions for configuring and managing your specific host with your ONTAP storage system.
+
+For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
+
+== What's New in Linux Host Utilities 8.0
+The Linux Host Utilities 8.0 release contains the following new features and enhancements
+
+Linux Host Utilities 8.0 includes support for 64-bit speed QLogic and Emulex FC host bus adapters (HBA). 
+
+The following operating systems are supported:
+
+* Red Hat Enterprise Linux (RHEL) 9 and 8 series
+* SUSE Linux Enterprise Server 
+* Oracle Linux 9 and 8 series
+* Ubuntu
+
+== What's New in Linux Host Utilities 7.1
+The Linux Host Utilities 7.1 release contains the following new features and enhancements:
+
+* Linux Host Utilities is now called _Linux Unified Host Utilities_ because it supports NetApp E-Series storage systems running SANtricity as well as AFF, FAS, and ASA systems running ONTAP.
+
+* The following operating systems are supported:
+
+**	Citrix XenServer
+**	KVM and XEN, RHEV 6.5 and 6.4
+**	Oracle VM 3.2 series
+**	Oracle Linux 7 and 6 series
+**	RHEL 7 and 6 series
+**	SUSE Linux Enterprise Server 15 series
+**	SUSE Linux Enterprise Server 11 SP4
+
+* On RHEL 6 and 7 hosts, a tuned package for setting server profiles is now supported. You can use the `tuned-adm` command to set different profiles, depending on the environment. For example, you can use the virtual guest profile as a guest virtual machine and the enterprise storage profile for configurations when LUNs from enterprise storage arrays are used. Using these tuned packages can result in improvement in throughput and latency in ONTAP.
+
+* Linux Host Utilities 7.1 adds support for 32GB FC adapters from Broadcom Emulex and Marvell Qlogic.
+
+[NOTE]
+NetApp continues to work with the Linux Host Utilities to add support for features after the initial release. For latest information about the features that are supported and the new features that have been added, see the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
+
+== Fixed issues
+
+The following issues have been fixed in Linux Host Utilities.
+
+[cols=2,options="header", cols= "20, 80"]
+|===
+| Fixed in version |Description 
+
+| 7.1
+| The intermittent host OS failure issue that occurs when running the `sanlun lun show -p` command in SUSE Linux Enterprise Server 12 SP1, Oracle Linux 7.2, RHEL 7.2, and RHEL 6.8.
+
+|=== 
+
+== Known issues and limitations
+
+The Linux Host Utilities have the following known issues.
+
+[cols=4,options="header", cols= "15, 15, 30, 40"]
+|===
+|NetApp Bug ID | Affects version |Title | Description
+|1457017
+| 7.1
+|`sanlun` installation issues warning messages related to `libdevmapper.so` and `libnl.so` libraries. These warnings do not affect the functionality of `sanlun` kit. 
+| When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter HBA discovery cannot be 
+located:
+
+`[root@hostname ~]# sanlun fcp show adapter -v
+Unable to locate /usr/lib64/libHBAAPI.so library
+Make sure the package installing the library is installed & loaded`
+Refer to NetApp Bugs Online - link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^].
+
+|===
+
+link:https://mysupport.netapp.com/site/bugs-online/product[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible.
