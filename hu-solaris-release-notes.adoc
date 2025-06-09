@@ -13,7 +13,7 @@ summary: Release notes for Solaris Host Utilities.
 :imagesdir: ./media/
 
 [.lead]
-The Solaris Host Utilities release notes describe new features and enhancements, fixed issues fixed, known problems and limitations, and important cautions related to configuring and managing your specific Solaris host with your ONTAP storage system.
+The Solaris Host Utilities release notes describe new features, enhancements, known issues, limitations, and important cautions related to configuring and managing your specific Solaris host with your ONTAP storage system.
 
 For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
 
@@ -22,16 +22,16 @@ For specific information about the operating system versions and updates that th
 * Solaris Host Utilities 8.0 introduces the `disksort:false` and `cache-nonvolatile:true` parameter settings. These parameters suppress constant sync calls from the host. These sync calls impact performance and are unnecessary because ONTAP doesn't have volatile cache. For more information, see link:https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/tuning/ensuring-proper-cache-flush-behavior-flash-and-nvram-storage-devices.html[Cache Flush Behavior for Flash and NVRAM Storage Devices^].
 * Solaris Host Utilities 8.0 supports automated updates for FC drivers. The FC drivers that bind the parameters for Solaris 11.4 use SD (4D) instead of SSD (4D). For more information, see the link:https://support.oracle.com/knowledge/Sun%20Microsystems/2595926_1.html[Oracle Support Doc ID 2595926.1^].
 
-== Known problems and limitations
-You should be aware of the following known problems and limitations that might impact performance on your specific host.
+== Known issues and limitations
+You should be aware of the following known issues and limitations that might impact performance on your specific host.
 
-* The Solaris Host Utilities 8.0 release only supports Solaris 11.4 with SPARC and x86 platforms. For Solaris 11.3 and earlier versions, you need to use the Solaris Host Utilities 6.2.
+The Solaris Host Utilities 8.0 release only supports Solaris 11.4 with SPARC and x86 platforms. For Solaris 11.3 and earlier versions, you need to use the Solaris Host Utilities 6.2.
 
-* The following issues might affect daily operation in some environments.
-+
+The following issues might affect daily operation in some environments.
+
 [cols=4,options="header"cols="15,15,15,55"]
 |===
-|Bug ID	|Affects solaris version |Title	|Description
+|Bug ID	|Affects Solaris version |Title	|Description
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1385189[1385189^]
 |11.4 
 |Solaris 11.4 FC driver binding changes required in HUK 6.2	|Solaris 11.4 and HUK recommendations:
@@ -40,5 +40,5 @@ FC driver binding is changed from `ssd(4D)` to `sd(4D)`. Move configuration that
 +
 link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete information for most known issues, including suggested workarounds where possible. Some keyword combinations and bug types that you might want to use include the following:
 
-**	FCP General: Displays FC and host bus adapter (HBA) bugs that are not associated with a specific host.
-**	FCP - Solaris
+*	FCP General: Displays FC and host bus adapter (HBA) bugs that are not associated with a specific host.
+*	FCP - Solaris
