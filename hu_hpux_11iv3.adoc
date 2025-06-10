@@ -21,22 +21,10 @@ The HP-UX Host Utilities software provides management and diagnostic tools for H
 
 Configure your host to use SAN booting to simplify deployment and improve scalability. SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for a HP-UX host. The Host Utilities support SAN booting with FC and FCoE protocols in HP-UX environments.
 
-.Before you begin
-Use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your HP-UX OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
 .Steps
+. Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
 
-. Create a SAN boot LUN and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Provision SAN storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+. Follow the best practices for setting up a SAN boot in the HP-UX vendor documentation.
 
 
 == Step 2: Install the HP-UX Host Utilities
@@ -47,17 +35,16 @@ link:hu_hpux_60.html[Install HP-UX Host Utilities 6.0]
 
 == Step 3: Confirm the multipath configuration for your host
 
-Use multipathing with HP-UX 11i v3 to manage ONTAP LUNs. Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. To ensure that multipathing is configured correctly for your host, verify that multipathing is enabled and that you have the NetApp recommended settings configured for your ONTAP LUNs. 
+Use multipathing with HP-UX 11i v3 to manage ONTAP LUNs. Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues on the remaining paths. 
+
+After installing HP-UX Host Utilities, verify that you have the NetApp recommended settings configured for your ONTAP LUNs. 
 
 .About this task
 The HP-UX Host Utilities support Native Microsoft Multipath I/O (MPIO) and Veritas Dynamic Multipathing. The following steps are for the Native MPIO solution.
 
 .Steps
 
-. Enable multipathing:
-
-
-. The following table shows the recommended default settings for HPUX 11i v3 and ONTAP LUNs.
+. When you install the HP-UX Host Utilities, the following recommended default settings are automatically loaded for ONTAP LUNs.
 
 .Show parameter settings
 [%collapsible]
