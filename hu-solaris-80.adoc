@@ -78,7 +78,12 @@ The following example uses the `pkgadd` command to install the Solaris installat
 pkgadd -d ./NTAPSANTool.pkg
 ----
 
-. Confirm that the toolkit was successfully installed by using the `pkgchk` command to the installed path.
+. Confirm that the toolkit was successfully installed by using the following command to the installed path:
++
+[source,cli]
+----
+pkgchk
+----
 +
 .Show example output
 [%collapsible]

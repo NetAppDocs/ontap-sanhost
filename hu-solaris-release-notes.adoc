@@ -19,7 +19,7 @@ For specific information about the operating system versions and updates that th
 
 == What's new in Solaris Host Utilities 8.0
 
-* Solaris Host Utilities 8.0 introduces the `disksort:false` and `cache-nonvolatile:true` parameter settings. These parameters suppress constant sync calls from the host. These sync calls impact performance and are unnecessary because ONTAP doesn't have volatile cache. For more information, see link:https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/tuning/ensuring-proper-cache-flush-behavior-flash-and-nvram-storage-devices.html[Cache Flush Behavior for Flash and NVRAM Storage Devices^].
+* Solaris Host Utilities 8.0 introduces the `disksort:false` and `cache-nonvolatile:true` parameter settings. These parameters suppress constant sync calls from the host. The sync calls impact performance and aren't required because ONTAP doesn't have volatile cache. For more information, see link:https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/tuning/ensuring-proper-cache-flush-behavior-flash-and-nvram-storage-devices.html[Cache Flush Behavior for Flash and NVRAM Storage Devices^].
 * Solaris Host Utilities 8.0 supports automated updates for FC drivers. The FC drivers that bind the parameters for Solaris 11.4 use SD (4D) instead of SSD (4D). For more information, see the link:https://support.oracle.com/knowledge/Sun%20Microsystems/2595926_1.html[Oracle Support Doc ID 2595926.1^].
 
 == Known issues and limitations
