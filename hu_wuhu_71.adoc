@@ -62,27 +62,8 @@ For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_202
 +
 [NOTE]
 The FC and iSCSI protocols don't require licenses on E-Series storage systems using the SANtricity Storage Manager.
-. Start the target service.
-. Verify your cabling
-+
-See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation or https://docs.netapp.com/us-en/e-series/install-hw-cabling/index.html[E-Series hardware cabling^] for detailed cabling and configuration information.
 
-== Step 2: Configure FC HBAs and switches
-
-Install and configure one or more supported FC host bus adapters (HBAs) for FC connections to a storage system.
-
-The Windows Host Utilities installer sets the required FC HBA settings.
-
-[CAUTION]
-You should only allow the Windows Host Utilities installer to set the HBA parameters. This ensures that the Windows host can correctly handle the storage system behaviors for ONTAP platforms.
-
-.Steps
-
-. Install one or more supported FC HBAs according to the instructions provided by the HBA vendor.
-. Obtain the supported HBA drivers and management utilities and install them according to the instructions provided by the HBA vendor.
-. Connect the HBAs to your FC switches or directly to the storage system.
-. Create zones on the FC switch according to your FC switch documentation.
-. For ONTAP, zone the switch by worldwide port name (WWPN). Be sure to use the WWPN of the LIFs and not of the physical ports on the storage controllers. See the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] documentation for more information.
+include::_include/windows/windows-install-chunk-b.adoc[]
 
 include::_include/windows/windows-install-host-utilities.adoc[]
 

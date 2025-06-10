@@ -10,7 +10,7 @@ Optionally, you can include multipathing support when you install the Windows Ho
 
 You can also choose multipathing support using a Windows command line prompt.
 
-For Hyper-V guests, raw (pass-through) disks don't appear in the guest OS if you choose multipathing support. You can either use raw disks, or you can use MPIO, but you can't use both in the guest OS.
+For Hyper-V guests, raw (pass-through) disks don't appear in the guest OS if you choose multipathing support. You can use either raw disks or MPIO, but you can't use both in the guest OS.
 
 CAUTION: If you don't install the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
 
