@@ -13,7 +13,7 @@ summary: Release Notes for Linux Host Utilities
 :imagesdir: ./media/
 
 [.lead]
-The release notes describe new features, enhancements, known issues, limitations, and important cautions for configuring and managing your specific host with your ONTAP storage system.
+The release notes describe new features, enhancements, fixed issues, known issues, limitations, and important cautions for configuring and managing your specific host with your ONTAP storage system.
 
 For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
 
@@ -66,7 +66,7 @@ The following issues have been fixed in Linux Host Utilities.
 
 == Known issues and limitations
 
-The Linux Host Utilities have the following known issues.
+You should be aware of the following known issues and limitations that might impact performance on your specific host:
 
 [cols=4,options="header", cols= "15, 15, 30, 40"]
 |===
