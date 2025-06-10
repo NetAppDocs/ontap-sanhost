@@ -1,0 +1,42 @@
+.Steps
+
+. Verify that `nvmf-autoconnect.service` is enabled:
++
+`systemctl status nvmf-autoconnect.service`
++
+.Show example
+[%collapsible]
+====
+----
+nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
+  Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service; enabled; vendor preset: disabled)
+  Active: inactive (dead) since Thu 2024-05-25 14:55:00 IST; 11min ago
+Process: 2108 ExecStartPre=/sbin/modprobe nvme-fabrics (code=exited, status=0/SUCCESS)
+Process: 2114 ExecStart=/usr/sbin/nvme connect-all (code=exited, status=0/SUCCESS)
+Main PID: 2114 (code=exited, status=0/SUCCESS)
+
+systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot...
+nvme[2114]: traddr=nn-0x201700a098fd4ca6:pn-0x201800a098fd4ca6 is already connected
+systemd[1]: nvmf-autoconnect.service: Deactivated successfully.
+systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
+----
+====
+
+. Verify that `nvmefc-boot-connections.service` is enabled:
++
+`systemctl status nvmefc-boot-connections.service`
++
+.Show example
+[%collapsible]
+====
+----
+nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
+   Loaded: loaded (/usr/lib/systemd/system/nvmefc-boot-connections.service; enabled; vendor preset: enabled)
+   Active: inactive (dead) since Thu 2024-05-25 14:55:00 IST; 11min ago
+ Main PID: 1647 (code=exited, status=0/SUCCESS)
+
+systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot...
+systemd[1]: nvmefc-boot-connections.service: Succeeded.
+systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
+----
+====

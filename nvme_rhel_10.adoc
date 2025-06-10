@@ -24,11 +24,10 @@ You can use the following support and features with the NVMe-oF host configurati
 ** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
 ** Support for SAN booting using the NVMe/FC protocol.
-** Beginning with RHEL 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe-oF is not supported.
-** RHEL 10 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 10.
+* Features available:
+** Beginning with RHEL 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe-oF is not supported.
 * Known limitations: 
 ** There are no known limitations.
 
@@ -264,12 +263,18 @@ The expected ouptut is 1.
 --
 ====
 
-== Step 4: Optionally, enable 1MB I/O 
+== Step 4: Verify NVMe boot services 
+
+With RHEL 10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. Once booting completes, you should verify that the services are enabled.
+
+include::_include/nvme/verify-nvme-services.adoc[]
+
+== Step 5: Optionally, enable 1MB I/O 
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 
-== Step 5: Configure NVMe/TCP
+== Step 6: Configure NVMe/TCP
 
 include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
@@ -416,7 +421,7 @@ nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21
 [NOTE]
 Beginning with RHEL 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
-== Step 6: Validate NVMe-oF
+== Step 7: Validate NVMe-oF
 
 include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
@@ -559,7 +564,7 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 7: Set up secure in-band authentication
+== Step 8: Set up secure in-band authentication
 
 Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 10 host and an ONTAP controller.
 
@@ -764,7 +769,7 @@ mzEKUbcWu26I33b93bil2WR09XDho/ld3L45J+0FeCsStBEAfhYgkQU=:
 --
 =====
 
-== Step 8: Review the known issues
+== Step 9: Review the known issues
 
 No known issues exist for the NVMe-oF host configuration on RHEL 10 with ONTAP release.
 
