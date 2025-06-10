@@ -20,9 +20,6 @@ The HP-UX Host Utilities support the following environments:
 * Native Microsoft Multipath I/O (MPIO)
 * Veritas Dynamic Multipathing (DMP)
 
-.About this task 
-To indicate which environment is being used, this procedure sometimes specifies "DMP" for the Veritas DMP environment and "MPIO" for the HP-UX native environment. The commands you use might vary depending on which drivers you are using. For these commands, both the environment and driver types are specified.
-
 .Before you begin
 
 For reliable operation, use the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your iSCSI, FC, or FCoE configuration is supported.
