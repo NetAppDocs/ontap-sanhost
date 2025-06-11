@@ -23,7 +23,7 @@ include::_include/hu/install-linux-host-utilities.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
-You can use multipathing with Oracle Linux 7.0 to manage ONTAP LUNs.
+You can use multipathing with Oracle Linux 7.0 to manage ONTAP LUNs. Oracle Linux 7.0 supports Unbreakable Enterprise Kernel (UEK) R3 and UEK R4. The OS boots with UEK R3 kernel by default
 
 NOTE: You can use the link:hu_rhel_70.html#rhel-rhck[recommended settings for Red Hat Enterprise Linux (RHEL) 7.0] to configure Red Hat Compatible Kernel for Oracle Linux 7.0.
 
