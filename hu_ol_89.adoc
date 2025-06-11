@@ -27,11 +27,11 @@ You can use multipathing with Oracle Linux 8.9 to manage ONTAP LUNs.
 
 NOTE: You can use the link:hu_rhel_89.html#rhel-rhck[recommended settings for Red Hat Enterprise Linux (RHEL) 8.9] to configure Red Hat Compatible Kernel for Oracle Linux 8.9.
 
-include::_include/hu/linux-ol-multipathing-93-and-earlier.adoc[]
+include::_include/hu/linux-ol-multipathing-chk-config.adoc[]
 
 include::_include/hu/exclude-device.adoc[]
 
-include::_include/hu/linux-customize-parameters.adoc[]
+include::_include/hu/linux-ol-customize-parameters.adoc[]
 
 == Step 6: Review the known issues
 

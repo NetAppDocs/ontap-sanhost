@@ -1,0 +1,111 @@
+To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is exits and that you have the NetApp recommended settings configured for your ONTAP LUNs.
+
+.Steps 
+
+. Verify that the `/etc/multipath.conf` file exits. If the file doesn't exist, create an empty, zero-byte file:
++
+[source,cli]
+----
+touch /etc/multipath.conf
+----
+
+. The first time the `multipath.conf` file is created, you might need to enable and start the multipath services to load the recommended settings: 
++
+[source,cli]
+----
+chkconfig multipathd on
+----
++
+[source,cli]
+----
+/etc/init.d/multipathd start
+----
+
+. The settings for Oracle Linux UEK with and without ALUA updates automatically. 
++
+Enable "ALUA Handler":
++
+.. Create a backup of the initrd-image.
+
+.. Append the following parameter value to the kernel for ALUA and non-ALUA to work:
++
+[source,cli]
+----
+rdloaddriver=scsi_dh_alua
+----
++
+.Example output
++
+----
+kernel /vmlinuz-3.8.13-68.1.2.el6uek.x86_64 ro root=/dev/mapper/vg_ibmx3550m421096-lv_root rd_NO_LUKSrd_LVM_LV=vg_ibmx3550m421096/lv_root LANG=en_US.UTF-8 rd_NO_MDSYSFONT=latarcyrheb-sun16 crashkernel=256M KEYBOARDTYPE=pc KEYTABLE=us rd_LVM_LV=vg_ibmx3550m421096/lv_swap rd_NO_DM rhgb quiet rdloaddriver=scsi_dh_alua
+----
+. Recreate the initrd-image:
++
+[source,cli]
+----
+dracut -f
+----
+
+.. Reboot the host.
+.. Review the output of the `cat /proc/cmdline` command to verify that the setting is complete.
+
+. Each time you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
++
+.Show parameter settings
+[%collapsible]
+====
+[[multipath-parameter-settings]]
+[cols=2]
+[options="header"]
+|===
+| Parameter
+| Setting
+| detect_prio | yes
+| dev_loss_tmo | "infinity"
+| failback | immediate
+| fast_io_fail_tmo | 5
+| features | "3 queue_if_no_path pg_init_retries 50"
+| flush_on_last_del | "yes"
+| hardware_handler | "0"
+| no_path_retry | queue
+| path_checker | "tur"
+| path_grouping_policy | "group_by_prio"
+| path_selector | "service-time 0"
+| polling_interval | 5
+| prio | "ontap"
+| product | LUN
+| retain_attached_hw_handler | yes
+| rr_weight | "uniform"
+| user_friendly_names | no
+| vendor | NETAPP
+|===
+====
+
+. Verify the parameter settings and path status for your ONTAP LUNs:
++
+[source,cli]
+----
+multipath -ll
+----
++
+The default multipath parameters support AFF and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
++
+An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
+
+The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an AFF or FAS configuration with two Active/Optimized paths and two Active/Non-Optimized paths:
+
+.Show example
+[%collapsible]
+====
+----
+multipath -ll
+3600a0980383036347ffb4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+| |- 16:0:6:35 sdwb  69:624  active ready running
+| |- 16:0:5:35 sdun  66:752  active ready running
+`-+- policy='service-time 0' prio=10 status=enabled
+  |- 15:0:0:35 sdaj  66:48   active ready running
+  |- 15:0:1:35 sdbx  68:176  active ready running
+----
+====
