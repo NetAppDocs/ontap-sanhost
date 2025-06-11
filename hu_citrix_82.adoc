@@ -1,11 +1,11 @@
 ---
 sidebar: sidebar
 permalink: hu_citrix_82.html
-keywords: host utilities, citrix, Hypervisor , 8 series, netapp, ontap, san, boot
-summary: Describes how to use Citrix Hypervisor  8.2 with ONTAP
+keywords: host utilities, citrix, Hypervisor, 8 series, netapp, ontap, san, boot
+summary: Describes how to use Citrix Hypervisor 8.2 with ONTAP
 ---
 
-= Configure Citrix Hypervisor  8.2  for FCP and iSCSI with ONTAP storage
+= Configure Citrix Hypervisor 8.2  for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,7 +15,7 @@ summary: Describes how to use Citrix Hypervisor  8.2 with ONTAP
 
 [.lead]
 
-The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Citrix Hypervisor  8.2  host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Citrix Hypervisor 8.2  host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
@@ -23,9 +23,9 @@ include::_include/hu/install-linux-host-utilities.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
-You can use multipathing with Citrix Hypervisor  8.2 to manage ONTAP LUNs.
+You can use multipathing with Citrix Hypervisor 8.2 to manage ONTAP LUNs.
 
-For Citrix Hypervisor  8.2  the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. Citrix Hypervisor   8.2 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+For Citrix Hypervisor 8.2  the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. Citrix Hypervisor 8.2 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
 You can use the `/sbin/mpathutil` status command to verify the settings for your ONTAP LUNs.
 
@@ -37,7 +37,7 @@ include::_include/hu/citrix-multipath-parameters.adoc[]
 
 == Step 6: Review the known issues
 
-There are no known issues for the FC host configuration for Citrix Hypervisor  8.2 with ONTAP release.
+There are no known issues for the FC host configuration for Citrix Hypervisor 8.2 with ONTAP release.
 
 == What's next?
 
