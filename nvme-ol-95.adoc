@@ -31,21 +31,7 @@ For additional details on supported configurations, see the link:https://mysuppo
  
 == Step 1: Optionally, enable SAN booting
 
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot namespace and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+include::_include/hu/linux-enable-san-boot.adoc[]
 
 == Step 2: Validate software versions
 
@@ -61,6 +47,7 @@ uname -r
 ----
 +
 The following example shows an Oracle Linux kernel version:
++
 ----
 5.15.0-302.167.6.el9uek.x86_64
 ----
@@ -153,7 +140,7 @@ Configure NVMe/FC for a Broadcom/Emulex adapter.
 cat /sys/class/scsi_host/host*/modelname
 ----
 +
-The following example shows the model names:
+You should see the following output:
 +
 ----
 LPe36002-M64
@@ -167,7 +154,7 @@ LPe36002-M64
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-The following examples show the model descriptions:
+The should see an output similar to the following example:
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
