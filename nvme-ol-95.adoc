@@ -92,6 +92,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0050-3410-8035-c2c04f4a5933
 
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
+[source,cli]
 ----
 vserver nvme subsystem host show -vserver vs_213_36002
 ----
@@ -154,7 +155,7 @@ LPe36002-M64
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-The should see an output similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
@@ -184,7 +185,7 @@ The following example shows firmware versions:
 cat /sys/module/lpfc/version
 ----
 +
-The following example displays a driver version:
+The following example shows a driver version:
 +
 ----
 0:14.4.0.2
