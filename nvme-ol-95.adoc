@@ -55,19 +55,24 @@ You can use the following procedure to validate the minimum supported Oracle Lin
 
 . Install Oracle Linux 9.5 on the server. After the installation is complete, verify that you are running the specified Oracle Linux 9.5 kernel. 
 +
+[source,cli]
 ----
 uname -r
 ----
 +
+The following example shows an Oracle Linux kernel version:
 ----
 5.15.0-302.167.6.el9uek.x86_64
 ----
 
 . Install the `nvme-cli` package:
 +
+[source,cli]
 ----
 rpm -qa|grep nvme-cli
 ----
++
+The following example shows an `nvme-cli` package version:
 +
 ----
 nvme-cli-2.9.1-6.el9.x86_64
@@ -75,9 +80,11 @@ nvme-cli-2.9.1-6.el9.x86_64
 
 . Install the `libnvme` package:
 +
+[source,cli]
 ----
 rpm -qa|grep libnvme
 ----
+The following example shows an `libnvme` package version:
 +
 ----
 libnvme-1.9-3.el9.x86_64
@@ -85,9 +92,12 @@ libnvme-1.9-3.el9.x86_64
 
 .	On the Oracle Linux 9.5 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
+[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
++
+The following example shows an `hostnqn` version:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0050-3410-8035-c2c04f4a5933
@@ -136,14 +146,28 @@ Configure NVMe/FC for a Broadcom/Emulex adapter.
 
 . Verify that you are using the supported adapter model:
 
-.. `cat /sys/class/scsi_host/host*/modelname`
+.. Display the model names:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modelname
+----
++
+The following example shows the model names:
 +
 ----
 LPe36002-M64
 LPe36002-M64
 ----
 
-.. `cat /sys/class/scsi_host/host*/modeldesc`
+.. Display the model descriptions:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modeldesc
+----
++
+The following examples show the model descriptions:
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
@@ -152,14 +176,28 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 
 . Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver:
 
-.. `cat /sys/class/scsi_host/host*/fwrev`
+.. Display the firmware version:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/fwrev
+----
++
+The following example shows firmware versions:
 +
 ----
 14.4.393.25, sli-4:6:d
 14.4.393.25, sli-4:6:d
 ----
 
-.. `cat /sys/module/lpfc/version`
+.. Display the inbox driver version:
++
+[source,cli]
+----
+cat /sys/module/lpfc/version
+----
++
+The following example displays a driver version:
 +
 ----
 0:14.4.0.2
@@ -169,15 +207,18 @@ For the current list of supported adapter driver and firmware versions, see the 
 
 . Verify that `lpfc_enable_fc4_type` is set to `3`:
 +
-`cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type`
-+
+[source,cli]
 ----
-3
+cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 ----
 
 . Verify that you can view your initiator ports:
 +
-`cat /sys/class/fc_host/host*/port_name`
+[source,cli]
+----
+cat /sys/class/fc_host/host*/<port_name>
+----
+The following example shows port identities:
 +
 ----
 0x100000620b3c089c
@@ -186,7 +227,13 @@ For the current list of supported adapter driver and firmware versions, see the 
 
 . Verify that your initiator ports are online:
 +
-`cat /sys/class/fc_host/host*/port_state`
+[source,cli]
++
+----
+cat /sys/class/fc_host/host*/port_state
+----
++
+You should see the following output:
 +
 ----
 Online
@@ -195,7 +242,10 @@ Online
 
 . Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
 +
-`cat /sys/class/scsi_host/host*/nvme_info`
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/nvme_info
+----
 +
 .Show example
 [%collapsible]
@@ -244,9 +294,12 @@ NOTE: The native inbox qla2xxx driver included in the Oracle Linux 9.5 GA kernel
 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
+[source,cli]
 ----
 cat /sys/class/fc_host/host*/symbolic_name
 ----
++
+The follow example shows driver and firware versions:
 +
 ----
 QLE2772 FW:v9.15.03 DVR:v10.02.09.300-k-debug
@@ -254,13 +307,12 @@ QLE2772 FW:v9.15.03 DVR:v10.02.09.300-k-debug
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
 +
+[source,cli]
 ----
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
-----
-1
-----
+The value `1` verifies that `ql2xnvmeenable` is set. 
 --
 ====
 
@@ -276,6 +328,7 @@ include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
+[source,cli]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
@@ -380,9 +433,12 @@ sectype: none
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
+[source,cli]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
++
+You should see an output similar to the following example:
 +
 ----
 nvme discover -t tcp -w 192.168.166.4 -a 192.168.166.56
@@ -391,9 +447,12 @@ nvme discover -t tcp -w 192.168.165.3 -a 192.168.165.56
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
+[source,cli]
 ----
 nvme connect-all -t tcp -w host-traddr -a traddr
 ----
++
+You should see an output similar to the following example:
 +
 ----
 nvme	connect-all	-t	tcp	-w	192.168.165.3	-a	192.168.165.8
@@ -415,20 +474,37 @@ include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
 . Verify the following NVMe/FC settings on the Oracle Liniux 9.5 host:
 
-.. `cat /sys/module/nvme_core/parameters/multipath`
+.. Verify that "multipath" is set:
 +
+[source,cli]
 ----
-Y
+cat /sys/module/nvme_core/parameters/multipath
 ----
++
+The value `Y` verifies the that multipath paraemter is set.
 
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
+.. Dispaly the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
 +
 ----
 NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
 
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy`
+.. Display the policy:
++
+[source'cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy`
+----
++
+You should see the following output:
 +
 ----
 round-robin
@@ -437,6 +513,7 @@ round-robin
 
 . Verify that the namespaces are created and correctly discovered on the host:
 +
+[source,cli]
 ----
 nvme list
 ----
@@ -459,6 +536,7 @@ Node                  Generic               SN                   Model          
 =====
 .NVMe/FC
 --
+[source,cli]
 ----
 nvme list-subsys /dev/nvme4n5
 ----
@@ -482,6 +560,7 @@ nvme-subsys7 - NQN=nqn.1992-08.com.netapp:sn.7d37987be3cb11ef8948d039eab0dadd:su
 
 .NVMe/TCP
 --
+[source,cli]
 ----
 nvme list-subsys /dev/nvme1n1
 ----
@@ -514,6 +593,7 @@ src_addr=192.168.166.4 *live non-optimized*
 =====
 .Column
 --
+[source,cli]
 ----
 nvme netapp ontapdevices -o column
 ----
@@ -532,6 +612,7 @@ Device           Vserver                   Namespace Path                       
 --
 .JSON
 --
+[source,cli]
 ----
 nvme netapp ontapdevices -o json
 ----
@@ -578,6 +659,7 @@ Set up secure in-band authentication using the CLI.
 .Steps
 . Obtain the host NQN:
 +
+[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
@@ -602,11 +684,13 @@ DHHC-1:03:Y5VkkESgmtTGNdX842qemNpFK6BXYVwwnqErgt3IQKP5Fbjje\/JSBOjG5Ea3NBLRfuiAu
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
 +
+[source,cli]
 ----
 vserver nvme subsystem host add -vserver <svm_name> -subsystem <subsystem> -host-nqn <host_nqn> -dhchap-host-secret <authentication_host_secret> -dhchap-controller-secret <authentication_controller_secret> -dhchap-hash-function {sha-256|sha-512} -dhchap-group {none|2048-bit|3072-bit|4096-bit|6144-bit|8192-bit}
 ----
 . A host supports two types of authentication methods, unidirectional and bidirectional. On the host, connect to the ONTAP controller and specify dhchap keys based on the chosen authentication method:
 +
+[source,cli]
 ----
 nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authentication_host_secret> -C <authentication_controller_secret>
 ----
@@ -614,6 +698,7 @@ nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authenticati
 +
 .. Verify the host dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 ----
@@ -632,6 +717,7 @@ DHHC-1:03:Y5VkkESgmtTGNdX842qemNpFK6BXYVwwnqErgt3IQKP5Fbjje\/JSBOjG5Ea3NBLRfuiAu
 +
 .. Verify the controller dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 ----
@@ -714,6 +800,7 @@ In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 
 . Connect to the ONTAP controller using the config JSON file:
 +
+[source,cli]
 ----
 nvme connect-all -J /etc/nvme/config.json
 ----
@@ -722,9 +809,12 @@ nvme connect-all -J /etc/nvme/config.json
 +
 .. Verify the host dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
++
+The following example shows a dhchap key:
 +
 ----
 DHHC-1:03:Y5VkkESgmtTGNdX842qemNpFK6BXYVwwnqErgt3IQKP5Fbjje\/JSBOjG5Ea3NBLRfuiAuUSDUto6eY\/GwKoRp6AwGkw=:
@@ -732,9 +822,12 @@ DHHC-1:03:Y5VkkESgmtTGNdX842qemNpFK6BXYVwwnqErgt3IQKP5Fbjje\/JSBOjG5Ea3NBLRfuiAu
 +
 .. Verify the controller dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
++
+You should see an output similar to the following example:
 +
 ----
 DHHC-               1:03:frpLlTrnOYtcWDxPzq4ccxU1UrH2FjV7hYw5s2XEDB+lo+TjMsOwHR\/NFtM0nBBidx+gdoyUcC5s6hOOtTLDGcz0Kbs=:
