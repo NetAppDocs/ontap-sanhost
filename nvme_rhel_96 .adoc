@@ -23,7 +23,7 @@ You can use the following support and features with the NVMe-oF host configurati
 ** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 ** Support for SAN booting using the NVMe/FC protocol.
 ** RHEL 9.6 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with RHEL 9.6.
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 9.6.
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
@@ -585,7 +585,7 @@ nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25
 =====
 
 [NOTE]
-Beginning with RHEL 9.6, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+Beginning with RHEL 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 
 == Step 7: Validate NVMe-oF
@@ -615,8 +615,8 @@ NetApp ONTAP Controller
 .. `cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy` 
 +
 ----
-queue-depth
-queue-depth
+round-robin
+round-robin
 ----
 
 . Verify that the namespaces are created and correctly discovered on the host:
@@ -751,7 +751,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between a RHEL 9.6 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 9.6 host and an ONTAP controller.
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
