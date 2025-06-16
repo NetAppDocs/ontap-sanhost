@@ -57,9 +57,12 @@ You can use the following procedure to validate the minimum supported RHEL 10 so
 
 . Install RHEL 10 on the server. After the installation is complete, verify that you are running the specified RHEL 10 kernel: 
 +
+[source,cli]
 ----
 uname -r
 ----
++
+The following example shows a RHEL kernel version:
 +
 ----
 6.12.0-55.9.1.el10_0.x86_64 
@@ -67,9 +70,12 @@ uname -r
 
 . Install the `nvme-cli` package:
 +
+[source,cli]
 ----
 rpm -qa|grep nvme-cli
 ----
++
+The following example shows an `nvme-cli` package version:
 +
 ----
 nvme-cli-2.11-5.el10.x86_64
@@ -77,9 +83,12 @@ nvme-cli-2.11-5.el10.x86_64
 
 . Install the `libnvme` package:
 +
+[source,cli]
 ----
 rpm -qa|grep libnvme
 ----
++
+The following example shows an `libnvme` package version:
 +
 ----
 libnvme-1.11.1-1.el10.x86_64
@@ -87,9 +96,12 @@ libnvme-1.11.1-1.el10.x86_64
 
 . On the host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
+[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
++
+The following example shows an `hostnqn` version:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
@@ -97,6 +109,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
+[source,cli]
 ----
 ::> vserver nvme subsystem host show -vserver vs_nvme_194_rhel10
 ----
