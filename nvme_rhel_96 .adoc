@@ -32,14 +32,22 @@ For additional details on supported configurations, see the link:https://mysuppo
 ** There are no known limitations.
 
 == Step 1: Optionally, enable SAN booting
+
 You can configure your host to use SAN booting to simplify deployment and improve scalability.
-Before you begin
-Use the Interoperability Matrix Tool to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-Steps
+
+.Before you begin
+
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.Steps
+
 . Create a SAN boot namespace and map it to the host.
-See Provision NVMe storage.
++
+See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
 . Enable SAN booting in the server BIOS for the ports to which the SAN boot namespace is mapped.
++
 For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+
 . Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
 
 == Step 2: Validate software versions
@@ -287,12 +295,17 @@ The expected ouptut is 1.
 --
 ====
 
-=== Step 4: Enable 1MB I/O (Optional)
+=== Step 4: Optionally, enable 1MB I/O 
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
+== Step 5: Verify NVMe services
 
-== Step 5: Configure NVMe/TCP
+With RHEL 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, you should verify that the boot services are enabled.
+
+include::_include/nvme/verify-nvme-services.adoc[]
+
+== Step 6: Configure NVMe/TCP
 
 include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
@@ -575,7 +588,7 @@ nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25
 Beginning with RHEL 9.6, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 
-== Step 6: Validate NVMe-oF
+== Step 7: Validate NVMe-oF
 
 include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
@@ -736,7 +749,7 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 7: Set up secure in-band authentication
+== Step 8: Set up secure in-band authentication
 
 Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between a RHEL 9.6 host and an ONTAP controller.
 
@@ -942,7 +955,7 @@ DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJ
 --
 =====
 
-== Step 8: Known issues
+== Step 9: Review the known issues
 
 No known issues exist for the NVMe-oF host configuration on RHEL 9.6 with ONTAP release.
 
