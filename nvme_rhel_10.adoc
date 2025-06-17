@@ -29,7 +29,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 * Features available:
 ** Beginning with RHEL 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe-oF is not supported.
 * Known limitations: 
-** There are no known limitations.
+** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces, as it disconnects both root and data filesystems and may lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
 
@@ -65,7 +65,7 @@ uname -r
 The following example shows a RHEL kernel version:
 +
 ----
-6.12.0-55.9.1.el10_0.x86_64 
+5.14.0-570.12.1.el9_6.x86_64  
 ----
 
 . Install the `nvme-cli` package:
@@ -148,14 +148,28 @@ You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 
 . Verify that you are using the supported adapter model: 
 
-.. `cat /sys/class/scsi_host/host*/modelname`
+.. Display the model names:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modelname
+----
++
+You should see the following output:
 +
 ----
 LPe36002-M64 
 LPe36002-M64
 ----
 
-.. `cat /sys/class/scsi_host/host*/modeldesc`
+.. Display the model descriptions:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modeldesc
+----
++
+You should see an output similar to the following example:
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter 
@@ -164,14 +178,28 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 
 . Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver: 
 
-.. `cat /sys/class/scsi_host/host*/fwrev` 
+.. Display the firmware version:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/fwrev 
+----
++
+The following example shows firmware versions:
 +
 ----
 14.0.539.16, sli-4:6:d
 14.0.539.16, sli-4:6:d
 ----
 
-.. `cat /sys/module/lpfc/version` 
+.. Display the inbox driver version:
++
+[source,cli]
+----
+cat /sys/module/lpfc/version
+----
++
+The following example shows a driver version:
 +
 ----
 0:14.4.0.6
@@ -182,16 +210,19 @@ For the current list of supported adapter driver and firmware versions, see the 
 
 . Verify that the expected output of `lpfc_enable_fc4_type` is set to `3`:
 +
-`cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type`
-+
+[source,cli]
 ----
-3
+cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 ----
 
 . Verify that you can view your initiator ports:
-
 +
-`cat /sys/class/fc_host/host*/port_name`
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_name
+----
++
+The following example shows port identities:
 +
 ---- 
 0x2100f4c7aa0cd7c2
@@ -200,7 +231,12 @@ For the current list of supported adapter driver and firmware versions, see the 
 
 . Verify that your initiator ports are online:
 +
-`cat /sys/class/fc_host/host*/port_state`
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_state
+----
++
+You should see the following output:
 +
 ----
 Online
@@ -209,7 +245,10 @@ Online
 
 . Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
 +
-`cat /sys/class/scsi_host/host*/nvme_info`
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/nvme_info
+----
 +
 .Show example
 [%collapsible]
@@ -251,15 +290,16 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-NOTE: The native inbox qla2xxx driver included in the RHEL 10 GA kernel has the latest fixes. These fixes are essential for ONTAP support. 
-
 .Steps
 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
+[source,cli]
 ----
 cat /sys/class/fc_host/host*/symbolic_name
 ----
++
+The follow example shows driver and firmware versions:
 +
 ----
 QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
@@ -268,6 +308,7 @@ QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
 +
+[source,cli]
 ----
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
@@ -276,16 +317,15 @@ The expected ouptut is 1.
 --
 ====
 
-== Step 4: Verify NVMe boot services 
+== Step 4: Optionally, enable 1MB I/O 
+
+include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+
+== Step 5: Verify NVMe boot services 
 
 With RHEL 10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. Once booting completes, you should verify that the services are enabled.
 
 include::_include/nvme/verify-nvme-services.adoc[]
-
-== Step 5: Optionally, enable 1MB I/O 
-
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
-
 
 == Step 6: Configure NVMe/TCP
 
@@ -442,13 +482,27 @@ include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
 
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
+.. Display the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
 +
 ----
 NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy` 
+.. Display the policy:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+---- 
++
+You should see the following output:
 +
 ----
 round-robin
@@ -457,6 +511,7 @@ round-robin
 
 . Verify that the namespaces are created and correctly discovered on the host:
 +
+[source,cli]
 ----
 nvme list
 ----
@@ -481,6 +536,7 @@ Namespace Usage    Format             FW             Rev
 =====
 .NVMe/FC
 --
+[source,cli]
 ----
 nvme list-subsys /dev/nvme5n1
 ----
@@ -501,6 +557,7 @@ nvme-subsys5 - NQN=nqn.1992-08.com.netapp:sn.f7565b15a66911ef9668d039ea951c46:su
 --
 .NVMe/TCP
 --
+[source,cli]
 ----
 nvme list-subsys /dev/nvme4n2
 ----
@@ -594,6 +651,7 @@ Set up secure in-band authentication using the CLI.
 .Steps
 . Obtain the host NQN:
 +
+[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
@@ -618,11 +676,13 @@ DHHC-1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia1aKDKJQ2o53pX3wYM9xdv5DtK
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
 +
+[source,cli]
 ----
 vserver nvme subsystem host add -vserver <svm_name> -subsystem <subsystem> -host-nqn <host_nqn> -dhchap-host-secret <authentication_host_secret> -dhchap-controller-secret <authentication_controller_secret> -dhchap-hash-function {sha-256|sha-512} -dhchap-group {none|2048-bit|3072-bit|4096-bit|6144-bit|8192-bit}
 ----
 . A host supports two types of authentication methods, unidirectional and bidirectional. On the host, connect to the ONTAP controller and specify dhchap keys based on the chosen authentication method:
 +
+[source,cli]
 ----
 nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authentication_host_secret> -C <authentication_controller_secret>
 ----
@@ -630,6 +690,7 @@ nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authenticati
 +
 .. Verify the host dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 ----
@@ -652,6 +713,7 @@ il2WR09XDho/ld3L45J+0FeCsStBEAfhYgkQU=:
 +
 .. Verify the controller dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 ----
@@ -682,7 +744,7 @@ When multiple NVMe subsystems are available on the ONTAP controller configuratio
 To generate the JSON file, you can use the `-o` option. See the NVMe connect-all manual pages for more syntax options.
 
 .Steps
-. Configure the JSON file:
+. Configure the JSON file.
 +
 .Show example
 [%collapsible]
@@ -729,6 +791,7 @@ In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 
 . Connect to the ONTAP controller using the config JSON file:
 +
+[source,cli]
 ----
 # nvme connect-all -J /etc/nvme/config.json
 ----
@@ -756,13 +819,16 @@ traddr=192.168.20.21 is already connected
 ----
 ====
 
-. Verify that the dhchap secrets have been enabled for the respective controllers for each subsystem:
+. Verify that the dhchap secrets have been enabled for the respective controllers for each subsystem.
 +
 .. Verify the host dhchap keys:
 +
+[source,cli]
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
++
+The following example shows a dhchap key:
 +
 ----
 DHHC-1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia1
@@ -771,9 +837,12 @@ aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:
 +
 .. Verify the controller dhchap keys:
 +
+[source,cli]
 ----
 # cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
++
+You should see an output similar to the following example:
 +
 ----
 DHHC-1:03:fMCrJharXUOqRoIsOEaG6m2PH1yYvu5+z3jT
