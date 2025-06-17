@@ -201,6 +201,8 @@ The following example shows firmware versions:
 cat /sys/module/lpfc/version
 ---- 
 +
+The following example shows a driver version:
++
 ----
 0: 14.4.0.6
 ----
