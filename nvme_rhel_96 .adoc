@@ -58,6 +58,7 @@ You can use the following procedure to validate the minimum supported RHEL 9.6 s
 
 . Install RHEL 9.6 on the server. After the installation is complete, verify that you are running the specified RHEL 9.6 kernel: 
 +
+[source,cli]
 ----
 uname -r
 ----
@@ -68,6 +69,7 @@ uname -r
 
 . Install the `nvme-cli` package:
 +
+[source,cli]
 ----
 rpm -qa|grep nvme-cli
 ----
@@ -78,6 +80,7 @@ nvme-cli-2.9.1-6.el9.x86_64
 
 . Install the `libnvme` package:
 +
+[source,cli]
 ----
 rpm -qa|grep libnvme
 ----
@@ -88,6 +91,7 @@ libnvme-1.11.1-1.el9.x86_64
 
 . On the RHEL 9.6 host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
+[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
@@ -98,6 +102,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
+[source,cli]
 ----
 ::> vserver nvme subsystem host show -vserver vs_coexistence_LPE36002
 ----
@@ -137,14 +142,24 @@ You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 
 . Verify that you are using the supported adapter model: 
 
-.. `cat /sys/class/scsi_host/host*/modelname`
+.. XX
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modelname
+----
 +
 ----
 LPe36002-M64 
 LPe36002-M64
 ----
 
-.. `cat /sys/class/scsi_host/host*/modeldesc`
+.. XX
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modeldesc
+----
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter 
@@ -153,14 +168,24 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 
 . Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver: 
 
-.. `cat /sys/class/scsi_host/host*/fwrev` 
+.. XX
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/fwrev
+---- 
 +
 ----
 14.4.393.25, sli-4:6:d
 14.4.393.25, sli-4:6:d
 ----
 
-.. `cat /sys/module/lpfc/version` 
+.. XX
++
+[source,cli]
+----
+cat /sys/module/lpfc/version
+---- 
 +
 ----
 0: 14.4.0.6
@@ -171,16 +196,21 @@ For the current list of supported adapter driver and firmware versions, see the 
 
 . Verify that the expected output of `lpfc_enable_fc4_type` is set to `3`:
 +
-`cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type`
+[source,cli]
+----
+cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
+----
 +
 ----
 3
 ----
 
 . Verify that you can view your initiator ports:
-
 +
-`cat /sys/class/fc_host/host*/port_name`
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_name
+----
 +
 ---- 
 0x100000109bf044b1
@@ -189,7 +219,10 @@ For the current list of supported adapter driver and firmware versions, see the 
 
 . Verify that your initiator ports are online:
 +
-`cat /sys/class/fc_host/host*/port_state`
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_state
+----
 +
 ----
 Online
@@ -198,7 +231,10 @@ Online
 
 . Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
 +
-`cat /sys/class/scsi_host/host*/nvme_info`
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/nvme_info
+----
 +
 .Show example
 [%collapsible]
@@ -276,6 +312,7 @@ NOTE: The native inbox qla2xxx driver included in the RHEL 9.6 GA kernel has the
 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
+[source,cli]
 ----
 cat /sys/class/fc_host/host*/symbolic_name
 ----
@@ -287,6 +324,7 @@ QLE2872 FW:v9.15.03 DVR:v10.02.09.300-k-debug
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
 +
+[source,cli]
 ----
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
