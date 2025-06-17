@@ -335,6 +335,7 @@ include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
+[source,cli]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
@@ -439,6 +440,7 @@ sectype: none
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
 +
+[source,cli]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
@@ -456,6 +458,7 @@ nvme discover -t tcp -w 192.168.21.1 -a 192.168.21.21
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
+[source,cli]
 ----
 nvme connect-all -t tcp -w host-traddr -a traddr
 ----
@@ -585,6 +588,8 @@ nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:su
 =====
 .Column
 --
++
+[source,cli]
 ----
 nvme netapp ontapdevices -o column
 ----
@@ -606,6 +611,8 @@ NSID       UUID                                   Size
 --
 .JSON
 --
++
+[source,cli]
 ----
 nvme netapp ontapdevices -o json
 ----

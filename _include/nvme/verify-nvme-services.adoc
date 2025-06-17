@@ -2,7 +2,10 @@
 
 . Verify that `nvmf-autoconnect.service` is enabled:
 +
-`systemctl status nvmf-autoconnect.service`
+[source,cli]
+----
+systemctl status nvmf-autoconnect.service
+----
 +
 .Show example
 [%collapsible]
@@ -24,7 +27,10 @@ systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
 
 . Verify that `nvmefc-boot-connections.service` is enabled:
 +
-`systemctl status nvmefc-boot-connections.service`
+[source,cli]
+----
+systemctl status nvmefc-boot-connections.service
+----
 +
 .Show example
 [%collapsible]
