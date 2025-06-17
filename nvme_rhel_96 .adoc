@@ -90,7 +90,7 @@ rpm -qa|grep libnvme
 ----
 +
 The following example shows an `libnvme` package version:
-_
++
 ----
 libnvme-1.11.1-1.el9.x86_64
 ----
@@ -684,6 +684,8 @@ NetApp ONTAP Controller
 cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
 ----
 +
+You should see the following output:
++
 ----
 round-robin
 round-robin
@@ -1022,6 +1024,8 @@ r_DHCP,transport=tcp,traddr=192.168.2.24,trsvcid=4420
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
 +
+The following example shows a dhchap key:
++
 ----
 DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
 ----
@@ -1032,6 +1036,8 @@ DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
++
+You should see an output similar to the following example:
 +
 ----
 DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:
