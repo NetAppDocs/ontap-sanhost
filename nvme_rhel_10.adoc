@@ -4,7 +4,6 @@ permalink: nvme_rhel_10.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 10 with ONTAP
 ---
-
 = NVMe-oF host configuration for RHEL 10 with ONTAP
 :hardbreaks:
 :toclevels: 1
@@ -436,6 +435,7 @@ subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rh
 traddr:  192.168.20.20
 eflags:  none
 sectype: none
+----
 =====
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
@@ -446,15 +446,16 @@ nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
-[%collapsible%]
-=====
+[%collapsible]
+====
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.20
 nvme discover -t tcp -w 192.168.21.1 -a 192.168.21.20
 nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.21
 nvme discover -t tcp -w 192.168.21.1 -a 192.168.21.21
-=====
+----
+====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
@@ -464,14 +465,15 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
-[%collapsible%]
+[%collapsible]
 =====
 [subs=+quotes]
 ----
 nvme	connect-all	-t	tcp	-w	192.168.20.1	-a	192.168.20.20
 nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.20
 nvme	connect-all	-t	tcp	-w	192.168.20.1	-a	192.168.20.21
-nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21				
+nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21	
+----			
 =====
 
 [NOTE]
@@ -557,6 +559,7 @@ nvme-subsys5 - NQN=nqn.1992-08.com.netapp:sn.f7565b15a66911ef9668d039ea951c46:su
  +- nvme5 *fc* traddr=nn-0x2036d039ea951c45:pn-0x2039d039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c2:pn-0x2100f4c7aa0cd7c2 *live non-optimized*
  +- nvme71 *fc* traddr=nn-0x2036d039ea951c45:pn-0x203ad039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c3:pn-0x2100f4c7aa0cd7c3 *live non-optimized*
 ----
+====
 --
 .NVMe/TCP
 --
@@ -607,6 +610,7 @@ NSID       UUID                                   Size
 ------------------------------------------------------------
 1    bbf51146-fc64-4197-b8cf-8a24f6f359b3   21.47GB                          
 ----
+====
 --
 .JSON
 --
