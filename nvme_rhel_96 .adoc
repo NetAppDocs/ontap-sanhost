@@ -52,7 +52,7 @@ For information on how to enable the HBA BIOS, see your vendor-specific document
 
 == Step 2: Validate software versions
 
-You can use the following procedure to validate the minimum supported RHEL 9.6 software versions.
+Use the following procedure to validate the minimum supported RHEL 9.6 software versions.
 
 .Steps
 
@@ -355,7 +355,7 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Step 5: Verify NVMe boot services
 
-With RHEL 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, you should verify that the boot services are enabled.
+With RHEL 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, verify that the boot services are enabled.
 
 include::_include/nvme/verify-nvme-services.adoc[]
 
@@ -603,7 +603,7 @@ sectype: none
 ----
 =====
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
 [source,cli]
 ----
@@ -832,9 +832,9 @@ nvme netapp ontapdevices -o json
 
 Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 9.6 host and an ONTAP controller.
 
-To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
+Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
-You can set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
+Set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
 
 [role="tabbed-block"]
 =====
@@ -927,11 +927,14 @@ DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJ
 --
 When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
-To generate the JSON file, you can use the `-o` option. See the NVMe connect-all manual pages for more syntax options.
+Use the `-o` option to generate the JSON file. See the NVMe connect-all manual pages for more syntax options.
 
 .Steps
 . Configure the JSON file.
 +
+[NOTE]
+In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`.
+
 .Show example
 [%collapsible]
 ====
@@ -991,9 +994,7 @@ cat /etc/nvme/config.json
 }
 ]
 ----
-==== 
-[NOTE]
-In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
+====  
 
 . Connect to the ONTAP controller using the config JSON file:
 +
@@ -1049,7 +1050,7 @@ DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJ
 
 == Step 9: Review the known issues
 
-No known issues exist for the NVMe-oF host configuration on RHEL 9.6 with ONTAP release.
+There are no known issues.
 
 //ONTAPDOC-2984 26-May-2025
 //ONTAPDOC-2561 25-Nov-2024
