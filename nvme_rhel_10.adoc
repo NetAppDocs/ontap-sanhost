@@ -65,7 +65,7 @@ uname -r
 The following example shows a RHEL kernel version:
 +
 ----
-5.14.0-570.12.1.el9_6.x86_64  
+6.12.0-55.9.1.el10_0.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -588,7 +588,6 @@ nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:su
 =====
 .Column
 --
-+
 [source,cli]
 ----
 nvme netapp ontapdevices -o column
@@ -611,7 +610,6 @@ NSID       UUID                                   Size
 --
 .JSON
 --
-+
 [source,cli]
 ----
 nvme netapp ontapdevices -o json

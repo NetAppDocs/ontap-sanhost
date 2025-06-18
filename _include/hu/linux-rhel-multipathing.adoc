@@ -73,7 +73,7 @@ The following example outputs show the correct parameter settings and path statu
 An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time. 
 
 ----
-# multipath -ll
+multipath -ll
 3600a098038314c4a433f577471797958 dm-2 NETAPP,LUN C-Mode
 size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 `-+- policy='service-time 0' prio=50 status=active
@@ -91,7 +91,7 @@ An AFF or FAS configuration should have two groups of paths with higher and lowe
 The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 
 ----
-# multipath -ll
+multipath -ll
 3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode
 size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
