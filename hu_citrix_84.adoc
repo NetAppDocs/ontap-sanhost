@@ -27,7 +27,6 @@ You can use multipathing with Citrix Xenserver 8.4 to manage ONTAP LUNs.
 
 For Citrix Xenserver 8.4  the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. Citrix Xenserver  8.4 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
-You can use the `/sbin/mpathutil` status command to verify the settings for your ONTAP LUNs.
 
 include::_include/hu/citrix-8x-multipathing.adoc[]
 
@@ -37,7 +36,7 @@ include::_include/hu/citrix-multipath-parameters.adoc[]
 
 == Step 6: Review the known issues
 
-There are no known issues for the FC host configuration for Citrix Xenserver 8.4 with ONTAP release.
+There are no known issues.
 
 == What's next?
 
