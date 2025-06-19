@@ -15,7 +15,7 @@ summary: Describes how to use Citrix Hypervisor 8.2 with ONTAP
 
 [.lead]
 
-The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Citrix Hypervisor 8.2  host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Citrix Hypervisor 8.2 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
@@ -37,12 +37,12 @@ include::_include/hu/citrix-multipath-parameters.adoc[]
 
 == Step 6: Review the known issues
 
-There are no known issues for the FC host configuration for Citrix Hypervisor 8.2 with ONTAP release.
+There are no known issues.
 
 == What's next?
 
-•	link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71_cmd.html[Learn about using the Linux Host Utilities tool].
-•	Learn about ASM mirroring.
+* link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71_cmd.html[Learn about using the Linux Host Utilities tool].
+* Learn about ASM mirroring.
 Automatic Storage Management (ASM) mirroring might require changes to the Linux multipath settings to allow ASM to recognize a problem and switch over to an alternate failure group. Most ASM configurations on ONTAP use external redundancy, which means that data protection is provided by the external array and ASM doesn't mirror data. Some sites use ASM with normal redundancy to provide two-way mirroring, normally across different sites. See link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/oracle-overview.html[Oracle databases on ONTAP] for further information.
 
 //ONTAPDOC-3030 29-May-2025
