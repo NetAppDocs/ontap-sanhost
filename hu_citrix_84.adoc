@@ -27,7 +27,6 @@ You can use multipathing with Citrix Xenserver 8.4 to manage ONTAP LUNs.
 
 For Citrix Xenserver 8.4  the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. Citrix Xenserver  8.4 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
 
-You can use the `/sbin/mpathutil` status command to verify the settings for your ONTAP LUNs.
 
 include::_include/hu/citrix-8x-multipathing.adoc[]
 
@@ -37,12 +36,12 @@ include::_include/hu/citrix-multipath-parameters.adoc[]
 
 == Step 6: Review the known issues
 
-There are no known issues for the FC host configuration for Citrix Xenserver 8.4 with ONTAP release.
+There are no known issues.
 
 == What's next?
 
-•	link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71_cmd.html[Learn about using the Linux Host Utilities tool].
-•	Learn about ASM mirroring.
+* link:https://docs.netapp.com/us-en/ontap-sanhost/hu_luhu_71_cmd.html[Learn about using the Linux Host Utilities tool].
+* Learn about ASM mirroring.
 Automatic Storage Management (ASM) mirroring might require changes to the Linux multipath settings to allow ASM to recognize a problem and switch over to an alternate failure group. Most ASM configurations on ONTAP use external redundancy, which means that data protection is provided by the external array and ASM doesn't mirror data. Some sites use ASM with normal redundancy to provide two-way mirroring, normally across different sites. See link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/oracle-overview.html[Oracle databases on ONTAP] for further information.
 
 //ONTAPDOC-3030 29-May-2025
