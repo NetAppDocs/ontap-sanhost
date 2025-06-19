@@ -240,9 +240,16 @@ sidebar:
             url: /hu_ol_64.html
       - title: RHEL
         entries:
+        - title: RHEL 10
+          pdf-filename: RHEL-10-FCP
+          entries:
+          - title: "10.0"
+            url: /hu_rhel_10.html        
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
+          - title: "9.6"
+            url: /hu-rhel-96.html
           - title: "9.5"
             url: /hu_rhel_95.html
           - title: "9.4"
@@ -451,8 +458,14 @@ sidebar:
       - title: RHEL
         pdf-filename: NVMeoF RHEL
         entries:
+        - title: RHEL 10
+          entries:
+          - title: "10.0"
+            url: /nvme_rhel_10.html
         - title: RHEL 9
           entries:
+          - title: "9.6"
+            url: /nvme-rhel-96.html
           - title: "9.5"
             url: /nvme_rhel_95.html
           - title: "9.4"
