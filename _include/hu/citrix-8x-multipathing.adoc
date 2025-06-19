@@ -1,3 +1,5 @@
+To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is defined and that you have the NetApp recommended settings configured for your ONTAP LUNs.
+
 .Steps 
 
 . Verify that the `/etc/multipath.conf` file exists.  If the file doesn't exist, create an empty, zero-byte file:
