@@ -14,6 +14,12 @@ summary: How to Configure NVMe-oF Host for RHEL 9.0 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
+include::_include/nvme/nvme-introduction.adoc[]
+
+.About this task 
+You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.0. You should also review the known limitations before starting the configuration process.
+
+* Support available:
 
 NVMe-oF (including NVMe/FC and NVMe/TCP) is supported with RHEL 9.0 with Asymmetric Namespace Access (ANA) required for surviving storage failovers (SFOs) on the ONTAP array. ANA is the ALUA equivalent in the NVM-oF environment, and is currently implemented with in-kernel NVMe Multipath. Using this procedure, you can enable NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 9.0 and ONTAP as the target.
 

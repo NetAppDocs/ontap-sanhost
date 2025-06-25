@@ -14,6 +14,12 @@ summary: How to Configure NVMe-oF Host for RHEL 8.5 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
+include::_include/nvme/nvme-introduction.adoc[]
+
+.About this task 
+You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 8.5. You should also review the known limitations before starting the configuration process.
+
+* Support available:
 
 NVMe over Fabrics or NVMe-oF (including NVMe/FC and other transports) is supported with Red Hat Enterprise Linux (RHEL) 8.5 with ANA (Asymmetric Namespace Access). ANA is the asymmetric logical unit access (ALUA) equivalent in the NVMe-oF environment, and is currently implemented with in-kernel NVMe Multipath. During this procedure, you enable NVMe-oF with in-kernel NVMe Multipath using ANA on RHEL 8.5 and ONTAP as the target.
 

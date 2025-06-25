@@ -14,9 +14,12 @@ summary: How to Configure NVMe-oF Host for RHEL 8.8 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Red Hat Enterprise Linux (RHEL) 8.8 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath. 
+include::_include/nvme/nvme-introduction.adoc[]
 
-The following support is available for the NVMe-oF host configuration for RHEL 8.8 with ONTAP:
+.About this task 
+You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 8.8. You should also review the known limitations before starting the configuration process.
+
+* Support available:
 
 * Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 

@@ -14,6 +14,13 @@ summary: How to Configure NVMe/FC Host for RHEL 8.3 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
+include::_include/nvme/nvme-introduction.adoc[]
+
+.About this task 
+You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 8.3. You should also review the known limitations before starting the configuration process.
+
+* Support available:
+
 Beginning with ONTAP 9.6, NVMe/FC is supported for Red Hat Enterprise Linux (RHEL) 8.3. The RHEL 8.3 host runs both NVMe and SCSI traffic through the same FC initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 
 See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported configurations.
