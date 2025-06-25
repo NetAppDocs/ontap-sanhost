@@ -15,6 +15,7 @@ summary: Windows Host Utilities includes an installation program that sets the r
 [.lead]
 The Windows Host Utilities enable you to connect a Windows host computer to NetApp storage systems.
 
+[[supported-windows-versions-72]]
 The Windows Host Utilities support the following versions of Windows:
 
 * Windows 2025
@@ -50,7 +51,7 @@ The Host Utilities support different Windows host configurations, protocols, and
 
 == Verify your host and storage system configuration
 
-Before you install the Host Utilities, you must verify that the Host Utilities version supports your host and storage system configuration so that the software installs correctly.
+Verify that your host and storage system configuration are supported before you install Windows Host Utilities for the <<supported-windows-versions-72,supported Windows version>>.
 
 .Steps
 
@@ -139,5 +140,4 @@ To see the standard Microsoft Installer (MSI) options for logging and other func
 --
 ====
 
-
-
+// 2025 ARR 28, ontap-sanhost-issue-218
