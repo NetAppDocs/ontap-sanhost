@@ -87,10 +87,13 @@ DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxuk
 --
 When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
-To generate the JSON file, you can use the `-o` option. See the NVMe connect-all manual pages for more syntax options.
+Use the `-o` option to generate the JSON file. See the NVMe connect-all manual pages for more syntax options.
 
 .Steps
 . Configure the JSON file:
++
+[NOTE]
+In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
 +
 .Show example
 [%collapsible]
@@ -144,8 +147,6 @@ cat /etc/nvme/config.json
 ]
 ----
 ==== 
-[NOTE]
-In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
 
 . Connect to the ONTAP controller using the config JSON file:
 +
