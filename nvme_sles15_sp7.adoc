@@ -304,7 +304,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 +
 The expected ouptut is 1.
 --
-====
+=====
 
 == Step 4: Optionally, enable 1MB I/O 
 
@@ -471,6 +471,7 @@ eflags:  none
 sectype: none
 localhost:~ #
 ----
+====
 
 . Verify that all other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
@@ -478,14 +479,17 @@ localhost:~ #
 nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
 +
-.Example output
-+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.111.80 -a 192.168.111.66
 nvme discover -t tcp -w 192.168.111.80 -a 192.168.111.67
 nvme discover -t tcp -w 192.168.211.80 -a 192.168.211.66
 nvme discover -t tcp -w 192.168.211.80 -a 192.168.211.67  
 ----
+====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
@@ -495,7 +499,7 @@ nvme connect-all -t tcp -w <host-traddr> -a <traddr>
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 nvme	connect-all	-t	tcp	-w	192.168.111.80	-a	192.168.111.66
@@ -503,7 +507,8 @@ nvme	connect-all	-t	tcp	-w	192.168.111.80	-a	192.168.111.67
 nvme	connect-all	-t	tcp	-w	192.168.211.80	-a	192.168.211.66
 nvme	connect-all	-t	tcp	-w	192.168.211.80	-a	192.168.211.67
 ----
-+
+====
+
 [NOTE]
 Beginning with SLES 15 SP7, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
