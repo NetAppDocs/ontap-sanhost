@@ -269,7 +269,36 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 --
 
-include::_include/nvme/nvme-configure-marvell-logic-96-and-later.adoc[]
+.Marvell/QLogic
+--
+
+Configure NVMe/FC for a Marvell/QLogic adapter.
+
+.Steps
+
+. Verify that you are running the supported adapter driver and firmware versions:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/symbolic_name
+----
++
+The follow example shows driver and firmware versions:
++
+----
+QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
+QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
+----
+
+. Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
++
+[source,cli]
+----
+cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
+----
++
+The expected ouptut is 1.
+--
 =====
 
 == Step 4: Optionally, enable 1MB I/O 
