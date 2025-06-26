@@ -142,10 +142,10 @@ sidebar:
             url: /hu_centos_64.html
       - title: Citrix
         entries:
-        - title: Hypervisor 8
-          url: /hu_citrix_8x.html
-        - title: XenServer 7
-          url: /hu_citrix_7x.html
+        - title: XenServer 8.4
+          url: /hu_citrix_84.html 
+        - title: Hypervisor 8.2 (LTSR) 
+          url: /hu_citrix_82.html
       - title: ESXi
         entries:
         - title: VMware vSphere 8
@@ -240,9 +240,16 @@ sidebar:
             url: /hu_ol_64.html
       - title: RHEL
         entries:
+        - title: RHEL 10
+          pdf-filename: RHEL-10-FCP
+          entries:
+          - title: "10.0"
+            url: /hu_rhel_10.html        
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
+          - title: "9.6"
+            url: /hu-rhel-96.html
           - title: "9.5"
             url: /hu_rhel_95.html
           - title: "9.4"
@@ -451,8 +458,14 @@ sidebar:
       - title: RHEL
         pdf-filename: NVMeoF RHEL
         entries:
+        - title: RHEL 10
+          entries:
+          - title: "10.0"
+            url: /nvme_rhel_10.html
         - title: RHEL 9
           entries:
+          - title: "9.6"
+            url: /nvme-rhel-96.html
           - title: "9.5"
             url: /nvme_rhel_95.html
           - title: "9.4"
