@@ -471,7 +471,6 @@ eflags:  none
 sectype: none
 localhost:~ #
 ----
-====
 
 . Verify that all other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
@@ -655,6 +654,7 @@ Device           Vserver                   Namespace Path                       
 ---------------- ------------------------- -------------------------------------------------- ---- -------------------------------------- ---------
 /dev/nvme0n1     vs_161                    /vol/fc_nvme_vol1/fc_nvme_ns1                      1    32fd92c7-0797-428e-a577-fdb3f14d0dc3   5.37GB    
 ----
+====
 --
 .JSON
 --
