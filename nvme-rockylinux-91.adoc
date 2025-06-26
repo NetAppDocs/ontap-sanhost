@@ -29,7 +29,7 @@ You can use the following support and features with the NVMe-oF host configurati
 ** SAN booting using the NVMe-oF protocol is currently not supported.
 
 == Step 1: Optionally, enable SAN booting
-include::_include/nvme/nvme-enable-san-boot.adoc[]
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Validate software versions
 Use the following procedure to validate the minimum supported Rocky Linux 9.1 software versions.

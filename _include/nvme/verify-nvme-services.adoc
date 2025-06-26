@@ -1,5 +1,3 @@
-The `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, verify that the boot services are enabled.
-
 .Steps
 
 . Verify that `nvmf-autoconnect.service` is enabled:
