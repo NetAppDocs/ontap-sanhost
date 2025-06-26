@@ -4,7 +4,6 @@ permalink: nvme-rockylinux-94.html
 keywords: nvme, linux, rocky linux, enterprise
 summary: How to Configure NVMe-oF Host for Rocky Linux 9.4 with ONTAP
 ---
-
 = Configure Rocky Linux 9.4 with NVMe-oF for ONTAP storage
 :hardbreaks:
 :toclevels: 1
@@ -26,27 +25,31 @@ You can use the following support and features with the NVMe-oF host configurati
 ** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 * Features available:
 ** Rocky Linux 9.4 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-** You can use SAN booting with the NVMe/FC protocol.
+
 * Known limitations: 
 ** There are no known limitations.
 
-== Step 1: Validate software versions
-include::_include/nvme/nvme-validate-software-versions.adoc[] 
-
-== Step 2: Configure NVMe/FC
-include::_include/nvme/nvme-configure.adoc[]
-
-== Step 3: Optionally, enable 1MB I/O 
-include::_include/nvme/nvme-enable-1mb-io.adoc[]
-
-== Step 4: Validate NVMe-oF
-include::_include/nvme/nvme-validate-nvme-of.adoc[] 
-
-== Step 5: Optionally, enable SAN booting
+== Step 1: Optionally, enable SAN booting
 include::_include/nvme/nvme-enable-san-boot.adoc[]
 
-== Step 6: Review the known issues
+== Step 2: Validate software versions
+include::_include/nvme/nvme-validate-software-versions.adoc[] 
 
-No known issues exist for the NVMe-oF host configuration for Rocky Linux 9.4 with ONTAP release.
+== Step 3: Configure NVMe/FC
+include::_include/nvme/nvme-configure.adoc[]
+
+== Step 4: Optionally, enable 1MB I/O 
+include::_include/nvme/nvme-enable-1mb-io.adoc[]
+
+== Step 5: Configure NVMe/TCP
+
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+
+== Step 6: Validate NVMe-oF
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
+
+== Step 7: Review the known issues
+
+There are no known issues.
 
 

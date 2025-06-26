@@ -4,7 +4,7 @@ permalink: nvme-rhel-96.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.6 with ONTAP
 ---
-= NVMe-oF host configuration for RHEL 9.6 with ONTAP
+= Configure RHEL 9.6 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -21,7 +21,6 @@ You can use the following support and features with the NVMe-oF host configurati
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Support for SAN booting using the NVMe/FC protocol.
 ** RHEL 9.6 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 9.6.
 +
@@ -32,23 +31,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 ** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces, as it disconnects both root and data filesystems and may lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
-
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot namespace and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot namespace is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+include::_include/nvme/nvme-enable-san-boot.adoc[]
 
 == Step 2: Validate software versions
 
@@ -355,294 +338,11 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Step 5: Verify NVMe boot services
 
-With RHEL 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, verify that the boot services are enabled.
-
 include::_include/nvme/verify-nvme-services.adoc[]
 
 == Step 6: Configure NVMe/TCP
 
-include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
-
-.Steps
-
-. Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
-+
-[source,cli]
-----
-nvme discover -t tcp -w host-traddr -a traddr
-----
-+
-.Show example
-[%collapsible]
-=====
-[subs=+quotes]
-----
-nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24
-
-Discovery Log Number of Records 20, Generation counter 25
-=====Discovery Log Entry 0======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *current discovery subsystem*
-treq:    not specified
-portid:  4
-trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:discovery
-traddr:  192.168.2.25
-eflags:  *explicit discovery connections, duplicate discovery information*
-sectype: none
-=====Discovery Log Entry 1======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *current discovery subsystem*
-treq:    not specified
-portid:  2
-trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:discovery
-traddr:  192.168.1.25
-eflags:  *explicit discovery connections, duplicate discovery information*
-sectype: none
-=====Discovery Log Entry 2======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *current discovery subsystem*
-treq:    not specified
-portid:  5
-trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:discovery
-traddr:  192.168.2.24
-eflags:  *explicit discovery connections, duplicate discovery information*
-sectype: none
-=====Discovery Log Entry 3======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *current discovery subsystem*
-treq:    not specified
-portid:  1
-trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:discovery
-traddr:  192.168.1.24
-eflags:  *explicit discovery connections, duplicate discovery information*
-sectype: none
-=====Discovery Log Entry 4======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  4
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Unidirectional_DHCP_NONE_1_3
-traddr:  192.168.2.25
-eflags:  none
-sectype: none
-=====Discovery Log Entry 5======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  2
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Unidirectional_DHCP_NONE_1_4
-traddr:  192.168.1.25
-eflags:  none
-sectype: none
-=====Discovery Log Entry 6======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  5
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Unidirectional_DHCP_NONE_1_5
-traddr:  192.168.2.24
-eflags:  none
-sectype: none
-=====Discovery Log Entry 7======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  1
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Unidirectional_DHCP_2_2
-traddr:  192.168.1.24
-eflags:  none
-sectype: none
-=====Discovery Log Entry 8======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  4
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Unidirectional_DHCP_2_3
-traddr:  192.168.2.25
-eflags:  none
-sectype: none
-=====Discovery Log Entry 9======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  2
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Unidirectional_DHCP_2_5
-traddr:  192.168.1.25
-eflags:  none
-sectype: none
-=====Discovery Log Entry 10======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  5
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_2_2
-traddr:  192.168.2.24
-eflags:  none
-sectype: none
-=====Discovery Log Entry 11======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  1
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_2_3
-traddr:  192.168.1.24
-eflags:  none
-sectype: none
-=====Discovery Log Entry 12======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  4
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_2_3
-traddr:  192.168.2.25
-eflags:  none
-sectype: none
-=====Discovery Log Entry 13======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  2
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_NONE_2_4
-traddr:  192.168.1.25
-eflags:  none
-sectype: none
-=====Discovery Log Entry 14======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  5
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_NONE_2_5
-traddr:  192.168.2.24
-eflags:  none
-sectype: none
-=====Discovery Log Entry 15======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  1
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_NONE_2_6
-traddr:  192.168.1.24
-eflags:  none
-sectype: none
-=====Discovery Log Entry 16======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  4
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_NONE_2_7
-traddr:  192.168.2.25
-eflags:  none
-sectype: none
-=====Discovery Log Entry 17======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  2
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_NONE_2_8
-traddr:  192.168.1.25
-eflags:  none
-sectype: none
-=====Discovery Log Entry 18======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  5
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem.nvme_tcp_2
-traddr:  192.168.2.24
-eflags:  none
-sectype: none
-=====Discovery Log Entry 19======
-trtype:  tcp
-adrfam:  ipv4
-subtype: *nvme subsystem*
-treq:    not specified
-portid:  1
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem. Bidirectional_DHCP_NONE_2_9
-traddr:  192.168.1.24
-eflags:  none
-sectype: none
-----
-=====
-
-. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
-+
-[source,cli]
-----
-nvme discover -t tcp -w host-traddr -a traddr
-----
-+
-.Show example
-[%collapsible]
-=====
-[subs=+quotes]
-----
-nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24 
-nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.24 
-nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.25 
-nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.25
-----
-=====
-
-. Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
-+
-[source,cli]
-----
-nvme connect-all -t tcp -w host-traddr -a traddr
-----
-+
-.Show example
-[%collapsible]
-=====
-[subs=+quotes]
-----
-nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.24
-nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.24
-nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.25
-nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25					
-----
-=====
-
-[NOTE]
-Beginning with RHEL 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 
 == Step 7: Validate NVMe-oF

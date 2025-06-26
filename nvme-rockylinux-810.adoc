@@ -4,7 +4,6 @@ permalink: nvme-rockylinux-810.html
 keywords: nvme, linux, rocky linux, enterprise
 summary: How to Configure NVMe-oF Host for Rocky Linux 8.10 with ONTAP
 ---
-
 = Configure Rocky Linux 8.10 with NVMe-oF for ONTAP storage
 :hardbreaks:
 :toclevels: 1
@@ -29,19 +28,26 @@ You can use the following support and features with the NVMe-oF host configurati
 ** On Rocky Linux 8.10 hosts, NVMe/TCP is a technology preview feature due to open issues. Refer to the https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html-single/8.10_release_notes/index#technology-preview_file-systems-and-storage[Rocky Linux 8.10 Release Notes^] for details.
 ** SAN booting using the NVMe-oF protocol is currently not supported.
 
-== Step 1: Validate software versions
+== Step 1: Optionally, enable SAN booting
+include::_include/nvme/nvme-enable-san-boot.adoc[]
+
+== Step 2: Validate software versions
 include::_include/nvme/nvme-validate-software-versions.adoc[] 
 
-== Step 2: Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 include::_include/nvme/nvme-configure.adoc[]
 
-== Step 3: Optionally, enable 1MB I/O 
-include::_include/nvme/nvme-enable-1mb-io.adoc[] 
+== Step 4: Optionally, enable 1MB I/O 
+include::_include/nvme/nvme-enable-1mb-io.adoc[]
 
-== Step 4: Validate NVMe-oF
-include::_include/nvme/nvme-validate-nvme-of.adoc[] 
+== Step 5: Configure NVMe/TCP
 
-== Step 5: Review the known issues 
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+
+== Step 6: Validate NVMe-oF
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
+
+== Step 7: Review the known issues
 
 The NVMe-oF host configuration for Rocky Linux 8.10 with ONTAP has the following known issue:
 

@@ -327,9 +327,16 @@ sidebar:
             url: /hu_rhel_64.html
       - title: Rocky Linux
         entries:
+        - title: Rocky Linux 10
+          pdf-filename: RL-10-FCP
+          entries:
+          - title: "10"
+            url: /hu-rockylinux-10.html
         - title: Rocky Linux 9
           pdf-filename: RL-9-FCP
           entries:
+          - title: "9.6"
+            url: /hu-rockylinux-96.html
           - title: "9.5"
             url: /hu-rockylinux-95.html
           - title: "9.4"
@@ -535,8 +542,14 @@ sidebar:
       - title: Rocky Linux
         pdf-filename: NVMeoF Rocky Linux
         entries:
+        - title: Rocky Linux 10
+          entries:
+          - title: "10"
+            url: /nvme-rockylinux-10.html
         - title: Rocky Linux 9
           entries:
+          - title: "9.6"
+            url: /nvme-rockylinux-96.html
           - title: "9.5"
             url: /nvme-rockylinux-95.html 
           - title: "9.4"

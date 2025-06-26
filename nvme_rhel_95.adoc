@@ -4,7 +4,7 @@ permalink: nvme_rhel_95.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 ---
-= NVMe-oF host configuration for RHEL 9.5 with ONTAP
+= Configure RHEL 9.5 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -26,7 +26,6 @@ For additional details on supported configurations, see the link:https://mysuppo
 * Features available:
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with RHEL 9.5.
 ** RHEL 9.5 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-** Support for SAN booting using the NVMe/FC protocol.
 * Known limitations: 
 ** There are no known limitations.
 

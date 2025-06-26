@@ -4,9 +4,12 @@ Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespace
 
 . Verify that the in-kernel NVMe multipath is enabled:
 +
+[source,cli]
 ----
 cat /sys/module/nvme_core/parameters/multipath
 ----
++
+You should see the following output:
 +
 ----
 Y
@@ -14,13 +17,27 @@ Y
 
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
 
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
+.. Display the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
 +
 ----
 NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy` 
+.. Display the policy:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+----
++
+You should see the following output:
 +
 ----
 round-robin
@@ -29,6 +46,7 @@ round-robin
 
 . Verify that the namespaces are created and correctly discovered on the host:
 +
+[source,cli]
 ----
 nvme list
 ----
@@ -53,6 +71,7 @@ Namespace Usage    Format             FW             Rev
 =====
 .NVMe/FC
 --
+[source,cli]
 ----
 nvme list-subsys /dev/nvme4n5
 ----
@@ -71,9 +90,11 @@ iopolicy=round-robin\
 +- nvme10 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2087d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live non-optimized*
 +- nvme3 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2083d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live optimized*
 ----
+====
 --
 .NVMe/TCP
 --
+[source,cli]
 ----
 nvme list-subsys /dev/nvme1n1 
 ----
@@ -101,11 +122,12 @@ src_addr=192.168.1.31 *live non-optimized*
 =====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
-+
+
 [role="tabbed-block"]
 =====
 .Column
 --
+[source,cli]
 ----
 nvme netapp ontapdevices -o column
 ----
@@ -124,9 +146,11 @@ NSID       UUID                                   Size
 ------------------------------------------------------------
 1    5f7f630d-8ea5-407f-a490-484b95b15dd6   21.47GB                              
 ----
+====
 --
 .JSON
 --
+[source,cli]
 ----
 nvme netapp ontapdevices -o json
 ----

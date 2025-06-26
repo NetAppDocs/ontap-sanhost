@@ -4,7 +4,6 @@ permalink: nvme-rockylinux-92.html
 keywords: nvme, linux, rocky linux, enterprise
 summary: How to Configure NVMe-oF Host for Rocky Linux 9.2 with ONTAP
 ---
-
 = Configure Rocky Linux 9.2 with NVMe-oF for ONTAP storage
 :hardbreaks:
 :toclevels: 1
@@ -29,21 +28,29 @@ You can use the following support and features with the NVMe-oF host configurati
 * Known limitations: 
 ** SAN booting using the NVMe-oF protocol is currently not supported.
 
-== Step 1: Validate software versions
+
+== Step 1: Optionally, enable SAN booting
+include::_include/nvme/nvme-enable-san-boot.adoc[]
+
+== Step 2: Validate software versions
 include::_include/nvme/nvme-validate-software-versions.adoc[] 
 
-== Step 2: Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 include::_include/nvme/nvme-configure.adoc[]
 
-== Step 3: Optionally, enable 1MB I/O 
-include::_include/nvme/nvme-enable-1mb-io.adoc[] 
+== Step 4: Optionally, enable 1MB I/O 
+include::_include/nvme/nvme-enable-1mb-io.adoc[]
 
-== Step 4: Validate NVMe-oF
-include::_include/nvme/nvme-validate-nvme-of.adoc[] 
+== Step 5: Configure NVMe/TCP
 
-== Step 5: Review the known issues 
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
-No known issues exist for the NVMe-oF host configuration for Rocky Linux 9.2 with ONTAP release.
+== Step 6: Validate NVMe-oF
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
+
+== Step 7: Review the known issues
+
+There are no known issues.
 
 // 2022,12-06, Jira IEOPS-690
 // JIRA-1289 20-Sep-2023
