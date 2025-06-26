@@ -13,7 +13,7 @@ summary: NVMe-oF Host Configuration for Oracle Linux 9.4 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/reuse-nvme-introduction.adoc[]
+include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task
 
@@ -252,11 +252,11 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 
 === Enable 1MB I/O size (Optional)
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Configure NVMe/TCP
 
-include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
@@ -340,7 +340,7 @@ You don't have to manually configure a specific `ctrl_loss_tmo timeout` duration
 
 == Validate NVMe-oF
 
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 .Steps
 
