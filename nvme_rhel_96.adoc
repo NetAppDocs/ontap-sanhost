@@ -34,7 +34,24 @@ For additional details on supported configurations, see the link:https://mysuppo
 include::_include/nvme/nvme-enable-san-boot.adoc[]
 
 == Step 2: Validate software versions
-include::_include/nvme/nvme-validate-software-versions.adoc[] 
+Use the following procedure to validate the minimum supported RHEL 9.6 software versions.
+
+.Steps
+
+. Install RHEL 9.6 on the server. After the installation is complete, verify that you are running the specified RHEL 9.6 kernel: 
++
+[source,cli]
+----
+uname -r
+----
++
+The following example shows a Rocky Linux kernel version:
++
+----
+5.14.0-570.12.1.el9_6.x86_64
+----
+[start=2]
+include::_include/nvme/linux-validate-software-versions.adoc[]
 
 == Step 3: Configure NVMe/FC
 
