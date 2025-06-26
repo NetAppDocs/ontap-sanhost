@@ -100,7 +100,7 @@ up       secondary  /dev/dsk/c44t6d7     fclp1   hpux_6                         
 
 == List all LUNs mapped to host from a given SVM
 
-Retrieve a list of all LUNs mapped to host from a certain SVM.
+Retrieve a list of all LUNs mapped to a host from a specific SVM.
 
 [source,cli]
 ----
