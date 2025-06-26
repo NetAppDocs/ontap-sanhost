@@ -510,7 +510,7 @@ nvme	connect-all	-t	tcp	-w	192.168.211.80	-a	192.168.211.67
 ====
 
 [NOTE]
-Beginning with SLES 15 SP7, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+Beginning with SLES 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 == Step 7: Validate NVMe-oF
 
@@ -618,15 +618,6 @@ nvme list-subsys /dev/nvme9n1
 ====
 [subs=+quotes]
 ----
-nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.8b5ee9199ff411eea468d039ea36a106:subsystem.nvme_tcp_1
- hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
- iopolicy=round-robin
-\
-+- nvme4 *tcp* traddr=192.168.111.66,trsvcid=4420,host_traddr=192.168.111.79,src_addr=192.168.111.79 *live*
-+- nvme3 *tcp* traddr=192.168.211.66,trsvcid=4420,host_traddr=192.168.211.79,src_addr=192.168.111.79 *live*
-+- nvme2 *tcp* traddr=192.168.111.67,trsvcid=4420,host_traddr=192.168.111.79,src_addr=192.168.111.79 *live*
-+- nvme1 *tcp* traddr=192.168.211.67,trsvcid=4420,host_traddr=192.168.211.79,src_addr=192.168.111.79 *live*
-
 nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.f8e2af201b7211f0ac2bd039eab67a95:subsystem.with_inband_with_json hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
 iopolicy=round-robin
 \
@@ -844,7 +835,7 @@ Transport Service Identifier: 8009
 
 == Step 9: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between a SUSE Linux Enterprise Server 15 SP7 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between the host and the ONTAP controller.
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
