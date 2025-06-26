@@ -1,21 +1,3 @@
-Validate the minimum supported Rocky Linux software versions.
-
-.Steps
-
-. Install Rocky Linux on the server. 
-
-. Verify that you are running the specified Rocky Linux kernel: 
-+
-----
-uname -r
-----
-+
-The following example shows a RHEL kernel version:
-+
-----
-5.14.0-503.11.1.el9_5.x86_64
-----
-
 . Install the `nvme-cli` package:
 +
 [source,cli]
