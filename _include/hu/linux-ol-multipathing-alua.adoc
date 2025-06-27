@@ -70,7 +70,7 @@ chkconfig multipathd on
 | dev_loss_tmo | "infinity"
 | failback | immediate
 | fast_io_fail_tmo | 5
-| features | "3 queue_if_no_path pg_init_retries 50"
+| features | "2 pg_init_retries 50"
 | flush_on_last_del | "yes"
 | hardware_handler | "0"
 | no_path_retry | queue

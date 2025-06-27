@@ -38,7 +38,7 @@ The following table shows the Linux OS native compiled multipath parameter setti
 | dev_loss_tmo | "infinity"
 | failback | immediate
 | fast_io_fail_tmo | 5
-| features | "3 queue_if_no_path pg_init_retries 50"
+| features | "2 pg_init_retries 50"
 | flush_on_last_del | "yes"
 | hardware_handler | "0"
 | no_path_retry | queue
@@ -65,9 +65,9 @@ multipath -ll
 The default multipath parameters support AFF and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
 +
 An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
-
++
 The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an AFF or FAS configuration with two Active/Optimized paths and two Active/Non-Optimized paths:
-
++
 .Show example
 [%collapsible]
 ====
