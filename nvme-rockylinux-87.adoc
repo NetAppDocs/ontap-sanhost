@@ -1,0 +1,80 @@
+---
+sidebar: sidebar
+permalink: nvme-rockylinux-87.html
+keywords: nvme, linux, rocky linux, enterprise
+summary: How to Configure NVMe-oF Host for Rocky Linux 8.7 with ONTAP
+---
+= Configure Rocky Linux 8.7 with NVMe-oF for ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+Rocky Linux 8.7 hosts support the NVMe/FC and NVMe/TCP protocols with Asymmetric Namespace Access (ANA). ANA is equivalent to asymmetric logical unit access (ALUA) multipathing in iSCSI and FCP environments and is implemented using the in-kernel NVMe multipath feature.
+
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+.About this task 
+You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 8.7. You should also review the known limitations before starting the configuration process.
+
+* Support available:
+** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+* Known limitations: 
+** In-kernel NVMe multipath is disabled by default for Rocky Linux 8.7 NVMe-oF hosts. Therefore, you need to enable it manually.
+** On Rocky Linux 8.7 hosts, NVMe/TCP is a technology preview feature due to open issues. Refer to the link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html-single/8.7_release_notes/index#technology-preview_file-systems-and-storage[Rocky Linux 8.7 release notes^] for details. 
+** SAN booting using the NVMe-oF protocol is currently not supported.
+
+== Step 1: Optionally, enable SAN booting
+include::_include/nvme/enable-san-booting.adoc[]
+
+== Step 2: Validate software versions
+Use the following procedure to validate the minimum supported Rocky Linux 8.7 software versions.
+
+.Steps
+
+. Install Rocky Linux 8.7 on the server. After the installation is complete, verify that you are running the specified Rocky Linux 8.7 kernel: 
++
+[source,cli]
+----
+uname -r
+----
++
+The following example shows a Rocky Linux kernel version:
++
+----
+5.14.0-570.12.1.el9_6.x86_64
+----
+[start=2]
+include::_include/nvme/linux-validate-software-version-rockylinux.adoc[] 
+
+== Step 3: Configure NVMe/FC
+include::_include/nvme/nvme-configure.adoc[]
+
+== Step 4: Optionally, enable 1MB I/O 
+include::_include/nvme/nvme-enable-1mb-io.adoc[]
+
+== Step 5: Configure NVMe/TCP
+
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+
+== Step 6: Validate NVMe-oF
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
+
+== Step 7: Review the known issues
+
+The NVMe-oF host configuration for Rocky Linux 8.7 with ONTAP has the following known issues:
+
+[cols="20,40,40",options="header"]
+|===
+|NetApp Bug ID	|Title	|Description
+
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|Rocky Linux 8.7 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running ONTAP 9.10.1 and Rocky Linux 8.7 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
+|===
+
+// 2024 SEP 2, ONTAPDOC-2345
+// 2022,12-06, Jira IEOPS-690
+// JIRA-1289 20-Sep-2023

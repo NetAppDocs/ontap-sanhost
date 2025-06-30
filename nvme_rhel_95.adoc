@@ -4,8 +4,7 @@ permalink: nvme_rhel_95.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 ---
-
-= NVMe-oF host configuration for RHEL 9.5 with ONTAP
+= Configure RHEL 9.5 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -27,9 +26,24 @@ For additional details on supported configurations, see the link:https://mysuppo
 * Features available:
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with RHEL 9.5.
 ** RHEL 9.5 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-** Support for SAN booting using the NVMe/FC protocol.
 * Known limitations: 
 ** There are no known limitations.
+
+== Enable SAN booting
+You can configure your host to use SAN booting to simplify deployment and improve scalability.
+
+.Before you begin
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.Steps
+
+. https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Create a SAN boot namespace and map it to the host^].
+
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
 
 == Validate software versions
 
@@ -491,6 +505,7 @@ subnqn:  nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem.nv
 traddr:  192.168.1.24
 eflags:  none
 sectype: none
+----
 =====
 
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
@@ -500,7 +515,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
-[%collapsible%]
+[%collapsible]
 =====
 [subs=+quotes]
 ----
@@ -508,6 +523,7 @@ nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.24 
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.25 
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.25
+----
 =====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
@@ -517,7 +533,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
-[%collapsible%]
+[%collapsible]
 =====
 [subs=+quotes]
 ----
@@ -525,6 +541,7 @@ nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.24
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.24
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.25
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25					
+----
 =====
 
 [NOTE]
@@ -606,6 +623,7 @@ iopolicy=round-robin\
 +- nvme10 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2087d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live non-optimized*
 +- nvme3 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2083d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live optimized*
 ----
+====
 --
 .NVMe/TCP
 --
@@ -659,6 +677,7 @@ NSID       UUID                                   Size
 ------------------------------------------------------------
 1    5f7f630d-8ea5-407f-a490-484b95b15dd6   21.47GB                              
 ----
+====
 --
 .JSON
 --
