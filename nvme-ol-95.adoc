@@ -31,11 +31,11 @@ For additional details on supported configurations, see the link:https://mysuppo
  
 == Step 1: Optionally, enable SAN booting
 
-include::_include/hu/linux-enable-san-boot.adoc[]
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Validate software versions
 
-You can use the following procedure to validate the minimum supported Oracle Linux 9.5 software versions.
+Use the following procedure to validate the minimum supported Oracle Linux 9.5 software versions.
 
 .Steps
 
@@ -726,7 +726,7 @@ DHHC-1:03:frpLlTrnOYtcWDxPzq4ccxU1UrH2FjV7hYw5s2XEDB+lo+TjMsOwHR\/NFtM0nBBidx+gd
 --
 When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
-To generate the JSON file, you can use the `-o` option. See the NVMe connect-all manual pages for more syntax options.
+Use the `-o` option to generate the JSON file. See the NVMe connect-all manual pages for more syntax options.
 
 .Steps
 . Configure the JSON file:
@@ -818,7 +818,7 @@ cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 You should see an output similar to the following example:
 +
 ----
-DHHC-               1:03:frpLlTrnOYtcWDxPzq4ccxU1UrH2FjV7hYw5s2XEDB+lo+TjMsOwHR\/NFtM0nBBidx+gdoyUcC5s6hOOtTLDGcz0Kbs=:
+DHHC-1:03:frpLlTrnOYtcWDxPzq4ccxU1UrH2FjV7hYw5s2XEDB+lo+TjMsOwHR\/NFtM0nBBidx+gdoyUcC5s6hOOtTLDGcz0Kbs=:
 ----
 --
 =====
