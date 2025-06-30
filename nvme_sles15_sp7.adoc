@@ -689,6 +689,7 @@ Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (P
 
 . Verify that the discovery log page data is available and can be retrieved through the initiator port and target LIF combination:
 +
+[source,cli]
 ----
 nvme discover -t <trtype> -w <host-traddr> -a <traddr>
 ----
@@ -793,6 +794,7 @@ sectype: none
 
 . Create a PDC for the discovery subsystem: 
 +
+[source,cli]
 ----
 nvme discover -t <trtype> -w <host-traddr> -a <traddr> -p
 ----
@@ -805,6 +807,7 @@ nvme discover -t tcp -w 192.168.111.80 -a 192.168.111.66 -p
 
 . From the ONTAP controller, verify that the PDC has been created:
 +
+[source,cli]
 ----
 vserver nvme show-discovery-controller -instance -vserver <vserver_name>
 ----
@@ -850,6 +853,7 @@ Set up secure in-band authentication using the CLI.
 .Steps
 . Obtain the host NQN:
 +
+[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
@@ -886,6 +890,7 @@ nvme connect -t tcp -w <host-traddr> -a <tr-addr> -n <host_nqn> -S <authenticati
 +
 .. Verify the host dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 ----
@@ -904,6 +909,7 @@ DHHC-1:01:iM63E6cX7G5SOKKOju8gmzM53qywsy+C/YwtzxhIt9ZRz+ky:
 +
 .. Verify the controller dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 ----
@@ -977,13 +983,14 @@ To generate the JSON file, you can use the `-o` option. See the NVMe connect-all
  }
 ]
 ----
-+
+
 ==== 
 [NOTE]
 In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
 
 . Connect to the ONTAP controller using the config JSON file:
 +
+[source,cli]
 ----
 nvme connect-all -J /etc/nvme/config.json
 ----
@@ -1011,6 +1018,7 @@ traddr=192.168.111.70 is already connected
 +
 .. Verify the host dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
@@ -1023,6 +1031,7 @@ DHHC-1:01:i4i789R11sMuHLCY27RVI8XloC/GzjRwyhxip5hmIELsHrBq:
 +
 .. Verify the controller dhchap keys:
 +
+[source,cli]
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
@@ -1042,15 +1051,25 @@ include::_include/nvme/linux-configure-tls.adoc[]
 .Steps
 . Check that you have the following `ktls-utils`, `openssl`, and `libopenssl` packages installed on the host: 
 
-.. `rpm -qa | grep ktls`
+.. Verify the `ktls-utils`:
 +
-You should see the following `ktls-utils`:
+[source,cli]
+----
+`rpm -qa | grep ktls`
+----
++
+You should see the following output displayed:
 +
 ----
 ktls-utils-0.10+33.g311d943-150700.1.5.x86_64
 ----
 
-.. `rpm -qa | grep ssl`
+.. Verify the ssl packages:
++
+[source,cli]
+----
+`rpm -qa | grep ssl`
+----
 +
 .Show example output
 [%collapsible]
@@ -1064,6 +1083,7 @@ libopenssl1_1-1.1.1w-150700.9.37.x86_64
 
 . Verify that you have the correct setup for `/etc/tlshd.conf`:
 +
+[source,cli]
 ----
 cat /etc/tlshd.conf
 ----
@@ -1092,11 +1112,13 @@ nl=0
 
 . Enable `tlshd` to start at system boot:
 +
+[source,cli]
 ----
 systemctl enable tlshd
 ----
 . Verify that the `tlshd` daemon is running:
 +
+[source,cli]
 ----
 systemctl status tlshd
 ----
@@ -1119,7 +1141,12 @@ Aug 21 15:46:54 RX2530-M4-17-153 tlshd[961]: Built from ktls-utils 0.11-dev on M
 ====
 . Generate the TLS PSK by using the `nvme gen-tls-key`:
 
-.. `cat /etc/nvme/hostnqn`
+.. Verify the host:
++ 
+[source,cli]
+----
+`cat /etc/nvme/hostnqn`
+----
 +
 You should see the following output:
 +
@@ -1127,7 +1154,12 @@ You should see the following output:
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
 ----
 
-.. `nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn= nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1`
+.. Verify the key: 
++
+[source,cli]
+----
+`nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn= nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1`
+----
 +
 You should see the following output:
 +
@@ -1147,6 +1179,7 @@ nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.201
 
 . Insert the TLS PSK into the host kernel keyring:
 +
+[source,cli]
 ----
 nvme check-tls-key --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 --keydata=NVMeTLSkey-1:01:C50EsaGtuOp8n5fGE9EuWjbBCtshmfoHx4XTqTJUmydf0gIj: --insert
 ----
@@ -1161,6 +1194,7 @@ NOTE: The PSK shows as `NVMe1R01` because it uses `identity v1` from the TLS han
 
 . Verify that the TLS PSK is inserted correctly:
 +
+[source,cli]
 ----
 cat /proc/keys | grep NVMe
 ----
@@ -1175,7 +1209,12 @@ cat /proc/keys | grep NVMe
 
 . Connect to the ONTAP subsystem using the inserted TLS PSK:
 
-.. `nvme connect -t tcp -w 192.168.111.80 -a 192.168.111.66  -n nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 --tls_key=0x069f56bb –tls`
+.. Verify the TLS PSK:
++
+[source,cli]
+----
+`nvme connect -t tcp -w 192.168.111.80 -a 192.168.111.66  -n nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 --tls_key=0x069f56bb –tls`
+----
 +
 You should see the following output:
 +
@@ -1183,7 +1222,12 @@ You should see the following output:
 connecting to device: nvme0
 ----
 
-.. `nvme list-subsys`
+.. Verify the list-subsys:
++
+[source,cli]
+----
+`nvme list-subsys`
+----
 +
 .Show example output
 [%collapsible]
@@ -1198,7 +1242,10 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:su
 
 . Add the target, and verify the TLS connection to the specified ONTAP subsystem:
 +
+[source,cli]
+----
 `nvme subsystem controller show -vserver sles15_tls -subsystem sles15 -instance`
+----
 +
 .Show example output
 [%collapsible]
