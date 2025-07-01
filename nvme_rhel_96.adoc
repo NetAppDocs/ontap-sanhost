@@ -268,7 +268,9 @@ The expected ouptut is 1.
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Step 5: Verify NVMe boot services
-With RHEL 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. After booting completes, verify that the services are enabled.
+With RHEL 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
 
 include::_include/nvme/verify-nvme-services.adoc[]
 

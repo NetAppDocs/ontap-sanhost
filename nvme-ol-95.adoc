@@ -28,6 +28,9 @@ For additional details on supported configurations, see the link:https://mysuppo
 * Features available:
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with Oracle Linux 9.5
 ** Support for in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
+
+* Known limitations:
+** The `disconnect-all` command disconnects both root and data filesystems on a system that is booting from SAN over NVMe-TCP or NVMe-FC namespaces. This can lead to system instability.
  
 == Step 1: Optionally, enable SAN booting
 
@@ -256,7 +259,7 @@ FCP CMPL: xb 000000c2 Err 00000238
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc1 WWPN x100000620b3c089d WWNN x200000620b3c089d DID x081900 *ONLINE*
-NVME RPORT       WWPN x2002d039eab0dadc WWNN x2000d039eab0dadc DID x080201 8TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2002d039eab0dadc WWNN x2000d039eab0dadc DID x080201 *TARGET DISCSRVC ONLINE*
 NVME RPORT       WWPN x2004d039eab0dadc WWNN x2000d039eab0dadc DID x080301 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
@@ -308,7 +311,60 @@ The value `1` verifies that `ql2xnvmeenable` is set.
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
-== Step 5: Verify your NVMe configuration
+== Step 5: Verify NVMe boot services
+With Oracle Linux 9.5, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
+
+.Steps
+
+. Verify that `nvmf-autoconnect.service` is enabled:
++
+[source,cli]
+----
+systemctl status nvmf-autoconnect.service
+----
++
+.Show example output
+[%collapsible]
+====
+----
+nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
+Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service; enabled; vendor preset: disabled)
+Active: inactive (dead) since Thu 2024-05-25 14:55:00 IST; 11min ago
+Process: 2108 ExecStartPre=/sbin/modprobe nvme-fabrics (code=exited, status=0/SUCCESS)
+Process: 2114 ExecStart=/usr/sbin/nvme connect-all (code=exited, status=0/SUCCESS)
+Main PID: 2114 (code=exited, status=0/SUCCESS)
+
+systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot...
+nvme[2114]: traddr=nn-0x201700a098fd4ca6:pn-0x201800a098fd4ca6 is already connected
+systemd[1]: nvmf-autoconnect.service: Deactivated successfully.
+systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
+----
+====
+. Verify that `nvmefc-boot-connections.service` is enabled:
++
+[source,cli]
+----
+systemctl status nvmefc-boot-connections.service
+----
++
+.Show example output
+[%collapsible]
+====
+----
+nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
+Loaded: loaded (/usr/lib/systemd/system/nvmefc-boot-connections.service; enabled; vendor preset: enabled)
+Active: inactive (dead) since Thu 2024-05-25 14:55:00 IST; 11min ago
+Main PID: 1647 (code=exited, status=0/SUCCESS)
+
+systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot...
+systemd[1]: nvmefc-boot-connections.service: Succeeded.
+systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
+----
+====
+
+== Step 6: Verify your NVMe configuration
 
 include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
 
@@ -454,7 +510,7 @@ nvme	connect-all	-t	tcp	-w	192.168.166.4	-a	192.168.166.9
 The default setting for the NVMe/TCP `ctrl_loss_tmo timeout` is turned off and there are no limits on the number of retries (indefinite retry). Consequestnly, you don't have to manually configure a specific `ctrl_loss_tmo timeout` duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 
-== Step 6: Verify the multipathing configuration
+== Step 7: Configure NVMe/TCP
 
 include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 
@@ -630,7 +686,7 @@ nvme netapp ontapdevices -o json
 
 
 
-== Step 7: Set up secure in-band authentication
+== Step 8: Set up secure in-band authentication
 
 Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between an Oracle Linux 9.5 host and an ONTAP controller.
 
@@ -823,6 +879,6 @@ DHHC-1:03:frpLlTrnOYtcWDxPzq4ccxU1UrH2FjV7hYw5s2XEDB+lo+TjMsOwHR\/NFtM0nBBidx+gd
 --
 =====
 
-== Step 8: Review the known issues
+== Step 9: Review the known issues
 
 There are no known issues.
