@@ -6,7 +6,7 @@ summary: Describes how to use Oracle Linux 8.10 with ONTAP
 ---
 = Configure Oracle Linux 8.10 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
-:toclevels: 1P
+:toclevels: 1
 :nofooter:
 :icons: font
 :linkattrs:
@@ -19,7 +19,7 @@ include::_include/hu/linux-configure-kvm-note.adoc[]
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
-include::_include/hu/install-linux-host-utilities-80.adoc[]
+include::_include/hu/install-linux-host-utilities.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
