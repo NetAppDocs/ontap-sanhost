@@ -17,6 +17,7 @@ An example WWID is `360030057024d0730239134810c0cb833`.
 
 . Add the WWID to the "blacklist" stanza:
 +
+[source,cli]
 ----
 blacklist {
 	     wwid   360030057024d0730239134810c0cb833
