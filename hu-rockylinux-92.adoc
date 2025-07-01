@@ -1,0 +1,49 @@
+---
+sidebar: sidebar
+permalink: hu-rockylinux-92.html
+keywords: host utilities, rocky, linux, 9.2, netapp, ontap, fcp, iscsi
+summary: Install the Linux Host Utilities on a Rocky Linux 9.2 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+---
+= Configure Rocky Linux 9.2 for FCP and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Rocky Linux 9.2 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+
+include::_include/hu/rhel-configure-kvm-note.adoc[]
+
+include::_include/hu/enable-san-boot-linux.adoc[]
+
+include::_include/hu/install-linux-host-utilities.adoc[]
+
+== Step 3: Confirm the multipath configuration for your host
+
+You can use multipathing with Rocky Linux 9.2 to manage ONTAP LUNs.
+
+include::_include/hu/rhel-multipathing.adoc[]
+
+include::_include/hu/exclude-device.adoc[]
+
+include::_include/hu/rhel-customize-parameters.adoc[]
+
+== Step 6: Review the known issues
+
+The Rocky Linux 9.2 release for FCP and iSCSI with ONTAP storage has the following known issues:
+
+[options="header", cols="20,40,40"]
+|===
+|NetApp Bug ID	|Title	|Description
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.2, the NetApp Linux SAN Host Utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. 
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1537359[1537359^] |A Red Hat Linux 9.2 SAN booted host with Emulex HBA encounters stalled tasks leading to kernel disruption |During a storage failover giveback operation, a Red Hat Linux 9.2 SAN booted host with an Emulex host bus adapeter (HBA) encounters stalled tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
+|===
+
+== What's next?
+ 
+include::_include/hu/use-linux-host-utilities.adoc[]
+ 
+include::_include/hu/asm-mirroring.adoc[]
