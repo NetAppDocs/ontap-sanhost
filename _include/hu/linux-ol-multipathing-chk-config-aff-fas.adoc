@@ -13,12 +13,12 @@ touch /etc/multipath.conf
 +
 [source,cli]
 ----
-systemctl enable multipathd
+chkconfig multipathd on
 ----
 +
 [source,cli]
 ----
-systemctl start multipathd
+/etc/init.d/multipathd start
 ----
 
 . Each time you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
@@ -62,52 +62,24 @@ The following table shows the Linux OS native compiled multipath parameter setti
 multipath -ll
 ----
 +
-The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
+The default multipath parameters support AFF and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
 +
-The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration. 
-+
-[role="tabbed-block"]
-=====
-.ASA configuration
---
-An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time. 
-
-.Show example
-[%collapsible]
-====
-----
-multipath -ll
-3600a098038314c4a433f577471797958 dm-2 NETAPP,LUN C-Mode
-size=180G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-`-+- policy='service-time 0' prio=50 status=active
-  |- 14:0:0:0  sdc  8:32   active ready running
-  |- 17:0:0:0  sdas 66:192 active ready running
-  |- 14:0:3:0  sdar 66:176 active ready running
-  `- 17:0:3:0  sdch 69:80  active ready running
-----
-====
---
-
-.AFF or FAS configuration
---
 An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
-
-The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
-
++
+The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an AFF or FAS configuration with two Active/Optimized paths and two Active/Non-Optimized paths:
++
 .Show example
 [%collapsible]
 ====
 ----
 multipath -ll
-3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode
-size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+3600a0980383036347ffb4d59646c4436 dm-28 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
-| |- 16:0:3:0  sdcg 69:64  active ready running
-| `- 10:0:0:0  sdb  8:16   active ready running
+| |- 16:0:6:35 sdwb  69:624  active ready running
+| |- 16:0:5:35 sdun  66:752  active ready running
 `-+- policy='service-time 0' prio=10 status=enabled
-  |- 10:0:1:0  sdc  8:32   active ready running
-  `- 16:0:2:0  sdcf 69:48  active ready running
+  |- 15:0:0:35 sdaj  66:48   active ready running
+  |- 15:0:1:35 sdbx  68:176  active ready running
 ----
 ====
---
-=====
