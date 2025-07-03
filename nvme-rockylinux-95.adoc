@@ -57,13 +57,6 @@ include::_include/nvme/linux-validate-software-version-rockylinux.adoc[]
 == Step 3: Configure NVMe/FC
 include::_include/nvme/nvme-configure.adoc[]
 
-[NOTE]
-====
-Beginning with Rocky Linux 9.5, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
-
-include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
-====
-
 == Step 4: Optionally, enable 1MB I/O 
 include::_include/nvme/nvme-enable-1mb-io.adoc[]
 
