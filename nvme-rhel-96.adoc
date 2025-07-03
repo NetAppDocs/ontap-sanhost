@@ -60,6 +60,9 @@ You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 [role="tabbed-block"]
 =====
 .Broadcom/Emulex
+
+Configure NVMe/FC for a Broadcom/Emulex adapter.
+
 --
 .Steps
 
@@ -411,7 +414,7 @@ src_addr=192.168.1.31 *live non-optimized*
 =====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
-
++
 [role="tabbed-block"]
 =====
 .Column
