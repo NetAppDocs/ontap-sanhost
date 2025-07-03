@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_rhel_70.html
 keywords: host utilities, red hat, rhel, linux, 7.0, netapp, ontap
-summary: Describes how to use Red Hat Enterprise Linux 7.0 with ONTAP
+summary: Install Linux Host Utilities on a RHEL 7.0 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
 = Configure RHEL 7.0 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
@@ -21,6 +21,7 @@ include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities.adoc[]
 
+[[rhel-rhck]]
 == Step 3: Confirm the multipath configuration for your host
 
 You can use multipathing with RHEL 7.0 to manage ONTAP LUNs.
