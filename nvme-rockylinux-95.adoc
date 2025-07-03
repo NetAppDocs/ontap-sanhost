@@ -59,11 +59,9 @@ include::_include/nvme/nvme-configure.adoc[]
 
 [NOTE]
 ====
-Beginning with Rocky Linux 9.5, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result of this default setting:
+Beginning with Rocky Linux 9.5, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
 
-* There are no limits on the number of retries (indefinite retry).
-* You don't have to manually configure a specific `ctrl_loss_tmo timeout` duration when using the `nvme connect` or `nvme connect-all` commands (option -l ).
-* The NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
 
 == Step 4: Optionally, enable 1MB I/O 
@@ -72,6 +70,13 @@ include::_include/nvme/nvme-enable-1mb-io.adoc[]
 == Step 5: Configure NVMe/TCP
 
 include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+
+[NOTE]
+====
+Beginning with Rocky Linux 9.5, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
+
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
+====
 
 == Step 6: Validate NVMe-oF
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
