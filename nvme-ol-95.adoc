@@ -501,10 +501,10 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 You should see an output similar to the following example:
 +
 ----
-nvme	connect-all	-t	tcp	-w	192.168.165.3	-a	192.168.165.8
-nvme	connect-all	-t	tcp	-w	192.168.165.3	-a	192.168.165.9
-nvme	connect-all	-t	tcp	-w	192.168.166.4	-a	192.168.166.8
-nvme	connect-all	-t	tcp	-w	192.168.166.4	-a	192.168.166.9
+nvme connect-all -t	tcp -w 192.168.165.3 -a 192.168.165.8
+nvme connect-all -t	tcp -w 192.168.165.3 -a 192.168.165.9
+nvme connect-all -t	tcp -w 192.168.166.4 -a 192.168.166.8
+nvme connect-all -t	tcp -w 192.168.166.4 -a 192.168.166.9
 
 ----
 +
@@ -531,7 +531,7 @@ include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
 cat /sys/module/nvme_core/parameters/multipath
 ----
 +
-The value `Y` verifies the that multipath paraemter is set.
+The value `Y` verifies the that multipath parameter is set.
 
 .. Dispaly the subsystems:
 +
