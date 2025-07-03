@@ -278,9 +278,6 @@ FCP CMPL: xb 000000c2 Err 0000023d
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-NOTE: The native inbox qla2xxx driver included in the Oracle Linux 9.5 GA kernel has the latest fixes. These fixes are essential for ONTAP support. 
-
-
 .Steps
 
 . Verify that you are running the supported adapter driver and firmware versions:
