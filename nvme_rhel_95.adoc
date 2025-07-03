@@ -551,7 +551,7 @@ nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25
 ====
 Beginning with RHEL 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
 
-include::_include/nvme/ctrl-loss-tmo-default-off.adoc[].
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
 
 

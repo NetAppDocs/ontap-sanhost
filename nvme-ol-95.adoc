@@ -512,7 +512,7 @@ nvme	connect-all	-t	tcp	-w	192.168.166.4	-a	192.168.166.9
 ====
 Beginning with Oracle Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
 
-include::_include/nvme/ctrl-loss-tmo-default-off.adoc[].
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
 
 
