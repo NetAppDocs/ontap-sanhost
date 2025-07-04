@@ -37,7 +37,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 ** There are no new features in this release.
 
 * Known limitations:
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces, as it disconnects both root and data filesystems and might lead to system instability.
+** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
  
 == Step 1: Optionally, enable SAN booting
 
