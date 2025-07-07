@@ -4,7 +4,7 @@ permalink: nvme_rhel_95.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 ---
-= NVMe-oF host configuration for RHEL 9.5 with ONTAP
+= Configure RHEL 9.5 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -26,12 +26,10 @@ For additional details on supported configurations, see the link:https://mysuppo
 * Features available:
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe-oF. You can use secure in-band authentication for NVMe-oF with RHEL 9.5.
 ** RHEL 9.5 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-** Support for SAN booting using the NVMe/FC protocol.
 * Known limitations: 
 ** There are no known limitations.
 
 == Enable SAN booting
-
 You can configure your host to use SAN booting to simplify deployment and improve scalability.
 
 .Before you begin
@@ -39,9 +37,8 @@ Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matri
 
 .Steps
 
-. Create a SAN boot namespace and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
+. https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Create a SAN boot namespace and map it to the host^].
+
 . Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
 +
 For information on how to enable the HBA BIOS, see your vendor-specific documentation.
@@ -131,6 +128,9 @@ You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters.
 ====
 .Broadcom/Emulex
 --
+
+Configure NVMe/FC for a Broadcom/Emulex adapter.
+
 .Steps
 
 . Verify that you are using the supported adapter model: 

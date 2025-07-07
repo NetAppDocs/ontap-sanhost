@@ -31,22 +31,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 ** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces, as it disconnects both root and data filesystems and may lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
-
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot namespace and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot namespace is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Validate software versions
 
@@ -66,7 +51,6 @@ The following example shows a RHEL kernel version:
 ----
 6.12.0-55.9.1.el10_0.x86_64
 ----
-
 . Install the `nvme-cli` package:
 +
 [source,cli]
@@ -140,9 +124,12 @@ If the `hostnqn` strings do not match, use the `vserver modify` command to updat
 You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
 
 [role="tabbed-block"]
-====
+=====
 .Broadcom/Emulex
 --
+
+Configure NVMe/FC for a Broadcom/Emulex adapter.
+
 .Steps
 
 . Verify that you are using the supported adapter model: 
@@ -251,7 +238,7 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 NVME Initiator Enabled
@@ -280,10 +267,9 @@ Total FCP Cmpl 000000007afd4434 Issue 000000007ae31b83 OutIO ffffffffffe5d74f
         abort 000014a5 noxri 00000000 nondlp 0000006a qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 000014a5 Err 0002149a
 ----
-=====
+====
 
 --
-
 .Marvell/QLogic
 --
 
@@ -314,7 +300,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 +
 The expected ouptut is 1.
 --
-====
+=====
 
 == Step 4: Optionally, enable 1MB I/O 
 
@@ -526,7 +512,7 @@ nvme list
 ====
 ----
 Node         SN                   Model                          
----------------------------------------------------------  
+----------------------------------------------------------- 
 /dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
                                
 
@@ -607,7 +593,7 @@ Device        Vserver   Namespace Path
 /dev/nvme10n1     vs_tcp_rhel10       /vol/vol10/ns10 
               
 NSID       UUID                                   Size
-------------------------------------------------------------
+----------------------- ------------------------------
 1    bbf51146-fc64-4197-b8cf-8a24f6f359b3   21.47GB                          
 ----
 ====
@@ -708,7 +694,7 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 [%collapsible]
 ====
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
+cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
 DHHC- 1:03:fMCrJharXUOqRoIsOEaG6m2PH1yYvu5+z3jTmzEKUbcWu26I33b93b
 il2WR09XDho/ld3L45J+0FeCsStBEAfhYgkQU=:  
 DHHC- 1:03:fMCrJharXUOqRoIsOEaG6m2PH1yYvu5+z3jTmzEKUbcWu26I33b93b
@@ -731,7 +717,7 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 [%collapsible]
 ====
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_ctrl_secret
+cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_ctrl_secret
 DHHC- 1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia
 1aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:
                       
@@ -757,12 +743,12 @@ Use the `-o` option to generate the JSON file. See the NVMe connect-all manual p
 +
 [NOTE]
 In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`.
-
++
 .Show example
 [%collapsible]
 ====
 ----
-# cat /etc/nvme/config.json
+cat /etc/nvme/config.json
 [
 {
 "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-c2c04f444d33",
@@ -803,7 +789,7 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 +
 [source,cli]
 ----
-# nvme connect-all -J /etc/nvme/config.json
+nvme connect-all -J /etc/nvme/config.json
 ----
 +
 .Show example
@@ -835,7 +821,7 @@ traddr=192.168.20.21 is already connected
 +
 [source,cli]
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
+cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
 +
 The following example shows a dhchap key:
@@ -849,7 +835,7 @@ aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:
 +
 [source,cli]
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
+cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
 +
 You should see an output similar to the following example:
