@@ -1,0 +1,3 @@
+* There are no limits on the number of retries (indefinite retry).
+* You don't need to manually configure a specific `ctrl_loss_tmo timeout` duration when using the `nvme connect` or `nvme connect-all` commands (option -l ).
+* The NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
