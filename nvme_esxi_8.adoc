@@ -247,7 +247,7 @@ Deallocate support is always enabled for NVMe namespaces. Deallocate also allows
 
 . On your ESXi host, verify the setting for DSM deallocate with TP4040 support:
 +
-`esxcfg-advcfg -g /SCSi/NVmeUseDsmTp4040`
+`esxcfg-advcfg -g /Scsi/NVmeUseDsmTp4040`
 +
 The expected value is 0.
 
@@ -257,7 +257,7 @@ The expected value is 0.
 
 . Verify that the setting for DSM deallocate with TP4040 support is enabled: 
 +
-`esxcfg-advcfg -g /SCSi/NVmeUseDsmTp4040`
+`esxcfg-advcfg -g /Scsi/NVmeUseDsmTp4040`
 +
 The expected value is 1.
 
