@@ -20,14 +20,15 @@ You can use the following support and features with the NVMe-oF host configurati
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with Rocky Linux 10.
+
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
 ** Beginning with Rocky Linux 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe-oF is not supported.
 * Known limitations: 
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces, as it disconnects both root and data filesystems and may lead to system instability.
+** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
 
@@ -310,7 +311,9 @@ include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
 == Step 5: Verify NVMe boot services 
 
-With Rocky Linux 10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. After booting completes, verify that the services are enabled.
+With Rocky Linux 10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
 
 include::_include/nvme/verify-nvme-services.adoc[]
 
@@ -465,7 +468,11 @@ nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21
 =====
 
 [NOTE]
-Beginning with Rocky Linux 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+====
+Beginning with Rocky Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
+
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
+====
 
 == Step 7: Validate NVMe-oF
 

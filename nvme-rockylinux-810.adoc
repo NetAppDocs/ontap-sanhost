@@ -22,7 +22,7 @@ You can use the following support and features with the NVMe-oF host configurati
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 * Known limitations: 
 ** In-kernel NVMe multipath is disabled by default for Rocky Linux 8.10 NVMe-oF hosts. Therefore, you need to enable it manually.
 ** On Rocky Linux 8.10 hosts, NVMe/TCP is a technology preview feature due to open issues. Refer to the https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html-single/8.10_release_notes/index#technology-preview_file-systems-and-storage[Rocky Linux 8.10 Release Notes^] for details.
