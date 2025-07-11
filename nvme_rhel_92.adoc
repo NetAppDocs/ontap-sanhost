@@ -20,93 +20,21 @@ include::_include/nvme/nvme-introduction.adoc[]
 You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.2. You should also review the known limitations before starting the configuration process.
 
 * Support available:
-
-* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-
-* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
-
+** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+** RHEL 9.2 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
++
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+* Features available:
+** There are no new features in this release.
+* Known limitations: 
+SAN booting using the NVMe-oF protocol is not currently supported.
 
-== Features
+== Step 1: Optionally, enable SAN booting
 
-* RHEL 9.2 has in-kernel NVMe multipath enabled for NVMe namespaces by default, therefore, there is no need for explicit settings.
-
-== Known limitations
-
-SAN booting using the NVMe-oF protocol is currently not supported.
-
-== Enable SAN booting
-
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot namespace and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Validate software versions
-
-You can use the following procedure to validate the minimum supported RHEL 9.2 software versions.
-
-.Steps
-
-. Install RHEL 9.2 on the server. After the installation is complete, verify that you are running the specified RHEL 9.2 kernel. 
-+
-----
-# uname -r
-----
-+
-*Example output:*
-+
-----
-5.14.0-284.11.1.el9_2.x86_64
-----
-
-. Install the `nvme-cli` package:
-+
-----
-# rpm -qa|grep nvme-cli
-----
-+
-*Example output:*
-+
-----
-nvme-cli-2.2.1-2.el9.x86_64
-----
-
-. Install the `libnvme` package:
-+
-----
-#rpm -qa|grep libnvme
-----
-+
-
-*Example output* 
-+
-----
-libnvme-1.2-2.el9.x86_64
-----
-
-. On the RHEL 9.2 host, check the hostnqn string at `/etc/nvme/hostnqn`:
-+
-----
-# cat /etc/nvme/hostnqn
-----
-+
-*Example output*
-+
-----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
-----
 
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
@@ -125,6 +53,83 @@ vs_nvme207   rhel_207_LPe32002    nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-
 [NOTE]
 If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
+== Step 2: Validate software versions
+ 
+You can use the following procedure to validate the minimum supported RHEL 9.2 software versions.
+
+.Steps
+
+. Install RHEL 9.2 on the server. After the installation is complete, verify that you are running the specified RHEL 9.2 kernel: 
++
+[source,cli]
+----
+uname -r
+----
++
+The following example shows a Rocky Linux kernel version:
++
+----
+5.14.0-284.11.1.el9_2.x86_64
+----
+
+. Install the `nvme-cli` package:
++
+[source,cli]
+----
+rpm -qa|grep nvme-cli
+----
++
+The following example shows an nvme-cli package version:
++
+----
+nvme-cli-2.2.1-2.el9.x86_64
+----
+
+. Install the `libnvme` package:
++
+[source,cli]
+----
+rpm -qa|grep libnvme
+----
++
+The following example shows an libnvme package version:
++
+----
+libnvme-1.2-2.el9.x86_64
+----
+
+. On the RHEL 9.2 host, check the hostnqn string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
+----
++
+The following example shows an hostnqn version:
++
+----
+nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3310-8033-b8c04f4c5132
+----
+
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
++
+[source,cli]
+----
+::> vserver nvme subsystem host show -vserver vs_ol_nvme
+----
++
+.Show example
+[%collapsible]
+====
+----
+Vserver     Subsystem          Host NQN
+----------- --------------- ----------------------------------------------------------
+vs_nvme207   rhel_207_LPe32002    nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-11ec-8489-3a68dd61a4df
+----
+====
++
+[NOTE]
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 == Configure NVMe/FC
 
@@ -253,10 +258,9 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 --
 ====
 
-=== Enable 1MB I/O (Optional)
+== Step 4: Optionally, enable 1MB I/O 
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
-
 
 == Configure NVMe/TCP
 
@@ -486,7 +490,7 @@ NSID       UUID                                   Size
 --
 ====
 
-== Known issues
+== Step 7: Review the known issues
 
 There are no known issues.
 

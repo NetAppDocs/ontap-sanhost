@@ -4,7 +4,6 @@ permalink: nvme_rhel_81.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 ---
-
 = Configure RHEL 8.1 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
@@ -20,38 +19,20 @@ include::_include/nvme/nvme-introduction.adoc[]
 You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 8.1. You should also review the known limitations before starting the configuration process.
 
 * Support available:
-
-Beginning with ONTAP 9.6, NVMe/FC is supported for Red Hat Enterprise Linux (RHEL) 8.1. A RHEL 8.1 host can run both NVMe and SCSI traffic through the same FC initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
-
-See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported configurations.
-
-==	Known limitations
-
-* Native NVMe/FC auto-connect scripts are not available in the `nvme-cli` package. You can use the host bus adapter (HBA) vendor-provided external auto-connect script.
-
-* NVMe multipath is disabled by default. Therefore, you need to enable it manually. 
-
-* By default, round-robin load balancing is not enabled. You can enable this functionality by writing a `udev` rule. 
-
-* SAN booting using the NVMe-oF protocol is currently not supported.
-
-== Enable SAN booting
-
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot namespace and map it to the host.
+** Beginning with ONTAP 9.6, NVMe/FC is supported for Red Hat Enterprise Linux (RHEL) 8.1. The RHEL 8.1 host runs both NVMe and SCSI traffic through the same FC initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
 +
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+* Features available:
+** There are no new features in this release.
+* Known limitations: 
+** In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.2, so you must enable it manually.
+** SAN booting using the NVMe-oF protocol is not currently supported.
+** The native `nvme-cli` package does not include `nvme-fc auto-connect` scripts. You can use the host bus adapter (HBA) vendor-provided external auto-connect script.
+** By default, round-robin load balancing is not enabled. You can enable it by writing a `udev` rule. 
 
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+== Step 1: Optionally, enable SAN booting
+
+include::_include/nvme/enable-san-booting.adoc[]
 
 ==	Enable NVMe/FC 
 
@@ -195,7 +176,7 @@ NVME Statistics
 …
 ----
 
-==	Enable 1MB I/O Size for Broadcom NVMe/FC
+== Step 4: Optionally, enable 1MB I/O 
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
@@ -206,6 +187,10 @@ You can use the following procedure to validate NVMe/FC.
 .Steps
 
 include::_include/nvme/reuse_validating_nvme_fc_rhel.adoc[]
+
+== Step 6: Review the known issues
+
+There are no known issues.
 
 
 // JIRA-1289 20-Sep-2023

@@ -20,39 +20,19 @@ include::_include/nvme/nvme-introduction.adoc[]
 You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.1. You should also review the known limitations before starting the configuration process.
 
 * Support available:
-
-* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-
-* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
-
-
-Refer to the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for accurate details regarding supported configurations.
-
-== Features
-
-RHEL 9.1 includes support for in-kernel NVMe multipath for NVMe namespaces enabled by default, without the need for explicit settings.
-
-== Known limitations
-
-SAN booting using the NVMe-oF protocol is currently not supported.
-
-== Enable SAN booting
-
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot namespace and map it to the host.
+** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+** RHEL 9.1 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
 +
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+* Features available:
+** There are no new features in this release.
+* Known limitations: 
+SAN booting using the NVMe-oF protocol is not currently supported.
 
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+== Step 1: Optionally, enable SAN booting
+
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Enable in-kernel NVMe multipath
 
@@ -220,7 +200,7 @@ QLE2772 FW:v9.08.02 DVR:v10.02.07.400-k-debug
 --
 ====
 
-=== Enable 1MB I/O (Optional)
+== Step 4: Optionally, enable 1MB I/O 
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
 
@@ -421,7 +401,7 @@ NSID UUID                                   Size
 }
 ----
 
-== Known issues
+== Step 7: Review the known issues
 
 The NVMe-oF host configuration for RHEL 9.1 with ONTAP has the following known issues:
 

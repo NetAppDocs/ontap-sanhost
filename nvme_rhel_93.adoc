@@ -20,52 +20,34 @@ include::_include/nvme/nvme-introduction.adoc[]
 You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.3. You should also review the known limitations before starting the configuration process.
 
 * Support available:
-
-* Support for NVMe over TCP (NVMe/TCP) in addition to NVMe/FC. The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-
-* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA)without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
-
+** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+** RHEL 9.3 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
++
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+* Features available:
+** There are no new features in this release.
+* Known limitations: 
+SAN booting using the NVMe-oF protocol is not currently supported.
 
-== Features
+== Step 1: Optionally, enable SAN booting
 
-RHEL 9.3 has in-kernel NVMe multipath enabled for NVMe namespaces by default; therefore, there is no need for explicit settings.
+include::_include/nvme/enable-san-booting.adoc[]
 
-== Known limitations
-
-SAN booting using the NVMe-oF protocol is currently not supported.
-
-== Enable SAN booting
-
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot namespace and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
-
-== Validate software versions
-
+== Step 2: Validate software versions
+ 
 You can use the following procedure to validate the minimum supported RHEL 9.3 software versions.
 
 .Steps
 
 . Install RHEL 9.3 on the server. After the installation is complete, verify that you are running the specified RHEL 9.3 kernel: 
 +
+[source,cli]
 ----
-# uname -r
+uname -r
 ----
 +
-*Example output:*
+The following example shows a Rocky Linux kernel version:
 +
 ----
 5.14.0-362.8.1.el9_3.x86_64
@@ -73,11 +55,12 @@ You can use the following procedure to validate the minimum supported RHEL 9.3 s
 
 . Install the `nvme-cli` package:
 +
+[source,cli]
 ----
-# rpm -qa|grep nvme-cli
+rpm -qa|grep nvme-cli
 ----
 +
-*Example output:*
+The following example shows an nvme-cli package version:
 +
 ----
 nvme-cli-2.4-10.el9.x86_64
@@ -85,12 +68,12 @@ nvme-cli-2.4-10.el9.x86_64
 
 . Install the `libnvme` package:
 +
+[source,cli]
 ----
-#rpm -qa|grep libnvme
+rpm -qa|grep libnvme
 ----
 +
-
-*Example output* 
+The following example shows an libnvme package version:
 +
 ----
 libnvme-1.4-7.el9.x86_64
@@ -98,11 +81,12 @@ libnvme-1.4-7.el9.x86_64
 
 . On the RHEL 9.3 host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
+[source,cli]
 ----
-# cat /etc/nvme/hostnqn
+cat /etc/nvme/hostnqn
 ----
 +
-*Example output*
+The following example shows an hostnqn version:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:060fd513-83be-4c3e-aba1-52e169056dcf
@@ -110,21 +94,23 @@ nqn.2014-08.org.nvmexpress:uuid:060fd513-83be-4c3e-aba1-52e169056dcf
 
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
+[source,cli]
 ----
 ::> vserver nvme subsystem host show -vserver vs_nvme147
 ----
 +
-*Example output:*
-+
+.Show example
+[%collapsible]
+====
 ----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
 vs_nvme147   rhel_147_LPe32002    nqn.2014-08.org.nvmexpress:uuid:060fd513-83be-4c3e-aba1-52e169056dcf
 ----
+====
 +
 [NOTE]
 If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
-
 
 == Configure NVMe/FC
 
@@ -256,10 +242,9 @@ QLE2772 FW:v9.10.11 DVR:v10.02.08.200-k
 --
 ====
 
-=== Enable 1MB I/O (Optional)
+== Step 4: Optionally, enable 1MB I/O 
 
 include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
-
 
 == Configure NVMe/TCP
 
@@ -506,10 +491,9 @@ NSID       UUID                                   Size
 --
 ====
 
-== Known issues
+== Step 7: Review the known issues
 
-There are no known issues for the NVMe-oF host configuration for RHEL 9.3 with ONTAP release.
-
+There are no known issues.
 
 
 // 2022,12-06, Jira IEOPS-690
