@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: nvme-rhel-96.html
+permalink: nvme_rhel_96.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.6 with ONTAP
 ---
@@ -13,7 +13,7 @@ summary: How to Configure NVMe-oF Host for RHEL 9.6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/reuse-nvme-introduction.adoc[]
+include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task 
 You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.6. You should also review the known limitations before starting the configuration process.
@@ -269,7 +269,7 @@ The expected ouptut is 1.
 
 == Step 4: Optionally, enable 1MB I/O 
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services
 With RHEL 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
@@ -291,7 +291,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 7: Validate NVMe-oF
 
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 .Steps
 
