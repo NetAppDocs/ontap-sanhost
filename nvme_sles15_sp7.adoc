@@ -17,7 +17,7 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task 
-You can use the following support and features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP7. You should also review the known limitations before starting the configuration process.
+You can use the following support and features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP7 (SLES15 SP7). You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
@@ -32,7 +32,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 * Features available:
 ** There are no new features available.
 * Known limitations
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces, as it disconnects both root and data filesystems and may lead to system instability.  
+** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.  
 
 include::_include/nvme/enable-san-boot.adoc[]
 
@@ -88,7 +88,7 @@ libnvme1-1.11+4.ge68a91ae-150700.4.3.2.x86_64
 cat /etc/nvme/hostnqn
 ----
 +
-The following example shows an `hostnqn` version:
+The following example shows a `hostnqn` version:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
@@ -305,7 +305,7 @@ QLE2742 FW:v9.14.00 DVR:v10.02.09.400-k-debug
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
-The expected ouptut is 1.
+The expected output is 1.
 --
 =====
 
@@ -512,7 +512,7 @@ nvme	connect-all	-t	tcp	-w	192.168.211.80	-a	192.168.211.67
 ====
 
 [NOTE]
-Beginning with SLES 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+Beginning with SLES 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means that there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 == Step 7: Validate NVMe-oF
 
@@ -999,7 +999,7 @@ You should see the following output displayed:
 ktls-utils-0.10+33.g311d943-150700.1.5.x86_64
 ----
 
-.. Verify the ssl packages:
+.. Verify the SSL packages:
 +
 [source,cli]
 ----
