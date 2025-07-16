@@ -189,7 +189,7 @@ The expected value is 1.
 
 === Enable 1MB I/O size (Optional)
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 === Verify NVMe services
 
@@ -906,6 +906,8 @@ DHHC-
 ----
 --
 =====
+
+== Configure Transport Layer Security
 
 include::_include/nvme/linux-configure-tls.adoc[]
 
