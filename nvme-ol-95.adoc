@@ -13,7 +13,7 @@ summary: NVMe-oF Host Configuration for Oracle Linux 9.5 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/reuse-nvme-introduction.adoc[]
+include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task
 
@@ -313,7 +313,7 @@ The value `1` verifies that `ql2xnvmeenable` is set.
 
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services
 With Oracle Linux 9.5, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
@@ -376,7 +376,7 @@ Jul 02 16:45:46 interop-13-175 systemd[1]: Finished Auto-connect to subsystems o
 
 == Step 6: Configure NVMe/TCP
 
-include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
@@ -528,67 +528,9 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 7: Validate NVMe-oF
 
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
-.Steps
 
-. Verify the following NVMe/FC settings on the Oracle Liniux 9.5 host:
-
-.. Verify that "multipath" is set:
-+
-[source,cli]
-----
-cat /sys/module/nvme_core/parameters/multipath
-----
-+
-The value `Y` verifies the that multipath parameter is set.
-
-.. Dispaly the subsystems:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/model
-----
-+
-You should see the following output:
-+
-----
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-
-.. Display the policy:
-+
-[source'cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy`
-----
-+
-You should see the following output:
-+
-----
-round-robin
-round-robin
-----
-
-. Verify that the namespaces are created and correctly discovered on the host:
-+
-[source,cli]
-----
-nvme list
-----
-+
-.Show example
-[%collapsible]
-====
-----
-Node                  Generic               SN                   Model                                    Namespace  Usage                      Format           FW Rev
---------------------- --------------------- -------------------- ---------------------------------------- ---------- -------------------------- ---------------- --------
-/dev/nvme1n1          /dev/ng1n1            81Mc4FXd1tocAAAAAAAC NetApp ONTAP Controller                  0x1          0.00   B /  10.74  GB      4 KiB +  0 B   9.16.1
-
-  
-----
-====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
