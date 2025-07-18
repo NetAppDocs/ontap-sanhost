@@ -13,7 +13,7 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 10 with ONTAP storage
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/reuse-nvme-introduction.adoc[]
+include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task 
 You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 10. You should also review the known limitations before starting the configuration process.
@@ -307,7 +307,7 @@ The expected ouptut is 1.
 
 == Step 4: Optionally, enable 1MB I/O 
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services 
 
@@ -319,7 +319,7 @@ include::_include/nvme/verify-nvme-services.adoc[]
 
 == Step 6: Configure NVMe/TCP
 
-include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
@@ -476,60 +476,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 7: Validate NVMe-oF
 
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
-
-.Steps
-
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
-
-.. Display the subsystems:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/model
-----
-+
-You should see the following output:
-+
-----
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-.. Display the policy:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
----- 
-+
-You should see the following output:
-+
-----
-round-robin
-round-robin
-----
-
-. Verify that the namespaces are created and correctly discovered on the host:
-+
-[source,cli]
-----
-nvme list
-----
-+
-.Show example
-[%collapsible]
-====
-----
-Node         SN                   Model                          
----------------------------------------------------------  
-/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
-                               
-
-Namespace Usage    Format             FW             Rev
----------------------------------------------------------
-1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
-----
-====
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
 [role="tabbed-block"]
