@@ -475,58 +475,6 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
-.Steps
-
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
-
-.. Display the subsystems:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/model
-----
-+
-You should see the following output:
-+
-----
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-.. Display the policy:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
----- 
-+
-You should see the following output:
-+
-----
-round-robin
-round-robin
-----
-
-. Verify that the namespaces are created and correctly discovered on the host:
-+
-[source,cli]
-----
-nvme list
-----
-+
-.Show example
-[%collapsible]
-====
-----
-Node         SN                   Model                          
------------------------------------------------------------ 
-/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
-                               
-
-Namespace Usage    Format             FW             Rev
------------------------------------------------------------
-1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
-----
-====
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
 [role="tabbed-block"]
