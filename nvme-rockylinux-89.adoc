@@ -59,14 +59,14 @@ include::_include/nvme/nvme-enable-1mb-io.adoc[]
 
 == Step 5: Configure NVMe/TCP
 
-include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp-rocky-linux.adoc[]
 
 == Step 6: Validate NVMe-oF
-include::_include/nvme/nvme-validate-nvme-of.adoc[]
+include::_include/nvme/nvme-validate-nvme-of-rocky-linux.adoc[]
 
 == Step 7: Review the known issues
 
-The NVMe-oF host configuration for Rocky Linux 8.9 with ONTAP release has the following known issue:
+The NVMe-oF host configuration for Rocky Linux 8.9 with ONTAP storage release has the following known issue:
 
 [cols="20,40,40",options="header"]
 |===
