@@ -13,47 +13,7 @@ summary: Install Linux Host Utilities on an Oracle Linux 9.1 host to manage FCP 
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Oracle Linux 9.1 with ONTAP as the target.
-
-== Install the Linux Host Utilities
-
-NetApp strongly recommends installing the Linux Host Utilities to support ONTAP LUN management and assist technical support with gathering configuration data.
-
-link:hu-luhu-80.html[Install Linux Host Utilities 8.0]. 
-
-NOTE: Installing the Linux Host Utilities doesn't change any host timeout settings on your Linux host.
-
-== SAN Toolkit
-
-The toolkit is installed automatically when you install the NetApp Host Utilities package. This kit provides the `sanlun` utility, which helps you manage LUNs and host bus adapters (HBAs). The `sanlun` command returns information about the LUNs mapped to your host, multipathing, and information necessary to create initiator groups.
-
-In the following example, the `sanlun lun show` command returns LUN information.
-----
-# sanlun lun show all
-----
-
-.Example output:
-----
-controller(7mode/E-Series)/            device     host               lun
-vserver(cDOT/FlashRay)   lun-pathname  filename   adapter  protocol  size    Product
--------------------------------------------------------------------------
-data_vserver          /vol/vol1/lun1   /dev/sdb   host16   FCP       80.0g  cDOT
-data_vserver          /vol/vol1/lun1   /dev/sdc   host15   FCP       80.0g  cDOT
-data_vserver          /vol/vol2/lun2   /dev/sdd   host16   FCP       80.0g  cDOT
-data_vserver          /vol/vol2/lun2   /dev/sde   host15   FCP       80.0g  cDOT
-----
-
-== SAN booting
-
-.Before you begin
-
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
-
-include::_include/hu/reuse_hu_san_booting_steps.adoc[]
-
-== Multipathing
-
-For OL 9.1 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. OL 9.1 is compiled with all the settings required to recognize and correctly manage ONTAP LUNs.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on an Oracle Linux 9.1 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/linux-configure-kvm-note.adoc[]
 
