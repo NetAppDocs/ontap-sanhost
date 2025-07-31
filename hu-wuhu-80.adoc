@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: hu_wuhu_72.html
+permalink: hu-wuhu-80.html
 keywords: windows, 7.2, host utilities, SAN, windows
-summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
+summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP platforms.
 ---
-= Install Windows Host Utilities 7.2 for ONTAP storage
+= Install Windows Host Utilities 8.0 for ONTAP storage
 :hardbreaks:
 :nofooter:
 :icons: font
@@ -15,31 +15,24 @@ summary: Windows Host Utilities includes an installation program that sets the r
 [.lead]
 The Windows Host Utilities enable you to connect a Windows host computer to NetApp storage systems.
 
-[[supported-windows-versions-72]]
+[[supported-windows-versions-80]]
 The Windows Host Utilities support the following versions of Windows:
 
 * Windows 2025
 * Windows 2022
 * Windows 2019
 * Windows 2016
-* Windows 2012R2
-* Windows 2012
 
-Windows Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for ONTAP and E-Series platforms.
+Windows Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for ONTAP platforms.
 
 include::_include/windows/windows-install-chunk-a.adoc[]
-
 |===
 |Program |Purpose
 
-|`emulexhba.reg`
-|Troubleshooting program; run this program only if instructed to do so by technical support personnel.
 | `\NetAppQCLI\fcconfig.exe`
 |Used by the installation program to set the HBA parameters.
 | `\NetAppQCLI\fcconfig.ini`
 |Used by the installation program to set the HBA parameters.
-|`\NetAppQCLI\*.*`
-|Used by the installation program to set the QLogic FC HBA parameters.
 |`san_version.exe`
 |Displays the version of the Host Utilities and FC HBAs.
 |===
@@ -49,23 +42,22 @@ The Host Utilities support different Windows host configurations, protocols, and
 
 == Step 1: Verify your host and storage system configuration
 
-Verify that your host and storage system configuration are supported before you install Windows Host Utilities for the <<supported-windows-versions-72,supported Windows version>>.
+Verify that your host and storage system configuration are supported before you install Windows Host Utilities for the <<supported-windows-versions-80,supported Windows version>>.
 
 .Steps
 
 . Check the supported configuration in the http://mysupport.netapp.com/matrix[Interoperability Matrix Tool^].
 . Check the hotfixes required for your Windows Server host version in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
 +
-For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html[Configure Windows Server 2022 for ONTAP storage] documentation provides the instructions for installing Windows hotfixes for Windows server 2022.
-
+For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu-windows-2025.html[Configure Windows Server 2025 for ONTAP storage] documentation provides the instructions for installing Windows hotfixes for Windows Server 2025.
 . link:https://docs.netapp.com/us-en/ontap/san-admin/verify-license-fc-iscsi-task.html[Add the iSCSI or FCP license^].
-+
-[NOTE]
-The FC and iSCSI protocols don't require licenses on E-Series storage systems using the SANtricity Storage Manager.
 
 include::_include/windows/windows-install-chunk-b.adoc[]
 
 include::_include/windows/windows-install-host-utilities.adoc[]
+.Steps
+
+You can install the Host Utilities interactively or by using the command line. The new Host Utilities installation package must be in a path that is accessible to the Windows host.
 
 [role="tabbed-block"]
 ====
@@ -73,9 +65,7 @@ include::_include/windows/windows-install-host-utilities.adoc[]
 .Install interactively
 --
 
-To install the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
-
-.Steps
+Install the Windows Host Utilities software package interactively by running the installation program and following the prompts.
 
 . Download the executable file from the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.2/downloads[NetApp Support Site^].
 . Change to the directory where you downloaded the executable file.
@@ -86,14 +76,15 @@ To install the Host Utilities software package interactively, you must run the H
 .Install from a command line
 --
 
-You can perform a quiet (unattended) installation of the Host Utilities by entering the appropriate commands at the Windows command prompt. The system automatically reboots when the installation is complete.
+Perform a quiet (unattended) installation of the Windows Host Utilities by entering the appropriate commands at the Windows command prompt. The system automatically reboots when the installation is complete.
 
-.Steps
 
 . Enter the following command at the Windows command prompt:
 +
-`msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
-
+[source,cli]
+----
+msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]
+----
 * `installer` is the name of the `.msi` file for your CPU architecture.
 * MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
 * `inst_path` is the path where the Host Utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
