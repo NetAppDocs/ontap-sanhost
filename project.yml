@@ -1,6 +1,6 @@
 ---
 settings:
-  name: SAN hosts and cloud clients
+  name: ONTAP SAN Host Utilities
   internal:
     pdf_enabled: true
   prod:
@@ -14,7 +14,7 @@ product-family:
 
 sidebar:
   entries:
-    - title: Configure SAN hosts and cloud clients
+    - title: ONTAP SAN hosts and cloud clients
       url: /index.html  
     - title: Learn about SAN host configurations
       url: /overview.html
@@ -149,10 +149,10 @@ sidebar:
             url: /hu_centos_64.html
       - title: Citrix
         entries:
-        - title: Hypervisor 8
-          url: /hu_citrix_8x.html
-        - title: XenServer 7
-          url: /hu_citrix_7x.html
+        - title: XenServer 8.4
+          url: /hu_citrix_84.html 
+        - title: Hypervisor 8.2 (LTSR) 
+          url: /hu_citrix_82.html
       - title: ESXi
         entries:
         - title: VMware vSphere 8
@@ -168,8 +168,10 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
-        - title: OL 9
+        - title: Oracle Linux 9
           entries:
+          - title: "9.5"
+            url: /hu-ol-95.html
           - title: "9.4"
             url: /hu_ol_94.html
           - title: "9.3"
@@ -180,7 +182,7 @@ sidebar:
             url: /hu_ol_91.html
           - title: "9.0"
             url: /hu_ol_90.html
-        - title: OL 8
+        - title: Oracle Linux 8
           pdf-filename: OL-8-FCP
           entries:
           - title: "8.10"
@@ -205,7 +207,7 @@ sidebar:
             url: /hu_ol_81.html
           - title: "8.0"
             url: /hu_ol_80.html
-        - title: OL 7
+        - title: Oracle Linux 7
           pdf-filename: OL-7-FCP
           entries:
           - title: "7.9"
@@ -228,7 +230,7 @@ sidebar:
             url: /hu_ol_71.html
           - title: "7.0"
             url: /hu_ol_70.html
-        - title: OL 6
+        - title: Oracle Linux 6
           pdf-filename: OL-6-FCP
           entries:
           - title: "6.10"
@@ -247,9 +249,16 @@ sidebar:
             url: /hu_ol_64.html
       - title: RHEL
         entries:
+        - title: RHEL 10
+          pdf-filename: RHEL-10-FCP
+          entries:
+          - title: "10.0"
+            url: /hu_rhel_10.html        
         - title: RHEL 9
           pdf-filename: RHEL-9-FCP
           entries:
+          - title: "9.6"
+            url: /hu-rhel-96.html
           - title: "9.5"
             url: /hu_rhel_95.html
           - title: "9.4"
@@ -327,6 +336,47 @@ sidebar:
             url: /hu_rhel_65.html
           - title: "6.4"
             url: /hu_rhel_64.html
+      - title: Rocky Linux
+        entries:
+        - title: Rocky Linux 10
+          pdf-filename: RL-10-FCP
+          entries:
+          - title: "10"
+            url: /hu-rockylinux-10.html
+        - title: Rocky Linux 9
+          pdf-filename: RL-9-FCP
+          entries:
+          - title: "9.6"
+            url: /hu-rockylinux-96.html
+          - title: "9.5"
+            url: /hu-rockylinux-95.html
+          - title: "9.4"
+            url: /hu-rockylinux-94.html
+          - title: "9.3"
+            url: /hu-rockylinux-93.html
+          - title: "9.2"
+            url: /hu-rockylinux-92.html
+          - title: "9.1"
+            url: /hu-rockylinux-91.html
+          - title: "9.0"
+            url: /hu-rockylinux-90.html 
+        - title: Rocky Linux 8
+          pdf-filename: RL-8-FCP
+          entries:
+          - title: "8.10"
+            url: /hu-rockylinux-810.html
+          - title: "8.9"
+            url: /hu-rockylinux-89.html
+          - title: "8.8"
+            url: /hu-rockylinux-88.html
+          - title: "8.7"
+            url: /hu-rockylinux-87.html
+          - title: "8.6"
+            url: /hu-rockylinux-86.html
+          - title: "8.5"
+            url: /hu-rockylinux-85.html
+          - title: "8.4"
+            url: /hu-rockylinux-84.html      
       - title: Solaris
         entries:
         - title: "11.4"
@@ -338,6 +388,8 @@ sidebar:
         - title: SUSE Linux Enterprise Server 15
           pdf-filename: SLES-15-FCP
           entries:
+          - title: 15 SP7
+            url: /hu_sles_15SP7.html
           - title: 15 SP6
             url: /hu_sles_15SP6.html
           - title: 15 SP5
@@ -411,9 +463,11 @@ sidebar:
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
-        - title: OL 9
+        - title: Oracle Linux 9
           pdf-filename: NVMeF OL
           entries:
+          - title: "9.5"
+            url: /nvme-ol-95.html
           - title: "9.4"
             url: /nvme_ol_94.html
           - title: "9.3"
@@ -424,7 +478,7 @@ sidebar:
             url: /nvme_ol_91.html
           - title: "9.0"
             url: /nvme_ol_90.html
-        - title: OL 8
+        - title: Oracle Linux 8
           pdf-filename: NVMeF OL
           entries:
           - title: "8.10"
@@ -447,7 +501,7 @@ sidebar:
             url: /nvme_ol_82.html
           - title: "8.1"
             url: /nvme_ol_81.html
-        - title: OL 7
+        - title: Oracle Linux 7
           entries:
           - title: "7.9"
             url: /nvme_ol_79.html
@@ -458,8 +512,14 @@ sidebar:
       - title: RHEL
         pdf-filename: NVMeoF RHEL
         entries:
+        - title: RHEL 10
+          entries:
+          - title: "10.0"
+            url: /nvme_rhel_10.html
         - title: RHEL 9
           entries:
+          - title: "9.6"
+            url: /nvme-rhel-96.html
           - title: "9.5"
             url: /nvme_rhel_95.html
           - title: "9.4"
@@ -494,11 +554,52 @@ sidebar:
             url: /nvme_rhel_82.html
           - title: "8.1"
             url: /nvme_rhel_81.html
+      - title: Rocky Linux
+        pdf-filename: NVMeoF Rocky Linux
+        entries:
+        - title: Rocky Linux 10
+          entries:
+          - title: "10"
+            url: /nvme-rockylinux-10.html
+        - title: Rocky Linux 9
+          entries:
+          - title: "9.6"
+            url: /nvme-rockylinux-96.html
+          - title: "9.5"
+            url: /nvme-rockylinux-95.html 
+          - title: "9.4"
+            url: /nvme-rockylinux-94.html
+          - title: "9.3"
+            url: /nvme-rockylinux-93.html
+          - title: "9.2"
+            url: /nvme-rockylinux-92.html
+          - title: "9.1"
+            url: /nvme-rockylinux-91.html
+          - title: "9.0"
+            url: /nvme-rockylinux-90.html
+        - title: Rocky Linux 8
+          entries:
+          - title: "8.10"
+            url: /nvme-rockylinux-810.html
+          - title: "8.9"
+            url: /nvme-rockylinux-89.html
+          - title: "8.8"
+            url: /nvme-rockylinux-88.html
+          - title: "8.7"
+            url: /nvme-rockylinux-87.html
+          - title: "8.6"
+            url: /nvme-rockylinux-86.html
+          - title: "8.5"
+            url: /nvme-rockylinux-85.html
+          - title: "8.4"
+            url: /nvme-rockylinux-84.html
       - title: SUSE Linux Enterprise Server
         pdf-filename: NVMeoF SLES
         entries:
         - title: SUSE Linux Enterprise Server 15
           entries:
+          - title: 15 SP7
+            url: /nvme_sles15_sp7.html
           - title: 15 SP6
             url: /nvme_sles15_sp6.html
           - title: 15 SP5

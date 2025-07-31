@@ -1,11 +1,10 @@
 ---
 sidebar: sidebar
 permalink: hu_rhel_90.html
-keywords: host utilities, red hat, rhel, linux, 8.6, netapp, ontap
-summary: Describes how to use Red Hat Enterprise Linux 8.6 with ONTAP
+keywords: host utilities, red hat, rhel, linux, 9.0, netapp, ontap
+summary: Install Linux Host Utilities on a RHEL 9.0 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-
-= Use Red Hat Enterprise Linux 9.0 with ONTAP
+= Configure RHEL 9.0 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,117 +13,31 @@ summary: Describes how to use Red Hat Enterprise Linux 8.6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Red Hat Enterprise Linux 9.0 with ONTAP as the target. 
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Red Hat Enterprise Linux (RHEL) 9.0 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
-== Install the Linux Host Utilities
+include::_include/hu/linux-configure-kvm-note.adoc[]
 
-include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
+include::_include/hu/linux-enable-san-boot.adoc[]
 
-include::_include/hu/reuse_hu_cloud_note.adoc[]
+include::_include/hu/install-linux-host-utilities.adoc[]
+[[rhel-rhck]]
 
-== SAN Toolkit
+== Step 3: Confirm the multipath configuration for your host
 
-include::_include/hu/reuse_hu_san_toolkit.adoc[]
+You can use multipathing with RHEL 9.0 to manage ONTAP LUNs.
 
-== SAN Booting
+include::_include/hu/linux-rhel-multipathing.adoc[]
 
-.Before you begin
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
+include::_include/hu/exclude-device.adoc[]
 
-include::_include/hu/reuse_hu_san_booting_steps.adoc[]
+include::_include/hu/linux-rhel-customize-parameters.adoc[]
 
-== Multipathing
+== Step 6: Review the known issues
 
-For Red Hat Enterprise Linux (RHEL) 9.0 the `/etc/multipath.conf` file must exist, but you do not need to make specific changes to the file. RHEL 9.0 is compiled with all settings required to recognize and correctly manage ONTAP LUNs.
+There are no known issues.
 
-include::_include/hu/reuse_hu_multipathing.adoc[]
+== What's next?
 
-include::_include/hu/reuse_hu_asa_configuration.adoc[]
+include::_include/hu/use-linux-host-utilities.adoc[]
 
-----
-# multipath -ll
-3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-`-+- policy='service-time 0' prio=50 status=active
-  |- 11:0:7:1    sdfi   130:64   active ready running
-  |- 11:0:9:1    sdiy  8:288     active ready running
-  |- 11:0:10:1  sdml 69:464   active ready running
-  |- 11:0:11:1  sdpt  131:304  active ready running
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
-
-----
-# multipath -ll
-3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
-|-+- policy='service-time 0' prio=50 status=active
-| |- 16:0:6:35 sdwb  69:624  active ready running
-| |- 16:0:5:35 sdun  66:752  active ready running
-`-+- policy='service-time 0' prio=10 status=enabled
-  |- 15:0:0:35 sdaj  66:48   active ready running
-  |- 15:0:1:35 sdbx  68:176  active ready running
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-== Recommended Settings
-
-The RHEL 9.0 OS is compiled to recognize ONTAP LUNs and automatically set all configuration parameters correctly for both ASA and non-ASA configuration.
-
-include::_include/hu/reuse-hu-systemctl-multipathd.adoc[]
-
-[cols=2*,options="header"]
-|===
-| Parameter
-| Setting
-| detect_prio | yes
-| dev_loss_tmo | "infinity"
-| failback | immediate
-| fast_io_fail_tmo | 5
-| features | "2 pg_init_retries 50"
-| flush_on_last_del | "yes"
-| hardware_handler | "0"
-| no_path_retry | queue
-| path_checker | "tur"
-| path_grouping_policy | "group_by_prio"
-| path_selector | "service-time 0"
-| polling_interval | 5
-| prio | "ontap"
-| product | LUN.*
-| retain_attached_hw_handler | yes
-| rr_weight | "uniform"
-| user_friendly_names | no
-| vendor | NETAPP
-|===
-
-.Example
-
-The following example shows how to correct an overridden default. In this case, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that are not compatible with ONTAP LUNs. If they cannot be removed because of other SAN arrays still attached to the host, these parameters can be corrected specifically for ONTAP LUNs with a device stanza.
-
-----
-defaults {
-   path_checker      readsector0
-   no_path_retry      fail
-}
-
-devices {
-   device {
-      vendor         "NETAPP  "
-      product         "LUN.*"
-      no_path_retry     queue
-      path_checker      tur
-   }
-}
-----
-
-include::_include/hu/reuse_hu_kvm_configuration.adoc[]
-
-include::_include/hu/hu-asm-mirroring.adoc[]
-
-== Known issues
-
-There are no known issues for the RHEL 9.0 with ONTAP release.
-
+include::_include/hu/asm-mirroring.adoc[]
