@@ -251,7 +251,7 @@ link:https://docs.netapp.com/us-en/ontap/san-admin/enable-space-allocation.html[
 
 . On your ESXi host, verify that the DSM is disabled:
 +
-`esxcfg-advcfg -g /SCSi/NVmeUseDsmTp4040`
+`esxcfg-advcfg -g /Scsi/NVmeUseDsmTp4040`
 +
 The expected value is 0.
 
@@ -261,7 +261,7 @@ The expected value is 0.
 
 . Verify that the DSM is enabled: 
 +
-`esxcfg-advcfg -g /SCSi/NVmeUseDsmTp4040`
+`esxcfg-advcfg -g /Scsi/NVmeUseDsmTp4040`
 +
 The expected value is 1.
 
