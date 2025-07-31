@@ -13,7 +13,7 @@ summary: NVMe-oF Host Configuration for Oracle Linux 8.10 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/reuse-nvme-introduction.adoc[]
+include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task
 You can use the following support and features with the NVMe-oF host configuration for Oracle Linux 8.10. You should also review the known limitations before starting the configuration process.
@@ -223,11 +223,11 @@ QLE2772 FW:v9.15.00 DVR:v10.02.09.100-k
 
 === Enable 1MB I/O size (Optional)
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Configure NVMe/TCP
 
-include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
@@ -341,7 +341,7 @@ nvme connect-all -t tcp -w <host-traddr> -a <traddr> -l <ctrl_loss_timeout_in_se
 NOTE: NetApp recommends setting the `ctrl-loss-tmo` option to "-1" so that the NVMe/TCP initiator attempts to reconnect indefinitely in the event of a path loss.
 
 == Validate NVMe-oF
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 .Steps
 

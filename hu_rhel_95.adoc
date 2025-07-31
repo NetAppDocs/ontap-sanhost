@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_rhel_95.html
 keywords: host utilities, red hat, rhel, linux, 9.5, netapp, ontap, rhel 
-summary: Install the Linux Host Utilities on a RHEL 9.5 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+summary: Install Linux Host Utilities on a RHEL 9.5 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
 = Configure RHEL 9.5 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
@@ -20,6 +20,7 @@ include::_include/hu/linux-configure-kvm-note.adoc[]
 include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities-80.adoc[]
+[[rhel-rhck]]
 
 == Step 3: Confirm the multipath configuration for your host
 

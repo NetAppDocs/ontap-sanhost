@@ -33,6 +33,24 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 SAN booting using the NVMe-oF protocol is currently not supported.
 
+== Enable SAN booting
+
+You can configure your host to use SAN booting to simplify deployment and improve scalability.
+
+.Before you begin
+Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.Steps
+
+. Create a SAN boot namespace and map it to the host.
++
+See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+
 == Validate software versions
 
 You can use the following procedure to validate the minimum supported RHEL 9.2 software versions.
@@ -235,7 +253,7 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 
 === Enable 1MB I/O (Optional)
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 
 == Configure NVMe/TCP

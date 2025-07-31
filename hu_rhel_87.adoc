@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_rhel_87.html
 keywords: host utilities, red hat, rhel, linux, 8.7, netapp, ontap, rhel 
-summary: Install the Linux Host Utilities on a RHEL 8.7 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+summary: Install Linux Host Utilities on a RHEL 8.7 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
 = Configure RHEL 8.7 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
@@ -20,7 +20,7 @@ include::_include/hu/linux-configure-kvm-note.adoc[]
 include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities.adoc[]
-
+[[rhel-rhck]]
 == Step 3: Confirm the multipath configuration for your host
 
 You can use multipathing with RHEL 8.7 to manage ONTAP LUNs.
