@@ -73,7 +73,7 @@ include::_include/windows/windows-install-host-utilities.adoc[]
 .Install interactively
 --
 .Steps
-To install the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
+Install the Host Utilities software package interactively by running the Host Utilities installation program and following the prompts.
 
 .Steps
 
@@ -82,15 +82,18 @@ To install the Host Utilities software package interactively, you must run the H
 . Run the `netapp_windows_host_utilities_7.1_x64` file and follow the instructions on the screen.
 . Reboot the Windows host when prompted.
 --
-.Install from a command line
+.Install noninteractively
 --
-You can perform a quiet (unattended) installation of the Host Utilities by entering the appropriate commands at a Windows command prompt. The system automatically reboots when the installation is complete.
+Perform a noninteractive installation of the Host Utilities by using the Windows command line. The system automatically reboots when the installation is complete.
 
 .Steps
 
 . Enter the following command at a Windows command prompt:
 +
-`msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
+[source,cli]
+----
+msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]
+----
 
 * `installer` is the name of the `.msi` file for your CPU architecture
 * MULTIPATHING specifies whether MPIO support is installed. Allowed values are "0" for no, "1" for yes

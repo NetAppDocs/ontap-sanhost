@@ -55,9 +55,7 @@ For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu-windows-202
 include::_include/windows/windows-install-chunk-b.adoc[]
 
 include::_include/windows/windows-install-host-utilities.adoc[]
-.Steps
 
-You can install the Host Utilities interactively or by using the command line. The new Host Utilities installation package must be in a path that is accessible to the Windows host.
 
 [role="tabbed-block"]
 ====
@@ -73,11 +71,10 @@ Install the Windows Host Utilities software package interactively by running the
 . Reboot the Windows host when prompted.
 --
 
-.Install from a command line
+.Install noninteractively
 --
 
-Perform a quiet (unattended) installation of the Windows Host Utilities by entering the appropriate commands at the Windows command prompt. The system automatically reboots when the installation is complete.
-
+Perform a noninteractive installation of the Host Utilities by using the Windows command line. The system automatically reboots when the installation is complete.
 
 . Enter the following command at the Windows command prompt:
 +
