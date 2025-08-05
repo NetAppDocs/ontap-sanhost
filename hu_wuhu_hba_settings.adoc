@@ -4,7 +4,7 @@ permalink: hu_wuhu_hba_settings.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
 summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
-= Configure registry settings for Windows Host Utilities
+= Configure registry settings for Windows Host Utilities with ONTAP storage
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -18,7 +18,7 @@ The Host Utilities require certain registry and parameter settings to verify tha
 
 Windows Host Utilities set the parameters that affect how the Windows host responds to a delay or loss of data. The particular values have been selected to verify that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
 
-Not all values apply to the device-specific module (DSM) for SANtricity Storage Manager; however, any overlap of values set by the Host Utilities and those set by the DSM for SANtricity Storage Manager do not result in conflicts.
+Not all values apply to the device-specific module (DSM) for SANtricity Storage Manager; however, any overlap of values set by the Host Utilities and those set by the DSM for SANtricity Storage Manager don't result in conflicts.
 
 FC, NVMe/FC, and iSCSI HBAs also have parameters that you must set to ensure best performance and to successfully handle storage system events.
 
@@ -30,17 +30,156 @@ The installer sets different values depending on whether you specify Microsoft M
 
 [NOTE]
 ====
-You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2, see <<nvme_parameters, NVMe parameters>>.
+You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2. See <<nvme_parameter,NVME parameters>>.
 
-For all other parameters and registry keys for Windows Host Utilities 7.2 and 7.1, you should not change the values unless technical support tells you to do so.
+For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, or 7.1, you don't need to change the values unless technical support advises you to do so.
+====
+
+== Registry values set by Windows Host Utilities 8.0
+
+The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You should be aware of these values and the operating system version. 
+
+[role="tabbed-block"]
+====
+.HKLM values
+--
+The following registry values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated.
+[NOTE]
+HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
+
+[cols=3*,options="header", cols="20,20,30"]
+|===
+|Registry key |Value |When set
+
+|HKLM\SYSTEM\CurrentControlSet\Services
+\msdsm\Parameters
+\DsmMaximumRetryTimeDuringStateTransition
+|120
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet
+\Services\msdsm\Parameters
+\DsmMaximumStateTransitionTime
+|120
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet\Services
+\msdsm\Parameters\DsmSupportedDeviceList
+|"NETAPP LUN", "NETAPP LUN C-
+Mode"
+"NVMe NetApp ONTAO Con"
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \IPSecConfigTimeout
+|60
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \LinkDownTime
+|10
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Services
+\ClusDisk \Parameters\ManageDisksOnSystemBuses
+|1
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \MaxRequestHoldTime
+|120
+|When no MPIO support is selected
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \MaxRequestHoldTime
+|30
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Control
+\MPDEV\MPIOSupportedDeviceList
+|"NETAPP LUN",
+"NETAPP LUN C-
+Mode",
+"NVMe NetApp ONTAO Con"
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\PathRecoveryInterval
+|30
+|When your server is Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\PathVerifyEnabled
+|1
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services
+\msdsm\Parameters\PathVerifyEnabled
+|1
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet\Services
+\vnetapp\Parameters\PathVerifyEnabled
+|0
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services
+\mpio\Parameters\PDORemovePeriod
+|130
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
+\Parameters\PDORemovePeriod
+|130
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
+\Parameters\PDORemovePeriod
+|130
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\RetryCount
+|6
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
+\Parameters\RetryCount
+|6
+|When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\RetryInterval
+|1
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services\msdsm
+\Parameters\RetryInterval
+|1
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
+\Parameters\RetryInterval
+|1
+|When MPIO support is specified
+1.2+|HKLM\SYSTEM\CurrentControlSet
+\Services\disk\TimeOutValue |120 |When no MPIO support is selected |60 |When MPIO support is specified
+|When no MPIO support is selected
+|HKLM\SYSTEM\CurrentControlSet\Services\mpio
+\Parameters\UseCustomPathRecoveryInterval
+|1
+|When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, or 2016
+|===
+--
+
+
+.NVMe parameters
+--
+
+The following NVMe Emulex driver parameters are updated when you install Windows Host Utilities 8.0:
+
+* EnableNVMe = 1
+* NVMEMode = 0
+
+--
 ====
 
 == Registry values set by Windows Host Utilities 7.2
 
-The Windows Host Utilities installer automatically sets registry values that are based on the choices that you make during the installation. You should be aware of these registry values and the operating system version.
+The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You should be aware of these values and the operating system version. 
 
-The following values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated. 
+[[nvme_parameter]]
 
+[role="tabbed-block"]
+====
+
+.HKLM values
+--
+The following registry values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated.
 [NOTE]
 HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
@@ -143,26 +282,27 @@ Mode",
 \Parameters\RetryInterval
 |1
 |When MPIO support is specified
-|HKLM\SYSTEM\CurrentControlSet\Services
-\disk\TimeOutValue
-|120
-|When no MPIO support is selected
+1.2+|HKLM\SYSTEM\CurrentControlSet
+\Services\disk\TimeOutValue |120 |When no MPIO support is selected |60 |When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
 |When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
 |===
+--
 
-[[nvme_parameters]]
-=== NVMe parameters
+.NVMe parameters
+--
 
-The following NVMe Emulex driver parameters are updated when installing Windows Host Utilities 7.2:
+The following NVMe Emulex driver parameters are updated when you install Windows Host Utilities 7.2:
 
 * EnableNVMe = 1
 * NVMEMode = 0
 * LimTransferSize=1
 +
 The LimTransferSize parameter is automatically set to "1" when you install Windows Host Utilities 7.2. After installation, you need to manually change the LimTransferSize value to "0" and reboot the server.
+--
+====
 
 == Registry values set by Windows Host Utilities 7.1
 
@@ -281,7 +421,7 @@ The following values are set by the Windows Host Utilities installer. All values
 |HKLM\SYSTEM\CurrentControlSet\Services
 \vnetapp\Parameters\RetryInterval |1 |When MPIO support is specified, except if Data ONTAP DSM is detected
 1.2+|HKLM\SYSTEM\CurrentControlSet
-\Services\disk\TimeOutValue |120 |When no MPIO support is selected, except if Data ONTAP DSM is detected |60 |When MPIO support is specified, except if Data ONTAP DSM is detected
+\Services\disk\TimeOutValue |120 |When no MPIO support is selected |60 |When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
@@ -311,7 +451,7 @@ For Emulex FC HBAs, the installer sets the following parameters:
 |===
 --
 
-.When MPIO is not selected
+.When MPIO isn't selected
 --
 
 |===
@@ -341,7 +481,7 @@ For QLogic FC HBAs, the installer sets the following parameters:
 |===
 --
 
-.When MPIO is not selected
+.When MPIO isn't selected
 --
 
 |===
@@ -361,21 +501,21 @@ For example, in the QLogic QConvergeConsole program, the parameter is displayed 
 The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDownTimeOut` or `MpioLinkDownTimeOut`, depending on whether MPIO is specified. However, all of these names refer to the same HBA parameter. See https://www.broadcom.com/support/download-search[Emulex^] or https://driverdownloads.qlogic.com/QLogicDriverDownloads_UI/Netapp_search.aspx[QLogic^] to learn more about the timeout parameters.
 
 
-=== Understand the Host Utilities changes to FC HBA driver settings
+== Learn about the Host Utilities changes to FC HBA driver settings
 
-During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and, in some cases, modified.
+During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and, in some cases, modified by Windows Host Utilities.
 
-The Host Utilities set values for the following parameters if MS DSM for Windows MPIO is detected:
+Windows Host Utilities set values for the following parameters if MS DSM for Windows MPIO is detected:
 
-* LinkTimeOut – defines the length of time in seconds that the host port waits before resuming I/O after a physical link is down.
-* NodeTimeOut – defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
+* *LinkTimeOut*: Defines the length of time in seconds that the host port waits before resuming I/O after a physical link is down.
+* *NodeTimeOut*: Defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
 
 When troubleshooting HBA issues, check to make sure these settings have the correct values. The correct values depend on two factors:
 
 * The HBA vendor
-* Whether you are using multipathing software (MPIO)
+* Whether you are using MPIO software.
 
-You can correct the HBA settings by running the Repair option of the Windows Host Utilities installer.
+You can correct the HBA settings by link:hu_wuhu_repair_remove.html[running the Repair option] in the Windows Host Utilities installer.
 
 [role="tabbed-block"]
 ====
@@ -383,12 +523,12 @@ You can correct the HBA settings by running the Repair option of the Windows Hos
 .Emulex HBA drivers
 --
 
-If you have an FC system, you must verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
+If you have an FC system, verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
 
 .Steps
 
 . Open OnCommand Manager.
-. Select the appropriate HBA from the list and click the *Driver Parameters* tab.
+. Select the appropriate HBA from the list and select the *Driver Parameters* tab.
 +
 The driver parameters appear.
 +
@@ -396,7 +536,7 @@ The driver parameters appear.
 +
 * LinkTimeOut - 1
 * NodeTimeOut - 10
-.. If you are not using MPIO software, ensure that you have the following driver settings:
+.. If you aren't using MPIO software, ensure that you have the following driver settings:
 +
 * LinkTimeOut - 30
 * NodeTimeOut - 120
@@ -404,11 +544,11 @@ The driver parameters appear.
 
 .QLogic HBA drivers
 --
-On FC systems, you must verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
+On FC systems, verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
 
 .Steps
 
-. Open QConvergeConsole, and then click *Connect* on the  toolbar.
+. Open QConvergeConsole, and then select *Connect* on the toolbar.
 +
 The *Connect to Host* dialog box appears.
 . Select the appropriate host from the list, and then select *Connect*.
@@ -420,7 +560,7 @@ A list of HBAs appears in the FC HBA pane.
 +
 * Link Down Timeout (linkdwnto) - 1
 * Port Down Retry Count (portdwnrc) - 10
-. If you are not using MPIO software, verify that you have the following driver settings:
+. If you aren't using MPIO software, verify that you have the following driver settings:
 +
 * Link Down Timeout (linkdwnto) - 30
 * Port Down Retry Count (portdwnrc) - 120
