@@ -25,7 +25,7 @@ sidebar:
       - title: AIX Host Utilities
         entries:
           - title: Release notes
-            url: /hu_aix_rn.html
+            url: /hu-aix-rn.html
           - title: Install AIX HU 7.0
             url: /hu-aix-70.html
           - title: Install AIX HU 6.1
@@ -35,29 +35,43 @@ sidebar:
       - title: HP-UX Host Utilities
         entries:
          - title: Release notes
-           url: /hu_hpux_60_rn.html
-         - title: Install HP-UX HU 6.0
+           url: /hu-hpux-release-notes.html
+         - title: Install HP-UX Host Utilities 6.0
            url: /hu_hpux_60.html
-         - title: Sample command reference
+         - title: Learn about the SAN Toolkit
+           url: /hu-hpux-sanlun-toolkit.html
+         - title: Learn about the HP-UX command reference
            url: /hu_hpux_60_cmd.html
          
       - title: Linux Host Utilities
         entries:
         - title: Release notes
-          url: /hu_luhu_71_rn.html
-        - title: Install Linux Host Utilities 7.1
-          url: /hu_luhu_71.html
-        - title: Sample command reference
-          url: /hu_luhu_71_cmd.html
+          url: /hu-luhu-release-notes.html
+        - title: Install Linux Host Utilities
+          entries:
+          - title: Install Linux Host Utilities 8.0
+            url: /hu-luhu-80.html
+          - title: Install Linux Host Utilities 7.1
+            url: /hu_luhu_71.html
+        - title: Learn about the sanlun utility 
+          url: /hu-luhu-sanlun-utility.html
+        - title: Linux Host Utilities command reference
+          url: /hu-luhu-command-reference.html
         
       - title: Solaris Host Utilities
         entries:
-          - title: Release notes
-            url: /hu_solaris_62_rn.html
-          - title: Install Solaris HU 6.2
+        - title: Release notes
+          url: /hu-solaris-release-notes.html
+        - title: Install Solaris Host Utilities
+          entries:
+          - title: Install Solaris Host Utilities 8.0
+            url: /hu-solaris-80.html
+          - title: Install Solaris Host Utilities 6.2
             url: /hu_solaris_62.html
-          - title: Sample command reference
-            url: /hu_solaris_62_cmd.html
+        - title: Learn about the SAN Toolkit
+          url: /hu-solaris-san-toolkit.html
+        - title: Learn about the Solaris command reference
+          url: /hu-solaris-command-reference.html
       - title: Windows Host Utilities
         entries:
           - title: Release notes
@@ -376,7 +390,7 @@ sidebar:
       - title: Solaris
         entries:
         - title: "11.4"
-          url: /hu_solaris_114.html
+          url: /hu-solaris-114.html
         - title: "11.3"
           url: /hu_solaris_113.html
       - title: SUSE Linux Enterprise Server
