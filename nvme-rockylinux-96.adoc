@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: nvme-rhel-96.html
-keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 9.6 with ONTAP
+permalink: nvme-rockylinux-96.html
+keywords: nvme, rocky, red hat, enterprise
+summary: How to Configure NVMe-oF Host for Rocky Linux 9.6 with ONTAP
 ---
-= NVMe-oF host configuration for RHEL 9.6 with ONTAP
+= Configure Rocky Linux 9.6 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,129 +13,47 @@ summary: How to Configure NVMe-oF Host for RHEL 9.6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/reuse-nvme-introduction.adoc[]
+include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task 
-You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.6. You should also review the known limitations before starting the configuration process.
+You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 9.6. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Support for SAN booting using the NVMe/FC protocol.
-** RHEL 9.6 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 9.6.
+** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
+** Rocky Linux 9.6 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with Rocky Linux 9.6.
+
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
-** There are no new features available.
+** There are no new features in this release.
 * Known limitations: 
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces, as it disconnects both root and data filesystems and may lead to system instability.
+** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
-
-You can configure your host to use SAN booting to simplify deployment and improve scalability.
-
-.Before you begin
-
-Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. Create a SAN boot namespace and map it to the host.
-+
-See https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Provision NVMe storage^].
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot namespace is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Validate software versions
 
-Use the following procedure to validate the minimum supported RHEL 9.6 software versions.
+Use the following procedure to validate the minimum supported Rocky Linux 9.6 software versions.
 
 .Steps
 
-. Install RHEL 9.6 on the server. After the installation is complete, verify that you are running the specified RHEL 9.6 kernel: 
+. Install Rocky Linux 9.6 on the server. After the installation is complete, verify that you are running the specified Rocky Linux 9.6 kernel: 
 +
 [source,cli]
 ----
 uname -r
 ----
 +
-The following example shows a RHEL kernel version:
+The following example shows a Rocky Linux kernel version:
 +
 ----
 5.14.0-570.12.1.el9_6.x86_64
 ----
-
-. Install the `nvme-cli` package:
-+
-[source,cli]
-----
-rpm -qa|grep nvme-cli
-----
-+
-The following example shows an nvme-cli package version:
-+
-----
-nvme-cli-2.11-5.el9.x86_64
-----
-
-. Install the `libnvme` package:
-+
-[source,cli]
-----
-rpm -qa|grep libnvme
-----
-+
-The following example shows an `libnvme` package version:
-+
-----
-libnvme-1.11.1-1.el9.x86_64
-----
-
-. On the RHEL 9.6 host, check the hostnqn string at `/etc/nvme/hostnqn`:
-+
-[source,cli]
-----
-cat /etc/nvme/hostnqn
-----
-+
-The following example shows an `hostnqn` version:
-+
-----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
-----
-
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
-+
-[source,cli]
-----
-::> vserver nvme subsystem host show -vserver vs_coexistence_LPE36002
-----
-+
-.Show example
-[%collapsible]
-====
-----
-Vserver Subsystem Priority  Host NQN
-------- --------- --------  ------------------------------------------------
-vs_coexistence_LPE36002
-        nvme
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
-        nvme_1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
-        nvme_2
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
-        nvme_3
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
-4 entries were displayed.
-----
-====
-+
-[NOTE]
-If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+[start=2]
+include::_include/nvme/linux-validate-software-version-rockylinux.adoc[]
 
 
 == Step 3: Configure NVMe/FC
@@ -143,9 +61,12 @@ If the `hostnqn` strings do not match, use the `vserver modify` command to updat
 You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
 
 [role="tabbed-block"]
-====
+=====
 .Broadcom/Emulex
 --
+
+Configure NVMe/FC for a Broadcom/Emulex adapter.
+
 .Steps
 
 . Verify that you are using the supported adapter model: 
@@ -184,14 +105,14 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 +
 [source,cli]
 ----
-cat /sys/class/scsi_host/host*/fwrev
----- 
+cat /sys/class/scsi_host/host*/fwrev 
+----
 +
 The following example shows firmware versions:
 +
 ----
-14.4.393.25, sli-4:6:d
-14.4.393.25, sli-4:6:d
+14.0.539.16, sli-4:6:d
+14.0.539.16, sli-4:6:d
 ----
 
 .. Display the inbox driver version:
@@ -199,12 +120,12 @@ The following example shows firmware versions:
 [source,cli]
 ----
 cat /sys/module/lpfc/version
----- 
+----
 +
 The following example shows a driver version:
 +
 ----
-0: 14.4.0.6
+0:14.4.0.6
 ----
 
 +
@@ -227,8 +148,8 @@ cat /sys/class/fc_host/host*/port_name
 The following example shows port identities:
 +
 ---- 
-0x100000109bf044b1
-0x100000109bf044b2
+0x2100f4c7aa0cd7c2
+0x2100f4c7aa0cd7c3
 ----
 
 . Verify that your initiator ports are online:
@@ -254,7 +175,7 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 NVME Initiator Enabled
@@ -313,10 +234,9 @@ Total FCP Cmpl 000000001aaf3eb5 Issue 000000001aab4373 OutIO fffffffffffc04be
           abort 000035cc noxri 0000038c nondlp 000009e3 qdepth 00000000 wqerr 00000082 err 00000000
 FCP CMPL: xb 000035cc Err 000fcfc0
 ----
-=====
+====
 
 --
-
 .Marvell/QLogic
 --
 
@@ -334,8 +254,8 @@ cat /sys/class/fc_host/host*/symbolic_name
 The follow example shows driver and firmware versions:
 +
 ----
-QLE2872 FW:v9.15.03 DVR:v10.02.09.300-k-debug
-QLE2872 FW:v9.15.03 DVR:v10.02.09.300-k-debug
+QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
+QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
 ----
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
@@ -347,21 +267,23 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 +
 The expected ouptut is 1.
 --
-====
+=====
+
 
 == Step 4: Optionally, enable 1MB I/O 
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services
+With Rocky Linux 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
 
-With RHEL 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, verify that the boot services are enabled.
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
 
 include::_include/nvme/verify-nvme-services.adoc[]
 
 == Step 6: Configure NVMe/TCP
 
-include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
@@ -642,195 +564,19 @@ nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25
 =====
 
 [NOTE]
-Beginning with RHEL 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+====
+Beginning with Rocky Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
 
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
+====
 
 == Step 7: Validate NVMe-oF
 
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
-
-.Steps
-
-. Verify that the in-kernel NVMe multipath is enabled:
-+
-[source,cli]
-----
-cat /sys/module/nvme_core/parameters/multipath
-----
-+
-You should see the following output:
-+
-----
-Y
-----
-
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
-
-.. Display the subsystems:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/model
-----
-+
-You should see the following output:
-+
-----
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-.. Display the policy:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
-----
-+
-You should see the following output:
-+
-----
-round-robin
-round-robin
-----
-
-. Verify that the namespaces are created and correctly discovered on the host:
-+
-[source,cli]
-----
-nvme list
-----
-+
-.Show example
-[%collapsible]
-====
-----
-Node         SN                   Model                          
----------------------------------------------------------  
-/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
-                               
-
-Namespace Usage    Format             FW             Rev
------------------------------------------------------------
-1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
-----
-====
-. Verify that the controller state of each path is live and has the correct ANA status:
-+
-[role="tabbed-block"]
-=====
-.NVMe/FC
---
-[source,cli]
-----
-nvme list-subsys /dev/nvme4n5
-----
-
-.Show example
-[%collapsible]
-====
-[subs=+quotes]
-----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.3a5d31f5502c11ef9f50d039eab6cb6d:subsystem.nvme_1
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:e6dade64-216d-
-11ec-b7bb-7ed30a5482c3
-iopolicy=round-robin\
-+- nvme1 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2088d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6d:pn-0x21000024ff752e6d *live optimized*
-+- nvme12 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x208ad039eaa7dfc8,host_traddr=nn-0x20000024ff752e6d:pn-0x21000024ff752e6d *live non-optimized*
-+- nvme10 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2087d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live non-optimized*
-+- nvme3 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2083d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live optimized*
-----
-====
---
-.NVMe/TCP
---
-[source,cli]
-----
-nvme list-subsys /dev/nvme1n1 
-----
-
-.Show example
-[%collapsible]
-====
-[subs=+quotes]
-----
-nvme-subsys5 - NQN=nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem.nvme_tcp_3 
-hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33
-iopolicy=round-robin
-\
-+- nvme13 *tcp* traddr=192.168.2.25,trsvcid=4420,host_traddr=192.168.2.31,
-src_addr=192.168.2.31 *live optimized*
-+- nvme14 *tcp* traddr=192.168.2.24,trsvcid=4420,host_traddr=192.168.2.31,
-src_addr=192.168.2.31 *live non-optimized*
-+- nvme5 *tcp* traddr=192.168.1.25,trsvcid=4420,host_traddr=192.168.1.31,
-src_addr=192.168.1.31 *live optimized*
-+- nvme6 *tcp* traddr=192.168.1.24,trsvcid=4420,host_traddr=192.168.1.31,
-src_addr=192.168.1.31 *live non-optimized*
-----
-====
---
-=====
-
-. Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
-
-[role="tabbed-block"]
-=====
-.Column
---
-[source,cli]
-----
-nvme netapp ontapdevices -o column
-----
-
-.Show example
-[%collapsible]
-====
-[subs=+quotes]
-----
-
-Device        Vserver   Namespace Path                                                          
------------------------ ------------------------------ 
-/dev/nvme1n1     linux_tcnvme_iscsi        /vol/tcpnvme_1_0_0/tcpnvme_ns 
-              
-NSID       UUID                                   Size
-------------------------------------------------------------
-1    5f7f630d-8ea5-407f-a490-484b95b15dd6   21.47GB                              
-----
-====
---
-.JSON
---
-[source,cli]
-----
-nvme netapp ontapdevices -o json
-----
-
-.Show example
-[%collapsible]
-====
-[subs=+quotes]
-----
-{
-  "ONTAPdevices":[
-    {
-      "Device":"/dev/nvme1n1",
-      "Vserver":"linux_tcnvme_iscsi",
-      "Namespace_Path":"/vol/tcpnvme_1_0_0/tcpnvme_ns",
-      "NSID":1,
-      "UUID":"5f7f630d-8ea5-407f-a490-484b95b15dd6",
-      "Size":"21.47GB",
-      "LBA_Data_Size":4096,
-      "Namespace_Size":5242880
-    },
-]
-}
-----
-====
---
-=====
+include::_include/nvme/nvme-validate-nvme-of-rocky-linux.adoc[]
 
 == Step 8: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 9.6 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 9.6 host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -849,7 +595,7 @@ Set up secure in-band authentication using the CLI.
 ----
 cat /etc/nvme/hostnqn
 ----
-. Generate the dhchap key for the RHEL 9.6 host.
+. Generate the dhchap key for the Rocky Linux 9.6 host.
 +
 The following output describes the `gen-dhchap-key` command paramters:
 +
@@ -894,8 +640,7 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 [%collapsible]
 ====
 ----
-cat /sys/class/nvme-subsystem/nvme-
-subsys1/nvme*/dhchap_secret
+cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
 DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
 DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
 DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
@@ -934,7 +679,7 @@ Use the `-o` option to generate the JSON file. See the NVMe connect-all manual p
 +
 [NOTE]
 In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`.
-
++
 .Show example
 [%collapsible]
 ====
@@ -1052,5 +797,6 @@ DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJ
 
 There are no known issues.
 
-//ONTAPDOC-2984 26-May-2025
-//ONTAPDOC-2561 25-Nov-2024
+// 2025 JUN 25, ONTAPDOC-3090
+// ONTAPDOC-2984 26-May-2025
+// ONTAPDOC-2561 25-Nov-2024
