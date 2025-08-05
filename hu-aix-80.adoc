@@ -1,0 +1,151 @@
+---
+sidebar: sidebar
+permalink: hu-aix-80.html
+keywords: host utilities, aix, powervm, vios, 3.1, 7.0, netapp, ontap
+summary: The AIX Host Utilities assists you to manage ONTAP storage attached to an AIX host.
+---
+= Install AIX Host Utilities 8.0 for ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+include::_include/hu/aix-install-hu-introduction.adoc[] 
+
+AIX Host Utilities 8.0 supports the following transport protocols and AIX environments:
+
+* FC, FCoE, and iSCSI 
+* AIX Multipath I/O (MPIO)
+* PowerVM 
++
+For information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
+
+include::_include/hu/aix-install-hu-about-this-task.adoc[]
+
+
+
+.Steps
+
+. Log in to your host:
++
+[role="tabbed-block"]
+====
+.AIX
+--
+On an AIX host, log in as *root*.
+--
+
+.PowerVM
+--
+On a PowerVM host:
+
+.. Log in as *padmin*.
+.. Become a root user:
++
+[source,cli]
+----
+oem_setup_env
+----
+--
+====
+
+. Go to the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.0[NetApp Support Site^] and download the compressed file containing the Host Utilities to a directory on your host.
+
+. Go to the directory containing the download.
+
+. Decompress the file and extract the SAN Toolkit software package:
++
+[source,cli]
+----
+tar -xvf ntap_aix_host_utilities_8.0.tar.gz
+----
++
+The `ntap_aix_host_utilities_8.0.` directory is created when you decompress the file. This directory contains one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
+
+. Install AIX MPIO:
++
+[source,cli]
+----
+installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/MPIO NetApp.MPIO_Host_Utilities_Kit
+----
+. Install the SAN Toolkit:
++
+[source,cli]
+----
+installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/ NetApp.SAN_toolkit
+----
+. Reboot the host.
+
+. Verify the installation:
++
+[source,cli]
+----
+lslpp -l |grep -i netapp
+----
++
+.Show example output
+[%collapsible]
+====
+----
+NetApp.MPIO_Host_Utilities_Kit.config
+                             8.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.fcp
+                             8.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.iscsi
+                             8.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+  NetApp.MPIO_Host_Utilities_Kit.pcmodm
+                             8.0.0.0 COMMITTED  NetApp MPIO PCM Host Utilities
+NetApp.SAN_toolkit.sanlun  8.0.0.0 COMMITTED NetApp SAN Toolkit sanlun
+----
+====
+
+. Confirm that the software version is 8.0.1f0fc74c:
++
+[source,cli]
+----
+sanlun version
+----
+. Verify that the SCSI UNMAP `lbp_enabled` parameter has been added to the ODM:
++ 
+[source,cli]
+----
+odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"
+----
++
+.Example ouptut
++
+----
+attribute = "lbp_enabled"
+----
+
++
+[source,cli]
+----
+odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
+----
++
+.Show example output
+[%collapsible]
+====
+----
+PdAt:
+        uniquetype = "disk/fcp/NetAppMPIO"
+        attribute = "lbp_enabled"
+        deflt = "true"
+        values = "true,false"
+        width = ""
+        type = "R"
+        generic = ""
+        rep = "s"
+        nls_index = 18
+----
+====
+
+
+include::_include/hu/aix-install-whats-next.adoc[]
+
+// 2025 MAY 20, ONTAPDOC-2878 and ONTAPDOC-2365 
+// 2024 Sep 06, AIX 7.0
