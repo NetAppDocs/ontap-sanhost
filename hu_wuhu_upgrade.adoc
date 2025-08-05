@@ -20,7 +20,7 @@ You can upgrade Windows Host Utilities software in your ONTAP storage configurat
 ====
 .Upgrade interactively
 --
-To upgrade the Windows Host Utilities software interactively, run the Host Utilities installation program and follow the prompts.
+Upgrade the Windows Host Utilities software interactively by running the Host Utilities installation program and following the prompts.
 
 .Steps
 
@@ -32,15 +32,18 @@ To upgrade the Windows Host Utilities software interactively, run the Host Utili
 .. Go to *Program and features* and check the host utility version.
 --
 
-.Upgrade from a command line
+.Upgrade noninteractively
 --
-You can perform a quiet (unattended) upgrade of the new Windows Host Utilities by entering the appropriate commands at the Windows command prompt.
+Perform a noninteractive Windows Host Utilities software upgrade by using the Windows command line.
 
 .Steps
 
 . Enter the following command at the Windows command prompt:
 +
-`msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
+[source,cli]
+----
+msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]
+----
 
 * `installer` is the name of the `.msi` file for your CPU architecture.
 * MULTIPATHING specifies whether Microsoft Multipath I/O (MPIO) support is installed. The allowed values are "0" for no and "1" for yes.
