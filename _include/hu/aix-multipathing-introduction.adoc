@@ -1,0 +1,5 @@
+Multipathing allows you to configure multiple network paths between the host and storage system. If one path fails, traffic continues with the remaining paths. The AIX and PowerVM environments of the Host Utilities use the AIXs native multipathing solution (MPIO).  
+
+The Path Control Module (PCM) is responsible for controlling multiple paths for an AIX host. The PCM is a storage vendor supplied code that handles path management and is installed and enabled during the Host Utilities installation.
+
+To ensure that multipathing is configured correctly for your host, verify that you have the NetApp recommended settings configured for your ONTAP LUNs. 

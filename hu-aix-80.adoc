@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: hu-aix-70.html
+permalink: hu-aix-80.html
 keywords: host utilities, aix, powervm, vios, 3.1, 7.0, netapp, ontap
 summary: The AIX Host Utilities assists you to manage ONTAP storage attached to an AIX host.
 ---
-= Install AIX Host Utilities 7.0 for ONTAP storage
+= Install AIX Host Utilities 8.0 for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,13 +13,12 @@ summary: The AIX Host Utilities assists you to manage ONTAP storage attached to 
 :imagesdir: ./media/
 
 [.lead]
+include::_include/hu/aix-install-hu-introduction.adoc[] 
 
-include::_include/hu/aix-install-hu-introduction.adoc[]
+AIX Host Utilities 8.0 supports the following transport protocols and AIX environments:
 
-AIX Host Utilities 7.0 support the following transport protocols and AIX environments:
-
-* FC, FCoE, and iSCSI
-* AIX Microsoft Multipath I/O (MPIO)
+* FC, FCoE, and iSCSI 
+* AIX Multipath I/O (MPIO)
 * PowerVM 
 +
 For information about PowerVM, see the IBM PowerVM Live Partition Mobility Red Book.
@@ -27,9 +26,10 @@ For information about PowerVM, see the IBM PowerVM Live Partition Mobility Red B
 include::_include/hu/aix-install-hu-about-this-task.adoc[]
 
 
+
 .Steps
 
-. Log in to your host.
+. Log in to your host:
 +
 [role="tabbed-block"]
 ====
@@ -60,25 +60,23 @@ oem_setup_env
 +
 [source,cli]
 ----
-tar -xvf ntap_aix_host_utilities_7.0.tar.gz
+tar -xvf ntap_aix_host_utilities_8.0.tar.gz
 ----
 +
-The following directory is created when you decompress the file: `ntap_aix_host_utilities_7.0`. This directory contains one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
+The `ntap_aix_host_utilities_8.0.` directory is created when you decompress the file. This directory contains one of the following subdirectories: MPIO, NON_MPIO, or SAN_Tool_Kit.
 
-. Install the AIX MPIO:
+. Install AIX MPIO:
 +
 [source,cli]
 ----
-installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/MPIO NetApp.MPIO_Host_Utilities_Kit
+installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/MPIO NetApp.MPIO_Host_Utilities_Kit
 ----
-
 . Install the SAN Toolkit:
 +
 [source,cli]
 ----
-installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/SAN_Tool_Kit/NetApp.SAN_toolkit
+installp -aXYd /var/tmp/ntap_aix_host_utilities_8.0/ NetApp.SAN_toolkit
 ----
-
 . Reboot the host.
 
 . Verify the installation:
@@ -88,45 +86,50 @@ installp -aXYd /var/tmp/ntap_aix_host_utilities_7.0/SAN_Tool_Kit/NetApp.SAN_tool
 lslpp -l |grep -i netapp
 ----
 +
+.Show example output
+[%collapsible]
+====
 ----
 NetApp.MPIO_Host_Utilities_Kit.config
-                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+                             8.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
   NetApp.MPIO_Host_Utilities_Kit.fcp
-                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+                             8.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
   NetApp.MPIO_Host_Utilities_Kit.iscsi
-                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
+                             8.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities
   NetApp.MPIO_Host_Utilities_Kit.pcmodm
-                             7.0.0.0  COMMITTED  NetApp MPIO PCM Host Utilities	
-NetApp.SAN_toolkit.sanlun  7.0.0.0  COMMITTED  NetApp SAN Toolkit sanlun
+                             8.0.0.0 COMMITTED  NetApp MPIO PCM Host Utilities
+NetApp.SAN_toolkit.sanlun  8.0.0.0 COMMITTED NetApp SAN Toolkit sanlun
 ----
+====
 
-. Confirm the software version:
+. Confirm that the software version is 8.0.1f0fc74c:
 +
 [source,cli]
 ----
 sanlun version
 ----
-+
-----
-7.0.725.3521
-----
-
-. Verify that the SCSI UNMAP `lbp_enabled` parameter is added to the ODM:
-+
+. Verify that the SCSI UNMAP `lbp_enabled` parameter has been added to the ODM:
++ 
 [source,cli]
 ----
 odmget -q "uniquetype=disk/fcp/NetAppMPIO" PdAt |grep  "lbp_enabled"
 ----
 +
+.Example ouptut
++
 ----
 attribute = "lbp_enabled"
 ----
+
 +
 [source,cli]
 ----
 odmget -q "uniquetype=disk/fcp/NetAppMPIO and attribute=lbp_enabled" PdAt`
 ----
 +
+.Show example output
+[%collapsible]
+====
 ----
 PdAt:
         uniquetype = "disk/fcp/NetAppMPIO"
@@ -139,8 +142,10 @@ PdAt:
         rep = "s"
         nls_index = 18
 ----
+====
+
 
 include::_include/hu/aix-install-whats-next.adoc[]
 
-// 2025 MAY 20, ONTAPDOC-2365 
+// 2025 MAY 20, ONTAPDOC-2878 and ONTAPDOC-2365 
 // 2024 Sep 06, AIX 7.0
