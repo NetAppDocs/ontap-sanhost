@@ -32,7 +32,7 @@ The *Repair* option updates the Windows registry and FC HBAs with the required s
 . Follow the instructions on the screen.
 --
 
-.Repair or remove from command line
+.Repair or remove noninteractively
 --
 The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the Host Utilities entirely from a Windows command line.
 
@@ -40,7 +40,10 @@ The *Repair* option updates the Windows registry and FC HBAs with the required s
 
 . Repair Windows Host Utilities:
 +
-`msiexec /f installer.msi [/quiet]`
+[source,cli]
+----
+msiexec /f installer.msi [/quiet]
+----
 
 * `/f` repairs the installation.
 * `installer.msi` is the name of the Windows Host Utilities installation program on your system.

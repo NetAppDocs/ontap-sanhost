@@ -92,7 +92,10 @@ Perform a noninteractive installation of the Host Utilities by using the Windows
 
 . Enter the following command at the Windows command prompt:
 +
-`msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]`
+[source,cli]
+----
+msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]
+----
 
 * `installer` is the name of the `.msi` file for your CPU architecture.
 * MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.

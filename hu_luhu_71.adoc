@@ -61,6 +61,8 @@ For earlier versions of Linux Host Utilities, go to the directory where the host
 rpm -ivh netapp_linux_unified_host_utilities-7-1.x86_xx.rpm
 ----
 +
+You should see an output similar to the following example:
++
 ----
 Verifying...                          ################################# [100%]
 Preparing...                          ################################# [100%]
@@ -74,6 +76,8 @@ Updating / installing...
 ----
 sanlun version
 ----
++
+You should see an output similar to the following example:
 +
 ----
 sanlun version 7.1.386.1644

@@ -57,6 +57,8 @@ For earlier versions of Linux Host Utilities, go to the directory where the host
 rpm -ivh netapp_linux_unified_host_utilities-8-0.x86_xx.rpm
 ----
 +
+You should see an output similar to the following example:
++
 ----
 rpm -ivh netapp_linux_unified_host_utilities-8-0.x86_64.rpm
 Verifying...                          ################################# [100%]
@@ -81,6 +83,8 @@ cp /opt/QLogic_Corporation/QConvergeConsoleCLI/lib64/libHBAAPI.so.2.0.2 /usr/lib
 ----
 sanlun version
 ----
++
+You should see an output similar to the following example:
 +
 ----
 sanlun version 8.0.386.1644
