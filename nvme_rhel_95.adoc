@@ -13,7 +13,7 @@ summary: How to Configure NVMe-oF Host for RHEL 9.5 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/reuse-nvme-introduction.adoc[]
+include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task 
 You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.5. You should also review the known limitations before starting the configuration process.
@@ -265,12 +265,12 @@ The expected ouptut is 1.
 
 === Enable 1MB I/O (Optional)
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 
 == Configure NVMe/TCP
 
-include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
@@ -557,55 +557,9 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Validate NVMe-oF
 
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
-.Steps
 
-. Verify that the in-kernel NVMe multipath is enabled:
-+
-----
-cat /sys/module/nvme_core/parameters/multipath
-----
-+
-----
-Y
-----
-
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
-
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
-+
-----
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy` 
-+
-----
-round-robin
-round-robin
-----
-
-. Verify that the namespaces are created and correctly discovered on the host:
-+
-----
-nvme list
-----
-+
-.Show example
-[%collapsible]
-====
-----
-Node         SN                   Model                          
----------------------------------------------------------  
-/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
-                               
-
-Namespace Usage    Format             FW             Rev
------------------------------------------------------------
-1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
-----
-====
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
 [role="tabbed-block"]

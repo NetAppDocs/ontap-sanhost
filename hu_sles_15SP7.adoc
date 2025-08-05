@@ -1,0 +1,42 @@
+---
+sidebar: sidebar
+permalink: hu_sles_15SP7.html
+keywords: host utilities, suse linux enterprise server 15 sp7, suse, linux, 15 sp7, netapp, ontap, fcp, iscsi
+summary: Install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP7 to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+---
+= Configure SUSE Linux Enterprise Server 15 SP7 for FCP and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP7 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+
+include::_include/hu/linux-configure-kvm-note.adoc[]
+
+include::_include/hu/linux-enable-san-boot.adoc[]
+
+include::_include/hu/install-linux-host-utilities-80.adoc[]
+
+== Step 3: Confirm the multipath configuration for your host
+
+You can use multipathing with SUSE Linux Enterprise Server 15 SP7 to manage ONTAP LUNs.
+
+include::_include/hu/multipathing.adoc[]
+
+include::_include/hu/exclude-device.adoc[]
+
+include::_include/hu/linux-customize-parameters.adoc[]
+
+== Step 6: Review the known issues
+
+There are no known issues.
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
