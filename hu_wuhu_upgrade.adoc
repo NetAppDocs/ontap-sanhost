@@ -4,8 +4,7 @@ permalink: hu_wuhu_upgrade.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
 summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
-
-= Upgrade the Windows Host Utilities
+= Upgrade Windows Host Utilities for ONTAP storage
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -15,13 +14,13 @@ summary: Windows Host Utilities includes an installation program that sets the r
 :imagesdir: ./media/
 
 [.lead]
-The new Host Utilities installation package must be in a path that is accessible by the Windows host. Follow the instructions for installing the Host Utilities interactively or from the Windows command line in order to upgrade the installation package.
+You can upgrade Windows Host Utilities software in your ONTAP storage configuration by following the installation instructions interactively or by using the Windows command line. You need to install the new Windows Host Utilities installation software on a path that is accessible to the Windows host. 
 
 [role="tabbed-block"]
 ====
 .Upgrade interactively
 --
-To upgrade the Host Utilities software package interactively, you must run the Host Utilities installation program and follow the prompts.
+To upgrade the Windows Host Utilities software interactively, run the Host Utilities installation program and follow the prompts.
 
 .Steps
 
@@ -35,9 +34,7 @@ To upgrade the Host Utilities software package interactively, you must run the H
 
 .Upgrade from a command line
 --
-You can perform a quiet (unattended) upgrade of the new Host Utilities by entering the appropriate commands at the Windows command prompt.
-
-
+You can perform a quiet (unattended) upgrade of the new Windows Host Utilities by entering the appropriate commands at the Windows command prompt.
 
 .Steps
 
