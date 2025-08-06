@@ -126,11 +126,11 @@ drwxr-xr-x   3 root     sys            4 Mar  7 13:11 ..
 +
 `/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp|iscsi|mixed -multipath mpxio|dmp|non [-noalua] [-mcc 60|90|120]`
 +
-[cols=2*,options="header"]
+[cols="1a,2a" options="header"]
 |===
 |For example, if your setup is... | Use the command...
 |FCP with multipath as MPxIO 
-a| 
+| 
 [source,cli]
 ----
 #/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath mpxio
@@ -141,13 +141,13 @@ For information on the configuration changes for SnapMirror active sync, see the
 
 
 |FCP with multipath as DMP
-a| 
+| 
 [source,cli]
 ----
 #/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath dmp
 ----
 |FCP on MetroCluster with multipath as MPxIO, and the All Paths Down value is set to 120s. (This is the recommended setting for MetroCluster configurations). 
-a| 
+| 
 [source,cli]
 ----
 #/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath mpxio -mcc 120
