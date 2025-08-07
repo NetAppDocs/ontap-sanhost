@@ -126,19 +126,32 @@ drwxr-xr-x   3 root     sys            4 Mar  7 13:11 ..
 +
 `/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp|iscsi|mixed -multipath mpxio|dmp|non [-noalua] [-mcc 60|90|120]`
 +
-[cols=2*,options="header"]
+[cols="1a,2a" options="header"]
 |===
 |For example, if your setup is... | Use the command...
-|FCP with multipath as MPxIO | `#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath mpxio`
+|FCP with multipath as MPxIO 
+| 
+[source,cli]
+----
+#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath mpxio
+----
 
 For information on the configuration changes for SnapMirror active sync, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/Solaris_Host_support_recommended_settings_in_SnapMirror_active_sync_formerly_SM_BC_configuration[Solaris Host support recommended settings in SnapMirror active sync (formerly SM-BC) configuration^].
 
 
 
 |FCP with multipath as DMP
-|`#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath dmp`
+| 
+[source,cli]
+----
+#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath dmp
+----
 |FCP on MetroCluster with multipath as MPxIO, and the All Paths Down value is set to 120s. (This is the recommended setting for MetroCluster configurations). 
-| `#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath mpxio -mcc 120` 
+| 
+[source,cli]
+----
+#/opt/NTAP/SANToolkit/bin/host_config -setup -protocol fcp -multipath mpxio -mcc 120
+----
 
 For more information, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/Solaris_host_support_considerations_in_a_MetroCluster_configuration[Solaris host support considerations in a MetroCluster configuration^].
 
