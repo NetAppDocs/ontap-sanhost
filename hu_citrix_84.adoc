@@ -15,6 +15,13 @@ summary: Configure Citrix Hypervisor 8.4 for multipathing and with specific para
 [.lead]
 Configure Citrix Hypervisor 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operation with ONTAP storage. 
 
+[NOTE]
+====
+The Linux Host Utilities software package doesn’t support Citrix Hypervisor operating systems.
+
+You don’t need to manually configure Kernel-based Virtual Machine (KVM) settings because ONTAP LUNs are automatically mapped to the hypervisor.
+====
+
 include::_include/hu/linux-enable-san-boot.adoc[]
 
 == Step 2: Confirm the multipath configuration for your host
