@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_citrix_82.html
 keywords: host utilities, citrix, Hypervisor, 8 series, netapp, ontap, san, boot
-summary: Describes how to use Citrix Hypervisor 8.2 with ONTAP
+summary: Configure Citrix Hypervisor 8.2 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operation with ONTAP storage.
 ---
 = Configure Citrix Hypervisor 8.2  for FCP and iSCSI with ONTAP storage
 :hardbreaks:
@@ -13,7 +13,7 @@ summary: Describes how to use Citrix Hypervisor 8.2 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-Configure Citrix Hypervisor 8.2 for multipathing and with specific parameters and settings for FCP and iSCSI operation with ONTAP storage. 
+Configure Citrix Hypervisor 8.2 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operation with ONTAP storage. 
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
