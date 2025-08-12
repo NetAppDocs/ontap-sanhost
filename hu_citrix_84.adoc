@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_citrix_84.html
 keywords: host utilities, citrix, XenServer, 8 series, netapp, ontap, san, boot
-summary: Configure Citrix Hypervisor 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operation with ONTAP storage.
+summary: Configure Citrix Hypervisor 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
 ---
 = Configure Citrix Xenserver 8.4  for FCP and iSCSI with ONTAP storage
 :hardbreaks:
@@ -13,7 +13,7 @@ summary: Configure Citrix Hypervisor 8.4 for multipathing and with specific para
 :imagesdir: ./media/
 
 [.lead]
-Configure Citrix Hypervisor 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operation with ONTAP storage. 
+Configure Citrix Hypervisor 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage. 
 
 [NOTE]
 ====
@@ -35,11 +35,5 @@ include::_include/hu/linux-customize-parameters-step4.adoc[]
 == Step 5: Review the known issues
 
 There are no known issues.
-
-== What's next?
-
-include::_include/hu/use-linux-host-utilities.adoc[]
-
-include::_include/hu/asm-mirroring.adoc[] 
 
 //ONTAPDOC-3030 29-May-2025
