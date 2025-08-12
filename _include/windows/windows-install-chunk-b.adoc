@@ -1,0 +1,24 @@
+. Start the target service.
+
+. Verify your cabling.
++
+Refer to the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] for detailed cabling and configuration information.
+
+== Step 2: Configure FC HBAs and switches
+
+Install and configure one or more supported FC host bus adapters (HBAs) for FC connections to the storage system.
+
+The Windows Host Utilities installer sets the required FC HBA settings.
+
+[CAUTION]
+You should only allow the Windows Host Utilities installer to set the HBA parameters. This ensures that the Windows host can correctly handle the storage system behaviors for ONTAP platforms. 
+
+.Steps
+
+. Install one or more supported FC HBAs according to the instructions provided by the HBA vendor.
+. Obtain the supported HBA drivers and management utilities and install them according to the instructions provided by the HBA vendor.
+. https://docs.netapp.com/us-en/ontap/san-management/index.html[Connect the HBAs to your FC switches or directly to the storage system^].
+
+. https://docs.netapp.com/us-en/ontap/san-config/fibre-channel-fcoe-zoning-concept.html[Create zones on the FC switch according to your FC switch documentation^].
+
+. For ONTAP, zone the switch by the WWPN. Be sure to use the WWPN of the logical interfaces (LIFs) and not the WWPN of the physical ports on the storage controllers. Refer to the https://docs.netapp.com/us-en/ontap/san-config/index.html[SAN configuration reference^] for more information.
