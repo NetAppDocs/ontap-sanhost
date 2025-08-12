@@ -21,12 +21,10 @@ You can use the following support and features with the NVMe-oF host configurati
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with Proxmox 8.4.
-
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
-** Native NVMe multipathing is always enabled for Proxmox 8.4. DM multipathing for NVMe-oF isn't supported.
+** Native NVMe multipathing is always enabled for Proxmox 8.4. 
 * Known limitations: 
 ** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 
@@ -83,11 +81,7 @@ include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 include::_include/nvme/validate-nvme-of-latersteps-version10-rockylinux-proxmox.adoc[]
 
-== Step 8: Set up secure in-band authentication
-
-include::_include/nvme/secure-inband-authentication-version10-rhel-proxmox.adoc[]
-
-== Step 9: Review the known issues
+== Step 8: Review the known issues
 
 There are no known issues.
 
