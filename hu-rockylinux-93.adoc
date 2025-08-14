@@ -42,7 +42,7 @@ The Rocky Linux 9.3 release for FCP and iSCSI with ONTAP storage has the followi
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1593771[1593771^]  	|A Red Hat Enterprise Linux 9.3 QLogic SAN host encounters loss of partial multipaths during storage mobility operations	| During the ONTAP storage controller takeover operation, half of the multipaths are expected to go down or switch to a failover mode and then recover to full path count during the giveback workflow. However, with a Red Hat Enterprise Linux (RHEL) 9.3 QLogic host, only partial multipaths are recovered after a storage failover giveback operation. |RHEL 17811
 |===
 
-== What's next?
+.What's next
  
 include::_include/hu/use-linux-host-utilities.adoc[]
  

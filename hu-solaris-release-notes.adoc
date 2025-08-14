@@ -17,7 +17,7 @@ The Solaris Host Utilities release notes describe new features, enhancements, kn
 
 For specific information about the operating system versions and updates that the Host Utilities support, see the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^].
 
-== What's new in Solaris Host Utilities 8.0
+.What's new in Solaris Host Utilities 8.0
 
 * Solaris Host Utilities 8.0 introduces the `disksort:false` and `cache-nonvolatile:true` parameter settings. These parameters suppress constant sync calls from the host. The sync calls impact performance and aren't required because ONTAP doesn't have volatile cache. For more information, see link:https://docs.oracle.com/en/operating-systems/solaris/oracle-solaris/11.4/tuning/ensuring-proper-cache-flush-behavior-flash-and-nvram-storage-devices.html[Cache Flush Behavior for Flash and NVRAM Storage Devices^].
 * Solaris Host Utilities 8.0 supports automated updates for FC drivers. The FC drivers that bind the parameters for Solaris 11.4 use SCSI disks. For more information, see the link:https://support.oracle.com/knowledge/Sun%20Microsystems/2595926_1.html[Oracle Support Doc ID 2595926.1^].
@@ -44,6 +44,6 @@ link:https://mysupport.netapp.com/site/[NetApp Bugs Online^] provides complete i
 *	FCP General: Displays FC and host bus adapter (HBA) bugs that are not associated with a specific host.
 *	FCP - Solaris
 
-== What's next
+.What's next
 
 link:hu-solaris-80.html[Learn about installing Solaris Host Utilities]

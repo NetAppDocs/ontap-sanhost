@@ -49,7 +49,7 @@ If kdump is configured, the kernel disruption creates a vmcore file in the  /var
 After a kernel disruption, you can recover by rebooting the host operating system and restarting the application. 
 |===
 
-== What's next?
+.What's next
 
 include::_include/hu/use-linux-host-utilities.adoc[]
 

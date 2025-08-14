@@ -45,7 +45,7 @@ The RHEL 7.7 with ONTAP storage release has the following known issues:
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1261474[1261474^] | Remote ports transit to blocked state on RHEL7U7 with Emulex LPe32002 32GB FC | Remote ports might transit to a blocked state on a RHEL 7.7 host with LPe32002 32GB FC adapter during storage failover operations. When the storage node returns to an optimal state, the LIFs also come up and the remote port state should read "online". Occasionally, the remote port state might continue to read as "blocked” or "not present". This state can lead to a "failed faulty" path to LUNs at the multipath layer. 
 |===
 
-== What's next?
+.What's next
 
 include::_include/hu/use-linux-host-utilities.adoc[]
 

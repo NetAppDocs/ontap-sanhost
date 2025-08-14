@@ -45,7 +45,7 @@ The RHEL 7.1 with ONTAP storage release has the following known issues:
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=836875[836875^] | IP addresses are not always assigned during the boot of a RHEL 7.0 OS installed on an iSCSI multipath'd LUN | When you install the root(/) on a iSCSI multipath’d LUN, the IP address for the  Ethernet interfaces are specified in the kernel command line so that the IP addresses are assigned before the iSCSI service starts. However, dracut cannot assign IP addresses to all the Ethernet ports during the boot, before the iSCSI service starts. This causes the iSCSI login to fail on interfaces without IP addresses. You will see the iSCSI service attempt to login numerous times,  which will cause a delay in the OS boot time. 
 |===
 
-== What's next?
+.What's next
 
 include::_include/hu/use-linux-host-utilities.adoc[]
 

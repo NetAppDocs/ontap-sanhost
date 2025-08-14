@@ -42,7 +42,7 @@ The Rocky Linux 9.2 release for FCP and iSCSI with ONTAP storage has the followi
 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1537359[1537359^] |A Red Hat Linux 9.2 SAN booted host with Emulex HBA encounters stalled tasks leading to kernel disruption |During a storage failover giveback operation, a Red Hat Linux 9.2 SAN booted host with an Emulex host bus adapeter (HBA) encounters stalled tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
 |===
 
-== What's next?
+.What's next
  
 include::_include/hu/use-linux-host-utilities.adoc[]
  
