@@ -1,0 +1,259 @@
+---
+sidebar: sidebar
+permalink: hu-solaris-command-reference.html
+keywords: host utilities, unified, solaris, 8.0, netapp, ontap
+summary: Describes how to use the Solaris Host Utilities 8.0 with ONTAP
+---
+= Use Solaris Host Utilities commands to verify ONTAP storage configuration 
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use the Solaris Host Utilities sample command reference for an end-to-end validation of the NetApp storage configuration using the Host Utilities tool.
+
+== List all host initiators mapped to host
+You can retrieve a list of all host initiators mapped to a host.
+
+[source,cli]
+----
+sanlun fcp show adapter -v
+----
+
+[role="tabbed-block"]
+=====
+.8.0
+--
+.Show example for Solaris Host Utilities 8.0
+[%collapsible]
+====
+----
+adapter name:      qlc0
+WWPN:              2100f4e9d40fe3e0
+WWNN:              2000f4e9d40fe3e0
+driver name:       qlc
+model:             7023303
+model description: 7101674, Sun Storage 16Gb FC PCIe Universal HBA, QLogic
+serial number:     463916R+1912389772
+hardware version:  Not Available
+driver version:    230206-5.12
+firmware version:  8.08.04
+Number of ports:   1 of 2
+port type:         Fabric
+port state:        Operational
+supported speed:   4 GBit/sec, 8 GBit/sec, 16 GBit/sec
+negotiated speed:  16 GBit/sec
+OS device name:    /dev/cfg/c4
+ 
+adapter name:      qlc1
+WWPN:              2100f4e9d40fe3e1
+WWNN:              2000f4e9d40fe3e1
+driver name:       qlc
+model:             7023303
+model description: 7101674, Sun Storage 16Gb FC PCIe Universal HBA, QLogic
+serial number:     463916R+1912389772
+hardware version:  Not Available
+driver version:    230206-5.12
+firmware version:  8.08.04
+Number of ports:   2 of 2
+port type:         Fabric
+port state:        Operational
+supported speed:   4 GBit/sec, 8 GBit/sec, 16 GBit/sec
+negotiated speed:  16 GBit/sec
+OS device name:    /dev/cfg/c5
+----
+====
+--
+.6.2
+--
+
+.Show example for Solaris Host Utilities 6.2
+[%collapsible]
+====
+----
+adapter name:      qlc3
+WWPN:              21000024ff17a301
+WWNN:              20000024ff17a301
+driver name:       qlc
+model:             7335902
+model description: 7115462, Oracle Storage Dual-Port 32 Gb Fibre Channel PCIe HBA
+serial number:     463916R+1720333838
+hardware version:  Not Available
+driver version:    210226-5.10
+firmware version:  8.08.04
+Number of ports:   1 of 2
+port type:         Fabric
+port state:        Operational
+supported speed:   8 GBit/sec, 16 GBit/sec, 32 GBit/sec
+negotiated speed:  32 GBit/sec
+OS device name:    /dev/cfg/c7
+
+adapter name:      qlc2
+WWPN:              21000024ff17a300
+WWNN:              20000024ff17a300
+driver name:       qlc
+model:             7335902
+model description: 7115462, Oracle Storage Dual-Port 32 Gb Fibre Channel PCIe HBA
+serial number:     463916R+1720333838
+hardware version:  Not Available
+driver version:    210226-5.10
+firmware version:  8.08.04
+Number of ports:   2 of 2
+port type:         Fabric
+port state:        Operational
+supported speed:   8 GBit/sec, 16 GBit/sec, 32 GBit/sec
+negotiated speed:  16 GBit/sec
+OS device name:    /dev/cfg/c6
+----
+====
+--
+=====
+
+== List all LUNs mapped to host
+You can retrieve a list of all LUNs mapped to a host.
+
+[source,cli]
+----
+sanlun lun show -p -v all
+----
+
+[role="tabbed-block"]
+=====
+.8.0
+--
+.Show example for Solaris Host Utilities 8.0
+[%collapsible]
+====
+----
+
+ONTAP Path: sanboot_unix:/vol/test1/lun1
+       LUN: 0
+       LUN Size: 21g
+       Host Device: /dev/rdsk/c0t600A098038314B314E5D574632365A51d0s2
+       Mode: C
+       Multipath Provider: Sun Microsystems
+       Multipath Policy: Native
+
+----
+====
+--
+.6.2
+--
+
+.Show example for Solaris Host Utilities 6.2
+[%collapsible]
+====
+----
+
+                    ONTAP Path: data_vserver:/vol1/lun1
+                           LUN: 1
+                      LUN Size: 10g
+                   Host Device: /dev/rdsk/c0t600A0980383044485A3F4E694E4F775Ad0s2
+                          Mode: C
+            Multipath Provider: Sun Microsystems
+              Multipath Policy: Native
+
+----
+====
+--
+=====
+
+== List all LUNs mapped to host from a given SVM/ List all attributes of a given LUN mapped to host
+
+You can retrieve a list of all LUNs mapped to a host from a specific SVM.
+
+[source,cli]
+----
+sanlun lun show -p -v <svm_name>
+----
+
+[role="tabbed-block"]
+=====
+.8.0
+--
+.Show example for Solaris Host Utilities 8.0
+[%collapsible]
+====
+----
+ONTAP Path: sanboot_unix:/vol/test1/lun1
+       LUN: 0
+       LUN Size: 20g
+       Host Device: /dev/rdsk/c0t600A098038314B314E5D574632365A51d0s2
+       Mode: C
+       Multipath Provider: Sun Microsystems
+       Multipath Policy: Native
+----
+====
+--
+.6.2
+--
+
+.Show example for Solaris Host Utilities 6.2
+[%collapsible]
+====
+----
+ONTAP Path: sanboot_unix:/vol/sol_boot/sanboot_lun
+                           LUN: 0
+                      LUN Size: 180.0g
+
+----
+====
+--
+=====
+
+
+== List ONTAP LUN attributes by host device filename
+You can retrieve a list of all ONTAP LUN attributes by specifying a host device filename.
+
+[source,cli]
+----
+sanlun lun show all
+----
+
+[role="tabbed-block"]
+=====
+.8.0
+--
+.Show example for Solaris Host Utilities 8.0
+[%collapsible]
+====
+[source,cli]
+----
+controller(7mode/E-Series)/                                         device
+vserver(cDOT/FlashRay)       lun-pathname                           filename
+---------------------------------------------------------------------------------------------------------------
+sanboot_unix                /vol/test1/lun1                         /dev/rdsk/
+c0t600A098038314B314E5D574632365A51d0s2
+
+host adapter    protocol lun size   product
+---------------------------------------------
+qlc1            FCP      20g        cDOT
+----
+====
+
+--
+.6.2
+--
+
+.Show example for Solaris Host Utilities 6.2
+[%collapsible]
+====
+----
+controller(7mode/E-Series)/                                         device
+vserver(cDOT/FlashRay)       lun-pathname                           filename
+---------------------------------------------------------------------------------------------------------------
+sanboot_unix                 /vol/sol_193_boot/chatsol_193_sanboot /dev/rdsk/c0t600A098038304437522B4E694E4A3043d0s2
+
+host adapter    protocol lun size   product
+---------------------------------------------
+qlc3            FCP      180.0g     cDOT
+----
+====
+--
+=====
+
+
+

@@ -2,4 +2,8 @@ The MPIO software presents a single disk to the Windows OS for all paths, and a 
 
 CAUTION: If you don't install the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
 
-NOTE: Windows XP or Windows Vista running in a Hyper-V virtual machine doesn't support MPIO.
+[NOTE]
+====
+* For Windows Host Utilities 8.0, the MPIO feature is enabled automatically when you select MPIO support.
+* Windows XP or Windows Vista running in a Hyper-V virtual machine don't support MPIO.
+====

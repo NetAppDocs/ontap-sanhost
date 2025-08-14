@@ -1,0 +1,28 @@
+== Step 3: Optionally, exclude a device from multipathing
+
+If required, you can exclude a device from multipathing by adding the WWID for the unwanted device to the "blacklist" stanza for the `multipath.conf` file.
+
+.Steps
+
+. Determine the WWID:
++
+[source,cli]
+----
+/lib/udev/scsi_id -gud /dev/sda
+----
++
+"sda" is the local SCSI disk that you want to add to the blacklist.
++
+An example WWID is `360030057024d0730239134810c0cb833`.
+
+. Add the WWID to the "blacklist" stanza:
++
+[source,cli]
+----
+blacklist {
+	     wwid   360030057024d0730239134810c0cb833
+        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
+        devnode "^hd[a-z]"
+        devnode "^cciss.*"
+}
+----
