@@ -17,9 +17,10 @@ You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.
 
 == Supportability
 
-* Beginning with ONTAP 9.16.1 space allocation is enabled by default for all newly created NVMe namespaces.
-* Beginning with ONTAP 9.9.1 P3, NVMe/FC protocol is supported for ESXi 8 and later. 
-* Beginning with ONTAP 9.10.1, NVMe/TCP protocol is supported for ONTAP.
+* Beginning with ONTAP 9.17.1, SnapMirror active sync supports the NVMe and NVMe/TCP protocols.
+* Beginning with ONTAP 9.16.1, space allocation is enabled by default for all newly created NVMe namespaces.
+* Beginning with ONTAP 9.9.1 P3, the NVMe/FC protocol is supported for ESXi 8. 
+* Beginning with ONTAP 9.10.1, the NVMe/TCP protocol is supported for ONTAP.
 
 == Features
 
@@ -272,6 +273,9 @@ The NVMe-oF host configuration for ESXi 8.x with ONTAP has the following known i
 [cols="10,30,30",options="header"]
 |===
 h|NetApp Bug ID	h|Title	h|Description
+|CONTAPEXT-2693	
+|ESXi 8.0U3 NVMe/TCP fails when SnapMirror active sync CG enters Out-of-Sync state
+|ESXi 8.0U3 environments configured with NVMe/TCP and SnapMirror active sync on NVMe namespaces might fail when the Consistency Group (CG) relationship status transitions to an Out-of-Sync state. The CG can move from the InSync state to the Out-of-Sync state due to various workflows, such as an automatic unplanned failover or a disruption to the inter-cluster connection. For more information, refer to  VMware Bug ID: TR1049746.
 |link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|ONTAP node non-operational when NVMe/FC protocol is used with ONTAP version 9.9.1 |ONTAP 9.9.1 has introduced support for the NVMe "abort" command. When ONTAP 
 receives the "abort" command to abort an NVMe fused command that is waiting for 
 its partner command, an ONTAP node disruption occurs. The issue is noticed only with hosts 
@@ -281,6 +285,7 @@ that use NVMe fused commands (for example, ESX) and Fibre Channel (FC) transport
 
 .Related information
 
+link:https://docs.netapp.com/us-en/ontap/snapmirror-active-sync/interoperability-reference.html[Learn aabout SnapMirror active sync interoperability in ONTAP^]
 link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html[VMware vSphere with ONTAP^]
 link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)^]
 link:https://kb.vmware.com/s/article/83370[VMware vSphere 6.x and 7.x support with NetApp SnapMirror active sync^]
