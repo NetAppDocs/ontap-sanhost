@@ -34,25 +34,6 @@ SAN booting using the NVMe-oF protocol is not currently supported.
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Validate software versions
-
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
-+
-----
-::> vserver nvme subsystem host show -vserver vs_ol_nvme
-----
-+
-*Example output:*
-+
-----
-Vserver     Subsystem          Host NQN
------------ --------------- ----------------------------------------------------------
-vs_nvme207   rhel_207_LPe32002    nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-11ec-8489-3a68dd61a4df
-----
-+
-[NOTE]
-If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
-
 == Step 2: Validate software versions
  
 You can use the following procedure to validate the minimum supported RHEL 9.2 software versions.
@@ -131,9 +112,9 @@ vs_nvme207   rhel_207_LPe32002    nqn.2014-08.org.nvmexpress:uuid:325e7554-1f9b-
 [NOTE]
 If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
-== Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
 
 [role="tabbed-block"]
 ====
@@ -490,7 +471,7 @@ NSID       UUID                                   Size
 --
 ====
 
-== Step 7: Review the known issues
+== Step 5: Review the known issues
 
 There are no known issues.
 

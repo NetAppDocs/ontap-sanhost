@@ -31,57 +31,93 @@ You can use the following support and features with the NVMe-oF host configurati
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Enable in-kernel NVMe multipath
-
-You can use the following procedure to enable in-kernel NVMe multipath.
+== Step 2: Validate software versions
+ 
+You can use the following procedure to validate the minimum supported RHEL 8.4 software versions.
 
 .Steps
 
-.	Install RHEL 8.4 GA on the server. 
-
-.	After the installation is complete, verify that you are running the specified RHEL 8.4 kernel. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
+. Install RHEL 8.4 on the server. After the installation is complete, verify that you are running the specified RHEL 8.4 kernel: 
 +
-Example:
-+
-
+[source,cli]
 ----
-# uname -r
+uname -r
+----
++
+The following example shows a RHEL 8.4 kernel version:
++
+----
 4.18.0-305.el8.x86_64
 ----
-+
 
-.	Install the `nvme-cli` package:
+. Install the `nvme-cli` package:
 +
-Example:
+[source,cli]
+----
+rpm -qa|grep nvme-cli
+----
++
+The following example shows an nvme-cli package version:
 +
 ----
-# rpm -qa|grep nvme-cli
 nvme-cli-1.12-3.el8.x86_64
 ----
 
-.	Enable in-kernel NVMe multipath:
+. Install the `libnvme` package:
++
+[source,cli]
+----
+rpm -qa|grep libnvme
+----
++
+The following example shows an libnvme package version:
 +
 ----
-# grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-305.el8.x86_64
+libnvme-1.0-1.el8.x86_64
 ----
 
-.	On the host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. Example:
+. Enable in-kernel NVMe multipath:
++
+[source,cli]
+----
+grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-305.el8.x86_64
+----
+
+. On the RHEL 8.4 host, check the hostnqn string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
+----
++
+The following example shows an hostnqn version:
 +
 ----
-
-# cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
-::> vserver nvme subsystem host show -vserver vs_fcnvme_141
-Vserver     Subsystem       Host NQN
------------ --------------- ----------------------------------------------------------
-vs_fcnvme_14 nvme_141_1     nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+----
 
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
++
+[source,cli]
+----
+::> vserver nvme subsystem host show -vserver vs_fcnvme_141
 ----
 +
-NOTE: If the host NQN strings do not match, you should use the `vserver modify` command to update the host NQN string on your corresponding ONTAP NVMe subsystem to match the host NQN string `/etc/nvme/hostnqn` on the host.
-
-.	Reboot the host.
+.Show example
+[%collapsible]
+====
+----
+Vserver     Subsystem          Host NQN
+----------- --------------- ----------------------------------------------------------
+vs_fcnvme_141   nvme_141_1    nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+----
+====
 +
+[NOTE]
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+
+. Reboot the host.
+
 [NOTE]
 ====
 If you intend to run both NVMe and SCSI co-existent traffic on the same host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the enable_foreign setting to the `/etc/multipath.conf` file:
@@ -96,7 +132,7 @@ defaults {
 Restart the multipathd daemon by running a `systemctl restart multipathd` command to allow the new setting to take effect.
 ====
 
-== Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 
 You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 
@@ -410,7 +446,7 @@ NSID  UUID                                   Size
 }
 ----
 
-== Step 7: Review the known issues
+== Step 5: Review the known issues
 
 There are no known issues.
 

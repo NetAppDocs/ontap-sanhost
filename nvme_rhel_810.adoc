@@ -33,53 +33,66 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Enable in-kernel multipath
-
-You can use the following procedure to enable in-kernel multipath.
+== Step 2: Validate software versions
+ 
+You can use the following procedure to validate the minimum supported RHEL 8.10 software versions.
 
 .Steps
 
-. Install RHEL 8.10 on the host server. 
-. After the installation is complete, verify that you are running the specified RHEL 8.10 kernel: 
+. Install RHEL 8.10 on the server. After the installation is complete, verify that you are running the specified RHEL 8.10 kernel: 
++
+[source,cli]
+----
+uname -r
+----
++
+The following example shows a RHEL 8.10 kernel version:
 +
 ----
-# uname -r
-----
-+
-*Example output*
-+
-----
-4.18.0-553.el8_10.x86_64 
+4.18.0-553.el8_10.x86_64
 ----
 
-. Install the `nvme-cli` package: 
+. Install the `nvme-cli` package:
 +
+[source,cli]
 ----
 rpm -qa|grep nvme-cli
 ----
 +
-*Example output*
+The following example shows an nvme-cli package version:
 +
 ----
 nvme-cli-1.16-9.el8.x86_64
 ----
 
-. Enable in-kernel NVMe multipath:
+. Install the `libnvme` package:
 +
-*Example*
+[source,cli]
+----
+rpm -qa|grep libnvme
+----
++
+The following example shows an libnvme package version:
 +
 ----
-# grubby --args=nvme_core.multipath=Y --update-kernel 
-/boot/vmlinuz-4.18.0-553.el8_10.x86_64 
+libnvme-1.4-3.el8.x86_64
 ----
 
-. On the host, check the host NQN string at `/etc/nvme/hostnqn`:
+. Enable in-kernel NVMe multipath:
 +
+[source,cli]
 ----
-# cat /etc/nvme/hostnqn
+grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-553.el8_10.x86_64
+----
+
+. On the RHEL 8.10 host, check the hostnqn string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
 ----
 +
-*Example output*
+The following example shows an hostnqn version:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3410-8035-b8c04f4c5132
@@ -87,20 +100,23 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3410-8035-b8c04f4c5132
 
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
+[source,cli]
 ----
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_141
 ----
 +
-*Example output*
-+
+.Show example
+[%collapsible]
+====
 ----
-Vserver     Subsystem       Host NQN
+Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_25_2742 rhel_101_QLe2772    nqn.2014-08.org.nvmexpress:uuid:546399fc-160f-11e5-89aa-98be942440ca
+vs_25_2742   rhel_101_QLe2772    nqn.2014-08.org.nvmexpress:uuid:546399fc-160f-11e5-89aa-98be942440ca
 ----
+====
 +
 [NOTE]
-If the host NQN strings do not match, you can use the `vserver modify` command to update the host NQN string on your corresponding ONTAP NVMe subsystem to match the host NQN string `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 
@@ -116,9 +132,9 @@ defaults {
 ----
 ====
 
-== Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
 
 [role="tabbed-block"]
 ====
@@ -472,7 +488,7 @@ NSID       UUID                                   Size
 --
 ====
 
-== Step 7: Review the known issues
+== Step 5: Review the known issues
 
 The NVMe-oF host configuration for RHEL 8.10 with ONTAP has the following known issue:
 

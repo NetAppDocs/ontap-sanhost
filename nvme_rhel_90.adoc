@@ -32,47 +32,87 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Enable in-kernel NVMe Multipath
-
-You can use the following procedure to enable in-kernel NVMe multipath.
+== Step 2: Validate software versions
+ 
+You can use the following procedure to validate the minimum supported RHEL 9.0 software versions.
 
 .Steps
-. Install RHEL 9.0 on the server. 
 
-. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel. See link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
+. Install RHEL 9.0 on the server. After the installation is complete, verify that you are running the specified RHEL 9.0 kernel: 
++
+[source,cli]
+----
+uname -r
+----
++
+The following example shows a RHEL 9.0 kernel version:
 +
 ----
-# uname -r
 5.14.0-70.13.1.el9_0.x86_64
 ----
-. Install the `nvme-cli` package.
+
+. Install the `nvme-cli` package:
++
+[source,cli]
+----
+rpm -qa|grep nvme-cli
+----
++
+The following example shows an nvme-cli package version:
 +
 ----
-# rpm -qa|grep nvme-cli
 nvme-cli-1.16-3.el9.x86_64
 ----
-. On the host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. For example,
+
+. Install the `libnvme` package:
++
+[source,cli]
+----
+rpm -qa|grep libnvme
+----
++
+The following example shows an libnvme package version:
 +
 ----
-# cat /etc/nvme/hostnqn
+libnvme-1.0-1.el9.x86_64
+----
+
+. On the RHEL 9.0 host, check the hostnqn string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
+----
++
+The following example shows an hostnqn version:
++
+----
 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ----
+
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
+[source,cli]
 ----
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_141
-Vserver     Subsystem Host     NQN
------------ --------------- ----------------------------------------------------------
-vs_fcnvme_14 nvme_141_1 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ----
 +
+.Show example
+[%collapsible]
+====
+----
+Vserver     Subsystem          Host NQN
+----------- --------------- ----------------------------------------------------------
+vs_fcnvme_141   nvme_141_1    nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+----
+====
++
 [NOTE]
-If the host NQN strings do not match, you should use the `vserver modify` command to update the host NQN string on your corresponding ONTAP NVMe subsystem to match the host NQN string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
-. Reboot the host.
+== Step 3: Configure NVMe/FC
 
-== Configure NVMe/FC
-
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
 
 [role="tabbed-block"]
 ====
@@ -396,7 +436,7 @@ NSID   UUID                               Size
 }
 ----
 
-== Step 7: Review the known issues
+== Step 5: Review the known issues
 
 The NVMe-oF host configuration for RHEL 9.0 with ONTAP has the following known issues:
 

@@ -33,62 +33,93 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Enable in-kernel NVMe Multipath
-
-You can use the following procedure to enable in-kernel NVMe multipath. 
+== Step 2: Validate software versions
+ 
+You can use the following procedure to validate the minimum supported RHEL 8.7 software versions.
 
 .Steps
 
-.	Install RHEL 8.7 on the server. 
-
-.	After the installation is complete, verify that you are running the specified RHEL 8.7 kernel. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
+. Install RHEL 8.7 on the server. After the installation is complete, verify that you are running the specified RHEL 8.7 kernel: 
 +
-Example:
-+
-
+[source,cli]
 ----
-# uname -r 
-4.18.0-425.3.1.el8.x86_64 
+uname -r
 ----
 +
-
-.	Install the `nvme-cli` package:
-+
-Example:
+The following example shows a RHEL 8.7 kernel version:
 +
 ----
-# rpm -qa|grep nvme-cli 
-nvme-cli-1.16-5.el8.x86_64 
+4.18.0-425.3.1.el8.x86_64
 ----
 
-.	Enable in-kernel NVMe multipath:
+. Install the `nvme-cli` package:
 +
-*Example*
-+
+[source,cli]
 ----
-# grubby --args=nvme_core.multipath=Y --update-kernel 
-/boot/vmlinuz-4.18.0-425.3.1.el8.x86_64 
-----
-
-.	On the host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array. Example:
-+
-----
-
-# cat /etc/nvme/hostnqn 
-
-          nqn.2014-08.org.nvmexpress:uuid:a7f7a1d4-311a-11e8-b634-            7ed30aef10b7 
-
-::> vserver nvme subsystem host show -vserver vs_nvme167 
-Vserver     Subsystem       Host NQN
------------ --------------- ----------------
-vs_nvme167 rhel_167_LPe35002  nqn.2014-08.org.nvmexpress:uuid: a7f7a1d4-311a-11e8-b634-7ed30aef10b7 
-
+rpm -qa|grep nvme-cli
 ----
 +
-NOTE: If the host NQN strings do not match, you should use the `vserver modify` command to update the host NQN string on your corresponding ONTAP NVMe subsystem to match the host NQN string `/etc/nvme/hostnqn` on the host.
-
-.	Reboot the host.
+The following example shows an nvme-cli package version:
 +
+----
+nvme-cli-1.16-5.el8.x86_64
+----
+
+. Install the `libnvme` package:
++
+[source,cli]
+----
+rpm -qa|grep libnvme
+----
++
+The following example shows an libnvme package version:
++
+----
+libnvme-1.2-3.el8.x86_64
+----
+
+. Enable in-kernel NVMe multipath:
++
+[source,cli]
+----
+grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-425.3.1.el8.x86_64
+----
+
+. On the RHEL 8.7 host, check the hostnqn string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
+----
++
+The following example shows an hostnqn version:
++
+----
+nqn.2014-08.org.nvmexpress:uuid:a7f7a1d4-311a-11e8-b634-7ed30aef10b7
+----
+
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
++
+[source,cli]
+----
+::> vserver nvme subsystem host show -vserver vs_nvme167
+----
++
+.Show example
+[%collapsible]
+====
+----
+Vserver     Subsystem          Host NQN
+----------- --------------- ----------------------------------------------------------
+vs_nvme167   rhel_167_LPe35002    nqn.2014-08.org.nvmexpress:uuid:a7f7a1d4-311a-11e8-b634-7ed30aef10b7
+----
+====
++
+[NOTE]
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+
+. Reboot the host.
+
 [NOTE]
 ====
 If you intend to run both NVMe and SCSI co-existent traffic on the same host, NetApp recommends using in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the enable_foreign setting to the `/etc/multipath.conf` file:
@@ -104,7 +135,7 @@ Restart the multipathd daemon by running a `systemctl restart multipathd` comman
 ====
 
 
-== Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
@@ -422,7 +453,7 @@ NSID  UUID                                   Size
 } 
 ----
 
-== Step 7: Review the known issues
+== Step 5: Review the known issues
 
 The NVMe-oF host configuration for RHEL 8.7 with ONTAP has the following known issues:
 

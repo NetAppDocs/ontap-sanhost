@@ -112,9 +112,9 @@ vs_nvme147   rhel_147_LPe32002    nqn.2014-08.org.nvmexpress:uuid:060fd513-83be-
 [NOTE]
 If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
-== Configure NVMe/FC
+== Step 3: Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
 
 [role="tabbed-block"]
 ====
@@ -491,7 +491,7 @@ NSID       UUID                                   Size
 --
 ====
 
-== Step 7: Review the known issues
+== Step 5: Review the known issues
 
 There are no known issues.
 
