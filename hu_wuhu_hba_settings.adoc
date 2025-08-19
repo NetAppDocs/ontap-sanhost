@@ -30,7 +30,7 @@ The installer sets different values depending on whether you specify Microsoft M
 
 [NOTE]
 ====
-You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2. See <<nvme_parameter,NVME parameters>>.
+You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2. See <<nvme-parameter,NVME parameters>>.
 
 For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, or 7.1, you don't need to change the values unless technical support advises you to do so.
 ====
@@ -172,7 +172,7 @@ The following NVMe Emulex driver parameters are updated when you install Windows
 
 The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You should be aware of these values and the operating system version. 
 
-[[nvme_parameter]]
+[[nvme-parameter]]
 
 [role="tabbed-block"]
 ====
@@ -513,7 +513,7 @@ Windows Host Utilities set values for the following parameters if MS DSM for Win
 When troubleshooting HBA issues, check to make sure these settings have the correct values. The correct values depend on two factors:
 
 * The HBA vendor
-* Whether you are using MPIO software.
+* Whether you are using MPIO software
 
 You can correct the HBA settings by link:hu_wuhu_repair_remove.html[running the Repair option] in the Windows Host Utilities installer.
 
