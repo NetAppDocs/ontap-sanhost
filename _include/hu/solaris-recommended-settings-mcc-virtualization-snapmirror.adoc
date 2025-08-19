@@ -22,16 +22,16 @@ For additional information and recommended changes to default settings for Metro
 .Steps
 When LUNs are used as virtual disk devices within an LDOM, the source of the LUN is masked by virtualization and the LDOM doesn't correctly detect the block sizes. To prevent this issue:
 
-. Patch the LDOM OS for _Oracle Bug 15824910_ 
-. Create a `vdc.conf` file that sets the block size of the virtual disk to `4096`. See Oracle DOC: 2157669.1 for more information. 
-. Verify the patch installation to ensure that the recommended settings have been configured correctly:
-.. Create a zpool:
+.. Patch the LDOM OS for _Oracle Bug 15824910_ 
+.. Create a `vdc.conf` file that sets the block size of the virtual disk to `4096`. See Oracle DOC: 2157669.1 for more information. 
+.. Verify the patch installation to ensure that the recommended settings have been configured correctly:
+... Create a zpool:
 +
 [source,cli]
 ----
 zpool create zpool_name disk_list
 ----
-.. Run `zdb -C` against the zpool and verify that the value of *ashift* is `12`.
+... Run `zdb -C` against the zpool and verify that the value of *ashift* is `12`.
 +
 If the value of *ashift* isn't `12`, re run `zdb -C11`, and verify that the correct patch was installed and recheck the contents of `vdc.conf`.
 +
@@ -46,13 +46,13 @@ Beginning with ONTAP 9.9.1, SnapMirror active sync setting configurations are su
 
 .Steps
 
-. Create the configuration file `/etc/driver/drv/scsi_vhci.conf` with an entry similar to the following example for the NetApp storage type connected to the host:
+.. Create the configuration file `/etc/driver/drv/scsi_vhci.conf` with an entry similar to the following example for the NetApp storage type connected to the host:
 +
 ----
 scsi-vhci-failover-override =
 "NETAPP  LUN","f_tpgs"
 ----
-. Verify that the override parameter has been successfully applied:
+.. Verify that the override parameter has been successfully applied:
 +
 [source,cli]
 ----
