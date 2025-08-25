@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: nvme_rhel_10.html
+permalink: nvme-rhel-10.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 10 with ONTAP
 ---
@@ -96,7 +96,6 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 ----
 ::> vserver nvme subsystem host show -vserver vs_nvme_194_rhel10
 ----
-+
 .Show example
 [%collapsible]
 ====
@@ -202,17 +201,13 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 ----
 
 . Verify that you can view your initiator ports:
-+
 [source,cli]
 ----
 cat /sys/class/fc_host/host*/port_name
 ----
-+
-The following example shows port identities:
-+
----- 
-0x2100f4c7aa0cd7c2
-0x2100f4c7aa0cd7c3
+You should see output similar to:
+----
+0x100000109b1c1205
 ----
 
 . Verify that your initiator ports are online:

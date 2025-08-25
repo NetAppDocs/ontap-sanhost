@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: nvme_rhel_87.html
+permalink: nvme-rhel-87.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 8.7 with ONTAP
 ---
@@ -135,7 +135,7 @@ Restart the multipathd daemon by running a `systemctl restart multipathd` comman
 ====
 
 
-== Step 3: Configure NVMe/FC
+== Configure NVMe/FC
 You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 
 [role="tabbed-block"]
@@ -239,7 +239,7 @@ QLE2772 FW:v9.08.02 DVR:v10.02.07.400-k-debug
 --
 ====
 
-== Step 4: Optionally, enable 1MB I/O 
+== Step 3: Optionally, enable 1MB I/O 
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
@@ -453,7 +453,7 @@ NSID  UUID                                   Size
 } 
 ----
 
-== Step 5: Review the known issues
+== Step 4: Review the known issues
 
 The NVMe-oF host configuration for RHEL 8.7 with ONTAP has the following known issues:
 

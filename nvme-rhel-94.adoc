@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: nvme_rhel_94.html
+permalink: nvme-rhel-94.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.4 with ONTAP
 ---
@@ -233,23 +233,25 @@ cat /sys/class/scsi_host/host*/nvme_info
 =====
 [subs=+quotes]
 ----
-# cat /sys/class/scsi_host/host*/nvme_info 
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc0 WWPN x100000109b3c081f WWNN x200000109b3c081f DID x062300 *ONLINE*
 NVME RPORT       WWPN x2143d039ea165877 WWNN x2142d039ea165877 DID x061b15 *TARGET DISCSRVC ONLINE*
 NVME RPORT       WWPN x2145d039ea165877 WWNN x2142d039ea165877 DID x061115 *TARGET DISCSRVC ONLINE*
+
 NVME Statistics
 LS: Xmt 000000040b Cmpl 000000040b Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
 Total FCP Cmpl 000000001f5c4538 Issue 000000001f58da22 OutIO fffffffffffc94ea
 abort 00000630 noxri 00000000 nondlp 00001071 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00000630 Err 0001bd4a
+
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc1 WWPN x100000109b3c0820 WWNN x200000109b3c0820 DID x062c00 *ONLINE*
 NVME RPORT       WWPN x2144d039ea165877 WWNN x2142d039ea165877 DID x060215 *TARGET DISCSRVC ONLINE*
 NVME RPORT       WWPN x2146d039ea165877 WWNN x2142d039ea165877 DID x061815 *TARGET DISCSRVC ONLINE*
+
 NVME Statistics
 LS: Xmt 000000040b Cmpl 000000040b Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
