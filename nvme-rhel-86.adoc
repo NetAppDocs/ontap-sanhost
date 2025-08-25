@@ -135,56 +135,103 @@ Restart the multipathd daemon by running a `systemctl restart multipathd` comman
 
 == Configure NVMe/FC
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+You can configure NVMe/FC for Broadcom/Emulex or Marvell/QLogic adapters.
 
 [role="tabbed-block"]
 ====
 .Broadcom/Emulex
 --
+Configure NVMe/FC for a Broadcom/Emulex adapter.
+
 .Steps
 
-.	Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported adapters.
-+
+. Verify that you are using the supported adapter model:
+[source,cli]
 ----
-# cat /sys/class/scsi_host/host*/modelname
+cat /sys/class/scsi_host/host*/modelname
+----
+You should see output similar to:
+----
 LPe32002-M2
 LPe32002-M2
-# cat /sys/class/scsi_host/host*/modeldesc
-Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
-Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
-+
 
-.	Verify that you are using the recommended Broadcom lpfc firmware and inbox driver. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported adapter driver and firmware versions.
-+
+. Display the model descriptions:
+[source,cli]
 ----
-# cat /sys/class/scsi_host/host*/fwrev
+cat /sys/class/scsi_host/host*/modeldesc
+----
+You should see output similar to:
+----
+Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
+Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
+----
+
+. Display the firmware version:
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/fwrev
+----
+The following example shows firmware versions:
+----
 12.8.351.47, sli-4:2:c
 12.8.351.47, sli-4:2:c
-# cat /sys/module/lpfc/version
+----
+
+. Display the inbox driver version:
+[source,cli]
+----
+cat /sys/module/lpfc/version
+----
+The following example shows a driver version:
+----
 0:14.0.0.4
 ----
-+
 
-.	Verify that `lpfc_enable_fc4_type` is set to 3
-+
+For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+. Verify that the expected output of lpfc_enable_fc4_type is set to 3:
+[source,cli]
 ----
-# cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
+cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
+----
+Expected output:
+----
 3
 ----
-+
 
-.	Verify that the initiator ports are up and running, and that you can see the target LIFs.
-+
-[subs=+quotes]
+. Verify that you can view your initiator ports:
+[source,cli]
 ----
-# cat /sys/class/fc_host/host*/port_name
+cat /sys/class/fc_host/host*/port_name
+----
+You should see output similar to:
+----
 0x100000109b1c1204
 0x100000109b1c1205
-# cat /sys/class/fc_host/host*/port_state
+----
+
+. Verify that your initiator ports are online:
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_state
+----
+Expected output:
+----
 Online
 Online
-# cat /sys/class/scsi_host/host*/nvme_info
+----
+
+. Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/nvme_info
+----
+.Show example
+[%collapsible]
+=====
+[subs=+quotes]
+----
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 ONLINE
@@ -211,28 +258,40 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
---
+=====
 
-.Marvell/QLogic FC adapter for NVMe/FC
 --
-The native inbox `qla2xxx` driver included in the RHEL 8.6 kernel has the latest upstream fixes. These fixes are essential for ONTAP support.
+.Marvell/QLogic
+--
+Configure NVMe/FC for a Marvell/QLogic adapter.
 
 .Steps
-. Verify that you are running the supported adapter driver and firmware versions:
 
-+
-
+. Verify that you are using the supported adapter model, driver, and firmware versions:
+[source,cli]
 ----
-# cat /sys/class/fc_host/host*/symbolic_name
+cat /sys/class/fc_host/host*/symbolic_name
+----
+You should see output similar to:
+----
 QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
 QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
 ----
 
-. Verify `ql2xnvmeenable` is set which enables the Marvell adapter to function as a NVMe/FC initiator using the following command:
-
-+
+. Verify that the recommended inbox qla2xxx driver is loaded:
+[source,cli]
 ----
-# cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
+cat /sys/module/qla2xxx/version
+----
+The expected output is the driver version included in the RHEL 8.6 kernel.
+
+. Verify that ql2xnvmeenable is set to enable NVMe/FC initiator functionality:
+[source,cli]
+----
+cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
+----
+Expected output:
+----
 1
 ----
 --
