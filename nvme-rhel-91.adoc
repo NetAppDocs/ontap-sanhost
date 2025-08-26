@@ -4,7 +4,6 @@ permalink: nvme-rhel-91.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.1 with ONTAP
 ---
-
 = Configure RHEL 9.1 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
@@ -349,19 +348,19 @@ traddr: 192.168.2.56
 .	Verify that the other NVMe/TCP initiator-target LIF combos can successfully fetch discovery log page data. For example:
 +
 ----
-# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
-# nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
-# nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
-# nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
+nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
+nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
+nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
+nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
 
 .	Run `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes. Make sure you set a longer `ctrl_loss_tmo` timer retry period (for example, 30 minutes, which can be set through `-l 1800`) while running the `connect-all` command so that it would retry for a longer period of time in the event of a path loss. For example:
 +
 ----
-# nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
-# nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.52 -l 1800
-# nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.56 -l 1800
-# nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
+nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.51 -l 1800
+nvme connect-all -t tcp -w 192.168.1.8 -a 192.168.1.52 -l 1800
+nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.56 -l 1800
+nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 ----
 
 == Validate NVMe-oF
@@ -373,20 +372,20 @@ You can use the following procedure to validate NVMe-oF.
 . Verify that in-kernel NVMe multipath is indeed enabled by checking:
 +
 ----
-# cat /sys/module/nvme_core/parameters/multipath
+cat /sys/module/nvme_core/parameters/multipath
 Y
 ----
 
 . Verify that the appropriate NVMe-oF settings (such as, `model` set to `NetApp ONTAP Controller` and load balancing `iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
 +
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/model
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
 NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
 +
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
 round-robin
 round-robin
 ----
@@ -394,7 +393,7 @@ round-robin
 . Verify that the ONTAP namespaces properly reflect on the host. For example:
 +
 ----
-# nvme list
+nvme list
 Node           SN                    Model                   Namespace
 ------------   --------------------- ---------------------------------
 /dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB   NetApp ONTAP Controller   1
@@ -410,7 +409,7 @@ Example (a):
 +
 [subs=+quotes]
 ----
-# nvme list-subsys /dev/nvme0n1
+nvme list-subsys /dev/nvme0n1
 nvme-subsys10 - NQN=nqn.1992-08.com.netapp:sn.82e7f9edc72311ec8187d039ea14107d:subsystem.rhel_131_QLe2742
 \
  +- nvme2 fc traddr=nn-0x2038d039ea1308e5:pn-0x2039d039ea1308e5,host_traddr=nn-0x20000024ff171d30:pn-0x21000024ff171d30 live non-optimized
@@ -423,7 +422,7 @@ nvme-subsys10 - NQN=nqn.1992-08.com.netapp:sn.82e7f9edc72311ec8187d039ea14107d:s
 Example (b):
 +
 ----
-# nvme list-subsys /dev/nvme0n1
+nvme list-subsys /dev/nvme0n1
 nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.bf0691a7c74411ec8187d039ea14107d:subsystem.rhel_tcp_133
 \
  +- nvme1 tcp traddr=192.168.166.21,trsvcid=4420,host_traddr=192.168.166.5 live non-optimized
@@ -437,7 +436,7 @@ nvme-subsys1 - NQN=nqn.1992-08.com.netapp:sn.bf0691a7c74411ec8187d039ea14107d:su
 Example (a):
 +
 ----
-# nvme netapp ontapdevices -o column
+nvme netapp ontapdevices -o column
 Device       Vserver          Namespace Path
 ---------    -------          --------------------------------------------------
 /dev/nvme0n1 vs_tcp79     /vol/vol1/ns1 
@@ -447,7 +446,7 @@ NSID  UUID                                   Size
 1     79c2c569-b7fa-42d5-b870-d9d6d7e5fa84  21.47GB
 
 
-# nvme netapp ontapdevices -o json 
+nvme netapp ontapdevices -o json 
 { 
 
   "ONTAPdevices" : [ 
@@ -471,7 +470,7 @@ NSID  UUID                                   Size
 Example (b):
 +
 ----
-# nvme netapp ontapdevices -o column
+nvme netapp ontapdevices -o column
 
 Device           Vserver                   Namespace Path                                     
 ---------------- ------------------------- -----------------------------------
