@@ -113,7 +113,8 @@ nqn.2014-08.org.nvmexpress:uuid:75953f3b-77fe-4e03-bf3c-09d5a156fbcd
 ----
 ====
 +
-[NOTE] If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on your corresponding ONTAP array subsystem to match with the host NQN string from `/etc/nvme/hostnqn` on the host.
+[NOTE]
+If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on your corresponding ONTAP array subsystem to match with the host NQN string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 
@@ -162,7 +163,8 @@ cd elx-lpfc-dd-rhel8-12.4.2453.20-ds-1
 ./elx_lpfc_install-sh -i -n
 ----
 +
-NOTE: The native drivers that are bundled with the OS are called the inbox drivers. If you download the outbox drivers (drivers that are not included with an OS release), an auto-connect script is included in the download and should be installed as part of the driver installation process.
+[NOTE]
+The native drivers that are bundled with the OS are called the inbox drivers. If you download the outbox drivers (drivers that are not included with an OS release), an auto-connect script is included in the download and should be installed as part of the driver installation process.
 
 . Reboot the host.
 

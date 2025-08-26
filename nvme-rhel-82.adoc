@@ -105,7 +105,8 @@ Vserver      Subsystem        Host           NQN
 ----
 ====
 +
-[NOTE] If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on the corresponding ONTAP array subsystem to match the host NQN string from `/etc/nvme/hostnqn` on the host.
+[NOTE]
+If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on the corresponding ONTAP array subsystem to match the host NQN string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 

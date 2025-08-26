@@ -18,7 +18,12 @@ include::_include/nvme/nvme-introduction.adoc[]
 You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.0. You should also review the known limitations before starting the configuration process.
 
 * Support available:
+** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
+** RHEL 9.0 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
++
+For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
+** There are no new features in this release.
 * Known limitations: 
 ** SAN booting using the NVMe-oF protocol is not currently supported.
 
