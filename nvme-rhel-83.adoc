@@ -4,7 +4,7 @@ permalink: nvme-rhel-83.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe/FC Host for RHEL 8.3 with ONTAP
 ---
-= NVMe/FC host configuration for RHEL 8.3 with ONTAP
+= Configure RHEL 8.3 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -32,114 +32,221 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Enable NVMe/FC on RHEL 8.3
+== Step 2: Validate software versions
 
-You can use the following procedure to enable NVMe/FC.
+You can use the following procedure to validate the minimum supported RHEL 8.3 software versions.
 
 .Steps
 
-. Install Red Hat Enterprise Linux 8.3 GA on the server.
-
-. If you are upgrading from RHEL 8.2 to RHEL 8.3 using the `yum update/upgrade` command, your `/etc/nvme/host*` files might be lost. To avoid file loss, use the following procedure:
+. Install RHEL 8.3 on the server. After the installation is complete, verify that you are running the specified RHEL 8.3 kernel: 
 +
-.Show example output 
-[%collapsible]
-====
-include::_include/nvme/reuse_nvme_enabling_step1_substeps.adoc[]
-====
-
-. After the installation is complete, verify that you're running the specified RHEL kernel:
+[source,cli]
+----
+uname -r
+----
++
+The following example shows a RHEL 8.3 kernel version:
 +
 ----
-# uname -r
 4.18.0-240.el8.x86_64
 ----
-+
-See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
 
-. Install the nvme-cli package:
+. Install the `nvme-cli` package:
++
+[source,cli]
+----
+rpm -qa|grep nvme-cli
+----
++
+The following example shows an nvme-cli package version:
 +
 ----
-# rpm -qa|grep nvme-cli
 nvme-cli-1.12-2.el8.x86_64
 ----
 
-. Enable in-kernel NVMe multipath.
+. Install the `libnvme` package:
++
+[source,cli]
+----
+rpm -qa|grep libnvme
+----
++
+The following example shows an libnvme package version:
 +
 ----
-# grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-240.el8.x86_64
+libnvme-1.0-1.el8.x86_64
 ----
 
-.	On the RHEL 8.3 host, check the host NQN string at `/etc/nvme/hostnqn`  verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array:
+. Enable in-kernel NVMe multipath:
++
+[source,cli]
+----
+grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-240.el8.x86_64
+----
+
+. On the RHEL 8.3 host, check the hostnqn string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
+----
++
+The following example shows an hostnqn version:
 +
 ----
-# cat /etc/nvme/hostnqn
-----
-+
-*Example output*:
-+
-----
-# cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ----
 
-. Verify that the `hostnqn` string matches the hostnqn string for the corresponding subsystem on the ONTAP array:
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
-----
-vserver nvme subsystem host show -vserver vs_fcnvme_141
-----
-+
-*Example output*
-+
+[source,cli]
 ----
 ::> vserver nvme subsystem host show -vserver vs_fcnvme_141
-Vserver         Subsystem        Host           NQN
------------     --------------- ----------- ---------------
-vs_fcnvme_141    nvme_141_1                 nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
 ----
 +
-TIP: If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on the corresponding ONTAP array subsystem to match to host NQN string from `/etc/nvme/hostnqn` on the host.
-
-. Reboot the host.
-+
-. Optionally, update the `enable_foreign` setting.
+.Show example
+[%collapsible]
+====
+----
+Vserver     Subsystem          Host NQN
+----------- --------------- ----------------------------------------------------------
+vs_fcnvme_141   nvme_141_1    nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5-97b3-1b5d986345d1
+----
+====
 +
 [NOTE]
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+
+. Reboot the host.
+
+[NOTE]
 ====
-If you intend to run both NVMe and SCSI traffic on the same RHEL 8.3 host, NetApp recommends that you use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs, respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the /etc/multipath.conf, as shown below:
+If you intend to run both NVMe and SCSI co-existent traffic on the same host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the enable_foreign setting to the `/etc/multipath.conf` file:
 
 ----
-# cat /etc/multipath.conf
+cat /etc/multipath.conf
 defaults {
-   enable_foreign NONE
+        enable_foreign     NONE
 }
 ----
-Restart the multipathd daemon by running a `systemctl restart multipathd`.
+
+Restart the multipathd daemon by running a `systemctl restart multipathd` command to allow the new setting to take effect.
 ====
 
-== Configure the Broadcom FC adapter for NVMe/FC
+== Step 3: Configure NVMe/FC for Broadcom/Emulex
 
-You can use the following procedure to configure a Broadcom FC adapter.
+You can configure NVMe/FC for Broadcom/Emulex.
 
+.Steps
 
-include::_include/nvme/reuse_configuring_broadcom_for_rhel_nvme_part1.adoc[]
+. Verify that you are using the supported adapter model:
 
-. Verify that you are using the recommended Broadcom lpfc firmware as well as the inbox driver:
+.. Display the model names:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modelname
+----
++
+You should see the following output:
 +
 ----
-# cat /sys/class/scsi_host/host*/fwrev
-12.8.340.8, sli-4:2:c
-12.8.340.8, sli-4:2:c
+LPe32002-M2
+LPe32002-M2
+----
+
+.. Display the model descriptions:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
+You should see output similar to:
++
 ----
-# cat /sys/module/lpfc/version
-0:12.8.0.1
+Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
+Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
+
+. Verify that the expected output of `lpfc_enable_fc4_type` is set to `3`:
++
+[source,cli]
+----
+cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
+----
+
+. Verify that the initiator ports are up and running and can see the target LIFs:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_name
+----
++
+You should see output similar to:
++
+----
+0x100000109b1c1204
+0x100000109b1c1205
+----
+
+. Verify that your initiator ports are online:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_state
+----
++
+You should see the following output:
++
+----
+Online
+Online
+----
+
+. Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/nvme_info
+----
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+NVME Initiator Enabled
+XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 *ONLINE*
+NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 *TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 *TARGET DISCSRVC ONLINE*
+
+NVME Statistics
+LS: Xmt 0000000f78 Cmpl 0000000f78 Abort 00000000
+LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
+Total FCP Cmpl 000000002fe29bba Issue 000000002fe29bc4 OutIO 000000000000000a
+abort 00001bc7 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00001e15 Err 0000d906
+
+NVME Initiator Enabled
+XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 *ONLINE*
+NVME RPORT WWPN x203d00a098dfdd91 WWNN x203700a098dfdd91 DID x010007 *TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 *TARGET DISCSRVC ONLINE*
+
+NVME Statistics
+LS: Xmt 0000000fa8 Cmpl 0000000fa8 Abort 00000000
+LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
+Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
+abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00001f50 Err 0000d9f8
+----
+====
 
 == Step 4: Optionally, enable 1MB I/O 
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Validate NVMe/FC
 

@@ -34,50 +34,76 @@ For additional details on supported configurations, see the link:https://mysuppo
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-==	Enable NVMe/FC 
+== Step 2: Validate software versions
 
-You can use the following procedure to enable NVMe/FC.
+You can use the following procedure to validate the minimum supported RHEL 8.1 software versions.
 
 .Steps
 
-. Install Red Hat Enterprise Linux 8.1 on the server.
-
-. After the installation is complete, verify that you are running the specified RHEL kernel: 
+. Install RHEL 8.1 on the server. After the installation is complete, verify that you are running the specified RHEL 8.1 kernel: 
++
+[source,cli]
+----
+uname -r
+----
++
+The following example shows a RHEL 8.1 kernel version:
 +
 ----
-# uname -r
 4.18.0-147.el8.x86_64
 ----
-+
-See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported versions.
 
 . Install the `nvme-cli-1.8.1-3.el8` package:
 +
+[source,cli]
 ----
-# rpm -qa|grep nvme-cli
+rpm -qa|grep nvme-cli
+----
++
+The following example shows an nvme-cli package version:
++
+----
 nvme-cli-1.8.1-3.el8.x86_64
 ----
 
 . Enable in-kernel NVMe multipath:
 +
+[source,cli]
 ----
-# grubby –args=nvme_core.multipath=Y –update-kernel /boot/vmlinuz-4.18.0-147.el8.x86_64
+grubby –args=nvme_core.multipath=Y –update-kernel /boot/vmlinuz-4.18.0-147.el8.x86_64
 ----
 
 . Add the following string as a separate udev rule at `/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules`. This enables round-robin load balancing for NVMe multipath:
 +
+[source,cli]
 ----
-# Enable round-robin for NetApp ONTAP
+Enable round-robin for NetApp ONTAP
 ACTION==”add”, SUBSYSTEM==”nvme-subsystem”, ATTR{model}==”NetApp ONTAP Controller”, ATTR{iopolicy}=”round-robin
 ----
 
-. On the RHEL 8.1 host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array:
+. On the RHEL 8.1 host, check the host NQN string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
+----
++
+The following example shows a hostnqn string:
 +
 ----
-# cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:75953f3b-77fe-4e03-bf3c-09d5a156fbcd
 ----
+
+. Verify that the host NQN string matches the host NQN string for the corresponding subsystem on the ONTAP array:
 +
+[source,cli]
+----
+vserver nvme subsystem host show -vserver vs_nvme_10
+----
++
+.Show example
+[%collapsible]
+====
 ----
 *> vserver nvme subsystem host show -vserver vs_nvme_10
 Vserver Subsystem Host NQN
@@ -85,96 +111,177 @@ Vserver Subsystem Host NQN
 rhel_141_nvme_ss_10_0
 nqn.2014-08.org.nvmexpress:uuid:75953f3b-77fe-4e03-bf3c-09d5a156fbcd
 ----
+====
 +
-[NOTE] 
-If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on your corresponding ONTAP array subsystem to match with the host NQN string from `/etc/nvme/hostnqn` on the host.
+[NOTE] If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on your corresponding ONTAP array subsystem to match with the host NQN string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
 
-==	Configure the Broadcom FC adapter for NVMe/FC
+== Step 3: Configure NVMe/FC for Broadcom/Emulex
 
-You can use the following procedure to configure a Broadcom FC adapter.
+You can configure NVMe/FC for Broadcom/Emulex.
 
 .Steps
 
-. Verify that you are using the supported adapter. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] for the current list of supported adapters.
+. Verify that you are using the supported adapter model:
 
+.. Display the model names:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modelname
+----
++
+You should see the following output:
 +
 ----
-# cat /sys/class/scsi_host/host*/modelname
 LPe32002-M2
 LPe32002-M2
 ----
+
+.. Display the model descriptions:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modeldesc
+----
++
+You should see output similar to:
 +
 ----
-# cat /sys/class/scsi_host/host*/modeldesc
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 ----
 
 . Copy and install the Broadcom lpfc outbox driver and auto-connect scripts:
 +
+[source,cli]
 ----
-# tar -xvzf elx-lpfc-dd-rhel8-12.4.243.20-ds-1.tar.gz
-# cd elx-lpfc-dd-rhel8-12.4.2453.20-ds-1
-# ./elx_lpfc_install-sh -i -n
+tar -xvzf elx-lpfc-dd-rhel8-12.4.243.20-ds-1.tar.gz
+cd elx-lpfc-dd-rhel8-12.4.2453.20-ds-1
+./elx_lpfc_install-sh -i -n
 ----
 +
 NOTE: The native drivers that are bundled with the OS are called the inbox drivers. If you download the outbox drivers (drivers that are not included with an OS release), an auto-connect script is included in the download and should be installed as part of the driver installation process.
 
 . Reboot the host.
 
-. Verify that you are using the recommended Broadcom lpfc firmware, outbox driver, and auto-connect package versions:
+. Verify that you are using the recommended Broadcom configurations.
+
+.. Verify the lpfc firmware: 
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/fwrev
+----
++
+You should see the following output:
 +
 ----
-# cat /sys/class/scsi_host/host*/fwrev
 12.4.243.20, sil-4.2.c
 12.4.243.20, sil-4.2.c
 ----
+
+.. Verify the outbox driver:
++
+[source,cli]
+----
+cat /sys/module/lpfc/version
+----
++
+You should see the following output:
 +
 ----
-# cat /sys/module/lpfc/version
 0:12.4.243.20
 ----
+
+.. Verify the auto-connect package versions:
++
+[source,cli]
+----
+rpm -qa | grep nvmefc
+----
++
+You should see the following output:
 +
 ----
-# rpm -qa | grep nvmefc
 nvmefc-connect-12.6.61.0-1.noarch
 ----
 
-. Verify that `lpfc_enable_fc4_type` is set to 3:
+. Verify that the expected output of `lpfc_enable_fc4_type` is set to `3`:
 +
+[source,cli]
 ----
-# cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
-3
+cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 ----
 
-. Verify that the initiator ports are up and running:
+. Verify that the initiator ports are up and running and can see the target LIFs:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_name
+----
++
+You should see output similar to:
 +
 ----
-# cat /sys/class/fc_host/host*/port_name
 0x10000090fae0ec61
 0x10000090fae0ec62
 ----
+
+. Verify that your initiator ports are online:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_state
+----
++
+You should see the following output:
 +
 ----
-# cat /sys/class/fc_host/host*/port_state
 Online
 Online
 ----
 
-. Verify that the NVMe/FC initiator ports are enabled, running, and you can see the target LIFs:
+. Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
 +
+[source,cli]
 ----
-# cat /sys/class/scsi_host/host*/nvme_info
+cat /sys/class/scsi_host/host*/nvme_info
+----
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
 NVME Initiator Enabled
-XRI Dist lpfc0 Total 6144 NVME 2947 SCSI 2977 ELS 250
-NVME LPORT lpfc0 WWPN x10000090fae0ec61 WWNN x20000090fae0ec61 DID x012000 ONLINE
-NVME RPORT WWPN x202d00a098c80f09 WWNN x202c00a098c80f09 DID x010201 TARGET DISCSRVC ONLINE
-NVME RPORT WWPN x203100a098c80f09 WWNN x202c00a098c80f09 DID x010601 TARGET DISCSRVC ONLINE
+XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 *ONLINE*
+NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 *TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 *TARGET DISCSRVC ONLINE*
+
 NVME Statistics
-…
+LS: Xmt 0000000f78 Cmpl 0000000f78 Abort 00000000
+LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
+Total FCP Cmpl 000000002fe29bba Issue 000000002fe29bc4 OutIO 000000000000000a
+abort 00001bc7 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00001e15 Err 0000d906
+
+NVME Initiator Enabled
+XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 *ONLINE*
+NVME RPORT WWPN x203d00a098dfdd91 WWNN x203700a098dfdd91 DID x010007 *TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 *TARGET DISCSRVC ONLINE*
+
+NVME Statistics
+LS: Xmt 0000000fa8 Cmpl 0000000fa8 Abort 00000000
+LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
+Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
+abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
+====
 
 == Step 4: Optionally, enable 1MB I/O 
 
