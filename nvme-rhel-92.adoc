@@ -300,22 +300,25 @@ The expected output is:
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
-== Configure NVMe/TCP
+== Step 5: Configure NVMe/TCP
 
-include::_include/nvme/reuse_configure_nvmetcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
+[source,cli]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
-*Example output:*
-+
+.Show example
+[%collapsible]
+=====
+[subs=+quotes]
 ----
-# nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.22
+nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.22
 
 Discovery Log Number of Records 8, Generation counter 18
 =====Discovery Log Entry 0======
@@ -351,41 +354,46 @@ subnqn:  nqn.1992-08.com.netapp:sn.c680f5bcae1411ed8639d039ea951c46:discovery
 traddr:  192.168.167.23
 eflags:  explicit discovery connections, duplicate discovery information
 sectype: none
-..........
 ----
+=====
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data. 
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
+[source,cli]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
-*Example output:*
-+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
-#nvme discover -t tcp -w 192.168.166.5 -a 192.168.166.22
-#nvme discover -t tcp -w 192.168.166.5 -a 192.168.166.23 
-#nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.22
-#nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.23
+nvme discover -t tcp -w 192.168.166.5 -a 192.168.166.22
+nvme discover -t tcp -w 192.168.166.5 -a 192.168.166.23 
+nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.22
+nvme discover -t tcp -w 192.168.167.5 -a 192.168.167.23
 ----
+====
 
-. Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes, and set the controller loss timeout period for at least 30 minutes or 1800 seconds:
+. Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
+[source,cli]
 ----
-nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
+nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 +
-*Example output:*
-+
+.Show example
+[%collapsible]
+=====
+[subs=+quotes]
 ----
-#	nvme	connect-all	-t	tcp	-w	192.168.166.5	-a	192.168.166.22	-l	1800
-#	nvme	connect-all	-t	tcp	-w	192.168.166.5	-a	192.168.166.23	-l	1800
-#	nvme	connect-all	-t	tcp	-w	192.168.167.5	-a	192.168.167.22	-l	1800
-#	nvme	connect-all	-t	tcp	-w	192.168.167.5	-a	192.168.167.23	-l	1800
-
-----
-
-
+nvme	connect-all	-t	tcp	-w	192.168.166.5	-a	192.168.166.22	-l	1800
+nvme	connect-all	-t	tcp	-w	192.168.166.5	-a	192.168.166.23	-l	1800
+nvme	connect-all	-t	tcp	-w	192.168.167.5	-a	192.168.167.22	-l	1800
+nvme	connect-all	-t	tcp	-w	192.168.167.5	-a	192.168.167.23	-l	1800
+----			
+=====
 
 == Validate NVMe-oF
 

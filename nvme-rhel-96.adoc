@@ -285,6 +285,7 @@ include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
+[source,cli]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
@@ -295,6 +296,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24
+
 Discovery Log Number of Records 20, Generation counter 25
 =====Discovery Log Entry 0======
 trtype:  tcp
@@ -517,9 +519,11 @@ traddr:  192.168.1.24
 eflags:  none
 sectype: none
 ----
-====
-. Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
+=====
+
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
+[source,cli]
 ----
 nvme discover -t tcp -w host-traddr -a traddr
 ----
@@ -535,23 +539,25 @@ nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.25
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.25
 ----
 ====
+
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
+[source,cli]
 ----
 nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.24
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.24
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.25
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25					
-----
-====
+----			
+=====
 
 [NOTE]
 ====
