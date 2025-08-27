@@ -479,67 +479,47 @@ nvme connect-all -t tcp -w 192.168.111.5 -a 192.168.111.15 -l 1800
 ----			
 =====
 
-== Validate NVMe-oF
+== Step 6: Validate NVMe-oF
 
-You can use the following procedure to validate NVMe-oF.
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
-.Steps
-
-. Verify that in-kernel NVMe multipath is indeed enabled by checking:
+. Verify that the controller state of each path is live and has the correct ANA status: 
 +
+[source,cli]
 ----
-# cat /sys/module/nvme_core/parameters/multipath
-Y
+nvme list-subsys /dev/nvme1n1 
 ----
-
-. Verify that the appropriate NVMe-oF settings (such as, `model` set to `NetApp ONTAP Controller` and load balancing `iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
 +
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/model
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
-round-robin
-round-robin
-----
-
-. Verify that the ONTAP namespaces properly reflect on the host. For example:
-+
-----
-# nvme list
-Node           SN                    Model                   Namespace
-------------   --------------------- ---------------------------------
-/dev/nvme0n1   81Gx7NSiKSRNAAAAAAAB   NetApp ONTAP Controller   1
-
-Usage                Format         FW Rev
--------------------  -----------    --------
-21.47  GB /  21.47  GB  4 KiB + 0 B    FFFFFFFF
-----
-
-. Verify that the controller state of each path is live and has proper ANA status. For example:
-+
+.Show example
+[%collapsible]
+====
 [subs=+quotes]
 ----
-# nvme list-subsys /dev/nvme1n1 
-
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rhel_tcp_165 
-
 \ 
-
- +- nvme0 tcp traddr=192.168.211.15 trsvcid=4420 host_traddr=192.168.211.5 live non-optimized 
-
- +- nvme1 tcp traddr=192.168.211.14 trsvcid=4420 host_traddr=192.168.211.5 live optimized 
-
- +- nvme2 tcp traddr=192.168.111.15 trsvcid=4420 host_traddr=192.168.111.5 live non-optimized 
-
- +- nvme3 tcp traddr=192.168.111.14 trsvcid=4420 host_traddr=192.168.111.5 live optimized 
+ +- nvme0 tcp traddr=192.168.211.15 trsvcid=4420 host_traddr=192.168.211.5 *live non-optimized* 
+ +- nvme1 tcp traddr=192.168.211.14 trsvcid=4420 host_traddr=192.168.211.5 *live optimized* 
+ +- nvme2 tcp traddr=192.168.111.15 trsvcid=4420 host_traddr=192.168.111.5 *live non-optimized* 
+ +- nvme3 tcp traddr=192.168.111.14 trsvcid=4420 host_traddr=192.168.111.5 *live optimized*
 ----
+====
 
-. Verify that the NetApp plug-in displays proper values for each ONTAP namespace device. For example:
+. Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
+[role="tabbed-block"]
+=====
+.Column
+--
+[source,cli]
 ----
-# nvme netapp ontapdevices -o column
+nvme netapp ontapdevices -o column
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
 Device       Vserver          Namespace Path
 ---------    -------          --------------------------------------------------
 /dev/nvme0n1 vs_tcp79     /vol/vol1/ns1 
@@ -547,9 +527,21 @@ Device       Vserver          Namespace Path
 NSID  UUID                                   Size
 ----  ------------------------------         ------
 1     79c2c569-b7fa-42d5-b870-d9d6d7e5fa84  21.47GB
+----
+====
+--
+.JSON
+--
+[source,cli]
+----
+nvme netapp ontapdevices -o json 
+----
 
-
-# nvme netapp ontapdevices -o json 
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
 { 
 
   "ONTAPdevices" : [ 
@@ -569,8 +561,11 @@ NSID  UUID                                   Size
 
 } 
 ----
+====
+--
+=====
 
-== Step 4: Review the known issues
+== Step 7: Review the known issues
 
 The NVMe-oF host configuration for RHEL 8.7 with ONTAP has the following known issues:
 

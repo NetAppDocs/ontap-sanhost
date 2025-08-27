@@ -408,64 +408,24 @@ nvme	connect-all	-t	tcp	-w	192.168.211.79	-a	192.168.211.15	-l	1800
 ----			
 =====
 
-== Validate NVMe-oF
+== Step 6: Validate NVMe-oF
 
-You can use the following procedure to validate NVMe-oF.
-
-.Steps
-
-. Verify that the in-kernel NVMe multipath is enabled:
-+
-----
-# cat /sys/module/nvme_core/parameters/multipath
-Y
-----
-
-. Verify that the appropriate NVMe-oF settings (such as, `model` set to `NetApp ONTAP Controller` and load balancing `iopolicy` set to `round-robin`) for the respective ONTAP namespaces correctly reflect on the host:
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/model
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
-round-robin
-round-robin
-----
-
-. Verify that the namespaces are created and correctly discovered on the host:
-+
-----
-# nvme list
-----
-+
-*Example output:*
-+
-----
-Node         SN                   Model                          
----------------------------------------------------------  
-/dev/nvme0n1 81Gx7NSiKSQqAAAAAAAB	NetApp ONTAP Controller
-                               
-
-Namespace Usage    Format             FW             Rev
------------------------------------------------------------
-1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
-----
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
-
 [role="tabbed-block"]
-====
+=====
 .NVMe/FC
 --
+[source,cli]
 ----
-# nvme list-subsys /dev/nvme3n1 
+nvme list-subsys /dev/nvme3n1 
 ----
 
-*Example output:*
+.Show example
+[%collapsible]
+====
 [subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.8e501f8ebafa11ec9b99d039ea359e4b:subsystem.rhel_163_Qle2742 
@@ -473,16 +433,19 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.8e501f8ebafa11ec9b99d039ea359e4b:su
 +- nvme1 *fc* traddr=nn-0x204dd039ea36a105:pn-0x2050d039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 *live non-optimized*
 +- nvme2 *fc* traddr=nn-0x204dd039ea36a105:pn-0x204fd039ea36a105 host_traddr=nn-0x20000024ff7f4995:pn-0x21000024ff7f4995 *live optimized*
 +- nvme3 *fc* traddr=nn-0x204dd039ea36a105:pn-0x204ed039ea36a105 host_traddr=nn-0x20000024ff7f4994:pn-0x21000024ff7f4994 *live optimized* 
-
 ----
+====
 --
 .NVMe/TCP
 --
+[source,cli]
 ----
-# nvme list-subsys /dev/nvme0n1 
+nvme list-subsys /dev/nvme0n1 
 ----
 
-*Example output:*
+.Show example
+[%collapsible]
+====
 [subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:subsystem.rhel_tcp_165\
@@ -490,23 +453,26 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.154a5833c78c11ecb069d039ea359e4b:su
 +- nvme1 *tcp* traddr=192.168.111.14 trsvcid=4420 host_traddr=192.168.111.79 *live optimized*
 +- nvme2 *tcp* traddr=192.168.211.15 trsvcid=4420 host_traddr=192.168.211.79 *live non-optimized*
 +- nvme3 *tcp* traddr=192.168.211.14 trsvcid=4420 host_traddr=192.168.211.79 *live optimized*
-
 ----
---
 ====
+--
+=====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
 [role="tabbed-block"]
-====
+=====
 .Column
 --
+[source,cli]
 ----
-# nvme netapp ontapdevices -o column
+nvme netapp ontapdevices -o column
 ----
 
-*Example output:*
-
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
 Device        Vserver   Namespace Path                                                          
 ----------------------- ------------------------------ 
@@ -517,14 +483,19 @@ NSID       UUID                                   Size
 ------------------------------------------------------------
 1          aa197984-3f62-4a80-97de-e89436360cec	21.47GB
 ----
+====
 --
 .JSON
 --
+[source,cli]
 ----
-# nvme netapp ontapdevices -o json
+nvme netapp ontapdevices -o json
 ----
 
-*Example output*
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
 {
   "ONTAPdevices”: [
@@ -541,13 +512,12 @@ NSID       UUID                                   Size
 ]
 
 }
-
-
 ----
---
 ====
+--
+=====
 
-== Step 4: Review the known issues
+== Step 7: Review the known issues
 
 The NVMe-oF host configuration for RHEL 8.9 with ONTAP release has the following known issues:
 

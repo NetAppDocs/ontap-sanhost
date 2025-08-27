@@ -418,6 +418,27 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 ----
 ====
 --
+.NVMe/TCP
+--
+[source,cli]
+----
+nvme list-subsys /dev/nvme0n1
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
+\
++- nvme0 tcp traddr=192.168.1.51 trsvcid=4420 host_traddr=192.168.1.8 *live optimized*
++- nvme10 tcp traddr=192.168.2.56 trsvcid=4420 host_traddr=192.168.2.9 *live optimized*
++- nvme15 tcp traddr=192.168.2.57 trsvcid=4420 host_traddr=192.168.2.9 *live non-optimized*
++- nvme5 tcp traddr=192.168.1.52 trsvcid=4420 host_traddr=192.168.1.8 *live non-optimized*
+----
+====
+--
 =====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
