@@ -389,94 +389,53 @@ nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 ----			
 =====
 
-== Validate NVMe-oF
+== Step 6: Validate NVMe-oF
 
-You can use the following procedure to validate NVMe-oF.
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
-.Steps
-
-. Verify that in-kernel NVMe multipath is indeed enabled by checking:
+. Verify that the controller state of each path is live and has the correct ANA status:
 +
+[role="tabbed-block"]
+=====
+.NVMe/FC
+--
+[source,cli]
 ----
-# cat /sys/module/nvme_core/parameters/multipath
-Y
-----
-
-. Verify that the appropriate NVMf settings (for example, model set to `NetApp ONTAP Controller` and load balancing `iopolicy` set to `round-robin`) for the respective ONTAP namespaces properly reflect on the host:
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/model
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
-round-robin
-round-robin
+nvme list-subsys /dev/nvme0n1
 ----
 
-. Verify that the ONTAP namespaces properly reflect on the host. 
-+
-Example (a):
-+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
-# nvme list
-Node         SN                    Model                   Namespace   Usage
-------      ---------------------------------------      ------------------------
-/dev/nvme0n1 814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller  1          85.90 GB / 85.90 GB
-
-Format         FW Rev
----------------------
-4 KiB + 0 B   FFFFFFFF
-----
-+
-Example (b):
-+
-----
-# nvme list
-Node           SN                   Model                    Namespace   Usage
----------------------------------------------------- ------------------------------------
-/dev/nvme0n1   81CZ5BQuUNfGAAAAAAAB NetApp ONTAP Controller   1         85.90 GB / 85.90 GB
-
-Format         FW Rev
------------------------
-4 KiB + 0 B   FFFFFFFF
-----
-
-. Verify that the controller state of each path is live and has a proper ANA status.
-+
-Example (a):
-+
-----
-# nvme list-subsys /dev/nvme0n1
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_141_1
 \
-+- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 live inaccessible
-+- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
-+- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 live optimized
++- nvme0 fc traddr=nn-0x203700a098dfdd91:pn-0x203800a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 *live inaccessible*
++- nvme1 fc traddr=nn-0x203700a098dfdd91:pn-0x203900a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 *live inaccessible*
++- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
++- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
 ----
-+
+====
+--
+=====
 
-Example (b):
+. Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
+[role="tabbed-block"]
+=====
+.Column
+--
+[source,cli]
 ----
-# nvme list-subsys /dev/nvme0n1
-nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
-\
-+- nvme0 tcp traddr=192.168.1.51 trsvcid=4420 host_traddr=192.168.1.8 live optimized
-+- nvme10 tcp traddr=192.168.2.56 trsvcid=4420 host_traddr=192.168.2.9 live optimized
-+- nvme15 traddr=192.168.2.57 trsvcid=4420 host_traddr=192.168.2.9 live non-optimized
-+- nvme5 tcp traddr=192.168.1.52 trsvcid=4420 host_traddr=192.168.1.8 live non-optimized
+nvme netapp ontapdevices -o column
 ----
 
-. Verify the NetApp plug-in displays proper values for each ONTAP namespace device.
-+
-Example (a):
-+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
-# nvme netapp ontapdevices -o column
 Device       Vserver        Namespace Path                            NSID
 ----------------------- ------------------------------ -------------------------
 /dev/nvme0n1 814vWBNRwf9HAAAAAAAB  NetApp ONTAP Controller  1          85.90 GB / 85.90 GB
@@ -485,9 +444,20 @@ UUID                                   Size
 --------------------------------------------
 72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
 ----
-+
+====
+--
+.JSON
+--
+[source,cli]
 ----
-# nvme netapp ontapdevices -o json
+nvme netapp ontapdevices -o json
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
 {
 "ONTAPdevices" : [
     {
@@ -503,37 +473,9 @@ UUID                                   Size
   ]
 }
 ----
-Example (b):
-+
-----
-# nvme netapp ontapdevices -o column
-Device               Vserver                   Namespace Path
---------------------- ------------------------- ------------------------------------
-/dev/nvme0n1         vs_tcp_118                /vol/tcpnvme_118_1_0_0/tcpnvme_118_ns
-
-NSID   UUID                               Size
--------------------------------------------------
-1     4a3e89de-b239-45d8-be0c-b81f6418283c 85.90GB
-----
-+
-----
-# nvme netapp ontapdevices -o json
-{
-"ONTAPdevices" : [
-    {
-     "Device" : "/dev/nvme0n1",
-      "Vserver" : "vs_tcp_118",
-      "Namespace_Path" : "/vol/tcpnvme_118_1_0_0/tcpnvme_118_ns",
-      "NSID" : 1,
-      "UUID" : "4a3e89de-b239-45d8-be0c-b81f6418283c",
-      "Size" : "85.90GB",
-      "LBA_Data_Size" : 4096,
-      "Namespace_Size" : 20971520
-    },
-  ]
-
-}
-----
+====
+--
+=====
 
 == Step 7: Review the known issues
 

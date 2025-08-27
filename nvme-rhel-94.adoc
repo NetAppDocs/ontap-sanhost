@@ -462,9 +462,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 6: Validate NVMe-oF
 
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
-
-include::_include/nvme/validate-nvme-of-version9.adoc[]
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
@@ -486,10 +484,10 @@ nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.efd7989cb10111ee871ed039ea954d18:su
             hostnqn=nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074 
  iopolicy=round-robin
  \
-  +- nvme2 fc traddr=nn-0x2013d039ea951c45:pn-0x2018d039ea951c45,host_traddr=nn-0x200000109bdacc76:pn-0x100000109bdacc76 live *non-optimized*
-  +- nvme3 fc traddr=nn-0x2013d039ea951c45:pn-0x2017d039ea951c45,host_traddr=nn-0x200000109bdacc75:pn-0x100000109bdacc75 live *non-optimized*
-  +- nvme5 fc traddr=nn-0x2013d039ea951c45:pn-0x2016d039ea951c45,host_traddr=nn-   0x200000109bdacc76:pn-0x100000109bdacc76 live *optimized*
-  +- nvme6 fc traddr=nn-0x2013d039ea951c45:pn-0x2014d039ea951c45,host_traddr=nn-  0x200000109bdacc75:pn-0x100000109bdacc75 live *optimized*
+  +- nvme2 fc traddr=nn-0x2013d039ea951c45:pn-0x2018d039ea951c45,host_traddr=nn-0x200000109bdacc76:pn-0x100000109bdacc76 *live non-optimized*
+  +- nvme3 fc traddr=nn-0x2013d039ea951c45:pn-0x2017d039ea951c45,host_traddr=nn-0x200000109bdacc75:pn-0x100000109bdacc75 *live non-optimized*
+  +- nvme5 fc traddr=nn-0x2013d039ea951c45:pn-0x2016d039ea951c45,host_traddr=nn-   0x200000109bdacc76:pn-0x100000109bdacc76 *live optimized*
+  +- nvme6 fc traddr=nn-0x2013d039ea951c45:pn-0x2014d039ea951c45,host_traddr=nn-  0x200000109bdacc75:pn-0x100000109bdacc75 *live optimized*
 
 ----
 ====
@@ -507,7 +505,8 @@ nvme list-subsys /dev/nvme1n1
 [subs=+quotes]
 ----
 nvme-subsys1 -NQN=nqn.1992-08.com.netapp:
-sn.983de7f4b39411ee871ed039ea954d18:subsystem.nvme_tcp_1         hostnqn=nqn.2014-08.org.nvmexpress:uuid:
+sn.983de7f4b39411ee871ed039ea954d18:subsystem.nvme_tcp_1
+hostnqn=nqn.2014-08.org.nvmexpress:uuid:
 4c4c4544-0035-5910-804b-c2c04f444d33
 iopolicy=round-robin
 \ 

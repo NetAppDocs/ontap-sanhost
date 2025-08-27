@@ -598,10 +598,9 @@ Beginning with RHEL 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
 
-== Validate NVMe-oF
+== Step 6: Validate NVMe-oF
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
-
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +

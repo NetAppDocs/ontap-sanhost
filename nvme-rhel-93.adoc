@@ -4,7 +4,6 @@ permalink: nvme-rhel-93.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for RHEL 9.3 with ONTAP
 ---
-
 = Configure RHEL 9.3 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
@@ -405,64 +404,24 @@ nvme	connect-all	-t	tcp	-w	192.168.167.1	-a	192.168.167.17 -l	1800
 ----			
 =====
 
-== Validate NVMe-oF
+== Step 6: Validate NVMe-oF
 
-You can use the following procedure to validate NVME-oF.
-
-.Steps
-
-. Verify that the in-kernel NVMe multipath is enabled:
-+
-----
-# cat /sys/module/nvme_core/parameters/multipath
-Y
-----
-
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/model
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-+
-----
-# cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy 
-round-robin
-round-robin
-----
-
-. Verify that the namespaces are created and correctly discovered on the host:
-+
-----
-# nvme list
-----
-+
-*Example output:*
-+
-----
-Node         SN                   Model                          
----------------------------------------------------------  
-/dev/nvme5n21 81CYrNQlis3WAAAAAAAB	NetApp ONTAP Controller	
-                               
-
-Namespace Usage    Format             FW             Rev
------------------------------------------------------------
-1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
-----
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
-
 [role="tabbed-block"]
-====
+=====
 .NVMe/FC
 --
+[source,cli]
 ----
-# nvme list-subsys /dev/nvme5n21
+nvme list-subsys /dev/nvme4n5
 ----
 
-*Example output:*
+.Show example
+[%collapsible]
+====
 [subs=+quotes]
 ----
 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.e80cc121ca6911ed8cbdd039ea165590:subsystem.rhel_
@@ -473,41 +432,45 @@ nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.e80cc121ca6911ed8cbdd039ea165590:su
  +- nvme4 *fc* traddr=nn-0x2142d039ea165877:pn-0x2146d039ea165877,host_traddr=nn-0x200000109b3c0820:pn-0x100000109b3c0820 *live non-optimized*
  +- nvme6 *fc* traddr=nn-0x2142d039ea165877:pn-0x2143d039ea165877,host_traddr=nn-0x200000109b3c081f:pn-0x100000109b3c081f *live optimized*
 ----
+====
 --
 .NVMe/TCP
 --
+[source,cli]
 ----
-# nvme list-subsys /dev/nvme1n1 
+nvme list-subsys /dev/nvme1n1 
 ----
 
-*Example output:*
-
+.Show example
+[%collapsible]
+====
 [subs=+quotes]
 ----
-
 nvme-subsys1 - NQN=nqn.1992- 08.com.netapp:sn. bbfb4ee8dfb611edbd07d039ea165590:subsystem.rhel_tcp_95
 +- nvme1 *tcp* traddr=192.168.167.16,trsvcid=4420,host_traddr=192.168.167.1,src_addr=192.168.167.1 *live*
 +- nvme2 *tcp* traddr=192.168.167.17,trsvcid=4420,host_traddr=192.168.167.1,src_addr=192.168.167.1 *live*
 +- nvme3 *tcp* traddr=192.168.167.17,trsvcid=4420,host_traddr=192.168.166.1,src_addr=192.168.166.1 *live* 
 +- nvme4 *tcp* traddr=192.168.166.16,trsvcid=4420,host_traddr=192.168.166.1,src_addr=192.168.166.1 *live*
-  
-
 ----
---
 ====
+--
+=====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
 [role="tabbed-block"]
-====
+=====
 .Column
 --
+[source,cli]
 ----
-# nvme netapp ontapdevices -o column
+nvme netapp ontapdevices -o column
 ----
 
-*Example output:*
-
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
 Device        Vserver   Namespace Path                                                          
 ----------------------- ------------------------------ 
@@ -519,14 +482,19 @@ NSID       UUID                                   Size
 ------------------------------------------------------------
 1          6fcb8ea0-dc1e-4933-b798-8a62a626cb7f	21.47GB
 ----
+====
 --
 .JSON
 --
+[source,cli]
 ----
-# nvme netapp ontapdevices -o json
+nvme netapp ontapdevices -o json
 ----
 
-*Example output*
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
 {
 
@@ -545,10 +513,10 @@ NSID       UUID                                   Size
 
 ]
 }
-
 ----
---
 ====
+--
+=====
 
 == Step 7: Review the known issues
 
