@@ -15,19 +15,9 @@ summary: How to Configure NVMe-oF Host for RHEL 9.2 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-.About this task 
-You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 9.2. You should also review the known limitations before starting the configuration process.
+This document describes how to configure NVMe-oF hosts for Red Hat Enterprise Linux (RHEL) 9.2. For additional support and feature information, refer to link:hu_nvme_index.adoc[NVME-oF Overview^]. The following are known limitations for RHEL 9.2:
 
-* Support available:
-** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** RHEL 9.2 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-+
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
-** There are no new features in this release.
-* Known limitations: 
-** SAN booting using the NVMe-oF protocol is not currently supported.
+* SAN booting using the NVMe-oF protocol is not currently supported.
 
 == Step 1: Optionally, enable SAN booting
 

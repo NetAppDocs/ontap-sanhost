@@ -15,20 +15,10 @@ summary: How to Configure NVMe-oF Host for RHEL 10.0 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-.About this task 
-You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 10. You should also review the known limitations before starting the configuration process.
+This document describes how to configure NVMe-oF hosts for Red Hat Enterprise Linux (RHEL) 10.0. For additional support and feature information, refer to link:hu_nvme_index.adoc[NVME-oF Overview^]. The following are known limitations for RHEL 10.0:
 
-* Support available:
-** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 10.0.
-
-+
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
-** Beginning with RHEL 10.0, native NVMe multipathing is always enabled, and DM multipath support for NVMe-oF is not supported.
-* Known limitations: 
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+* DM multipath support for NVMe-oF is not supported.
+* Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
 include::_include/nvme/enable-san-booting.adoc[]

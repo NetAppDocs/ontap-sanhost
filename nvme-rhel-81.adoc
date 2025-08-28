@@ -15,20 +15,12 @@ summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-.About this task 
-You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 8.1. You should also review the known limitations before starting the configuration process.
+For information on the support and features for NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 8.1, refer to the link:hu_nvme_index.adoc[NVME-oF Overview^]. These are the known limitations for RHEL 8.1:
 
-* Support available:
-** Beginning with ONTAP 9.6, NVMe/FC is supported for Red Hat Enterprise Linux (RHEL) 8.1. The RHEL 8.1 host runs both NVMe and SCSI traffic through the same FC initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers.
-+
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
-** There are no new features in this release.
-* Known limitations: 
-** In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.2, so you must enable it manually.
-** SAN booting using the NVMe-oF protocol is not currently supported.
-** The native `nvme-cli` package does not include `nvme-fc auto-connect` scripts. You can use the host bus adapter (HBA) vendor-provided external auto-connect script.
-** By default, round-robin load balancing is not enabled. You can enable it by writing a `udev` rule. 
+* In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.1, so you must enable it manually.
+* SAN booting using the NVMe-oF protocol is not currently supported.
+* The native `nvme-cli` package does not include `nvme-fc auto-connect` scripts. You can use the host bus adapter (HBA) vendor-provided external auto-connect script.
+* By default, round-robin load balancing is not enabled. You can enable it by writing a `udev` rule. 
 
 == Step 1: Optionally, enable SAN booting
 
