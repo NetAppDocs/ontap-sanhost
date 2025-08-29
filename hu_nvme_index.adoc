@@ -14,3 +14,32 @@ summary: You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF)
 
 [.lead]
 You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF) protocol, which includes NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP), with ONTAP as the target. Depending on your host operating system and ONTAP version, you configure and validate the NVMe/FC or NVMe/TCP protocol, or both on the host.
+
+The following table shows the ONTAP support and features and the SAN host versions for NVMe configurations:
+
+[cols="40,30,30",options="header"]
+|===
+|ONTAP feature |SAN host support	|Beginning with ONTAP version
+
+|*NVMe over TCP (NVMe/TCP)* 
+
+The native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces. 
+a|* RHEL 10.0 
+* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4 |
+|*NVMe and SCSI traffic run on the same host*
+a|* RHEL 10.0 
+* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 |
+|*Secure in-band authentication for NVMe/TCP* 
+a|* RHEL 10.0 
+* RHEL 9.6, 9.5 |9.12.1
+|*Native NVMe multipathing* 
+a|* RHEL 10.0	|
+|*In-kernel NVMe multipathing for NVMe namespaces* 
+a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 | 
+|NVMe/FC 
+a|* RHEL 8.1    |9.6 
+|===
+
+NOTE: For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
