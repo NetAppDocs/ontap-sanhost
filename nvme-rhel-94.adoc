@@ -15,9 +15,7 @@ summary: How to Configure NVMe-oF Host for RHEL 9.4 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe-oF hosts for Red Hat Enterprise Linux (RHEL) 9.4. For additional support and feature information, refer to link:hu_nvme_index.adoc[NVME-oF Overview^]. The following are known limitations for RHEL 9.4:
-
-* SAN booting using the NVMe-oF protocol is not currently supported.
+This document describes how to configure NVMe-oF hosts for Red Hat Enterprise Linux (RHEL) 9.4. For additional support and feature information, refer to link:hu_nvme_index.adoc[NVME-oF Overview^]. There are no known limitations for RHEL 9.4.
 
 == Step 1: Optionally, enable SAN booting
 

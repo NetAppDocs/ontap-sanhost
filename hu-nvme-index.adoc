@@ -1,0 +1,68 @@
+---
+sidebar: sidebar
+permalink: hu-nvme-index.html
+keywords: nvme, san, host, aix, linux, vsphere, windows
+summary: You can configure certain SAN hosts for the NVMe over Fabrics (NVMe-oF) protocol.
+---
+= Overview
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can configure supported SAN hosts to use the NVMe over Fabrics (NVMe-oF) protocol with ONTAP as the storage target. NVMe-oF includes NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP). Depending on your host operating system and ONTAP version, you configure and validate the NVMe/FC or NVMe/TCP protocol, or both on the host.
+
+The following table shows the ONTAP support and features and the SAN host versions for NVMe configurations:
+
+[cols="40,30,30",options="header"]
+|===
+
+|ONTAP Feature | Supported SAN Hosts | ONTAP Version
+
+|*NVMe/TCP in addition to NVMe/FC* 
+
+Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
+a|* RHEL 10.0 
+* RHEL 9.6–9.1  
+* RHEL 8.10–8.2 |
+|*NVMe and SCSI traffic supported on the same host*
+
+Configure dm-multipath for SCSI LUNs and use NVMe multipath for NVMe-oF namespaces.
+a|* RHEL 10.0 
+* RHEL 9.6–9.0 
+* RHEL 8.10–8.2 |
+|*Secure in-band authentication for NVMe/TCP* 
+a|* RHEL 10.0 
+* RHEL 9.6–9.5 |Supported beginning with 9.12.1
+|*Native NVMe multipathing is always enabled* 
+
+DM multipath is not supported for NVMe-oF.
+a|* RHEL 10.0	|
+|*In-kernel NVMe multipathing for NVMe namespaces* 
+
+Enabled by default; no explicit settings required.
+a|* RHEL 9.6–9.0 | 
+|*SAN booting using NVMe/FC protocol* 
+a|* RHEL 10.0 
+* RHEL 9.6–9.4 |
+|*NVMe/TCP is a fully supported enterprise feature* 
+a|* RHEL 10.0 
+* RHEL 9.6–9.0 | 
+|*`nvme-cli` package includes auto-connect scripts*
+
+Third-party scripts are no longer needed.
+a|* RHEL 10.0 
+* RHEL 9.6–9.0 
+* RHEL 8.10–8.2 |
+|*Native udev rule in `nvme-cli` package*
+
+Provides round-robin load balancing for NVMe multipath.
+a|* RHEL 10.0 
+* RHEL 9.6–9.0 
+* RHEL 8.10–8.2 | 
+|===
+
+NOTE: For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].

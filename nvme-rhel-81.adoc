@@ -17,8 +17,8 @@ include::_include/nvme/nvme-introduction.adoc[]
 
 For information on the support and features for NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 8.1, refer to the link:hu_nvme_index.adoc[NVME-oF Overview^]. These are the known limitations for RHEL 8.1:
 
-* In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.1, so you must enable it manually.
 * SAN booting using the NVMe-oF protocol is not currently supported.
+* In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.1, so you must enable it manually.
 * The native `nvme-cli` package does not include `nvme-fc auto-connect` scripts. You can use the host bus adapter (HBA) vendor-provided external auto-connect script.
 * By default, round-robin load balancing is not enabled. You can enable it by writing a `udev` rule. 
 
