@@ -15,13 +15,13 @@ summary: How to Configure NVMe-oF Host for RHEL 9.2 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe-oF hosts for Red Hat Enterprise Linux (RHEL) 9.2. For additional support and feature information, refer to link:hu_nvme_index.adoc[NVME-oF Overview^]. The following are known limitations for RHEL 9.2:
+This document describes how to configure NVMe-oF hosts for Red Hat Enterprise Linux (RHEL) 9.2. For additional support and feature information, refer to link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 9.2:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 
 == Step 1: Optionally, enable SAN booting
 
-include::_include/nvme/enable-san-booting.adoc[]
+You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
 
 == Step 2: Validate software versions
  
@@ -287,7 +287,7 @@ The expected output is:
 
 == Step 4: Optionally, enable 1MB I/O 
 
-include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
+You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcome NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
 
 == Step 5: Configure NVMe/TCP
 
