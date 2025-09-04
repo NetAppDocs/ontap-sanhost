@@ -30,7 +30,7 @@ You can use the following procedure to validate the minimum supported RHEL 8.3 s
 
 .Steps
 
-. Install RHEL 8.3 on the server. After the installation is complete, verify that you are running the specified RHEL 8.3 kernel: 
+. Install RHEL 8.3 on the server. After the installation is complete, verify that you are running the required RHEL 8.3 kernel: 
 +
 [source,cli]
 ----
@@ -238,7 +238,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 
 == Step 4: Optionally, enable 1MB I/O 
 
-You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcome NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
+You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
 
 == Step 5: Validate NVMe-oF
 

@@ -13,7 +13,7 @@ summary: You can issue I/O requests of size 1MB for a Broadcom NVMe/FC host.
 :imagesdir: ./media/
 
 [.lead]
-ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data. This means the maximum I/O request size can be up to 1MB. To issue I/O requests of size 1MB for a Broadcom NVMe/FC host, you should increase the `lpfc` value of the `lpfc_sg_seg_cnt` parameter to 256 from the default value of 64.
+ONTAP reports an MDTS (Max Data Transfer Size) of 8 in the Identify Controller data. This means the maximum I/O request size can be up to 1MB. To issue I/O requests of size 1MB, you need to increase the `lpfc` value of the `lpfc_sg_seg_cnt` parameter to 256 from the default value of 64.
 
 NOTE: These steps don't apply to Qlogic NVMe/FC hosts.
 
