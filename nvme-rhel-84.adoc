@@ -15,7 +15,7 @@ summary: How to Configure NVMe-oF Host for RHEL 8.4 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe-oF hosts for Red Hat Enterprise Linux (RHEL) 8.4. For additional support and feature information, refer to link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 8.4:
+This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 8.4. For additional support and feature information, refer to link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 8.4:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 * In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.4; you must enable it manually.

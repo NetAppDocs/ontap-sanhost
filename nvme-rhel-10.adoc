@@ -15,7 +15,7 @@ summary: How to Configure NVMe-oF Host for RHEL 10.0 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe-oF hosts for RHEL 10.0. For additional support and feature information, refer to link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 10.0:
+This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 10.0. For additional support and feature information, refer to link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 10.0:
 
 * DM multipath support for NVMe-oF is not supported.
 * Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
@@ -24,7 +24,7 @@ This document describes how to configure NVMe-oF hosts for RHEL 10.0. For additi
 
 You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
 
-== Step 2: Verify software versions and NVMe configuration
+== Step 2: Verify the software version and NVMe configuration
 
 Use the following procedure to validate that your RHEL 10.0 system meets the software requirements and verify the NVMe package installations and host configuration.
 
@@ -87,6 +87,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 ----
 ::> vserver nvme subsystem host show -vserver vs_nvme_194_rhel10
 ----
++
 .Show example
 [%collapsible]
 ====
@@ -111,7 +112,10 @@ If the `hostnqn` strings do not match, use the `vserver modify` command to updat
 
 == Step 3: Configure NVMe/FC and NVMe/TCP
 
-Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations. Note that NVMe/TCP doesn't support auto-connect operations and requires manual connect or connect-all commands.
+Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations. 
+
+[NOTE]
+NVMe/TCP doesn't support auto-connect operations and requires manual connect or connect-all commands.
 
 [role="tabbed-block"]
 =====
@@ -445,7 +449,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
-You can enable I/O requests of size 1MB for NVMe/FC configured with a Broadcom adapter, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
+You can enable I/O requests of size 1MB for NVMe/FC configured with a Broadcom adapter, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O for NVMe/FC^].
 
 == Step 5: Verify NVMe boot services 
 
@@ -460,7 +464,7 @@ include::_include/nvme/verify-nvme-services.adoc[]
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 . Verify that the controller state of each path is live and has the correct ANA status:
-+
++ 
 [role="tabbed-block"]
 =====
 .NVMe/FC

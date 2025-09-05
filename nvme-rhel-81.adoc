@@ -15,7 +15,7 @@ summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-For information on the support and features for NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 8.1, refer to the link:hu-nvme-index.html[NVME-oF Overview^]. These are the known limitations for RHEL 8.1:
+For information on the support and features for NVMe over Fabrics (NVMe-oF) hosts for RHEL 8.1, refer to the link:hu-nvme-index.html[NVME-oF Overview^]. These are the known limitations for RHEL 8.1:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 * In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.1, so you must enable it manually.
