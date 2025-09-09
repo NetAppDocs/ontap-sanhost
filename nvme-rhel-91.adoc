@@ -103,10 +103,7 @@ If the `hostnqn` strings do not match, use the `vserver modify` command to updat
 
 == Step 3: Configure NVMe/FC and NVMe/TCP
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
-
-[NOTE]
-NVMe/FC is supported on RHEL 9.1 and later. NVMe/TCP is supported on RHEL 8.6 and later. NVMe/TCP doesn't support auto-connect operations and requires manual connect or connect-all commands.
+Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations. 
 
 [role="tabbed-block"]
 ====

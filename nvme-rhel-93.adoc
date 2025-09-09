@@ -105,9 +105,6 @@ If the `hostnqn` strings do not match, use the `vserver modify` command to updat
 
 Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations. 
 
-[NOTE]
-NVMe/TCP doesn't support auto-connect operations and requires manual connect or connect-all commands.
-
 [role="tabbed-block"]
 =====
 .FC - Broadcom/Emulex
