@@ -22,9 +22,9 @@ This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for R
 
 You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
 
-== Step 2: Validate software versions
+== Step 2: Verify the software version and NVMe configuration
 
-You can use the following procedure to validate the minimum supported RHEL 9.0 software versions.
+You can use the following procedure to verify the minimum supported RHEL 9.0 software versions and NVMe configuration.
 
 .Steps
 
@@ -67,25 +67,26 @@ The following example shows an `libnvme` package version:
 libnvme-1.0-1.el9.x86_64
 ----
 
-. On the host, check the hostnqn string at `/etc/nvme/hostnqn`:
+. On the RHEL 9.0 host, check the `hostnqn` string at `/etc/nvme/hostnqn`:
 +
 [source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
 +
-The following example shows an `hostnqn` version:
+The following example shows a `hostnqn` version:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
 +
 [source,cli]
 ----
 ::> vserver nvme subsystem host show -vserver <vserver_name>
 ----
++
 .Show example
 [%collapsible]
 ====
@@ -97,17 +98,19 @@ vs_nvme90   rhel_90_LPe32002   nqn.2014-08.org.nvmexpress:uuid:xxxxxxxx-xxxx-xxx
 ====
 
 [NOTE]
-If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP storage system subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
-== Step 3: Configure NVMe/FC
+== Step 3: Configure NVMe/FC and NVMe/TCP
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/QLogic adapters.
+You can configure NVMe/FC for Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
+
+[NOTE]
+NVMe/FC is supported on RHEL 9.0 and later. NVMe/TCP is supported on RHEL 8.6 and later. NVMe/TCP doesn't support auto-connect operations and requires manual connect or connect-all commands.
 
 [role="tabbed-block"]
-=====
-.Broadcom/Emulex
+====
+.FC - Broadcom/Emulex
 --
-Configure NVMe/FC for a Broadcom/Emulex adapter.
 
 .Steps
 
@@ -133,7 +136,7 @@ LPe32002-M2
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-You should see output similar to:
+You should see output similar to the following example:
 +
 ----
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
@@ -148,7 +151,7 @@ Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
 cat /sys/class/scsi_host/host*/fwrev
 ----
 +
-The following example shows firmware versions:
+The command returns firmware versions:
 +
 ----
 12.8.351.47, sli-4:2:c
@@ -169,7 +172,7 @@ The following example shows a driver version:
 +
 For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
-. Verify that the expected output of `lpfc_enable_fc4_type` is set to `3`:
+. Verify that `lpfc_enable_fc4_type` is set to `3`:
 +
 [source,cli]
 ----
@@ -212,7 +215,7 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
@@ -236,41 +239,26 @@ LS: Xmt 0000000fa8 Cmpl 0000000fa8 Abort 00000000
 Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 ----
-====
+=====
 
 --
-.Marvell/QLogic
+.FC - Marvell/QLogic
 --
-
-Configure NVMe/FC for a Marvell/QLogic adapter.
 
 .Steps
 
-. Verify that you are using the supported adapter model, driver, and firmware versions:
+. Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
 ----
 cat /sys/class/fc_host/host*/symbolic_name
 ----
 +
-The follow example shows driver and firmware versions:
+The following example shows driver and firmware versions:
 +
 ----
 QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
 QLE2742 FW:v9.06.02 DVR:v10.02.00.200-k
-----
-
-. Verify that the recommended inbox qla2xxx driver is loaded:
-+
-[source,cli]
-----
-cat /sys/module/qla2xxx/version
-----
-+
-You should see the following output:
-+
-----
-The driver version included in the RHEL 9.0 kernel.
 ----
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
@@ -280,21 +268,15 @@ The driver version included in the RHEL 9.0 kernel.
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
-The expected ouptut is 1.
+The expected output is 1.
 --
-=====
 
-== Step 4: Optionally, enable 1MB I/O 
-
-You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
-
-== Step 5: Configure NVMe/TCP
-
-include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+.TCP
+--
 
 .Steps
 
-. Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
+. Verify that the initiator port can retrieve the discovery log page data across the supported NVMe/TCP LIFs:
 +
 [source,cli]
 ----
@@ -312,7 +294,7 @@ Discovery Log Number of Records 10, Generation counter 119
 =====Discovery Log Entry 0======
 trtype: tcp
 adrfam: ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq: not specified
 portid: 0
 trsvcid: 4420
@@ -322,7 +304,7 @@ sectype: none
 =====Discovery Log Entry 1======
 trtype: tcp
 adrfam: ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq: not specified
 portid: 1
 trsvcid: 4420
@@ -332,7 +314,7 @@ sectype: none
 =====Discovery Log Entry 2======
 trtype: tcp
 adrfam: ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq: not specified
 portid: 0
 trsvcid: 4420
@@ -342,7 +324,7 @@ sectype: none
 ----
 =====
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully retrieve the discovery log page data:
 +
 [source,cli]
 ----
@@ -351,7 +333,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.51
@@ -359,7 +341,7 @@ nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
 nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
 nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
-====
+=====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
@@ -379,15 +361,29 @@ nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.56 -l 1800
 nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 ----			
 =====
+--
+====
 
-== Step 6: Validate NVMe-oF
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+
+You can enable I/O requests of size 1MB for NVMe/FC configured with a Broadcom adapter, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O for NVMe/FC^].
+
+== Step 5: Verify NVMe boot services
+
+With RHEL 9.0, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
+
+include::_include/nvme/verify-nvme-services.adoc[]
+
+== Step 6: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
 [role="tabbed-block"]
-=====
+====
 .NVMe/FC
 --
 [source,cli]
@@ -397,7 +393,7 @@ nvme list-subsys /dev/nvme0n1
 
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_141_1
@@ -407,7 +403,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
 ----
-====
+=====
 --
 .NVMe/TCP
 --
@@ -418,7 +414,7 @@ nvme list-subsys /dev/nvme0n1
 
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:subsystem.nvme_118_tcp_1
@@ -428,14 +424,14 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.56e362e9bb4f11ebbaded039ea165abc:su
 +- nvme15 tcp traddr=192.168.2.57 trsvcid=4420 host_traddr=192.168.2.9 *live non-optimized*
 +- nvme5 tcp traddr=192.168.1.52 trsvcid=4420 host_traddr=192.168.1.8 *live non-optimized*
 ----
-====
---
 =====
+--
+====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
 [role="tabbed-block"]
-=====
+====
 .Column
 --
 [source,cli]
@@ -445,7 +441,7 @@ nvme netapp ontapdevices -o column
 
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 Device       Vserver        Namespace Path                            NSID
@@ -456,7 +452,7 @@ UUID                                   Size
 --------------------------------------------
 72b887b1-5fb6-47b8-be0b-33326e2542e2   85.90GB
 ----
-====
+=====
 --
 .JSON
 --
@@ -467,7 +463,7 @@ nvme netapp ontapdevices -o json
 
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 {
@@ -485,18 +481,18 @@ nvme netapp ontapdevices -o json
   ]
 }
 ----
-====
---
 =====
+--
+====
 
 == Step 7: Review the known issues
 
-The NVMe-oF host configuration for RHEL 9.0 with ONTAP has the following known issues:
+These are the known issues:
 
 [cols="20,40,40",options="header"]
 |===
 |NetApp Bug ID	|Title	|Description	
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|RHEL 9.0 NVMe-oF hosts create duplicate Persistent Discovery Controllers	|On NVMe over Fabrics (NVMe-oF) hosts, you can use the "nvme discover -p" command to create Persistent Discovery Controllers (PDCs). When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running ONTAP 9.10.1 and Red Hat Enterprise Linux (RHEL) 9.0 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|RHEL 9.0 NVMe-oF hosts create duplicate Persistent Discovery Controllers (PDCs)	|On NVMe-oF hosts, you can use the "nvme discover -p" command to create PDCs. When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running ONTAP 9.10.1 and RHEL 9.0 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
 
 |===
 

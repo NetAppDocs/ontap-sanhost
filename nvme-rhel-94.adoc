@@ -303,55 +303,55 @@ Discovery Log Number of Records 8, Generation counter 10
 =====Discovery Log Entry 0======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  11
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:
 discovery
 traddr:  192.168.167.8
-eflags:  explicit discovery connections, duplicate discovery information
+eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 1======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  9
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:
 discovery
 traddr:  192.168.166.8
-eflags:  explicit discovery connections, duplicate discovery information
+eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 2======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  12
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:
 discovery
 traddr:  192.168.167.7
-eflags:  explicit discovery connections, duplicate discovery information
+eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 3======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  10
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:
 discovery
 traddr:  192.168.166.7
-eflags:  explicit discovery connections, duplicate discovery information
+eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 4======
 trtype:  tcp
 adrfam:  ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq:    not specified
 portid:  11
 trsvcid: 4420
@@ -362,7 +362,7 @@ sectype: none
 =====Discovery Log Entry 5======
 trtype:  tcp
 adrfam:  ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq:    not specified
 portid:  9
 trsvcid: 4420
@@ -373,7 +373,7 @@ sectype: none
 =====Discovery Log Entry 6======
 trtype:  tcp
 adrfam:  ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq:    not specified
 portid:  12
 trsvcid: 4420
@@ -384,7 +384,7 @@ sectype: none
 =====Discovery Log Entry 7======
 trtype:  tcp
 adrfam:  ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq:    not specified
 portid:  10
 trsvcid: 4420
@@ -457,119 +457,6 @@ include::_include/nvme/verify-nvme-services.adoc[]
 == Step 6: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
-
-. Verify that the controller state of each path is live and has the correct ANA status:
-+
-[role="tabbed-block"]
-=====
-.NVMe/FC
---
-[source,cli]
-----
-nvme list-subsys /dev/nvme4n5
-----
-
-.Show example
-[%collapsible]
-====
-[subs=+quotes]
-----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.efd7989cb10111ee871ed039ea954d18:subsystem.nvme
-            hostnqn=nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074 
- iopolicy=round-robin
- \
-  +- nvme2 fc traddr=nn-0x2013d039ea951c45:pn-0x2018d039ea951c45,host_traddr=nn-0x200000109bdacc76:pn-0x100000109bdacc76 *live non-optimized*
-  +- nvme3 fc traddr=nn-0x2013d039ea951c45:pn-0x2017d039ea951c45,host_traddr=nn-0x200000109bdacc75:pn-0x100000109bdacc75 *live non-optimized*
-  +- nvme5 fc traddr=nn-0x2013d039ea951c45:pn-0x2016d039ea951c45,host_traddr=nn-   0x200000109bdacc76:pn-0x100000109bdacc76 *live optimized*
-  +- nvme6 fc traddr=nn-0x2013d039ea951c45:pn-0x2014d039ea951c45,host_traddr=nn-  0x200000109bdacc75:pn-0x100000109bdacc75 *live optimized*
-
-----
-====
---
-.NVMe/TCP
---
-[source,cli]
-----
-nvme list-subsys /dev/nvme1n1 
-----
-
-.Show example
-[%collapsible]
-====
-[subs=+quotes]
-----
-nvme-subsys1 -NQN=nqn.1992-08.com.netapp:
-sn.983de7f4b39411ee871ed039ea954d18:subsystem.nvme_tcp_1
-hostnqn=nqn.2014-08.org.nvmexpress:uuid:
-4c4c4544-0035-5910-804b-c2c04f444d33
-iopolicy=round-robin
-\ 
-+- nvme5 tcp traddr=192.168.166.7,trsvcid=4420,host_traddr=192.168.166.6,src_addr=192.168.166.6 *live*
-+- nvme4 tcp traddr=192.168.166.8,trsvcid=4420,host_traddr=192.168.166.6,src_addr=192.168.166.6 *live*
-+- nvme2 tcp traddr=192.168.167.7,trsvcid=4420,host_traddr=192.168.167.6,src_addr=192.168.167.6 *live*
-+- nvme1 tcp traddr=192.168.167.8,trsvcid=4420,host_traddr=192.168.167.6,src_addr=192.168.167.6 *live*
-----
-====
---
-=====
-
-. Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
-+
-[role="tabbed-block"]
-=====
-.Column
---
-[source,cli]
-----
-nvme netapp ontapdevices -o column
-----
-
-.Show example
-[%collapsible]
-====
-[subs=+quotes]
-----
-Device        Vserver   Namespace Path                                                          
------------------------ ------------------------------ 
-/dev/nvme0n1 vs_tcp           /vol/vol1/ns1   
-              
-
-
-NSID       UUID                                   Size
-------------------------------------------------------------
-1          6fcb8ea0-dc1e-4933-b798-8a62a626cb7f	21.47GB
-----
-====
---
-.JSON
---
-[source,cli]
-----
-nvme netapp ontapdevices -o json
-----
-
-.Show example
-[%collapsible]
-====
-[subs=+quotes]
-----
-{
-
-"ONTAPdevices" : [
-{
-
-"Device" : "/dev/nvme1n1", "Vserver" : "linux_tcnvme_iscsi", "Namespace_Path" : "/vol/tcpnvme_1_0_0/tcpnvme_ns", "NSID" : 1,
-"UUID" : "1a42c652-1450-4a29-886a-b4ccc23e637d", "Size" : "21.47GB",
-"LBA_Data_Size" : 4096,
-"Namespace_Size" : 5242880
-},
-
-]
-}
-----
-====
---
-=====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
@@ -787,7 +674,7 @@ DHHC- 1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia
 ----
 ====
 --
-.JSON file
+.JSON
 --
 When multiple NVMe subsystems are available on the ONTAP controller, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
