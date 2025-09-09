@@ -19,7 +19,7 @@ This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for R
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 * In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.4; you must enable it manually.
-* On RHEL 8.4 hosts, NVMe/TCP is available as a technology preview due to known issues.
+* NVMe/TCP is available as a technology preview due to known issues.
 
 == Step 1: Optionally, enable SAN booting
 

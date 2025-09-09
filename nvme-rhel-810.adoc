@@ -19,7 +19,7 @@ This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for R
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 * In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.10; you must enable it manually.
-* On RHEL 8.10 hosts, NVMe/TCP is available as a technology preview due to known issues.
+* NVMe/TCP is available as a technology preview due to known issues.
 
 == Step 1: Optionally, enable SAN booting
 
@@ -388,15 +388,7 @@ nvme connect-all -t tcp -w 192.168.1.31 -a 192.168.1.25 -l 1800
 
 You can enable I/O requests of size 1MB for NVMe/FC configured with a Broadcom adapter, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O for NVMe/FC^].
 
-== Step 5: Verify NVMe boot services
-
-With RHEL 8.10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
-
-After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
-
-include::_include/nvme/verify-nvme-services.adoc[]
-
-== Step 6: Validate NVMe-oF
+== Step 5: Validate NVMe-oF
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
@@ -507,7 +499,7 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 7: Review the known issues
+== Step 6: Review the known issues
 
 These are the known issues:
 

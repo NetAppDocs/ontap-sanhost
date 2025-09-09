@@ -365,15 +365,7 @@ nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 
 You can enable I/O requests of size 1MB for NVMe/FC configured with a Broadcom adapter, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O for NVMe/FC^].
 
-== Step 5: Verify NVMe boot services
-
-With RHEL 9.0, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
-
-After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
-
-include::_include/nvme/verify-nvme-services.adoc[]
-
-== Step 6: Verify the multipathing configuration
+== Step 5: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
@@ -482,7 +474,7 @@ nvme netapp ontapdevices -o json
 --
 ====
 
-== Step 7: Review the known issues
+== Step 6: Review the known issues
 
 These are the known issues:
 

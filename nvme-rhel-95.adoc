@@ -449,14 +449,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O for NVMe/FC^].
 
-== Step 5: Verify NVMe boot services
-With RHEL 9.5, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
-
-After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
-
-include::_include/nvme/verify-nvme-services.adoc[]
-
-== Step 6: Verify the multipathing configuration
+== Step 5: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
@@ -575,7 +568,7 @@ nvme netapp ontapdevices -o json
 =====
 
 
-== Step 7: Set up secure in-band authentication
+== Step 6: Set up secure in-band authentication
 
 Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between a RHEL 9.5 host and an ONTAP controller.
 
@@ -784,7 +777,7 @@ DHHC-1:03:L52ymUoR32zYvnqZFe5OHhMg4gxD79jIyxSShHansXpVN+WiXE222aVc651JxGZlQCI863
 --
 =====
 
-== Step 8: Review the known issues
+== Step 7: Review the known issues
 
 There are no known issues.
 
