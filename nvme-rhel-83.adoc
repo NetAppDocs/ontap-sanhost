@@ -24,7 +24,7 @@ This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for R
 
 You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
 
-== Step 2: Validate software versions
+== Step 2: Verify the software version and NVMe configuration
 
 You can use the following procedure to validate the minimum supported RHEL 8.3 software versions.
 
@@ -111,23 +111,26 @@ If the `hostnqn` strings do not match, use the `vserver modify` command to updat
 
 . Reboot the host.
 
+. Optionally, update the `enable_foreign` setting.
++
 [NOTE]
 ====
-If you intend to run both NVMe and SCSI co-existent traffic on the same host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the enable_foreign setting to the `/etc/multipath.conf` file:
+To run both NVMe and SCSI traffic on the same host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs. To prevent dm-multipath from claiming ONTAP namespace devices, exclude them by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:	
 
+[source,cli]
 ----
 cat /etc/multipath.conf
 defaults {
         enable_foreign     NONE
 }
 ----
-
-Restart the multipathd daemon by running a `systemctl restart multipathd` command to allow the new setting to take effect.
 ====
 
-== Step 3: Configure NVMe/FC for Broadcom/Emulex
+. Restart the multipathd daemon by running a `systemctl restart multipathd`.
 
-You can configure NVMe/FC for Broadcom/Emulex.
+== Step 3: Configure the NVMe/FC Broadcom/Emulex adapter 
+
+Configure NVMe/FC with the Broadcom/Emulex adapter.
 
 .Steps
 
@@ -205,7 +208,7 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 NVME Initiator Enabled
@@ -234,9 +237,9 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
-====
+=====
 
-== Step 4: Optionally, enable 1MB I/O 
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
 You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
 
@@ -253,7 +256,7 @@ nvme list-subsys /dev/nvme1n1
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:subsystem.nvme_141_1
@@ -263,7 +266,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.5f5f2c4aa73b11e9967e00a098df41bd:su
 +- nvme2 fc traddr=nn-0x203700a098dfdd91:pn-0x203a00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
 +- nvme3 fc traddr=nn-0x203700a098dfdd91:pn-0x203d00a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
 ----
-====
+=====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
@@ -335,8 +338,6 @@ nvme netapp ontapdevices -o json
        },
   ]
 ----
-====
---
 =====
 
 == Step 6: Review the known issues

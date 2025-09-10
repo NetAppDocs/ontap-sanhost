@@ -24,7 +24,7 @@ This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for R
 
 You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
 
-== Step 2: Validate software versions
+== Step 2: Verify the software version and NVMe configuration
 
 You can use the following procedure to validate the minimum supported RHEL 8.2 software versions.
 
@@ -104,16 +104,18 @@ If the host NQN strings do not match, use the `vserver modify` command to update
 +
 [NOTE]
 ====
-If you intend to run both NVMe and SCSI traffic on the same RHEL 8.2 host, NetApp recommends using in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. You should also blacklist the ONTAP namespaces in dm-multipath to prevent dm-multipath from claiming these namespace devices. You can do this by adding the `enable_foreign` setting to the `/etc/multipath.conf`, as shown below.
+To run both NVMe and SCSI traffic on the same host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs. To prevent dm-multipath from claiming ONTAP namespace devices, exclude them by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:	
 
+[source,cli]
 ----
 cat /etc/multipath.conf
 defaults {
-   enable_foreign NONE
+        enable_foreign     NONE
 }
 ----
-Restart the multipathd daemon by running a `systemctl restart multipathd`.
 ====
+
+. Restart the multipathd daemon by running a `systemctl restart multipathd`.
 
 == Step 3: Configure NVMe/FC for Broadcom/Emulex
 

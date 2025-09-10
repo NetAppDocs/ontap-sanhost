@@ -25,7 +25,7 @@ This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for R
 
 You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
 
-== Step 2: Validate software versions
+== Step 2: Verify the software version and NVMe configuration
  
 You can use the following procedure to validate the minimum supported RHEL 8.4 software versions.
 
@@ -111,26 +111,29 @@ vs_fcnvme_141   nvme_141_1    nqn.2014-08.org.nvmexpress:uuid:9ed5b327-b9fc-4cf5
 If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 . Reboot the host.
-
++
 [NOTE]
-If you intend to run both NVMe and SCSI co-existent traffic on the same host, it is recommended to use in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs respectively. This means that the ONTAP namespaces should be excluded from dm-multipath to prevent dm-multipath from claiming these namespace devices. This can be done by adding the enable_foreign setting to the `/etc/multipath.conf` file:
+====
+To run both NVMe and SCSI traffic on the same host, NetApp recommends using the in-kernel NVMe multipath for ONTAP namespaces and dm-multipath for ONTAP LUNs. To prevent dm-multipath from claiming ONTAP namespace devices, exclude them by adding the `enable_foreign` setting to the `/etc/multipath.conf` file:	
 
+[source,cli]
 ----
 cat /etc/multipath.conf
 defaults {
         enable_foreign     NONE
 }
 ----
+====
 
-Restart the multipathd daemon by running a `systemctl restart multipathd` command to allow the new setting to take effect.
+. Restart the multipathd daemon by running a `systemctl restart multipathd`.
 
-== Step 3: Configure NVMe/FC
+== Step 3: Configure the NVMe/FC or NVMe/TCP
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
 
 [role="tabbed-block"]
-=====
-.Broadcom/Emulex
+====
+.FC - Broadcom/Emulex
 --
 .Steps
 
@@ -239,7 +242,7 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 NVME Initiator Enabled
@@ -268,12 +271,11 @@ Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
 abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
-====
+=====
 --
 
-.Marvell/QLogic
+.FC - Marvell/QLogic
 --
-Configure NVMe/FC for a Marvell/QLogic adapter.
 
 .Steps
 
@@ -300,15 +302,9 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 +
 The expected outptut is 1.
 --
-=====
 
-== Step 4: Optionally, enable 1MB I/O 
-
-You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
-
-== Step 5: Configure NVMe/TCP
-
-include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+.TCP
+--
 
 .Steps
 
@@ -330,7 +326,7 @@ Discovery Log Number of Records 10, Generation counter 119
 =====Discovery Log Entry 0======
 trtype: tcp
 adrfam: ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq: not specified
 portid: 0
 trsvcid: 4420
@@ -340,7 +336,7 @@ sectype: none
 =====Discovery Log Entry 1======
 trtype: tcp
 adrfam: ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq: not specified
 portid: 1
 trsvcid: 4420
@@ -350,7 +346,7 @@ sectype: none
 =====Discovery Log Entry 2======
 trtype: tcp
 adrfam: ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq: not specified
 portid: 0
 trsvcid: 4420
@@ -369,14 +365,14 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.1.8 -a 192.168.1.52
 nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.56
 nvme discover -t tcp -w 192.168.2.9 -a 192.168.2.57
 ----
-====
+=====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
@@ -397,7 +393,14 @@ nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 ----			
 =====
 
-== Step 6: Validate NVMe-oF
+--
+====
+
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+
+You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
+
+== Step 5: Validate NVMe-oF
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
@@ -510,7 +513,7 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 7: Review the known issues
+== Step 6: Review the known issues
 
 There are no known issues.
 
