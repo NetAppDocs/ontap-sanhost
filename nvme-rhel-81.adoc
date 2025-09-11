@@ -15,7 +15,7 @@ summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-For information on the support and features for NVMe over Fabrics (NVMe-oF) hosts for RHEL 8.1, refer to the link:hu-nvme-index.html[NVME-oF Overview^]. These are the known limitations for RHEL 8.1:
+This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 8.1. For additional support and feature information, refer to link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 8.1:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 * In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.1, so you must enable it manually.
@@ -26,7 +26,7 @@ For information on the support and features for NVMe over Fabrics (NVMe-oF) host
 
 You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
 
-== Step 2: Validate software versions
+== Step 2: Verify the software version and NVMe configuration
 
 You can use the following procedure to validate the minimum supported RHEL 8.1 software versions.
 
@@ -250,40 +250,82 @@ cat /sys/class/scsi_host/host*/nvme_info
 [subs=+quotes]
 ----
 NVME Initiator Enabled
-XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000109b1c1204 WWNN x200000109b1c1204 DID x011d00 *ONLINE*
-NVME RPORT WWPN x203800a098dfdd91 WWNN x203700a098dfdd91 DID x010c07 *TARGET DISCSRVC ONLINE*
-NVME RPORT WWPN x203900a098dfdd91 WWNN x203700a098dfdd91 DID x011507 *TARGET DISCSRVC ONLINE*
-
+XRI Dist lpfc0 Total 6144 NVME 2947 SCSI 2977 ELS 250
+NVME LPORT lpfc0 WWPN x10000090fae0ec61 WWNN x20000090fae0ec61 DID x012000 *ONLINE*
+NVME RPORT WWPN x202d00a098c80f09 WWNN x202c00a098c80f09 DID x010201 *TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x203100a098c80f09 WWNN x202c00a098c80f09 DID x010601 *TARGET DISCSRVC ONLINE*
 NVME Statistics
-LS: Xmt 0000000f78 Cmpl 0000000f78 Abort 00000000
-LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000002fe29bba Issue 000000002fe29bc4 OutIO 000000000000000a
-abort 00001bc7 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00001e15 Err 0000d906
-
-NVME Initiator Enabled
-XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000109b1c1205 WWNN x200000109b1c1205 DID x011900 *ONLINE*
-NVME RPORT WWPN x203d00a098dfdd91 WWNN x203700a098dfdd91 DID x010007 *TARGET DISCSRVC ONLINE*
-NVME RPORT WWPN x203a00a098dfdd91 WWNN x203700a098dfdd91 DID x012a07 *TARGET DISCSRVC ONLINE*
-
-NVME Statistics
-LS: Xmt 0000000fa8 Cmpl 0000000fa8 Abort 00000000
-LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000002e14f170 Issue 000000002e14f17a OutIO 000000000000000a
-abort 000016bb noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 ====
 
-== Step 4: Optionally, enable 1MB I/O 
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
 You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
 
 == Step 5: Validate NVMe-oF
 
-include::_include/nvme/nvme-validate-nvme-of.adoc[]
+Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
+
+.Steps
+
+. Verify that the in-kernel NVMe multipath is enabled:
++
+[source,cli]
+----
+cat /sys/module/nvme_core/parameters/multipath
+----
++
+You should see the following output:
++
+----
+Y
+----
+
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
+
+.. Display the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
++
+----
+NetApp ONTAP Controller
+NetApp ONTAP Controller
+----
+.. Display the policy:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+----
++
+You should see the following output:
++
+----
+round-robin
+round-robin
+----
+
+. Verify that the namespaces are created and correctly discovered on the host:
++
+[source,cli]
+----
+nvme list
+----
++
+.Show example
+[%collapsible]
+====
+----
+Node SN Model Namespace Usage Format FW Rev
+---------------- -------------------- -----------------------
+/dev/nvme0n1 80BADBKnB/JvAAAAAAAC NetApp ONTAP Controller 1 53.69 GB / 53.69 GB 4 KiB + 0 B FFFFFFFF
+----
+====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +

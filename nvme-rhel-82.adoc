@@ -228,7 +228,7 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 ----
 ====
 
-== Step 4: Optionally, enable 1MB I/O 
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
 You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
 
