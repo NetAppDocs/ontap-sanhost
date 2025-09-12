@@ -281,8 +281,6 @@ The expected output is 1.
 .TCP
 --
 
-include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
-
 .Steps
 
 . Verify that the initiator port can retrieve the discovery log page data across the supported NVMe/TCP LIFs:
@@ -386,12 +384,6 @@ nvme	connect-all	-t	tcp	-w	192.168.167.1	-a	192.168.167.17 -l	1800
 ----			
 ====
 
-[NOTE]
-====
-Beginning with RHEL 9.3, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
-
-include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
-====
 --
 =====
 

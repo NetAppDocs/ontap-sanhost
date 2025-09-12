@@ -250,7 +250,6 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 --
 .FC - Marvell/QLogic
 --
-Configure NVMe/FC for a Marvell/QLogic adapter.
 
 .Steps
 
@@ -275,11 +274,7 @@ QLE2742 FW:v9.08.02 DVR:v10.02.00.106-k
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
-The expected output is:
-+
-----
-1
-----
+The expected output is 1.
 --
 
 .TCP
