@@ -19,7 +19,7 @@ This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for R
 
 == Step 1: Optionally, enable SAN booting
 
-You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Verify the software version and NVMe configuration
 
@@ -107,6 +107,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 =====
 .FC - Broadcom/Emulex
 --
+
+Configure NVMe/FC for a Broadcom/Emulex adapter.
 
 .Steps
 
@@ -251,6 +253,8 @@ FCP CMPL: xb 00000629 Err 0001bd3d
 .FC - Marvell/QLogic
 --
 
+Configure NVMe/FC for a Marvell/QLogic adapter.
+
 .Steps
 
 . Verify that you are using the supported adapter driver and firmware versions:
@@ -279,6 +283,8 @@ The expected output is 1.
 
 .TCP
 --
+
+The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP connect or connect-all operations manually.
 
 .Steps
 
@@ -441,7 +447,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
-You can enable I/O requests of size 1MB for NVMe/FC configured with a Broadcom adapter, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O for NVMe/FC^].
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
 
 == Step 5: Verify the multipathing configuration
 

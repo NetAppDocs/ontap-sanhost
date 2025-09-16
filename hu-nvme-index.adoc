@@ -26,17 +26,17 @@ The following table shows the ONTAP support and features and the SAN host versio
 
 Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
 a|* RHEL 10.0 
-* RHEL 9.6–9.1  
-* RHEL 8.10–8.2 |
+* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1  
+* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.8, 8.2 |
 |*NVMe and SCSI traffic supported on the same host*
 
 Configure dm-multipath for SCSI LUNs and use NVMe multipath for NVMe-oF namespaces.
 a|* RHEL 10.0 
-* RHEL 9.6–9.0 
-* RHEL 8.10–8.2 |
+* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 |
 |*Secure in-band authentication for NVMe/TCP* 
 a|* RHEL 10.0 
-* RHEL 9.6–9.5 |Supported beginning with 9.12.1
+* RHEL 9.6, 9.5 |Supported beginning with 9.12.1
 |*Native NVMe multipathing is always enabled* 
 
 DM multipath is not supported for NVMe-oF.
@@ -44,25 +44,30 @@ a|* RHEL 10.0	|
 |*In-kernel NVMe multipathing for NVMe namespaces* 
 
 Enabled by default; no explicit settings required.
-a|* RHEL 9.6–9.0 | 
+a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 | 
 |*SAN booting using NVMe/FC protocol* 
 a|* RHEL 10.0 
-* RHEL 9.6–9.4 |
+* RHEL 9.6, 9.5, 9.4 |
 |*NVMe/TCP is a fully supported enterprise feature* 
 a|* RHEL 10.0 
-* RHEL 9.6–9.0 | 
+* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 | 
 |*`nvme-cli` package includes auto-connect scripts*
 
 Third-party scripts are no longer needed.
 a|* RHEL 10.0 
-* RHEL 9.6–9.0 
-* RHEL 8.10–8.2 |
+* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 |
 |*Native udev rule in `nvme-cli` package*
 
 Provides round-robin load balancing for NVMe multipath.
 a|* RHEL 10.0 
-* RHEL 9.6–9.0 
-* RHEL 8.10–8.2 | 
+* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 | 
 |===
 
 NOTE: For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+== What's next?
+
+* link:[Learn about Asymmetric Namespace Access (ANA)]. 
+

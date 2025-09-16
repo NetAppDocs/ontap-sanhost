@@ -23,7 +23,7 @@ This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for R
 
 == Step 1: Optionally, enable SAN booting
 
-You can configure your host to use SAN booting to simplify deployment and improve scalability, see link:nvme-enable-SAN-booting.html[Enable SAN booting^].
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Verify the software version and NVMe configuration
  
@@ -135,6 +135,9 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 ====
 .FC - Broadcom/Emulex
 --
+
+Configure NVMe/FC for a Broadcom/Emulex adapter.
+
 .Steps
 
 . Verify that you are using the supported adapter model:
@@ -277,6 +280,8 @@ FCP CMPL: xb 00001f50 Err 0000d9f8
 .FC - Marvell/QLogic
 --
 
+Configure NVMe/FC for a Marvell/QLogic adapter.
+
 .Steps
 
 . Verify that you are using the supported adapter model, driver, and firmware versions:
@@ -305,6 +310,8 @@ The expected outptut is 1.
 --
 .TCP
 --
+
+The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP connect or connect-all operations manually.
 
 .Steps
 
@@ -399,7 +406,7 @@ nvme connect-all -t tcp -w 192.168.2.9 -a 192.168.2.57 -l 1800
 
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
-You can increase the `lpfc` value to issue 1MB I/O requests on the Broadcom NVMe/FC host, see  link:nvme-enable-broadcom-1mb-size.html[Enable 1MB I/O^].
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
 
 == Step 5: Validate NVMe-oF
 
