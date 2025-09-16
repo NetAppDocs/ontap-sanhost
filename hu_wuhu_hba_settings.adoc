@@ -65,7 +65,7 @@ HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 \msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPP LUN", "NETAPP LUN C-
 Mode"
-"NVMe NetApp ONTAO Con"
+"NVMe NetApp ONTAP Con"
 |When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Control
 \Class\ {iSCSI_driver_GUID}\ instance_ID
@@ -96,7 +96,7 @@ Mode"
 |"NETAPP LUN",
 "NETAPP LUN C-
 Mode",
-"NVMe NetApp ONTAO Con"
+"NVMe NetApp ONTAP Con"
 |When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
@@ -201,7 +201,7 @@ HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 \msdsm\Parameters\DsmSupportedDeviceList
 |"NETAPP LUN", "NETAPP LUN C-
 Mode"
-"NVMe NetApp ONTAO Con"
+"NVMe NetApp ONTAP Con"
 |When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Control
 \Class\ {iSCSI_driver_GUID}\ instance_ID
@@ -232,7 +232,7 @@ Mode"
 |"NETAPP LUN",
 "NETAPP LUN C-
 Mode",
-"NVMe NetApp ONTAO Con"
+"NVMe NetApp ONTAP Con"
 |When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\PathRecoveryInterval
