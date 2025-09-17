@@ -15,7 +15,7 @@ summary: How to Configure NVMe/FC Host for RHEL 8.3 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 8.3. For additional support and feature information, refer to link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 8.3:
+This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 8.3. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 8.3:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 * In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.3; you must enable it manually.
@@ -26,7 +26,7 @@ include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Verify the software version and NVMe configuration
 
-You can use the following procedure to validate the minimum supported RHEL 8.3 software versions.
+include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
@@ -37,7 +37,7 @@ You can use the following procedure to validate the minimum supported RHEL 8.3 s
 uname -r
 ----
 +
-The following example shows a RHEL 8.3 kernel version:
+Example RHEL kernel version:
 +
 ----
 4.18.0-240.el8.x86_64

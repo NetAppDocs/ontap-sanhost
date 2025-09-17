@@ -15,54 +15,43 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 9.6 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-.About this task 
-You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 9.6. You should also review the known limitations before starting the configuration process.
+This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 9.6. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for Rocky Linux 9.6:
 
-* Support available:
-** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Rocky Linux 9.6 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with Rocky Linux 9.6.
-
-+
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
-** There are no new features in this release.
-* Known limitations: 
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+* Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
+
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Step 2: Validate software versions
+== Step 2: Verify the software version and NVMe configuration
 
-Use the following procedure to validate the minimum supported Rocky Linux 9.6 software versions.
+include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install Rocky Linux 9.6 on the server. After the installation is complete, verify that you are running the specified Rocky Linux 9.6 kernel: 
+. Install Rocky Linux 9.6 on the server. After the installation is complete, verify that you are running the required Rocky Linux 9.6 kernel: 
 +
 [source,cli]
 ----
 uname -r
 ----
 +
-The following example shows a Rocky Linux kernel version:
+Example Rocky Linux kernel version:
 +
 ----
 5.14.0-570.12.1.el9_6.x86_64
 ----
-[start=2]
+
 include::_include/nvme/linux-validate-software-version-rockylinux.adoc[]
 
 
-== Step 3: Configure NVMe/FC
+== Step 3: Configure NVMe/FC and NVMe/TCP
 
-You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
+Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
 
 [role="tabbed-block"]
 =====
-.Broadcom/Emulex
+.FC - Broadcom/Emulex
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
@@ -92,7 +81,7 @@ LPe36002-M64
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-You should see an output similar to the following example:
+You should see output similar to the following example:
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter 
@@ -131,7 +120,7 @@ The following example shows a driver version:
 +
 For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
-. Verify that the expected output of `lpfc_enable_fc4_type` is set to `3`:
+. Verify that `lpfc_enable_fc4_type` is set to `3`:
 +
 [source,cli]
 ----
@@ -237,21 +226,21 @@ FCP CMPL: xb 000035cc Err 000fcfc0
 ====
 
 --
-.Marvell/QLogic
+.FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions:
+. Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
 ----
 cat /sys/class/fc_host/host*/symbolic_name
 ----
 +
-The follow example shows driver and firmware versions:
+The following example shows driver and firmware versions:
 +
 ----
 QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
@@ -265,29 +254,17 @@ QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
-The expected ouptut is 1.
+The expected output is 1.
 --
-=====
 
+.TCP
+--
 
-== Step 4: Optionally, enable 1MB I/O 
-
-include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
-
-== Step 5: Verify NVMe boot services
-With Rocky Linux 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
-
-After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
-
-include::_include/nvme/verify-nvme-services.adoc[]
-
-== Step 6: Configure NVMe/TCP
-
-include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+The NVMe/TCP protocol does not support the auto-connect operation. You must manually perform the NVMe/TCP connect or connect-all operations to discover the NVMe/TCP subsystems and namespaces.
 
 .Steps
 
-. Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
+. Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
 [source,cli]
 ----
@@ -296,7 +273,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24
@@ -523,9 +500,9 @@ traddr:  192.168.1.24
 eflags:  none
 sectype: none
 ----
-=====
+====
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully get discovery log page data: 
 +
 [source,cli]
 ----
@@ -534,7 +511,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24 
@@ -542,7 +519,7 @@ nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.24
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.25 
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.25
 ----
-=====
+====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
@@ -553,7 +530,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.24
@@ -561,7 +538,7 @@ nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.24
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.25
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25					
 ----
-=====
+====
 
 [NOTE]
 ====
@@ -569,12 +546,25 @@ Beginning with Rocky Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo time
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
+=====
 
-== Step 7: Validate NVMe-oF
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
+
+== Step 5: Verify NVMe boot services
+
+With Rocky Linux 9.6, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
+
+include::_include/nvme/verify-nvme-services.adoc[]
+
+== Step 6: Validate NVMe-oF
 
 include::_include/nvme/nvme-validate-nvme-of-rocky-linux.adoc[]
 
-== Step 8: Set up secure in-band authentication
+== Step 7: Set up secure in-band authentication
 
 Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 9.6 host and an ONTAP controller.
 
@@ -597,7 +587,7 @@ cat /etc/nvme/hostnqn
 ----
 . Generate the dhchap key for the Rocky Linux 9.6 host.
 +
-The following output describes the `gen-dhchap-key` command paramters:
+The following output describes the `gen-dhchap-key` command parameters:
 +
 ----
 nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function {0|1|2|3} -n host_nqn 
@@ -668,11 +658,11 @@ DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJ
 ----
 ====
 --
-.JSON file
+.JSON
 --
-When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
+When multiple NVMe subsystems are available on the ONTAP controller, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
-Use the `-o` option to generate the JSON file. See the NVMe connect-all manual pages for more syntax options.
+Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
 
 .Steps
 . Configure the JSON file.
@@ -785,7 +775,7 @@ DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
 +
-You should see an output similar to the following example:
+You should see output similar to the following example:
 +
 ----
 DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:
@@ -793,7 +783,7 @@ DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJ
 --
 =====
 
-== Step 9: Review the known issues
+== Step 8: Review the known issues
 
 There are no known issues.
 

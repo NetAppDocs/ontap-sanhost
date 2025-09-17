@@ -14,7 +14,7 @@ summary: How to Configure NVMe-oF Host for RHEL 9.0 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 9.0. For additional support and feature information, refer to link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 9.0:
+This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 9.0. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for RHEL 9.0:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 
@@ -24,7 +24,7 @@ include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Verify the software version and NVMe configuration
 
-You can use the following procedure to verify the minimum supported RHEL 9.0 software versions and NVMe configuration.
+include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
@@ -35,7 +35,7 @@ You can use the following procedure to verify the minimum supported RHEL 9.0 sof
 uname -r
 ----
 +
-The following example shows a RHEL kernel version:
+Example RHEL kernel version:
 +
 ----
 5.14.0-70.13.1.el9_0.x86_64
@@ -275,11 +275,11 @@ The expected output is 1.
 .TCP
 --
 
-The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP connect or connect-all operations manually.
+The NVMe/TCP protocol does not support the auto-connect operation. You must manually perform the NVMe/TCP connect or connect-all operations to discover the NVMe/TCP subsystems and namespaces.
 
 .Steps
 
-. Verify that the initiator port can retrieve the discovery log page data across the supported NVMe/TCP LIFs:
+. Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
 [source,cli]
 ----
