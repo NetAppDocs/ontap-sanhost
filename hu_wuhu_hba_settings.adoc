@@ -14,19 +14,17 @@ summary: Windows Host Utilities includes an installation program that sets the r
 :imagesdir: ./media/
 
 [.lead]
-The Host Utilities require certain registry and parameter settings to verify that the Windows host correctly handles the storage system behavior.
+Windows Host Utilities require certain registry and parameter settings to verify that the Windows host correctly handles the storage system behavior.
 
-Windows Host Utilities set the parameters that affect how the Windows host responds to a delay or loss of data. The particular values have been selected to verify that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
+Windows Host Utilities set parameter values that affect how the Windows host responds to a delay or loss of data. These values have been selected to verify that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
 
-Not all values apply to the device-specific module (DSM) for SANtricity Storage Manager; however, any overlap of values set by the Host Utilities and those set by the DSM for SANtricity Storage Manager don't result in conflicts.
+Some values do not apply to the device-specific module (DSM) for SANtricity Storage Manager. Overlap between values set by Windows Host Utilities and the DSM for SANtricity Storage Manager don't result in conflicts.
 
-FC, NVMe/FC, and iSCSI HBAs also have parameters that you must set to ensure best performance and to successfully handle storage system events.
+You also need to set FC, NVMe/FC, and iSCSI HBAs parameters to optimize performance and successfully handle storage system events.
 
-The installation program supplied with Windows Host Utilities sets the Windows, FC, and NVMe/FC HBA parameters to the supported values.
+The Windows Host Utilities installer sets the Windows, FC, and NVMe/FC HBA parameters to the supported values. You need to manually set the iSCSI HBA parameters.
 
-You must manually set the iSCSI HBA parameters.
-
-The installer sets different values depending on whether you specify Microsoft Multipath I/O (MPIO) support when running the installation program.
+The installer sets different values when you specify Microsoft Multipath I/O (MPIO) support during the installation.
 
 [NOTE]
 ====
@@ -37,13 +35,13 @@ For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, 
 
 == Registry values set by Windows Host Utilities 8.0
 
-The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You should be aware of these values and the operating system version. 
+The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You need to review these values and the operating system version. 
 
 [role="tabbed-block"]
 ====
 .HKLM values
 --
-The following registry values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated.
+The Windows Host Utilities installer sets the following registry values. All values are in decimal unless otherwise stated.
 [NOTE]
 HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
@@ -160,7 +158,7 @@ Mode",
 .NVMe parameters
 --
 
-The following NVMe Emulex driver parameters are updated when you install Windows Host Utilities 8.0:
+Windows Host Utilities 8.0 updates the following NVMe Emulex driver parameters during the installation:
 
 * EnableNVMe = 1
 * NVMEMode = 0
@@ -170,7 +168,7 @@ The following NVMe Emulex driver parameters are updated when you install Windows
 
 == Registry values set by Windows Host Utilities 7.2
 
-The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You should be aware of these values and the operating system version. 
+The Windows Host Utilities installer automatically sets registry values and NVMe parameters based on the choices that you make during the installation. You need to review these values and the operating system version. 
 
 [[nvme_parameter]]
 
@@ -179,7 +177,7 @@ The Windows Host Utilities installer automatically sets registry values and NVMe
 
 .HKLM values
 --
-The following registry values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise stated.
+The Windows Host Utilities installer sets the following registry values. All values are in decimal unless otherwise stated.
 [NOTE]
 HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
@@ -306,7 +304,7 @@ The LimTransferSize parameter is automatically set to "1" when you install Windo
 
 == Registry values set by Windows Host Utilities 7.1
 
-The Windows Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You should be aware of these registry values, the operating system version.
+The Windows Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You need to review these registry values and the operating system version.
 
 The following values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise noted. 
 
@@ -432,9 +430,9 @@ See the https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance
 
 == FC HBA values set by Windows Host Utilities
 
-On systems using FC, the Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs.
+The Windows Host Utilities installer sets the required timeout values for Emulex and QLogic FC HBAs on systems using FC. 
 
-For Emulex FC HBAs, the installer sets the following parameters:
+The installer sets the following parameters for Emulex FC HBAs:
 
 [role="tabbed-block"]
 ====
@@ -465,7 +463,7 @@ For Emulex FC HBAs, the installer sets the following parameters:
 --
 ====
 
-For QLogic FC HBAs, the installer sets the following parameters:
+The installer sets the following parameters for QLogic FC HBAs:
 
 [role="tabbed-block"]
 ====
@@ -523,7 +521,7 @@ You can correct the HBA settings by link:hu_wuhu_repair_remove.html[running the 
 .Emulex HBA drivers
 --
 
-If you have an FC system, verify the Emulex HBA driver settings. These settings must exist for each port on the HBA.
+Verify the Emulex HBA driver settings on FC systems. These settings must exist for each port on the HBA.
 
 .Steps
 
@@ -544,7 +542,7 @@ The driver parameters appear.
 
 .QLogic HBA drivers
 --
-On FC systems, verify the QLogic HBA driver settings. These settings must exist for each port on the HBA.
+Verify the QLogic HBA driver settings on FC systems. These settings must exist for each port on the HBA.
 
 .Steps
 
