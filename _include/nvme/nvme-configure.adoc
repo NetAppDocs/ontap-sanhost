@@ -2,8 +2,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 [role="tabbed-block"]
 ====
+
 .FC - Broadcom/Emulex
---
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
@@ -147,10 +147,8 @@ FCP CMPL: xb 000014a5 Err 0002149a
 ----
 =====
 
---
-
 .FC - Marvell/QLogic
---
+
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
@@ -179,10 +177,8 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 +
 The expected output is 1.
 
---
-
 .TCP
---
+
 
 The NVMe/TCP protocol does not support the auto-connect operation. You must manually perform the NVMe/TCP connect or connect-all operations to discover the NVMe/TCP subsystems and namespaces.
 
@@ -196,7 +192,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24
@@ -422,7 +418,7 @@ traddr:  192.168.1.24
 eflags:  none
 sectype: none
 ----
-====
+=====
 . Verify that the other NVMe/TCP initiator-target LIF combinations are able to successfully fetch discovery log page data: 
 +
 ----
@@ -431,7 +427,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.24 
@@ -439,7 +435,7 @@ nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.24
 nvme discover -t tcp -w 192.168.1.31 -a 192.168.1.25 
 nvme discover -t tcp -w 192.168.2.31 -a 192.168.2.25
 ----
-====
+=====
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
 ----
@@ -448,7 +444,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-====
+=====
 [subs=+quotes]
 ----
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.24
@@ -456,4 +452,5 @@ nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.24
 nvme	connect-all	-t	tcp	-w	192.168.1.31	-a	192.168.1.25
 nvme	connect-all	-t	tcp	-w	192.168.2.31	-a	192.168.2.25					
 ----
+=====
 ====
