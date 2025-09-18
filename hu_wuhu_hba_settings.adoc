@@ -14,11 +14,11 @@ summary: Windows Host Utilities includes an installation program that sets the r
 :imagesdir: ./media/
 
 [.lead]
-Windows Host Utilities require certain registry and parameter settings to verify that the Windows host correctly handles the storage system behavior.
+The Windows Host Utilities require certain registry and parameter settings to verify that the Windows host correctly handles the storage system behavior.
 
-Windows Host Utilities set parameter values that affect how the Windows host responds to a delay or loss of data. These values have been selected to verify that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
+The Windows Host Utilities set parameter values that affect how the Windows host responds to a delay or loss of data. These values verify that the Windows host correctly handles events such as the failover of one controller in the storage system to its partner controller.
 
-Some values do not apply to the device-specific module (DSM) for SANtricity Storage Manager. Overlap between values set by Windows Host Utilities and the DSM for SANtricity Storage Manager don't result in conflicts.
+Some values don't apply to the device-specific module (DSM) for SANtricity Storage Manager. Overlap between values set by the Windows Host Utilities and the DSM for SANtricity Storage Manager don't result in conflicts.
 
 You also need to set FC, NVMe/FC, and iSCSI HBAs parameters to optimize performance and successfully handle storage system events.
 
@@ -35,7 +35,7 @@ For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, 
 
 == Registry values set by Windows Host Utilities 8.0
 
-The Windows Host Utilities installer automatically sets registry values and NVMe parameters that are based on the choices that you make during the installation. You need to review these values and the operating system version. 
+The Windows Host Utilities installer automatically sets registry values and NVMe parameters based on the choices that you make during the installation. You need to review these values and the operating system version. 
 
 [role="tabbed-block"]
 ====
@@ -304,7 +304,7 @@ The LimTransferSize parameter is automatically set to "1" when you install Windo
 
 == Registry values set by Windows Host Utilities 7.1
 
-The Windows Host Utilities installer automatically sets registry values that are based on the choices that you make during installation. You need to review these registry values and the operating system version.
+The Windows Host Utilities installer automatically sets registry values based on the choices that you make during installation. You need to review these registry values and the operating system version.
 
 The following values are set by the Windows Host Utilities installer. All values are in decimal unless otherwise noted. 
 
@@ -437,7 +437,7 @@ The installer sets the following parameters for Emulex FC HBAs:
 [role="tabbed-block"]
 ====
 
-.When MPIO is selected
+.When you select MPIO
 --
 |===
 |Property type |Property value
@@ -449,7 +449,7 @@ The installer sets the following parameters for Emulex FC HBAs:
 |===
 --
 
-.When MPIO isn't selected
+.When you don't select MPIO
 --
 
 |===
@@ -467,7 +467,7 @@ The installer sets the following parameters for QLogic FC HBAs:
 
 [role="tabbed-block"]
 ====
-.When MPIO is selected
+.When you select MPIO
 --
 |===
 |Property type |Property value
@@ -479,7 +479,7 @@ The installer sets the following parameters for QLogic FC HBAs:
 |===
 --
 
-.When MPIO isn't selected
+.When you don't select MPIO
 --
 
 |===
@@ -501,9 +501,9 @@ The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDo
 
 == Learn about the Host Utilities changes to FC HBA driver settings
 
-During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and, in some cases, modified by Windows Host Utilities.
+During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and, in some cases, modified by the Windows Host Utilities.
 
-Windows Host Utilities set values for the following parameters if MS DSM for Windows MPIO is detected:
+The Windows Host Utilities set values for the following parameters if MS DSM for Windows MPIO is detected:
 
 * *LinkTimeOut*: Defines the length of time in seconds that the host port waits before resuming I/O after a physical link is down.
 * *NodeTimeOut*: Defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
