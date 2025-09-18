@@ -2,7 +2,7 @@
 sidebar: sidebar
 permalink: hu_sles_15SP6.html
 keywords: host utilities, suse linux enterprise server 15 sp6, suse, linux, 15 sp6, netapp, ontap, fcp, iscsi
-summary: Install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP6 to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+summary: Install Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP6 to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
 = Configure SUSE Linux Enterprise Server 15 SP6 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
@@ -19,7 +19,7 @@ include::_include/hu/linux-configure-kvm-note.adoc[]
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
-include::_include/hu/install-linux-host-utilities.adoc[]
+include::_include/hu/install-linux-host-utilities-80.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 

@@ -1,0 +1,189 @@
+---
+sidebar: sidebar
+permalink: hu-aix-73.html
+keywords: Host Utilities, aix, powervm, vios, 3.1, 7.2 netapp, ontap
+summary: Install Linux Host Utilities on an AIX 7.3/VIOS 4.x host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+---
+= Configure AIX 7.3/VIOS 4.x for FCP and iSCSI with ONTAP storage 
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The AIX Host Utilities software provides management and diagnostic tools for AIX hosts that are connected to ONTAP storage. When you install the AIX Host Utilities on an AIX 7.3/VIOS 4.x host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs. 
+
+include::_include/hu/aix-enable-san-boot.adoc[]
+
+include::_include/hu/aix-install-host-utilities.adoc[]
+
+link:hu-aix-80.html[Install AIX Host Utilities 8.0].
+
+== Step 3: Confirm the multipath configuration for your host
+
+You can use multipathing with AIX and PowerVM to manage ONTAP LUNs. 
+
+include::_include/hu/aix-multipathing-introduction.adoc[]
+
+.Steps
+
+. Verify that "MPIO NetApp" is available. "MPIO NetApp" is loaded during the AIX Host Utilities installation and becomes available after you reboot the host.
++
+[source,cli]
+----
+lsdev -Cc disk
+----
++
+.Example output
++
+`hdisk1  Available 00-00-02 MPIO NetApp FCP Default PCM Disk`
+
+. The AIX Host Utilities load the following parameter settings for ONTAP LUNs.
++
+.Show parameter settings
+[%collapsible]
+====
+[cols=4*, options="header"]
+|===
+| Parameter
+| Environment
+| Value for AIX
+| Note
+| algorithm | MPIO | round_robin | Set by Host Utilities
+| hcheck_cmd | MPIO | inquiry | Set by Host Utilities
+| hcheck_interval | MPIO | 30 | Set by Host Utilities
+| hcheck_mode | MPIO | nonactive | Set by Host Utilities
+| lun_reset_spt | MPIO / non-MPIO | yes | Set by Host Utilities
+| max_transfer | MPIO / non-MPIO | FC LUNs: 0x100000 bytes | Set by Host Utilities
+| qfull_dly | MPIO / non-MPIO | 2-second delay | Set by Host Utilities
+| queue_depth | MPIO / non-MPIO | 64 | Set by Host Utilities
+| reserve_policy | MPIO / non-MPIO | no_reserve | Set by Host Utilities
+| re_timeout (disk) | MPIO / non-MPIO | 30 seconds | Uses OS Default values
+| dyntrk | MPIO / non-MPIO | Yes | Uses OS Default values
+| fc_err_recov | MPIO / non-MPIO | Fast_fail | Uses OS Default values
+| q_type | MPIO / non-MPIO | simple | Uses OS Default values
+| num_cmd_elems | MPIO / non-MPIO | 1024 for AIX
+3072 for VIOS
+| FC EN1B, FC EN1C
+| num_cmd_elems | MPIO / non-MPIO | 1024 for AIX | FC EN0G
+|===
+====
+
+. Configure the following settings to optimize I/O operations for FC.
++
+[cols=4*, options="header"]
+|===
+| Parameter
+| AIX versions 
+| AIX OS default value 
+| NetApp recommended value 
+.4+| rw_timeout (disk) 
+| AIX 7.3TL3 
+| NPIV:30 seconds, vSCSI:45 seconds 
+| NPIV:30 seconds, vSCSI:120 seconds 
+| AIX 7.2TL5 
+| NPIV:30 seconds, vSCSI:45 seconds 
+| NPIV:30 seconds, vSCSI:120 seconds 
+| VIOS 3.1 
+| 30 seconds 
+| 30 seconds 
+| VIOS 4.1 
+| 30 seconds 
+| 30 seconds 
+|===
+
+. Configure the following settings to optimize I/O operations for iSCSI.
++
+[cols=4*, options="header"]
+|===
+| Parameter 
+| AIX versions 
+| AIX OS default value 
+| NetApp recommended value  
+.5+| rw_timeout (disk) 
+| AIX 7.3TL3 
+| vSCSI:45 seconds  
+| vSCSI:120 seconds 
+| AIX 7.2TL5 
+| vSCSI:45 seconds 
+| vSCSI:120 seconds 
+| VIOS 3.1 
+| 120 seconds 
+| 30 seconds 
+| VIOS 4.1 
+| 120 seconds 
+| 30 seconds 
+| All AIX7.2 and AIX 7.3 standalone 
+| 120 seconds 
+| 30 seconds 
+| isw_err_recov (iscsi0) 
+| All AIX7.2 and AIX 7.3 standalone 
+| delayed_fail 
+| fast_fail 
+|===
+
+include::_include/hu/aix-recommended-settings-mcc-snapmirror-active-sync.adoc[]
+
+. Verify the parameter settings and that multiple paths are listed for an ONTAP LUN:
++
+[source,cli]
+----
+lsmpio
+----
++
+In the following example for an AFF or FAS system, the PCM is listed for NetApp.
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+# lsmpio -l hdisk1 
+name    path_id  status   path_status  parent  connection 
+
+hdisk1  0        Enabled  Non          fscsi6  203200a098ba7afe,5b000000000000 
+hdisk1  1        Enabled  Non          fscsi8  203100a098ba7afe,5b000000000000 
+hdisk1  2        Enabled  Sel,Opt      fscsi6  203000a098ba7afe,5b000000000000 
+hdisk1  3        Enabled  Sel,Opt      fscsi8  203800a098ba7afe,5b000000000000 
+# 
+lsattr -El hdisk1 
+*PCM             PCM/friend/NetAppDefaultPCM Path Control Module*                     False 
+PR_key_value    0x6d0000000002              Persistant Reserve Key Value            True 
+algorithm       round_robin                 Algorithm                               True 
+clr_q           no                          Device CLEARS its Queue on error        True 
+dist_err_pcnt   0                           Distributed Error Sample Time           True 
+dist_tw_width   50                          Distributed Error Sample Time           True 
+hcheck_cmd      inquiry                     Health Check Command                    True 
+hcheck_interval 30                          Health Check Interval                   True 
+hcheck_mode     nonactive                   Health Check Mode                       True 
+location                                    Location Label                          True 
+lun_id          0x5b000000000000            Logical Unit Number ID                  False 
+lun_reset_spt   yes                         LUN Level Reset                         True 
+max_transfer    0x100000                    Maximum TRANSFER Size                   True 
+node_name       0x204800a098ba7afe          FC Node Name                            False 
+pvid            none                        Physical volume identifier              False 
+q_err           yes                         Use QERR bit                            True 
+q_type          simple                      Queuing TYPE                            True 
+qfull_dly       2                           Delay in seconds for SCSI TASK SET FULL True 
+queue_depth     64                          Queue DEPTH                             True 
+reassign_to     120                         REASSIGN time out value                 True 
+reserve_policy  PR_shared                   Reserve Policy                          True 
+rw_timeout      30                          READ/WRITE time out value               True 
+scsi_id         0xec409                     SCSI ID                                 False 
+start_timeout   60                          START unit time out value               True 
+timeout_policy  fail_path                   Active/Passive Disk Path Control Module True 
+ww_name         0x203200a098ba7afe          FC World Wide Name                      False 
+----
+====
+
+include::_include/hu/aix-asa-aff-fas-examples.adoc[]
+
+== Step 4: Review the known issues
+
+There are no known issues.
+
+include::_include/hu/aix-command-reference-whats-next.adoc[]
+
+// 2025 MAY 20, ONTAPDOC-2878 and ONTAPDOC-2365 

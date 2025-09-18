@@ -13,22 +13,22 @@ summary: How to Configure NVMe-oF Host for RHEL 10 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/reuse-nvme-introduction.adoc[]
+include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task 
 You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 10. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Support for SAN booting using the NVMe/FC protocol.
+** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 ** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 10.
+
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
 ** Beginning with RHEL 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe-oF is not supported.
 * Known limitations: 
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces, as it disconnects both root and data filesystems and may lead to system instability.
+** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
 include::_include/nvme/enable-san-booting.adoc[]
@@ -304,17 +304,19 @@ The expected ouptut is 1.
 
 == Step 4: Optionally, enable 1MB I/O 
 
-include::_include/nvme/reuse_nvme_enabling_broadcom_1mb_size.adoc[]
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services 
 
-With RHEL 10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. After booting completes, verify that the services are enabled.
+With RHEL 10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
 
 include::_include/nvme/verify-nvme-services.adoc[]
 
 == Step 6: Configure NVMe/TCP
 
-include::_include/nvme/reuse-nvme-configure-nvme-tcp.adoc[]
+include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
 .Steps
 
@@ -463,64 +465,16 @@ nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21
 =====
 
 [NOTE]
-Beginning with RHEL 9.5, the default setting for the NVMe/TCP `ctrl_loss_tmo` timeout is turned off. This means there is no limit on the number of retries (indefinite retry). Consequently, you don't need to manually configure a specific `ctrl_loss_tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+====
+Beginning with RHEL 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
+
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
+====
 
 == Step 7: Validate NVMe-oF
 
-include::_include/nvme/reuse-nvme-validate-nvme-of.adoc[]
+include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
-.Steps
-
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
-
-.. Display the subsystems:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/model
-----
-+
-You should see the following output:
-+
-----
-NetApp ONTAP Controller
-NetApp ONTAP Controller
-----
-.. Display the policy:
-+
-[source,cli]
-----
-cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
----- 
-+
-You should see the following output:
-+
-----
-round-robin
-round-robin
-----
-
-. Verify that the namespaces are created and correctly discovered on the host:
-+
-[source,cli]
-----
-nvme list
-----
-+
-.Show example
-[%collapsible]
-====
-----
-Node         SN                   Model                          
------------------------------------------------------------ 
-/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
-                               
-
-Namespace Usage    Format             FW             Rev
------------------------------------------------------------
-1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
-----
-====
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
 [role="tabbed-block"]

@@ -1,0 +1,18 @@
+. If your storage configuration includes MetroCluster or SnapMirror active sync, change the default settings:
++
+[role="tabbed-block"]
+====
+.MetroCluster
+--
+By default, the AIX OS enforces a shorter I/O timeout when there are no available paths to a LUN. This might occur in configurations that include single-switch SAN fabric and in MetroCluster configurations that experience unplanned failovers. For additional information and recommended changes to default settings, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/mc/MC-KBs/What_are_AIX_Host_support_considerations_in_a_MetroCluster_configuration[What are AIX Host support considerations in a MetroCluster configuration?^].
+--
+
+.SnapMirror active sync
+--
+Beginning with ONTAP 9.11.1, SnapMirror active sync is supported for an AIX host. The primary cluster in an AIX configuration is the "active" cluster. 
+
+In an AIX configuration, failovers are disruptive. With each failover, you need to perform a re-scan on the host for I/O operations to resume. 
+
+Refer to the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/How_to_configure_AIX_Host_for_SnapMirror_active_sync_in_ONTAP[How to configure an AIX host for SnapMirror active sync^]. 
+--
+====

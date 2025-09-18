@@ -1,0 +1,97 @@
+---
+sidebar: sidebar
+permalink: hu-wuhu-80.html
+keywords: windows, 7.2, host utilities, SAN, windows
+summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP platforms.
+---
+= Install Windows Host Utilities 8.0 for ONTAP storage
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+
+[.lead]
+The Windows Host Utilities enable you to connect a Windows host computer to NetApp storage systems.
+
+[[supported-windows-versions-80]]
+The Windows Host Utilities support the following versions of Windows:
+
+* Windows 2025
+* Windows 2022
+* Windows 2019
+* Windows 2016
+
+Windows Host Utilities includes an installation program that sets the required Windows registry and Host Bus Adapter (HBA) parameters so that a Windows host can correctly handle the storage system behaviors for ONTAP platforms.
+
+include::_include/windows/windows-install-chunk-a.adoc[]
+|===
+|Program |Purpose
+
+| `\NetAppQCLI\fcconfig.exe`
+|Used by the installation program to set the HBA parameters.
+| `\NetAppQCLI\fcconfig.ini`
+|Used by the installation program to set the HBA parameters.
+|`san_version.exe`
+|Displays the version of the Host Utilities and FC HBAs.
+|===
+
+The Host Utilities support different Windows host configurations, protocols, and multipathing options. For more information, see the https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+
+== Step 1: Verify your host and storage system configuration
+
+Verify that your host and storage system configuration are supported before you install Windows Host Utilities for the <<supported-windows-versions-80,supported Windows version>>.
+
+.Steps
+
+. Check the supported configuration in the http://mysupport.netapp.com/matrix[Interoperability Matrix Tool^].
+. Check the hotfixes required for your Windows Server host version in the link:https://docs.netapp.com/us-en/ontap-sanhost/index.html[SAN host Windows documentation].
++
+For example, the link:https://docs.netapp.com/us-en/ontap-sanhost/hu-windows-2025.html[Configure Windows Server 2025 for ONTAP storage] documentation provides the instructions for installing Windows hotfixes for Windows Server 2025.
+. link:https://docs.netapp.com/us-en/ontap/san-admin/verify-license-fc-iscsi-task.html[Add the iSCSI or FCP license^].
+
+include::_include/windows/windows-install-chunk-b.adoc[]
+
+include::_include/windows/windows-install-host-utilities.adoc[]
+
+
+[role="tabbed-block"]
+====
+
+.Install interactively
+--
+
+Install the Windows Host Utilities software package interactively by running the installation program and following the prompts.
+
+. Download the executable file from the https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/8.0/downloads[NetApp Support Site^].
+. Change to the directory where you downloaded the executable file.
+. Run the `netapp_windows_host_utilities_8.0.0_x64` file and follow the instructions on the screen.
+. Reboot the Windows host when prompted.
+--
+
+.Install noninteractively
+--
+
+Perform a noninteractive installation of the Host Utilities by using the Windows command line. The system automatically reboots when the installation is complete.
+
+. Enter the following command at the Windows command prompt:
++
+[source,cli]
+----
+msiexec /i installer.msi /quiet MULTIPATHING= {0 | 1} [INSTALLDIR=inst_path]
+----
+* `installer` is the name of the `.msi` file for your CPU architecture.
+* MULTIPATHING specifies whether MPIO support is installed. The allowed values are "0" for no and "1" for yes.
+* `inst_path` is the path where the Host Utilities files are installed. The default path is `C:\Program Files\NetApp\Windows Host Utilities\`.
+
+[NOTE]
+To see the standard Microsoft Installer (MSI) options for logging and other functions, enter `msiexec /help` at the Windows command prompt. For example, the `msiexec /i install.msi /quiet /l*v <install.log> LOGVERBOSE=1` command displays logging information.
+
+--
+====
+
+include::_include/windows/windows-install-whats-next.adoc[]
+
+// 2025 ARR 28, ontap-sanhost-issue-218

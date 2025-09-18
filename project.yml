@@ -25,53 +25,78 @@ sidebar:
       - title: AIX Host Utilities
         entries:
           - title: Release notes
-            url: /hu_aix_rn.html
-          - title: Install AIX HU 7.0
-            url: /hu-aix-70.html
-          - title: Install AIX HU 6.1
-            url: /hu_aix_61.html
-          - title: Sample command reference
-            url: /hu_aix_61_cmd.html
+            url: /hu-aix-release-notes.html
+          - title: Install AIX Host Utilities
+            entries:
+            - title: Install AIX Host Utilities 8.0
+              url: /hu-aix-80.html
+            - title: Install AIX Host Utilities 7.0
+              url: /hu-aix-70.html
+            - title: Install AIX Host Utilities 6.1
+              url: /hu_aix_61.html
+          - title: Learn about the AIX SAN Tollkit
+            url: /hu-aix-san-toolkit.html
+          - title: AIX Host Utilities command reference
+            url: /hu-aix-command-reference.html
       - title: HP-UX Host Utilities
         entries:
          - title: Release notes
-           url: /hu_hpux_60_rn.html
-         - title: Install HP-UX HU 6.0
+           url: /hu-hpux-release-notes.html
+         - title: Install HP-UX Host Utilities 6.0
            url: /hu_hpux_60.html
-         - title: Sample command reference
+         - title: Learn about the SAN Toolkit
+           url: /hu-hpux-sanlun-toolkit.html
+         - title: Learn about the HP-UX command reference
            url: /hu_hpux_60_cmd.html
          
       - title: Linux Host Utilities
         entries:
         - title: Release notes
-          url: /hu_luhu_71_rn.html
-        - title: Install Linux Host Utilities 7.1
-          url: /hu_luhu_71.html
-        - title: Sample command reference
-          url: /hu_luhu_71_cmd.html
+          url: /hu-luhu-release-notes.html
+        - title: Install Linux Host Utilities
+          entries:
+          - title: Install Linux Host Utilities 8.0
+            url: /hu-luhu-80.html
+          - title: Install Linux Host Utilities 7.1
+            url: /hu_luhu_71.html
+        - title: Learn about the sanlun utility 
+          url: /hu-luhu-sanlun-utility.html
+        - title: Linux Host Utilities command reference
+          url: /hu-luhu-command-reference.html
         
       - title: Solaris Host Utilities
         entries:
-          - title: Release notes
-            url: /hu_solaris_62_rn.html
-          - title: Install Solaris HU 6.2
+        - title: Release notes
+          url: /hu-solaris-release-notes.html
+        - title: Install Solaris Host Utilities
+          entries:
+          - title: Install Solaris Host Utilities 8.0
+            url: /hu-solaris-80.html
+          - title: Install Solaris Host Utilities 6.2
             url: /hu_solaris_62.html
-          - title: Sample command reference
-            url: /hu_solaris_62_cmd.html
+        - title: Learn about the SAN Toolkit
+          url: /hu-solaris-san-toolkit.html
+        - title: Learn about the Solaris command reference
+          url: /hu-solaris-command-reference.html
       - title: Windows Host Utilities
         entries:
           - title: Release notes
-            url: /hu_wuhu_71_rn.html
-          - title: Install Windows Host Utilities 7.2
-            url: /hu_wuhu_72.html
-          - title: Install Windows Host Utilities 7.1
-            url: /hu_wuhu_71.html 
+            url: /hu-wuhu-release-notes.html
+          - title: Install Windows Host Utilities 
+            entries:
+              - title: Install Windows Host Utilities 8.0
+                url: /hu-wuhu-80.html
+              - title: Install Windows Host Utilities 7.2
+                url: /hu_wuhu_72.html
+              - title: Install Windows Host Utilities 7.1
+                url: /hu_wuhu_71.html 
+          - title: Configure settings for Windows Host Utilities
+            url: /hu_wuhu_hba_settings.html
           - title: Upgrade Windows Host Utilities
             url: /hu_wuhu_upgrade.html
           - title: Repair and remove Windows Host Utilities
             url: /hu_wuhu_repair_remove.html
-          - title: Configure registry settings
-            url: /hu_wuhu_hba_settings.html
+          
           - title: Troubleshoot
             url: /hu_wuhu_troubleshoot.html          
     - title: Configure hosts with FCP and iSCSI
@@ -80,6 +105,8 @@ sidebar:
         url: /hu_fcp_scsi_index.html
       - title: AIX and PowerVM/VIOS
         entries:
+        - title: 7.3/4.x
+          url: /hu-aix-73.html
         - title: 7.2/3.1
           url: /hu_aix_72.html
         - title: "7.1"
@@ -159,8 +186,10 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
-        - title: OL 9
+        - title: Oracle Linux 9
           entries:
+          - title: "9.5"
+            url: /hu-ol-95.html
           - title: "9.4"
             url: /hu_ol_94.html
           - title: "9.3"
@@ -171,7 +200,7 @@ sidebar:
             url: /hu_ol_91.html
           - title: "9.0"
             url: /hu_ol_90.html
-        - title: OL 8
+        - title: Oracle Linux 8
           pdf-filename: OL-8-FCP
           entries:
           - title: "8.10"
@@ -196,7 +225,7 @@ sidebar:
             url: /hu_ol_81.html
           - title: "8.0"
             url: /hu_ol_80.html
-        - title: OL 7
+        - title: Oracle Linux 7
           pdf-filename: OL-7-FCP
           entries:
           - title: "7.9"
@@ -219,7 +248,7 @@ sidebar:
             url: /hu_ol_71.html
           - title: "7.0"
             url: /hu_ol_70.html
-        - title: OL 6
+        - title: Oracle Linux 6
           pdf-filename: OL-6-FCP
           entries:
           - title: "6.10"
@@ -369,7 +398,7 @@ sidebar:
       - title: Solaris
         entries:
         - title: "11.4"
-          url: /hu_solaris_114.html
+          url: /hu-solaris-114.html
         - title: "11.3"
           url: /hu_solaris_113.html
       - title: SUSE Linux Enterprise Server
@@ -377,6 +406,8 @@ sidebar:
         - title: SUSE Linux Enterprise Server 15
           pdf-filename: SLES-15-FCP
           entries:
+          - title: 15 SP7
+            url: /hu_sles_15SP7.html
           - title: 15 SP6
             url: /hu_sles_15SP6.html
           - title: 15 SP5
@@ -450,9 +481,11 @@ sidebar:
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
-        - title: OL 9
+        - title: Oracle Linux 9
           pdf-filename: NVMeF OL
           entries:
+          - title: "9.5"
+            url: /nvme-ol-95.html
           - title: "9.4"
             url: /nvme_ol_94.html
           - title: "9.3"
@@ -463,7 +496,7 @@ sidebar:
             url: /nvme_ol_91.html
           - title: "9.0"
             url: /nvme_ol_90.html
-        - title: OL 8
+        - title: Oracle Linux 8
           pdf-filename: NVMeF OL
           entries:
           - title: "8.10"
@@ -486,7 +519,7 @@ sidebar:
             url: /nvme_ol_82.html
           - title: "8.1"
             url: /nvme_ol_81.html
-        - title: OL 7
+        - title: Oracle Linux 7
           entries:
           - title: "7.9"
             url: /nvme_ol_79.html
@@ -583,6 +616,8 @@ sidebar:
         entries:
         - title: SUSE Linux Enterprise Server 15
           entries:
+          - title: 15 SP7
+            url: /nvme_sles15_sp7.html
           - title: 15 SP6
             url: /nvme_sles15_sp6.html
           - title: 15 SP5
