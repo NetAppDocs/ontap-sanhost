@@ -1,6 +1,6 @@
 == Step 4: Confirm the multipath configuration for your host
 
-Install Microsoft Multipath I/O (MPIO) software and enable multipathing if your Windows host has more than one path to the storage system.
+Install the Microsoft Multipath I/O (MPIO) software and enable multipathing if your Windows host has more than one path to the storage system.
 
 On a Windows system, the two main components in an MPIO solution are the device-specific module (DSM) and the Windows MPIO. MPIO presents one disk to the Windows OS for all paths and the DSM manages path failovers.
 
