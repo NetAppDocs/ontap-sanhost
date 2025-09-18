@@ -17,10 +17,10 @@ include::_include/hu/install-linux-hu-introduction.adoc[]
 
 Linux Host Utilities 8.0 supports the following distribution types:
 
-*	Red Hat Enterprise Linux
+*	Red Hat Enterprise Linux (RHEL)
 *	SUSE Linux Enterprise Server
 *	Oracle Linux
-*	Oracle VM
+*	Ubuntu
 
 NOTE: The Linux Host Utilities software doesn't support NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) host protocols.
 
@@ -43,14 +43,14 @@ Refer to the vendor documentation to verify that the following packages are corr
 +
 [role="tabbed-block"]
 ====
-.Linux OS
+.RHEL and SUSE Linux Enterprise Server
 --
 [source, cli]
 ----
 rpm -e netapp_linux_unified_host_utilities-x-x
 ----
 --
-.Ubuntu or Debian OS
+.Ubuntu
 --
 [source, cli]
 ----
@@ -67,7 +67,7 @@ For earlier versions of Linux Host Utilities, go to the directory where the host
 +
 [role="tabbed-block"]
 =====
-.Linux OS
+.RHEL and SUSE Linux Enterprise Server
 --
 [source, cli]
 ----
@@ -86,7 +86,7 @@ Updating / installing...
 ----
 --
 
-.Ubuntu or Debian OS
+.Ubuntu
 --
 [source, cli]
 ----
