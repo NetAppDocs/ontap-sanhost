@@ -2,7 +2,7 @@
 
 Install Microsoft Multipath I/O (MPIO) software and enable multipathing if your Windows host has more than one path to the storage system.
 
-The MPIO software presents a single disk to the Windows OS for all paths, and a device-specific module (DSM) manages path failover. On a Windows system, the two main components in an MPIO solution are the DSM and the Windows MPIO.
+On a Windows system, the two main components in an MPIO solution are the device-specific module (DSM) and the Windows MPIO. MPIO presents one disk to the Windows OS for all paths and the DSM manages path failovers.
 
 CAUTION: If you don't install the MPIO software, the Windows OS might see each path as a separate disk. This can lead to data corruption. 
 
@@ -44,7 +44,7 @@ The timeout values for QLogic FC HBAs:
 
 . Verify the path status for your ONTAP LUNs:
 +
-Depending on your SAN configuration, the host uses ASA, AFF, or FAS configurations to access ONTAP LUNs. In both configurations, you shouldn't require more than four paths to access a single ONTAP LUN. If there are more than four paths, it might cause issues with the paths during a storage failure.
+Depending on your SAN configuration, the host uses ASA, AFF, or FAS configurations to access ONTAP LUNs. These configurations shouldn't require more than four paths to access a single ONTAP LUN. More than four paths can cause problems during storage failure.
 +
 The following example outputs show the correct settings for ONTAP LUNs for an ASA, AFF, or FAS configuration.
 +
@@ -52,14 +52,14 @@ The following example outputs show the correct settings for ONTAP LUNs for an AS
 ====
 .ASA configuration
 --
-An ASA configuration should have one group of Active/Optimized paths with single priorities. This means the paths are serviced by the controller and the I/O is sent on all the active paths.
+An ASA configuration should have one group of Active/Optimized paths with single priorities. The controller services the paths and sends I/O on all active paths.
 
 image::asa.png[Screenshot of ONTAP LUN with active/optimized paths]
 --
 
 .AFF or FAS configuration
 --
-An AFF or FAS configuration should have two groups of paths with different priorities. The paths with higher priorities are Active/Optimized. This means the Active/Optimized paths are serviced by the controller where the aggregate is located. The paths with lower priorities are active but non-optimized because they are served from a different controller. The non-optimized paths are only used when optimized paths aren't available.
+An AFF or FAS configuration should have two groups of paths with different priorities. The paths with higher priorities are Active/Optimized and are serviced by the controller where the aggregate is located. The paths with lower priorities are serviced from a different controller. They are active but non-optimized and are only used when optimized paths aren't available.
 
 image::nonasa.png[Screenshot of an ONTAP LUN with two active/optimized paths and two active/non-optimized paths]
 --

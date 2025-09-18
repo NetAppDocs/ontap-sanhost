@@ -13,7 +13,7 @@ summary: Install Windows Host Utilities on a Windows Server 2025 host to help yo
 :imagesdir: ./media/
 
 [.lead]
-The Windows Host Utilities are a set of software programs with documentation that enables you to connect Windows hosts to virtual disks (LUNs) on a NetApp SAN. When you install the Windows Host Utilities on a Windows Server 2025 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+The Windows Host Utilities enable you to connect Windows hosts to virtual disks (LUNs) on a NetApp SAN. Install the Windows Host Utilities on a Windows Server 2025 host to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/windows/windows-san-boot.adoc[]
 
