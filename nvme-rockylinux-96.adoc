@@ -560,7 +560,7 @@ After booting completes, verify that the `nvmefc-boot-connections.service` and `
 
 include::_include/nvme/verify-nvme-services.adoc[]
 
-== Step 6: Validate NVMe-oF
+== Step 6: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of-rocky-linux.adoc[]
 

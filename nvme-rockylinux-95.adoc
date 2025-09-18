@@ -42,15 +42,9 @@ Example Rocky Linux kernel version:
 
 include::_include/nvme/linux-validate-software-version-rockylinux.adoc[] 
 
-== Step 3: Configure NVMe/FC
+== Step 3: Configure NVMe/FC and NVMe/TCP 
+
 include::_include/nvme/nvme-configure.adoc[]
-
-== Step 4: Optionally, enable 1MB I/O 
-include::_include/nvme/nvme-enable-1mb-io.adoc[]
-
-== Step 5: Configure NVMe/TCP
-
-include::_include/nvme/nvme-configure-nvme-tcp-rocky-linux.adoc[]
 
 [NOTE]
 ====
@@ -58,15 +52,21 @@ Beginning with Rocky Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo time
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
+=====
 
-== Step 6: Validate NVMe-oF
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
+
+== Step 5: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of-rocky-linux.adoc[]
 
-== Step 7: Set up secure in-band authentication
+== Step 6: Set up secure in-band authentication
+
 include::_include/nvme/nvme-secure-in-band-authentication.adoc[]
 
-== Step 8: Review the known issues
+== Step 7: Review the known issues
 
 There are no known issues.
 

@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: nvme-rockylinux-10.html
 keywords: nvme, linux, rocky, linux, red hat, enterprise
-summary: How to Configure NVMe-oF Host for Rocky Linux 10 with ONTAP storage
+summary: How to Configure NVMe-oF Host for Rocky Linux 10.0 with ONTAP storage
 ---
-= Configure Rocky Linux 10 for NVMe-oF with ONTAP storage
+= Configure Rocky Linux 10.0 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,7 +15,7 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 10 with ONTAP storage
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 10. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for Rocky Linux 10:
+This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 10.0. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for Rocky Linux 10.0:
 
 * DM multipath support for NVMe-oF is not supported.
 * Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
@@ -30,7 +30,7 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install Rocky Linux 10 on the server. After the installation is complete, verify that you are running the required Rocky Linux 10 kernel: 
+. Install Rocky Linux 10.0 on the server. After the installation is complete, verify that you are running the required Rocky Linux 10.0 kernel: 
 +
 [source,cli]
 ----
@@ -459,7 +459,7 @@ include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services 
 
-With Rocky Linux 10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+With Rocky Linux 10.0, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
 
 After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
 
@@ -579,7 +579,7 @@ nvme netapp ontapdevices -o json
 
 == Step 7: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 10 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 10.0 host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -598,7 +598,7 @@ Set up secure in-band authentication using the CLI.
 ----
 cat /etc/nvme/hostnqn
 ----
-. Generate the dhchap key for the Rocky Linux 10 host.
+. Generate the dhchap key for the Rocky Linux 10.0 host.
 +
 The following output describes the `gen-dhchap-key` command parameters:
 +
