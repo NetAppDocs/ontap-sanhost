@@ -43,14 +43,17 @@ Refer to the vendor documentation to verify that the following packages are corr
 +
 [role="tabbed-block"]
 ====
-.RHEL and SUSE Linux Enterprise Server
+.Most Linux distributions
 --
+Remove Linux Host Utilities from a RHEL, SUSE Linux Enterprise Server, or Oracle Linux host:
+
 [source, cli]
 ----
 rpm -e netapp_linux_unified_host_utilities-x-x
 ----
 --
 .Ubuntu
+Remove Linux Host Utilities from an Ubuntu host:
 --
 [source, cli]
 ----
@@ -67,8 +70,10 @@ For earlier versions of Linux Host Utilities, go to the directory where the host
 +
 [role="tabbed-block"]
 =====
-.RHEL and SUSE Linux Enterprise Server
+.Most Linux distributions
 --
+Install Linux Host Utilities 8.0 on a RHEL, SUSE Linux Enterprise Server, or Oracle Linux host:
+
 [source, cli]
 ----
 rpm -ivh netapp_linux_unified_host_utilities-8-0.x86_xx.rpm
@@ -88,6 +93,7 @@ Updating / installing...
 
 .Ubuntu
 --
+Install Linux Host Utilities 8.0 on an Ubuntu host:
 [source, cli]
 ----
 sudo apt install /<path_to_file>/netapp_linux_unified_host_utilities-8-0.x86_xx.deb
