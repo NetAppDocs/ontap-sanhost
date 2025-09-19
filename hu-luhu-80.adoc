@@ -53,8 +53,9 @@ rpm -e netapp_linux_unified_host_utilities-x-x
 ----
 --
 .Ubuntu
-Remove Linux Host Utilities from an Ubuntu host:
 --
+Remove Linux Host Utilities from an Ubuntu host:
+
 [source, cli]
 ----
 sudo apt remove netapp_linux_unified_host_utilities-x-x
@@ -93,20 +94,20 @@ Updating / installing...
 
 .Ubuntu
 --
-Install Linux Host Utilities 8.0 on an Ubuntu host:
+.. Install Linux Host Utilities 8.0 on an Ubuntu host:
++
 [source, cli]
 ----
 sudo apt install /<path_to_file>/netapp_linux_unified_host_utilities-8-0.x86_xx.deb
 ----
-[NOTE]
-====
-If you are using an Ubuntu host OS, you need to manually link it to the HBA library:
 
+.. Manually link the Ubuntu OS to the HBA library:
++
 [source, cli]
 ----
 cp /opt/QLogic_Corporation/QConvergeConsoleCLI/lib64/libHBAAPI.so.2.0.2 /usr/lib64/libHBAAPI.so
 ----
-====
+
 --
 =====
 . Verify the installation:
