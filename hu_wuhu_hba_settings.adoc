@@ -503,7 +503,7 @@ The Host Utilities `fcconfig.ini` file displays this parameter as either `LinkDo
 
 During the installation of the required Emulex or QLogic HBA drivers on an FC system, several parameters are checked and, in some cases, modified by the Windows Host Utilities.
 
-The Windows Host Utilities set values for the following parameters if MS DSM for Windows MPIO is detected:
+The Windows Host Utilities sets values for the following parameters if MS DSM for Windows MPIO is detected:
 
 * *LinkTimeOut*: Defines the length of time in seconds that the host port waits before resuming I/O after a physical link is down.
 * *NodeTimeOut*: Defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
