@@ -17,7 +17,7 @@ include::_include/hu/install-linux-hu-introduction.adoc[]
 
 Linux Host Utilities 8.0 supports the following distribution types:
 
-*	Red Hat Enterprise Linux
+*	Red Hat Enterprise Linux (RHEL)
 *	SUSE Linux Enterprise Server
 *	Oracle Linux
 *	Ubuntu
@@ -41,10 +41,27 @@ Refer to the vendor documentation to verify that the following packages are corr
 
 . If you have a version of Linux Host Utilities currently installed, remove it:
 +
+[role="tabbed-block"]
+====
+.Linux hosts
+--
+Remove Linux Host Utilities from a RHEL, SUSE Linux Enterprise Server, or Oracle Linux host:
+
 [source, cli]
 ----
-rpm -e netapp_linux_unified_host_utilities-8-0
+rpm -e netapp_linux_unified_host_utilities-x-x
 ----
+--
+.Ubuntu
+--
+Remove Linux Host Utilities from an Ubuntu host:
+
+[source, cli]
+----
+sudo apt remove netapp_linux_unified_host_utilities-x-x
+----
+--
+====
 +
 For earlier versions of Linux Host Utilities, go to the directory where the host utility software is installed and enter the uninstall command to remove the installed package.
 
@@ -52,13 +69,19 @@ For earlier versions of Linux Host Utilities, go to the directory where the host
 
 . Go to the directory to which you downloaded the software package and install it:
 +
+[role="tabbed-block"]
+=====
+.Linux hosts
+--
+Install Linux Host Utilities 8.0 on a RHEL, SUSE Linux Enterprise Server, or Oracle Linux host:
+
 [source, cli]
 ----
 rpm -ivh netapp_linux_unified_host_utilities-8-0.x86_xx.rpm
 ----
-+
+
 You should see an output similar to the following example:
-+
+
 ----
 rpm -ivh netapp_linux_unified_host_utilities-8-0.x86_64.rpm
 Verifying...                          ################################# [100%]
@@ -67,16 +90,26 @@ Updating / installing...
    1:netapp_linux_unified_host_utiliti################################# [100%]
 
 ----
-+
-[NOTE]
-====
-If you are using an Ubuntu host OS, you need to manually link it to the HBA library:
+--
 
+.Ubuntu
+--
+.. Install Linux Host Utilities 8.0 on an Ubuntu host:
++
+[source, cli]
+----
+sudo apt install /<path_to_file>/netapp_linux_unified_host_utilities-8-0.x86_xx.deb
+----
+
+.. Manually link the Ubuntu OS to the HBA library:
++
 [source, cli]
 ----
 cp /opt/QLogic_Corporation/QConvergeConsoleCLI/lib64/libHBAAPI.so.2.0.2 /usr/lib64/libHBAAPI.so
 ----
-====
+
+--
+=====
 . Verify the installation:
 +
 [source, cli]
@@ -91,3 +124,5 @@ sanlun version 8.0.386.1644
 ----
 
 include::_include/hu/linux-install-hu-whats-next.adoc[]
+
+// 2025 SEP 18, ONTAPDOC-3352
