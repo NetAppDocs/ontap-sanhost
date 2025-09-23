@@ -37,12 +37,12 @@ a|* RHEL 10.0
 * RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.8, 8.2 
 * Rocky Linux 10.0
 * Rocky Linux 9.6, 9.5, 9.4, 9.3, 9.2, 9.1  
-* Rocky Linux 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.8, 8.2 |Supported beginning with 9.10.1
+* Rocky Linux 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.8, 8.2 |Support begins with 9.10.1
 |*NVMe/TCP is a fully supported enterprise feature* 
 a|* RHEL 10.0 
 * RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
 * Rocky Linux 10.0 
-* Rocky Linux 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 |Supported beginning with 9.10.1 
+* Rocky Linux 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 |Support begins with 9.10.1 
 |*NVMe and SCSI traffic supported on the same host*
 
 Use dm-multipath for SCSI LUNs and NVMe multipath for NVMe-oF namespaces.
@@ -51,7 +51,7 @@ a|* RHEL 10.0
 * RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 
 * Rocky Linux 10.0 
 * Rocky Linux 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
-* Rocky Linux 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 |Supported beginning with 9.4 
+* Rocky Linux 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 |Support begins with 9.4 
 |===
 
 ONTAP supports the following SAN Host features regardless of ONTAP version:
