@@ -181,7 +181,7 @@ The expected output is 1.
 .TCP
 --
 
-The NVMe/TCP protocol does not support the auto-connect operation. You must manually perform the NVMe/TCP connect or connect-all operations to discover the NVMe/TCP subsystems and namespaces.
+The NVMe/TCP protocol does not support the auto-connect operation. You need to manually perform the NVMe/TCP connect or connect-all operations to discover the NVMe/TCP subsystems and namespaces.
 
 .Steps
 
