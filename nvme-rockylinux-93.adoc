@@ -15,7 +15,7 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 9.3 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 9.3. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. The following are known limitations for Rocky Linux 9.3:
+This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 9.3. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. NVMe-oF with Rocky Linux 9.3 has the following known limitations:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 
