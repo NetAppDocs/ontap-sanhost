@@ -151,7 +151,7 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 cat /sys/class/scsi_host/host*/fwrev 
 ----
 +
-The command returns firmware versions:
+The command returns the firmware versions:
 +
 ----
 14.2.673.40, sli-4:6:d
@@ -284,7 +284,7 @@ The expected output is 1.
 .TCP
 --
 
-The NVMe/TCP protocol does not support the auto-connect operation. You must manually perform the NVMe/TCP connect or connect-all operations to discover the NVMe/TCP subsystems and namespaces.
+The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
 
 .Steps
 
