@@ -482,6 +482,61 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 --
 =====
 
+=== Modify the iopolicy in Udev Rules
+
+For RHEL 9.6, the default iopolicy for NVMe-oF is set to `round-robin`. If you want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+
+. Edit the udev rules file. Open the following file in a text editor with root privileges:
++
+[source,cli]
+----
+/usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
++
+You should see the following output:
++
+----
+vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
+
+. Find the line that sets iopolicy for the NetApp ONTAP Controller. 
++
+The following example shows an example rule:
++
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
+----
+
+. Modify the rule so that `round-robin` becomes `queue-depth`:
++
+[source,cli]
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="queue-depth"
+----
+
+. Run the following commands to reload the udev rules and apply the changes:
++
+[source,cli]
+----
+udevadm control --reload
+udevadm trigger --subsystem-match=nvme-subsystem
+----
+
+. Verify the current iopolicy for your subsystem. Replace <subsystem> with the appropriate name, for example, `nvme-subsys0`. 
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/<subsystem>/iopolicy
+----
++
+You should see the following output:
++
+----
+queue-depth.
+----
+
+NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. No reboot is required.
+
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
@@ -492,7 +547,73 @@ include::_include/nvme/verify-nvme-services.adoc[]
 
 == Step 6: Verify the multipathing configuration
 
-include::_include/nvme/nvme-validate-nvme-of.adoc[]
+Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
+
+.Steps
+
+. Verify that the in-kernel NVMe multipath is enabled:
++
+[source,cli]
+----
+cat /sys/module/nvme_core/parameters/multipath
+----
++
+You should see the following output:
++
+----
+Y
+----
+
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
+
+.. Display the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
++
+----
+NetApp ONTAP Controller
+NetApp ONTAP Controller
+----
+.. Display the policy:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+----
++
+You should see the following output:
++
+----
+queue-depth
+queue-depth
+----
+
+. Verify that the namespaces are created and correctly discovered on the host:
++
+[source,cli]
+----
+nvme list
+----
++
+.Show example
+[%collapsible]
+====
+----
+Node         SN                   Model                          
+---------------------------------------------------------  
+/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
+                               
+
+Namespace Usage    Format             FW             Rev
+-----------------------------------------------------------
+1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
+----
+====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
