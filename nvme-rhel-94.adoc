@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: nvme-rockylinux-10.html
-keywords: nvme, linux, rocky, linux, red hat, enterprise
-summary: How to Configure NVMe-oF Host for Rocky Linux 10.0 with ONTAP storage
+permalink: nvme-rhel-94.html
+keywords: nvme, linux, rhel, red hat, enterprise
+summary: How to Configure NVMe-oF Host for RHEL 9.4 with ONTAP
 ---
-= Configure Rocky Linux 10.0 for NVMe-oF with ONTAP storage
+= Configure RHEL 9.4 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,12 +15,9 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 10.0 with ONTAP storage
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 10.0. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. 
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 9.4. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. 
 
-*NVMe-oF with Rocky Linux 10.0 has the following known limitations:*
-
-* DM multipath support for NVMe-oF is not supported.
-* Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+NVMe-oF with RHEL 9.4 has no known limitations.
 
 == Step 1: Optionally, enable SAN booting
 
@@ -32,17 +29,17 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install Rocky Linux 10.0 on the server. After the installation is complete, verify that you are running the required Rocky Linux 10.0 kernel: 
+. Install RHEL 9.4 on the server. After the installation is complete, verify that you are running the required RHEL 9.4 kernel: 
 +
 [source,cli]
 ----
 uname -r
 ----
 +
-Example Rocky Linux kernel version:
+Example RHEL kernel version:
 +
 ----
-6.12.0-55.9.1.el10_0.x86_64
+5.14.0-423.el9.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -52,10 +49,10 @@ Example Rocky Linux kernel version:
 rpm -qa|grep nvme-cli
 ----
 +
-The following example shows an `nvme-cli` package version:
+The following example shows an nvme-cli package version:
 +
 ----
-nvme-cli-2.11-5.el10.x86_64
+nvme-cli-2.6-4.el9.x86_64
 ----
 
 . Install the `libnvme` package:
@@ -65,10 +62,10 @@ nvme-cli-2.11-5.el10.x86_64
 rpm -qa|grep libnvme
 ----
 +
-The following example shows an `libnvme` package version:
+The following example shows an libnvme package version:
 +
 ----
-libnvme-1.11.1-1.el10.x86_64
+libnvme-1.6-1.el9.x86_64
 ----
 
 . On the host, check the hostnqn string at `/etc/nvme/hostnqn`:
@@ -78,44 +75,35 @@ libnvme-1.11.1-1.el10.x86_64
 cat /etc/nvme/hostnqn
 ----
 +
-The following example shows a `hostnqn` value:
+The following example shows an `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0036-5610-804a-c7c04f365a32
 ----
 
 . Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 [source,cli]
 ----
-::> vserver nvme subsystem host show -vserver vs_nvme_194_rockylinux10
+::> vserver nvme subsystem host show -vserver vs_coexistence_LPE36002
 ----
 +
 .Show example
 [%collapsible]
 ====
 ----
-Vserver Subsystem Priority  Host NQN
-------- --------- --------  ------------------------------------------------
-vs_nvme_194_rockylinux10
-        nvme4
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
-        nvme_1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
-        nvme_2
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
-        nvme_3
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
-4 entries were displayed.
+Vserver     Subsystem          Host NQN
+----------- --------------- ----------------------------------------------------------
+vs_coexistence_LPE36002   nvme    nqn.2014-08.org.nvmexpress:uuid: 4c4c4544-0036-5610-804a-
 ----
 ====
-+
+
 [NOTE]
-If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP storage system subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 == Step 3: Configure NVMe/FC and NVMe/TCP
 
-Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
+Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations. 
 
 [role="tabbed-block"]
 =====
@@ -168,8 +156,8 @@ cat /sys/class/scsi_host/host*/fwrev
 The command returns the firmware versions:
 +
 ----
-14.0.539.16, sli-4:6:d
-14.0.539.16, sli-4:6:d
+14.2.673.40, sli-4:6:d
+14.2.673.40, sli-4:6:d
 ----
 
 .. Display the inbox driver version:
@@ -182,7 +170,7 @@ cat /sys/module/lpfc/version
 The following example shows a driver version:
 +
 ----
-0:14.4.0.6
+0:14.2.0.16
 ----
 
 +
@@ -202,11 +190,11 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-You should see output similar to:
+The following example shows port identities:
 +
 ----
-0x2100f4c7aa0cd7c2
-0x2100f4c7aa0cd7c3
+0x100000109b3c081f
+0x100000109b3c0820
 ----
 
 . Verify that your initiator ports are online:
@@ -236,35 +224,34 @@ cat /sys/class/scsi_host/host*/nvme_info
 [subs=+quotes]
 ----
 NVME Initiator Enabled
-XRI Dist lpfc2 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc2 WWPN x100000109bf044b1 WWNN x200000109bf044b1 DID x022a00 *ONLINE*
-NVME RPORT       WWPN x202fd039eaa7dfc8 WWNN x202cd039eaa7dfc8 DID x021310 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x202dd039eaa7dfc8 WWNN x202cd039eaa7dfc8 DID x020b10 *TARGET DISCSRVC ONLINE*
+XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc0 WWPN x100000109b3c081f WWNN x200000109b3c081f DID x062300 *ONLINE*
+NVME RPORT       WWPN x2143d039ea165877 WWNN x2142d039ea165877 DID x061b15 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2145d039ea165877 WWNN x2142d039ea165877 DID x061115 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
-LS: Xmt 0000000810 Cmpl 0000000810 Abort 00000000
+LS: Xmt 000000040b Cmpl 000000040b Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000007b098f07 Issue 000000007aee27c4 OutIO ffffffffffe498bd
-        abort 000013b4 noxri 00000000 nondlp 00000058 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 000013b4 Err 00021443
+Total FCP Cmpl 000000001f5c4538 Issue 000000001f58da22 OutIO fffffffffffc94ea
+abort 00000630 noxri 00000000 nondlp 00001071 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00000630 Err 0001bd4a
 
 NVME Initiator Enabled
-XRI Dist lpfc3 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc3 WWPN x100000109bf044b2 WWNN x200000109bf044b2 DID x021b00 *ONLINE*
-NVME RPORT       WWPN x2033d039eaa7dfc8 WWNN x202cd039eaa7dfc8 DID x020110 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2032d039eaa7dfc8 WWNN x202cd039eaa7dfc8 DID x022910 *TARGET DISCSRVC ONLINE*
+XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc1 WWPN x100000109b3c0820 WWNN x200000109b3c0820 DID x062c00 *ONLINE*
+NVME RPORT       WWPN x2144d039ea165877 WWNN x2142d039ea165877 DID x060215 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2146d039ea165877 WWNN x2142d039ea165877 DID x061815 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
-LS: Xmt 0000000840 Cmpl 0000000840 Abort 00000000
+LS: Xmt 000000040b Cmpl 000000040b Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000007afd4434 Issue 000000007ae31b83 OutIO ffffffffffe5d74f
-        abort 000014a5 noxri 00000000 nondlp 0000006a qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 000014a5 Err 0002149a
+Total FCP Cmpl 000000001f5c3618 Issue 000000001f5967a4 OutIO fffffffffffd318c
+abort 00000629 noxri 00000000 nondlp 0000044e qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00000629 Err 0001bd3d
 ----
 ====
 
 --
-
 .FC - Marvell/QLogic
 --
 
@@ -282,8 +269,8 @@ cat /sys/class/fc_host/host*/symbolic_name
 The following example shows driver and firmware versions:
 +
 ----
-QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
-QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
+QLE2872 FW:v9.12.01 DVR:v10.02.09.100-k
+QLE2872 FW:v9.12.01 DVR:v10.02.09.100-k
 ----
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
@@ -315,18 +302,19 @@ nvme discover -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.20
+nvme discover -t tcp -w 192.168.167.1 -a 192.168.167.16
 
-Discovery Log Number of Records 8, Generation counter 18
+Discovery Log Number of Records 8, Generation counter 10
 =====Discovery Log Entry 0======
 trtype:  tcp
 adrfam:  ipv4
 subtype: *current discovery subsystem*
 treq:    not specified
-portid:  4
+portid:  11
 trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:discovery
-traddr:  192.168.21.21
+subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:
+discovery
+traddr:  192.168.167.8
 eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 1======
@@ -334,10 +322,11 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *current discovery subsystem*
 treq:    not specified
-portid:  2
+portid:  9
 trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:discovery
-traddr:  192.168.20.21
+subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:
+discovery
+traddr:  192.168.166.8
 eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 2======
@@ -345,10 +334,11 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *current discovery subsystem*
 treq:    not specified
-portid:  3
+portid:  12
 trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:discovery
-traddr:  192.168.21.20
+subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:
+discovery
+traddr:  192.168.167.7
 eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 3======
@@ -356,10 +346,11 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *current discovery subsystem*
 treq:    not specified
-portid:  1
+portid:  10
 trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:discovery
-traddr:  192.168.20.20
+subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:
+discovery
+traddr:  192.168.166.7
 eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 4======
@@ -367,10 +358,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *nvme subsystem*
 treq:    not specified
-portid:  4
+portid:  11
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rockylinux10_tcp_subsystem
-traddr:  192.168.21.21
+subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:subsystem.nvme_tcp_1
+traddr:  192.168.167.8
 eflags:  none
 sectype: none
 =====Discovery Log Entry 5======
@@ -378,10 +369,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *nvme subsystem*
 treq:    not specified
-portid:  2
+portid:  9
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rockylinux10_tcp_subsystem
-traddr:  192.168.20.21
+subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:subsystem.nvme_tcp_1
+traddr:  192.168.166.8
 eflags:  none
 sectype: none
 =====Discovery Log Entry 6======
@@ -389,10 +380,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *nvme subsystem*
 treq:    not specified
-portid:  3
+portid:  12
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rockylinux10_tcp_subsystem
-traddr:  192.168.21.20
+subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:subsystem.nvme_tcp_1
+traddr:  192.168.167.7
 eflags:  none
 sectype: none
 =====Discovery Log Entry 7======
@@ -400,10 +391,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *nvme subsystem*
 treq:    not specified
-portid:  1
+portid:  10
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rockylinux10_tcp_subsystem
-traddr:  192.168.20.20
+subnqn:  nqn.1992-08.com.netapp:sn.983de7f4b39411ee871ed039ea954d18:subsystem.nvme_tcp_1
+traddr:  192.168.166.7
 eflags:  none
 sectype: none
 ----
@@ -421,10 +412,10 @@ nvme discover -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.20
-nvme discover -t tcp -w 192.168.21.1 -a 192.168.21.20
-nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.21
-nvme discover -t tcp -w 192.168.21.1 -a 192.168.21.21
+nvme discover -t tcp -w 192.168.166.6 -a 192.168.166.7 
+nvme discover -t tcp -w 192.168.166.6 -a 192.168.166.8 
+nvme discover -t tcp -w 192.168.167.6 -a 192.168.167.7 
+nvme discover -t tcp -w 192.168.167.6 -a 192.168.167.8
 ----
 ====
 
@@ -440,42 +431,39 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme	connect-all	-t	tcp	-w	192.168.20.1	-a	192.168.20.20
-nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.20
-nvme	connect-all	-t	tcp	-w	192.168.20.1	-a	192.168.20.21
-nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21	
+nvme	connect-all	-t	tcp	-w	192.168.166.6	-a	192.168.166.7							
+nvme	connect-all	-t	tcp	-w	192.168.166.6	-a	192.168.166.8 						
+nvme	connect-all	-t	tcp	-w	192.168.167.6	-a	192.168.167.7 						
+nvme	connect-all	-t	tcp	-w	192.168.167.6	-a	192.168.167.8						
 ----			
 ====
 
 [NOTE]
 ====
-Beginning with Rocky Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
+Beginning with RHEL 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
+--
 =====
 
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
 
-== Step 5: Verify NVMe boot services 
-
-include::_include/nvme/verify-nvme-services.adoc[]
-
-== Step 6: Verify the multipathing configuration
+== Step 5: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 . Verify that the controller state of each path is live and has the correct ANA status:
-+ 
++
 [role="tabbed-block"]
 =====
 .NVMe/FC
 --
 [source,cli]
 ----
-nvme list-subsys /dev/nvme5n1
+nvme list-subsys /dev/nvme4n5
 ----
 
 .Show example
@@ -483,13 +471,15 @@ nvme list-subsys /dev/nvme5n1
 ====
 [subs=+quotes]
 ----
-nvme-subsys5 - NQN=nqn.1992-08.com.netapp:sn.f7565b15a66911ef9668d039ea951c46:subsystem.nvme1
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
-\
- +- nvme126 *fc* traddr=nn-0x2036d039ea951c45:pn-0x2038d039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c3:pn-0x2100f4c7aa0cd7c3 *live optimized*
- +- nvme176 *fc* traddr=nn-0x2036d039ea951c45:pn-0x2037d039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c2:pn-0x2100f4c7aa0cd7c2 *live optimized*
- +- nvme5 *fc* traddr=nn-0x2036d039ea951c45:pn-0x2039d039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c2:pn-0x2100f4c7aa0cd7c2 *live non-optimized*
- +- nvme71 *fc* traddr=nn-0x2036d039ea951c45:pn-0x203ad039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c3:pn-0x2100f4c7aa0cd7c3 *live non-optimized*
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.efd7989cb10111ee871ed039ea954d18:subsystem.nvme
+            hostnqn=nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074 
+ iopolicy=round-robin
+ \
+  +- nvme2 fc traddr=nn-0x2013d039ea951c45:pn-0x2018d039ea951c45,host_traddr=nn-0x200000109bdacc76:pn-0x100000109bdacc76 *live non-optimized*
+  +- nvme3 fc traddr=nn-0x2013d039ea951c45:pn-0x2017d039ea951c45,host_traddr=nn-0x200000109bdacc75:pn-0x100000109bdacc75 *live non-optimized*
+  +- nvme5 fc traddr=nn-0x2013d039ea951c45:pn-0x2016d039ea951c45,host_traddr=nn-   0x200000109bdacc76:pn-0x100000109bdacc76 *live optimized*
+  +- nvme6 fc traddr=nn-0x2013d039ea951c45:pn-0x2014d039ea951c45,host_traddr=nn-  0x200000109bdacc75:pn-0x100000109bdacc75 *live optimized*
+
 ----
 ====
 --
@@ -497,7 +487,7 @@ nvme-subsys5 - NQN=nqn.1992-08.com.netapp:sn.f7565b15a66911ef9668d039ea951c46:su
 --
 [source,cli]
 ----
-nvme list-subsys /dev/nvme4n2
+nvme list-subsys /dev/nvme1n1 
 ----
 
 .Show example
@@ -505,13 +495,16 @@ nvme list-subsys /dev/nvme4n2
 ====
 [subs=+quotes]
 ----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.nvme4
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-c2c04f444d33
-\
-+- nvme102 *tcp* traddr=192.168.21.20,trsvcid=4420,host_traddr=192.168.21.1,src_addr=192.168.21.1 *live non-optimized*
-+- nvme151 *tcp* traddr=192.168.21.21,trsvcid=4420,host_traddr=192.168.21.1,src_addr=192.168.21.1 *live optimized*
-+- nvme4 *tcp* traddr=192.168.20.20,trsvcid=4420,host_traddr=192.168.20.1,src_addr=192.168.20.1 *live non-optimized*
-+- nvme53 *tcp* traddr=192.168.20.21,trsvcid=4420,host_traddr=192.168.20.1,src_addr=192.168.20.1 *live optimized*
+nvme-subsys1 -NQN=nqn.1992-08.com.netapp:
+sn.983de7f4b39411ee871ed039ea954d18:subsystem.nvme_tcp_1
+hostnqn=nqn.2014-08.org.nvmexpress:uuid:
+4c4c4544-0035-5910-804b-c2c04f444d33
+iopolicy=round-robin
+\ 
++- nvme5 tcp traddr=192.168.166.7,trsvcid=4420,host_traddr=192.168.166.6,src_addr=192.168.166.6 *live*
++- nvme4 tcp traddr=192.168.166.8,trsvcid=4420,host_traddr=192.168.166.6,src_addr=192.168.166.6 *live*
++- nvme2 tcp traddr=192.168.167.7,trsvcid=4420,host_traddr=192.168.167.6,src_addr=192.168.167.6 *live*
++- nvme1 tcp traddr=192.168.167.8,trsvcid=4420,host_traddr=192.168.167.6,src_addr=192.168.167.6 *live*
 ----
 ====
 --
@@ -533,14 +526,15 @@ nvme netapp ontapdevices -o column
 ====
 [subs=+quotes]
 ----
-
 Device        Vserver   Namespace Path                                                          
------------------------ ------------------------------------
-/dev/nvme10n1     vs_tcp_rockylinux10       /vol/vol10/ns10 
+----------------------- ------------------------------ 
+/dev/nvme0n1 vs_tcp           /vol/vol1/ns1   
               
+
+
 NSID       UUID                                   Size
------------------------ ------------------------------------
-1    bbf51146-fc64-4197-b8cf-8a24f6f359b3   21.47GB                          
+------------------------------------------------------------
+1          6fcb8ea0-dc1e-4933-b798-8a62a626cb7f	21.47GB
 ----
 ====
 --
@@ -557,27 +551,26 @@ nvme netapp ontapdevices -o json
 [subs=+quotes]
 ----
 {
-  "ONTAPdevices":[
-    {
-      "Device":"/dev/nvme10n1",
-      "Vserver":"vs_tcp_rockylinux10",
-      "Namespace_Path":"/vol/vol10/ns10",
-      "NSID":1,
-      "UUID":"bbf51146-fc64-4197-b8cf-8a24f6f359b3",
-      "Size":"21.47GB",
-      "LBA_Data_Size":4096,
-      "Namespace_Size":5242880
-}
+
+"ONTAPdevices" : [
+{
+
+"Device" : "/dev/nvme1n1", "Vserver" : "linux_tcnvme_iscsi", "Namespace_Path" : "/vol/tcpnvme_1_0_0/tcpnvme_ns", "NSID" : 1,
+"UUID" : "1a42c652-1450-4a29-886a-b4ccc23e637d", "Size" : "21.47GB",
+"LBA_Data_Size" : 4096,
+"Namespace_Size" : 5242880
+},
+
 ]
-    }
+}
 ----
 ====
 --
 =====
 
-== Step 7: Set up secure in-band authentication
+== Step 6: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 10.0 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 9.4 host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -596,7 +589,7 @@ Set up secure in-band authentication using the CLI.
 ----
 cat /etc/nvme/hostnqn
 ----
-. Generate the dhchap key for the Rocky Linux 10.0 host.
+. Generate the dhchap key for the RHEL 9.4 host.
 +
 The following output describes the `gen-dhchap-key` command parameters:
 +
@@ -678,7 +671,6 @@ DHHC- 1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia
 ----
 ====
 --
-
 .JSON
 --
 When multiple NVMe subsystems are available on the ONTAP controller, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
@@ -794,11 +786,8 @@ mzEKUbcWu26I33b93bil2WR09XDho/ld3L45J+0FeCsStBEAfhYgkQU=:
 --
 =====
 
-
-== Step 8: Review the known issues
+== Step 7: Review the known issues
 
 There are no known issues.
 
-// 2025 JUN 25, ONTAPDOC-3090
-// ONTAPDOC-2561 25-Nov-2024
-// ONTAPDOC-2987 13-May-2025
+
