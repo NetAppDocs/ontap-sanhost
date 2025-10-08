@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: nvme_rhel_10.html
+permalink: nvme-rhel-10.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 10 with ONTAP
+summary: How to Configure NVMe-oF Host for RHEL 10.0 with ONTAP
 ---
-= NVMe-oF host configuration for RHEL 10 with ONTAP
+= Configure RHEL 10.0 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,38 +15,31 @@ summary: How to Configure NVMe-oF Host for RHEL 10 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-.About this task 
-You can use the following support and features with the NVMe-oF host configuration for Red Hat Enterprise Linux (RHEL) 10. You should also review the known limitations before starting the configuration process.
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 10.0. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. 
 
-* Support available:
-** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with RHEL 10.
+*NVMe-oF with RHEL 10.0 has the following known limitations:*
 
-+
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
-** Beginning with RHEL 10, native NVMe multipathing is always enabled, and DM multipath support for NVMe-oF is not supported.
-* Known limitations: 
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+* DM multipath support for NVMe-oF is not supported.
+* Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 
 == Step 1: Optionally, enable SAN booting
+
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Step 2: Validate software versions
+== Step 2: Verify the software version and NVMe configuration
 
-Use the following procedure to validate the minimum supported RHEL 10 software versions.
+include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install RHEL 10 on the server. After the installation is complete, verify that you are running the specified RHEL 10 kernel: 
+. Install RHEL 10.0 on the server. After the installation is complete, verify that you are running the required RHEL 10.0 kernel: 
 +
 [source,cli]
 ----
 uname -r
 ----
 +
-The following example shows a RHEL kernel version:
+Example RHEL kernel version:
 +
 ----
 6.12.0-55.9.1.el10_0.x86_64
@@ -115,17 +108,17 @@ vs_ nvme_194_rhel10
 4 entries were displayed.
 ----
 ====
-+
+
 [NOTE]
-If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP storage system subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
-== Step 3: Configure NVMe/FC
+== Step 3: Configure NVMe/FC and NVMe/TCP
 
-You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
+Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations. 
 
 [role="tabbed-block"]
 =====
-.Broadcom/Emulex
+.FC - Broadcom/Emulex
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
@@ -155,7 +148,7 @@ LPe36002-M64
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-You should see an output similar to the following example:
+You should see output similar to the following example:
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter 
@@ -171,7 +164,7 @@ Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
 cat /sys/class/scsi_host/host*/fwrev 
 ----
 +
-The following example shows firmware versions:
+The command returns the firmware versions:
 +
 ----
 14.0.539.16, sli-4:6:d
@@ -194,7 +187,7 @@ The following example shows a driver version:
 +
 For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
-. Verify that the expected output of `lpfc_enable_fc4_type` is set to `3`:
+. Verify that `lpfc_enable_fc4_type` is set to `3`:
 +
 [source,cli]
 ----
@@ -208,11 +201,10 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-The following example shows port identities:
+You should see output similar to:
 +
----- 
-0x2100f4c7aa0cd7c2
-0x2100f4c7aa0cd7c3
+----
+0x100000109b1c1205
 ----
 
 . Verify that your initiator ports are online:
@@ -270,21 +262,21 @@ FCP CMPL: xb 000014a5 Err 0002149a
 ====
 
 --
-.Marvell/QLogic
+.FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
 .Steps
 
-. Verify that you are running the supported adapter driver and firmware versions:
+. Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
 ----
 cat /sys/class/fc_host/host*/symbolic_name
 ----
 +
-The follow example shows driver and firmware versions:
+The following example shows driver and firmware versions:
 +
 ----
 QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
@@ -298,29 +290,17 @@ QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
 cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 ----
 +
-The expected ouptut is 1.
+The expected output is 1.
 --
-=====
 
-== Step 4: Optionally, enable 1MB I/O 
+.TCP
+--
 
-include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
-
-== Step 5: Verify NVMe boot services 
-
-With RHEL 10, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
-
-After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
-
-include::_include/nvme/verify-nvme-services.adoc[]
-
-== Step 6: Configure NVMe/TCP
-
-include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
+The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
 
 .Steps
 
-. Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
+. Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
 [source,cli]
 ----
@@ -329,7 +309,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.20
@@ -424,9 +404,9 @@ traddr:  192.168.20.20
 eflags:  none
 sectype: none
 ----
-=====
+====
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully retrieve discovery log page data: 
 +
 [source,cli]
 ----
@@ -454,7 +434,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 nvme	connect-all	-t	tcp	-w	192.168.20.1	-a	192.168.20.20
@@ -462,7 +442,7 @@ nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.20
 nvme	connect-all	-t	tcp	-w	192.168.20.1	-a	192.168.20.21
 nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21	
 ----			
-=====
+====
 
 [NOTE]
 ====
@@ -470,13 +450,22 @@ Beginning with RHEL 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
+=====
 
-== Step 7: Validate NVMe-oF
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
+
+== Step 5: Verify NVMe boot services 
+
+include::_include/nvme/verify-nvme-services.adoc[]
+
+== Step 6: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 . Verify that the controller state of each path is live and has the correct ANA status:
-+
++ 
 [role="tabbed-block"]
 =====
 .NVMe/FC
@@ -583,9 +572,9 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 8: Set up secure in-band authentication
+== Step 7: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 10 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 10.0 host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -604,9 +593,9 @@ Set up secure in-band authentication using the CLI.
 ----
 cat /etc/nvme/hostnqn
 ----
-. Generate the dhchap key for the RHEL 10 host.
+. Generate the dhchap key for the RHEL 10.0 host.
 +
-The following output describes the `gen-dhchap-key` command paramters:
+The following output describes the `gen-dhchap-key` command parameters:
 +
 ----
 nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function {0|1|2|3} -n host_nqn 
@@ -686,11 +675,11 @@ DHHC- 1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia
 ----
 ====
 --
-.JSON file
+.JSON
 --
-When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
+When multiple NVMe subsystems are available on the ONTAP controller, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
-Use the `-o` option to generate the JSON file. See the NVMe connect-all manual pages for more syntax options.
+Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
 
 .Steps
 . Configure the JSON file.
@@ -792,7 +781,7 @@ aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
 +
-You should see an output similar to the following example:
+You should see output similar to the following example:
 +
 ----
 DHHC-1:03:fMCrJharXUOqRoIsOEaG6m2PH1yYvu5+z3jT
@@ -801,7 +790,7 @@ mzEKUbcWu26I33b93bil2WR09XDho/ld3L45J+0FeCsStBEAfhYgkQU=:
 --
 =====
 
-== Step 9: Review the known issues
+== Step 8: Review the known issues
 
 There are no known issues.
 

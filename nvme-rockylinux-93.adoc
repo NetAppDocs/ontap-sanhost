@@ -4,7 +4,7 @@ permalink: nvme-rockylinux-93.html
 keywords: nvme, linux, rocky linux, enterprise
 summary: How to Configure NVMe-oF Host for Rocky Linux 9.3 with ONTAP
 ---
-= Configure Rocky Linux 9.3 with NVMe-oF for ONTAP storage
+= Configure Rocky Linux 9.3 for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,57 +13,54 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 9.3 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-Rocky Linux 9.3 hosts support the NVMe/FC and NVMe/TCP protocols with Asymmetric Namespace Access (ANA). ANA is equivalent to asymmetric logical unit access (ALUA) multipathing in iSCSI and FCP environments and is implemented using the in-kernel NVMe multipath feature.
+include::_include/nvme/nvme-introduction.adoc[]
 
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 9.3. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. 
 
-.About this task 
-You can use the following support and features with the NVMe-oF host configuration for Rocky Linux 9.3. You should also review the known limitations before starting the configuration process.
+*NVMe-oF with Rocky Linux 9.3 has the following known limitations:*
 
-* Support available:
-** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices on SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-* Features available:
-** Rocky Linux 9.3 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-* Known limitations: 
-** SAN booting using the NVMe-oF protocol is currently not supported.
-
+* SAN booting using the NVMe-oF protocol is not currently supported.
 
 == Step 1: Optionally, enable SAN booting
+
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Step 2: Validate software versions
-Use the following procedure to validate the minimum supported Rocky Linux 9.3 software versions.
+== Step 2: Verify the software version and NVMe configuration
+
+include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install Rocky Linux 9.3 on the server. After the installation is complete, verify that you are running the specified Rocky Linux 9.3 kernel: 
+. Install Rocky Linux 9.3 on the server. After the installation is complete, verify that you are running the required Rocky Linux 9.3 kernel: 
 +
 [source,cli]
 ----
 uname -r
 ----
 +
-The following example shows a Rocky Linux kernel version:
+Example Rocky Linux kernel version:
 +
 ----
 5.14.0-570.12.1.el9_6.x86_64
 ----
-[start=2]
+
 include::_include/nvme/linux-validate-software-version-rockylinux.adoc[] 
 
-== Step 3: Configure NVMe/FC
+== Step 3: Configure NVMe/FC and NVMe/TCP
+
 include::_include/nvme/nvme-configure.adoc[]
 
-== Step 4: Optionally, enable 1MB I/O 
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+
 include::_include/nvme/nvme-enable-1mb-io.adoc[]
 
-== Step 5: Configure NVMe/TCP
+== Step 5: Verify the multipathing configuration
 
-include::_include/nvme/nvme-configure-nvme-tcp-rocky-linux.adoc[]
-
-== Step 6: Validate NVMe-oF
 include::_include/nvme/nvme-validate-nvme-of-rocky-linux.adoc[]
+
+== Step 6: Set up secure in-band authentication
+
+include::_include/nvme/nvme-secure-in-band-authentication.adoc[]
 
 == Step 7: Review the known issues
 
