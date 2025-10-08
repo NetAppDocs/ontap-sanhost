@@ -29,6 +29,7 @@ NOTE: The Linux Host Utilities software doesn't support NVMe over Fibre Channel 
 When you install the Linux Host Utilities, it doesn't change any settings on your Linux host. 
 
 .Before you begin
+
 * For reliable operation, use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your iSCSI, FC, or FCoE configuration is supported.
 * Install the host bus adapter (HBA) management packages available on the vendor support site. The management software enables the `sanlun` commands to gather information about the FC HBAs, such as their WWPNs. 
 +
