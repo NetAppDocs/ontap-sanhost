@@ -15,7 +15,9 @@ summary: How to Configure NVMe-oF Host for RHEL 9.6 with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-This document describes how to configure NVMe over Fabrics (NVMe-oF) hosts for Red Hat Enterprise Linux (RHEL) 9.6. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. NVMe-oF with RHEL 9.6 has the following known limitations:
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Red Hat Enterprise Linux (RHEL) 9.6. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. 
+
+*NVMe-oF with RHEL 9.6 has the following known limitations:*
 
 * Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 
