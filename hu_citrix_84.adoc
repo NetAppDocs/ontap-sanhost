@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: hu_citrix_84.html
-keywords: host utilities, citrix, XenServer, 8 series, netapp, ontap, san, boot
-summary: Configure Citrix Hypervisor 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
+keywords: host utilities, citrix, Xenserver, 8 series, netapp, ontap, san, boot
+summary: Configure Citrix Xenserver 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
 ---
-= Configure Citrix Xenserver 8.4  for FCP and iSCSI with ONTAP storage
+= Configure Citrix Xenserver 8.4 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,18 +13,18 @@ summary: Configure Citrix Hypervisor 8.4 for multipathing and with specific para
 :imagesdir: ./media/
 
 [.lead]
-Configure Citrix Hypervisor 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage. 
+Configure Citrix Xenserver 8.4 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage. 
 
 [NOTE]
 ====
-The Linux Host Utilities software package doesn’t support Citrix Hypervisor operating systems.
+The Linux Host Utilities software package doesn’t support Citrix Xenserver operating systems.
 ====
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
 == Step 2: Confirm the multipath configuration for your host
 
-You can use multipathing with Citrix Hypervisor 8.4 to manage ONTAP LUNs.
+You can use multipathing with Citrix Xenserver 8.4 to manage ONTAP LUNs.
 
 include::_include/hu/citrix-8x-multipathing.adoc[]
 

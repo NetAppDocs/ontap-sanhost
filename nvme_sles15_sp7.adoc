@@ -14,10 +14,10 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/nvme-introduction.adoc[]
+SUSE Linux Enterprise Server (SLES) hosts support the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
 .About this task 
-You can use the following support and features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP7 (SLES15 SP7). You should also review the known limitations before starting the configuration process.
+You can use the following support and features with the NVMe-oF host configuration for SLES15 SP7. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
