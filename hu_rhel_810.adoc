@@ -55,6 +55,9 @@ RHEL 8.x with ONTAP storage has the following known issues:
 --
 [cols=3*,options="header"]
 |===
+| NetApp Bug ID
+| Title
+| Description
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1238719[1238719^] | Kernel disruption on RHEL8 with QLogic QLE2672 16GB FC during storage failover operations | Kernel disruption might occur during storage failover operations on a Red Hat Enterprise Linux (RHEL) 8 kernel with a QLogic QLE2672 host bus adapter (HBA). The kernel disruption causes the operating system to reboot. The reboot causes application disruption and generates the vmcore file under the /var/crash/directory if kdump is configured.  Use the vmcore file to identify the cause of the failure. In this case, the disruption is in the “kmem_cache_alloc+160” module. It is logged in the vmcore file with the following string:    "[exception RIP: kmem_cache_alloc+160]". Reboot the host OS to recover the operating system and then restart the application.
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1226783[1226783^] | RHEL8 OS boots up to "emergency mode" when more than 204 SCSI devices are mapped on all Fibre Channel (FC) host bus adapters (HBA) | If a host is mapped with more than 204 SCSI devices during an operating systemreboot process, the RHEL8 OS fails to boot up to "normal mode" and enters "emergency mode". This results in most of the host services becoming unavailable. 
 | link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1230882[1230882^] | Creating a partition on an iSCSI multipath device during the RHEL8 installation is not feasible. | iSCSI SAN LUN multipath devices are not listed in disk selection during RHEL 8 installation. Consequently, the multipath service is not enabled on the SAN boot device. 
