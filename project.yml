@@ -530,7 +530,9 @@ sidebar:
       - title: RHEL
         pdf-filename: NVMeoF RHEL
         entries:
-        - title: Learn about configuring NVMe-oF hosts
+        - title: RHEL overview
+          entries:
+          - title: ONTAP support and features
           url: /hu-nvme-rhel.html
         - title: RHEL 10
           entries:
