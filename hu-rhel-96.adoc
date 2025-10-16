@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: hu-rhel-96.html
-keywords: host utilities, red hat, rhel, linux, 9.6, netapp, ontap, rhel 
-summary: Install Linux Host Utilities on a RHEL 9.6 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+permalink: hu-rhel-9.html
+keywords: host utilities, red hat, rhel, linux, 9.x, netapp, ontap, rhel
+summary: Install Linux Host Utilities on a RHEL 9.x host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Configure RHEL 9.6 for FCP and iSCSI with ONTAP storage
+= Configure RHEL 9.x for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,7 +13,7 @@ summary: Install Linux Host Utilities on a RHEL 9.6 host to manage FCP and iSCSI
 :imagesdir: ./media/
 
 [.lead] 
-The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Red Hat Enterprise Linux (RHEL) 9.6 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Red Hat Enterprise Linux (RHEL) 9.x host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/linux-configure-kvm-note.adoc[]
 
@@ -23,7 +23,7 @@ include::_include/hu/install-linux-host-utilities-80.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
-You can use multipathing with RHEL 9.6 to manage ONTAP LUNs.
+You can use multipathing with RHEL 9.x to manage ONTAP LUNs.
 
 include::_include/hu/linux-rhel-multipathing.adoc[]
 
@@ -33,7 +33,14 @@ include::_include/hu/linux-customize-parameters.adoc[]
 
 == Step 6: Review the known issues
 
-There are no known issues.
+RHEL 9.x with ONTAP storage has the following known issues:
+
+[options="header", cols="15, 15, 15, 40, 15"]
+|===
+| Affects version |NetApp Bug ID	|Title	|Description	|JIRA ID
+| 9.3, 9.2, 9.1 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex host bus adapter (HBA) adapter discovery	|In RHEL 9.x, the NetApp Linux SAN Host Utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support Emulex host bus adapter (HBA) discovery cannot be found. |Not applicable
+| 9.3, 9.2 |link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1593771[1593771^]  	|A Red Hat Enterprise Linux 9.3 QLogic SAN host encounters loss of partial multipaths during storage mobility operations	| During the ONTAP storage controller takeover operation, half of the multipaths are expected to go down or switch to a failover mode and then recover to full path count during the giveback workflow. However, with a Red Hat Enterprise Linux (RHEL) 9.3 QLogic host, only partial multipaths are recovered after a storage failover giveback operation. |RHEL 17811
+|===
 
 == What's next?
 
