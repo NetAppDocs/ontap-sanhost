@@ -4,7 +4,7 @@ permalink: hu-nvme-rhel.html
 keywords: nvme, san, host, rhel, red hat, linux
 summary: You can configure RHEL SAN hosts for the NVMe over Fabrics (NVMe-oF) protocol.
 ---
-= Learn about ONTAP support and features
+= Learn about RHEL ONTAP support and features
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,34 +13,34 @@ summary: You can configure RHEL SAN hosts for the NVMe over Fabrics (NVMe-oF) pr
 :imagesdir: ./media/
 
 [.lead]
-The table shows ONTAP features supported by ONTAP versions and SAN host operating systems:
+The table shows the ONTAP features supported by ONTAP versions and SAN host operating systems for RHEL:
 
 [cols="40,30,30",options="header"]
 |===
 
-|ONTAP feature | Supported SAN hosts | ONTAP version
+|ONTAP feature | Supported RHEL SAN hosts | ONTAP version
 
 |*Secure in-band authentication for NVMe/TCP* 
-a|* RHEL 10.0 
-* RHEL 9.6, 9.5 
+a|* 10.0 
+* 9.6, 9.5 
  |Support begins with 9.12.1
 |*NVMe/TCP in addition to NVMe/FC* 
 
 Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
-a|* RHEL 10.0 
-* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1  
-* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.8, 8.2 
+a|* 10.0 
+* 9.6, 9.5, 9.4, 9.3, 9.2, 9.1  
+* 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.8, 8.2 
  |Support begins with 9.10.1
 |*NVMe/TCP is a fully supported enterprise feature* 
-a|* RHEL 10.0 
-* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+a|* 10.0 
+* 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
 |Support begins with 9.10.1 
 |*NVMe and SCSI traffic supported on the same host*
 
 Use dm-multipath for SCSI LUNs and NVMe multipath for NVMe-oF namespaces.
-a|* RHEL 10.0 
-* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
-* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 
+a|* 10.0 
+* 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+* 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 
  |Support begins with 9.4 
 |===
 
@@ -49,30 +49,30 @@ ONTAP supports the following SAN Host features regardless of the ONTAP version r
 [cols="50,50",options="header"]
 |===
 
-|ONTAP feature | Supported SAN hosts 
+|ONTAP feature | Supported RHEL SAN hosts 
 |*Native NVMe multipathing is always enabled* 
 
 ONTAP does not support Device Mapper (DM) multipath for NVMe-oF.
-a|* RHEL 10.0	 
+a|* 10.0	 
 |*SAN booting using NVMe/FC protocol* 
-a|* RHEL 10.0 
-* RHEL 9.6, 9.5, 9.4 
+a|* 10.0 
+* 9.6, 9.5, 9.4 
 |*`nvme-cli` package includes auto-connect scripts*
 
 You do not need third-party scripts.
-a|* RHEL 10.0 
-* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
-* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2  
+a|* 10.0 
+* 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+* 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2  
 |*Native udev rule in `nvme-cli` package*
 
 Provides round-robin load balancing for NVMe multipath.
-a|* RHEL 10.0 
-* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
-* RHEL 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 
+a|* 10.0 
+* 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+* 8.10, 8.9, 8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2 
 |*In-kernel NVMe multipathing for NVMe namespaces* 
 
 ONTAP enables this feature by default; you do not need to change any settings.
-a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+a|* 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
 |===
 
 NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
