@@ -481,11 +481,8 @@ sidebar:
           url: /nvme_esxi_7.html
       - title: Oracle Linux
         entries:
-        - title: Oracle Linux 9
-          pdf-filename: NVMeF OL
-          entries:
-          - title: "9x"
-            url: /nvme-ol-95.html
+        - title: Oracle Linux 9x
+        url: /nvme-ol-95.html
         - title: Oracle Linux 8
           pdf-filename: NVMeF OL
           entries:
