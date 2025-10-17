@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: nvme-ol-95.html
-keywords: nvme, oracle linux, 9.5, host configuration
-summary: NVMe-oF Host Configuration for Oracle Linux 9.5 with ONTAP
+keywords: nvme, oracle linux, 9x, host configuration
+summary: NVMe-oF Host Configuration for Oracle Linux 9x with ONTAP
 ---
-= Configure Oracle Linux 9.5 with NVMe-oF for ONTAP storage 
+= Configure Oracle Linux 9x with NVMe-oF for ONTAP storage 
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -17,13 +17,13 @@ include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task
 
-The following support and features are available with the NVMe-oF host configuration for Oracle Linux 9.5 with ONTAP storage.
+The following support and features are available with the NVMe-oF host configuration for Oracle Linux 9x with ONTAP storage.
 
-* Support available:
+* Support and features available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath on SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Oracle Linux 9.5 enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP with Oracle Linux 9.5.
+** Oracle Linux 9x enables in-kernel NVMe multipath for NVMe namespaces by default, removing the need for explicit settings.
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP. You can use secure in-band authentication for NVMe/TCP, beginning with Oracle Linux 9.4.
 
 +
 --
@@ -32,24 +32,31 @@ include::_include/nvme/nvme-cli-note.adoc[]
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 --
 
-* Features available:
-
-** There are no new features in this release.
-
 * Known limitations:
 ** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+** SAN booting using the NVMe-oF protocol is not supported for Oracle Linux 9.4, 9.3, 9.2, 9.1, and 9.0.
  
 == Step 1: Optionally, enable SAN booting
 
-include::_include/nvme/enable-san-booting.adoc[]
-
-== Step 2: Validate software versions
-
-Use the following procedure to validate the minimum supported Oracle Linux 9.5 software versions.
+Beginning with Oracle Linux 9.5, you can configure your host to use SAN booting to simplify deployment and improve scalability. Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
 
 .Steps
 
-. Install Oracle Linux 9.5 on the server. After the installation is complete, verify that you are running the specified Oracle Linux 9.5 kernel. 
+. https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Create a NVMe namespace and map it to the host^].
+
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot namespace is mapped.
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+
+. Reboot the host and verify that the OS is up and running.
+
+== Step 2: Validate software versions
+
+Use the following procedure to validate the minimum supported Oracle Linux 9x software versions.
+
+.Steps
+
+. Install Oracle Linux 9x on the server. After the installation is complete, verify that you are running the specified Oracle Linux 9x kernel. 
 +
 [source,cli]
 ----
@@ -87,7 +94,7 @@ The following example shows an `libnvme` package version:
 libnvme-1.9-3.el9.x86_64
 ----
 
-.	On the Oracle Linux 9.5 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+.	On the Oracle Linux 9x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 [source,cli]
 ----
@@ -316,7 +323,7 @@ The value `1` verifies that `ql2xnvmeenable` is set.
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services
-With Oracle Linux 9.5, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+Beginning with Oracle Linux 9.5, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
 
 After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
 
@@ -703,7 +710,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between an Oracle Linux 9.5 host and an ONTAP controller.
+Beginning with ONTAP 9.12.1, secure in-band authentication over NVMe/TCP is supported between an ONTAP controller and Oracle Linux hosts starting with version 9.4.
 
 To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
