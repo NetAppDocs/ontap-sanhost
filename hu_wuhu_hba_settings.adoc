@@ -147,8 +147,9 @@ Mode",
 |1
 |When MPIO support is specified
 1.2+|HKLM\SYSTEM\CurrentControlSet
-\Services\disk\TimeOutValue |120 |When no MPIO support is selected |60 |When MPIO support is specified
-|When no MPIO support is selected
+\Services\disk\TimeOutValue |120 |When no MPIO support is selected 
+|60 
+|When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\UseCustomPathRecoveryInterval
 |1
