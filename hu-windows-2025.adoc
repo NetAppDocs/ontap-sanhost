@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: hu-windows-2025.html
-keywords: fcp, iscsi, windows, host, utilities, 2025, ontp, luns, configure 
-summary: Install Windows Host Utilities on a Windows Server 2025 host to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+permalink: nvme-windows-2025.html
+keywords: nvme, windows, enterprise
+summary: NVMe/FC Host Configuration for Windows Server 2052 with ONTAP
 ---
-= Configure Windows Server 2025 for FCP and iSCSI with ONTAP storage
+= Configure Windows Server 2025 with NVMe/FC for ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,24 +13,33 @@ summary: Install Windows Host Utilities on a Windows Server 2025 host to help yo
 :imagesdir: ./media/
 
 [.lead]
-The Windows Host Utilities enable you to connect Windows hosts to virtual disks (LUNs) on a NetApp SAN. Install the Windows Host Utilities on a Windows Server 2025 host to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2025 for operation with ONTAP LUNs.
 
-include::_include/windows/windows-san-boot.adoc[]
+.About this task
+You can use the following support with the NVMe/FC host configuration for Windows 2025. You should also review the known limitations before starting the configuration process.
 
-== Step 2: Install Windows hotfixes
-NetApp recommends installing the *latest cumulative update* available from the Microsoft Update Catalog on the host server.
+* Support available:
++
+Beginning with ONTAP 9.10.1, NVMe/FC is supported for Windows Server 2025.
++
+include::_include/nvme/reuse_supportability_notes.adoc[]
 
-.Steps
+* Known limitations:
++
+include::_include/nvme/reuse-nvme-windows-wfc-limitation.adoc[]
 
-. Download the hotfixes from the link:https://www.catalog.update.microsoft.com/Search.aspx?q=update%20%22windows%20server%202025%22[Microsoft Update Catalog 2025^].
+== Enable NVMe/FC 
 
-include::_include/windows/windows_hotfix_install.adoc[]
+include::_include/nvme/reuse_enabling_on_windows_init_host.adoc[]
 
-include::_include/windows/windows_install_WUHU.adoc[]
+== Configure the Broadcom FC adapter
 
-include::_include/windows/windows-multipathing.adoc[]
+include::_include/nvme/reuse_configuring_broadcom_for_windows.adoc[]
 
-== Step 5: Review the Known issues
-There are no known issues.
+=== Enable MPIO for NVMe devices
 
-include::_include/windows/windows-whats-next.adoc[]
+include::_include/nvme/reuse_enabling_mpio_for_nvme_on_windows_host.adoc[]
+
+== Validate the NVMe/FC configuration
+
+include::_include/nvme/reuse_validating_nvme_fc_windows.adoc[]
