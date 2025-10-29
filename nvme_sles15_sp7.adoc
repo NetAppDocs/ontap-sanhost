@@ -14,19 +14,19 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/nvme-introduction.adoc[]
+SUSE Linux Enterprise Server hosts support the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
 .About this task 
-You can use the following support and features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP7 (SLES15 SP7). You should also review the known limitations before starting the configuration process.
+You can use the following support and features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP7. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
 ** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
 ** Support for SAN booting using the NVMe/FC protocol.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP and NVMe/FC. You can use secure in-band authentication for NVMe/TCP and NVMe/FC with SLES15 SP7.
+** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP and NVMe/FC. You can use secure in-band authentication for NVMe/TCP and NVMe/FC with SUSE Linux Enterprise Server 15 SP7.
 ** Support for persistent discovery controllers (PDCs) using a unique discovery NQN.
 ** TLS 1.3 encryption support for NVMe/TCP. 
-** NetApp `sanlun` host utility support isn't available for NVMe-oF on a SLES15 SP7 host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+** NetApp `sanlun` host utility support isn't available for NVMe-oF on a SUSE Linux Enterprise Server15 SP7 host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 +
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 * Features available:
@@ -38,18 +38,18 @@ include::_include/nvme/enable-san-boot.adoc[]
 
 == Step 2: Validate software versions
 
-Use the following procedure to validate the minimum supported SLES15 SP7 software versions.
+Use the following procedure to validate the minimum supported SUSE Linux Enterprise Server 15 SP7 software versions.
 
 .Steps
 
-. Install SLES15 SP7 on the server. After the installation is complete, verify that you are running the specified SLES15 SP7 kernel: 
+. Install SUSE Linux Enterprise Server15 SP7 on the server. After the installation is complete, verify that you are running the specified SUSE Linux Enterprise Server 15 SP7 kernel: 
 +
 [source,cli]
 ----
 uname -r
 ----
 +
-The following example shows a SLES kernel version:
+The following example shows a SUSE Linux Enterprise Server kernel version:
 +
 ----
 6.4.0-150700.53.3-default 
@@ -315,7 +315,7 @@ include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services
 
-With SLES 15 SP7, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, verify that the boot services are enabled.
+With SUSE Linux Enterprise Server 15 SP7, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, verify that the boot services are enabled.
 
 .Steps
 
@@ -512,7 +512,7 @@ nvme	connect-all	-t	tcp	-w	192.168.211.80	-a	192.168.211.67
 ====
 
 [NOTE]
-Beginning with SLES 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means that there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+Beginning with SUSE Linux Enterprise Server 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means that there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
 
 == Step 7: Validate NVMe-oF
 
@@ -618,7 +618,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Create a persistent discovery controller
 
-Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for a SLES 15 SP7 host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
+Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SP7 host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
 
 .Steps
 

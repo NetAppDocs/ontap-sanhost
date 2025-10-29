@@ -1,0 +1,410 @@
+---
+sidebar: sidebar
+permalink: nvme-rhel-81.html
+keywords: nvme, linux, rhel, red hat, enterprise
+summary: Describes how to configure NVMe/FC for RHEL 8.1 with ONTAP
+---
+= Configure RHEL 8.1 for NVMe-oF with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+include::_include/nvme/nvme-introduction.adoc[]
+
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 8.1. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. 
+
+*NVMe-oF with RHEL 8.1 has the following known limitations:*
+
+* SAN booting using the NVMe-oF protocol is not currently supported.
+* In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.1, so you must enable it manually.
+* The native `nvme-cli` package does not include `nvme-fc auto-connect` scripts. You can use the host bus adapter (HBA) vendor-provided external auto-connect script.
+* By default, round-robin load balancing is not enabled. You can enable it by writing a `udev` rule. 
+
+== Step 1: Optionally, enable SAN booting
+
+include::_include/nvme/enable-san-booting.adoc[]
+
+== Step 2: Verify the software version and NVMe configuration
+
+include::_include/nvme/verify-software-version-introduction.adoc[]
+
+.Steps
+
+. Install RHEL 8.1 on the server. After the installation is complete, verify that you are running the required RHEL 8.1 kernel: 
++
+[source,cli]
+----
+uname -r
+----
++
+Example RHEL kernel version:
++
+----
+4.18.0-147.el8.x86_64
+----
+
+. Install the `nvme-cli-1.8.1-3.el8` package:
++
+[source,cli]
+----
+rpm -qa|grep nvme-cli
+----
++
+The following example shows an nvme-cli package version:
++
+----
+nvme-cli-1.8.1-3.el8.x86_64
+----
+
+. Enable in-kernel NVMe multipath:
++
+[source,cli]
+----
+grubby –args=nvme_core.multipath=Y –update-kernel /boot/vmlinuz-4.18.0-147.el8.x86_64
+----
+
+. Add the following string as a separate udev rule at `/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules`. This enables round-robin load balancing for NVMe multipath:
++
+[source,cli]
+----
+Enable round-robin for NetApp ONTAP
+ACTION==”add”, SUBSYSTEM==”nvme-subsystem”, ATTR{model}==”NetApp ONTAP Controller”, ATTR{iopolicy}=”round-robin
+----
+
+. On the RHEL 8.1 host, check the host NQN string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
+----
++
+The following example shows a hostnqn string:
++
+----
+nqn.2014-08.org.nvmexpress:uuid:75953f3b-77fe-4e03-bf3c-09d5a156fbcd
+----
+
+. Verify that the host NQN string matches the host NQN string for the corresponding subsystem on the ONTAP array:
++
+[source,cli]
+----
+vserver nvme subsystem host show -vserver vs_nvme_10
+----
++
+.Show example
+[%collapsible]
+====
+----
+*> vserver nvme subsystem host show -vserver vs_nvme_10
+Vserver Subsystem Host NQN
+------- --------- -------------------------------------- -----------
+rhel_141_nvme_ss_10_0
+nqn.2014-08.org.nvmexpress:uuid:75953f3b-77fe-4e03-bf3c-09d5a156fbcd
+----
+====
++
+[NOTE]
+If the host NQN strings do not match, use the `vserver modify` command to update the host NQN string on your corresponding ONTAP array subsystem to match with the host NQN string from `/etc/nvme/hostnqn` on the host.
+
+. Reboot the host.
+
+== Step 3: Configure NVMe/FC for Broadcom/Emulex
+
+You can configure NVMe/FC for Broadcom/Emulex.
+
+.Steps
+
+. Verify that you are using the supported adapter model:
+
+.. Display the model names:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modelname
+----
++
+You should see the following output:
++
+----
+LPe32002-M2
+LPe32002-M2
+----
+
+.. Display the model descriptions:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modeldesc
+----
++
+You should see output similar to:
++
+----
+Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
+Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
+----
+
+. Copy and install the Broadcom lpfc outbox driver and auto-connect scripts:
++
+[source,cli]
+----
+tar -xvzf elx-lpfc-dd-rhel8-12.4.243.20-ds-1.tar.gz
+cd elx-lpfc-dd-rhel8-12.4.2453.20-ds-1
+./elx_lpfc_install-sh -i -n
+----
++
+[NOTE]
+The native drivers that are bundled with the OS are called the inbox drivers. If you download the outbox drivers (drivers that are not included with an OS release), an auto-connect script is included in the download and should be installed as part of the driver installation process.
+
+. Reboot the host.
+
+. Verify that you are using the recommended Broadcom configurations.
+
+.. Verify the lpfc firmware: 
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/fwrev
+----
++
+You should see the following output:
++
+----
+12.4.243.20, sil-4.2.c
+12.4.243.20, sil-4.2.c
+----
+
+.. Verify the outbox driver:
++
+[source,cli]
+----
+cat /sys/module/lpfc/version
+----
++
+You should see the following output:
++
+----
+0:12.4.243.20
+----
+
+.. Verify the auto-connect package versions:
++
+[source,cli]
+----
+rpm -qa | grep nvmefc
+----
++
+You should see the following output:
++
+----
+nvmefc-connect-12.6.61.0-1.noarch
+----
+
+. Verify that the expected output of `lpfc_enable_fc4_type` is set to `3`:
++
+[source,cli]
+----
+cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
+----
+
+. Verify that the initiator ports are up and running and can see the target LIFs:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_name
+----
++
+You should see output similar to:
++
+----
+0x10000090fae0ec61
+0x10000090fae0ec62
+----
+
+. Verify that your initiator ports are online:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_state
+----
++
+You should see the following output:
++
+----
+Online
+Online
+----
+
+. Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/nvme_info
+----
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+NVME Initiator Enabled
+XRI Dist lpfc0 Total 6144 NVME 2947 SCSI 2977 ELS 250
+NVME LPORT lpfc0 WWPN x10000090fae0ec61 WWNN x20000090fae0ec61 DID x012000 *ONLINE*
+NVME RPORT WWPN x202d00a098c80f09 WWNN x202c00a098c80f09 DID x010201 *TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x203100a098c80f09 WWNN x202c00a098c80f09 DID x010601 *TARGET DISCSRVC ONLINE*
+NVME Statistics
+----
+====
+
+== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
+
+== Step 5: Validate NVMe-oF
+
+Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
+
+.Steps
+
+. Verify that the in-kernel NVMe multipath is enabled:
++
+[source,cli]
+----
+cat /sys/module/nvme_core/parameters/multipath
+----
++
+You should see the following output:
++
+----
+Y
+----
+
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
+
+.. Display the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
++
+----
+NetApp ONTAP Controller
+NetApp ONTAP Controller
+----
+.. Display the policy:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+----
++
+You should see the following output:
++
+----
+round-robin
+round-robin
+----
+
+. Verify that the namespaces are created and correctly discovered on the host:
++
+[source,cli]
+----
+nvme list
+----
++
+.Show example
+[%collapsible]
+====
+----
+Node SN Model Namespace Usage Format FW Rev
+---------------- -------------------- -----------------------
+/dev/nvme0n1 80BADBKnB/JvAAAAAAAC NetApp ONTAP Controller 1 53.69 GB / 53.69 GB 4 KiB + 0 B FFFFFFFF
+----
+====
+
+. Verify that the controller state of each path is live and has the correct ANA status:
++
+[source,cli]
+----
+nvme list-subsys /dev/nvme0n1 
+----
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+Nvme-subsysf0 – NQN=nqn.1992-08.com.netapp:sn.341541339b9511e8a9b500a098c80f09:subsystem.rhel_141_nvme_ss_10_0
+\
++- nvme0 fc traddr=nn-0x202c00a098c80f09:pn-0x202d00a098c80f09 host_traddr=nn-0x20000090fae0ec61:pn-0x10000090fae0ec61 *live optimized*
++- nvme1 fc traddr=nn-0x207300a098dfdd91:pn-0x207600a098dfdd91 host_traddr=nn-0x200000109b1c1204:pn-0x100000109b1c1204 *live inaccessible*
++- nvme2 fc traddr=nn-0x207300a098dfdd91:pn-0x207500a098dfdd91 host_traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live optimized*
++- nvme3 fc traddr=nn-0x207300a098dfdd91:pn-0x207700a098dfdd91 host traddr=nn-0x200000109b1c1205:pn-0x100000109b1c1205 *live inaccessible*
+----
+====
+
+. Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
++
+[role="tabbed-block"]
+=====
+.Column
+--
+[source,cli]
+----
+nvme netapp ontapdevices -o column
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+Device   Vserver  Namespace Path             NSID   UUID   Size
+-------  -------- -------------------------  ------ ----- -----
+/dev/nvme0n1   vs_nvme_10       /vol/rhel_141_vol_10_0/rhel_141_ns_10_0    1        55baf453-f629-4a18-9364-b6aee3f50dad   53.69GB
+----
+====
+--
+.JSON
+--
+[source,cli]
+----
+nvme netapp ontapdevices -o json
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+{
+   "ONTAPdevices" : [
+   {
+        Device" : "/dev/nvme0n1",
+        "Vserver" : "vs_nvme_10",
+        "Namespace_Path" : "/vol/rhel_141_vol_10_0/rhel_141_ns_10_0",
+         "NSID" : 1,
+         "UUID" : "55baf453-f629-4a18-9364-b6aee3f50dad",
+         "Size" : "53.69GB",
+         "LBA_Data_Size" : 4096,
+         "Namespace_Size" : 13107200
+    }
+]
+----
+====
+--
+=====
+
+== Step 6: Review the known issues
+
+There are no known issues.
+
+
+// JIRA-1289 20-Sep-2023
