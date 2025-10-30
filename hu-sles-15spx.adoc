@@ -1,0 +1,101 @@
+---
+sidebar: sidebar
+permalink: hu-sles-15spx.html
+keywords: host utilities, suse linux enterprise server 15 sp7, sp6, sp5, sp4, sp3, sp2, sp1, netapp, ontap, fcp, iscsi
+summary: Install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SP7 to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+---
+= Configure SUSE Linux Enterprise Server 15 SPx for FCP and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a SUSE Linux Enterprise Server 15 SPx host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+
+include::_include/hu/linux-configure-kvm-note.adoc[]
+
+include::_include/hu/linux-enable-san-boot.adoc[]
+
+include::_include/hu/install-linux-host-utilities-80.adoc[]
+
+== Step 3: Confirm the multipath configuration for your host
+
+You can use multipathing with SUSE Linux Enterprise Server 15 SPx to manage ONTAP LUNs.
+
+include::_include/hu/multipathing.adoc[]
+
+include::_include/hu/exclude-device.adoc[]
+
+include::_include/hu/linux-customize-parameters.adoc[]
+
+== Step 6: Review the known issues
+
+SUSE Linux Enterprise Server 15 SPx with ONTAP storage has the following known issues.
+
+[role="tabbed-block"]
+====
+.15 SP2
+--[cols="1,3,3"]
+[options="header"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1308744[1308744^]
+
+| iSCSI boot from SAN fails to boot with a static IP configuration after completing an SUSE Linux Enterprise Server 15S P2 OS installation
+
+a| iSCSI sanbooted LUN failed to boot up after completing an SUSE Linux Enterprise Server 15 SP2 OS installation with a static IP configuration. Bootup failure occurs every time with the static IP configuration. This leads to the server refusing to continue the boot up process with the following error message:
+
+----
+dracut-cmdline[241]: warning: Empty autoconf values default to dhcp
+
+dracut: FATAL: FATAL: For argument ip=eth4:static, setting client-ip does not make sense for dhcp
+
+dracut: Refusing to continue
+
+reboot: System halted
+
+----
+
+|===
+--
+
+.15 SP1
+--
+[cols=3,options="header" width="80%"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1246622[1246622^] | Remote ports transit to a blocked state on SLES15SP1 with Emulex LPe12002 8GB FC during storage failover operations. | Remote ports transit to a blocked state on SLES15SP1 with Emulex LPe12002 8GB Fibre Channel (FC) during storage failover operations. When the storage node returns to an optimal state, the LIFs also come up and the remote port state should read "online." Occasionally, the remote port state might continue to read as "blocked” or "not present." This state can lead to a "failed faulty" path to LUNs at the multipath layer as well as an I/O outage for those LUNs. You can check the remoteport's details against the following sample commands:
+
+----
+cat/sys/class/fc_host/host*/device/rport*/fc_remote_ports/rport*/port_name
+
+cat/sys/class/fc_host/host*/device/rport*/fc_remote_ports/rport*/port_state
+----
+|===
+--
+
+.15
+--[cols=3*,options="header"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=1154309[1154309^] | SLES 15 host with more than 20 mapped LUNs might go into maintenance mode after a reboot | SLES 15 host with more than 20 mapped LUNs might go into maintenance mode after a reboot. The maintenance mode becomes single user mode following the message:
+`Give root password for maintenance (or press Control-D to continue)`
+|===
+--
+====
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
