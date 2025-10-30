@@ -38,7 +38,8 @@ SUSE Linux Enterprise Server 15 SPx with ONTAP storage has the following known i
 [role="tabbed-block"]
 ====
 .15 SP2
---[cols="1,3,3"]
+--
+[cols="1,3,3"]
 [options="header"]
 |===
 | NetApp Bug ID
@@ -83,7 +84,8 @@ cat/sys/class/fc_host/host*/device/rport*/fc_remote_ports/rport*/port_state
 --
 
 .15
---[cols=3*,options="header"]
+--
+[cols=3*,options="header"]
 |===
 | NetApp Bug ID
 | Title
