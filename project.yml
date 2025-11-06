@@ -473,14 +473,12 @@ sidebar:
       - title: AIX
         url: /nvme_aix.html
       - title: ESXi
-        pdf-filename: NVMeoF ESXi
         entries:
         - title: VMware vSphere 8
           url: /nvme_esxi_8.html
         - title: VMware vSphere 7
           url: /nvme_esxi_7.html
       - title: Oracle Linux
-        pdf-filename: NVMeoF Oracle Linux
         entries:
         - title: Oracle Linux 9x
           url: /nvme-ol-9x.html
@@ -489,7 +487,6 @@ sidebar:
         - title: Oracle Linux 7x
           url: /nvme-ol-7x.html
       - title: RHEL
-        pdf-filename: NVMeoF RHEL
         entries:
         - title: RHEL 10x
           url: /nvme-rhel-10x.html
@@ -498,7 +495,6 @@ sidebar:
         - title: RHEL 8x
           url: /nvme-rhel-8x.html
       - title: Rocky Linux
-        pdf-filename: NVMeoF Rocky Linux
         entries:
         - title: Rocky Linux 10
           entries:
@@ -537,7 +533,6 @@ sidebar:
           - title: "8.4"
             url: /nvme-rockylinux-84.html
       - title: SUSE Linux Enterprise Server
-        pdf-filename: NVMeoF SLES
         entries:
         - title: SUSE Linux Enterprise Server 15
           entries:
@@ -556,7 +551,6 @@ sidebar:
           - title: 15 SP1
             url: /nvme_sles15_sp1.html
       - title: Ubuntu
-        pdf-filename: NVMeoF Ubuntu
         entries:
         - title: "24.04"
           url: /nvme_ubuntu_2404.html

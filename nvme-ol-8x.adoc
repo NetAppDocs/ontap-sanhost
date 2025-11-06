@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: nvme-ol-8x.html
 keywords: nvme, oracle linux, 8x, host configuration
-summary: NVMe-oF Host Configuration for Oracle Linux 8.10 with ONTAP
+summary: NVMe-oF Host Configuration for Oracle Linux 8x with ONTAP
 ---
-= NVMe-oF Host Configuration for Oracle Linux 8.10 with ONTAP
+= Configure Oracle Linux 8x with NVMe-oF for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -16,7 +16,7 @@ summary: NVMe-oF Host Configuration for Oracle Linux 8.10 with ONTAP
 include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task
-You can use the following support and features with the NVMe-oF host configuration for Oracle Linux 8.10. You should also review the known limitations before starting the configuration process.
+You can use the following support and features with the NVMe-oF host configuration for Oracle Linux 8x. You should also review the known limitations before starting the configuration process.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) and NVMe over Fibre Channel (NVMe/FC). This gives the NetApp plug-in in the native nvme-cli package the capability to display the ONTAP information for both NVMe/FC and NVMe/TCP namespaces. 
@@ -28,19 +28,19 @@ Depending on your host configuration, you configure NNMe/FC, NVMe/TCP, or both p
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 * Features available: 
-** The in-kernel NVMe multipath feature is enabled for NVMe namespaces by default in Oracle Linux 8.10. You don't need to configure explicit settings.
+** The in-kernel NVMe multipath feature is enabled for NVMe namespaces by default in Oracle Linux 8x. You don't need to configure explicit settings.
 
 * Known limitations:
 ** SAN booting using the NVMe-oF protocol is currently not supported.
-** NetApp sanlun host utility support isn't available for NVMe-oF on an Oracle Linux 8.10 host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+** NetApp sanlun host utility support isn't available for NVMe-oF on an Oracle Linux 8x host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 
-== Validate software versions
+== Step 1: Validate software versions
 
-Validate the minimum supported software versions for Oracle Linux 8.10.
+Validate the minimum supported software versions for Oracle Linux 8x.
 
 .Steps
 
-. Install Oracle Linux 8.10 GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8.10 GA kernel:
+. Install Oracle Linux 8x GA on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8x GA kernel:
 +
 ----
 uname -r
@@ -60,7 +60,7 @@ rpm -qa|grep nvme-cli
 nvme-cli-1.16-9.el8.x86_64
 ----
 
-. On the Oracle Linux 8.10 host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+. On the Oracle Linux 8x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 ----
 cat /etc/nvme/hostnqn
@@ -70,7 +70,7 @@ cat /etc/nvme/hostnqn
 nqn.2014-08.org.nvmexpress:uuid:edd38060-00f7-47aa-a9dc-4d8ae0cd969a
 ----
 
-. Verify that `hostnqn` on the Oracle Linux 8.10 host matches `hostnqn` for the corresponding subsystem on the ONTAP array:
+. Verify that `hostnqn` on the Oracle Linux 8x host matches `hostnqn` for the corresponding subsystem on the ONTAP array:
 +
 ----
 vserver nvme subsystem host show -vserver vs_coexistence_LPE36002
@@ -112,7 +112,7 @@ defaults {
 +
 `systemctl restart multipathd`
 
-== Configure NVMe/FC
+== Step 2: Configure NVMe/FC
 
 You can configure NVMe/FC with Broadcom/Emulex FC or Marvell/Qlogic FC adapters. For NVMe/FC configured with a Broadcom adapter, you can enable I/O requests of size 1MB.
 
@@ -221,11 +221,11 @@ QLE2772 FW:v9.15.00 DVR:v10.02.09.100-k
 --
 =====
 
-=== Enable 1MB I/O size (Optional)
+== Step 3: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
-== Configure NVMe/TCP
+== Step 4: Configure NVMe/TCP
 
 include::_include/nvme/nvme-configure-nvme-tcp.adoc[]
 
@@ -340,7 +340,8 @@ nvme connect-all -t tcp -w <host-traddr> -a <traddr> -l <ctrl_loss_timeout_in_se
 +
 NOTE: NetApp recommends setting the `ctrl-loss-tmo` option to "-1" so that the NVMe/TCP initiator attempts to reconnect indefinitely in the event of a path loss.
 
-== Validate NVMe-oF
+== Step 5: Validate NVMe-oF
+
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 .Steps
@@ -496,9 +497,9 @@ Device         Vserver                  Namespace Path                NSID UUID 
 --
 =====
 
-== Known issues
+== Step 6: Review the known issues
 
-The NVMe-oF host configuration for Oracle Linux 8.10 with ONTAP release has the following known issue:
+These are the known issues:
 
 [cols="1a,4a,4a, options="header"]
 |===
@@ -506,7 +507,7 @@ The NVMe-oF host configuration for Oracle Linux 8.10 with ONTAP release has the 
 
 |CONTAPEXT-1082
 
-|Oracle Linux 8.10 NVMe-oF hosts create duplicate PDCs
+|Oracle Linux 8x NVMe-oF hosts create duplicate PDCs
 
-|On Oracle Linux 8.10 NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by using the `-p` option with the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with Oracle Linux 8.x, NVMe-oF hosts create a duplicate PDC. This wastes resources on both the host and the target.
+|On Oracle Linux 8x NVMe-oF hosts, Persistent Discovery Controllers (PDCs) are created by using the `-p` option with the `nvme discover` command. For a given initiator-target combination, each execution of the `nvme discover` command is expected to create one PDC. However, beginning with Oracle Linux 8.x, NVMe-oF hosts create a duplicate PDC. This wastes resources on both the host and the target.
 |===

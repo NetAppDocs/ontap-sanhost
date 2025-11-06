@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: nvme-ol-7x.html
 keywords: nvme, linux, oracle, 7x
-summary: Setting up VMe/FC Host Configuration for Oracle Linux 7.9 with ONTAP, with examples
+summary: Setting up VMe/FC Host Configuration for Oracle Linux 7x with ONTAP, with examples
 ---
-= NVMe/FC Host Configuration for Oracle Linux 7.9 with ONTAP
+= NVMe/FC Host Configuration for Oracle Linux 7x with ONTAP
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,11 +13,11 @@ summary: Setting up VMe/FC Host Configuration for Oracle Linux 7.9 with ONTAP, w
 :imagesdir: ./media/
 
 [.lead]
-You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running Oracle Linux 7.9 and ONTAP as the target.
+You can configure NVMe over Fibre Channel (NVMe/FC) on initiator hosts running Oracle Linux 7x and ONTAP as the target.
 
 == Supportability
 
-Beginning with ONTAP 9.6, NVMe/FC is supported for Oracle Linux 7.9. The Oracle Linux 7.9 host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+Beginning with ONTAP 9.6, NVMe/FC is supported for Oracle Linux 7x. The Oracle Linux 7x host can run both NVMe and SCSI traffic through the same fibre channel (FC) initiator adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. For the current list of supported configurations see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 include::_include/hu/reuse_hu_cloud_note.adoc[]
 
@@ -25,15 +25,15 @@ include::_include/hu/reuse_hu_cloud_note.adoc[]
 
 * Native NVMe/FC auto-connect scripts are not available in the `nvme-cli` package. Use the HBA vendor provided external auto-connect scripts.
 
-* By default, round-robin load balancing is not enabled in NVMe Multipath. You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on Oracle Linux 7.9.
+* By default, round-robin load balancing is not enabled in NVMe Multipath. You must write a udev rule to enable this functionality. Steps are provided in the section on Enabling NVMe/FC on Oracle Linux 7x.
 
-* There is no sanlun support for NVMe/FC and, as a consequence, no Linux Host Utilities support for NVMe/FC on Oracle Linux 7.9. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
+* There is no sanlun support for NVMe/FC and, as a consequence, no Linux Host Utilities support for NVMe/FC on Oracle Linux 7x. Use the ONTAP command output available as part of the NetApp plug-in included in the native nvme-cli.
 
 * SAN booting using the NVMe-oF protocol is currently not supported.
 
-== Enable NVMe/FC
+== Step 1: Validate software versions
 
-. Install Oracle Linux 7.9 on the server.
+. Install Oracle Linux 7x on the server.
 
 . After the installation is complete, verify that you are running the supported Unbreakable Enterprise kernel. See the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 +
@@ -57,7 +57,7 @@ nvme-cli-1.8.1-3.el7.x86_64
 ACTION=="add", SUBSYSTEMS=="nvme-subsystem", ATTRS{model}=="NetApp ONTAP Controller          ", ATTR{iopolicy}="round-robin"
 ----
 
-. On the Oracle Linux L 7.9 host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
+. On the Oracle Linux L 7x host, check the host NQN string at `/etc/nvme/hostnqn` and verify that it matches the host NQN string for the corresponding subsystem on the ONTAP array.
 +
 ----
 # cat /etc/nvme/hostnqn
@@ -77,7 +77,7 @@ If the `+hostnqn+` strings do not match, you should use the `vserver modify` com
 . Reboot the host.
 
 
-== Configure the Broadcom FC Adapter for NVMe/FC
+== Step 2: Configure NVMe/FC
 
 . Verify that you are using the supported adapter. For the current list of supported adapters, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 +
@@ -140,7 +140,11 @@ NVME RPORT WWPN x202d00a098c80f09 WWNN x202c00a098c80f09 DID x010201 TARGET DISC
 NVME RPORT WWPN x203100a098c80f09 WWNN x202c00a098c80f09 DID x010601 TARGET DISCSRVC ONLINE
 ----
 
-== Validate NVMe/FC
+== Step 3: Optionally, enable 1MB I/O for NVMe/FC
+
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
+
+== Step 4: Validate NVMe-oF
 
 . Verify the following NVMe/FC settings.
 +
@@ -161,7 +165,7 @@ round-robin
 round-robin
 ----
 +
-In the above example, two namespaces are mapped to the Oracle Linux 7.9 ANA host. These are visible through four target LIFs: two local node LIFs and two other partner/remote node LIFs. This setup shows as two ANA Optimized and two ANA Inaccessible paths for each namespace on the host.
+In the above example, two namespaces are mapped to the Oracle Linux 7x ANA host. These are visible through four target LIFs: two local node LIFs and two other partner/remote node LIFs. This setup shows as two ANA Optimized and two ANA Inaccessible paths for each namespace on the host.
 
 . Verify that the namespaces are created.
 +
@@ -208,9 +212,8 @@ Device   Vserver  Namespace Path             NSID   UUID   Size
 ]
 ----
 
-== Enable 1MB I/O size for Broadcom NVMe/FC
+== Step 5: Review the known issues
 
-include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
-
+There are no known issues.
 
 // JIRA-1289 20-Sep-2023
