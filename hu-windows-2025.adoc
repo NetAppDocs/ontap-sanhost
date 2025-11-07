@@ -4,7 +4,7 @@ permalink: hu-windows-2025.html
 keywords: windows, enterprise
 summary: You can use the ONTAP SAN host configuration settings to configure Windows Server 2025 for operation with ONTAP storage.
 ---
-= Configure Windows Server 2025 for ONTAP storage
+= Configure Windows Server 2025 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,41 +13,22 @@ summary: You can use the ONTAP SAN host configuration settings to configure Wind
 :imagesdir: ./media/
 
 [.lead]
-You can use the ONTAP SAN host configuration settings to configure Windows Server 2025 for operation with ONTAP storage. 
+The Windows Host Utilities are a set of software programs with documentation that enables you to connect Windows hosts to virtual disks (LUNs) on a NetApp SAN. When you install the Windows Host Utilities on a Windows Server 2025 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs. .
 
-== Boot the Windows OS
+include::_include/windows/windows-san-boot.adoc[]
 
-include::_include/windows/reuse-windows-san-boot-2022-and-later.adoc[]
-
-== Install Windows hotfixes
+== Step 2: Install Windows hotfixes
 NetApp recommends installing the *latest cumulative update* available from the Microsoft Update Catalog on the host server.
 
 .Steps
 
 . Download the hotfixes from the link:https://www.catalog.update.microsoft.com/Search.aspx?q=update%20%22windows%20server%202025%22[Microsoft Update Catalog 2025^].
 
-include::_include/windows/reuse_windows_hotfix_install.adoc[]
+include::_include/windows/windows_hotfix_install.adoc[]
 
-== Install the Windows Host Utilities
-include::_include/windows/reuse_windows_installing_WUHU.adoc[]
+include::_include/windows/windows_install_WUHU.adoc[]
 
-== Multipathing
-
-You need to install the Microsoft Multipath I/O (MPIO) software and enable multipathing if your Windows host has more than one path to the storage system. 
-
-include::_include/windows/reuse-windows-multipathing.adoc[]
-
-
-== SAN configuration
-
-include::_include/windows/reuse_windows_asa_configuration.adoc[]
-
-
-=== Non-ASA configuration
-include::_include/windows/reuse_windows_non_asa_configuration.adoc[]
-
-== Recommended settings
-include::_include/windows/reuse_windows_recommended_settings.adoc[]
+include::_include/windows/windows-multipathing.adoc[]
 
 == Known issues
 There are no known issues for the Windows Server 2025 with ONTAP release.
