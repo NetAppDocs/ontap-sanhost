@@ -1,0 +1,29 @@
+== Step 1: Optionally, enable SAN booting
+
+You can boot the Windows OS using a local boot or a SAN boot. NetApp recommends using a SAN boot to simplify deployment and improve scalability.. 
+
+[role="tabbed-block"]
+====
+
+.SAN boot
+--
+If you choose to use SAN booting, it must be supported by your configuration.
+
+.Before you begin
+Use the https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Windows OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.Steps
+. link:https://docs.netapp.com/us-en/ontap/san-management/index.html[Create a SAN boot LUN and map it to the host^].
+
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped. 
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+. Verify that the configuration was successful by rebooting the host and verifying that the OS is up and running.
+--
+
+.Local boot
+--
+Perform a local boot by installing the Windows OS on the local hard disk, for example, on an SSD, SATA, or RAID.
+--
+
+====
