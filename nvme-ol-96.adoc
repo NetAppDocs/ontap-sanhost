@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: nvme-ol-96.html
-keywords: nvme, oracle linux, 9.5, host configuration
-summary: NVMe-oF Host Configuration for Oracle Linux 9.5 with ONTAP
+keywords: nvme, oracle linux, 9.6, host configuration
+summary: NVMe-oF Host Configuration for Oracle Linux 9.6 with ONTAP
 ---
-= Configure Oracle Linux 9.5 with NVMe-oF for ONTAP storage 
+= Configure Oracle Linux 9.6 with NVMe-oF for ONTAP storage 
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -17,7 +17,7 @@ include::_include/nvme/nvme-introduction.adoc[]
 
 .About this task
 
-The following support and features are available with the NVMe-oF host configuration for Oracle Linux 9.5 with ONTAP storage.
+The following support and features are available with the NVMe-oF host configuration for Oracle Linux 9.6 with ONTAP storage.
 
 * Support available:
 ** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native nvme-cli package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
@@ -690,10 +690,10 @@ nvme list-subsys /dev/nvme4n5
 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.f9c6d0cb4fef11f08579d039eaa8138c:discovery
              hostnqn=nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
 \
-+- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c live
-+- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d live
-+- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c live
-+- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d live
++- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c *live*
++- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d *live*
++- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c *live*
++- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d *live*
 ----
 ====
 --
