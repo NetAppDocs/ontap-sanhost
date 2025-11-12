@@ -7,7 +7,7 @@ Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matri
 
 .Steps
 
-. link:https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Create a SAN boot LUN and map it to the host^].
+. Create a SAN boot LUN by following the procedure in the link:https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html[Provision SAN storage documentation^].
 
 . Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped.
 +
