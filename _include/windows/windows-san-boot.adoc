@@ -13,7 +13,7 @@ If you choose to use SAN booting, it must be supported by your configuration.
 Use the https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Windows OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
 
 .Steps
-. link:https://docs.netapp.com/us-en/ontap/san-management/index.html[Create a SAN boot LUN and map it to the host^].
+.  Create a SAN boot LUN by following the procedure in the link:https://docs.netapp.com/us-en/ontap/san-management/index.html[Provision SAN storage documentation^].
 
 . Enable SAN booting in the server BIOS for the ports to which the SAN boot LUN is mapped. 
 +
