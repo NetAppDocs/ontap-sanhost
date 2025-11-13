@@ -15,9 +15,58 @@ summary: How to Configure NVMe-oF Host for RHEL 9x with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Red Hat Enterprise Linux (RHEL) 9x. For more support and feature information, see link:hu-nvme-index.html[NVME-oF Overview^]. 
+*About this task*
 
-*NVMe-oF with RHEL 9x has the following known limitations:*
+The following ONTAP features are supported by ONTAP versions and SAN host operating systems: 
+
+[cols="40,30,30",options="header"]
+|===
+
+|ONTAP feature | Supported SAN hosts | ONTAP version
+
+|*Secure in-band authentication for NVMe/TCP* 
+a|* RHEL 9.6, 9.5 
+|Support begins with 9.12.1
+|*NVMe/TCP in addition to NVMe/FC* 
+
+Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
+a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1  
+|Support begins with 9.10.1
+|*NVMe/TCP is a fully supported enterprise feature* 
+a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+|Support begins with 9.10.1 
+|*NVMe and SCSI traffic supported on the same host*
+
+Use dm-multipath for SCSI LUNs and NVMe multipath for NVMe-oF namespaces.
+a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+|Support begins with 9.4 
+|===
+
+ONTAP supports the following SAN Host features regardless of the ONTAP version running on your system setup:
+
+[cols="50,50",options="header"]
+|===
+
+|ONTAP feature | Supported SAN hosts 
+|*SAN booting using NVMe/FC protocol* 
+a|* RHEL 9.6, 9.5, 9.4 
+|*`nvme-cli` package includes auto-connect scripts*
+
+You do not need third-party scripts.
+a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+|*Native udev rule in `nvme-cli` package*
+
+Provides round-robin load balancing for NVMe multipath.
+a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+|*In-kernel NVMe multipathing for NVMe namespaces* 
+
+ONTAP enables this feature by default; you do not need to change any settings.
+a|* RHEL 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0 
+|===
+
+NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+NVMe-oF with RHEL 9x has the following known limitations:
 
 * Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
 

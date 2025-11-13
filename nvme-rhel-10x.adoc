@@ -15,7 +15,7 @@ summary: How to Configure NVMe-oF Host for RHEL 10x with ONTAP
 [.lead]
 include::_include/nvme/nvme-introduction.adoc[]
 
-== ONTAP support and features
+*About this task*
 
 The following ONTAP features are supported by ONTAP versions and SAN host operating systems: 
 
@@ -66,7 +66,7 @@ a|* RHEL 10.0
 
 NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
-*NVMe-oF with RHEL 10x has the following known limitations:*
+NVMe-oF with RHEL 10x has the following known limitations:
 
 * DM multipath support for NVMe-oF is not supported.
 * Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
