@@ -295,7 +295,7 @@ Device               Vserver            Namespace Path                          
 ====
 --
 .JSON
---
+
 [source,cli]
 ----
 nvme netapp ontapdevices -o json
@@ -340,6 +340,7 @@ nvme netapp ontapdevices -o json
        },
   ]
 ----
+====
 =====
 
 == Step 6: Review the known issues
