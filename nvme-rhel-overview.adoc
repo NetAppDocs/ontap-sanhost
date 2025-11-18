@@ -1,0 +1,77 @@
+---
+sidebar: sidebar
+permalink: nvme-rhel-overview.html
+keywords: nvme, linux, rhel, red hat, enterprise
+summary: Learn about RHEL ONTAP support and features
+---
+= Learn about RHEL ONTAP support and features
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The following ONTAP features are supported by ONTAP versions and RHEL SAN host operating systems: 
+
+[cols="40,30,30",options="header"]
+|===
+
+|ONTAP feature | RHEL SAN hosts supported beginning with ..| ONTAP version supported beginning with ..
+
+|*Secure in-band authentication for NVMe/TCP* 
+a|9.5 
+ |9.12.1
+|*NVMe/TCP in addition to NVMe/FC* 
+
+Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
+a|8.2 
+ |9.10.1
+|*NVMe/TCP is a fully supported enterprise feature* 
+a|9.0 
+ |9.10.1 
+|*NVMe and SCSI traffic supported on the same host*
+
+Use dm-multipath for SCSI LUNs and NVMe multipath for NVMe-oF namespaces.
+a|8.2 
+ |9.4 
+|===
+
+ONTAP supports the following SAN Host features regardless of the ONTAP version running on your system setup:
+
+[cols="50,50",options="header"]
+|===
+
+|ONTAP feature | RHEL SAN hosts supported beginning with ..
+|*Native NVMe multipathing is always enabled* 
+
+ONTAP does not support Device Mapper (DM) multipath for NVMe-oF.
+a|10.0	 
+|*SAN booting using NVMe/FC protocol* 
+a|9.4
+|*`nvme-cli` package includes auto-connect scripts*
+
+You do not need third-party scripts.
+a|8.2
+|*Native udev rule in `nvme-cli` package*
+
+Provides round-robin load balancing for NVMe multipath.
+a|8.2 
+|===
+
+NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+== What's next
+
+[cols="50,50",options="header"]
+|===
+
+|If your version is .. | Go to ..
+|10x
+|link:nvme-rhel-10x.adoc[Learn about configuring RHEL 10x^]
+|9x 
+|link:nvme-rhel-9x.adoc[Learn about configuring RHEL 9x^]
+|8x
+|link:nvme-rhel-8x.adoc[Learn about configuring RHEL 8x^]
+|===
