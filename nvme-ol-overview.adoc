@@ -1,0 +1,71 @@
+---
+sidebar: sidebar
+permalink: nvme-ol-overview.html
+keywords: nvme, oracle linux, enterprise
+summary: Learn about Oracle Linux ONTAP support and features
+---
+= Learn about Oracle Linux ONTAP support and features
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The following ONTAP features are supported by ONTAP versions and Oracle Linux SAN host operating systems: 
+
+[cols="40,30,30",options="header"]
+|===
+
+|ONTAP feature | Oracle Linux SAN hosts supported beginning with ..| ONTAP version supported beginning with ..
+
+|*Secure in-band authentication for NVMe/TCP* 
+a|9.4 
+ |9.12.1 
+|*NVMe/TCP in addition to NVMe/FC* 
+
+Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
+a|8.3
+ |9.10.1
+|*NVMe and SCSI traffic supported on the same host*
+
+Use dm-multipath for SCSI LUNs and NVMe multipath for NVMe-oF namespaces.
+a|7.7 
+ |9.4 
+*In-kernel NVMe multipath enabled for NVMe namespaces by default*
+a|8.3 
+ |? 
+|===
+
+ONTAP supports the following SAN host features regardless of the ONTAP version running on your system setup:
+
+[cols="50,50",options="header"]
+|===
+
+|ONTAP feature | Oracle Linux SAN hosts supported beginning with ..
+|*`nvme-cli` package includes auto-connect scripts*
+
+You do not need third-party scripts.
+a|8.3
+|*Native udev rule in `nvme-cli` package*
+
+Provides round-robin load balancing for NVMe multipath.
+a|8.3
+|===
+
+NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+== What's next
+
+[cols="50,50",options="header"]
+|===
+
+|If your version is .. | Go to ..
+|9x
+|link:nvme-ol-9x.html[Learn about configuring Oracle Linux 9x]
+|8x 
+|link:nvme-ol-8x.html[Learn about configuring Oracle Linux 8x]
+|7x
+|link:nvme-ol-7x.html[Learn about configuring Oracle Linux 7x]
+|===

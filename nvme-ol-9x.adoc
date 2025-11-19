@@ -29,12 +29,12 @@ The following support and features are available with the NVMe-oF host configura
 --
 include::_include/nvme/nvme-cli-note.adoc[]
 
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 --
 
-* Known limitations:
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
-** SAN booting using the NVMe-oF protocol is not supported for Oracle Linux 9.4, 9.3, 9.2, 9.1, and 9.0.
+NVMe-oF with OL 9x has the following known limitations:
+
+* Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+* SAN booting using the NVMe-oF protocol is not currently supported for Oracle Linux 9.4 and earlier versions.
  
 == Step 1: Optionally, enable SAN booting
 
