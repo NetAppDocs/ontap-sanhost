@@ -218,6 +218,10 @@ sidebar:
             url: /hu_ol_65.html
           - title: "6.4"
             url: /hu_ol_64.html
+      - title: Proxmox
+        entries:
+        - title: Proxmox 9.0
+          url: /hu-proxmox-9x.html
       - title: RHEL
         entries:
         - title: RHEL 10
@@ -396,6 +400,13 @@ sidebar:
             url: /nvme_ol_78.html
           - title: "7.7"
             url: /nvme_ol_77.html
+      - title: Proxmox
+        pdf-filename: NVMeoF Proxmox
+        entries:
+        - title: ONTAP support and features
+          url: /nvme-proxmox-index.html
+        - title: Proxmox VE 9x
+          url: /nvme-proxmox-ve-9x.html
       - title: RHEL
         pdf-filename: NVMeoF RHEL
         entries:

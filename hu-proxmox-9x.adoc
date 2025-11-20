@@ -1,0 +1,42 @@
+---
+sidebar: sidebar
+permalink: hu-proxmox-9x.html
+keywords: proxmox 9.0, netapp, ontap, iscsi, fcp
+summary: Install Linux Host Utilities on a Proxmox 9.0 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+---
+= Configure Proxmox 9.0 for FCP and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead] 
+Configure Proxmox 9.0 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
+
+[NOTE]
+====
+The following steps are not supported with Proxmox 9.0:
+
+* Using the Linux Host Utilities software to manage FCP and iSCSI protocol operations
+* Enabling SAN booting to simplify deployment and improve scalability.  
+====
+
+== Step 1: Confirm the multipath configuration for your host
+
+You can use multipathing with Proxmox 9.0 to manage ONTAP LUNs.
+
+include::_include/hu/proxmox-multipathing.adoc[]
+
+include::_include/hu/exclude-device-step2.adoc[]
+
+include::_include/hu/linux-customize-parameters-step3.adoc[]
+
+== Step 4: Review the known issues
+
+There are no known issues.
+
+== What's next?
+
+include::_include/hu/asm-mirroring.adoc[]
