@@ -113,20 +113,8 @@ sidebar:
           url: /hu_aix_71.html
       - title: CentOS
         entries:
-        - title: CentOS 8
-          entries:
-          - title: "8.5"
-            url: /hu_centos_85.html
-          - title: "8.4"
-            url: /hu_centos_84.html
-          - title: "8.3"
-            url: /hu_centos_83.html
-          - title: "8.2"
-            url: /hu_centos_82.html
-          - title: "8.1"
-            url: /hu_centos_81.html
-          - title: "8.0"
-            url: /hu_centos_80.html
+        - title: CentOS 8.x
+          url: /hu-centos-8x.html
         - title: CentOS 7
           entries:
           - title: "7.9"
@@ -167,9 +155,9 @@ sidebar:
             url: /hu_centos_64.html
       - title: Citrix
         entries:
-        - title: XenServer 8.4
+        - title: Xenserver 8.4
           url: /hu_citrix_84.html 
-        - title: Hypervisor 8.2 (LTSR) 
+        - title: Hypervisor 8.2
           url: /hu_citrix_82.html
       - title: ESXi
         entries:
@@ -186,45 +174,10 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
-        - title: Oracle Linux 9
-          entries:
-          - title: "9.5"
-            url: /hu-ol-95.html
-          - title: "9.4"
-            url: /hu_ol_94.html
-          - title: "9.3"
-            url: /hu_ol_93.html
-          - title: "9.2"
-            url: /hu_ol_92.html
-          - title: "9.1"
-            url: /hu_ol_91.html
-          - title: "9.0"
-            url: /hu_ol_90.html
-        - title: Oracle Linux 8
-          pdf-filename: OL-8-FCP
-          entries:
-          - title: "8.10"
-            url: /hu-ol-810.html
-          - title: "8.9"
-            url: /hu_ol_89.html
-          - title: "8.8"
-            url: /hu_ol_88.html
-          - title: "8.7"
-            url: /hu_ol_87.html
-          - title: "8.6"
-            url: /hu_ol_86.html
-          - title: "8.5"
-            url: /hu_ol_85.html
-          - title: "8.4"
-            url: /hu_ol_84.html
-          - title: "8.3"
-            url: /hu_ol_83.html
-          - title: "8.2"
-            url: /hu_ol_82.html
-          - title: "8.1"
-            url: /hu_ol_81.html
-          - title: "8.0"
-            url: /hu_ol_80.html
+        - title: Oracle Linux 9.x
+          url: /hu-ol-9x.html
+        - title: Oracle Linux 8.x
+          url: /hu-ol-8x.html
         - title: Oracle Linux 7
           pdf-filename: OL-7-FCP
           entries:
@@ -272,52 +225,14 @@ sidebar:
       - title: RHEL
         entries:
         - title: RHEL 10
-          pdf-filename: RHEL-10-FCP
-          entries:
-          - title: "10.0"
-            url: /hu_rhel_10.html        
-        - title: RHEL 9
-          pdf-filename: RHEL-9-FCP
-          entries:
-          - title: "9.6"
-            url: /hu-rhel-96.html
-          - title: "9.5"
-            url: /hu_rhel_95.html
-          - title: "9.4"
-            url: /hu_rhel_94.html
-          - title: "9.3"
-            url: /hu_rhel_93.html
-          - title: "9.2"
-            url: /hu_rhel_92.html
-          - title: "9.1"
-            url: /hu_rhel_91.html
-          - title: "9.0"
-            url: /hu_rhel_90.html
-        - title: RHEL 8
+          url: /hu-rhel-10.html 
+          pdf-filename: RHEL-10-FCP          
+        - title: RHEL 9.x
+          url: /hu-rhel-9x.html
+          pdf-filename: RHEL-9-FCP 
+        - title: RHEL 8.x
           pdf-filename: RHEL-8-FCP
-          entries:
-          - title: "8.10"
-            url: /hu_rhel_810.html
-          - title: "8.9"
-            url: /hu_rhel_89.html
-          - title: "8.8"
-            url: /hu_rhel_88.html
-          - title: "8.7"
-            url: /hu_rhel_87.html
-          - title: "8.6"
-            url: /hu_rhel_86.html
-          - title: "8.5"
-            url: /hu_rhel_85.html
-          - title: "8.4"
-            url: /hu_rhel_84.html
-          - title: "8.3"
-            url: /hu_rhel_83.html
-          - title: "8.2"
-            url: /hu_rhel_82.html
-          - title: "8.1"
-            url: /hu_rhel_81.html
-          - title: "8.0"
-            url: /hu_rhel_80.html
+          url: /hu-rhel-8x.html
         - title: RHEL 7
           pdf-filename: RHEL-7-FCP
           entries:
@@ -362,43 +277,13 @@ sidebar:
         entries:
         - title: Rocky Linux 10
           pdf-filename: RL-10-FCP
-          entries:
-          - title: "10"
-            url: /hu-rockylinux-10.html
-        - title: Rocky Linux 9
+          url: /hu-rockylinux-10.html
+        - title: Rocky Linux 9.x
           pdf-filename: RL-9-FCP
-          entries:
-          - title: "9.6"
-            url: /hu-rockylinux-96.html
-          - title: "9.5"
-            url: /hu-rockylinux-95.html
-          - title: "9.4"
-            url: /hu-rockylinux-94.html
-          - title: "9.3"
-            url: /hu-rockylinux-93.html
-          - title: "9.2"
-            url: /hu-rockylinux-92.html
-          - title: "9.1"
-            url: /hu-rockylinux-91.html
-          - title: "9.0"
-            url: /hu-rockylinux-90.html 
-        - title: Rocky Linux 8
+          url: /hu-rockylinux-9x.html 
+        - title: Rocky Linux 8.x
           pdf-filename: RL-8-FCP
-          entries:
-          - title: "8.10"
-            url: /hu-rockylinux-810.html
-          - title: "8.9"
-            url: /hu-rockylinux-89.html
-          - title: "8.8"
-            url: /hu-rockylinux-88.html
-          - title: "8.7"
-            url: /hu-rockylinux-87.html
-          - title: "8.6"
-            url: /hu-rockylinux-86.html
-          - title: "8.5"
-            url: /hu-rockylinux-85.html
-          - title: "8.4"
-            url: /hu-rockylinux-84.html      
+          url: /hu-rockylinux-8x.html  
       - title: Solaris
         entries:
         - title: "11.4"
@@ -409,23 +294,7 @@ sidebar:
         entries:
         - title: SUSE Linux Enterprise Server 15
           pdf-filename: SLES-15-FCP
-          entries:
-          - title: 15 SP7
-            url: /hu_sles_15SP7.html
-          - title: 15 SP6
-            url: /hu_sles_15SP6.html
-          - title: 15 SP5
-            url: /hu_sles_15SP5.html
-          - title: 15 SP4
-            url: /hu_sles_15SP4.html
-          - title: 15 SP3
-            url: /hu_sles_15SP3.html
-          - title: 15 SP2
-            url: /hu_sles_15SP2.html
-          - title: 15 SP1
-            url: /hu_sles_15SP1.html
-          - title: "15"
-            url: /hu_sles_15.html
+          url: /hu-sles-15spx.html
         - title: SUSE Linux Enterprise Server 12
           entries:
           - title: 12 SP 5
@@ -472,8 +341,8 @@ sidebar:
           url: /hu_windows_2012r2.html
     - title: Configure hosts with NVMe-oF
       entries:
-      - title: Overview
-        url: /hu_nvme_index.html
+      - title: Learn about configuring NVMe-oF hosts
+        url: /hu-nvme-index.html
       - title: AIX
         url: /nvme_aix.html
       - title: ESXi
@@ -541,51 +410,51 @@ sidebar:
         - title: RHEL 10
           entries:
           - title: "10.0"
-            url: /nvme_rhel_10.html
+            url: /nvme-rhel-10.html
         - title: RHEL 9
           entries:
           - title: "9.6"
             url: /nvme-rhel-96.html
           - title: "9.5"
-            url: /nvme_rhel_95.html
+            url: /nvme-rhel-95.html
           - title: "9.4"
-            url: /nvme_rhel_94.html
+            url: /nvme-rhel-94.html
           - title: "9.3"
-            url: /nvme_rhel_93.html
+            url: /nvme-rhel-93.html
           - title: "9.2"
-            url: /nvme_rhel_92.html
+            url: /nvme-rhel-92.html
           - title: "9.1"
-            url: /nvme_rhel_91.html
+            url: /nvme-rhel-91.html
           - title: "9.0"
-            url: /nvme_rhel_90.html
+            url: /nvme-rhel-90.html
         - title: RHEL 8
           entries:
           - title: "8.10"
-            url: /nvme_rhel_810.html
+            url: /nvme-rhel-810.html
           - title: "8.9"
-            url: /nvme_rhel_89.html
+            url: /nvme-rhel-89.html
           - title: "8.8"
-            url: /nvme_rhel_88.html
+            url: /nvme-rhel-88.html
           - title: "8.7"
-            url: /nvme_rhel_87.html
+            url: /nvme-rhel-87.html
           - title: "8.6"
-            url: /nvme_rhel_86.html
+            url: /nvme-rhel-86.html
           - title: "8.5"
-            url: /nvme_rhel_85.html
+            url: /nvme-rhel-85.html
           - title: "8.4"
-            url: /nvme_rhel_84.html
+            url: /nvme-rhel-84.html
           - title: "8.3"
-            url: /nvme_rhel_83.html
+            url: /nvme-rhel-83.html
           - title: "8.2"
-            url: /nvme_rhel_82.html
+            url: /nvme-rhel-82.html
           - title: "8.1"
-            url: /nvme_rhel_81.html
+            url: /nvme-rhel-81.html
       - title: Rocky Linux
         pdf-filename: NVMeoF Rocky Linux
         entries:
         - title: Rocky Linux 10
           entries:
-          - title: "10"
+          - title: "10.0"
             url: /nvme-rockylinux-10.html
         - title: Rocky Linux 9
           entries:
