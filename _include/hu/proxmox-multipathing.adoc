@@ -55,11 +55,11 @@ The following table shows the Linux OS native compiled multipath parameter setti
 |===
 ====
 
-. By default, the Proxmox OS-native multipath configuration sets `find_multipaths` to "strict" with an empty zero byte /etc/multipath.conf configuration file. This can prevent ONTAP LUNs from being discovered as multipath devices, which means they might not appear under multipath control automatically.
+. By default, the Proxmox OS-native multipath configuration sets `find_multipaths` to "strict" with an empty zero byte `/etc/multipath.conf` configuration file. This can prevent the discovery of ONTAP LUNs as multipath devices, which means they might not appear under multipath control automatically.
 +
 To ensure that ONTAP LUNs are correctly recognized and managed by multipathd, you must override the default `find_multipaths` parameter: 
 
-.. Set `find_multipaths` to "no" in the defaults section of /etc/multipath.conf:
+.. Set `find_multipaths` to "no" in the defaults section of `/etc/multipath.conf`:
 +
 [source,cli]
 ----
