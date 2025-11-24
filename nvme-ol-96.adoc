@@ -13,7 +13,7 @@ summary: NVMe-oF Host Configuration for Oracle Linux 9.6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/nvme-introduction.adoc[]
+include::_include/nvme/ol-introduction.adoc[]
 
 .About this task
 
@@ -164,8 +164,8 @@ cat /sys/class/scsi_host/host*/modeldesc
 You should see an output similar to the following example:
 +
 ----
-Emulex SN37A92079 32Gb 2-Port Fibre Channel Adapter
-Emulex SN37A92079 32Gb 2-Port Fibre Channel Adapter
+Emulex LPe36002-M64-D 2-Port 64Gb Fibre Channel Adapter
+Emulex LPe36002-M64-D 2-Port 64Gb Fibre Channel Adapter
 ----
 
 . Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver:
@@ -180,8 +180,8 @@ cat /sys/class/scsi_host/host*/fwrev
 The following example shows firmware versions:
 +
 ----
-14.2.673.40, sli-4:6:d
-14.2.673.40, sli-4:6:d
+14.4.576.17, sli-4:6:d
+14.4.576.17, sli-4:6:d
 ----
 
 .. Display the inbox driver version:
@@ -592,8 +592,8 @@ You should see an output similar to the following example:
 ----
 nvme connect-all -t tcp -w 192.168.30.10 -a 192.168.30.58 
 nvme connect-all -t tcp -w 192.168.30.10 -a 192.168.30.59
-nvme connect-all -t tcp -w 192.168.31.10 -a 192.168.30.58 
-nvme connect-all -t tcp -w 192.168.31.10 -a 192.168.30.59
+nvme connect-all -t tcp -w 192.168.31.10 -a 192.168.31.58 
+nvme connect-all -t tcp -w 192.168.31.10 -a 192.168.31.59
 ----
 +
 [NOTE]
@@ -687,13 +687,21 @@ nvme list-subsys /dev/nvme4n5
 ====
 [subs=+quotes]
 ----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.f9c6d0cb4fef11f08579d039eaa8138c:discovery
-             hostnqn=nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
-\
-+- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c *live*
-+- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d *live*
-+- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c *live*
-+- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d *live*
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.f9c6d0cb4fef11f08579d039eaa8138c:discovery hostnqn=nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb \ +- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c 
+
+*live optimized*
+
++- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d 
+
+*live non-optimized*
+
++- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c 
+
+*live non-optimized*
+
++- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d 
+
+*live optimized*
 ----
 ====
 --
