@@ -13,9 +13,14 @@ summary: How to Configure NVMe-oF Host for Proxmox VE 9.0 with ONTAP storage
 :imagesdir: ./media/
 
 [.lead]
-The Proxmox VE 9.0 host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
+The  supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
 Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Proxmox VE 9.0. For more support and feature information, see link:nvme-proxmox-index.html[ONTAP support and features^].
+
+.NVME-oF with Proxmox VE 9.0 has the following known limitations:
+
+* The SAN boot configuration is not supported for NVMe-FC.
+
 
 == Step 1: Verify the software version and NVMe configuration
 
@@ -40,7 +45,7 @@ Example Proxmox VE 9.0 kernel version:
 +
 [source,cli]
 ----
-rpm -qa|grep nvme-cli
+apt list|grep nvme-cli
 ----
 +
 The following example shows an `nvme-cli` package version:
@@ -53,7 +58,7 @@ nvme-cli/stable,now 2.13-2 amd64
 +
 [source,cli]
 ----
-rpm -qa|grep libnvme
+apt list|grep libnvme
 ----
 +
 The following example shows an `libnvme` package version:
@@ -105,7 +110,7 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 [role="tabbed-block"]
 =====
-.FC - Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
@@ -251,7 +256,7 @@ FCP CMPL: xb 00000005 Err 00000005
 
 --
 
-.FC - Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
@@ -282,7 +287,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 The expected output is 1.
 --
 
-.TCP
+.NVMe/TCP
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.

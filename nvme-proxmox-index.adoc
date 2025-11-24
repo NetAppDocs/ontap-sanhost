@@ -46,9 +46,7 @@ ONTAP supports the following SAN host features regardless of the ONTAP version r
 |Native NVMe multipathing is always enabled 
 a|9.0 
 | ONTAP does not support Device Mapper (DM) multipath for NVMe-oF.
-|SAN booting using NVMe/FC protocol 
-a|9.0
-|
+
 |`nvme-cli` package includes auto-connect scripts
 
 a|9.0
