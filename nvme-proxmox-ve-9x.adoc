@@ -310,24 +310,24 @@ Discovery Log Number of Records 4, Generation counter 47
 =====Discovery Log Entry 0======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  3
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.c770be5d934811f0b624d039eac809ba:discovery
 traddr:  192.168.165.51
-eflags:  explicit discovery connections, duplicate discovery information
+eflags:  *explicit discovery connections*, *duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 1======
 trtype:  tcp
 adrfam:  ipv4
-subtype: current discovery subsystem
+subtype: *current discovery subsystem*
 treq:    not specified
 portid:  1
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.c770be5d934811f0b624d039eac809ba:discovery
 traddr:  192.168.166.50
-eflags:  explicit discovery connections, duplicate discovery information
+eflags:  *explicit discovery connections*, *duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 2======
 trtype:  tcp

@@ -12,15 +12,15 @@ summary: Install Linux Host Utilities on a Proxmox VE 9.0 host to manage FCP and
 :linkattrs:
 :imagesdir: ./media/
 
-[.lead] 
+[.lead]
 Configure Proxmox VE 9.0 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
 
 [NOTE]
 ====
-The following steps are not supported with Proxmox VE 9.0:
+The following options are not supported with Proxmox VE 9.0:
 
-* Using the Linux Host Utilities software to manage FCP and iSCSI protocol operations
-* Using SAN boot configuration to simplify deployment and improve scalability.  
+* Installing Linux Host Utilities to manage FCP and iSCSI protocol operations
+* Using a SAN boot configuration  
 ====
 
 == Step 1: Confirm the multipath configuration for your host

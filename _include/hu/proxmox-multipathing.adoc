@@ -58,8 +58,8 @@ The following table shows the Linux OS native compiled multipath parameter setti
 | failback | immediate
 | fast_io_fail_tmo | 5
 | features | "2 pg_init_retries 50"
-| flush_on_last_del | "unused"
-| hardware_handler | "0"
+| flush_on_last_del | "always"
+| hardware_handler | "1"
 | no_path_retry | queue
 | path_checker | "tur"
 | path_grouping_policy | "group_by_prio"
