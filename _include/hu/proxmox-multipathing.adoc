@@ -112,7 +112,7 @@ size=100G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 --
 An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
 
-The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
+The following example shows the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 
 .Show example
 [%collapsible]

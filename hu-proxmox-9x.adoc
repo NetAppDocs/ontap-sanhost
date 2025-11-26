@@ -17,10 +17,8 @@ Configure Proxmox VE 9.0 for multipathing and with specific parameters and setti
 
 [NOTE]
 ====
-The following options are not supported with Proxmox VE 9.0:
-
-* Installing Linux Host Utilities to manage FCP and iSCSI protocol operations
-* Using a SAN boot configuration  
+* The Linux Host Utilities do not support Proxmox VE 9.0 operating systems.
+* Proxmox VE 9.0 does not support the SAN boot configuration.  
 ====
 
 == Step 1: Confirm the multipath configuration for your host

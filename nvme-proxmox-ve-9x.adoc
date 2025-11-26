@@ -17,9 +17,7 @@ The  supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP)
 
 Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Proxmox VE 9.0. For more support and feature information, see link:nvme-proxmox-index.html[ONTAP support and features^].
 
-.NVME-oF with Proxmox VE 9.0 has the following known limitations:
-
-* The SAN boot configuration is not supported for NVMe-FC.
+NOTE: Proxmox VE 9.0 does not support the SAN boot configuration for NVMe-FC.
 
 
 == Step 1: Verify the software version and NVMe configuration
@@ -133,7 +131,7 @@ SN1700E2P
 SN1700E2P
 ----
 
-.. Display the model descriptions:
+.. Show the model descriptions:
 +
 [source,cli]
 ----
@@ -462,9 +460,9 @@ You should see the following output:
 Y
 ----
 
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the ONTAP namespaces show up correctly on the host:
 
-.. Display the subsystems:
+.. Show the subsystems:
 +
 [source,cli]
 ----
