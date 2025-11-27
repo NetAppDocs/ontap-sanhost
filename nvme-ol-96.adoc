@@ -150,8 +150,8 @@ cat /sys/class/scsi_host/host*/modelname
 You should see the following output:
 +
 ----
-SN37A92079
-SN37A92079
+LPe36002-M64-D
+LPe36002-M64-D
 ----
 
 .. Display the model descriptions:
@@ -248,25 +248,37 @@ cat /sys/class/scsi_host/host*/nvme_info
 ----
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000109bdace45 WWNN x200000109bdace45 DID x000000 UNKNOWN
+NVME LPORT lpfc0 WWPN x100000620b3c0869 WWNN x200000620b3c0869 DID x080e00 *ONLINE*
+NVME RPORT       WWPN x2001d039eabac36f WWNN x2000d039eabac36f DID x021401 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x20e2d039eabac36f WWNN x20e1d039eabac36f DID x02141f *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2011d039eabac36f WWNN x2010d039eabac36f DID x021429 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2002d039eabac36f WWNN x2000d039eabac36f DID x021003 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x20e4d039eabac36f WWNN x20e1d039eabac36f DID x02100f *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2012d039eabac36f WWNN x2010d039eabac36f DID x021015 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
-LS: Xmt 0000000000 Cmpl 0000000000 Abort 00000000
-LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 0000000000000000 Issue 0000000000000000 OutIO 0000000000000000
-        abort 00000000 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00000000 Err 00000000
+LS: Xmt 0000027ccf Cmpl 0000027cca Abort 00000014
+LS XMIT: Err 00000005  CMPL: xb 00000014 Err 00000014
+Total FCP Cmpl 00000000000613ff Issue 00000000000613fc OutIO fffffffffffffffd
+        abort 00000007 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 0000000a Err 0000000d
 
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000109bdace46 WWNN x200000109bdace46 DID x000000 UNKNOWN
+NVME LPORT lpfc1 WWPN x100000620b3c086a WWNN x200000620b3c086a DID x080000 *ONLINE*
+NVME RPORT       WWPN x2004d039eabac36f WWNN x2000d039eabac36f DID x021501 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x20e3d039eabac36f WWNN x20e1d039eabac36f DID x02150f *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2014d039eabac36f WWNN x2010d039eabac36f DID x021515 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2003d039eabac36f WWNN x2000d039eabac36f DID x02110b *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x20e5d039eabac36f WWNN x20e1d039eabac36f DID x02111f *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2013d039eabac36f WWNN x2010d039eabac36f DID x021129 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
-LS: Xmt 0000000000 Cmpl 0000000000 Abort 00000000
-LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 0000000000000000 Issue 0000000000000000 OutIO 0000000000000000
-        abort 00000000 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00000000 Err 00000000
+LS: Xmt 0000027ca3 Cmpl 0000027ca2 Abort 00000017
+LS XMIT: Err 00000001  CMPL: xb 00000017 Err 00000017
+Total FCP Cmpl 000000000006369d Issue 000000000006369a OutIO fffffffffffffffd
+        abort 00000007 noxri 00000000 nondlp 00000011 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00000008 Err 0000000c
 ----
 =====
 
@@ -377,190 +389,94 @@ nvme discover -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme discover -t tcp -w 192.168.30.10 -a 192.168.30.58 
-Discovery Log Number of Records 8, Generation counter 8
-=====Discovery Log Entry 56======
+=====Discovery Log Entry 0======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *current discovery subsystem*
+treq:    not specified
+portid:  8
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:discovery
+traddr:  192.168.31.99
+eflags:  *explicit discovery connections*, *duplicate discovery information*
+sectype: none
+=====Discovery Log Entry 1======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *current discovery subsystem*
+treq:    not specified
+portid:  6
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:discovery
+traddr:  192.168.30.99
+eflags:  *explicit discovery connections*, *duplicate discovery information*
+sectype: none
+=====Discovery Log Entry 2======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *current discovery subsystem*
+treq:    not specified
+portid:  7
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:discovery
+traddr:  192.168.31.98
+eflags:  *explicit discovery connections*, *duplicate discovery information*
+sectype: none
+=====Discovery Log Entry 3======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *current discovery subsystem*
+treq:    not specified
+portid:  5
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:discovery
+traddr:  192.168.30.98
+eflags:  *explicit discovery connections*, *duplicate discovery information*
+sectype: none
+=====Discovery Log Entry 4======
 trtype:  tcp
 adrfam:  ipv4
 subtype: nvme subsystem
 treq:    not specified
-portid:  14
+portid:  8
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme46
-traddr:  192.168.31.59
+subnqn:  nqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:subsystem.subsys_kvm
+traddr:  192.168.31.99
 eflags:  none
 sectype: none
-=====Discovery Log Entry 57======
+=====Discovery Log Entry 5======
 trtype:  tcp
 adrfam:  ipv4
 subtype: nvme subsystem
 treq:    not specified
-portid:  12
+portid:  6
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme46
-traddr:  192.168.30.59
+subnqn:  nqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:subsystem.subsys_kvm
+traddr:  192.168.30.99
 eflags:  none
 sectype: none
-=====Discovery Log Entry 58======
+=====Discovery Log Entry 6======
 trtype:  tcp
 adrfam:  ipv4
 subtype: nvme subsystem
 treq:    not specified
-portid:  13
+portid:  7
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme46
-traddr:  192.168.31.58
+subnqn:  nqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:subsystem.subsys_kvm
+traddr:  192.168.31.98
 eflags:  none
 sectype: none
-=====Discovery Log Entry 59======
+=====Discovery Log Entry 7======
 trtype:  tcp
 adrfam:  ipv4
 subtype: nvme subsystem
 treq:    not specified
-portid:  11
+portid:  5
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme46
-traddr:  192.168.30.58
+subnqn:  nqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:subsystem.subsys_kvm
+traddr:  192.168.30.98
 eflags:  none
 sectype: none
-=====Discovery Log Entry 60======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  14
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme32
-traddr:  192.168.31.59
-eflags:  none
-sectype: none
-=====Discovery Log Entry 61======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  12
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme32
-traddr:  192.168.30.59
-eflags:  none
-sectype: none
-=====Discovery Log Entry 62======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  13
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme32
-traddr:  192.168.31.58
-eflags:  none
-sectype: none
-=====Discovery Log Entry 63======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  11
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme32
-traddr:  192.168.30.58
-eflags:  none
-sectype: none
-=====Discovery Log Entry 64======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  14
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme5
-traddr:  192.168.31.59
-eflags:  none
-sectype: none
-=====Discovery Log Entry 65======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  12
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme5
-traddr:  192.168.30.59
-eflags:  none
-sectype: none
-=====Discovery Log Entry 66======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  13
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme5
-traddr:  192.168.31.58
-eflags:  none
-sectype: none
-=====Discovery Log Entry 67======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  11
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme5
-traddr:  192.168.30.58
-eflags:  none
-sectype: none
-=====Discovery Log Entry 68======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  14
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme23
-traddr:  192.168.31.59
-eflags:  none
-sectype: none
-=====Discovery Log Entry 69======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  12
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme23
-traddr:  192.168.30.59
-eflags:  none
-sectype: none
-=====Discovery Log Entry 70======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  13
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme23
-traddr:  192.168.31.58
-eflags:  none
-sectype: none
-=====Discovery Log Entry 71======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  11
-trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.daf40c254dcc11f0bc86d039eabac370:subsystem.Nvme23
-traddr:  192.168.30.58
-eflags:  none
-sectype: none
-=====Discovery Log Entry 72======
-trtype:  tcp
-adrfam:  ipv4
-subtype: nvme subsystem
-treq:    not specified
-portid:  14
 ----
 ====
 
