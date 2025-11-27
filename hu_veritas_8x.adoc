@@ -19,16 +19,16 @@ include::_include/hu/veritas-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities-80.adoc[]
 
-== Step 3: Confirm the multipath configuration for your host
+== Step 3: Confirm the Veritas Dynamic Multipathing configuration for your host
 
-You can use Veritas Dynamic Multipathing (VxDMP) to manage ONTAP LUNs.
+Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 8 to manage ONTAP LUNs.
 
-To ensure that multipathing is configured correctly for your host, you need to claim NetApp LUNs as Veritas multipath devices and verify the Array Support Library (ASL) and the Array Policy Module (APM) configuration.
+To ensure that VxDMP is configured correctly for your host, you need to verify the VxDMP configuration and that the Array Support Library (ASL) and the Array Policy Module (APM) packages for NetApp storage systems were loaded during the Veritas software installation.
 
 NOTE: For heterogenous multipath environments, including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, refer to the Veritas Product Administration documentation for the configuration settings.
 
 .Before you begin
-Ensure your configuration meets the system requirements. See the Interoperability Matrix Tool and the Veritas HCL Matrix.
+Ensure your configuration meets the system requirements. See the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] and the Veritas HCL Matrix.
 
 .Steps
 
@@ -54,11 +54,9 @@ sfrac0_47  ENABLED  SFRAC       4      4     0    sfrac0
 ----
 ====
 
-. When you install the Veritas software, it loads the default ASL and APM packages. NetApp recommends that you use the latest supported packages listed on the Veritas support portal
+. Check the configuration of the ASL and APM packages. NetApp recommends that you use the latest supported packages listed on the Veritas support portal.
 +
-The following example displays the Veritas Support Library (ASL) and the Array Policy Module (APM) configuration.
-+
-.Show example
+.Show example ASL and APM configuration
 [%collapsible]
 ====
 ----
@@ -78,6 +76,7 @@ PID         All
 ARRAY_TYPE  ALUA, A/A
 ----
 ====
+
 . For optimum system configuration in storage failover operations, verify that you have the following Veritas VxDMP tunables:
 +
 [cols=2*,options="header"]
@@ -89,7 +88,7 @@ ARRAY_TYPE  ALUA, A/A
 | dmp_restore_interval | 60
 |===
 
-. Set the DMP tunables:
+. Set the DMP tunables to online:
 +
 [source,cli]
 ----
@@ -139,7 +138,7 @@ dmp_native_support                 off               off
 ----
 ====
 
-. Set the protocol timeout values:
+. Configure the protocol timeout values:
 +
 [role="tabbed-block"]
 ====
@@ -162,23 +161,23 @@ node.session.timeo.replacement_timeout = 120
 --
 ====
 
-. Set the RHEL host "rport" values:
-+
-Configure `udev rport` values to support the Veritas Infoscale environment in storage failover scenarios. 
-+
-Create the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
+. Set the host "rport" values for RHEL 8.x and 9.x:
+
+.. Configure `udev rport` values to support the Veritas Infoscale environment in storage failover scenarios. 
+
+.. Create the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
 +
 ----
 # cat /etc/udev/rules.d/40-rport.rules
 KERNEL=="rport-*", SUBSYSTEM=="fc_remote_ports", ACTION=="add", RUN+=/bin/sh -c 'echo 20 > /sys/class/fc_remote_ports/%k/fast_io_fail_tmo;echo 864000 >/sys/class/fc_remote_ports/%k/dev_loss_tmo'"
 ----
 +
-NOTE: For all other settings specific to Veritas, refer to the standard Veritas Infoscale product documentation.
+NOTE: Refer to the standard Veritas Infoscale product documentation for all other settings specific to Veritas.
 
 
 . Verify the parameter settings and path status for your ONTAP LUNs:
 +
-In AFF, FAS, or ASA configurations, a single ONTAP LUN shouldn't require more than four paths. Having more than four paths can cause problems during a storage failure.
+In AFF, FAS, or ASA configurations, a single ONTAP LUN should not require more than four paths. More than four paths can cause problems during a storage failure.
 +
 The following examples show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
 +
