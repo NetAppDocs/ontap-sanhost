@@ -21,25 +21,6 @@ systemctl enable multipathd
 systemctl start multipathd
 ----
 
-. By default, the Proxmox OS-native multipath configuration sets `find_multipaths` to "strict" with an empty zero byte `/etc/multipath.conf` configuration file. This can prevent the discovery of ONTAP LUNs as multipath devices, which means they might not appear under multipath control automatically.
-+
-To ensure that ONTAP LUNs are correctly discovered and managed by multipathd, you must override the default `find_multipaths` parameter: 
-
-.. Set `find_multipaths` to "no" in the defaults section of `/etc/multipath.conf`:
-+
-[source,cli]
-----
-defaults {
-    find_multipaths "no"
-}
-----
-.. Reload the multipath service:
-+
-[source,cli]
-----
-systemctl reload multipathd
-----
-
 . Each time you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
 +
 The following table shows the Linux OS native compiled multipath parameter settings for ONTAP LUNs.
@@ -73,7 +54,28 @@ The following table shows the Linux OS native compiled multipath parameter setti
 | vendor | NETAPP
 |===
 ====
- 
+
+. Optionally, override the default value for the `find_multipaths` parameter to ensure that ONTAP LUNs are correctly discovered and managed by multipathd: 
++
+--
+.. Set `find_multipaths` to "no" in the defaults section of `/etc/multipath.conf`:
++
+[source,cli]
+----
+defaults {
+    find_multipaths "no"
+}
+----
+.. Reload the multipath service:
++
+[source,cli]
+----
+systemctl reload multipathd
+----
+--
++
+NOTE: By default, the Proxmox OS-native multipath configuration sets `find_multipaths` to "*strict*" with the empty zero byte `/etc/multipath.conf` configuration file each time you boot the host. This can prevent the discovery of ONTAP LUNs as multipath devices, which means they do not appear under multipath control automatically.
+
 . Verify the parameter settings and path status for your ONTAP LUNs:
 +
 [source,cli]
