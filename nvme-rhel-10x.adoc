@@ -20,13 +20,13 @@ Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 10x. For more 
 NVMe-oF with RHEL 10x has the following known limitations:
 
 * DM multipath support for NVMe-oF is not supported.
-* Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+* The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
 == Step 1: Optionally, enable SAN booting
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Step 2: Verify the software version and NVMe configuration
+== Step 2: Install RHEL and NVMe software and verify your configuration
 
 include::_include/nvme/verify-software-version-introduction.adoc[]
 
@@ -83,7 +83,7 @@ The following example shows an `hostnqn` version:
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
 +
 [source,cli]
 ----
@@ -122,8 +122,6 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
-
-.Steps
 
 . Verify that you are using the supported adapter model: 
 
@@ -267,8 +265,6 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-.Steps
-
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -296,8 +292,6 @@ The expected output is 1.
 .TCP
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
-
-.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -573,7 +567,7 @@ nvme netapp ontapdevices -o json
 
 == Step 7: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 10x host and an ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a RHEL 10x host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 

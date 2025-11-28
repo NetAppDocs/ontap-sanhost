@@ -1,0 +1,71 @@
+---
+sidebar: sidebar
+permalink: nvme-rhel-supported-features.html
+keywords: nvme, linux, rhel, red hat, enterprise
+summary: Learn about ONTAP support and features for RHEL hosts
+---
+= Learn about ONTAP support and features for RHEL hosts
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varies based on your version of ONTAP and RHEL.
+
+[cols="50,25,25",options="header"]
+|===
+
+|Feature | RHEL host version| ONTAP version
+
+|Secure in-band authentication is supported over NVMe/TCP between a RHEL host and an ONTAP controller
+a|9.3 or later
+ |9.12.1 or later
+|NVMe/TCP provides namespaces using the native `nvme-cli` package
+a|8.2 or later
+ |9.10.1 or later
+|NVMe/TCP is a fully supported enterprise feature
+a|9.0 or later
+ |9.10.1 or later
+|NVMe and SCSI traffic is supported on the same host using NVMe multipath for NVMe-oF namespaces and dm-multipath for SCSI LUNs
+a|8.2 or later
+ |9.4 or later
+|===
+
+ONTAP supports the following SAN host features regardless of the ONTAP version running on your system setup.
+
+[cols="75,25",options="header"]
+|===
+
+|Feature | RHEL host version
+|Native NVMe multipathing is enabled by default
+a|10.0 or later	 
+|SAN booting is enabled using the NVMe/FC protocol
+a|9.4 or later
+|The `nvme-cli` package includes auto-connect scripts removing the need for third-party scripts
+a|8.2 or later
+|The native udev rule in `nvme-cli` package provides round-robin load balancing for NVMe multipath
+a|8.2 or later 
+|===
+
+NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+== What's next
+
+[cols="50,50",options="header"]
+|===
+
+|If your RHEL version is .. | Learn about ..
+|10 series
+|link:nvme-rhel-10x.html[Configuring NVMe for RHEL 10x]
+|9 series
+|link:nvme-rhel-9x.html[Configuring NVMe for RHEL 9x]
+|8 series
+|link:nvme-rhel-8x.html[Configuring NVMe for RHEL 8x]
+|===
+
+.Related information
+
+link:https://docs.netapp.com/us-en/ontap/san-admin/start-nvme-fc-service-svm-task.html[Learn about managing NVMe protocols]

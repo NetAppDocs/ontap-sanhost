@@ -27,7 +27,7 @@ NVMe-oF with RHEL 8x has the following known limitations:
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Step 2: Verify the software version and NVMe configuration
+== Step 2: Install RHEL and NVMe software and verify your configuration
  
 include::_include/nvme/verify-software-version-introduction.adoc[]
 
@@ -92,7 +92,7 @@ The following example shows a `hostnqn` version:
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3410-8035-b8c04f4c5132
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
+. On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
 +
 [source,cli]
 ----
@@ -137,8 +137,6 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
-
-.Steps
 
 . Verify that you are using the supported adapter model:
 
@@ -282,8 +280,6 @@ FCP CMPL: xb 00000368 Err 00000382
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-.Steps
-
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -312,8 +308,6 @@ The expected output is 1.
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
-
-.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -403,16 +397,12 @@ include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
-[role="tabbed-block"]
-====
-.NVMe/FC
---
 [source,cli]
 ----
 nvme list-subsys /dev/nvme0n1
 ----
-
-.Show example
++
+.Show NVMe/FC example
 [%collapsible]
 =====
 [subs=+quotes]
@@ -425,15 +415,8 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.0cd9ee0dc0ec11ee8e7fd039ea9e8ae9:su
  +- nvme4 fc traddr=nn-0x2005d039eaa7dfc8:pn-0x2087d039eaa7dfc8 host_traddr=nn-0x20000024ff752e6d:pn-0x21000024ff752e6d live *optimized* 
 ----
 =====
---
-.NVMe/TCP
---
-[source,cli]
-----
-nvme list-subsys /dev/nvme0n1 
-----
-
-.Show example
++
+.Show NVMe/TCP example
 [%collapsible]
 =====
 [subs=+quotes]
@@ -446,7 +429,27 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.a1b2b785b9de11ee8e7fd039ea9e8ae9:su
  +- nvme3 tcp traddr=192.168.1.24 trsvcid=4420 host_traddr=192.168.1.31 live *optimized*
 ----
 =====
---
+
+. Verify that the namespaces are created and correctly discovered on the host:
++
+[source,cli]
+----
+nvme list
+----
++
+.Show example
+[%collapsible]
+====
+----
+Node         SN                   Model                          
+---------------------------------------------------------  
+/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
+                               
+
+Namespace Usage    Format             FW             Rev
+-----------------------------------------------------------
+1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
+----
 ====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
