@@ -4,7 +4,7 @@ permalink: hu_veritas_6x.html
 keywords: host utilities, veritas, infoscale, 6.x, netapp, ontap, san, lun, multipathing, iscsi
 summary: Provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale 6 series release
 ---
-= Use Veritas Storage Foundation 6 for Linux with ONTAP
+= Configure Veritas Infoscale 6 for FC, FCoE, and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,93 +13,60 @@ summary: Provides guidance on ONTAP SAN host configuration settings for the Veri
 :imagesdir: ./media/
 
 [.lead]
-You can use ONTAP SAN host configuration settings for the Veritas Storage Foundation 6 series release for Red Hat Enterprise Linux and Oracle Linux (Red Hat Compatible Kernel based) platforms with FC, FCoE and iSCSI protocols.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. Use the Linux Host Utilities with Veritas Infoscale 6 for Red Hat Enterprise Linux (RHEL) and Oracle Linux (Red Hat Compatible Kernel based) hosts to support managing FC, FCoE, and iSCSI protocol operations with ONTAP LUNs.
 
-== Install the Linux Host Utilities
+include::_include/hu/veritas-enable-san-boot.adoc[]
 
-include::_include/hu/reuse_hu_installing_luhu_without32.adoc[]
+include::_include/hu/install-linux-host-utilities-80.adoc[]
 
-== SAN Toolkit
+== Step 3: Confirm the Veritas Dynamic Multipathing configuration for your host
 
-include::_include/hu/reuse_hu_san_toolkit_withoutexample.adoc[]
+Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 8 to manage ONTAP LUNs.
 
-.Example
-In the following illustration, the `sanlun show` command returns LUN information.
+To ensure that VxDMP is set up correctly for your host, you need to verify the VxDMP configuration and check the Array Support Library (ASL) and the Array Policy Module (APM) configuration. The ASL and APM packages for NetApp storage systems are installed during the Veritas software installation.
 
-----
-# sanlun show -p -v SFRAC:/vol/fen1/lun1
-
-              ONTAP Path: SFRAC:/vol/fen1/lun1
-                     LUN: 0
-                LUN Size: 10g
-                 Product: cDOT
-                DMP NODE: sfrac0_47
-      Multipath Provider: Veritas
-----------  ------  ---------  ------  -------------------------------------
-Veritas     host    vserver    host:
-path        path    path     /dev/   chan:     vserver           major:
-state       state   type     node    id:lun    LIF                   minor
-----------  ------  ---------  ------  -------------------------------------
-enabled     up      active/non-optimized sdea   14:0:1:0   lif_10    128:32
-enabled (a) up      active/optimized     sdcj   14:0:0:0   lif_2      69:112
-enabled (a) up      active/optimized     sdb    13:0:0:0   lif_1       8:16
-enabled     up      active/non-optimized sdas   13:0:1:0   lif_9      66:192
-----
-
-== SAN Booting
+NOTE: For heterogenous multipath environments, including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, refer to the Veritas Product Administration documentation for the configuration settings.
 
 .Before you begin
-
-If you decide to use SAN booting, it must be supported by your configuration. You can use the link:https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your OS, HBA, HBA firmware and the HBA boot BIOS, and ONTAP version are supported.
-
-Refer to Veritas Support Portal (Product Matrix, Platform Lookup, HCL Matrix) to verify SAN Boot configuration supportability and known caveats.
+Ensure your configuration meets the system requirements. See the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] and the Veritas HCL Matrix.
 
 .Steps
 
-include::_include/hu/reuse_hu_san_booting_steps.adoc[]
-
-== Multipathing
-
-You must verify that your configuration meets the system requirements.  For more information, see the https://imt.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] and the Veritas HCL Matrix.
-
-.Example
-
-In the following example, the `vxdmpadm` command is used to verify that the VxDMP Multipath has the ONTAP target array attached.
-
+. Verify the ONTAP target array is attached to the VxDMP multipath:
++
+[source,cli]
+----
+vxdmpadm
+----
++
+.Show example
+[%collapsible]
+====
 ----
 # vxdmpadm listenclosure
 ENCLR_NAME   ENCLR_TYPE  ENCLR_SNO     STATUS      ARRAY_TYPE    LUN_COUNT    FIRMWARE
 =====================================================================================
 sfrac0       SFRAC       804Xw$PqE52h  CONNECTED   ALUA          43           9800
-----
-
-----
 # vxdmpadm getdmpnode
 NAME       STATE    ENCLR-TYPE  PATHS  ENBL  DSBL ENCLR-NAME
 ===================================================================
 sfrac0_47  ENABLED  SFRAC       4      4     0    sfrac0
 ----
+====
 
-With Veritas Dynamic Multipathing (VxDMP), you must perform configuration tasks to claim NetApp LUNs as Veritas Multipath Devices. You must have the Array Support Library (ASL) and the Array Policy Module (APM) packages installed that Veritas provides for NetApp storage systems.  While the Veritas Software Installation loads the default ASL APM packages along with the product, it is recommended to use the latest supported packages listed on Veritas support portal.
-
-.Example
-
-The following example displays the Veritas Support Library (ASL) and the Array Policy Module (APM) configuration.
-
+. Check the configuration of the ASL and APM packages. NetApp recommends that you use the latest supported packages listed on the Veritas support portal.
++
+.Show example ASL and APM configuration
+[%collapsible]
+====
 ----
 # vxdmpadm list dmpnode dmpnodename=sfrac0_47 | grep asl
 asl        = libvxnetapp.so
-----
-
-----
 # vxddladm listversion |grep libvxnetapp.so
-libvxnetapp.so              vm-7.4-rev-1    6.1
+libvxnetapp.so                  vm-8.0.0-rev-1   8.0
 
 # rpm -qa |grep VRTSaslapm
 VRTSaslapm-x.x.x.0000-RHEL8.X86_64
-----
-
-----
 vxddladm listsupport libname=libvxnetapp.so
 ATTR_NAME   ATTR_VALUE
 =========================================
@@ -108,28 +75,10 @@ VID         NETAPP
 PID         All
 ARRAY_TYPE  ALUA, A/A
 ----
+====
 
-include::_include/hu/reuse_hu_non_asa_configuration.adoc[]
-
-----
-# vxdmpadm getsubpaths dmpnodename-sfrac0_47
-NAME  STATE[A]   PATH-TYPE[M]   CTLR-NAME   ENCLR-TYPE  ENCLR-NAME  ATTRS  PRIORITY
-===================================================================================
-sdas  ENABLED     Active/Non-Optimized c13   SFRAC       sfrac0     -      -
-sdb   ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
-sdcj  ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
-sdea  ENABLED     Active/Non-Optimized c14   SFRAC       sfrac0     -      -
-----
-
-include::_include/hu/reuse_hu_asa_configuration_note.adoc[]
-
-=== Recommended Settings
-
-==== Settings for Veritas Multipath
-
-NetApp recommends the following Veritas VxDMP tunables for optimum system configuration in storage failover operations.
-
-
+. For optimum system configuration in storage failover operations, verify that you have the following Veritas VxDMP tunables:
++
 [cols=2*,options="header"]
 |===
 | Parameter
@@ -139,16 +88,24 @@ NetApp recommends the following Veritas VxDMP tunables for optimum system config
 | dmp_restore_interval | 60
 |===
 
-DMP tunables are set online by using the `vxdmpadm` command as follows:
-
-`# vxdmpadm settune dmp_tunable=value`
-
-The values of these tunable can be verified dynamically by using `#vxdmpadm gettune`.
-
-.Example
-
-The following example shows the effective VxDMP tunables on the SAN host.
-
+. Set the DMP tunables to online:
++
+[source,cli]
+----
+# vxdmpadm settune dmp_tunable=value
+----
+. Verify that the tunables are set correctly:
++
+[source,cli]
+----
+# vxdmpadm gettune
+----
++
+The following example shows the effective VxDMP tunables on a SAN host.
++
+.Show example
+[%collapsible]
+====
 ----
 # vxdmpadm gettune
 
@@ -179,13 +136,21 @@ dmp_monitor_ownership               on                on
 dmp_monitor_fabric                  on                on
 dmp_native_support                 off               off
 ----
+====
 
-==== Settings by protocol
-
-* For FC/FCoE only:  Use the default timeout values.
-* For iSCSI only: Set the `replacement_timeout` parameter value to 120.
+. Configure the protocol timeout values:
 +
-The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it.  Setting the value of `replacement_timeout` to 120 in the iSCSI configuration file is recommended.
+[role="tabbed-block"]
+====
+.FC/FCoE
+--
+Use the default timeout values for FC and FCoE.
+--
+.iSCSI 
+--
+Set the `replacement_timeout` parameter value to 120.
+
+The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it. NetApp recommends setting the value of `replacement_timeout` to 120 in the iSCSI configuration file.
 
 .Example
 
@@ -193,22 +158,76 @@ The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer shou
 # grep replacement_timeout /etc/iscsi/iscsid.conf
 node.session.timeo.replacement_timeout = 120
 ----
+--
+====
 
-==== Settings by OS platforms
-
-For Red Hat Enterprise Linux 7 and 8 series, you must configure `udev rport` values to support the Veritas Infoscale environment in storage failover scenarios. Create the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
-
+. Set the host "udev rport" values for RHEL 8 and 9 series hosts to support the Veritas Infoscale environment in storage failover scenarios.
++
+Configure "udev rport" values by creating the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
++
 ----
 # cat /etc/udev/rules.d/40-rport.rules
 KERNEL=="rport-*", SUBSYSTEM=="fc_remote_ports", ACTION=="add", RUN+=/bin/sh -c 'echo 20 > /sys/class/fc_remote_ports/%k/fast_io_fail_tmo;echo 864000 >/sys/class/fc_remote_ports/%k/dev_loss_tmo'"
 ----
++
+NOTE: Refer to the standard Veritas Infoscale product documentation for all other settings specific to Veritas.
 
-NOTE: For all other settings specific to Veritas, refer to the standard Veritas Infoscale product documentation.
 
-== Multipath Coexistence
+. Verify the parameter settings and path status for your ONTAP LUNs:
++
+In AFF, FAS, or ASA configurations, a single ONTAP LUN should not require more than four paths. More than four paths can cause problems during a storage failure.
++
+The following examples show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
++
+[role="tabbed-block"]
+=====
+.ASA configuration
+--
+An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time.
 
-If you have a heterogenous multipath environment including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, refer to the Veritas Product Administration documentation for configuration settings.
+.Show example
+[%collapsible]
+====
+----
+# vxdmpadm getsubpaths dmpnodename-sfrac0_47
+NAME  STATE[A]   PATH-TYPE[M]   CTLR-NAME   ENCLR-TYPE  ENCLR-NAME  ATTRS  PRIORITY
+===================================================================================
+sdas  ENABLED (A)    Active/Optimized c13   SFRAC       sfrac0     -      -
+sdb   ENABLED(A) Active/Optimized     c14   SFRAC       sfrac0     -      -
+sdcj  ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
+sdea  ENABLED (A)    Active/Optimized c14   SFRAC       sfrac0     -
+----
+====
+--
 
-== Known issues
+.AFF or FAS configuration
+--
+An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
 
-There are no known issues for the Veritas Storage Foundation 6 for Linux with ONTAP release.
+The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
+
+.Show example
+[%collapsible]
+====
+----
+# vxdmpadm getsubpaths dmpnodename-sfrac0_47
+NAME  STATE[A]   PATH-TYPE[M]   CTLR-NAME   ENCLR-TYPE  ENCLR-NAME  ATTRS  PRIORITY
+===================================================================================
+sdas  ENABLED     Active/Non-Optimized c13   SFRAC       sfrac0     -      -
+sdb   ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
+sdcj  ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
+sdea  ENABLED     Active/Non-Optimized c14   SFRAC       sfrac0     -      -
+----
+====
+--
+=====
+
+== Step 4: Known issues
+
+There are no known issues.
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]

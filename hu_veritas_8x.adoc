@@ -23,7 +23,7 @@ include::_include/hu/install-linux-host-utilities-80.adoc[]
 
 Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 8 to manage ONTAP LUNs.
 
-To ensure that VxDMP is configured correctly for your host, you need to verify the VxDMP configuration and check the Array Support Library (ASL) and the Array Policy Module (APM) configuration. The ASL and APM packages for NetApp storage systems are installed during the Veritas software installation.
+To ensure that VxDMP is set up correctly for your host, you need to verify the VxDMP configuration and check the Array Support Library (ASL) and the Array Policy Module (APM) configuration. The ASL and APM packages for NetApp storage systems are installed during the Veritas software installation.
 
 NOTE: For heterogenous multipath environments, including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, refer to the Veritas Product Administration documentation for the configuration settings.
 
@@ -161,9 +161,9 @@ node.session.timeo.replacement_timeout = 120
 --
 ====
 
-. Set the host "rport" values for RHEL 8.x and 9.x:
+. Set the host "udev rport" values for RHEL 8 and 9 series hosts to support the Veritas Infoscale environment in storage failover scenarios.
 +
-Configure `udev rport` values to support the Veritas Infoscale environment in storage failover scenarios by creating the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
+Configure "udev rport" values by creating the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
 +
 ----
 # cat /etc/udev/rules.d/40-rport.rules
