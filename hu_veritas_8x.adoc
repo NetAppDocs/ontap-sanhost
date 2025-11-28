@@ -23,7 +23,7 @@ include::_include/hu/install-linux-host-utilities-80.adoc[]
 
 Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 8 to manage ONTAP LUNs.
 
-To ensure that VxDMP is configured correctly for your host, you need to verify the VxDMP configuration and that the Array Support Library (ASL) and the Array Policy Module (APM) packages for NetApp storage systems were loaded during the Veritas software installation.
+To ensure that VxDMP is configured correctly for your host, you need to verify the VxDMP configuration and check the Array Support Library (ASL) and the Array Policy Module (APM) configuration. The ASL and APM packages for NetApp storage systems are installed during the Veritas software installation.
 
 NOTE: For heterogenous multipath environments, including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, refer to the Veritas Product Administration documentation for the configuration settings.
 
@@ -144,13 +144,13 @@ dmp_native_support                 off               off
 ====
 .FC/FCoE
 --
-Use the default timeout values.
+Use the default timeout values for FC and FCoE.
 --
 .iSCSI 
 --
 Set the `replacement_timeout` parameter value to 120.
 
-The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it. Setting the value of `replacement_timeout` to 120 in the iSCSI configuration file is recommended.
+The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it. NetApp recommends setting the value of `replacement_timeout` to 120 in the iSCSI configuration file.
 
 .Example
 
@@ -162,10 +162,8 @@ node.session.timeo.replacement_timeout = 120
 ====
 
 . Set the host "rport" values for RHEL 8.x and 9.x:
-
-.. Configure `udev rport` values to support the Veritas Infoscale environment in storage failover scenarios. 
-
-.. Create the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
++
+Configure `udev rport` values to support the Veritas Infoscale environment in storage failover scenarios by creating the file `/etc/udev/rules.d/40-rport.rules` with the following file content:
 +
 ----
 # cat /etc/udev/rules.d/40-rport.rules
