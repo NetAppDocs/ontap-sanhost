@@ -21,7 +21,7 @@ include::_include/hu/install-linux-host-utilities-80.adoc[]
 
 == Step 3: Confirm the Veritas Dynamic Multipathing configuration for your host
 
-Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 8 to manage ONTAP LUNs.
+Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 7 to manage ONTAP LUNs.
 
 To ensure that VxDMP is set up correctly for your host, you need to verify the VxDMP configuration and check the Array Support Library (ASL) and the Array Policy Module (APM) configuration. The ASL and APM packages for NetApp storage systems are installed during the Veritas software installation.
 
