@@ -74,7 +74,7 @@ systemctl reload multipathd
 ----
 --
 +
-NOTE: By default, the Proxmox OS-native multipath configuration sets `find_multipaths` to "*strict*" with the empty zero byte `/etc/multipath.conf` configuration file each time you boot the host. This can prevent the discovery of ONTAP LUNs as multipath devices, which means they do not appear under multipath control automatically. Existing ONTAP LUNs remain discovered and under multipath control after each reboot.
+NOTE: By default, the Proxmox OS-native multipath configuration sets `find_multipaths` to "*strict*" with the empty zero byte `/etc/multipath.conf` configuration file each time you boot the host. This can prevent the host discovering newly presented ONTAP LUNs as multipath devices, which means they do not appear under multipath control automatically. Existing ONTAP LUNs remain discovered and under multipath control after each reboot.
 
 . Verify the parameter settings and path status for your ONTAP LUNs:
 +
