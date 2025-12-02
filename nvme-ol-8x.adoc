@@ -34,7 +34,7 @@ For additional details on supported configurations, see the link:https://mysuppo
 ** SAN booting using the NVMe-oF protocol is currently not supported.
 ** NetApp sanlun host utility support isn't available for NVMe-oF on an Oracle Linux 8x host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 
-== Step 1: Validate software versions
+== Step 1: Install Oracle Linux and NVMe software and verify your configuration
 
 Validate the minimum supported software versions for Oracle Linux 8x.
 

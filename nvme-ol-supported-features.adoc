@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: nvme-ol-overview.html
+permalink: nvme-ol-supported-features.html
 keywords: nvme, oracle linux, enterprise
 summary: Learn about ONTAP support and features for Oracle Linux hosts
 ---
@@ -13,34 +13,30 @@ summary: Learn about ONTAP support and features for Oracle Linux hosts
 :imagesdir: ./media/
 
 [.lead]
-The following ONTAP features are supported by ONTAP versions and Oracle Linux SAN host operating systems: 
+Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varies based on your version of ONTAP and RHEL.
 
-[cols="40,30,30",options="header"]
+[cols="50,25,25",options="header"]
 |===
 
-|ONTAP feature | Oracle Linux hosts supported beginning with version ..| ONTAP version supported beginning with ..
+|Feature | RHEL host version| ONTAP version
 
-|link:https://docs.netapp.com/us-en/ontap/nvme/set-up-secure-authentication-nvme-task.html[Secure in-band authentication for NVMe/TCP^] 
-
-a|9.4 
- |9.12.1 
-|*NVMe/TCP in addition to NVMe/FC* 
-
-Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
-a|8.3
- |9.10.1
-|*NVMe and SCSI traffic supported on the same host*
-
-Use dm-multipath for SCSI LUNs and NVMe multipath for NVMe-oF namespaces.
-a|7.7 
- |9.4 
-|*In-kernel NVMe multipath enabled for NVMe namespaces by default*
-
-a|8.3 
- |? 
+|Secure in-band authentication is supported over NVMe/TCP between a RHEL host and an ONTAP controller
+a|9.4 or later
+ |9.12.1 or later
+|NVMe/TCP provides namespaces using the native `nvme-cli` package
+a|8.2 or later (TBC)
+ |9.10.1 or later  
+|NVMe/TCP is a fully supported enterprise feature
+a|9.0 or later  (TBC)
+ |9.10.1 or later
+|NVMe and SCSI traffic is supported on the same host using NVMe multipath for NVMe-oF namespaces and dm-multipath for SCSI LUNs
+a|8.2 or later  (TBC)
+ |9.4 or later
 |===
 
-ONTAP supports the following SAN host features regardless of the ONTAP version running on your system setup:
+include::_include/nvme/nvme-cli-note.adoc[]
+
+ONTAP supports the following SAN host features regardless of the ONTAP version running on your system setup: (TBC)
 
 [cols="50,50",options="header"]
 |===
