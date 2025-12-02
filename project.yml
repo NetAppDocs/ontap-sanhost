@@ -359,54 +359,20 @@ sidebar:
         - title: 7x
           url: /nvme-ol-7x.html
       - title: RHEL
-        pdf-filename: NVMeoF RHEL
+        pdf-filename: NVMeoF RHEL 
         entries:
-        - title: ONTAP support and features
-          url: /hu-nvme-rhel.html
-        - title: RHEL 10
-          entries:
-          - title: "10.0"
-            url: /nvme-rhel-10.html
-        - title: RHEL 9
-          entries:
-          - title: "9.6"
-            url: /nvme-rhel-96.html
-          - title: "9.5"
-            url: /nvme-rhel-95.html
-          - title: "9.4"
-            url: /nvme-rhel-94.html
-          - title: "9.3"
-            url: /nvme-rhel-93.html
-          - title: "9.2"
-            url: /nvme-rhel-92.html
-          - title: "9.1"
-            url: /nvme-rhel-91.html
-          - title: "9.0"
-            url: /nvme-rhel-90.html
-        - title: RHEL 8
-          entries:
-          - title: "8.10"
-            url: /nvme-rhel-810.html
-          - title: "8.9"
-            url: /nvme-rhel-89.html
-          - title: "8.8"
-            url: /nvme-rhel-88.html
-          - title: "8.7"
-            url: /nvme-rhel-87.html
-          - title: "8.6"
-            url: /nvme-rhel-86.html
-          - title: "8.5"
-            url: /nvme-rhel-85.html
-          - title: "8.4"
-            url: /nvme-rhel-84.html
-          - title: "8.3"
-            url: /nvme-rhel-83.html
-          - title: "8.2"
-            url: /nvme-rhel-82.html
-          - title: "8.1"
-            url: /nvme-rhel-81.html
+        - title: ONTAP support and features 
+          url: /nvme-rhel-supported-features.html
+        - title: 10x
+          url: /nvme-rhel-10x.html
+        - title: 9x
+          url: /nvme-rhel-9x.html
+        - title: 8x
+          url: /nvme-rhel-8x.html
       - title: Rocky Linux
         entries:
+        - title: ONTAP support and features 
+          url: /nvme-rockylinux-supported-features.html
         - title: Rocky Linux 10
           entries:
           - title: "10.0"

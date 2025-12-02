@@ -13,7 +13,7 @@ summary: NVMe-oF Host Configuration for Oracle Linux 9x with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-Oracle Linux hosts support the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
+include::_include/nvme/nvme-oracle-linux-introduction.adoc[]
 
 .About this task
 

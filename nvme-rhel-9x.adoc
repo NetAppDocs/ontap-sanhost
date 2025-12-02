@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: nvme-rhel-96.html
+permalink: nvme-rhel-9x.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 9.6 with ONTAP
+summary: How to Configure NVMe-oF Host for RHEL 9x with ONTAP
 ---
-= Configure RHEL 9.6 for NVMe-oF with ONTAP storage
+= Configure RHEL 9x for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,26 +13,25 @@ summary: How to Configure NVMe-oF Host for RHEL 9.6 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-include::_include/nvme/nvme-introduction.adoc[]
+include::_include/nvme/nvme-rhel-introduction.adoc[]
 
-.Before you begin
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Red Hat Enterprise Linux (RHEL) 9.6. For more support and feature information, see link:hu-nvme-rhel.html[ONTAP support and features^].  
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 9x. For more support and feature information, see link:nvme-rhel-supported-features.html[RHEL ONTAP support and features].
 
-*NVMe-oF with RHEL 9.6 has the following known limitations:*
+NVMe-oF with RHEL 9x has the following known limitations:
 
-* Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+* The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
 == Step 1: Optionally, enable SAN booting
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Step 2: Verify the software version and NVMe configuration
+== Step 2: Install RHEL and NVMe software and verify your configuration
 
 include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install RHEL 9.6 on the server. After the installation is complete, verify that you are running the required RHEL 9.6 kernel: 
+. Install RHEL 9x on the server. After the installation is complete, verify that you are running the required RHEL 9x kernel: 
 +
 [source,cli]
 ----
@@ -84,7 +83,7 @@ The following example shows an `hostnqn` version:
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
 +
 [source,cli]
 ----
@@ -123,8 +122,6 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
-
-.Steps
 
 . Verify that you are using the supported adapter model: 
 
@@ -299,8 +296,6 @@ FCP CMPL: xb 000035cc Err 000fcfc0
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-.Steps
-
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -329,8 +324,6 @@ The expected output is 1.
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
-
-.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -485,9 +478,9 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 --
 =====
 
-=== Modify the iopolicy in the udev rules
+== Step 4: Optionally, modify the iopolicy in the udev rules
 
-RHEL 9.6 sets the default iopolicy for NVMe-oF to `round-robin`. If you want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+RHEL 9.6 sets the default iopolicy for NVMe-oF to `round-robin`. If you are using RHEL 9.6 and want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
 
 . Open the udev rules file in a text editor with root privileges:
 +
@@ -517,7 +510,7 @@ ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}
 ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="queue-depth"
 ----
 
-. Run the following commands to reload the udev rules and apply the changes:
+. Reload the udev rules and apply the changes:
 +
 [source,cli]
 ----
@@ -525,7 +518,7 @@ udevadm control --reload
 udevadm trigger --subsystem-match=nvme-subsystem
 ----
 
-. Verify the current iopolicy for your subsystem. Replace <subsystem> with the appropriate name, for example, `nvme-subsys0`. 
+. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
 +
 [source,cli]
 ----
@@ -540,15 +533,15 @@ queue-depth.
 
 NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. No reboot is required.
 
-== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+== Step 5: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
 
-== Step 5: Verify NVMe boot services
+== Step 6: Verify NVMe boot services
 
 include::_include/nvme/verify-nvme-services.adoc[]
 
-== Step 6: Verify the multipathing configuration
+== Step 7: Verify the multipathing configuration
 
 Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
 
@@ -732,9 +725,9 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 7: Set up secure in-band authentication
+== Step 8: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a RHEL 10.0 host and an ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a RHEL 9x host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -753,7 +746,7 @@ Set up secure in-band authentication using the CLI.
 ----
 cat /etc/nvme/hostnqn
 ----
-. Generate the dhchap key for the RHEL 9.6 host.
+. Generate the dhchap key for the RHEL 9x host.
 +
 The following output describes the `gen-dhchap-key` command parameters:
 +
@@ -951,9 +944,17 @@ DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJ
 --
 =====
 
-== Step 8: Review the known issues
+== Step 9: Review the known issues
 
-There are no known issues.
+These are the known issues:
+
+[cols="20,40,40",options="header"]
+|===
+|NetApp Bug ID	|Title	|Description
+|1503468
+|In RHEL 9.1, the `nvme list-subsys` command returns repeated nvme controller list for a given subsystem	|The `nvme list-subsys` command returns a list of NVMe controllers for a given subsystem. In RHEL 9.1, this command shows controllers with their ANA state for all namespaces in the subsystem. Because ANA state is a per-namespace attribute, the command should display unique controller entries with the path state for each namespace.|
+link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|RHEL 9.0 NVMe-oF hosts create duplicate Persistent Discovery Controllers (PDCs)	|On NVMe-oF hosts, you can use the "nvme discover -p" command to create PDCs. When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running ONTAP 9.10.1 and RHEL 9.0 with an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
+|===
 
 //ONTAPDOC-2984 26-May-2025
 //ONTAPDOC-2561 25-Nov-2024
