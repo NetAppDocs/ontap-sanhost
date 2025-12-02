@@ -118,7 +118,7 @@ If the `hostnqn` strings don't match, you can use the `vserver modify` command t
 Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations. 
 
 [role="tabbed-block"]
-====
+=====
 .FC - Broadcom/Emulex
 --
 Configure NVMe/FC for a Broadcom/Emulex adapter.
@@ -228,7 +228,7 @@ cat /sys/class/scsi_host/host*/nvme_info
 +
 .Show example
 [%collapsible]
-=====
+====
 [subs=+quotes]
 ----
 NVME Initiator Enabled
@@ -257,10 +257,9 @@ Total FCP Cmpl 000000000007754f Issue 000000000007754f OutIO 0000000000000000
         abort 000000c2 noxri 00000000 nondlp 00000719 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 000000c2 Err 0000023d
 ----
-=====
+====
 
 --
-
 .FC - Marvell/QLogic
 --
 
@@ -406,14 +405,17 @@ sectype: none
 nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
-You should see an output similar to the following example:
-+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.166.4 -a 192.168.166.8
 nvme discover -t tcp -w 192.168.165.3 -a 192.168.165.8
 nvme discover -t tcp -w 192.168.166.4 -a 192.168.166.9
 nvme discover -t tcp -w 192.168.165.3 -a 192.168.165.9
 ----
+====
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
@@ -422,16 +424,18 @@ nvme discover -t tcp -w 192.168.165.3 -a 192.168.165.9
 nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 +
-You should see an output similar to the following example:
-+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
 ----
 nvme connect-all -t	tcp -w 192.168.165.3 -a 192.168.165.8
 nvme connect-all -t	tcp -w 192.168.165.3 -a 192.168.165.9
 nvme connect-all -t	tcp -w 192.168.166.4 -a 192.168.166.8
 nvme connect-all -t	tcp -w 192.168.166.4 -a 192.168.166.9
-
 ----
-+
+====
+
 [NOTE]
 ====
 Beginning with Oracle Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
