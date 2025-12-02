@@ -340,7 +340,7 @@ nvme connect-all -t tcp -w <host-traddr> -a <traddr> -l <ctrl_loss_timeout_in_se
 +
 NOTE: NetApp recommends setting the `ctrl-loss-tmo` option to "-1" so that the NVMe/TCP initiator attempts to reconnect indefinitely in the event of a path loss.
 
-== Step 5: Validate NVMe-oF
+== Step 5: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 

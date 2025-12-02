@@ -144,7 +144,7 @@ NVME RPORT WWPN x203100a098c80f09 WWNN x202c00a098c80f09 DID x010601 TARGET DISC
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
-== Step 4: Validate NVMe-oF
+== Step 4: Verify the multipathing configuration
 
 . Verify the following NVMe/FC settings.
 +
