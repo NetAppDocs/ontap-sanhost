@@ -13,14 +13,14 @@ summary: Learn about ONTAP support and features for Oracle Linux hosts
 :imagesdir: ./media/
 
 [.lead]
-Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varies based on your version of ONTAP and RHEL.
+Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varies based on your version of ONTAP and Oracle Linux.
 
 [cols="50,25,25",options="header"]
 |===
 
-|Feature | RHEL host version| ONTAP version
+|Feature | Oracle Linux host version| ONTAP version
 
-|Secure in-band authentication is supported over NVMe/TCP between a RHEL host and an ONTAP controller
+|Secure in-band authentication is supported over NVMe/TCP between a Oracle Linux host and an ONTAP controller
 a|9.4 or later
  |9.12.1 or later
 |NVMe/TCP provides namespaces using the native `nvme-cli` package
@@ -33,21 +33,6 @@ a|7.7 or later
 
 include::_include/nvme/nvme-cli-note.adoc[]
 
-
-[cols="50,50",options="header"]
-|===
-
-|ONTAP feature | Oracle Linux hosts supported beginning with version ..
-|*`nvme-cli` package includes auto-connect scripts*
-
-You do not need third-party scripts.
-a|8.3
-|*Native udev rule in `nvme-cli` package*
-
-Provides round-robin load balancing for NVMe multipath.
-a|8.3
-|===
-
 ONTAP supports the following SAN host features regardless of the ONTAP version running on your system setup.
 
 [cols="75,25",options="header"]
@@ -57,11 +42,11 @@ ONTAP supports the following SAN host features regardless of the ONTAP version r
 |In-kernel NVMe multipathing for NVMe namespaces is enabled by default
 a|8.3 or later
 |SAN booting is enabled using the NVMe/FC protocol
-a|9.4 or later (TBC)
+a|9.5 or later 
 |The `nvme-cli` package includes auto-connect scripts removing the need for third-party scripts
-a|8.2 or later (TBC)
+a|8.3 or later 
 |The native udev rule in `nvme-cli` package provides round-robin load balancing for NVMe multipath
-a|8.2 or later (TBC)
+a|8.3 or later 
 |===
 
 NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
