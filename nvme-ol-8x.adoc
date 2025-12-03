@@ -21,11 +21,8 @@ NVMe-oF with Oracle Linux 8x has the following known limitations:
 
 * SAN booting using the NVMe-oF protocol is not supported.
 * NetApp sanlun host utility support isn't available for NVMe-oF on an Oracle Linux 8x host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
-
-NVMe-oF with Oracle Linux 8.2 and 8.1 has the following known limitations: 
-
-* Native NVMe/FC auto-connect scripts are not available in the nvme-cli package. Use the HBA vendor provided external auto-connect scripts.
-* Round-robin load balancing is not enabled by default for NVMe multipathing. To enable this functionality, write a udev rule.
+* For 8.2 and earlier versions, native NVMe/FC auto-connect scripts are not available in the nvme-cli package. Use the HBA vendor provided external auto-connect scripts.
+* For 8.2 and earlier versions, round-robin load balancing is not enabled by default for NVMe multipathing. To enable this functionality, write a udev rule.
 
 == Step 1: Install Oracle Linux and NVMe software and verify your configuration
 
