@@ -15,7 +15,7 @@ summary: How to Configure NVMe-oF Host for Proxmox VE 9.0 with ONTAP storage
 [.lead]
 The Proxmox VE 9.0 host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Proxmox VE 9.0. For more support and feature information, see link:nvme-proxmox-index.html[ONTAP support and features^].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Proxmox VE 9.0. For more support and feature information, see link:nvme-proxmox-supported-features.html[ONTAP support and features^].
 
 NOTE: Proxmox VE 9.0 does not support the SAN boot configuration for NVMe-FC.
 
