@@ -1,0 +1,58 @@
+---
+sidebar: sidebar
+permalink: nvme-proxmox-supported-features.html
+keywords: nvme, proxmox, enterprise
+summary: Learn about ONTAP support and features for Proxmox hosts
+---
+= Learn about ONTAP support and features for Proxmox hosts
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varies based on your version of ONTAP and Proxmox.
+
+[cols="30,20,20",options="header"]
+|===
+
+|ONTAP feature | Proxmox host version | ONTAP version 
+
+| Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
+
+a|9.0 
+|9.10.1 or later
+
+|NVMe/TCP is a fully supported enterprise feature 
+a|9.0 
+|9.10.1 or later
+| NVMe and SCSI traffic is supported on the same host using NVMe multipath for NVMe-oF namespaces and dm-multipath for SCSI LUNs
+
+a|9.0 
+|9.4 or later
+|===
+
+ONTAP supports the following SAN host features regardless of the ONTAP version running on your system setup.
+
+[cols="70,30",options="header"]
+|===
+
+| Feature | Proxmox host version
+| Native NVMe multipathing is enabled by default
+a| 9.0 
+| The `nvme-cli` package includes auto-connect scripts removing the need for third-party scripts
+a| 9.0
+| The native udev rule in `nvme-cli` package provides round-robin load balancing for NVMe multipath
+a| 9.0
+|===
+
+NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+== What's next
+
+link:nvme-proxmox-ve-9x.html[Learn about configuring Proxmox VE 9.0]
+
+.Related information
+link:https://docs.netapp.com/us-en/ontap/san-admin/start-nvme-fc-service-svm-task.html[Learn about managing NVMe protocols^]
