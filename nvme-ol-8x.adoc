@@ -22,7 +22,7 @@ NVMe-oF with Oracle Linux 8x has the following known limitations:
 * SAN booting using the NVMe-oF protocol is not supported.
 * NetApp sanlun host utility support isn't available for NVMe-oF on an Oracle Linux 8x host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 * For 8.2 and earlier versions, native NVMe/FC auto-connect scripts are not available in the nvme-cli package. Use the HBA vendor provided external auto-connect scripts.
-* For 8.2 and earlier versions, round-robin load balancing is not enabled by default for NVMe multipathing. To enable this functionality, write a udev rule.
+* For 8.2 and earlier versions, round-robin load balancing is not enabled by default for NVMe multipathing. To enable this functionality, go to the step for <<udev-rule,writing a udev rule>>.
 
 == Step 1: Install Oracle Linux and NVMe software and verify your configuration
 
@@ -54,6 +54,15 @@ The following example shows an `nvme-cli` package version:
 +
 ----
 nvme-cli-1.16-9.el8.x86_64
+----
+
+. [[udev-rule]] For Oracle Linux 8.2 and earlier versions, add the following string as a separate udev rule for `/lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules`. This enables round-robin load balancing for NVMe multipath.
++
+[source,cli]
+----
+cat /lib/udev/rules.d/71-nvme-iopolicy-netapp-ONTAP.rules
+Enable round-robin for NetApp ONTAP
+ACTION=="add", SUBSYSTEMS=="nvme-subsystem", ATTRS{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
 ----
 
 . On the Oracle Linux 8x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
