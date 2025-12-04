@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: hu_veritas_7x.html
-keywords: host utilities, veritas, infoscale, 7, netapp, ontap, sanhost, iscsi, red, hat linux, oracle, linux
-summary: Provides guidance on ONTAP SAN host configuration settings for the Veritas Infoscale 7 series release
+permalink: hu-veritas-8x.html
+keywords: host utilities, veritas, infoscale, 8, netapp, ontap, sanhost, iscsi, red, hat linux, oracle, linux
+summary: Use Linux Host Utilities with Veritas Infoscale 8 for RHEL and Oracle Linux hosts to help you manage FC, FCoE, and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Configure Veritas Infoscale 7 for FC, FCoE, and iSCSI with ONTAP storage
+= Configure Veritas Infoscale 8 for FC, FCoE, and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,7 +13,7 @@ summary: Provides guidance on ONTAP SAN host configuration settings for the Veri
 :imagesdir: ./media/
 
 [.lead]
-The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. Use the Linux Host Utilities with Veritas Infoscale 7 for Red Hat Enterprise Linux (RHEL) and Oracle Linux (Red Hat Compatible Kernel based) hosts to support managing FC, FCoE, and iSCSI protocol operations with ONTAP LUNs.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. Use the Linux Host Utilities with Veritas Infoscale 8 for Red Hat Enterprise Linux (RHEL) and Oracle Linux (Red Hat Compatible Kernel based) hosts to support managing FC, FCoE, and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/veritas-enable-san-boot.adoc[]
 
@@ -21,7 +21,7 @@ include::_include/hu/veritas-install-linux-host-utilities.adoc[]
 
 == Step 3: Confirm the Veritas Dynamic Multipathing configuration for your host
 
-Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 7 to manage ONTAP LUNs.
+Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 8 to manage ONTAP LUNs.
 
 To ensure that VxDMP is set up correctly for your host, you need to verify the VxDMP configuration and check the Array Support Library (ASL) and the Array Policy Module (APM) configuration. The ASL and APM packages for NetApp storage systems are installed during the Veritas software installation.
 
