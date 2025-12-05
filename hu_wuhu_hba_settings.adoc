@@ -20,9 +20,7 @@ The Windows Host Utilities sets parameter values that affect how a Windows host 
 
 Some values don't apply to the device-specific module (DSM) for SANtricity Storage Manager. Overlap between values set by the Windows Host Utilities and the DSM for SANtricity Storage Manager don't result in conflicts.
 
-You also need to set FC, NVMe/FC, and iSCSI HBAs parameters to optimize performance and successfully handle storage system events.
-
-Beginning with Windows Host Utilities 8.0, the installer sets the Windows, FC, iSCSI, and NVMe/FC HBA parameters to the supported values for the Windows Host. For Windows Host Utilities 7.2 and 7.1, you need to manually set the iSCSI HBA parameters.
+You need to set FC, NVMe/FC, and iSCSI HBA parameters to optimize performance and successfully handle storage system events. Beginning with Windows Host Utilities 7.2, the installer sets the Windows, FC, iSCSI, and NVMe/FC HBA parameters to the supported values for the Windows host. For Windows Host Utilities 7.1, you need to manually set the iSCSI HBA parameters.
 
 The installer sets different values when you specify Microsoft Multipath I/O (MPIO) support during the installation.
 
@@ -64,11 +62,13 @@ NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 |"NETAPP LUN", "NETAPP LUN C-
 Mode"
 "NVMe NetApp ONTAP Con"
-|When MPIO support is specified
+
+
 |HKLM\SYSTEM\CurrentControlSet\Services
 \ClusDisk \Parameters\ManageDisksOnSystemBuses
 |1
 |Always
+
 |HKLM\SYSTEM\CurrentControlSet\Control
 \Class\ {iSCSI_driver_GUID}\ instance_ID
 \Parameters \MaxRequestHoldTime
@@ -94,6 +94,10 @@ Mode",
 |1
 |When MPIO support is specified and your server is Windows Server 2025, 2022, 2019, or 2016
 |HKLM\SYSTEM\CurrentControlSet\Services
+\vnetapp\Parameters\PathVerifyEnabled
+|0
+|When MPIO support is specified
+|HKLM\SYSTEM\CurrentControlSet\Services
 \mpio\Parameters\PDORemovePeriod
 |130
 |When MPIO support is specified
@@ -101,6 +105,9 @@ Mode",
 \Parameters\PDORemovePeriod
 |130
 |When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
+\Parameters\PDORemovePeriod
+|130
 |When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Services\mpio
 \Parameters\RetryCount
@@ -118,6 +125,10 @@ Mode",
 \Parameters\RetryInterval
 |1
 |When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, or 2016
+|HKLM\SYSTEM\CurrentControlSet\Services\vnetapp
+\Parameters\RetryInterval
+|1
+|When MPIO support is specified
 1.2+|HKLM\SYSTEM\CurrentControlSet
 \Services\disk\TimeOutValue |120 |When no MPIO support is selected 
 |60 
@@ -138,6 +149,7 @@ NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 [cols=3*,options="header", cols="20,20,30"]
 |===
 |Registry key |Value |When set
+|When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Control
 \Class\ {iSCSI_driver_GUID}\ instance_ID
 \Parameters \IPSecConfigTimeout
@@ -169,18 +181,18 @@ Windows Host Utilities 8.0 updates the following NVMe Emulex driver parameters d
 
 == Registry values set by Windows Host Utilities 7.2
 
-The Windows Host Utilities installer automatically sets registry values and NVMe parameters based on the choices that you make during the installation. You need to review these values and the operating system version. 
+The Windows Host Utilities installer automatically sets the Windows registry values, iSCSI HBA parameters, and NVMe parameters based on the choices that you make during the installation. You need to review these values and the operating system version. 
 
 [[nvme_parameter]]
 
 [role="tabbed-block"]
 ====
 
-.HKLM values
+.Windows registry values
 --
-The Windows Host Utilities installer sets the following registry values. All values are in decimal unless otherwise stated.
-[NOTE]
-HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
+All values are in decimal unless otherwise stated.
+
+NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
 [cols=3*,options="header", cols="20,20,30"]
 |===
@@ -202,25 +214,12 @@ HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 Mode"
 "NVMe NetApp ONTAP Con"
 |When MPIO support is specified
-|HKLM\SYSTEM\CurrentControlSet\Control
-\Class\ {iSCSI_driver_GUID}\ instance_ID
-\Parameters \IPSecConfigTimeout
-|60
-|Always
-|HKLM\SYSTEM\CurrentControlSet\Control
-\Class\ {iSCSI_driver_GUID}\ instance_ID
-\Parameters \LinkDownTime
-|10
-|Always
+
 |HKLM\SYSTEM\CurrentControlSet\Services
 \ClusDisk \Parameters\ManageDisksOnSystemBuses
 |1
 |Always
-|HKLM\SYSTEM\CurrentControlSet\Control
-\Class\ {iSCSI_driver_GUID}\ instance_ID
-\Parameters \MaxRequestHoldTime
-|120
-|When no MPIO support is selected
+
 |HKLM\SYSTEM\CurrentControlSet\Control
 \Class\ {iSCSI_driver_GUID}\ instance_ID
 \Parameters \MaxRequestHoldTime
@@ -287,6 +286,34 @@ Mode",
 \Parameters\UseCustomPathRecoveryInterval
 |1
 |When MPIO support is specified and your server is  Windows Server 2025, 2022, 2019, 2016, or 2012 R2
+|===
+--
+
+.iSCSI HBA values
+--
+All values are in decimal unless otherwise stated.
+
+NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
+
+[cols=3*,options="header", cols="20,20,30"]
+|===
+|Registry key |Value |When set
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \IPSecConfigTimeout
+|60
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \LinkDownTime
+|10
+|Always
+|HKLM\SYSTEM\CurrentControlSet\Control
+\Class\ {iSCSI_driver_GUID}\ instance_ID
+\Parameters \MaxRequestHoldTime
+|120
+|When no MPIO support is selected
+
 |===
 --
 
