@@ -17,7 +17,9 @@ The Proxmox VE 9.0 host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe 
 
 Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Proxmox VE 9.0. For more support and feature information, see link:nvme-proxmox-supported-features.html[ONTAP support and features^].
 
-NOTE: Proxmox VE 9.0 does not support the SAN boot configuration for NVMe-FC.
+NVMe-oF with Proxmox VE 9.0 has the following known limitation:
+
+* The SAN boot configuration for NVMe-FC is not supported.
 
 == Step 1: Verify the software version and NVMe configuration
 
