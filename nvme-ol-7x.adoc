@@ -26,7 +26,11 @@ NVMe-oF with Oracle Linux 7x has the following known limitations:
 
 == Step 1: Install Oracle Linux and NVMe software and verify your configuration
 
-. Install Oracle Linux 8x on the server. After the installation is complete, verify that you are running the specified Oracle Linux 8x kernel. 
+Use the following procedure to validate the minimum supported Oracle Linux 7x software versions.
+
+.Steps
+
+. Install Oracle Linux 7x on the server. After the installation is complete, verify that you are running the specified Oracle Linux 7x kernel. 
 +
 [source,cli]
 ----
@@ -62,7 +66,7 @@ Enable round-robin for NetApp ONTAP
 ACTION=="add", SUBSYSTEMS=="nvme-subsystem", ATTRS{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
 ----
 
-. On the Oracle Linux 8x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+. On the Oracle Linux 7x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 [source,cli]
 ----
