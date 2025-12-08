@@ -4,7 +4,7 @@ permalink: hu-windows-configure-registry-settings.html
 keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp, san, host, e-series, platform
 summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
-= Configure registry settings for Windows Host Utilities with ONTAP storage
+= Learn about the Windows Host Utilities configuration for ONTAP storage
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,7 +14,7 @@ summary: Windows Host Utilities includes an installation program that sets the r
 :imagesdir: ./media/
 
 [.lead]
-The Windows Host Utilities require certain registry and parameter settings so that a Windows host correctly handles storage system behavior. 
+The Windows Host Utilities require certain registry and parameter settings so that a Windows host correctly handles the ONTAP storage system behavior. 
 
 These registry and parameter values affect how a Windows host responds to a delay or loss of data, for example, correctly handling events such as a storage failover.
 
@@ -22,8 +22,8 @@ Some of the registry and parameter values don't apply to the device-specific mod
 
 A Windows host also requires certain FC, NVMe/FC, and iSCSI HBA parameters to successfully handle storage system events:
 
-* Beginning with Windows Host Utilities 7.2, the installer sets the Windows, iSCSI, FC, and NVMe/FCA parameters to the supported values for the Windows host. 
-* Beginning with Windows Host Utilities 7.1, the installer sets the Windows, FC, and NVMe/FC HBA parameters to the supported values for the Windows host. You need to manually set the iSCSI HBA parameters.
+* Beginning with Windows Host Utilities 7.2, the installer sets the Windows, iSCSI, FC, and NVMe/FC parameters to the supported values. 
+* Beginning with Windows Host Utilities 7.1, the installer sets the Windows, FC, and NVMe/FC HBA parameters to the supported values. You need to manually set the iSCSI HBA parameters.
 
 The installer sets different values when you specify Microsoft Multipath I/O (MPIO) support during the installation.
 
@@ -34,9 +34,9 @@ You need to change the LimTransferSize parameter value after installing Windows 
 For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, or 7.1, you don't need to change the values unless technical support advises you to do so.
 ====
 
-== Registry values set by Windows Host Utilities 8.0
+== Configuration settings for Windows Host Utilities 8.0
 
-The Windows Host Utilities installer automatically sets the Windows registry values, iSCSI HBA parameters, and NVMe parameters based on the choices that you make during the installation. You need to review these values and the operating system version. 
+The Windows Host Utilities installer automatically sets the Windows registry values and the iSCSI and NVMe HBA parameters based on the choices that you make during the installation. Review these values and the operating system version.
 
 [role="tabbed-block"]
 ====
@@ -182,9 +182,9 @@ Windows Host Utilities 8.0 updates the following NVMe Emulex driver parameters d
 --
 ====
 
-== Registry values set by Windows Host Utilities 7.2
+== Configuration settings for Windows Host Utilities 7.2
 
-The Windows Host Utilities installer automatically sets the Windows registry values, iSCSI HBA parameters, and NVMe parameters based on the choices that you make during the installation. You need to review these values and the operating system version. 
+The Windows Host Utilities installer automatically sets the Windows registry values and the iSCSI and NVMe HBA parameters based on the choices that you make during the installation. Review these values and the operating system version. 
 
 [[nvme_parameter]]
 
@@ -333,11 +333,9 @@ The LimTransferSize parameter is automatically set to "1" when you install Windo
 --
 ====
 
-== Registry values set by Windows Host Utilities 7.1
+== Configuration settings for Windows Host Utilities 7.1
 
-The Windows Host Utilities installer automatically sets registry values based on the choices that you make during installation. You need to review these registry values and the operating system version.
-
-The Windows Host Utilities installer sets the following values. All values are in decimal unless otherwise noted. 
+The Windows Host Utilities installer automatically sets registry values based on the choices that you make during installation. Review these registry values and the operating system version. All values are in decimal unless otherwise noted. 
 
 [NOTE]
 `HKLM` is the abbreviation for `HKEY_LOCAL_MACHINE`.
@@ -537,7 +535,7 @@ The Windows Host Utilities sets values for the following parameters if MS DSM fo
 * *LinkTimeOut*: Defines the length of time in seconds that the host port waits before resuming I/O after a physical link is down.
 * *NodeTimeOut*: Defines the length of time in seconds before the host port recognizes that a connection to the target device is down.
 
-When troubleshooting HBA issues, check to make sure these settings have the correct values. The correct values depend on two factors:
+When troubleshooting HBA issues, check that these settings have the correct values. The correct values depend on two factors:
 
 * The HBA vendor
 * Whether you are using MPIO software.
