@@ -14,16 +14,16 @@ summary: Windows Host Utilities includes an installation program that sets the r
 :imagesdir: ./media/
 
 [.lead]
-The Windows Host Utilities require certain registry and parameter settings to optimize so that the host correctly handles storage system behavior. 
+The Windows Host Utilities require certain registry and parameter settings so that a Windows host correctly handles storage system behavior. 
 
 These registry and parameter values affect how a Windows host responds to a delay or loss of data, for example, correctly handling events such as a storage failover.
 
-Some of the registry and parameter values don't apply to the device-specific module (DSM) for SANtricity Storage Manager. Overlap between values set by the Windows Host Utilities and the DSM for SANtricity Storage Manager don't result in conflicts.
+Some of the registry and parameter values don't apply to the device-specific module (DSM) for SANtricity Storage Manager. Overlap between values set by the Windows Host Utilities and the DSM for SANtricity Storage Manager don't cause conflicts.
 
-The Windows hosts also require certain FC, NVMe/FC, and iSCSI HBA parameters to successfully handle storage system events:
+A Windows host also requires certain FC, NVMe/FC, and iSCSI HBA parameters to successfully handle storage system events:
 
 * Beginning with Windows Host Utilities 7.2, the installer sets the Windows, iSCSI, FC, and NVMe/FCA parameters to the supported values for the Windows host. 
-* Beginning with Windows Host Utilities 7.1, the installer sets the Windows, FC, and NVMe/FC HBA parameters to the supported values for the Windows host. You need to manually set the iSCSI HBA parameters for Windows Host Utilities 7.1.
+* Beginning with Windows Host Utilities 7.1, the installer sets the Windows, FC, and NVMe/FC HBA parameters to the supported values for the Windows host. You need to manually set the iSCSI HBA parameters.
 
 The installer sets different values when you specify Microsoft Multipath I/O (MPIO) support during the installation.
 
