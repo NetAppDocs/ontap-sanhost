@@ -700,7 +700,6 @@ Set up secure in-band authentication using the CLI or a config JSON file. If you
 --
 Set up secure in-band authentication using the CLI. 
 
-.Steps
 . Obtain the host NQN:
 +
 [source,cli]
@@ -783,7 +782,6 @@ When multiple NVMe subsystems are available on the ONTAP controller, you can use
 
 Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
 
-.Steps
 . Configure the JSON file.
 +
 [NOTE]
