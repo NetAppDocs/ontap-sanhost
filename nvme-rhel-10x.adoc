@@ -19,7 +19,6 @@ Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 10x. For more 
 
 NVMe-oF with RHEL 10x has the following known limitations:
 
-* DM multipath support for NVMe-oF is not supported.
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
 == Step 1: Optionally, enable SAN booting
@@ -308,7 +307,8 @@ nvme discover -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme discover -t tcp -w 192.168.20.21 -a 192.168.20.28 Discovery Log Number of Records 8, Generation counter 10
+nvme discover -t tcp -w 192.168.20.21 -a 192.168.20.28 
+Discovery Log Number of Records 8, Generation counter 10
 =====Discovery Log Entry 0======
 trtype:  tcp
 adrfam:  ipv4
@@ -451,6 +451,8 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 RHEL 10.0 sets the default iopolicy for NVMe-oF to `round-robin`. If you are using RHEL 10.0 and want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
 
+.Steps
+
 . Open the udev rules file in a text editor with root privileges:
 +
 [source,cli]
@@ -462,7 +464,7 @@ You should see the following output:
 +
 ----
 vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
-----
+. Find the line that sets iopolicy for the NetApp ONTAP Controller, as shown in the following example rule:
 
 . Find the line that sets iopolicy for the NetApp ONTAP Controller. 
 +
@@ -722,7 +724,7 @@ nvme netapp ontapdevices -o json
       "Version":"9.18.1"
     }
 ]
-               }
+}
 ----
 ====
 --
@@ -792,7 +794,8 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 [%collapsible]
 ====
 ----
-cat /sys/class/nvme-subsystem/nvme-subsys4/nvme*/dhchap_secret DHHC-1:01:2G7lsg9PMO00h1Wf1g4QtP0XT11kREz0qVuLm2xvZdbaWR/g:
+cat /sys/class/nvme-subsystem/nvme-subsys4/nvme*/dhchap_secret 
+DHHC-1:01:2G7lsg9PMO00h1Wf1g4QtP0XT11kREz0qVuLm2xvZdbaWR/g:
 DHHC-1:01:2G7lsg9PMO00h1Wf1g4QtP0XT11kREz0qVuLm2xvZdbaWR/g:
 DHHC-1:01:2G7lsg9PMO00h1Wf1g4QtP0XT11kREz0qVuLm2xvZdbaWR/g:
 DHHC-1:01:2G7lsg9PMO00h1Wf1g4QtP0XT11kREz0qVuLm2xvZdbaWR/g: 
@@ -833,88 +836,30 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 [%collapsible]
 ====
 ----
-cat /etc/nvme/config.json [
+[
   {
     "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034",
     "hostid":"44454c4c-5400-1051-8039-c3c04f523034",
-    "dhchap_key":"DHHC-1:01:rbzSpXTaOlyB+PJzhSNIGRBEy9W21v2++uJm81rafUi6oJk4:",
+    "dhchap_key":"DHHC-1:01:2G7lsg9PMO00h1Wf1g4QtP0XT11kREz0qVuLm2xvZdbaWR/g:",
     "subsystems":[
       {
-        "nqn":"nqn.1992-08.com.netapp:sn.732b583766c811f0a6c0d039eac03c33:subsystem.rhel_sanboot_tcp170",
+        "nqn":"nqn.1992-08.com.netapp:sn.5857c8c9b22411f08d0ed039eac03c33:subsystem.Bidirectional_DHCP_1_0",
         "ports":[
-          {
-            "transport":"tcp",
-            "traddr":"192.168.20.22",
-            "host_traddr":"192.168.20.21",
-            "trsvcid":"4420",
-            "dhchap_key":"none"
-          },
-          {
-            "transport":"tcp",
-            "traddr":"192.168.20.23",
-            "host_traddr":"192.168.20.21",
-            "trsvcid":"4420",
-            "dhchap_key":"none"
-          },
-          {
-            "transport":"tcp",
-            "traddr":"192.168.21.22",
-            "host_traddr":"192.168.21.21",
-            "trsvcid":"4420",
-            "dhchap_key":"none"
-          },
-          {
-            "transport":"tcp",
-            "traddr":"192.168.21.23",
-            "host_traddr":"192.168.21.21",
-            "trsvcid":"4420",
-            "dhchap_key":"none"
-          }
-        ]
-      },
-      {
-        "nqn":"nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_1",
-        "ports":[
-          {
-            "transport":"tcp",
-            "traddr":"192.168.21.28",
-            "host_traddr":"192.168.21.21",
-            "trsvcid":"4420",
-            "dhchap_ctrl_key":"DHHC-1:03:RK5aTm19rePhiyLOd4Noi/52HrgtFTx38S6zXj4gbHmJFT9OV41nlsAfNgi9yzx//YVRSXSUMAwSpMwsrqhovzgwFlo=:"
-          },
-          {
-            "transport":"tcp",
-            "traddr":"192.168.21.29",
-            "host_traddr":"192.168.21.21",
-            "trsvcid":"4420",
-            "dhchap_ctrl_key":"DHHC-1:03:RK5aTm19rePhiyLOd4Noi/52HrgtFTx38S6zXj4gbHmJFT9OV41nlsAfNgi9yzx//YVRSXSUMAwSpMwsrqhovzgwFlo=:"
-          },
-          {
-            "transport":"tcp",
-            "traddr":"192.168.20.28",
-            "host_traddr":"192.168.20.21",
-            "trsvcid":"4420",
-            "dhchap_ctrl_key":"DHHC-1:03:RK5aTm19rePhiyLOd4Noi/52HrgtFTx38S6zXj4gbHmJFT9OV41nlsAfNgi9yzx//YVRSXSUMAwSpMwsrqhovzgwFlo=:"
-          },
-          {
-            "transport":"tcp",
-            "traddr":"192.168.20.29",
-            "host_traddr":"192.168.20.21",
-            "trsvcid":"4420",
-            "dhchap_ctrl_key":"DHHC-1:03:RK5aTm19rePhiyLOd4Noi/52HrgtFTx38S6zXj4gbHmJFT9OV41nlsAfNgi9yzx//YVRSXSUMAwSpMwsrqhovzgwFlo=:"
-          }
-        ]
-      },
-      {
-        "nqn":"nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0",
-        "ports":[
-          {
-            "transport":"tcp",
-            "traddr":"192.168.20.28",
-            "host_traddr":"192.168.20.21",
-            "trsvcid":"4420",
-            "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"
-          },
+         
+
+{             "transport":"tcp",             "traddr":"192.168.20.28",             "host_traddr":"192.168.20.21",             "trsvcid":"4420",             "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           }
+,
+         
+
+{             "transport":"tcp",             "traddr":"192.168.20.29",             "host_traddr":"192.168.20.21",             "trsvcid":"4420",             "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           }
+,
+         
+
+{             "transport":"tcp",             "traddr":"192.168.21.28",             "host_traddr":"192.168.21.21",             "trsvcid":"4420",             "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           }
+,
+         
+
+{             "transport":"tcp",             "traddr":"192.168.21.29",             "host_traddr":"192.168.21.21",             "trsvcid":"4420",             "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           }
         ]
       }
     ]
