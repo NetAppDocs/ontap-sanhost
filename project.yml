@@ -220,6 +220,10 @@ sidebar:
             url: /hu_ol_64.html
       - title: Proxmox
         entries:
+        - title: Proxmox VE 9.0
+          url: /hu-proxmox-ve-9x.html
+      - title: Proxmox
+        entries:
         - title: Proxmox 8.4
           url: /hu-proxmox-84.html
       - title: RHEL
@@ -346,112 +350,48 @@ sidebar:
       - title: AIX
         url: /nvme_aix.html
       - title: ESXi
-        pdf-filename: NVMeoF ESXi
         entries:
         - title: VMware vSphere 8
           url: /nvme_esxi_8.html
         - title: VMware vSphere 7
           url: /nvme_esxi_7.html
       - title: Oracle Linux
+        pdf-filename: NVMeoF OL 
         entries:
-        - title: Oracle Linux 9
-          pdf-filename: NVMeF OL
-          entries:
-          - title: "9.5"
-            url: /nvme-ol-95.html
-          - title: "9.4"
-            url: /nvme_ol_94.html
-          - title: "9.3"
-            url: /nvme_ol_93.html
-          - title: "9.2"
-            url: /nvme_ol_92.html
-          - title: "9.1"
-            url: /nvme_ol_91.html
-          - title: "9.0"
-            url: /nvme_ol_90.html
-        - title: Oracle Linux 8
-          pdf-filename: NVMeF OL
-          entries:
-          - title: "8.10"
-            url: /nvme-ol-810.html
-          - title: "8.9"
-            url: /nvme_ol_89.html
-          - title: "8.8"
-            url: /nvme_ol_88.html
-          - title: "8.7"
-            url: /nvme_ol_87.html
-          - title: "8.6"
-            url: /nvme_ol_86.html
-          - title: "8.5"
-            url: /nvme_ol_85.html
-          - title: "8.4"
-            url: /nvme_ol_84.html
-          - title: "8.3"
-            url: /nvme_ol_83.html     
-          - title: "8.2"
-            url: /nvme_ol_82.html
-          - title: "8.1"
-            url: /nvme_ol_81.html
-        - title: Oracle Linux 7
-          entries:
-          - title: "7.9"
-            url: /nvme_ol_79.html
-          - title: "7.8"
-            url: /nvme_ol_78.html
-          - title: "7.7"
-            url: /nvme_ol_77.html
+        - title: ONTAP support and features
+          url: /nvme-ol-supported-features.html
+        - title: 9x
+          url: /nvme-ol-9x.html
+        - title: 8x
+          url: /nvme-ol-8x.html
+        - title: 7x
+          url: /nvme-ol-7x.html
+      - title: Proxmox
+        pdf-filename: NVMeoF Proxmox
+        entries:
+        - title: ONTAP support and features
+          url: /nvme-proxmox-supported-features.html
+        - title: Proxmox VE 9x
+          url: /nvme-proxmox-ve-9x.html
       - title: Proxmox
         entries:
         - title: Proxmox 8.4
           url: /nvme-proxmox-84.html
       - title: RHEL
-        pdf-filename: NVMeoF RHEL
+        pdf-filename: NVMeoF RHEL 
         entries:
-        - title: RHEL 10
-          entries:
-          - title: "10.0"
-            url: /nvme-rhel-10.html
-        - title: RHEL 9
-          entries:
-          - title: "9.6"
-            url: /nvme-rhel-96.html
-          - title: "9.5"
-            url: /nvme-rhel-95.html
-          - title: "9.4"
-            url: /nvme-rhel-94.html
-          - title: "9.3"
-            url: /nvme-rhel-93.html
-          - title: "9.2"
-            url: /nvme-rhel-92.html
-          - title: "9.1"
-            url: /nvme-rhel-91.html
-          - title: "9.0"
-            url: /nvme-rhel-90.html
-        - title: RHEL 8
-          entries:
-          - title: "8.10"
-            url: /nvme-rhel-810.html
-          - title: "8.9"
-            url: /nvme-rhel-89.html
-          - title: "8.8"
-            url: /nvme-rhel-88.html
-          - title: "8.7"
-            url: /nvme-rhel-87.html
-          - title: "8.6"
-            url: /nvme-rhel-86.html
-          - title: "8.5"
-            url: /nvme-rhel-85.html
-          - title: "8.4"
-            url: /nvme-rhel-84.html
-          - title: "8.3"
-            url: /nvme-rhel-83.html
-          - title: "8.2"
-            url: /nvme-rhel-82.html
-          - title: "8.1"
-            url: /nvme-rhel-81.html
+        - title: ONTAP support and features 
+          url: /nvme-rhel-supported-features.html
+        - title: 10x
+          url: /nvme-rhel-10x.html
+        - title: 9x
+          url: /nvme-rhel-9x.html
+        - title: 8x
+          url: /nvme-rhel-8x.html
       - title: Rocky Linux
-        pdf-filename: NVMeoF Rocky Linux
         entries:
+        - title: ONTAP support and features 
+          url: /nvme-rockylinux-supported-features.html
         - title: Rocky Linux 10
           entries:
           - title: "10.0"
@@ -489,7 +429,6 @@ sidebar:
           - title: "8.4"
             url: /nvme-rockylinux-84.html
       - title: SUSE Linux Enterprise Server
-        pdf-filename: NVMeoF SLES
         entries:
         - title: SUSE Linux Enterprise Server 15
           entries:
@@ -508,7 +447,6 @@ sidebar:
           - title: 15 SP1
             url: /nvme_sles15_sp1.html
       - title: Ubuntu
-        pdf-filename: NVMeoF Ubuntu
         entries:
         - title: "24.04"
           url: /nvme_ubuntu_2404.html
