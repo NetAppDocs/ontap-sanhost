@@ -220,12 +220,12 @@ sidebar:
             url: /hu_ol_64.html
       - title: Proxmox
         entries:
-        - title: Proxmox VE 9.0
+        - title: Proxmox VE 9.x
           url: /hu-proxmox-ve-9x.html
       - title: Proxmox
         entries:
-        - title: Proxmox 8.4
-          url: /hu-proxmox-84.html
+        - title: Proxmox VE 8.x
+          url: /hu-proxmox-ve-8x.html
       - title: RHEL
         entries:
         - title: RHEL 10
@@ -371,12 +371,10 @@ sidebar:
         entries:
         - title: ONTAP support and features
           url: /nvme-proxmox-supported-features.html
-        - title: Proxmox VE 9x
+        - title: VE 9x
           url: /nvme-proxmox-ve-9x.html
-      - title: Proxmox
-        entries:
-        - title: Proxmox 8.4
-          url: /nvme-proxmox-84.html
+        - title: VE 8x
+          url: /nvme-proxmox-ve-8x.html
       - title: RHEL
         pdf-filename: NVMeoF RHEL 
         entries:
