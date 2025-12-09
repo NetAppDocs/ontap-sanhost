@@ -42,7 +42,7 @@ uname -r
 Example RHEL kernel version:
 +
 ----
-6.12.0-124.el10.x86_64
+6.12.0-124.8.1.el10_1.x86_64
 ----
 . Install the `nvme-cli` package:
 +
@@ -115,7 +115,7 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 [role="tabbed-block"]
 =====
-.FC - Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
@@ -262,7 +262,7 @@ FCP CMPL: xb 000001c1 Err 000001c2
 ====
 
 --
-.FC - Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
@@ -291,7 +291,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 The expected output is 1.
 --
 
-.TCP
+.NVMe/TCP
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
@@ -447,11 +447,66 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 --
 =====
 
-== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+== Step 4: Optionally, modify the iopolicy in the udev rules
+
+RHEL 10.0 sets the default iopolicy for NVMe-oF to `round-robin`. If you are using RHEL 10.60 and want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+
+. Open the udev rules file in a text editor with root privileges:
++
+[source,cli]
+----
+/usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
++
+You should see the following output:
++
+----
+vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
+
+. Find the line that sets iopolicy for the NetApp ONTAP Controller. 
++
+The following example shows an example rule:
++
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
+----
+
+. Modify the rule so that `round-robin` becomes `queue-depth`:
++
+[source,cli]
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="queue-depth"
+----
+
+. Reload the udev rules and apply the changes:
++
+[source,cli]
+----
+udevadm control --reload
+udevadm trigger --subsystem-match=nvme-subsystem
+----
+
+. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/<subsystem>/iopolicy
+----
++
+You should see the following output:
++
+----
+queue-depth.
+----
+
+NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. No reboot is required.
+
+== Step 5: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
 
-== Step 5: Verify NVMe boot services 
+== Step 6: Verify NVMe boot services 
 
 The `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
 
@@ -508,24 +563,11 @@ Oct 12 19:40:33 localhost systemd[1]: Finished nvmefc-boot-connections.service -
 ----
 ====
 
-== Step 6: Verify the multipathing configuration
+== Step 7: Verify the multipathing configuration
 
 Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
 
 .Steps
-
-. Verify that the in-kernel NVMe multipath is enabled:
-+
-[source,cli]
-----
-cat /sys/module/nvme_core/parameters/multipath
-----
-+
-You should see the following output:
-+
-----
-Y
-----
 
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
 
@@ -686,7 +728,7 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 7: Set up secure in-band authentication
+== Step 8: Set up secure in-band authentication
 
 Secure in-band authentication is supported over NVMe/TCP between a RHEL 10x host and an ONTAP controller.
 
@@ -941,7 +983,7 @@ DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGt
 --
 =====
 
-== Step 8: Review the known issues
+== Step 9: Review the known issues
 
 There are no known issues.
 
