@@ -500,7 +500,7 @@ You should see the following output:
 queue-depth.
 ----
 
-NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. No reboot is required.
+NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. You don't need to reboot.
 
 == Step 5: Optionally, enable 1MB I/O for NVMe/FC
 
@@ -569,7 +569,7 @@ Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespace
 
 .Steps
 
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly display on the host:
 
 .. Display the subsystems:
 +
@@ -765,7 +765,7 @@ In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is ge
 +
 ----
 nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034
-DHHC- 1:03:AppJHkJygA6ZC4BxyQNtJST+4k4IOv47MAJk0xBITwFOHIC2nV/uE04RoSpy1z2SXYqNW1bhLe9hJ+MDHigGexaG2Ig=:   
+DHHC-1:03:AppJHkJygA6ZC4BxyQNtJST+4k4IOv47MAJk0xBITwFOHIC2nV/uE04RoSpy1z2SXYqNW1bhLe9hJ+MDHigGexaG2Ig=:   
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
 +
