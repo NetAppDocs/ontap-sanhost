@@ -466,9 +466,8 @@ You should see the following output:
 vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
 . Find the line that sets iopolicy for the NetApp ONTAP Controller, as shown in the following example rule:
 
-. Find the line that sets iopolicy for the NetApp ONTAP Controller. 
+. Find the line that sets iopolicy for the NetApp ONTAP Controller, as shown in the following example rule:
 +
-The following example shows an example rule:
 +
 ----
 ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
