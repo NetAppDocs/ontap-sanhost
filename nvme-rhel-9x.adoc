@@ -41,7 +41,7 @@ uname -r
 Example RHEL kernel version:
 +
 ----
-5.14.0-611.2.1.el9_7.x86_64
+5.14.0-611.5.1.el9_7.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -117,7 +117,7 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 [role="tabbed-block"]
 =====
-.FC - Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
@@ -293,7 +293,7 @@ FCP CMPL: xb 000094a4 Err 000c22e7
 ====
 
 --
-.FC - Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
@@ -322,7 +322,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 The expected output is 1.
 --
 
-.TCP
+.NVMe/TCP
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
@@ -466,8 +466,8 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ----
 nvme  connect-all -t  tcp -w  192.168.30.15 -a	192.168.30.48
 nvme	connect-all	-t	tcp	-w	192.168.30.15	-a	192.168.30.49
-nvme	connect-all	-t	tcp	-w	192.168.31.15	-a	192.168.30.48
-nvme	connect-all	-t	tcp	-w	192.168.31.15	-a	192.168.30.49	
+nvme	connect-all	-t	tcp	-w	192.168.31.15	-a	192.168.31.48
+nvme	connect-all	-t	tcp	-w	192.168.31.15	-a	192.168.31.49	
 ----			
 ====
 
@@ -935,14 +935,10 @@ nvme connect-all -J /etc/nvme/config.json
 [%collapsible]
 ====
 ----
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
-r_DHCP,transport=tcp,traddr=192.168.1.25,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
-r_DHCP,transport=tcp,traddr=192.168.2.25,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
-r_DHCP,transport=tcp,traddr=192.168.1.24,trsvcid=4420 
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
-r_DHCP,transport=tcp,traddr=192.168.2.24,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.30.44,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.31.44,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.30.45,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.31.45,trsvcid=4420
 ----
 ====
 
