@@ -686,7 +686,7 @@ nvme netapp ontapdevices -o column
 [subs=+quotes]
 ----
 Device           Vserver                   Subsystem                 Namespace Path                                     
----------------- ------------------------- ------------------------- --------------------------------------------------
+---------------- ------------------------- ------------------------- ------------------
 /dev/nvme0n1     vs_nvme_sanboot_tcp       rhel_sanboot_tcp170       tcp_97   
 
 NSID UUID                                   Size
