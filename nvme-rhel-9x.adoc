@@ -725,12 +725,12 @@ nvme netapp ontapdevices -o column
 ====
 [subs=+quotes]
 ----
-Device          Vserver         Subsystem   Namespace Path      NSID UUID                                      
-------------    --------        ----------- -----------------   ---- -----                                     
-/dev/nvme0n1    vs_iscsi_tcp    Nvme1       /vol/Nvmevol1/ns1   1    d8efef7d-4dde-447f-b50e-b2c009298c66               
-Size
------
-26.84GB
+Device          Vserver         Subsystem   Namespace Path      NSID                                   
+------------    --------        ----------- -----------------   ----                                      
+/dev/nvme0n1    vs_iscsi_tcp    Nvme1       /vol/Nvmevol1/ns1   1                   
+UUID                                    Size
+-------------------------------------   -----
+d8efef7d-4dde-447f-b50e-b2c009298c66    26.84GB
                               
 ----
 ====
