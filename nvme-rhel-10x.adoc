@@ -843,21 +843,34 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
       {
         "nqn":"nqn.1992-08.com.netapp:sn.5857c8c9b22411f08d0ed039eac03c33:subsystem.Bidirectional_DHCP_1_0",
         "ports":[
-         
-
-{             "transport":"tcp",             "traddr":"192.168.20.28",             "host_traddr":"192.168.20.21",             "trsvcid":"4420",             "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           }
-,
-         
-
-{             "transport":"tcp",             "traddr":"192.168.20.29",             "host_traddr":"192.168.20.21",             "trsvcid":"4420",             "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           }
-,
-         
-
-{             "transport":"tcp",             "traddr":"192.168.21.28",             "host_traddr":"192.168.21.21",             "trsvcid":"4420",             "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           }
-,
-         
-
-{             "transport":"tcp",             "traddr":"192.168.21.29",             "host_traddr":"192.168.21.21",             "trsvcid":"4420",             "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           }
+          {
+            "transport":"tcp",             
+            "traddr":"192.168.20.28",             
+            "host_traddr":"192.168.20.21",             
+            "trsvcid":"4420",             
+            "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           
+          },
+          {             
+            "transport":"tcp",             
+            "traddr":"192.168.20.29",             
+            "host_traddr":"192.168.20.21",             
+            "trsvcid":"4420",             
+            "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           
+            },
+          {             
+            "transport":"tcp",             
+            "traddr":"192.168.21.28",             
+            "host_traddr":"192.168.21.21",             
+            "trsvcid":"4420",             ]
+            "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           
+            },
+          {             
+            "transport":"tcp",             
+            "traddr":"192.168.21.29",             
+            "host_traddr":"192.168.21.21",             
+            "trsvcid":"4420",             
+            "dhchap_ctrl_key":"DHHC-1:03:5CgWULVnU5HUOwP1MNg95pkiUAwayiO+IvrALZR8HpeJIHw3xyHdGlTnvEJ81HDjBb+fGteUgIn0fj8ASHZIgkuFIx8=:"           
+            }
         ]
       }
     ]
@@ -877,21 +890,9 @@ nvme connect-all -J /etc/nvme/config.json
 [%collapsible]
 ====
 ----
-traddr=192.168.20.28 is already connected 
-traddr=192.168.20.28 is already connected 
-traddr=192.168.20.28 is already connected 
-traddr=192.168.20.28 is already connected 
-traddr=192.168.20.28 is already connected 
-traddr=192.168.20.28 is already connected 
-traddr=192.168.20.28 is already connected 
-traddr=192.168.20.28 is already connected 
-traddr=192.168.20.29 is already connected 
-traddr=192.168.20.29 is already connected 
-traddr=192.168.20.29 is already connected 
-traddr=192.168.20.29 is already connected 
-traddr=192.168.20.29 is already connected 
+traddr=192.168.20.28 is already connected
+traddr=192.168.20.28 is already connected
 traddr=192.168.20.29 is already connected
-traddr=192.168.20.29 is already connected 
 traddr=192.168.20.29 is already connected
 ----
 ====
