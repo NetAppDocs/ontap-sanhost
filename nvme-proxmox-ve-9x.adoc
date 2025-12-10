@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: nvme-proxmox-ve-9x.html
 keywords: nvme, proxmox, enterprise
-summary: How to Configure NVMe-oF Host for Proxmox VE 9.0 with ONTAP storage
+summary: How to Configure NVMe-oF Host for Proxmox VE 9.x with ONTAP storage
 ---
-= Configure Proxmox VE 9.0 for NVMe-oF with ONTAP storage
+= Configure Proxmox VE 9.x for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,11 +13,11 @@ summary: How to Configure NVMe-oF Host for Proxmox VE 9.0 with ONTAP storage
 :imagesdir: ./media/
 
 [.lead]
-The Proxmox VE 9.0 host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
+The Proxmox VE 9.x host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Proxmox VE 9.0. For more support and feature information, see link:nvme-proxmox-supported-features.html[ONTAP support and features^].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Proxmox VE 9.x. For more support and feature information, see link:nvme-proxmox-supported-features.html[ONTAP support and features^].
 
-NVMe-oF with Proxmox VE 9.0 has the following known limitation:
+NVMe-oF with Proxmox VE 9.x has the following known limitation:
 
 * The SAN boot configuration for NVMe-FC is not supported.
 
@@ -27,14 +27,14 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install Proxmox VE 9.0 on the server. After the installation is complete, verify that you are running the required Proxmox VE 9.0 kernel: 
+. Install Proxmox VE 9.x on the server. After the installation is complete, verify that you are running the required Proxmox VE 9.x kernel: 
 +
 [source,cli]
 ----
 uname -r
 ----
 +
-Example Proxmox VE 9.0 kernel version:
+Example Proxmox VE 9.x kernel version:
 +
 ----
 6.14.8-2-pve
