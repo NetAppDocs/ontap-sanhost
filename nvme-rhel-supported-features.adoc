@@ -48,6 +48,8 @@ a|9.4 or later
 a|8.2 or later
 |The native udev rule in `nvme-cli` package provides round-robin load balancing for NVMe multipath
 a|8.2 or later 
+|The native udev rule in `nvme-cli` package provides queue-depth load balancing for NVMe multipath
+a|9.6 or later 
 |===
 
 NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
