@@ -21,7 +21,7 @@ NVMe-oF with Proxmox VE 8.x has the following known limitation:
 
 * The SAN boot configuration for NVMe-FC is not supported.
 
-== Step 1: Verify the software version and NVMe configuration
+== Step 1: Install Proxmox VE and NVMe software and verify your configuration
 
 include::_include/nvme/verify-software-version-introduction.adoc[]
 
@@ -79,7 +79,7 @@ The following example shows a `hostnqn` value:
 nqn.2014-08.org.nvmexpress:uuid:1536c9a6-f954-11ea-b24d-0a94efb46eaf
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 [source,cli]
 ----
@@ -109,8 +109,6 @@ If the `hostnqn` strings do not match, use the `vserver modify` command to updat
 == Step 2: Configure NVMe/FC and NVMe/TCP
 
 Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
-
-.Steps
 
 [role="tabbed-block"]
 =====

@@ -52,7 +52,15 @@ NOTE: For details on supported configurations, see the link:https://mysupport.ne
 
 == What's next
 
-link:nvme-proxmox-ve-9x.html[Learn about configuring Proxmox VE 9.0]
+[cols="50,50",options="header"]
+|===
+
+|If your Proxmox VE version is .. | Learn about ..
+|9 series
+|link:nvme-proxmox-ve-9x.html[Configuring NVMe for Proxmox VE 9.x]
+|8 series
+|link:nvme-proxmox-ve-8x.html[Configuring NVMe for Proxmox VE 8.x]
+|===
 
 .Related information
 link:https://docs.netapp.com/us-en/ontap/san-admin/start-nvme-fc-service-svm-task.html[Learn about managing NVMe protocols^]
