@@ -3,11 +3,9 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 [role="tabbed-block"]
 ====
 
-.FC - Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
 Configure NVMe/FC for a Broadcom/Emulex adapter.
-
-.Steps
 
 . Verify that you are using the supported adapter model: 
 
@@ -148,12 +146,10 @@ FCP CMPL: xb 000014a5 Err 0002149a
 =====
 
 --
-.FC - Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
-
-.Steps
 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
@@ -178,12 +174,10 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 +
 The expected output is 1.
 --
-.TCP
+.NVMe/TCP
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
-
-.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +

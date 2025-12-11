@@ -52,6 +52,20 @@ a|8.2 or later
 
 NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
+== What's next
+
+[cols="50,50",options="header"]
+|===
+
+|If your Rocky Linux version is .. | Learn about ..
+|10 series
+|link:nvme-rockylinux-10x.html[Configuring NVMe for Rocky Linux 10x]
+|9 series
+|link:nvme-rockylinux-9x.html[Configuring NVMe for Rocky Linux 9x]
+|8 series
+|link:nvme-rockylinux-8x.html[Configuring NVMe for Rocky Linux 8x]
+|===
+
 .Related information
 
 link:https://docs.netapp.com/us-en/ontap/san-admin/start-nvme-fc-service-svm-task.html[Learn about managing NVMe protocols]
