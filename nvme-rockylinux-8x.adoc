@@ -17,7 +17,7 @@ include::_include/nvme/nvme-rocky-linux-introduction.adoc[]
 
 Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 8.x. For more support and feature information, see link:nvme-rockylinux-supported-features.html[Rocky Linux ONTAP support and features].
 
-*NVMe-oF with Rocky Linux 8.x has the following known limitations:*
+NVMe-oF with Rocky Linux 8.x has the following known limitations:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
 * In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in Rocky Linux 8.x; you must enable it manually.
