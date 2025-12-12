@@ -4,7 +4,7 @@ permalink: nvme-sles15-spx.html
 keywords: nvme, linux, suse, sles, SUSE Linux Enterprise Server, 15, SP.x, server, enterprise
 summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 SP.x with ONTAP.
 ---
-= NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP.x with ONTAP
+= Configure SUSE Linux Enterprise Server 15 SP.x for NVMe-oF with ONTAP storage
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -470,7 +470,9 @@ include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 5: Verify NVMe boot services
 
-With SUSE Linux Enterprise Server 15 SP.x, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, verify that the boot services are enabled.
+The `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
 
 .Steps
 
@@ -519,7 +521,7 @@ Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: Finished Auto-connect to subsystems 
 ----
 ====
 
-== Step 6: Validate NVMe-oF
+== Step 6: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
