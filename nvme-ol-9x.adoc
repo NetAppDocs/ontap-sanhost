@@ -19,7 +19,6 @@ Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Oracle Linux 9x. Fo
 
 NVMe-oF with Oracle Linux 9x has the following known limitations:
 
-* SAN booting using the NVMe-oF protocol is not supported.
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
 == Step 1: Optionally, enable SAN booting
@@ -115,7 +114,7 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 [role="tabbed-block"]
 =====
-.FC - Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
@@ -264,7 +263,7 @@ FCP CMPL: xb 00000008 Err 0000000c
 ====
 
 --
-.FC - Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
@@ -292,7 +291,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 The expected output is 1.
 --
 
-.TCP
+.NVMe/TCP
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
@@ -778,7 +777,6 @@ Use the `-o` option to generate the JSON file. See the NVMe connect-all manual p
 [%collapsible]
 ====
 ----
-cat /etc/nvme/config.json
 [
   {
     "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c4c04f425633",

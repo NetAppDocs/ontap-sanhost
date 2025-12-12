@@ -26,6 +26,9 @@ a|9.4 or later
 |NVMe/TCP provides namespaces using the native `nvme-cli` package
 a|8.2 or later 
  |9.10.1 or later 
+|NVMe/TCP is a fully supported enterprise feature 
+a|9.0 
+|9.10.1 or later
 |NVMe and SCSI traffic is supported on the same host using NVMe multipath for NVMe-oF namespaces and dm-multipath for SCSI LUNs
 a|7.7 or later  
  |9.4 or later
