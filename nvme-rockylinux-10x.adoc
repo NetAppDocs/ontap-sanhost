@@ -19,7 +19,7 @@ Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 10.x. F
 
 NVMe-oF with Rocky Linux 10.x has the following known limitations:
 
-* * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
+* The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
 == Step 1: Optionally, enable SAN booting
 
@@ -721,7 +721,8 @@ cat /etc/nvme/config.json
             "traddr":"192.168.21.17",
             "host_traddr":"192.168.21.1",
             "trsvcid":"4420"
-}]
+}
+]
 ----
 ==== 
 

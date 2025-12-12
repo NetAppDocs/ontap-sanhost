@@ -23,11 +23,7 @@ NVMe-oF with Rocky Linux 8.x has the following known limitations:
 * In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in Rocky Linux 8.x; you must enable it manually.
 * NVMe/TCP is available as a technology preview due to known issues.
 
-== Step 1: Optionally, enable SAN booting
-
-include::_include/nvme/enable-san-booting.adoc[]
-
-== Step 2: Install Rocky Linux and NVMe software and verify your configuration
+== Step 1: Install Rocky Linux and NVMe software and verify your configuration
 
 include::_include/nvme/verify-software-version-introduction.adoc[]
 
@@ -48,19 +44,19 @@ Example Rocky Linux kernel version:
 
 include::_include/nvme/linux-validate-software-version-rockylinux.adoc[]
 
-== Step 3: Configure NVMe/FC and NVMe/TCP
+== Step 2: Configure NVMe/FC and NVMe/TCP
 
 include::_include/nvme/nvme-configure.adoc[]
 
-== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+== Step 3: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/nvme-enable-1mb-io.adoc[]
 
-== Step 5: Verify the multipathing configuration
+== Step 4: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of-rocky-linux.adoc[]
 
-== Step 6: Review the known issues
+== Step 5: Review the known issues
 
 These are the known issues:
 
