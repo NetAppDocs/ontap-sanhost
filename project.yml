@@ -394,22 +394,10 @@ sidebar:
           url: /nvme-rockylinux-8x.html
       - title: SUSE Linux Enterprise Server
         entries:
-        - title: SUSE Linux Enterprise Server 15
-          entries:
-          - title: 15 SP7
-            url: /nvme_sles15_sp7.html
-          - title: 15 SP6
-            url: /nvme_sles15_sp6.html
-          - title: 15 SP5
-            url: /nvme_sles15_sp5.html
-          - title: 15 SP4
-            url: /nvme_sles15_sp4.html
-          - title: 15 SP3
-            url: /nvme_sles15_sp3.html
-          - title: 15 SP2
-            url: /nvme_sles15_sp2.html
-          - title: 15 SP1
-            url: /nvme_sles15_sp1.html
+        - title: ONTAP support and features 
+          url: /nvme-sles-supported-features.html
+        - title: SUSE Linux Enterprise Server 15 SP.x
+          url: /nvme-sles15-spx.html
       - title: Ubuntu
         entries:
         - title: "24.04"
