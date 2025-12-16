@@ -174,9 +174,9 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
-        - title: Oracle Linux 9.x
+        - title: 9.x
           url: /hu-ol-9x.html
-        - title: Oracle Linux 8.x
+        - title: 8.x
           url: /hu-ol-8x.html
         - title: Oracle Linux 7
           pdf-filename: OL-7-FCP
@@ -220,17 +220,19 @@ sidebar:
             url: /hu_ol_64.html
       - title: Proxmox
         entries:
-        - title: Proxmox VE 9.0
+        - title: VE 9.x
           url: /hu-proxmox-ve-9x.html
+        - title: VE 8.x
+          url: /hu-proxmox-ve-8x.html
       - title: RHEL
         entries:
-        - title: RHEL 10
-          url: /hu-rhel-10.html 
+        - title: 10.x
+          url: /hu-rhel-10x.html 
           pdf-filename: RHEL-10-FCP          
-        - title: RHEL 9.x
+        - title: 9.x
           url: /hu-rhel-9x.html
           pdf-filename: RHEL-9-FCP 
-        - title: RHEL 8.x
+        - title: 8.x
           pdf-filename: RHEL-8-FCP
           url: /hu-rhel-8x.html
         - title: RHEL 7
@@ -275,13 +277,13 @@ sidebar:
             url: /hu_rhel_64.html
       - title: Rocky Linux
         entries:
-        - title: Rocky Linux 10
+        - title: 10.x
           pdf-filename: RL-10-FCP
-          url: /hu-rockylinux-10.html
-        - title: Rocky Linux 9.x
+          url: /hu-rockylinux-10x.html
+        - title: 9.x
           pdf-filename: RL-9-FCP
           url: /hu-rockylinux-9x.html 
-        - title: Rocky Linux 8.x
+        - title: 8.x
           pdf-filename: RL-8-FCP
           url: /hu-rockylinux-8x.html  
       - title: Solaris
@@ -358,29 +360,31 @@ sidebar:
         entries:
         - title: ONTAP support and features
           url: /nvme-ol-supported-features.html
-        - title: 9x
+        - title: 9.x
           url: /nvme-ol-9x.html
-        - title: 8x
+        - title: 8.x
           url: /nvme-ol-8x.html
-        - title: 7x
+        - title: 7.x
           url: /nvme-ol-7x.html
       - title: Proxmox
         pdf-filename: NVMeoF Proxmox
         entries:
         - title: ONTAP support and features
           url: /nvme-proxmox-supported-features.html
-        - title: Proxmox VE 9x
+        - title: VE 9.x
           url: /nvme-proxmox-ve-9x.html
+        - title: VE 8.x
+          url: /nvme-proxmox-ve-8x.html
       - title: RHEL
         pdf-filename: NVMeoF RHEL 
         entries:
         - title: ONTAP support and features 
           url: /nvme-rhel-supported-features.html
-        - title: 10x
+        - title: 10.x
           url: /nvme-rhel-10x.html
-        - title: 9x
+        - title: 9.x
           url: /nvme-rhel-9x.html
-        - title: 8x
+        - title: 8.x
           url: /nvme-rhel-8x.html
       - title: Rocky Linux
         entries:

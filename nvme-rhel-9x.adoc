@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: nvme-rhel-9x.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 9x with ONTAP
+summary: How to Configure NVMe-oF Host for RHEL 9.x with ONTAP
 ---
-= Configure RHEL 9x for NVMe-oF with ONTAP storage
+= Configure RHEL 9.x for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,9 +15,9 @@ summary: How to Configure NVMe-oF Host for RHEL 9x with ONTAP
 [.lead]
 include::_include/nvme/nvme-rhel-introduction.adoc[]
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 9x. For more support and feature information, see link:nvme-rhel-supported-features.html[RHEL ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 9.x. For more support and feature information, see link:nvme-rhel-supported-features.html[RHEL ONTAP support and features].
 
-NVMe-oF with RHEL 9x has the following known limitations:
+NVMe-oF with RHEL 9.x has the following known limitations:
 
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
@@ -31,7 +31,7 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install RHEL 9x on the server. After the installation is complete, verify that you are running the required RHEL 9x kernel: 
+. Install RHEL 9.x on the server. After the installation is complete, verify that you are running the required RHEL 9.x kernel: 
 +
 [source,cli]
 ----
@@ -768,7 +768,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Set up secure in-band authentication
 
-Secure in-band authentication is supported over NVMe/TCP between a RHEL 9x host and an ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a RHEL 9.x host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -786,7 +786,7 @@ Set up secure in-band authentication using the CLI.
 ----
 cat /etc/nvme/hostnqn
 ----
-. Generate the dhchap key for the RHEL 9x host.
+. Generate the dhchap key for the RHEL 9.x host.
 +
 The following output describes the `gen-dhchap-key` command parameters:
 +
