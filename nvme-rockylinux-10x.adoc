@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: nvme-rockylinux-10.html
+permalink: nvme-rockylinux-10x.html
 keywords: nvme, linux, rocky, linux, red hat, enterprise
-summary: How to Configure NVMe-oF Host for Rocky Linux 10.0 with ONTAP storage
+summary: How to Configure NVMe-oF Host for Rocky Linux 10.x with ONTAP storage
 ---
-= Configure Rocky Linux 10.0 for NVMe-oF with ONTAP storage
+= Configure Rocky Linux 10.x for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,24 +15,23 @@ summary: How to Configure NVMe-oF Host for Rocky Linux 10.0 with ONTAP storage
 [.lead]
 include::_include/nvme/nvme-rocky-linux-introduction.adoc[]
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 10.0. For more support and feature information, see link:nvme-rockylinux-supported-features.html[Rocky Linux ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Rocky Linux 10.x. For more support and feature information, see link:nvme-rockylinux-supported-features.html[Rocky Linux ONTAP support and features].
 
-*NVMe-oF with Rocky Linux 10.0 has the following known limitations:*
+NVMe-oF with Rocky Linux 10.x has the following known limitations:
 
-* DM multipath support for NVMe-oF is not supported.
-* Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.
+* The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
 == Step 1: Optionally, enable SAN booting
 
 include::_include/nvme/enable-san-booting.adoc[]
 
-== Step 2: Verify the software version and NVMe configuration
+== Step 2: Install Rocky Linux and NVMe software and verify your configuration
 
 include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install Rocky Linux 10.0 on the server. After the installation is complete, verify that you are running the required Rocky Linux 10.0 kernel: 
+. Install Rocky Linux 10.x on the server. After the installation is complete, verify that you are running the required Rocky Linux 10.x kernel: 
 +
 [source,cli]
 ----
@@ -84,7 +83,7 @@ The following example shows a `hostnqn` value:
 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 [source,cli]
 ----
@@ -119,12 +118,10 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 [role="tabbed-block"]
 =====
-.FC - Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
-
-.Steps
 
 . Verify that you are using the supported adapter model: 
 
@@ -265,12 +262,10 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 --
 
-.FC - Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
-
-.Steps
 
 . Verify that you are using the supported adapter driver and firmware versions:
 +
@@ -296,12 +291,10 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 The expected output is 1.
 --
 
-.TCP
+.NVMe/TCP
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
-
-.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -577,7 +570,7 @@ nvme netapp ontapdevices -o json
 
 == Step 7: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 10.0 host and an ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 10.x host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -596,7 +589,7 @@ Set up secure in-band authentication using the CLI.
 ----
 cat /etc/nvme/hostnqn
 ----
-. Generate the dhchap key for the Rocky Linux 10.0 host.
+. Generate the dhchap key for the Rocky Linux 10.x host.
 +
 The following output describes the `gen-dhchap-key` command parameters:
 +
@@ -697,38 +690,39 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 ----
 cat /etc/nvme/config.json
 [
-{
-"hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-c2c04f444d33",
-"hostid":"4c4c4544-0035-5910-804b-c2c04f444d33",
-"dhchap_key":"DHHC-1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia1aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:",
-"subsystems":[
-{
-"nqn":"nqn.1992-08.com.netapp:sn.127ade26168811f0a50ed039eab69ad3:subsystem.inband_unidirectional",
-"ports":[
-{
-"transport":"tcp",
-"traddr":"192.168.20.17",
-"host_traddr":"192.168.20.1",
-"trsvcid":"4420"
-},
-{
-"transport":"tcp",
-"traddr":"192.168.20.18",
-"host_traddr":"192.168.20.1",
-"trsvcid":"4420"
-},
-{
-"transport":"tcp",
-"traddr":"192.168.21.18",
-"host_traddr":"192.168.21.1",
-"trsvcid":"4420"
-},
-{
-"transport":"tcp",
-"traddr":"192.168.21.17",
-"host_traddr":"192.168.21.1",
-"trsvcid":"4420"
-}]
+  {
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-c2c04f444d33",
+    "hostid":"4c4c4544-0035-5910-804b-c2c04f444d33",
+    "dhchap_key":"DHHC-1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia1aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:",
+    "subsystems":[
+      {
+        "nqn":"nqn.1992-08.com.netapp:sn.127ade26168811f0a50ed039eab69ad3:subsystem.inband_unidirectional",
+        "ports":[
+          {
+            "transport":"tcp",
+            "traddr":"192.168.20.17",
+            "host_traddr":"192.168.20.1",
+            "trsvcid":"4420"
+          },
+          {
+            "transport":"tcp",
+            "traddr":"192.168.20.18",
+            "host_traddr":"192.168.20.1",
+            "trsvcid":"4420"
+          },
+          {
+            "transport":"tcp",
+            "traddr":"192.168.21.18",
+            "host_traddr":"192.168.21.1",
+            "trsvcid":"4420"
+          },
+          {
+            "transport":"tcp",
+            "traddr":"192.168.21.17",
+            "host_traddr":"192.168.21.1",
+            "trsvcid":"4420"
+}
+]
 ----
 ==== 
 
