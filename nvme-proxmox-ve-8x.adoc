@@ -173,7 +173,7 @@ cat /sys/module/lpfc/version
 The following example shows a driver version:
 +
 ----
-0:14.2.0.17 0:14.2.0.17
+0:14.2.0.17
 ----
 
 +
@@ -226,28 +226,21 @@ cat /sys/class/scsi_host/host*/nvme_info
 ====
 [subs=+quotes]
 ----
-NVME Initiator Enabled
-XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000109b95467e WWNN x200000109b95467e DID x021f00 *ONLINE*
-
-NVME Statistics
-LS: Xmt 0000000000 Cmpl 0000000000 Abort 00000000
-LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 0000000000000000 Issue 0000000000000000 OutIO 0000000000000000
-        abort 00000000 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00000000 Err 00000000
-
-NVME Initiator Enabled
-XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000109b95467f WWNN x200000109b95467f DID x021e00 *ONLINE*
-NVME RPORT       WWPN x200ad039ea165513 WWNN x2006d039ea165513 DID x021a02 *TARGET DISCSRVC ONLINE*
-
-NVME Statistics
-LS: Xmt 000000002a Cmpl 000000002a Abort 00000000
-LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000000013e3e0 Issue 000000000013e3e2 OutIO 0000000000000002
-        abort 00000012 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00000012 Err 00000012
+NVME Initiator Enabled 
+XRI Dist lpfc0 Total 6144 IO 5894 ELS 250 
+NVME LPORT lpfc0 WWPN x10005ced8c531948 WWNN x20005ced8c531948 DID x082400
+*ONLINE*
+NVME RPORT WWPN x200ed039eac79573 WWNN x200dd039eac79573 DID x060902
+*TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x2001d039eac79573 WWNN x2000d039eac79573 DID x060904
+*TARGET DISCSRVC ONLINE*
+NVME Statistics LS: Xmt 0000000034 Cmpl 0000000034 Abort 00000000 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 Total FCP Cmpl 0000000000142cfb Issue 0000000000142cfc OutIO 0000000000000001 abort 00000005 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 FCP CMPL: xb 00000005 Err 00000005 NVME Initiator Enabled XRI Dist lpfc1 Total 6144 IO 5894 ELS 250 NVME LPORT lpfc1 WWPN x10005ced8c531949 WWNN x20005ced8c531949 DID x082500
+*ONLINE*
+NVME RPORT WWPN x2010d039eac79573 WWNN x200dd039eac79573 DID x062902
+*TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x2007d039eac79573 WWNN x2000d039eac79573 DID x062904
+*TARGET DISCSRVC ONLINE*
+NVME Statistics LS: Xmt 0000000034 Cmpl 0000000034 Abort 00000000 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 Total FCP Cmpl 00000000000d39f1 Issue 00000000000d39f2 OutIO 0000000000000001 abort 00000005 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 FCP CMPL: xb 00000005 Err 00000005
 ----
 ====
 
@@ -441,7 +434,7 @@ sectype: none
 +
 [source,cli]
 ----
-nvme connect-all -t tcp -w host-traddr -a traddr
+nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
 .Show example
@@ -468,10 +461,10 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme connect-all -t  tcp -w  192.168.166.73 -a 192.168.166.50
-nvme connect-all -t  tcp -w  192.168.166.73 -a 192.168.166.51
-nvme connect-all -t  tcp -w  192.168.165.73 -a 192.168.166.50
-nvme connect-all -t  tcp -w  192.168.165.73 -a 192.168.166.51
+nvme connect-all -t tcp -w 192.168.1.22 -a 192.168.1.30
+nvme connect-all -t tcp -w 192.168.2.22 -a 192.168.2.30
+nvme connect-all -t tcp -w 192.168.1.22 -a 192.168.1.25
+nvme connect-all -t tcp -w 192.168.2.22 -a 192.168.2.25
 ----			
 ====
 
