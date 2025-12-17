@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: nvme-ol-7x.html
-keywords: nvme, linux, oracle, 7x
-summary: Setting up VMe/FC Host Configuration for Oracle Linux 7x with ONTAP, with examples
+keywords: nvme, linux, oracle, 7.x
+summary: Setting up VMe/FC Host Configuration for Oracle Linux 7.x with ONTAP, with examples
 ---
-= Configure Oracle Linux 7x with NVMe-oF for ONTAP storage
+= Configure Oracle Linux 7.x with NVMe-oF for ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,22 +15,22 @@ summary: Setting up VMe/FC Host Configuration for Oracle Linux 7x with ONTAP, wi
 [.lead]
 include::_include/nvme/nvme-oracle-linux-introduction.adoc[]
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Oracle Linux 7x. For more support and feature information, see link:nvme-ol-supported-features.html[Oracle Linux ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Oracle Linux 7.x. For more support and feature information, see link:nvme-ol-supported-features.html[Oracle Linux ONTAP support and features].
 
-NVMe-oF with Oracle Linux 7x has the following known limitations:
+NVMe-oF with Oracle Linux 7.x has the following known limitations:
 
 * SAN booting using the NVMe-oF protocol is not supported.
-* NetApp sanlun host utility support isn't available for NVMe-oF on an Oracle Linux 7x host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+* NetApp sanlun host utility support isn't available for NVMe-oF on an Oracle Linux 7.x host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
 * Native NVMe/FC auto-connect scripts are not available in the nvme-cli package. Use the HBA vendor provided external auto-connect scripts.
 * Round-robin load balancing is not enabled by default for NVMe multipathing. To enable this functionality, write a udev rule.
 
 == Step 1: Install Oracle Linux and NVMe software and verify your configuration
 
-Use the following procedure to validate the minimum supported Oracle Linux 7x software versions.
+Use the following procedure to validate the minimum supported Oracle Linux 7.x software versions.
 
 .Steps
 
-. Install Oracle Linux 7x on the server. After the installation is complete, verify that you are running the specified Oracle Linux 7x kernel. 
+. Install Oracle Linux 7.x on the server. After the installation is complete, verify that you are running the specified Oracle Linux 7.x kernel. 
 +
 [source,cli]
 ----
@@ -66,7 +66,7 @@ Enable round-robin for NetApp ONTAP
 ACTION=="add", SUBSYSTEMS=="nvme-subsystem", ATTRS{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
 ----
 
-. On the Oracle Linux 7x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+. On the Oracle Linux 7.x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 [source,cli]
 ----

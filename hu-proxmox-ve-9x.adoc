@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: hu-proxmox-ve-9x.html
-keywords: proxmox, VE, 9.0, netapp, ontap, iscsi, fcp
-summary: Install Linux Host Utilities on a Proxmox VE 9.0 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+keywords: proxmox, VE, 9.x, netapp, ontap, iscsi, fcp
+summary: Install Linux Host Utilities on a Proxmox VE 9.x host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Configure Proxmox VE 9.0 for FCP and iSCSI with ONTAP storage
+= Configure Proxmox VE 9.x for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,17 +13,17 @@ summary: Install Linux Host Utilities on a Proxmox VE 9.0 host to manage FCP and
 :imagesdir: ./media/
 
 [.lead]
-Configure Proxmox VE 9.0 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
+Configure Proxmox VE 9.x for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
 
-FCP and iSCSI with Proxmox VE 9.0 have the following known limitations:
+FCP and iSCSI with Proxmox VE 9.x have the following known limitations:
 
-* The Linux Host Utilities do not support Proxmox VE 9.0 operating systems.
+* The Linux Host Utilities do not support Proxmox VE 9.x operating systems.
 * The SAN boot configuration is not supported.
 
 
 == Step 1: Confirm the multipath configuration for your host
 
-You can use multipathing with Proxmox VE 9.0 to manage ONTAP LUNs.
+You can use multipathing with Proxmox VE 9.x to manage ONTAP LUNs.
 
 include::_include/hu/proxmox-multipathing.adoc[]
 

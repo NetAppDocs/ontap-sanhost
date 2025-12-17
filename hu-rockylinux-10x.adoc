@@ -1,3 +1,30 @@
+---
+sidebar: sidebar
+permalink: hu-rockylinux-10x.html
+keywords: host utilities, rocky, linux, 10.x, netapp, ontap 
+summary: Install Linux Host Utilities on a Rocky Linux 10.x host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+---
+= Configure Rocky Linux 10.x for FCP and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install Linux Host Utilities on a Rocky Linux 10.x host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+
+include::_include/hu/linux-configure-kvm-note.adoc[]
+
+include::_include/hu/linux-enable-san-boot.adoc[]
+
+include::_include/hu/install-linux-host-utilities-80.adoc[]
+
+== Step 3: Confirm the multipath configuration for your host
+
+You can use multipathing with Rocky Linux 10.x to manage ONTAP LUNs.
+
 To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is defined and that you have the NetApp recommended settings configured for your ONTAP LUNs.
 
 .Steps 
@@ -13,12 +40,12 @@ touch /etc/multipath.conf
 +
 [source,cli]
 ----
-chkconfig multipathd on
+systemctl enable multipathd
 ----
 +
 [source,cli]
 ----
-/etc/init.d/multipathd start
+systemctl start multipathd
 ----
 
 . Each time you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
@@ -73,14 +100,14 @@ The following example outputs show the correct parameter settings and path statu
 An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time. 
 
 ----
-multipath -ll
-3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+# multipath -ll
+3600a098038314e535a24584e4b496252 dm-32 NETAPP,LUN C-Mode
+size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 `-+- policy='service-time 0' prio=50 status=active
-  |- 11:0:7:1    sdfi   130:64   active ready running
-  |- 11:0:9:1    sdiy  8:288     active ready running
-  |- 11:0:10:1  sdml 69:464   active ready running
-  |- 11:0:11:1  sdpt  131:304  active ready running
+  |- 11:0:0:41 sdan 66:112  active ready running
+  |- 11:0:1:41 sdcb 68:240  active ready running
+  |- 14:0:2:41 sdfd 129:240 active ready running
+  `- 14:0:0:41 sddp 71:112  active ready running
 ----
 --
 
@@ -91,15 +118,35 @@ An AFF or FAS configuration should have two groups of paths with higher and lowe
 The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 
 ----
-multipath -ll
-3600a098038303634722b4d59646c4436 dm-28 NETAPP,LUN C-Mode
-size=80G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+# multipath -ll
+3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode
+size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
-| |- 16:0:6:35 sdwb  69:624  active ready running
-| |- 16:0:5:35 sdun  66:752  active ready running
+| |- 16:0:3:0  sdcg 69:64  active ready running
+| `- 10:0:0:0  sdb  8:16   active ready running
 `-+- policy='service-time 0' prio=10 status=enabled
-  |- 15:0:0:35 sdaj  66:48   active ready running
-  |- 15:0:1:35 sdbx  68:176  active ready running
+  |- 10:0:1:0  sdc  8:32   active ready running
+  `- 16:0:2:0  sdcf 69:48  active ready running
 ----
 --
 ====
+
+include::_include/hu/exclude-device.adoc[]
+
+include::_include/hu/linux-customize-parameters.adoc[]
+
+== Step 6: Review the known issues
+
+There are no known issues.
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
+
+// 2025 JUN 25, ONTAPDOC-3090
+// ONTAPDOC-2987 8-May-2025
+// ONTAPDOC-2561 25-Nov-2024
+// ONTAPDOC-1584 1-Feb-2024
+

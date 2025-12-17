@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: hu-rockylinux-10.html
-keywords: host utilities, rocky, linux, 10, netapp, ontap 
-summary: Install Linux Host Utilities on a Rocky Linux 10 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+permalink: hu-rhel-10x.html
+keywords: host utilities, red hat, rhel, linux, 10.x, netapp, ontap, rhel 
+summary: Install Linux Host Utilities on a RHEL 10.x host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Configure Rocky Linux 10 for FCP and iSCSI with ONTAP storage
+= Configure RHEL 10.x for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,7 +13,7 @@ summary: Install Linux Host Utilities on a Rocky Linux 10 host to manage FCP and
 :imagesdir: ./media/
 
 [.lead]
-The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install Linux Host Utilities on a Rocky Linux 10 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a Red Hat Enterprise Linux (RHEL) 10.x host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/linux-configure-kvm-note.adoc[]
 
@@ -23,7 +23,7 @@ include::_include/hu/install-linux-host-utilities-80.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
-You can use multipathing with Rocky Linux 10 to manage ONTAP LUNs.
+You can use multipathing with RHEL 10.x to manage ONTAP LUNs.
 
 To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is defined and that you have the NetApp recommended settings configured for your ONTAP LUNs.
 
@@ -89,7 +89,7 @@ The following table shows the Linux OS native compiled multipath parameter setti
 multipath -ll
 ----
 +
-The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. If there are more than four paths, it might cause issues with the paths during a storage failure.
+The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. Having more than four paths can cause problems during a storage failure.
 +
 The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration. 
 +
@@ -145,8 +145,6 @@ include::_include/hu/use-linux-host-utilities.adoc[]
 
 include::_include/hu/asm-mirroring.adoc[]
 
-// 2025 JUN 25, ONTAPDOC-3090
-// ONTAPDOC-2987 8-May-2025
-// ONTAPDOC-2561 25-Nov-2024
-// ONTAPDOC-1584 1-Feb-2024
-
+//ONTAPDOC-2987 8-May-2025
+//ONTAPDOC-2561 25-Nov-2024
+//ONTAPDOC-1584 1-Feb-2024
