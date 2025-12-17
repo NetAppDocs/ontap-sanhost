@@ -23,18 +23,7 @@ NVMe-oF with Oracle Linux 9x has the following known limitation:
 
 == Step 1: Optionally, enable SAN booting
 
-Beginning with Oracle Linux 9.5, you can configure your host to use SAN booting to simplify deployment and improve scalability. Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
-
-.Steps
-
-. https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Create a NVMe namespace and map it to the host^].
-
-. Enable SAN booting in the server BIOS for the ports to which the SAN boot namespace is mapped.
-+
-For information on how to enable the HBA BIOS, see your vendor-specific documentation.
-
-. Reboot the host and verify that the OS is up and running.
-
+include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Install Oracle Linux and NVMe software and verify your configuration
 
@@ -460,7 +449,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
 
-Beginning with Oracle Linux 9.6, the host sets the default iopolicy for NVMe-oF to `round-robin`. If your host is Oracle Linux 9.6 or later, you can change the iopolicy to `queue-depth` by modifying the udev rules file.
+The Oracle Linux 9x the host sets the default iopolicy for NVMe-oF to `round-robin`. Beginning with Oracle Linux 9.6, you can change the iopolicy to `queue-depth` by modifying the udev rules file.
 
 .Steps
 
@@ -744,7 +733,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Set up secure in-band authentication
 
-Beginning with Oracle Linux 9.4, secure in-band authentication is supported over NVMe/TCP between the Oracle Linux host and ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a Oracle Linux 9.x host and an ONTAP controller.
 
 Each host or controller must be associated with a DH-HMAC-CHAP key to set up secure authentication. A DH-HMAC-CHAP key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer.
 
