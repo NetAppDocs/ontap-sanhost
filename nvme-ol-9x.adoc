@@ -16,14 +16,24 @@ summary: NVMe-oF Host Configuration for Oracle Linux 9x with ONTAP
 include::_include/nvme/nvme-oracle-linux-introduction.adoc[]
 
 Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Oracle Linux 9x. For more support and feature information, see link:nvme-ol-supported-features.html[Oracle Linux ONTAP support and features].
-
-NVMe-oF with Oracle Linux 9x has the following known limitations:
+NVMe-oF with Oracle Linux 9x has the following known limitation:
 
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
 == Step 1: Optionally, enable SAN booting
 
-include::_include/nvme/enable-san-booting.adoc[]
+Beginning with Oracle Linux 9.5, you can configure your host to use SAN booting to simplify deployment and improve scalability. Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your Linux OS, host bus adapter (HBA), HBA firmware, HBA boot BIOS, and ONTAP version support SAN booting.
+
+.Steps
+
+. https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html[Create a NVMe namespace and map it to the host^].
+
+. Enable SAN booting in the server BIOS for the ports to which the SAN boot namespace is mapped.
++
+For information on how to enable the HBA BIOS, see your vendor-specific documentation.
+
+. Reboot the host and verify that the OS is up and running.
+
 
 == Step 2: Install Oracle Linux and NVMe software and verify your configuration
 
@@ -447,11 +457,68 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 --
 =====
 
-== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+== Step 4: Optionally, modify the iopolicy in the udev rules
+
+Beginning with Oracle Linux 9.6, the host sets the default iopolicy for NVMe-oF to `round-robin`. If your host is Oracle Linux 9.6 or later, you can change the iopolicy to `queue-depth` by modifying the udev rules file.
+
+.Steps
+
+. Open the udev rules file in a text editor with root privileges:
++
+[source,cli]
+----
+/usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
++
+You should see the following output:
++
+----
+vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
+
+. Find the line that sets iopolicy for the NetApp ONTAP Controller. 
++
+The following example shows an example rule:
++
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
+----
+
+. Modify the rule so that `round-robin` becomes `queue-depth`:
++
+[source,cli]
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="queue-depth"
+----
+
+. Reload the udev rules and apply the changes:
++
+[source,cli]
+----
+udevadm control --reload
+udevadm trigger --subsystem-match=nvme-subsystem
+----
+
+. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/<subsystem>/iopolicy
+----
++
+You should see the following output:
++
+----
+queue-depth.
+----
+
+NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. No reboot is required.
+
+== Step 5: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
-== Step 5: Verify NVMe boot services
+== Step 6: Verify NVMe boot services
 Beginning with Oracle Linux 9.5, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
 
 After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
@@ -503,7 +570,7 @@ Oct 07 09:47:07 R650xs-13-211 systemd[1]: Finished Auto-connect to subsystems on
 ----
 ====
 
-== Step 6: Verify the multipathing configuration
+== Step 7: Verify the multipathing configuration
 
 Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
 
@@ -544,11 +611,11 @@ NetApp ONTAP Controller
 cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
 ----
 +
-You should see the following output:
+You should see the value set for iopolicy, for example:
 +
 ----
-round-robin
-round-robin
+queue-depth
+queue-depth
 ----
 
 . Verify that the namespaces are created and correctly discovered on the host:
@@ -674,9 +741,9 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 7: Set up secure in-band authentication
+== Step 8: Set up secure in-band authentication
 
-Secure in-band authentication is supported over NVMe/TCP between a Oracle Linux 9x host and an ONTAP controller.
+Beginning with Oracle Linux 9.4, secure in-band authentication is supported over NVMe/TCP between an Oracle Linux host and an ONTAP controller.
 
 Each host or controller must be associated with a DH-HMAC-CHAP key to set up secure authentication. A DH-HMAC-CHAP key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer.
 
@@ -840,7 +907,7 @@ DHHC-1:03:n3F8d+bvxKW/s+lEhqXaOohI2sxrQ9iLutzduuFq49JgdjjaFtTpDSO9kQl/bvZj+Bo3rd
 --
 =====
 
-== Step 8: Review the known issues
+== Step 9: Review the known issues
 
 There are no known issues.
 
