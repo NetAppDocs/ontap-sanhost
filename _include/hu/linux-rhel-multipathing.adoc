@@ -21,6 +21,14 @@ systemctl enable multipathd
 systemctl start multipathd
 ----
 
+. The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it. NetApp recommends setting the value of `replacement_timeout` to 5 in the iSCSI configuration file:
++
+[source,cli]
+----
+# grep replacement_timeout /etc/iscsi/iscsid.conf
+node.session.timeo.replacement_timeout = 5
+----
+
 . Each time you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
 +
 The following table shows the Linux OS native compiled multipath parameter settings for ONTAP LUNs.
@@ -54,6 +62,7 @@ The following table shows the Linux OS native compiled multipath parameter setti
 | vendor | NETAPP
 |===
 ====
+
 
 . Verify the parameter settings and path status for your ONTAP LUNs:
 +
@@ -111,3 +120,5 @@ size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 ====
 --
 =====
+
+// 2025 Ded 17, ONTAPDOC-3486
