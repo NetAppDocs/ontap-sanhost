@@ -14,25 +14,15 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-SUSE Linux Enterprise Server hosts support the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
+The SUSE Linux Enterprise Server 15 SP.x host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
-.About this task 
-You can use the following support and features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP.x. You should also review the known limitations before starting the configuration process.
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for SUSE Linux Enterprise Server 15 SP.x. For more support and feature information, see link:nvme-sles-supported-features.html[ONTAP support and features].
 
-* Support available:
-** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Support for SAN booting using the NVMe/FC protocol.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP and NVMe/FC. You can use secure in-band authentication for NVMe/TCP and NVMe/FC with SUSE Linux Enterprise Server 15 SP.x.
-** Support for persistent discovery controllers (PDCs) using a unique discovery NQN.
-** TLS 1.3 encryption support for NVMe/TCP. 
-** NetApp `sanlun` host utility support isn't available for NVMe-oF on a SUSE Linux Enterprise Server 15 SP.x host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
-+
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
-** There are no new features available.
-* Known limitations
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.  
+NVMe-oF with SUSE Linux Enterprise Server 15 SP.x has the following known limitations:
+
+* The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
+* NetApp sanlun host utility support isn't available for NVMe-oF. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+* For SUSE Linux Enterprise Server 15 SP.6 and earlier, SAN booting using the NVMe-oF protocol is not currently supported.
 
 == Step 1: Optionally, enable SAN booting
 
@@ -780,11 +770,11 @@ Transport Service Identifier: 8009
 
 == Step 8: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between the host and the ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a SUSE Linux Enterprise Server 15 SP.x host and an ONTAP controller.
 
-To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
+Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A DH-HMAC-CHAP key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
-You can set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
+Set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
 
 [role="tabbed-block"]
 =====
@@ -792,7 +782,6 @@ You can set up secure in-band authentication using the CLI or a config JSON file
 --
 Set up secure in-band authentication using the CLI. 
 
-.Steps
 . Obtain the host NQN:
 +
 [source,cli]
@@ -841,7 +830,7 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 [%collapsible]
 ====
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
+cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
 DHHC-1:01:iM63E6cX7G5SOKKOju8gmzM53qywsy+C/YwtzxhIt9ZRz+ky:
 DHHC-1:01:iM63E6cX7G5SOKKOju8gmzM53qywsy+C/YwtzxhIt9ZRz+ky:
 DHHC-1:01:iM63E6cX7G5SOKKOju8gmzM53qywsy+C/YwtzxhIt9ZRz+ky:
@@ -860,7 +849,7 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 [%collapsible]
 ====
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_ctrl_secret
+cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_ctrl_secret
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
@@ -868,20 +857,19 @@ DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxuk
 ----
 ====
 --
-.JSON file
+.JSON
 --
 When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
-To generate the JSON file, you can use the `-o` option. See the NVMe connect-all manual pages for more syntax options.
+Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
 
-.Steps
 . Configure the JSON file:
 +
 .Show example output
 [%collapsible]
 ====
 ----
-# cat /etc/nvme/config.json
+cat /etc/nvme/config.json
 [
  {
     "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33",
@@ -928,7 +916,7 @@ To generate the JSON file, you can use the `-o` option. See the NVMe connect-all
 
 ==== 
 [NOTE]
-In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
+In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
 
 . Connect to the ONTAP controller using the config JSON file:
 +
@@ -965,7 +953,7 @@ traddr=192.168.111.70 is already connected
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
 +
-You should see the following output:
+The following example shows a dhchap key:
 +
 ----
 DHHC-1:01:i4i789R11sMuHLCY27RVI8XloC/GzjRwyhxip5hmIELsHrBq:
@@ -978,7 +966,7 @@ DHHC-1:01:i4i789R11sMuHLCY27RVI8XloC/GzjRwyhxip5hmIELsHrBq:
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
 +
-You should see the following output:
+You should see output similar to the following example:
 +
 ----
 DHHC-1:03:jqgYcJSKp73+XqAf2X6twr9ngBpr2n0MGWbmZIZq4PieKZCoilKGef8lAvhYS0PNK7T+04YD5CRPjh+m3qjJU++yR8s=:
