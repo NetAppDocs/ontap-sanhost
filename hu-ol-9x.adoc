@@ -27,11 +27,140 @@ You can use multipathing with Oracle Linux 9.x to manage ONTAP LUNs.
 
 include::_include/hu/linux-ol-multipathing.adoc[]
 
-include::_include/hu/exclude-device.adoc[]
+== Step 4: Confirm the iSCSI configuration for your host
 
-include::_include/hu/linux-customize-parameters.adoc[]
+Ensure that iSCSI is configured correctly for your host.
 
-== Step 6: Review the known issues
+.Steps
+. Verify that the iSCSI initiator package (iscsi-initiator-utils) is installed. 
+
+. Set iSCSI Initiator node name:
++
+[source,cli]
+----
+Edit /etc/iscsi/initiatorname.iscsi.
+Format: InitiatorName=iqn.YYYY-MM.com.vendor:<host_name>
+Use lowercase, max 223 chars.
+----
+
+. Configure the iSCSI session timeout parameter:
++
+[source,cli]
+----
+Edit /etc/iscsi/iscsid.conf:
+node.session.timeo.replacement_timeout = 5
+----
+
+. Enable the iSCSI service:
++
+[source,cli]
+----
+$systemctl enable iscsid
+----
+
+. Start the iSCSI service:
++
+[source,cli]
+----
+$systemctl start iscsid
+----
+
+. Verify that the iSCSI service is running:
++
+[source,cli]
+----
+$systemctl status iscsid
+----
+
+. Discover the targets:
++
+[source,cli]
+----
+$iscsiadm --mode discovery --op update --type sendtargets --portal <target_IP>
+----
+
+. Log in to the targets:
++
+[source,cli]
+----
+$iscsiadm --mode node -l all
+----
+
+. Set the automatic iSCSI login for when the host boots:
++
+[source,cli]
+----
+$iscsiadm --mode node -T <target_name> -p <ip:port> -o update -n node.startup -v automatic
+----
+
+. Verify the iSCSI sessions:
++
+[source,cli]
+----
+$iscsiadm --mode session
+----
+
+== Step 5: Optionally, exclude a device from multipathing
+
+If required, you can exclude a device from multipathing by adding the WWID for the unwanted device to the "blacklist" stanza for the `multipath.conf` file.
+
+.Steps
+
+. Determine the WWID:
++
+[source,cli]
+----
+/lib/udev/scsi_id -gud /dev/sda
+----
++
+"sda" is the local SCSI disk that you want to add to the blacklist.
++
+An example WWID is `360030057024d0730239134810c0cb833`.
+
+. Add the WWID to the "blacklist" stanza:
++
+[source,cli]
+----
+blacklist {
+	     wwid   360030057024d0730239134810c0cb833
+        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
+        devnode "^hd[a-z]"
+        devnode "^cciss.*"
+}
+----
+
+== Step 6: Customize multipath parameters for ONTAP LUNs
+
+If your host is connected to LUNs from other vendors and any of the multipath parameter settings are overridden, you need to correct them by adding stanzas later in the `multipath.conf` file that apply specifically to ONTAP LUNs. If you don't do this, the ONTAP LUNs might not work as expected. 
+
+Check your `/etc/multipath.conf` file, especially in the defaults section, for settings that might be overriding the <<multipath-parameter-settings,default settings for multipath parameters>>. 
+
+CAUTION: You shouldn't override the recommended parameter settings for ONTAP LUNs. These settings are required for optimal performance of your host configuration. Contact NetApp support, your OS vendor, or both for more information.
+
+The following example shows how to correct an overridden default. In this example, the `multipath.conf` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs, and you can't remove these parameters because ONTAP storage arrays are still attached to the host. Instead, you correct the values for `path_checker` and `no_path_retry` by adding a device stanza to the `multipath.conf` file that applies specifically to the ONTAP LUNs.
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+defaults {
+   path_checker      *readsector0*
+   no_path_retry     *fail*
+}
+
+devices {
+   device {
+      vendor          "NETAPP"
+      product         "LUN"
+      no_path_retry   *queue*
+      path_checker    *tur*
+   }
+}
+----
+====
+
+== Step 7: Review the known issues
 
 Oracle Linux 9.3, 9.2, 9.1, and 9.0 with ONTAP storage has the following known issue:
 
