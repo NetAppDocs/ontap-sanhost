@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: nvme-ol-9x.html
-keywords: nvme, oracle linux, 9x, host configuration
-summary: NVMe-oF Host Configuration for Oracle Linux 9x with ONTAP
+keywords: nvme, oracle linux, 9.x, host configuration
+summary: NVMe-oF Host Configuration for Oracle Linux 9.x with ONTAP
 ---
-= Configure Oracle Linux 9x with NVMe-oF for ONTAP storage 
+= Configure Oracle Linux 9.x with NVMe-oF for ONTAP storage 
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,9 +15,9 @@ summary: NVMe-oF Host Configuration for Oracle Linux 9x with ONTAP
 [.lead]
 include::_include/nvme/nvme-oracle-linux-introduction.adoc[]
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Oracle Linux 9x. For more support and feature information, see link:nvme-ol-supported-features.html[Oracle Linux ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Oracle Linux 9.x. For more support and feature information, see link:nvme-ol-supported-features.html[Oracle Linux ONTAP support and features].
 
-NVMe-oF with Oracle Linux 9x has the following known limitation:
+NVMe-oF with Oracle Linux 9.x has the following known limitation:
 
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
@@ -27,11 +27,11 @@ include::_include/nvme/enable-san-booting.adoc[]
 
 == Step 2: Install Oracle Linux and NVMe software and verify your configuration
 
-Use the following procedure to validate the minimum supported Oracle Linux 9x software versions.
+Use the following procedure to validate the minimum supported Oracle Linux 9.x software versions.
 
 .Steps
 
-. Install Oracle Linux 9x on the server. After the installation is complete, verify that you are running the specified Oracle Linux 9x kernel. 
+. Install Oracle Linux 9.x on the server. After the installation is complete, verify that you are running the specified Oracle Linux 9.x kernel. 
 +
 [source,cli]
 ----
@@ -69,7 +69,7 @@ The following example shows an `libnvme` package version:
 libnvme-1.11.1-1.el9.x86_64
 ----
 
-.	On the Oracle Linux 9x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+.	On the Oracle Linux 9.x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 [source,cli]
 ----
@@ -449,7 +449,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
 
-The Oracle Linux 9x the host sets the default iopolicy for NVMe-oF to `round-robin`. Beginning with Oracle Linux 9.6, you can change the iopolicy to `queue-depth` by modifying the udev rules file.
+The Oracle Linux 9.x the host sets the default iopolicy for NVMe-oF to `round-robin`. Beginning with Oracle Linux 9.6, you can change the iopolicy to `queue-depth` by modifying the udev rules file.
 
 .Steps
 
