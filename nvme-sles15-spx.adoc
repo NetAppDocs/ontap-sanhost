@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: nvme-sles15-spx.html
-keywords: nvme, linux, suse, sles, SUSE Linux Enterprise Server, 15, SP.x, server, enterprise
-summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 SP.x with ONTAP.
+keywords: nvme, linux, suse, sles, SUSE Linux Enterprise Server, 15, SPx, server, enterprise
+summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 SPx with ONTAP.
 ---
-= Configure SUSE Linux Enterprise Server 15 SP.x for NVMe-oF with ONTAP storage
+= Configure SUSE Linux Enterprise Server 15 SPx for NVMe-oF with ONTAP storage
 :toc: macro
 :hardbreaks:
 :toclevels: 1
@@ -14,15 +14,15 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-The SUSE Linux Enterprise Server 15 SP.x host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
+The SUSE Linux Enterprise Server 15 SPx host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for SUSE Linux Enterprise Server 15 SP.x. For more support and feature information, see link:nvme-sles-supported-features.html[ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for SUSE Linux Enterprise Server 15 SPx. For more support and feature information, see link:nvme-sles-supported-features.html[ONTAP support and features].
 
-NVMe-oF with SUSE Linux Enterprise Server 15 SP.x has the following known limitations:
+NVMe-oF with SUSE Linux Enterprise Server 15 SPx has the following known limitations:
 
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 * NetApp sanlun host utility support isn't available for NVMe-oF. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
-* For SUSE Linux Enterprise Server 15 SP.6 and earlier, SAN booting using the NVMe-oF protocol is not currently supported.
+* For SUSE Linux Enterprise Server 15 SP6 and earlier, SAN booting using the NVMe-oF protocol is not currently supported.
 
 == Step 1: Optionally, enable SAN booting
 
@@ -34,7 +34,7 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install SUSE Linux Enterprise Server 15 SP.x on the server. After the installation is complete, verify that you are running the specified SUSE Linux Enterprise Server 15 SP.x kernel: 
+. Install SUSE Linux Enterprise Server 15 SPx on the server. After the installation is complete, verify that you are running the specified SUSE Linux Enterprise Server 15 SPx kernel: 
 +
 [source,cli]
 ----
@@ -513,7 +513,73 @@ Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: Finished Auto-connect to subsystems 
 
 == Step 6: Verify the multipathing configuration
 
-include::_include/nvme/nvme-validate-nvme-of.adoc[]
+Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
+
+.Steps
+
+. Verify that the in-kernel NVMe multipath is enabled:
++
+[source,cli]
+----
+cat /sys/module/nvme_core/parameters/multipath
+----
++
+You should see the following output:
++
+----
+Y
+----
+
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to queue-depth) for the respective ONTAP namespaces correctly reflect on the host:
+
+.. Display the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
++
+----
+NetApp ONTAP Controller
+NetApp ONTAP Controller
+----
+.. Display the policy:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+----
++
+You should see the following output:
++
+----
+queue-depth
+queue-depth
+----
+
+. Verify that the namespaces are created and correctly discovered on the host:
++
+[source,cli]
+----
+nvme list
+----
++
+.Show example
+[%collapsible]
+====
+----
+Node         SN                   Model                          
+---------------------------------------------------------  
+/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
+                               
+
+Namespace Usage    Format             FW             Rev
+-----------------------------------------------------------
+1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
+----
+====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
@@ -615,7 +681,7 @@ nvme netapp ontapdevices -o json
 
 == Step 7: Create a persistent discovery controller
 
-Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SP.x host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
+You can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SPx host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
 
 .Steps
 
@@ -770,7 +836,7 @@ Transport Service Identifier: 8009
 
 == Step 8: Set up secure in-band authentication
 
-Secure in-band authentication is supported over NVMe/TCP between a SUSE Linux Enterprise Server 15 SP.x host and an ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a SUSE Linux Enterprise Server 15 SPx host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A DH-HMAC-CHAP key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
