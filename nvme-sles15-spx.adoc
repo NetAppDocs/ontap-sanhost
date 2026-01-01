@@ -454,11 +454,64 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 =====
 
-== Step 4: Optionally, enable 1MB I/O for NVMe/FC
+== Step 4: Optionally, modify the iopolicy in the udev rules
+
+Beginning with SUSE Linux Enterprise Server 15 SP6, the default iopolicy for NVMe-oF is set to `round-robin`. If you want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+
+. Open the udev rules file in a text editor with root privileges:
++
+[source,cli]
+----
+/usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
++
+You should see the following output:
++
+----
+vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
+
+. Find the line that sets iopolicy for the NetApp ONTAP Controller, as shown in the following example rule: 
++
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
+----
+
+. Modify the rule so that `round-robin` becomes `queue-depth`:
++
+[source,cli]
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="queue-depth"
+----
+
+. Reload the udev rules and apply the changes:
++
+[source,cli]
+----
+udevadm control --reload
+udevadm trigger --subsystem-match=nvme-subsystem
+----
+
+. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/<subsystem>/iopolicy
+----
++
+You should see the following output:
++
+----
+queue-depth.
+----
+
+NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. You don't need to reboot.
+
+== Step 5: Optionally, enable 1MB I/O for NVMe/FC
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
-== Step 5: Verify NVMe boot services
+== Step 6: Verify NVMe boot services
 
 The `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
 
@@ -511,7 +564,7 @@ Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: Finished Auto-connect to subsystems 
 ----
 ====
 
-== Step 6: Verify the multipathing configuration
+== Step 7: Verify the multipathing configuration
 
 Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
 
@@ -679,7 +732,7 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 7: Create a persistent discovery controller
+== Step 8: Create a persistent discovery controller
 
 You can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SPx host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
 
@@ -834,7 +887,7 @@ Transport Service Identifier: 8009
 ----
 ====
 
-== Step 8: Set up secure in-band authentication
+== Step 9: Set up secure in-band authentication
 
 Secure in-band authentication is supported over NVMe/TCP between a SUSE Linux Enterprise Server 15 SPx host and an ONTAP controller.
 
@@ -1040,7 +1093,7 @@ DHHC-1:03:jqgYcJSKp73+XqAf2X6twr9ngBpr2n0MGWbmZIZq4PieKZCoilKGef8lAvhYS0PNK7T+04
 --
 =====
 
-== Step 9: Configure Transport Layer Security
+== Step 10: Configure Transport Layer Security
 
 include::_include/nvme/linux-configure-tls.adoc[]
 
@@ -1275,7 +1328,7 @@ Authentication Diffie-Hellman Group: 3072-bit
 ----
 ====
 
-== Step 10: Review the known issues 
+== Step 11: Review the known issues 
 
 There are no known issues. 
 
