@@ -22,7 +22,7 @@ NVMe-oF with SUSE Linux Enterprise Server 15 SPx has the following known limitat
 
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 * NetApp sanlun host utility support isn't available for NVMe-oF. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
-* For SUSE Linux Enterprise Server 15 SP6 and earlier, SAN booting using the NVMe-oF protocol is not currently supported.
+* For SUSE Linux Enterprise Server 15 SP6 and earlier, SAN booting using the NVMe-oF protocol is not supported.
 
 == Step 1: Optionally, enable SAN booting
 
