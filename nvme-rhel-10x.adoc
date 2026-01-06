@@ -569,7 +569,7 @@ Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespace
 
 .Steps
 
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly display on the host:
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to queue-depth) for the respective ONTAP namespaces correctly display on the host:
 
 .. Display the subsystems:
 +

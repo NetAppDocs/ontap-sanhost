@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: nvme_ubuntu_2404.html
+permalink: nvme-ubuntu-2404.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for Ubuntu 24.04 with ONTAP
 ---
@@ -94,8 +94,6 @@ You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
 .Broadcom/Emulex
 --
 Configure NVMe/FC for a Broadcom/Emulex adapter.
-
-.Steps
 
 . Verify that you're using the supported adapter model: 
 
@@ -196,8 +194,6 @@ FCP CMPL: xb 00000047 Err 00000075
 The native inbox qla2xxx driver included in the Ubuntu 24.04 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support. 
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
-
-.Steps
 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
