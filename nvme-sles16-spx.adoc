@@ -14,14 +14,15 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 16 
 :imagesdir: ./media/
 
 [.lead]
-The SUSE Linux Enterprise Server 16 host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
+The SUSE Linux Enterprise Server 15 SPx host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for SUSE Linux Enterprise Server 16. For more support and feature information, see link:nvme-sles-supported-features.html[ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for SUSE Linux Enterprise Server 15 SPx. For more support and feature information, see link:nvme-sles-supported-features.html[ONTAP support and features].
 
-NVMe-oF with SUSE Linux Enterprise Server 16 has the following known limitations:
+NVMe-oF with SUSE Linux Enterprise Server 15 SPx has the following known limitations:
 
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 * NetApp sanlun host utility support isn't available for NVMe-oF. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+* For SUSE Linux Enterprise Server 15 SP6 and earlier, SAN booting using the NVMe-oF protocol is not supported.
 
 == Step 1: Optionally, enable SAN booting
 
@@ -33,7 +34,7 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install SUSE Linux Enterprise Server 16 on the server. After the installation is complete, verify that you are running the specified SUSE Linux Enterprise Server 16 kernel: 
+. Install SUSE Linux Enterprise Server 15 SPx on the server. After the installation is complete, verify that you are running the specified SUSE Linux Enterprise Server 15 SPx kernel: 
 +
 [source,cli]
 ----
@@ -446,7 +447,7 @@ nvme	connect-all	-t	tcp	-w	192.168.211.80	-a	192.168.211.67
 
 [NOTE]
 ====
-Beginning with SUSE Linux Enterprise Server 16, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
+Beginning with SUSE Linux Enterprise Server 15 SP6, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
@@ -455,7 +456,9 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
 
-Beginning with SUSE Linux Enterprise Server 16, the default iopolicy for NVMe-oF is set to `round-robin`. If you want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+Beginning with SUSE Linux Enterprise Server 15 SP6, the default iopolicy for NVMe-oF is set to `round-robin`. If you want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+
+.Steps
 
 . Open the udev rules file in a text editor with root privileges:
 +
@@ -733,7 +736,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Create a persistent discovery controller
 
-You can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 16 host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
+You can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SPx host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
 
 .Steps
 
@@ -888,7 +891,7 @@ Transport Service Identifier: 8009
 
 == Step 9: Set up secure in-band authentication
 
-Secure in-band authentication is supported over NVMe/TCP between a SUSE Linux Enterprise Server 16 host and an ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a SUSE Linux Enterprise Server 15 SPx host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A DH-HMAC-CHAP key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
