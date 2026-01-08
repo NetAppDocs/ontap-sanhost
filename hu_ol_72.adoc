@@ -29,6 +29,8 @@ NOTE: You can use the link:hu_rhel_72.html#rhel-rhck[recommended settings for Re
 
 include::_include/hu/linux-ol-multipathing-alua.adoc[]
 
+== Step 4: Optionally, exclude a device from multipathing
+
 include::_include/hu/exclude-device.adoc[]
 
 include::_include/hu/linux-ol-customize-parameters.adoc[]

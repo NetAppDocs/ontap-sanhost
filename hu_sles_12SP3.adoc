@@ -27,7 +27,11 @@ You can use multipathing with SUSE Linux Enterprise Server 12 SP3 to manage ONTA
 
 include::_include/hu/multipathing.adoc[]
 
+== Step 4: Optionally, exclude a device from multipathing
+
 include::_include/hu/exclude-device.adoc[]
+
+== Step 5: Customize multipath parameters for ONTAP LUNs
 
 include::_include/hu/linux-customize-parameters.adoc[]
 

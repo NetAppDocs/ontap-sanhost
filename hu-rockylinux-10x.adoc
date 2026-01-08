@@ -139,11 +139,19 @@ size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 --
 ====
 
+== Step 4: Confirm the iSCSI configuration for your host
+
+include::_include/hu/linux-iscsi-configuration.adoc[]
+
+== Step 5: Optionally, exclude a device from multipathing
+
 include::_include/hu/exclude-device.adoc[]
+
+== Step 6: Customize multipath parameters for ONTAP LUNs
 
 include::_include/hu/linux-customize-parameters.adoc[]
 
-== Step 6: Review the known issues
+== Step 7: Review the known issues
 
 There are no known issues.
 
