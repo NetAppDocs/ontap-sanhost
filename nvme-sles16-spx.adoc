@@ -416,9 +416,7 @@ eflags:  none
 sectype: none
 localhost:~ #
 ----
-====
---
-=====                                                                                                       
+====                      
 
 . Verify that all other NVMe/TCP initiator-target LIF combinations can successfully fetch discovery log page data: 
 +
@@ -455,7 +453,8 @@ nvme	connect-all	-t	tcp	-w	192.168.39.20	-a	192.168.39.10
 nvme	connect-all	-t	tcp	-w	192.168.39.20	-a	192.168.39.11
 ----
 ====
-
+--
+=====
 [NOTE]
 ====
 The setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
