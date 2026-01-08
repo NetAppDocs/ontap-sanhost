@@ -122,7 +122,7 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
-.Steps 
+.Steps
 
 . Verify that you are using the supported adapter model: 
 
@@ -299,6 +299,8 @@ FCP CMPL: xb 000094a4 Err 000c22e7
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
+
+.Steps
 
 . Verify that you are using the supported adapter driver and firmware versions:
 +
@@ -788,6 +790,8 @@ Set up secure in-band authentication using the CLI or a config JSON file. If you
 --
 Set up secure in-band authentication using the CLI. 
 
+.Steps
+
 . Obtain the host NQN:
 +
 [source,cli]
@@ -873,6 +877,8 @@ DHHC-1:03:ZCRrP9MQOeXhFitT7Fvvf/3P6K/qY1HfSmSfM8nLjESJdOjbjK/J6m00ygJgjm0VrRlrgr
 When multiple NVMe subsystems are available on the ONTAP controller, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
 Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
+
+.Steps
 
 . Configure the JSON file.
 +

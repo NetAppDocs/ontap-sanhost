@@ -253,8 +253,6 @@ NVME Statistics LS: Xmt 0000000034 Cmpl 0000000034 Abort 00000000 LS XMIT: Err 0
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-.Steps 
-
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]

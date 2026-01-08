@@ -123,7 +123,7 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
-.Steps 
+.Steps
 
 . Verify that you are using the supported adapter model: 
 
@@ -269,7 +269,7 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
-.Steps 
+.Steps
 
 . Verify that you are using the supported adapter driver and firmware versions:
 +
@@ -590,6 +590,8 @@ Set up secure in-band authentication using the CLI or a config JSON file. If you
 .CLI
 --
 Set up secure in-band authentication using the CLI. 
+
+.Steps
 
 . Obtain the host NQN:
 +
