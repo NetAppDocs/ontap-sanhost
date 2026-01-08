@@ -40,12 +40,12 @@ ONTAP supports the following SAN host features regardless of the ONTAP version r
 |===
 
 | Feature | Proxmox host version
-| Native NVMe multipathing is enabled by default
-a| 8.0 
 | The `nvme-cli` package includes auto-connect scripts removing the need for third-party scripts
 a| 9.0
 | The native udev rule in `nvme-cli` package provides round-robin load balancing for NVMe multipath
 a| 9.0
+| Native NVMe multipathing is enabled by default
+a| 8.0 
 |===
 
 NOTE: For details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].

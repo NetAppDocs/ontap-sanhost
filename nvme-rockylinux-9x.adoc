@@ -58,6 +58,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter model: 
 
 .. Display the model names:
@@ -231,6 +233,8 @@ FCP CMPL: xb 000035cc Err 000fcfc0
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -259,6 +263,8 @@ The expected output is 1.
 --
 
 The NVMe/TCP protocol does not support the auto-connect operation. You must manually perform the NVMe/TCP connect or connect-all operations to discover the NVMe/TCP subsystems and namespaces.
+
+.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -542,6 +548,7 @@ Beginning with Rocky Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo time
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
+--
 =====
 
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
@@ -571,6 +578,7 @@ Set up secure in-band authentication using the CLI or a config JSON file. If you
 Set up secure in-band authentication using the CLI. 
 
 .Steps
+
 . Obtain the host NQN:
 +
 [source,cli]
@@ -657,6 +665,7 @@ When multiple NVMe subsystems are available on the ONTAP controller, you can use
 Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
 
 .Steps
+
 . Configure the JSON file.
 +
 [NOTE]

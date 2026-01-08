@@ -126,6 +126,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 Configure NVMe/FC for a Broadcom/Emulex FC adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter model:
 
 .. Display the model names:
@@ -276,6 +278,8 @@ FCP CMPL: xb 0000018a Err 000005ca
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
+.Steps
+
 . Verify that you are running the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -302,6 +306,8 @@ The expected output is 1.
 .NVMe/TCP
 --
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
+
+.Steps
 
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -451,7 +457,7 @@ Beginning with SUSE Linux Enterprise Server 15 SP6, the setting for the NVMe/TCP
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
-
+--
 =====
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
@@ -903,6 +909,8 @@ Set up secure in-band authentication using the CLI or a config JSON file. If you
 --
 Set up secure in-band authentication using the CLI. 
 
+.Steps
+
 . Obtain the host NQN:
 +
 [source,cli]
@@ -983,6 +991,8 @@ DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxuk
 When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
 Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
+
+.Steps
 
 . Configure the JSON file:
 +
