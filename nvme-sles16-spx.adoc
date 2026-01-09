@@ -169,8 +169,8 @@ cat /sys/class/scsi_host/host*/fwrev
 The following example shows firmware versions:
 +
 ----
-14.4.393.25, sli-4:6:d
-14.4.393.25, sli-4:6:d
+14.4.393.53, sli-4:6:d
+14.4.393.53, sli-4:6:d
 ----
 
 .. Display the inbox driver version:
@@ -183,7 +183,7 @@ cat /sys/module/lpfc/version
 The following example shows a driver version:
 +
 ----
-0:14.4.0.10 
+0:14.4.0.11 
 ----
 
 +
@@ -293,8 +293,8 @@ cat /sys/class/fc_host/host*/symbolic_name
 The follow example shows driver and firmware versions:
 +
 ----
-QLE2742 FW:v9.14.00 DVR:v10.02.09.400-k-debug
-QLE2742 FW:v9.14.00 DVR:v10.02.09.400-k-debug
+QLE2772 FW:v9.15.06 DVR:v10.02.09.400-k-debug
+QLE2772 FW:v9.15.06 DVR:v10.02.09.400-k-debug
 ----
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
@@ -1226,7 +1226,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33
 +
 [source,cli]
 ----
-nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn= nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1
+nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn= nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1
 ----
 +
 You should see the following output:
@@ -1249,7 +1249,7 @@ nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.201
 +
 [source,cli]
 ----
-nvme check-tls-key --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 --keydata=NVMeTLSkey-1:01:C50EsaGtuOp8n5fGE9EuWjbBCtshmfoHx4XTqTJUmydf0gIj: --insert
+nvme check-tls-key --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 --keydata=NVMeTLSkey-1:01:C50EsaGtuOp8n5fGE9EuWjbBCtshmfoHx4XTqTJUmydf0gIj: --insert
 ----
 +
 You should see the following TLS key:
@@ -1271,7 +1271,7 @@ cat /proc/keys | grep NVMe
 [%collapsible]
 ====
 ----
-069f56bb I--Q---     5 perm 3b010000     0     0 psk       NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=: 32
+069f56bb I-Q-- 5 perm 3b010000 0 0 psk NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=: 32
 ----
 ====
 
@@ -1281,7 +1281,7 @@ cat /proc/keys | grep NVMe
 +
 [source,cli]
 ----
-nvme connect -t tcp -w 192.168.111.80 -a 192.168.111.66  -n nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 --tls_key=0x069f56bb –tls
+nvme connect -t tcp -w 192.168.38.20 -a 192.168.38.10  -n nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 --tls_key=0x069f56bb –tls
 ----
 +
 You should see the following output:
@@ -1301,10 +1301,10 @@ nvme list-subsys
 [%collapsible]
 ====
 ----
-nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1
                hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
-\
- +- nvme0 tcp traddr=192.168.111.66,trsvcid=4420,host_traddr=192.168.111.80,src_addr=192.168.111.80 live
+**
+ +- nvme0 tcp traddr=192.168.38.10,trsvcid=4420,host_traddr=192.168.38.20,src_addr=192.168.38.20 live
 ----
 ====
 
@@ -1312,7 +1312,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:su
 +
 [source,cli]
 ----
-nvme subsystem controller show -vserver vs_iscsi_tcp -subsystem nvme1 -instance
+nvme subsystem controller show -vserver vs_tcp_sles16 -subsystem nvme1 -instance
 ----
 +
 .Show example output
@@ -1320,21 +1320,21 @@ nvme subsystem controller show -vserver vs_iscsi_tcp -subsystem nvme1 -instance
 ====
 ----
 (vserver nvme subsystem controller show)
-                          Vserver Name: vs_iscsi_tcp
+                       Vserver Name: vs_tcp_sles16
                           Subsystem: nvme1
                       Controller ID: 0040h
-                  Logical Interface: tcpnvme_lif1_1
-                               Node: A400-12-181
+                  Logical Interface: lif1
+                               Node: A400-12-171
                            Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
                  Transport Protocol: nvme-tcp
-        Initiator Transport Address: 192.168.111.80
+        Initiator Transport Address: 192.168.38.20
                     Host Identifier: 4c4c454400355910804bb2c04f444d33
                Number of I/O Queues: 2
                    I/O Queue Depths: 128, 128
                   Admin Queue Depth: 32
               Max I/O Size in Bytes: 1048576
           Keep-Alive Timeout (msec): 5000
-                     Subsystem UUID: 8bbfb403-1602-11f0-ac2b-d039eab67a95
+                     Subsystem UUID: 62203cfd-826a-11f0-966e-d039eab31e9d
               Header Digest Enabled: false
                 Data Digest Enabled: false
        Authentication Hash Function: sha-256
@@ -1342,7 +1342,7 @@ Authentication Diffie-Hellman Group: 3072-bit
                 Authentication Mode: unidirectional
        Transport Service Identifier: 4420
                        TLS Key Type: configured
-                   TLS PSK Identity: NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=
+                   TLS PSK Identity: NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=
                          TLS Cipher: TLS-AES-128-GCM-SHA256
 ----
 ====
