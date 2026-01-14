@@ -48,7 +48,7 @@ NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
 [cols=3*,options="header", cols="20,20,30"]
 |===
-|Registry key |Value |When set
+|Registry key |Value |Set registry key...
 
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
@@ -65,8 +65,7 @@ NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 |"NETAPP LUN", "NETAPP LUN C-
 Mode"
 "NVMe NetApp ONTAP Con"
-
-
+|When MPIO support is specified
 |HKLM\SYSTEM\CurrentControlSet\Services
 \ClusDisk \Parameters\ManageDisksOnSystemBuses
 |1
@@ -151,8 +150,8 @@ NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
 [cols=3*,options="header", cols="20,20,30"]
 |===
-|Registry key |Value |When set
-|When MPIO support is specified
+|Registry key |Value |Set registry key...
+
 |HKLM\SYSTEM\CurrentControlSet\Control
 \Class\ {iSCSI_driver_GUID}\ instance_ID
 \Parameters \IPSecConfigTimeout
@@ -199,7 +198,7 @@ NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
 [cols=3*,options="header", cols="20,20,30"]
 |===
-|Registry key |Value |When set
+|Registry key |Value |Set registry key...
 
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
@@ -300,7 +299,7 @@ NOTE: HKLM is the abbreviation for `HKEY_LOCAL_MACHINE`.
 
 [cols=3*,options="header", cols="20,20,30"]
 |===
-|Registry key |Value |When set
+|Registry key |Value |Set registry key...
 |HKLM\SYSTEM\CurrentControlSet\Control
 \Class\ {iSCSI_driver_GUID}\ instance_ID
 \Parameters \IPSecConfigTimeout
@@ -342,7 +341,7 @@ The Windows Host Utilities installer automatically sets registry values based on
 
 [options="header", cols= "~, 10, ~"]
 |===
-|Registry key |Value |When set
+|Registry key |Value |Set registry key...
 |HKLM\SYSTEM\CurrentControlSet\Services
 \msdsm\Parameters
 \DsmMaximumRetryTimeDuringStateTransition
