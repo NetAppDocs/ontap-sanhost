@@ -465,7 +465,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
 
-Beginning with SUSE Linux Enterprise Server 16, the default iopolicy for NVMe-oF is set to `round-robin`. If you want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+Beginning with SUSE Linux Enterprise Server 16, the default iopolicy for NVMe-oF is set to `queue-depth`. If you want to change the iopolicy to `round-robin`, modify the udev rules file as follows:
 
 .Steps
 
@@ -485,14 +485,14 @@ vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
 . Find the line that sets iopolicy for the NetApp ONTAP Controller, as shown in the following example rule: 
 +
 ----
-ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="queue-depth"
 ----
 
-. Modify the rule so that `round-robin` becomes `queue-depth`:
+. Modify the rule so that `queue-depth` becomes `round-robin`:
 +
 [source,cli]
 ----
-ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="queue-depth"
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
 ----
 
 . Reload the udev rules and apply the changes:
@@ -513,7 +513,7 @@ cat /sys/class/nvme-subsystem/<subsystem>/iopolicy
 You should see the following output:
 +
 ----
-queue-depth.
+round-robin
 ----
 
 NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. You don't need to reboot.
@@ -648,7 +648,7 @@ Namespace Usage    Format             FW             Rev
 +
 [role="tabbed-block"]
 =====
-.NVMe/FC 
+.NVMe/FC - ASA r2
 --
 ----
 nvme list-subsys /dev/nvme4n5  
@@ -665,16 +665,55 @@ nvme-subsys96 - NQN=nqn.1992-08.om.netapp:sn.b351b2b6777b11f0b3c2d039ea5cfc91:su
  +- nvme25 *fc* traddr=nn-0x2011d039ea5cfc90:pn-0x2014d039ea5cfc90,host_traddr=nn-0x200000109bdacc75:pn-0x100000109bdacc75 *live optimized*
  +- nvme30 *fc* traddr=nn-0x2011d039ea5cfc90:pn-0x2012d039ea5cfc90,host_traddr=nn-0x200000109bdacc75:pn-0x100000109bdacc75 *live optimized*
  +- nvme32 *fc* traddr=nn-0x2011d039ea5cfc90:pn-0x2013d039ea5cfc90,host_traddr=nn-0x200000109bdacc76:pn-0x100000109bdacc76 *live optimized*
-
 ----
 ====
 --
+
+.NVMe/TCP - ASA r2
+--
+----
+nvme list-subsys /dev/nvme4n2
+----
+.Show example output
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0               
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034
+\                                                                                                                                                                               +- nvme4 *tcp* traddr=192.168.20.28,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
++- nvme5 *tcp* traddr=192.168.20.29,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
++- nvme6 *tcp* traddr=192.168.21.28,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*                                                
++- nvme7 *tcp* traddr=192.168.21.29,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
+----
+====
+--
+
+.NVMe/FC
+--
+----
+nvme list-subsys /dev/nvme4n5
+----
+.Show example output
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme-subsys114 - NQN=nqn.1992-08.com.netapp:sn.9e30b9760a4911f08c87d039eab67a95:subsystem.sles_161_27                       
+                 hostnqn=nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f iopolicy=round-robin\
++- nvme114 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2360d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live optimized*                                       
++- nvme115 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2362d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live non-optimized*
++- nvme116 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2361d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live optimized*
++- nvme117 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2363d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live non-optimized*
+----
+====
+--
+
 .NVMe/TCP 
 --
 ----
 nvme list-subsys /dev/nvme9n1 
 ----
-
 .Show example output
 [%collapsible]
 ====
@@ -693,7 +732,7 @@ nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:su
 =====
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device: 
-
++
 [role="tabbed-block"]
 =====
 .Column
