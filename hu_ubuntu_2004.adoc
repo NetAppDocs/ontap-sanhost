@@ -26,17 +26,21 @@ You can use multipathing with Ubuntu 20.04 to manage ONTAP LUNs.
 
 include::_include/hu/linux-ubuntu-multipathing.adoc[]
 
-== Step 3: Optionally, exclude a device from multipathing
+== Step 3: Confirm the iSCSI configuration for your host
+
+include::_include/hu/linux-iscsi-configuration-ubuntu.adoc[]
+
+== Step 4: Optionally, exclude a device from multipathing
 
 include::_include/hu/exclude-device.adoc[]
 
-== Step 4: Customize multipath parameters for ONTAP LUNs
+== Step 5: Customize multipath parameters for ONTAP LUNs
 
 include::_include/hu/linux-customize-parameters.adoc[]
 
-== Step 5: Review the known issues
-
+== Step 6: Review the known issues
 There are no known issues.
 
+// 2026 JAN 15, ONTAPDOC-3486
 // 2025 JUL-15, ONTAPDOC-3128
 // 2024 AUG 13, ONTAPDOC-2294

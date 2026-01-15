@@ -27,15 +27,18 @@ You can use multipathing with SUSE Linux Enterprise Server 15 SPx to manage ONTA
 
 include::_include/hu/multipathing.adoc[]
 
-== Step 4: Optionally, exclude a device from multipathing
+== Step 4: Confirm the iSCSI configuration for your host
+
+include::_include/hu/linux-iscsi-configuration.adoc[]
+
+== Step 5: Optionally, exclude a device from multipathing
 
 include::_include/hu/exclude-device.adoc[]
 
-== Step 5: Customize multipath parameters for ONTAP LUNs
-
+== Step 6: Customize multipath parameters for ONTAP LUNs
 include::_include/hu/linux-customize-parameters.adoc[]
 
-== Step 6: Review the known issues
+== Step 7: Review the known issues
 
 SUSE Linux Enterprise Server 15 SPx with ONTAP storage has the following known issues.
 
@@ -105,3 +108,5 @@ cat/sys/class/fc_host/host*/device/rport*/fc_remote_ports/rport*/port_state
 include::_include/hu/use-linux-host-utilities.adoc[]
 
 include::_include/hu/asm-mirroring.adoc[]
+
+// 2026 JAN 15, ONTAPDOC-3486

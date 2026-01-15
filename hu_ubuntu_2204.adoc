@@ -28,15 +28,18 @@ You can use multipathing with Ubuntu 22.04 to manage ONTAP LUNs.
 
 include::_include/hu/linux-ubuntu-multipathing.adoc[]
 
-== Step 4: Optionally, exclude a device from multipathing
+== Step 4: Confirm the iSCSI configuration for your host
+
+include::_include/hu/linux-iscsi-configuration-ubuntu.adoc[]
+
+== Step 5: Optionally, exclude a device from multipathing
 
 include::_include/hu/exclude-device.adoc[]
 
-== Step 5: Customize multipath parameters for ONTAP LUNs
-
+== Step 6: Customize multipath parameters for ONTAP LUNs
 include::_include/hu/linux-customize-parameters.adoc[]
 
-== Step 6: Review the known issues
+== Step 7: Review the known issues
 
 There are no known issues.
 
@@ -46,5 +49,6 @@ include::_include/hu/use-linux-host-utilities.adoc[]
 
 include::_include/hu/asm-mirroring.adoc[] 
 
+// 2026 JAN 15, ONTAPDOC-3486
 // 2025 JULY 15, ONTAPDOC-3128
 // 2024 AUG 13, ONTAPDOC-2294
