@@ -2,6 +2,7 @@ To ensure that multipathing is configured correctly for your host, verify that t
 
 .Steps 
 
+
 . Verify that the `/etc/multipath.conf` file exits. If the file doesn't exist, create an empty, zero-byte file:
 +
 [source,cli]
