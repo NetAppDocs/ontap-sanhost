@@ -53,11 +53,13 @@ sidebar:
         entries:
         - title: Release notes
           url: /hu-luhu-release-notes.html
-        - title: Install Linux Host Utilities 8.0
-          url: /hu-luhu-80.html
-        - title: Install Linux Host Utilities 7.1
-          url: /hu_luhu_71.html
-        - title: Learn about the sanlun utility 
+        - title: Install Linux Host Utilities
+          entries:
+          - title: Install Linux Host Utilities 8.0
+            url: /hu-luhu-80.html
+          - title: Install Linux Host Utilities 7.1
+            url: /hu_luhu_71.html
+        - title: Learn about the sanlun utility
           url: /hu-luhu-sanlun-utility.html
         - title: Linux Host Utilities command reference
           url: /hu-luhu-command-reference.html
@@ -138,46 +140,6 @@ sidebar:
           url: /hu-ol-9x.html
         - title: 8.x
           url: /hu-ol-8x.html
-        - title: Oracle Linux 7
-          pdf-filename: OL-7-FCP
-          entries:
-          - title: "7.9"
-            url: /hu_ol_79.html
-          - title: "7.8"
-            url: /hu_ol_78.html
-          - title: "7.7"
-            url: /hu_ol_77.html
-          - title: "7.6"
-            url: /hu_ol_76.html
-          - title: "7.5"
-            url: /hu_ol_75.html
-          - title: "7.4"
-            url: /hu_ol_74.html
-          - title: "7.3"
-            url: /hu_ol_73.html
-          - title: "7.2"
-            url: /hu_ol_72.html
-          - title: "7.1"
-            url: /hu_ol_71.html
-          - title: "7.0"
-            url: /hu_ol_70.html
-        - title: Oracle Linux 6
-          pdf-filename: OL-6-FCP
-          entries:
-          - title: "6.10"
-            url: /hu_ol_610.html
-          - title: "6.9"
-            url: /hu_ol_69.html
-          - title: "6.8"
-            url: /hu_ol_68.html
-          - title: "6.7"
-            url: /hu_ol_67.html
-          - title: "6.6"
-            url: /hu_ol_66.html
-          - title: "6.5"
-            url: /hu_ol_65.html
-          - title: "6.4"
-            url: /hu_ol_64.html
       - title: Proxmox
         entries:
         - title: VE 9.x
@@ -217,20 +179,6 @@ sidebar:
         - title: SUSE Linux Enterprise Server 15
           pdf-filename: SLES-15-FCP
           url: /hu-sles-15spx.html
-        - title: SUSE Linux Enterprise Server 12
-          entries:
-          - title: 12 SP5
-            url: /hu_sles_12SP5.html
-          - title: 12 SP4
-            url: /hu_sles_12SP4.html
-          - title: 12 SP3
-            url: /hu_sles_12SP3.html
-          - title: 12 SP2
-            url: /hu_sles_12SP2.html
-          - title: 12 SP1
-            url: /hu_sles_12SP1.html
-          - title: "12"
-            url: /hu_sles_12.html
       - title: Ubuntu
         pdf-filename: Ubuntu-FCP
         entries:
