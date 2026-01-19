@@ -4,7 +4,7 @@ permalink: troubleshoot.html
 keywords: host utilities, veritas, infoscale, 8.x, netapp, ontap, vmware, vspehere
 summary: You can configure ONTAP SAN host settings for the VMware vSphere 8.x release with FC, FCoE, and iSCSI protocols.
 ---
-= Troubleshoot
+= Troubleshoot NVMe-oF with ONTAP storage for Linux Host Utilities
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,16 +13,17 @@ summary: You can configure ONTAP SAN host settings for the VMware vSphere 8.x re
 :imagesdir: ./media/
 
 [.lead]
-Before troubleshooting any NVMe-oF failures for RHEL, OL, and SUSE Linux Enterprise Server hosts, verify that you are running a configuration that is compliant to the Interoperability Matrix Tool (IMT) specifications and then proceed with the next steps to debug any host side issues.
+Troubleshoot NVMe-oF failures for Oracle Linux, RHEL, Rocky Linux, and SUSE Linux Enterprise Server hosts with ONTAP storage. 
 
-[NOTE]
-The troubleshooting instructions are not applicable for AIX, Windows, and ESXi hosts.
+Before you start troubleshooting, verify that you are running a configuration that is compliant to the https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] specifications and then proceed with the next steps to debug any host side issues.
+[NOTE: The troubleshooting instructions are not applicable for AIX, ESXi, Proxmox, and Windows hosts.
 
 == Enable verbose logging
 
 If you have an issue with your configuration, verbose logging can provide essential information for troubleshooting.
 
-The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the procedure to set LPFC verbose logging.
+.Steps
+Set verbose logging for LPFC or Qlogic (Qla2xxx).
 
 [role="tabbed-block"]
 ====
@@ -31,16 +32,55 @@ The procedure to set verbose logging for Qlogic (Qla2xxx) is different from the 
 
 --
 
-include::_include/nvme/reuse_nvme_verbose_logging.adoc[]
+Set the lpfc driver for NVMe/FC.
+
+. Set the `lpfc_log_verbose` driver setting to any of the following values to log NVMe/FC events.
++
+----
+#define LOG_NVME 0x00100000 /* NVME general events. */
+#define LOG_NVME_DISC 0x00200000 /* NVME Discovery/Connect events. */
+#define LOG_NVME_ABTS 0x00400000 /* NVME ABTS events. */
+#define LOG_NVME_IOERR 0x00800000 /* NVME IO Error events. */
+----
+
+. After setting the values, run the `dracut-f` command and reboot the host.
+
+. Verify the settings:
++
+[source,cli]
+----
+# cat /etc/modprobe.d/lpfc.conf options lpfc lpfc_log_verbose=0xf00083
+
+# cat /sys/module/lpfc/parameters/lpfc_log_verbose 15728771
+----
 --
 
 .Qla2xxx 
 --
-include::_include/nvme/reuse_nvme_qla2xxx_verbose_logging.adoc[]
+There is no specific qla2xxx logging for NVMe/FC similar to that for the `lpfc` driver. Instead, set the general qla2xxx logging level.
+
+. Append the `ql2xextended_error_logging=0x1e400000` value to the corresponding `modprobe qla2xxx conf` file.
+
+. Execute the `dracut -f` command and then reboot the host.
+
+. After reboot, verify that the verbose logging has been enabled:
++
+[source,cli]
+----
+# cat /etc/modprobe.d/qla2xxx.conf
+----
++
+You should see an output similar to the following example:
++
+----
+options qla2xxx ql2xnvmeenable=1 ql2xextended_error_logging=0x1e400000
+# cat /sys/module/qla2xxx/parameters/ql2xextended_error_logging
+507510784
+----
 --
 ====
 
-=== Common nvme-cli errors and workarounds
+== Common "nvme-cli" errors and workarounds
 
 The errors displayed by `nvme-cli` during `nvme discover`, `nvme connect`, or `nvme connect-all` operations and the workarounds are shown in the following table:
 
@@ -86,8 +126,9 @@ a|None. Try running the `nvme discover` command again after some time. For `nvme
 
 == When to contact technical support
 
-If you are still facing issues, collect the following files and command outputs and contact link:mysupport.netapp.com[NetApp support^] for further triage:
+If you continue to have issues, collect the following files and command outputs and contact link:mysupport.netapp.com[NetApp support^] for further triage:
 
+[source,cli]
 ----
 cat /sys/class/scsi_host/host*/nvme_info
 /var/log/messages
