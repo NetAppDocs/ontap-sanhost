@@ -1,0 +1,57 @@
+---
+sidebar: sidebar
+permalink: hu_sles_12.html
+keywords: host utilities, suse linux enterprise server 12, suse, linux, 12, netapp, ontap
+summary: Install Linux Host Utilities on a SUSE Linux Enterprise Server 12 to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+---
+= Configure SUSE Linux Enterprise Server 12 for FCP and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a SUSE Linux Enterprise Server 12 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+
+include::_include/hu/linux-enable-san-boot.adoc[]
+
+include::_include/hu/install-linux-host-utilities.adoc[]
+
+== Step 3: Confirm the multipath configuration for your host
+
+You can use multipathing with SUSE Linux Enterprise Server 12 to manage ONTAP LUNs.
+
+include::_include/hu/multipathing.adoc[]
+
+include::_include/hu/exclude-device.adoc[]
+
+include::_include/hu/linux-customize-parameters.adoc[]
+
+
+== Step 6: Review the known issues
+
+The SUSE Linux Enterprise Server 12 with ONTAP storage release has the following known issues:
+
+[cols=3*,options="header"]
+|===
+| NetApp Bug ID
+| Title
+| Description
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=873555[873555^] | scsi_dh_alua module is not loaded during multipathd startup on local boot | scsi_dh_alua is a Linux ALUA device handler module. This is is not loaded during multipathd startup on local boot. Due to this device handler will not be loaded though ALUA is enabled on target side. 
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=863584[863584^] | The message "conflicting device node '/dev/mapper/360xx' found" appears on the screen when you create a DM device on SLES12 | You might observe a failure in creating a link to DM devices under /dev/mapper dir in SLES 12 and see the messages
+"conflicting device node '/dev/mapper/360xx' found".
+| link:https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=847490[847490^] | Multipath daemon shows path failures on SLES 12 | You might observe path failures on the SLES12 multipath daemon during I/O with storage or fabric faults. 
+|===
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]
+
+include::_include/hu/asm-mirroring.adoc[]
+
+include::_include/hu/kvm-sles.adoc[]
+
+// 2025 DEC 19, ONTAPDOC-3531
+// 2024 SEP 2, ONTAPDOC-2345

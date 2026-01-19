@@ -1,0 +1,219 @@
+---
+sidebar: sidebar
+permalink: hu-veritas-9x.html
+keywords: host utilities, veritas, infoscale, 9, netapp, ontap, sanhost, iscsi, red, hat linux, oracle, linux
+summary: Use Linux Host Utilities with Veritas Infoscale 9 for RHEL and Oracle Linux hosts to help you manage FC, FCoE, and iSCSI protocol operations with ONTAP LUNs.
+---
+= Configure Veritas Infoscale 9 for FC, FCoE, and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. Use the Linux Host Utilities with Veritas Infoscale 9 for Oracle Linux (Red Hat Compatible Kernel based), Red Hat Enterprise Linux (RHEL), and SUSE Linux Enterprise Server hosts to support managing FC, FCoE, and iSCSI protocol operations with ONTAP LUNs.
+
+include::_include/hu/veritas-enable-san-boot.adoc[]
+
+include::_include/hu/veritas-install-linux-host-utilities.adoc[]
+
+== Step 3: Confirm the Veritas Dynamic Multipathing configuration for your host
+
+Use Veritas Dynamic Multipathing (VxDMP) with Veritas Infoscale 9 to manage ONTAP LUNs.
+
+To ensure that VxDMP is set up correctly for your host, you need to verify the VxDMP configuration and check the Array Support Library (ASL) and the Array Policy Module (APM) configuration. The ASL and APM packages for NetApp storage systems are installed during the Veritas software installation.
+
+NOTE: For heterogenous multipath environments, including Veritas Infoscale, Linux Native Device Mapper, and LVM volume manager, refer to the Veritas Product Administration documentation for the configuration settings.
+
+.Before you begin
+Ensure your configuration meets the system requirements. See the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] and the Veritas HCL Matrix.
+
+.Steps
+
+. Verify the ONTAP target array is attached to the VxDMP multipath:
++
+[source,cli]
+----
+vxdmpadm
+----
++
+.Show example
+[%collapsible]
+====
+----
+#vxdmpadm listenclosure
+ENCLR_NAME        ENCLR_TYPE     ENCLR_SNO      STATUS       ARRAY_TYPE     LUN_COUNT    FIRMWARE
+===================================================================================================
+info_asa0         Info_ASA       81KDT+YTg35P         CONNECTED    ALUA       20         9161
+infoscal1         Infoscal       81Ocq?Z7hPzC         CONNECTED    ALUA       23         9181
+# vxdmpadm getdmpnode
+NAME       STATE    ENCLR-TYPE  PATHS  ENBL  DSBL ENCLR-NAME
+===================================================================
+infoscal1_22         ENABLED      Infoscal     4      4     0     infoscal1 
+----
+====
+
+. Check the configuration of the ASL and APM packages. NetApp recommends that you use the latest supported packages listed on the Veritas support portal.
++
+.Show example ASL and APM configuration
+[%collapsible]
+====
+----
+#  vxdmpadm list dmpnode dmpnodename=infoscal1_22 | grep asl
+asl             = libvxnetapp.so
+
+# vxddladm listversion |grep libvxnetapp.so
+libvxnetapp.so                  vm-8.0.0-rev-1   8.0
+
+# rpm -qa |grep VRTSaslapm
+VRTSaslapm-9.0.3-RHEL9.x86_64 
+#vxddladm listsupport libname=libvxnetapp.so
+ATTR_NAME   ATTR_VALUE
+=========================================
+LIBNAME     libvxnetapp.so
+VID         NETAPP
+PID         All
+ARRAY_TYPE  ALUA, A/A
+----
+====
+
+. For optimum system configuration in storage failover operations, verify that you have the following Veritas VxDMP tunables:
++
+[cols=2*,options="header"]
+|===
+| Parameter
+| Setting
+| dmp_lun_retry_timeout | 60
+| dmp_path_age | 120
+| dmp_restore_interval | 60
+|===
+
+. Set the DMP tunables to online:
++
+[source,cli]
+----
+# vxdmpadm settune dmp_tunable=value
+----
+. Verify that the tunables are set correctly:
++
+[source,cli]
+----
+# vxdmpadm gettune
+----
++
+The following example shows the effective VxDMP tunables on a SAN host.
++
+.Show example
+[%collapsible]
+====
+----
+# vxdmpadm gettune
+
+Tunable                    Current Value    Default Value
+dmp_cache_open                      on                on
+dmp_daemon_count                    10                10
+dmp_delayq_interval                 15                15
+dmp_display_alua_states             on                on
+dmp_fast_recovery                   on                on
+dmp_health_time                     60                60
+dmp_iostats_state              enabled           enabled
+dmp_log_level                        1                 1
+dmp_low_impact_probe                on                on
+dmp_lun_retry_timeout               60                30
+dmp_path_age                       120               300
+dmp_pathswitch_blks_shift            9                 9
+dmp_probe_idle_lun                  on                on
+dmp_probe_threshold                  5                 5
+dmp_restore_cycles                  10                10
+dmp_restore_interval                60               300
+dmp_restore_policy         check_disabled   check_disabled
+dmp_restore_state              enabled           enabled
+dmp_retry_count                      5                 5
+dmp_scsi_timeout                    20                20
+dmp_sfg_threshold                    1                 1
+dmp_stat_interval                    1                 1
+dmp_monitor_ownership               on                on
+dmp_monitor_fabric                  on                on
+dmp_native_support                 off               off
+----
+====
+
+. Configure the protocol timeout values:
++
+[role="tabbed-block"]
+====
+.FC/FCoE
+--
+Use the default timeout values for FC and FCoE.
+--
+.iSCSI 
+--
+Set the `replacement_timeout` parameter value to 120.
+
+The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it. NetApp recommends setting the value of `replacement_timeout` to 120 in the iSCSI configuration file.
+
+.Example
+
+----
+# grep replacement_timeout /etc/iscsi/iscsid.conf
+node.session.timeo.replacement_timeout = 120
+----
+--
+====
+
+. Verify the parameter settings and path status for your ONTAP LUNs:
++
+In AFF, FAS, or ASA configurations, a single ONTAP LUN should not require more than four paths. More than four paths can cause problems during a storage failure.
++
+The following examples show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
++
+[role="tabbed-block"]
+=====
+.ASA configuration
+--
+An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time.
+
+.Show example
+[%collapsible]
+====
+----
+# vxdmpadm getsubpaths dmpnodename=infoscal1_21
+NAME   STATE[A]    PATH-TYPE[M] CTLR-NAME  ENCLR-TYPE  ENCLR-NAME   ATTRS  PRIORITY
+===================================================================================
+sdby   ENABLED(A)  Active/Optimized  c1    Infoscal    infoscal1    -      -
+sddx   ENABLED(A)  Active/Optimized  c2    Infoscal    infoscal1    -      -
+sdfe   ENABLED(A)  Active/Optimized  c1    Infoscal    infoscal1    -      -
+sdfo   ENABLED(A)  Active/Optimized  c2    Infoscal    infoscal1    -      -
+====
+--
+
+.AFF or FAS configuration
+--
+An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
+
+The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
+
+.Show example
+[%collapsible]
+====
+----
+# vxdmpadm getsubpaths dmpnodename-sfrac0_47
+NAME  STATE[A]   PATH-TYPE[M]   CTLR-NAME   ENCLR-TYPE  ENCLR-NAME  ATTRS  PRIORITY
+===================================================================================
+sdas  ENABLED     Active/Non-Optimized c13   SFRAC       sfrac0     -      -
+sdb   ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
+sdcj  ENABLED(A)  Active/Optimized     c14   SFRAC       sfrac0     -      -
+sdea  ENABLED     Active/Non-Optimized c14   SFRAC       sfrac0     -      -
+====
+--
+=====
+
+== Step 4: Known issues
+
+There are no known issues.
+
+== What's next?
+
+include::_include/hu/use-linux-host-utilities.adoc[]

@@ -134,34 +134,76 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
-        - title: Oracle Linux 9.x
+        - title: 9.x
           url: /hu-ol-9x.html
-        - title: Oracle Linux 8.x
-          url: /hu-ol-8x.html       
+        - title: 8.x
+          url: /hu-ol-8x.html
+        - title: Oracle Linux 7
+          pdf-filename: OL-7-FCP
+          entries:
+          - title: "7.9"
+            url: /hu_ol_79.html
+          - title: "7.8"
+            url: /hu_ol_78.html
+          - title: "7.7"
+            url: /hu_ol_77.html
+          - title: "7.6"
+            url: /hu_ol_76.html
+          - title: "7.5"
+            url: /hu_ol_75.html
+          - title: "7.4"
+            url: /hu_ol_74.html
+          - title: "7.3"
+            url: /hu_ol_73.html
+          - title: "7.2"
+            url: /hu_ol_72.html
+          - title: "7.1"
+            url: /hu_ol_71.html
+          - title: "7.0"
+            url: /hu_ol_70.html
+        - title: Oracle Linux 6
+          pdf-filename: OL-6-FCP
+          entries:
+          - title: "6.10"
+            url: /hu_ol_610.html
+          - title: "6.9"
+            url: /hu_ol_69.html
+          - title: "6.8"
+            url: /hu_ol_68.html
+          - title: "6.7"
+            url: /hu_ol_67.html
+          - title: "6.6"
+            url: /hu_ol_66.html
+          - title: "6.5"
+            url: /hu_ol_65.html
+          - title: "6.4"
+            url: /hu_ol_64.html
       - title: Proxmox
         entries:
-        - title: Proxmox 9.0
-          url: /hu-proxmox-9x.html
+        - title: VE 9.x
+          url: /hu-proxmox-ve-9x.html
+        - title: VE 8.x
+          url: /hu-proxmox-ve-8x.html
       - title: RHEL
         entries:
-        - title: RHEL 10
-          url: /hu-rhel-10.html 
+        - title: 10.x
+          url: /hu-rhel-10x.html 
           pdf-filename: RHEL-10-FCP          
-        - title: RHEL 9.x
+        - title: 9.x
           url: /hu-rhel-9x.html
           pdf-filename: RHEL-9-FCP 
-        - title: RHEL 8.x
+        - title: 8.x
           pdf-filename: RHEL-8-FCP
           url: /hu-rhel-8x.html 
       - title: Rocky Linux
         entries:
-        - title: Rocky Linux 10
+        - title: 10.x
           pdf-filename: RL-10-FCP
-          url: /hu-rockylinux-10.html
-        - title: Rocky Linux 9.x
+          url: /hu-rockylinux-10x.html
+        - title: 9.x
           pdf-filename: RL-9-FCP
           url: /hu-rockylinux-9x.html 
-        - title: Rocky Linux 8.x
+        - title: 8.x
           pdf-filename: RL-8-FCP
           url: /hu-rockylinux-8x.html  
       - title: Solaris
@@ -175,6 +217,20 @@ sidebar:
         - title: SUSE Linux Enterprise Server 15
           pdf-filename: SLES-15-FCP
           url: /hu-sles-15spx.html
+        - title: SUSE Linux Enterprise Server 12
+          entries:
+          - title: 12 SP5
+            url: /hu_sles_12SP5.html
+          - title: 12 SP4
+            url: /hu_sles_12SP4.html
+          - title: 12 SP3
+            url: /hu_sles_12SP3.html
+          - title: 12 SP2
+            url: /hu_sles_12SP2.html
+          - title: 12 SP1
+            url: /hu_sles_12SP1.html
+          - title: "12"
+            url: /hu_sles_12.html
       - title: Ubuntu
         pdf-filename: Ubuntu-FCP
         entries:
@@ -186,10 +242,14 @@ sidebar:
           url: /hu_ubuntu_2004.html
       - title: Veritas
         entries:
+        - title: Infoscale 9
+          url: /hu-veritas-9x.html
         - title: Infoscale 8
-          url: /hu_veritas_8x.html
+          url: /hu-veritas-8x.html
         - title: Infoscale 7
-          url: /hu_veritas_7x.html
+          url: /hu-veritas-7x.html
+        - title: Storage Foundation 6
+          url: /hu_veritas_6x.html
       - title: Windows
         pdf-filename: Windows-FCP
         entries:
@@ -208,159 +268,78 @@ sidebar:
       - title: Learn about configuring NVMe-oF hosts
         url: /hu-nvme-index.html
       - title: AIX
-        url: /nvme_aix.html
+        url: /nvme-aix.html
       - title: ESXi
-        pdf-filename: NVMeoF ESXi
         entries:
         - title: VMware vSphere 8
-          url: /nvme_esxi_8.html
+          url: /nvme-esxi-8.html
         - title: VMware vSphere 7
-          url: /nvme_esxi_7.html
+          url: /nvme-esxi-7.html
       - title: Oracle Linux
+        pdf-filename: NVMeoF OL 
         entries:
-        - title: Oracle Linux 9
-          pdf-filename: NVMeF OL
-          entries:
-          - title: "9.5"
-            url: /nvme-ol-95.html
-          - title: "9.4"
-            url: /nvme_ol_94.html
-          - title: "9.3"
-            url: /nvme_ol_93.html
-          - title: "9.2"
-            url: /nvme_ol_92.html
-          - title: "9.1"
-            url: /nvme_ol_91.html
-          - title: "9.0"
-            url: /nvme_ol_90.html
-        - title: Oracle Linux 8
-          pdf-filename: NVMeF OL
-          entries:
-          - title: "8.10"
-            url: /nvme-ol-810.html
-          - title: "8.9"
-            url: /nvme_ol_89.html
-          - title: "8.8"
-            url: /nvme_ol_88.html
-          - title: "8.7"
-            url: /nvme_ol_87.html
-          - title: "8.6"
-            url: /nvme_ol_86.html
-          - title: "8.5"
-            url: /nvme_ol_85.html
-          - title: "8.4"
-            url: /nvme_ol_84.html
-          - title: "8.3"
-            url: /nvme_ol_83.html     
-          - title: "8.2"
-            url: /nvme_ol_82.html
-          - title: "8.1"
-            url: /nvme_ol_81.html
-        - title: Oracle Linux 7
-          entries:
-          - title: "7.9"
-            url: /nvme_ol_79.html
-          - title: "7.8"
-            url: /nvme_ol_78.html
-          - title: "7.7"
-            url: /nvme_ol_77.html
+        - title: ONTAP support and features
+          url: /nvme-ol-supported-features.html
+        - title: 9.x
+          url: /nvme-ol-9x.html
+        - title: 8.x
+          url: /nvme-ol-8x.html
+        - title: 7.x
+          url: /nvme-ol-7x.html
       - title: Proxmox
         pdf-filename: NVMeoF Proxmox
         entries:
         - title: ONTAP support and features
           url: /nvme-proxmox-supported-features.html
-        - title: Proxmox VE 9x
+        - title: VE 9.x
           url: /nvme-proxmox-ve-9x.html
+        - title: VE 8.x
+          url: /nvme-proxmox-ve-8x.html
       - title: RHEL
         pdf-filename: NVMeoF RHEL 
         entries:
         - title: ONTAP support and features 
           url: /nvme-rhel-supported-features.html
-        - title: 10x
+        - title: 10.x
           url: /nvme-rhel-10x.html
-        - title: 9x
+        - title: 9.x
           url: /nvme-rhel-9x.html
-        - title: 8x
+        - title: 8.x
           url: /nvme-rhel-8x.html
       - title: Rocky Linux
-        pdf-filename: NVMeoF Rocky Linux
         entries:
         - title: ONTAP support and features 
           url: /nvme-rockylinux-supported-features.html
-        - title: Rocky Linux 10
-          entries:
-          - title: "10.0"
-            url: /nvme-rockylinux-10.html
-        - title: Rocky Linux 9
-          entries:
-          - title: "9.6"
-            url: /nvme-rockylinux-96.html
-          - title: "9.5"
-            url: /nvme-rockylinux-95.html 
-          - title: "9.4"
-            url: /nvme-rockylinux-94.html
-          - title: "9.3"
-            url: /nvme-rockylinux-93.html
-          - title: "9.2"
-            url: /nvme-rockylinux-92.html
-          - title: "9.1"
-            url: /nvme-rockylinux-91.html
-          - title: "9.0"
-            url: /nvme-rockylinux-90.html
-        - title: Rocky Linux 8
-          entries:
-          - title: "8.10"
-            url: /nvme-rockylinux-810.html
-          - title: "8.9"
-            url: /nvme-rockylinux-89.html
-          - title: "8.8"
-            url: /nvme-rockylinux-88.html
-          - title: "8.7"
-            url: /nvme-rockylinux-87.html
-          - title: "8.6"
-            url: /nvme-rockylinux-86.html
-          - title: "8.5"
-            url: /nvme-rockylinux-85.html
-          - title: "8.4"
-            url: /nvme-rockylinux-84.html
+        - title: 10.x
+          url: /nvme-rockylinux-10x.html
+        - title: 9.x
+          url: /nvme-rockylinux-9x.html
+        - title: 8.x
+          url: /nvme-rockylinux-8x.html
       - title: SUSE Linux Enterprise Server
-        pdf-filename: NVMeoF SLES
         entries:
-        - title: SUSE Linux Enterprise Server 15
-          entries:
-          - title: 15 SP7
-            url: /nvme_sles15_sp7.html
-          - title: 15 SP6
-            url: /nvme_sles15_sp6.html
-          - title: 15 SP5
-            url: /nvme_sles15_sp5.html
-          - title: 15 SP4
-            url: /nvme_sles15_sp4.html
-          - title: 15 SP3
-            url: /nvme_sles15_sp3.html
-          - title: 15 SP2
-            url: /nvme_sles15_sp2.html
-          - title: 15 SP1
-            url: /nvme_sles15_sp1.html
+        - title: ONTAP support and features 
+          url: /nvme-sles-supported-features.html
+        - title: 15 SPx
+          url: /nvme-sles15-spx.html
       - title: Ubuntu
-        pdf-filename: NVMeoF Ubuntu
         entries:
         - title: "24.04"
-          url: /nvme_ubuntu_2404.html
+          url: /nvme-ubuntu-2404.html
         - title: "22.04"
-          url: /nvme_ubuntu_2204.html
+          url: /nvme-ubuntu-2204.html
       - title: Windows
         entries:
         - title: "2025"
           url: /nvme-windows-2025.html  
         - title: "2022"
-          url: /nvme_windows_2022.html
+          url: /nvme-windows-2022.html
         - title: "2019"
-          url: /nvme_windows_2019.html
+          url: /nvme-windows-2019.html
         - title: "2016"
-          url: /nvme_windows_2016.html
+          url: /nvme-windows-2016.html
         - title: "2012 R2"
-          url: /nvme_windows_2012r2.html
+          url: /nvme-windows-2012r2.html
       - title: Troubleshoot
         url: /troubleshoot.html
     - title: Legal notices

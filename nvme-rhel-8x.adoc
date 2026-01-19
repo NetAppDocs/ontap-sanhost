@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: nvme-rhel-8x.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 8x with ONTAP
+summary: How to Configure NVMe-oF Host for RHEL 8.x with ONTAP
 ---
-= Configure RHEL 8x for NVMe-oF with ONTAP storage
+= Configure RHEL 8.x for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,12 +15,12 @@ summary: How to Configure NVMe-oF Host for RHEL 8x with ONTAP
 [.lead]
 include::_include/nvme/nvme-rhel-introduction.adoc[]
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 8x. For more support and feature information, see link:nvme-rhel-supported-features.html[RHEL ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 8.x. For more support and feature information, see link:nvme-rhel-supported-features.html[RHEL ONTAP support and features].
 
-NVMe-oF with RHEL 8x has the following known limitations:
+NVMe-oF with RHEL 8.x has the following known limitations:
 
 * SAN booting using the NVMe-oF protocol is not currently supported.
-* In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8x; you must enable it manually.
+* In-kernel NVMe multipath is disabled by default on NVMe-oF hosts in RHEL 8.x; you must enable it manually.
 * NVMe/TCP is available as a technology preview due to known issues.
 
 == Step 1: Optionally, enable SAN booting
@@ -33,7 +33,7 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install RHEL 8x on the server. After the installation is complete, verify that you are running the required RHEL 8x kernel: 
+. Install RHEL 8.x on the server. After the installation is complete, verify that you are running the required RHEL 8.x kernel: 
 +
 [source,cli]
 ----
@@ -79,7 +79,7 @@ libnvme-1.4-3.el8.x86_64
 grubby --args=nvme_core.multipath=Y --update-kernel /boot/vmlinuz-4.18.0-553.el8_10.x86_64
 ----
 
-. On the RHEL 8x host, check the `hostnqn` string at `/etc/nvme/hostnqn`:
+. On the RHEL 8.x host, check the `hostnqn` string at `/etc/nvme/hostnqn`:
 +
 [source,cli]
 ----
@@ -133,7 +133,7 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 [role="tabbed-block"]
 ====
-.FC - Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
@@ -275,7 +275,7 @@ FCP CMPL: xb 00000368 Err 00000382
 ----
 =====
 --
-.FC - Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
@@ -304,7 +304,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 The expected output is 1.
 --
 
-.TCP
+.NVMe/TCP
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
@@ -391,7 +391,7 @@ nvme connect-all -t tcp -w 192.168.1.31 -a 192.168.1.25 -l 1800
 
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[] 
 
-== Step 5: Validate NVMe-oF
+== Step 5: Verify the multipathing configuration
 
 include::_include/nvme/nvme-validate-nvme-of.adoc[]
 
@@ -519,7 +519,7 @@ These are the known issues:
 |===
 |NetApp Bug ID	|Title	|Description	
 
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|RHEL 8x NVMe-oF hosts create duplicate persistent discovery controllers (PDCs)	|On NVMe-oF hosts, you can use the "nvme discover -p" command to create PDCs. When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running RHEL 8x on an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
+|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|RHEL 8.x NVMe-oF hosts create duplicate persistent discovery controllers (PDCs)	|On NVMe-oF hosts, you can use the "nvme discover -p" command to create PDCs. When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running RHEL 8.x on an NVMe-oF host, a duplicate PDC is created each time "nvme discover -p" is executed. This leads to unnecessary usage of resources on both the host and the target.
 |===
 
 // 2024 SEP 2, ONTAPDOC-2345
