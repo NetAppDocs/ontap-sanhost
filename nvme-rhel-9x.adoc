@@ -2,9 +2,9 @@
 sidebar: sidebar
 permalink: nvme-rhel-9x.html
 keywords: nvme, linux, rhel, red hat, enterprise
-summary: How to Configure NVMe-oF Host for RHEL 9x with ONTAP
+summary: How to Configure NVMe-oF Host for RHEL 9.x with ONTAP
 ---
-= Configure RHEL 9x for NVMe-oF with ONTAP storage
+= Configure RHEL 9.x for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,9 +15,9 @@ summary: How to Configure NVMe-oF Host for RHEL 9x with ONTAP
 [.lead]
 include::_include/nvme/nvme-rhel-introduction.adoc[]
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 9x. For more support and feature information, see link:nvme-rhel-supported-features.html[RHEL ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for RHEL 9.x. For more support and feature information, see link:nvme-rhel-supported-features.html[RHEL ONTAP support and features].
 
-NVMe-oF with RHEL 9x has the following known limitations:
+NVMe-oF with RHEL 9.x has the following known limitations:
 
 * The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
 
@@ -31,7 +31,7 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install RHEL 9x on the server. After the installation is complete, verify that you are running the required RHEL 9x kernel: 
+. Install RHEL 9.x on the server. After the installation is complete, verify that you are running the required RHEL 9.x kernel: 
 +
 [source,cli]
 ----
@@ -41,7 +41,7 @@ uname -r
 Example RHEL kernel version:
 +
 ----
-5.14.0-570.12.1.el9_6.x86_64
+5.14.0-611.5.1.el9_7.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -54,7 +54,7 @@ rpm -qa|grep nvme-cli
 The following example shows an `nvme-cli` package version:
 +
 ----
-nvme-cli-2.11-5.el9.x86_64
+nvme-cli-2.13-1.el9.x86_64
 ----
 
 . Install the `libnvme` package:
@@ -67,7 +67,7 @@ rpm -qa|grep libnvme
 The following example shows an `libnvme` package version:
 +
 ----
-libnvme-1.11.1-1.el9.x86_64
+libnvme-1.13-1.el9.x86_64
 ----
 
 . On the host, check the hostnqn string at `/etc/nvme/hostnqn`:
@@ -87,7 +87,7 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 +
 [source,cli]
 ----
-::> vserver nvme subsystem host show -vserver vs_nvme_194_rhel96
+::> vserver nvme subsystem host show -vserver vs_188
 ----
 +
 .Show example
@@ -96,16 +96,15 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 ----
 Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
-vs_ nvme_194_rhel96
-        nvme4
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048- c7c04f425633
-        nvme_1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048- c7c04f425633
-        nvme_2
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048- c7c04f425633
-        nvme_3
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048- c7c04f425633
-4 entries were displayed.
+vs_188  Nvme1
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+        Nvme10
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+        Nvme11
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+        Nvme12
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+48 entries were displayed.
 ----
 ====
 
@@ -118,7 +117,7 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 [role="tabbed-block"]
 =====
-.FC - Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
@@ -165,8 +164,8 @@ cat /sys/class/scsi_host/host*/fwrev
 The command returns the firmware versions:
 +
 ----
-14.0.539.16, sli-4:6:d
-14.0.539.16, sli-4:6:d
+14.4.393.53, sli-4:6:d
+14.4.393.53, sli-4:6:d
 ----
 
 .. Display the inbox driver version:
@@ -179,7 +178,7 @@ cat /sys/module/lpfc/version
 The following example shows a driver version:
 +
 ----
-0:14.4.0.6
+0:14.4.0.9
 ----
 
 +
@@ -202,8 +201,8 @@ cat /sys/class/fc_host/host*/port_name
 The following example shows port identities:
 +
 ---- 
-0x2100f4c7aa0cd7c2
-0x2100f4c7aa0cd7c3
+0x100000109bf044b1
+0x100000109bf044b2
 ----
 
 . Verify that your initiator ports are online:
@@ -233,65 +232,68 @@ cat /sys/class/scsi_host/host*/nvme_info
 [subs=+quotes]
 ----
 NVME Initiator Enabled
-XRI Dist lpfc0 Total 6144 IO 5894 ELS 250 
-NVME LPORT lpfc0 WWPN x100000109b954518 WWNN x200000109b954518 DID x000000 *ONLINE*
+XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
+NVME LPORT lpfc0 WWPN x100000109b954518 WWNN x200000109b954518 DID x020700 *ONLINE*
+NVME RPORT       WWPN x2022d039eaa7dfc8 WWNN x201fd039eaa7dfc8 DID x020b03 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2023d039eaa7dfc8 WWNN x201fd039eaa7dfc8 DID x020103 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
-LS: Xmt 0000000000 Cmpl 0000000000 Abort 00000000
+LS: Xmt 0000000548 Cmpl 0000000548 Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 0000000000000000 Issue 0000000000000000 OutIO 0000000000000000
-          abort 00000000 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
+Total FCP Cmpl 0000000000001a68 Issue 0000000000001a68 OutIO 0000000000000000
+        abort 00000000 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
 FCP CMPL: xb 00000000 Err 00000000
 
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc1 WWPN x100000109b954519 WWNN x200000109b954519 DID x020500 *ONLINE*
+NVME RPORT       WWPN x2027d039eaa7dfc8 WWNN x2025d039eaa7dfc8 DID x020b01 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
-LS: Xmt 0000000000 Cmpl 0000000000 Abort 00000000
+LS: Xmt 00000005ab Cmpl 00000005ab Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 0000000000000000 Issue 0000000000000000 OutIO 0000000000000000
-         abort 00000000 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 00000000 Err 00000000
+Total FCP Cmpl 0000000000086ce1 Issue 0000000000086ce2 OutIO 0000000000000001
+        abort 0000009c noxri 00000000 nondlp 00000002 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 000000b8 Err 000000b8
 
 NVME Initiator Enabled
 XRI Dist lpfc2 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc2 WWPN x100000109bf044b1 WWNN x200000109bf044b1 DID x022a00 *ONLINE*
-NVME RPORT       WWPN x200bd039eaa7dfc8 WWNN x2008d039eaa7dfc8 DID x021319 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2155d039eaa7dfc8 WWNN x2154d039eaa7dfc8 DID x02130f *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2001d039eaa7dfc8 WWNN x2000d039eaa7dfc8 DID x021310 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x200dd039eaa7dfc8 WWNN x2008d039eaa7dfc8 DID x020b15 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2156d039eaa7dfc8 WWNN x2154d039eaa7dfc8 DID x020b0d *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2003d039eaa7dfc8 WWNN x2000d039eaa7dfc8 DID x020b10 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2027d039eaa7dfc8 WWNN x2025d039eaa7dfc8 DID x020b01 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2011d039eaa7dfc8 WWNN x200fd039eaa7dfc8 DID x020b02 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2002d039eaa7dfc8 WWNN x2000d039eaa7dfc8 DID x020b05 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2026d039eaa7dfc8 WWNN x2025d039eaa7dfc8 DID x021301 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2010d039eaa7dfc8 WWNN x200fd039eaa7dfc8 DID x021302 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2001d039eaa7dfc8 WWNN x2000d039eaa7dfc8 DID x021305 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
-LS: Xmt 0000003049 Cmpl 0000003049 Abort 00000000
+LS: Xmt 000000c186 Cmpl 000000c186 Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 0000000018f9450b Issue 0000000018f5de57 OutIO fffffffffffc994c
-          abort 000036d3 noxri 00000313 nondlp 00000c8d qdepth 00000000 wqerr 00000064 err 00000000
-FCP CMPL: xb 000036d1 Err 000fef0f
+Total FCP Cmpl 00000000c348ca37 Issue 00000000c3344057 OutIO ffffffffffeb7620
+        abort 0000815b noxri 000018b5 nondlp 00000116 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 0000915b Err 000c6091
 
 NVME Initiator Enabled
 XRI Dist lpfc3 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc3 WWPN x100000109bf044b2 WWNN x200000109bf044b2 DID x021b00 *ONLINE*
-NVME RPORT       WWPN x2062d039eaa7dfc8 WWNN x2008d039eaa7dfc8 DID x022915 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2157d039eaa7dfc8 WWNN x2154d039eaa7dfc8 DID x02290f *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2002d039eaa7dfc8 WWNN x2000d039eaa7dfc8 DID x022910 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2065d039eaa7dfc8 WWNN x2008d039eaa7dfc8 DID x020119 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2158d039eaa7dfc8 WWNN x2154d039eaa7dfc8 DID x02010d *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2004d039eaa7dfc8 WWNN x2000d039eaa7dfc8 DID x020110 *TARGET DISCSRVC ONLINE* 
+NVME RPORT       WWPN x2028d039eaa7dfc8 WWNN x2025d039eaa7dfc8 DID x020101 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2012d039eaa7dfc8 WWNN x200fd039eaa7dfc8 DID x020102 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2003d039eaa7dfc8 WWNN x2000d039eaa7dfc8 DID x020105 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2029d039eaa7dfc8 WWNN x2025d039eaa7dfc8 DID x022901 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2013d039eaa7dfc8 WWNN x200fd039eaa7dfc8 DID x022902 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2004d039eaa7dfc8 WWNN x2000d039eaa7dfc8 DID x022905 *TARGET DISCSRVC ONLINE*
 
 NVME Statistics
-LS: Xmt 0000002f2c Cmpl 0000002f2c Abort 00000000
+LS: Xmt 000000c186 Cmpl 000000c186 Abort 00000000
 LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 000000001aaf3eb5 Issue 000000001aab4373 OutIO fffffffffffc04be
-          abort 000035cc noxri 0000038c nondlp 000009e3 qdepth 00000000 wqerr 00000082 err 00000000
-FCP CMPL: xb 000035cc Err 000fcfc0
+Total FCP Cmpl 00000000b5761af5 Issue 00000000b564b55e OutIO ffffffffffee9a69
+        abort 000083d7 noxri 000016ea nondlp 00000195 qdepth 00000000 wqerr 00000002 err 00000000
+FCP CMPL: xb 000094a4 Err 000c22e7
 ----
 ====
 
 --
-.FC - Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
@@ -306,8 +308,8 @@ cat /sys/class/fc_host/host*/symbolic_name
 The following example shows driver and firmware versions:
 +
 ----
-QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
-QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
+QLE2872 FW:v9.15.06 DVR:v10.02.09.400-k
+QLE2872 FW:v9.15.06 DVR:v10.02.09.400-k
 ----
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
@@ -320,7 +322,7 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 The expected output is 1.
 --
 
-.TCP
+.NVMe/TCP
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
@@ -337,7 +339,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.20
+nvme discover -t tcp -w 192.168.30.15 -a 192.168.30.48
 
 Discovery Log Number of Records 8, Generation counter 18
 =====Discovery Log Entry 0======
@@ -345,10 +347,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *current discovery subsystem*
 treq:    not specified
-portid:  4
+portid:  8
 trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:discovery
-traddr:  192.168.21.21
+subnqn:  nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:discovery
+traddr:  192.168.31.49
 eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 1======
@@ -356,10 +358,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *current discovery subsystem*
 treq:    not specified
-portid:  2
+portid:  7
 trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:discovery
-traddr:  192.168.20.21
+subnqn:  nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:discovery
+traddr:  192.168.31.48
 eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 2======
@@ -367,10 +369,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *current discovery subsystem*
 treq:    not specified
-portid:  3
+portid:  6
 trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:discovery
-traddr:  192.168.21.20
+subnqn:  nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:discovery
+traddr:  192.168.30.49
 eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 3======
@@ -378,10 +380,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *current discovery subsystem*
 treq:    not specified
-portid:  1
+portid:  5
 trsvcid: 8009
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:discovery
-traddr:  192.168.20.20
+subnqn:  nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:discovery
+traddr:  192.168.30.48
 eflags:  *explicit discovery connections, duplicate discovery information*
 sectype: none
 =====Discovery Log Entry 4======
@@ -389,10 +391,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *nvme subsystem*
 treq:    not specified
-portid:  4
+portid:  8
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rhel96_tcp_subsystem
-traddr:  192.168.21.21
+subnqn:  nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:subsystem.Nvme38
+traddr:  192.168.31.49
 eflags:  none
 sectype: none
 =====Discovery Log Entry 5======
@@ -400,10 +402,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *nvme subsystem*
 treq:    not specified
-portid:  2
+portid:  7
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rhel96_tcp_subsystem
-traddr:  192.168.20.21
+subnqn:  nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:subsystem.Nvme38
+traddr:  192.168.31.48
 eflags:  none
 sectype: none
 =====Discovery Log Entry 6======
@@ -411,10 +413,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *nvme subsystem*
 treq:    not specified
-portid:  3
+portid:  6
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rhel96_tcp_subsystem
-traddr:  192.168.21.20
+subnqn:  nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:subsystem.Nvme38
+traddr:  192.168.30.49
 eflags:  none
 sectype: none
 =====Discovery Log Entry 7======
@@ -422,10 +424,10 @@ trtype:  tcp
 adrfam:  ipv4
 subtype: *nvme subsystem*
 treq:    not specified
-portid:  1
+portid:  5
 trsvcid: 4420
-subnqn:  nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.rhel96_tcp_subsystem
-traddr:  192.168.20.20
+subnqn:  nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:subsystem.Nvme38
+traddr:  192.168.30.48
 eflags:  none
 sectype: none
 ----
@@ -443,10 +445,10 @@ nvme discover -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.20
-nvme discover -t tcp -w 192.168.21.1 -a 192.168.21.20
-nvme discover -t tcp -w 192.168.20.1 -a 192.168.20.21
-nvme discover -t tcp -w 192.168.21.1 -a 192.168.21.21
+nvme discover -t tcp -w 192.168.30.15 -a 192.168.30.48
+nvme discover -t tcp -w 192.168.30.15 -a 192.168.30.49
+nvme discover -t tcp -w 192.168.31.15 -a 192.168.31.48
+nvme discover -t tcp -w 192.168.31.15 -a 192.168.31.49
 ----
 ====
 
@@ -462,10 +464,10 @@ nvme connect-all -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-nvme	connect-all	-t	tcp	-w	192.168.20.1	-a	192.168.20.20
-nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.20
-nvme	connect-all	-t	tcp	-w	192.168.20.1	-a	192.168.20.21
-nvme	connect-all	-t	tcp	-w	192.168.21.1	-a	192.168.21.21	
+nvme  connect-all -t  tcp -w  192.168.30.15 -a	192.168.30.48
+nvme	connect-all	-t	tcp	-w	192.168.30.15	-a	192.168.30.49
+nvme	connect-all	-t	tcp	-w	192.168.31.15	-a	192.168.31.48
+nvme	connect-all	-t	tcp	-w	192.168.31.15	-a	192.168.31.49	
 ----			
 ====
 
@@ -482,6 +484,8 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 RHEL 9.6 sets the default iopolicy for NVMe-oF to `round-robin`. If you are using RHEL 9.6 and want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
 
+.Steps
+
 . Open the udev rules file in a text editor with root privileges:
 +
 [source,cli]
@@ -495,9 +499,7 @@ You should see the following output:
 vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
 ----
 
-. Find the line that sets iopolicy for the NetApp ONTAP Controller. 
-+
-The following example shows an example rule:
+. Find the line that sets iopolicy for the NetApp ONTAP Controller, as shown in the following example rule: 
 +
 ----
 ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
@@ -531,7 +533,7 @@ You should see the following output:
 queue-depth.
 ----
 
-NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. No reboot is required.
+NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. You don't need to reboot.
 
 == Step 5: Optionally, enable 1MB I/O for NVMe/FC
 
@@ -539,7 +541,53 @@ include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 6: Verify NVMe boot services
 
-include::_include/nvme/verify-nvme-services.adoc[]
+The `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
+
+.Steps
+
+. Verify that `nvmf-autoconnect.service` is enabled:
++
+[source,cli]
+----
+systemctl status nvmf-autoconnect.service
+----
++
+.Show example output
+[%collapsible]
+====
+----
+nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
+        Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service;  enabled; preset: disabled)
+
+Active: inactive (dead) since Wed 2025-10-29 00:42:03 EDT; 6h ago   Main PID: 8487 (code=exited, status=0/SUCCESS)  CPU: 66ms
+
+Oct 29 00:42:03 R650-14-188 systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot...
+Oct 29 00:42:03 R650-14-188 systemd[1]: nvmf-autoconnect.service: Deactivated successfully.           
+Oct 29 00:42:03 R650-14-188 systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
+----
+====
+. Verify that `nvmefc-boot-connections.service` is enabled:
++
+[source,cli]
+----
+systemctl status nvmefc-boot-connections.service
+----
++
+.Show example output
+[%collapsible]
+====
+----
+nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
+         Loaded: loaded (/usr/lib/systemd/system/nvmefc-boot-connections.service; enabled; preset:enabled)
+     Active: inactive (dead) since Wed 2025-10-29 00:41:51 EDT; 6h ago
+Main PID: 4652 (code=exited, status=0/SUCCESS)
+        CPU: 13ms
+
+Oct 29 00:41:51 R650-14-188 systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot...  Oct 29 00:41:51 R650-14-188 systemd[1]: nvmefc-boot-connections.service: Deactivated successfully.  Oct 29 00:41:51 R650-14-188 systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot
+----
+====
 
 == Step 7: Verify the multipathing configuration
 
@@ -560,7 +608,7 @@ You should see the following output:
 Y
 ----
 
-. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly reflect on the host:
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly display on the host:
 
 .. Display the subsystems:
 +
@@ -600,14 +648,12 @@ nvme list
 [%collapsible]
 ====
 ----
-Node         SN                   Model                          
----------------------------------------------------------  
-/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
-                               
-
+Node                               Generic             SN                   Model
+--------------------------------------------------------------------------------------
+/dev/nvme100n1  /dev/ng100n1  81LJCJYaKOHhAAAAAAAf   NetApp ONTAP Controller
 Namespace Usage    Format             FW             Rev
 -----------------------------------------------------------
-1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
+0x1                 1.19  GB /   5.37  GB   4 KiB + 0 B   9.18.1
 ----
 ====
 
@@ -619,7 +665,7 @@ Namespace Usage    Format             FW             Rev
 --
 [source,cli]
 ----
-nvme list-subsys /dev/nvme4n5
+nvme list-subsys /dev/nvme100n1
 ----
 
 .Show example
@@ -627,14 +673,13 @@ nvme list-subsys /dev/nvme4n5
 ====
 [subs=+quotes]
 ----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.3a5d31f5502c11ef9f50d039eab6cb6d:subsystem.nvme_1
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:e6dade64-216d-
-11ec-b7bb-7ed30a5482c3
-iopolicy=round-robin\
-+- nvme1 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2088d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6d:pn-0x21000024ff752e6d *live optimized*
-+- nvme12 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x208ad039eaa7dfc8,host_traddr=nn-0x20000024ff752e6d:pn-0x21000024ff752e6d *live non-optimized*
-+- nvme10 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2087d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live non-optimized*
-+- nvme3 *fc* traddr=nn-0x2082d039eaa7dfc8:pn-0x2083d039eaa7dfc8,host_traddr=nn-0x20000024ff752e6c:pn-0x21000024ff752e6c *live optimized*
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.3623e199617311f09257d039eaa7dfc9:subsystem.Nvme31
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid: 4c4c4544-0056-5410-8048-b9c04f42563
+               \
++- nvme199 *fc*   traddr=nn-0x200fd039eaa7dfc8:pn-0x2010d039eaa7dfc8,host_traddr=nn-0x200000109bf044b1:pn-0x100000109bf044b1 *live optimized*
++- nvme246 *fc*  traddr=nn-0x200fd039eaa7dfc8:pn-0x2011d039eaa7dfc8,host_traddr=nn-0x200000109bf044b1:pn-0x100000109bf044b1  *live non-optimized*
++- nvme249 *fc*  traddr=nn-0x200fd039eaa7dfc8:pn-0x2013d039eaa7dfc8,host_traddr=nn-0x200000109bf044b2:pn-0x100000109bf044b2 *live optimized*
++- nvme251 *fc*   traddr=nn-0x200fd039eaa7dfc8:pn-0x2012d039eaa7dfc8,host_traddr=nn-0x200000109bf044b2:pn-0x100000109bf044b2 *live non-optimized*
 ----
 ====
 --
@@ -642,7 +687,7 @@ iopolicy=round-robin\
 --
 [source,cli]
 ----
-nvme list-subsys /dev/nvme1n1 
+nvme list-subsys /dev/nvme0n1
 ----
 
 .Show example
@@ -650,18 +695,17 @@ nvme list-subsys /dev/nvme1n1
 ====
 [subs=+quotes]
 ----
-nvme-subsys5 - NQN=nqn.1992-08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem.nvme_tcp_3 
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:subsystem.Nvme1
 hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33
-iopolicy=round-robin
 \
-+- nvme13 *tcp* traddr=192.168.2.25,trsvcid=4420,host_traddr=192.168.2.31,
-src_addr=192.168.2.31 *live optimized*
-+- nvme14 *tcp* traddr=192.168.2.24,trsvcid=4420,host_traddr=192.168.2.31,
-src_addr=192.168.2.31 *live non-optimized*
-+- nvme5 *tcp* traddr=192.168.1.25,trsvcid=4420,host_traddr=192.168.1.31,
-src_addr=192.168.1.31 *live optimized*
-+- nvme6 *tcp* traddr=192.168.1.24,trsvcid=4420,host_traddr=192.168.1.31,
-src_addr=192.168.1.31 *live non-optimized*
++- nvme0 *tcp* traddr=192.168.30.48,trsvcid=4420,host_traddr=192.168.30.15,
+src_addr=192.168.30.15 *live optimized*
++- nvme1 *tcp* traddr=192.168.30.49,trsvcid=4420,host_traddr=192.168.30.15,
+src_addr=192.168.30.15 *live non-optimized*
++- nvme2 *tcp* traddr=192.168.31.48,trsvcid=4420,host_traddr=192.168.31.15,
+src_addr=192.168.31.15 *live optimized*
++- nvme3 *tcp* traddr=192.168.31.49,trsvcid=4420,host_traddr=192.168.31.15,
+src_addr=192.168.31.15 *live non-optimized*
 ----
 ====
 --
@@ -683,14 +727,13 @@ nvme netapp ontapdevices -o column
 ====
 [subs=+quotes]
 ----
-
-Device        Vserver   Namespace Path                                                          
------------------------ ------------------------------ 
-/dev/nvme1n1     linux_tcnvme_iscsi        /vol/tcpnvme_1_0_0/tcpnvme_ns 
-              
-NSID       UUID                                   Size
-------------------------------------------------------------
-1    5f7f630d-8ea5-407f-a490-484b95b15dd6   21.47GB                              
+Device          Vserver         Subsystem   Namespace Path      NSID                                   
+------------    --------        ----------- -----------------   ----                                      
+/dev/nvme0n1    vs_iscsi_tcp    Nvme1       /vol/Nvmevol1/ns1   1                   
+UUID                                    Size
+-------------------------------------   -----
+d8efef7d-4dde-447f-b50e-b2c009298c66    26.84GB
+                              
 ----
 ====
 --
@@ -709,14 +752,14 @@ nvme netapp ontapdevices -o json
 {
   "ONTAPdevices":[
     {
-      "Device":"/dev/nvme1n1",
-      "Vserver":"linux_tcnvme_iscsi",
-      "Namespace_Path":"/vol/tcpnvme_1_0_0/tcpnvme_ns",
+      "Device":"/dev/nvme0n1",
+      "Vserver":"vs_iscsi_tcp",
+      " Subsystem":"Nvme1",
+      "Namespace_Path":"/vol/Nvmevol1/ns1",
       "NSID":1,
-      "UUID":"5f7f630d-8ea5-407f-a490-484b95b15dd6",
-      "Size":"21.47GB",
-      "LBA_Data_Size":4096,
-      "Namespace_Size":5242880
+      "UUID":"d8efef7d-4dde-447f-b50e-b2c009298c66",
+      "LBA_Size":4096,
+      "Namespace_Size":26843545600,
     },
 ]
 }
@@ -727,7 +770,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Set up secure in-band authentication
 
-Secure in-band authentication is supported over NVMe/TCP between a RHEL 9x host and an ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a RHEL 9.x host and an ONTAP controller.
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
@@ -745,7 +788,7 @@ Set up secure in-band authentication using the CLI.
 ----
 cat /etc/nvme/hostnqn
 ----
-. Generate the dhchap key for the RHEL 9x host.
+. Generate the dhchap key for the RHEL 9.x host.
 +
 The following output describes the `gen-dhchap-key` command parameters:
 +
@@ -791,10 +834,10 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 ====
 ----
 cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
-DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
-DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
-DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
-DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
+DHHC-1:01:hhdIYK7rGxHiNYS4d421GxHeDRUAuY0vmdqCp/NOaYND2PSc:
+DHHC-1:01:hhdIYK7rGxHiNYS4d421GxHeDRUAuY0vmdqCp/NOaYND2PSc:
+DHHC-1:01:hhdIYK7rGxHiNYS4d421GxHeDRUAuY0vmdqCp/NOaYND2PSc:
+DHHC-1:01:hhdIYK7rGxHiNYS4d421GxHeDRUAuY0vmdqCp/NOaYND2PSc:
 ----
 ====
 +
@@ -810,11 +853,12 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 ====
 ----
 cat /sys/class/nvme-subsystem/nvme-
-subsys6/nvme*/dhchap_ctrl_secret
-DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:
-DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:
-DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:
-DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=: 
+subsys*/nvme*/dhchap_ctrl_secret
+
+DHHC-1:03:ZCRrP9MQOeXhFitT7Fvvf/3P6K/qY1HfSmSfM8nLjESJdOjbjK/J6m00ygJgjm0VrRlrgrnHzjtWJmsnoVBO3rPDGEk=:
+DHHC-1:03:ZCRrP9MQOeXhFitT7Fvvf/3P6K/qY1HfSmSfM8nLjESJdOjbjK/J6m00ygJgjm0VrRlrgrnHzjtWJmsnoVBO3rPDGEk=:
+DHHC-1:03:ZCRrP9MQOeXhFitT7Fvvf/3P6K/qY1HfSmSfM8nLjESJdOjbjK/J6m00ygJgjm0VrRlrgrnHzjtWJmsnoVBO3rPDGEk=:
+DHHC-1:03:ZCRrP9MQOeXhFitT7Fvvf/3P6K/qY1HfSmSfM8nLjESJdOjbjK/J6m00ygJgjm0VrRlrgrnHzjtWJmsnoVBO3rPDGEk=:
 ----
 ====
 --
@@ -836,57 +880,50 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 cat /etc/nvme/config.json
 [
 {
-  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:9796c1ec-0d34-11eb-
-  b6b2-3a68dd3bab57",
-  "hostid":"b033cd4fd6db4724adb48655bfb55448",
-  "dhchap_key":" DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:"
-},
-{
-  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-
-  804b-b5c04f444d33",
+  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33",
+  "hostid":"4c4c4544-0035-5910-804b-b5c04f444d33",
+  "dhchap_key":"DHHC-1:01:GhgaLS+0h0W/IxKhSa0iaMHg17SOHRTzBduPzoJ6LKEJs3/f:",
   "subsystems":[
         {
-          "nqn":"nqn.1992-
-          08.com.netapp:sn.0f4ba1e74eb611ef9f50d039eab6cb6d:subsystem.bidi
-          r_DHCP",
+          "nqn":"nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys",
           "ports":[
               {
                   "transport":"tcp",
-                    "traddr":" 192.168.1.24 ",
-                  "host_traddr":" 192.168.1.31 ",
+                    "traddr":"192.168.30.44",
+                  "host_traddr":"192.168.30.15",
                   "trsvcid":"4420",
-                  "dhchap_ctrl_key":"DHHC-
-                  1:03: wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:"
+                  "dhchap_ctrl_key":"DHHC-1:03:GaraCO84o/uM0jF4rKJlgTy22bVoV0dRn1M+9QDfQRNVwJDHfPu2LrK5Y+/XG8iGcRtBCdm3
+fYm3ZmO6NiepCORoY5Q=:"
               },
               {
                   "transport":"tcp",
-                  "traddr":" 192.168.1.25 ",
-                  "host_traddr":" 192.168.1.31",
+                  "traddr":"192.168.30.45"
+                  "host_traddr":"192.168.30.15",
                   "trsvcid":"4420",
-                  "dhchap_ctrl_key":"DHHC-
-                  1:03: wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:"
+                  "dhchap_ctrl_key":"DHHC-1:03:GaraCO84o/uM0jF4rKJlgTy22bVoV0dRn1M+9QDfQRNVwJDHfPu2LrK5Y+/XG8iGcRtBCdm3
+fYm3ZmO6NiepCORoY5Q=:"
               },
               {
                   "transport":"tcp",
-                 "traddr":" 192.168.2.24 ",
-                  "host_traddr":" 192.168.2.31",
+                 "traddr":"192.168.31.44",
+                  "host_traddr":"192.168.31.15",
                   "trsvcid":"4420",
                   "dhchap_ctrl_key":"DHHC-
-                  1:03: wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:"
-              },
-              {
+                  1:03:   
+GaraCO84o/uM0jF4rKJlgTy22bVoV0dRn1M+9QDfQRNVwJDHfPu2LrK5Y+/XG8iGc
+RtBCdm3fYm3ZmO6NiepCORoY5Q=:"                               },             
+ {             
                   "transport":"tcp",
-                  "traddr":" 192.168.2.25 ",
-                    "host_traddr":" 192.168.2.31",
+                  "traddr":"192.168.31.45",
+                  "host_traddr":"192.168.31.15",
                   "trsvcid":"4420",
                   "dhchap_ctrl_key":"DHHC-
-                  1:03: wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:"
-              }
-          ]
-      }
+                  1:03:                                    GaraCO84o/uM0jF4rKJlgTy22bVoV0dRn1M+9QDfQRNVwJDHfPu2LrK5Y+/XG8iGcRtBCdm3fYm3ZmO6NiepCORoY5Q=:"   
+              }    
+        ]       
   ]
-}
-]
+} 
+]              
 ----
 ====  
 
@@ -901,14 +938,10 @@ nvme connect-all -J /etc/nvme/config.json
 [%collapsible]
 ====
 ----
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
-r_DHCP,transport=tcp,traddr=192.168.1.25,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
-r_DHCP,transport=tcp,traddr=192.168.2.25,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
-r_DHCP,transport=tcp,traddr=192.168.1.24,trsvcid=4420 
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
-r_DHCP,transport=tcp,traddr=192.168.2.24,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.30.44,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.31.44,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.30.45,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.31.45,trsvcid=4420
 ----
 ====
 
@@ -918,26 +951,26 @@ r_DHCP,transport=tcp,traddr=192.168.2.24,trsvcid=4420
 +
 [source,cli]
 ----
-cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
+cat /sys/class/nvme-subsystem/nvme-subsys96/nvme96/dhchap_secret
 ----
 +
 The following example shows a dhchap key:
 +
 ----
-DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:
+DHHC-1:01:hhdIYK7rGxHiNYS4d421GxHeDRUAuY0vmdqCp/NOaYND2PSc:
 ----
 +
 .. Verify the controller dhchap keys:
 +
 [source,cli]
 ----
-cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
+cat /sys/class/nvme-subsystem/nvme-subsys96/nvme96/dhchap_ctrl_secret
 ----
 +
 You should see output similar to the following example:
 +
 ----
-DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=:
+DHHC-1:03:ZCRrP9MQOeXhFitT7Fvvf/3P6K/qY1HfSmSfM8nLjESJdOjbjK/J6m00ygJgjm0VrRlrgrnHzjtWJmsnoVBO3rPDGEk=:
 ----
 --
 =====

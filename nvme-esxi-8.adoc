@@ -1,0 +1,289 @@
+---
+sidebar: sidebar
+permalink: nvme-esxi-8.html
+keywords: nvme, esxi, ontap, nvme/fc, hypervisor
+summary: You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.x and ONTAP as the target.
+---
+= NVMe-oF Host Configuration for ESXi 8.x with ONTAP
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.x and ONTAP as the target.
+
+== Supportability
+
+* Beginning with ONTAP 9.16.1 space allocation is enabled by default for all newly created NVMe namespaces.
+* Beginning with ONTAP 9.9.1 P3, NVMe/FC protocol is supported for ESXi 8 and later. 
+* Beginning with ONTAP 9.10.1, NVMe/TCP protocol is supported for ONTAP.
+
+== Features
+
+* ESXi initiator hosts can run both NVMe/FC and FCP traffic through the same adapter ports. See the link:https://hwu.netapp.com/Home/Index[Hardware Universe^] for a list of supported FC adapters and controllers. See the link:https://mysupport.netapp.com/matrix/[NetApp Interoperability Matrix Tool^] for the most current list of supported configurations and versions.
+
+* For ESXi 8.0 and later releases, HPP (high performance plugin) is the default plugin for NVMe devices.
+
+== Known limitations
+
+* RDM mapping is not supported.
+
+== Enable NVMe/FC
+
+NVMe/FC is enabled by default in vSphere releases.
+
+.Verify host NQN
+
+You must check the ESXi host NQN string and verify that it matches with the host NQN string for the corresponding subsystem on the ONTAP array. 
+
+----
+# esxcli nvme info get
+----
+Example output:
+----
+Host NQN: nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f1a436
+----
+
+----
+# vserver nvme subsystem host show -vserver nvme_fc
+----
+Example output:
+----
+Vserver Subsystem Host NQN
+------- --------- ----------------------------------------------------------
+nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f1a436
+----
+
+If the host NQN strings do not match, you should use the `vserver nvme subsystem host add` command to update the correct host NQN string on your corresponding ONTAP NVMe subsystem.
+
+== Configure Broadcom/Emulex and Marvell/Qlogic
+
+The `lpfc` driver and the `qlnativefc` driver in vSphere 8.x have the NVMe/FC capability enabled by default.
+
+See link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^] to check whether the configuration is supported with the driver or firmware.
+
+==	Validate NVMe/FC
+
+You can use the following procedure to validate NVMe/FC.
+
+.Steps
+
+. Verify that the NVMe/FC adapter is listed on the ESXi host:
++
+----
+# esxcli nvme adapter list
+----
++
+Example output:
++
+----
+
+Adapter  Adapter Qualified Name           Transport Type  Driver      Associated Devices
+-------  -------------------------------  --------------  ----------  ------------------
+vmhba64  aqn:lpfc:100000109b579f11        FC              lpfc
+vmhba65  aqn:lpfc:100000109b579f12        FC              lpfc
+vmhba66  aqn:qlnativefc:2100f4e9d456e286  FC              qlnativefc
+vmhba67  aqn:qlnativefc:2100f4e9d456e287  FC              qlnativefc
+----
+
+. Verify that the NVMe/FC namespaces are correctly created:
++
+The UUIDs in the following example represent the NVMe/FC namespace devices.
++
+[subs=+quotes]
+----
+# esxcfg-mpath -b
+uuid.116cb7ed9e574a0faf35ac2ec115969d : NVMe Fibre Channel Disk (*uuid.116cb7ed9e574a0faf35ac2ec115969d*)
+   vmhba64:C0:T0:L5 LUN:5 state:active fc Adapter: WWNN: 20:00:00:24:ff:7f:4a:50 WWPN: 21:00:00:24:ff:7f:4a:50  Target: WWNN: 20:04:d0:39:ea:3a:b2:1f WWPN: 20:05:d0:39:ea:3a:b2:1f
+   vmhba64:C0:T1:L5 LUN:5 state:active fc Adapter: WWNN: 20:00:00:24:ff:7f:4a:50 WWPN: 21:00:00:24:ff:7f:4a:50  Target: WWNN: 20:04:d0:39:ea:3a:b2:1f WWPN: 20:07:d0:39:ea:3a:b2:1f
+   vmhba65:C0:T1:L5 LUN:5 state:active fc Adapter: WWNN: 20:00:00:24:ff:7f:4a:51 WWPN: 21:00:00:24:ff:7f:4a:51  Target: WWNN: 20:04:d0:39:ea:3a:b2:1f WWPN: 20:08:d0:39:ea:3a:b2:1f
+   vmhba65:C0:T0:L5 LUN:5 state:active fc Adapter: WWNN: 20:00:00:24:ff:7f:4a:51 WWPN: 21:00:00:24:ff:7f:4a:51  Target: WWNN: 20:04:d0:39:ea:3a:b2:1f WWPN: 20:06:d0:39:ea:3a:b2:1f
+----
++
+[NOTE] 
+====
+In ONTAP 9.7, the default block size for an NVMe/FC namespace is 4K. This default size is not compatible with ESXi. Therefore, when creating namespaces for ESXi, you must set the namespace block size as *512B*. You can do this using the `vserver nvme namespace create` command.
+
+Example,
+
+`vserver nvme namespace create -vserver vs_1 -path /vol/nsvol/namespace1 -size 100g -ostype vmware -block-size 512B`
+
+Refer to the link:https://docs.netapp.com/us-en/ontap/concepts/manual-pages.html[ONTAP 9 Command man pages^] for additional details.
+====
+
+. Verify the status of the individual ANA paths of the respective NVMe/FC namespace devices:
++
+[subs=+quotes]
+----
+# esxcli storage hpp path list -d uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+
+fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2005d039ea3ab21f-uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Runtime Name: vmhba64:C0:T0:L3
+   Device: uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Device Display Name: NVMe Fibre Channel Disk (uuid.df960bebb5a74a3eaaa1ae55e6b3411d)
+   Path State: active unoptimized
+   Path Config: {ANA_GRP_id=4,*ANA_GRP_state=ANO*,health=UP}
+
+fc.20000024ff7f4a51:21000024ff7f4a51-fc.2004d039ea3ab21f:2008d039ea3ab21f-uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Runtime Name: vmhba65:C0:T1:L3
+   Device: uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Device Display Name: NVMe Fibre Channel Disk (uuid.df960bebb5a74a3eaaa1ae55e6b3411d)
+   Path State: active
+   Path Config: {ANA_GRP_id=4,*ANA_GRP_state=AO*,health=UP}
+
+fc.20000024ff7f4a51:21000024ff7f4a51-fc.2004d039ea3ab21f:2006d039ea3ab21f-uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Runtime Name: vmhba65:C0:T0:L3
+   Device: uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Device Display Name: NVMe Fibre Channel Disk (uuid.df960bebb5a74a3eaaa1ae55e6b3411d)
+   Path State: active unoptimized
+   Path Config: {ANA_GRP_id=4,*ANA_GRP_state=ANO*,health=UP}
+
+fc.20000024ff7f4a50:21000024ff7f4a50-fc.2004d039ea3ab21f:2007d039ea3ab21f-uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Runtime Name: vmhba64:C0:T1:L3
+   Device: uuid.df960bebb5a74a3eaaa1ae55e6b3411d
+   Device Display Name: NVMe Fibre Channel Disk (uuid.df960bebb5a74a3eaaa1ae55e6b3411d)
+   Path State: active
+   Path Config: {ANA_GRP_id=4,*ANA_GRP_state=AO*,health=UP}
+
+----
+
+== Configure NVMe/TCP
+
+In ESXi 8.x, the required NVMe/TCP modules are loaded by default. To configure the network and the NVMe/TCP adapter, refer to the VMware vSphere documentation.
+
+== Validate NVMe/TCP
+
+You can use the following procedure to validate NVMe/TCP.
+
+.Steps
+
+. Verify the status of the NVMe/TCP adapter:
++
+----
+esxcli nvme adapter list
+----
++
+Example output:
++
+----
+Adapter  Adapter Qualified Name           Transport Type  Driver   Associated Devices
+-------  -------------------------------  --------------  -------  ------------------
+vmhba65  aqn:nvmetcp:ec-2a-72-0f-e2-30-T  TCP             nvmetcp  vmnic0
+vmhba66  aqn:nvmetcp:34-80-0d-30-d1-a0-T  TCP             nvmetcp  vmnic2
+vmhba67  aqn:nvmetcp:34-80-0d-30-d1-a1-T  TCP             nvmetcp  vmnic3
+----
+
+. Retrieve a list of NVMe/TCP connections:
++
+----
+esxcli nvme controller list
+----
++
+Example output:
++
+----
+Name                                                  Controller Number  Adapter  Transport Type  Is Online  Is VVOL
+---------------------------------------------------------------------------------------------------------  -----------------  -------  
+nqn.2014-08.org.nvmexpress.discovery#vmhba64#192.168.100.166:8009  256  vmhba64  TCP                  true    false
+nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmhba64#192.168.100.165:4420 258  vmhba64  TCP  true    false
+nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmhba64#192.168.100.168:4420 259  vmhba64  TCP  true    false
+nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmhba64#192.168.100.166:4420 260  vmhba64  TCP  true    false
+nqn.2014-08.org.nvmexpress.discovery#vmhba64#192.168.100.165:8009  261  vmhba64  TCP                  true    false
+nqn.2014-08.org.nvmexpress.discovery#vmhba65#192.168.100.155:8009  262  vmhba65  TCP                  true    false
+nqn.1992-08.com.netapp:sn.89bb1a28a89a11ed8a88d039ea263f93:subsystem.nvme_ss#vmhba64#192.168.100.167:4420 264  vmhba64  TCP  true    false
+
+----
+
+. Retrieve a list of the number of paths to an NVMe namespace:
++
+[subs=+quotes]
+----
+esxcli storage hpp path list -d *uuid.f4f14337c3ad4a639edf0e21de8b88bf*
+----
++
+Example output:
++
+[subs=+quotes]
+----
+tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.165:4420-uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Runtime Name: vmhba64:C0:T0:L5
+   Device: uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Device Display Name: NVMe TCP Disk (uuid.f4f14337c3ad4a639edf0e21de8b88bf)
+   Path State: active
+   Path Config: {ANA_GRP_id=6,*ANA_GRP_state=AO*,health=UP}
+
+tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.168:4420-uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Runtime Name: vmhba64:C0:T3:L5
+   Device: uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Device Display Name: NVMe TCP Disk (uuid.f4f14337c3ad4a639edf0e21de8b88bf)
+   Path State: active unoptimized
+   Path Config: {ANA_GRP_id=6,*ANA_GRP_state=ANO*,health=UP}
+
+tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.166:4420-uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Runtime Name: vmhba64:C0:T2:L5
+   Device: uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Device Display Name: NVMe TCP Disk (uuid.f4f14337c3ad4a639edf0e21de8b88bf)
+   Path State: active unoptimized
+   Path Config: {ANA_GRP_id=6,*ANA_GRP_state=ANO*,health=UP}
+
+tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.167:4420-uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Runtime Name: vmhba64:C0:T1:L5
+   Device: uuid.f4f14337c3ad4a639edf0e21de8b88bf
+   Device Display Name: NVMe TCP Disk (uuid.f4f14337c3ad4a639edf0e21de8b88bf)
+   Path State: active
+   Path Config: {ANA_GRP_id=6,*ANA_GRP_state=AO*,health=UP}
+----
+
+== Enable space allocation
+
+Space allocation is supported for ESXi 8.x and later. 
+
+When space allocation is enabled, if a namespace runs out of space, ONTAP communicates to the host that no free space is available for write operations; the namespace remains online and read operations continue to be serviced. Write operations resume when additional free space becomes available. Space allocation also allows the host to perform `UNMAP` (sometimes called `TRIM`) operations. UNMAP operations allow a host to identify blocks of data that are no longer required because they no longer contain valid data. The storage system can then deallocate those data blocks so that the space can be consumed elsewhere. 
+
+.Before you begin
+
+link:https://docs.netapp.com/us-en/ontap/san-admin/enable-space-allocation.html[Enable space allocation on your ONTAP storage system^].  Then you should perform the following steps on your ESXi host.  
+
+.Steps
+
+. On your ESXi host, verify that the DSM is disabled:
++
+`esxcfg-advcfg -g /Scsi/NVmeUseDsmTp4040`
++
+The expected value is 0.
+
+. Enable the NVMe DSM:
++
+`esxcfg-advcfg -s 1 /Scsi/NvmeUseDsmTp4040`
+
+. Verify that the DSM is enabled: 
++
+`esxcfg-advcfg -g /Scsi/NVmeUseDsmTp4040`
++
+The expected value is 1.
+
+== Known issues
+
+The NVMe-oF host configuration for ESXi 8.x with ONTAP has the following known issues:
+
+[cols="10,30,30",options="header"]
+|===
+h|NetApp Bug ID	h|Title	h|Description
+|link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|ONTAP node non-operational when NVMe/FC protocol is used with ONTAP version 9.9.1 |ONTAP 9.9.1 has introduced support for the NVMe "abort" command. When ONTAP 
+receives the "abort" command to abort an NVMe fused command that is waiting for 
+its partner command, an ONTAP node disruption occurs. The issue is noticed only with hosts 
+that use NVMe fused commands (for example, ESX) and Fibre Channel (FC) transport. 
+|1543660 | I/O error occurs when Linux VMs using vNVMe adapters encounter a long all paths down (APD) window a|Linux VMs running vSphere 8.x and later and using virtual NVMe (vNVME) adapters encounter an I/O error because the vNVMe retry operation is disabled by default. To avoid a disruption on Linux VMs running older kernels during an all paths down (APD) or a heavy I/O load, VMware has introduced a tunable "VSCSIDisableNvmeRetry" to disable the vNVMe retry operation.
+|===
+
+.Related information
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html[VMware vSphere with ONTAP^]
+link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)^]
+link:https://kb.vmware.com/s/article/83370[VMware vSphere 6.x and 7.x support with NetApp SnapMirror active sync^]
+
+// 2024 Nov 04, ONTAPDOC 2209
+//BURT 1525630 20-Jan-2023

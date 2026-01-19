@@ -1,0 +1,47 @@
+---
+sidebar: sidebar
+permalink: nvme-windows-2016.html
+keywords: nvme, windows, enterprise
+summary: You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2016 for operation with ONTAP LUNs.
+---
+= Configure Windows Server 2016 with NVMe/FC for ONTAP
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can configure NVMe over Fibre Channel (NVMe/FC) on hosts running Windows Server 2016 for operation with ONTAP LUNs.
+
+.About this task
+You can use the following support with the NVMe/FC host configuration for Windows 2016. You should also review the known limitations before starting the configuration process.
+
+include::_include/hu/reuse_hu_cloud_note.adoc[]
+
+* Support available:
++
+Beginning with ONTAP 9.7, NVMe/FC is supported for Windows Server 2016.
++
+include::_include/nvme/reuse_supportability_notes.adoc[]
+
+* Known limitations:
++
+include::_include/nvme/reuse-nvme-windows-wfc-limitation.adoc[]
+
+== Enable NVMe/FC
+
+include::_include/nvme/reuse_enabling_on_windows_init_host.adoc[]
+
+== Configure the Broadcom FC adapter
+
+include::_include/nvme/reuse_configuring_broadcom_for_windows.adoc[]
+
+=== Enable MPIO for NVMe devices
+
+include::_include/nvme/reuse_enabling_mpio_for_nvme_on_windows_host.adoc[]
+
+== Validate NVMe/FC
+
+include::_include/nvme/reuse_validating_nvme_fc_windows.adoc[]
