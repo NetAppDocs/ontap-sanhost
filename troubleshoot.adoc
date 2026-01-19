@@ -16,7 +16,9 @@ summary: You can configure ONTAP SAN host settings for the VMware vSphere 8.x re
 Troubleshoot NVMe-oF failures for Oracle Linux, RHEL, Rocky Linux, and SUSE Linux Enterprise Server hosts with ONTAP storage. 
 
 Before you start troubleshooting, verify that you are running a configuration that is compliant to the https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] specifications and then proceed with the next steps to debug any host side issues.
-[NOTE: The troubleshooting instructions are not applicable for AIX, ESXi, Proxmox, and Windows hosts.
+
+[NOTE]
+The troubleshooting instructions are not applicable to AIX, ESXi, Proxmox, and Windows hosts.
 
 == Enable verbose logging
 
