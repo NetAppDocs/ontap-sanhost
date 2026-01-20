@@ -15,7 +15,7 @@ summary: This content provides distribution-specific guidance on how to configur
 [.lead]
 You should configure SAN hosts for multipathing and with specific parameters and settings critical for correct operation with ONTAP LUNs. The host configuration varies depending on the host operating system and the protocol. Correct configuration is important for best performance and successful failover. 
 
-* link:hu_fcp_scsi_index.html[Learn about configuring ONTAP SAN hosts with the FCP and iSCSI protocols]
+* link:hu-fcp-scsi-index.html[Learn about configuring ONTAP SAN hosts with the FCP and iSCSI protocols]
 * link:hu-nvme-index.html[Learn about configuring ONTAP SAN hosts with the NVMe-oF protocol]
 
 Your SAN hosts and ONTAP storage can reside either on-premises, in the cloud, or both.
