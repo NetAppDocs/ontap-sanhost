@@ -1,9 +1,14 @@
 To ensure that multipathing is configured correctly for your host, set the `timeout` parameter and confirm that the iSCSI service is running and connecting to the iSCSI targets.
 
-.Before you begin
-Verify that the iSCSI initiator package (iscsi-initiator-utils) is installed. 
-
 .Steps
+
+. Verify that the iSCSI initiator package (iscsi-initiator-utils) is installed. 
++
+[source,cli]
+----
+$apt list |grep open-iscsi
+----
+
 . Set iSCSI Initiator node name:
 +
 [source,cli]
