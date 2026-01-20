@@ -15,8 +15,6 @@ summary: Install Linux Host Utilities on a CentOS 8.x host to manage FCP and iSC
 [.lead]
 The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on a CentOS 8.x host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
-include::_include/hu/linux-configure-kvm-note.adoc[]
-
 include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities-80.adoc[]
@@ -50,4 +48,7 @@ include::_include/hu/use-linux-host-utilities.adoc[]
 
 include::_include/hu/asm-mirroring.adoc[]
 
+include::_include/hu/kvm-centos.adoc[]
+
+// 2025 Dec 17, ONTAPDOC-3531
 // 2025 JUN 30, ONTAPDOC-3068

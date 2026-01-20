@@ -1,11 +1,10 @@
 ---
 sidebar: sidebar
-permalink: nvme_sles15_sp7.html
-keywords: nvme, linux, suse, sles, 15, SP7, server, enterprise
-summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 SP7 with ONTAP.
+permalink: nvme-sles15-spx.html
+keywords: nvme, linux, suse, sles, SUSE Linux Enterprise Server, 15, SPx, server, enterprise
+summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 SPx with ONTAP.
 ---
-= NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP7 with ONTAP
-:toc: macro
+= Configure SUSE Linux Enterprise Server 15 SPx for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -14,42 +13,34 @@ summary: Describes how to configure NVMe/FC for SUSE Linux Enterprise Server 15 
 :imagesdir: ./media/
 
 [.lead]
-SUSE Linux Enterprise Server hosts support the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
+The SUSE Linux Enterprise Server 15 SPx host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
 
-.About this task 
-You can use the following support and features with the NVMe-oF host configuration for SUSE Linux Enterprise Server 15 SP7. You should also review the known limitations before starting the configuration process.
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for SUSE Linux Enterprise Server 15 SPx. For more support and feature information, see link:nvme-sles-supported-features.html[ONTAP support and features].
 
-* Support available:
-** Support for NVMe over TCP (NVMe/TCP) in addition to NVMe over Fibre Channel (NVMe/FC). The NetApp plug-in in the native `nvme-cli` package displays ONTAP details for both NVMe/FC and NVMe/TCP namespaces.
-** Running both NVMe and SCSI traffic on the same host. For example, you can configure dm-multipath for SCSI mpath devices for SCSI LUNs and use NVMe multipath to configure NVMe-oF namespace devices on the host.
-** Support for SAN booting using the NVMe/FC protocol.
-** Beginning with ONTAP 9.12.1, support for secure in-band authentication is introduced for NVMe/TCP and NVMe/FC. You can use secure in-band authentication for NVMe/TCP and NVMe/FC with SUSE Linux Enterprise Server 15 SP7.
-** Support for persistent discovery controllers (PDCs) using a unique discovery NQN.
-** TLS 1.3 encryption support for NVMe/TCP. 
-** NetApp `sanlun` host utility support isn't available for NVMe-oF on a SUSE Linux Enterprise Server15 SP7 host. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
-+
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
-* Features available:
-** There are no new features available.
-* Known limitations
-** Avoid issuing the `nvme disconnect-all` command on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces because it disconnects both root and data filesystems and might lead to system instability.  
+NVMe-oF with SUSE Linux Enterprise Server 15 SPx has the following known limitations:
 
-include::_include/nvme/enable-san-boot.adoc[]
+* The `nvme disconnect-all` command disconnects both root and data filesystems and might lead to system instability. Do not issue this on systems booting from SAN over NVMe-TCP or NVMe-FC namespaces.
+* NetApp sanlun host utility support isn't available for NVMe-oF. Instead, you can rely on the NetApp plug-in included in the native `nvme-cli` package for all NVMe-oF transports.
+* For SUSE Linux Enterprise Server 15 SP6 and earlier, SAN booting using the NVMe-oF protocol is not supported.
 
-== Step 2: Validate software versions
+== Step 1: Optionally, enable SAN booting
 
-Use the following procedure to validate the minimum supported SUSE Linux Enterprise Server 15 SP7 software versions.
+include::_include/nvme/enable-san-booting.adoc[]
+
+== Step 2: Install SUSE Linux Enterprise Server and NVMe software and verify your configuration
+
+include::_include/nvme/verify-software-version-introduction.adoc[]
 
 .Steps
 
-. Install SUSE Linux Enterprise Server15 SP7 on the server. After the installation is complete, verify that you are running the specified SUSE Linux Enterprise Server 15 SP7 kernel: 
+. Install SUSE Linux Enterprise Server 15 SPx on the server. After the installation is complete, verify that you are running the specified SUSE Linux Enterprise Server 15 SPx kernel: 
 +
 [source,cli]
 ----
 uname -r
 ----
 +
-The following example shows a SUSE Linux Enterprise Server kernel version:
+Example Rocky Linux kernel version:
 +
 ----
 6.4.0-150700.53.3-default 
@@ -94,7 +85,7 @@ The following example shows a `hostnqn` version:
 nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 [source,cli]
 ----
@@ -123,17 +114,17 @@ vs_coexistence_LPE36002
 [NOTE]
 If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
-== Step 3: Configure NVMe/FC
+== Step 3: Configure NVMe/FC and NVMe/TCP
 
-include::_include/nvme/configure-nvmefc-introduction.adoc[]
+Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
 
 [role="tabbed-block"]
 =====
-.Broadcom/Emulex
+.NVMe/FC - Broadcom/Emulex
 --
+
 Configure NVMe/FC for a Broadcom/Emulex FC adapter.
 
-.Steps
 . Verify that you are using the supported adapter model:
 
 .. Display the model names:
@@ -157,7 +148,7 @@ LPe36002-M64
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-You should see an output similar to the following example:
+You should see the following output:
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter
@@ -210,7 +201,7 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-The following example shows port identities:
+You should see output similar to:
 +
 ----
 0x10000090fae0ec88
@@ -279,11 +270,11 @@ FCP CMPL: xb 0000018a Err 000005ca
 ----
 ====
 --
-.Marvell/QLogic
+.NVMe/FC - Marvell/QLogic
 --
-include::_include/nvme/configure-nvmefc-marvellqlogic-introduction.adoc[]
 
-.Steps
+Configure NVMe/FC for a Marvell/QLogic adapter.
+
 . Verify that you are running the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -307,68 +298,9 @@ cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
 +
 The expected output is 1.
 --
-=====
-
-== Step 4: Optionally, enable 1MB I/O 
-
-include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
-
-== Step 5: Verify NVMe boot services
-
-With SUSE Linux Enterprise Server 15 SP7, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled to start during the system boot. After the system boot completes, verify that the boot services are enabled.
-
-.Steps
-
-. Verify that `nvmf-autoconnect.service` is enabled:
-+
-[source,cli]
-----
-systemctl status nvmf-autoconnect.service
-----
-+
-.Show example output
-[%collapsible]
-====
-----
-nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
-  Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service; enabled; preset: enabled)
-  Active: inactive (dead) since Fri 2025-07-04 23:56:38 IST; 4 days ago
-  Main PID: 12208 (code=exited, status=0/SUCCESS)
-    CPU: 62ms
-
-Jul 04 23:56:26 localhost systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot...
-Jul 04 23:56:38 localhost systemd[1]: nvmf-autoconnect.service: Deactivated successfully.
-Jul 04 23:56:38 localhost systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
-----
-====
-. Verify that `nvmefc-boot-connections.service` is enabled:
-+
-[source,cli]
-----
-systemctl status nvmefc-boot-connections.service
-----
-+
-.Show example output
-[%collapsible]
-====
-----
-nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
-    Loaded: loaded (/usr/lib/systemd/system/nvmefc-boot-connections.service; enabled; preset: enabled)
-    Active: inactive (dead) since Mon 2025-07-07 19:52:30 IST; 1 day 4h ago
-  Main PID: 2945 (code=exited, status=0/SUCCESS)
-      CPU: 14ms
- 
-Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot...
-Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: nvmefc-boot-connections.service: Deactivated successfully.
-Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
-----
-====
-
-== Step 6: Configure NVMe/TCP
-
-include::_include/nvme/nvme-configure-nvme-tcp.adoc[] 
-
-.Steps
+.NVMe/TCP
+--
+The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
 
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -382,6 +314,7 @@ nvme discover -t tcp -w <host-traddr> -a <traddr>
 [subs=+quotes]
 ----
 nvme discover -t tcp -w 192.168.111.80 -a 192.168.111.70
+
 Discovery Log Number of Records 8, Generation counter 42
 =====Discovery Log Entry 0======
 trtype:  tcp
@@ -512,11 +445,195 @@ nvme	connect-all	-t	tcp	-w	192.168.211.80	-a	192.168.211.67
 ====
 
 [NOTE]
-Beginning with SUSE Linux Enterprise Server 15 SP6, the default setting for the NVMe/TCP `ctrl-loss-tmo` timeout is turned off. This means that there is no limit on the number of retries (indefinite retry), and you don't need to manually configure a specific `ctrl-loss-tmo` timeout duration when using the `nvme connect` or `nvme connect-all` commands (option `-l`). Additonally, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+====
+Beginning with SUSE Linux Enterprise Server 15 SP6, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
 
-== Step 7: Validate NVMe-oF
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
+====
 
-include::_include/nvme/nvme-validate-nvme-of.adoc[]
+=====
+
+== Step 4: Optionally, modify the iopolicy in the udev rules
+
+Beginning with SUSE Linux Enterprise Server 15 SP6, the default iopolicy for NVMe-oF is set to `round-robin`. If you want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+
+.Steps
+
+. Open the udev rules file in a text editor with root privileges:
++
+[source,cli]
+----
+/usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
++
+You should see the following output:
++
+----
+vi /usr/lib/udev/rules.d/71-nvmf-netapp.rules
+----
+
+. Find the line that sets iopolicy for the NetApp ONTAP Controller, as shown in the following example rule: 
++
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="round-robin"
+----
+
+. Modify the rule so that `round-robin` becomes `queue-depth`:
++
+[source,cli]
+----
+ACTION=="add", SUBSYSTEM=="nvme-subsystem", ATTR{subsystype}=="nvm", ATTR{model}=="NetApp ONTAP Controller", ATTR{iopolicy}="queue-depth"
+----
+
+. Reload the udev rules and apply the changes:
++
+[source,cli]
+----
+udevadm control --reload
+udevadm trigger --subsystem-match=nvme-subsystem
+----
+
+. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/<subsystem>/iopolicy
+----
++
+You should see the following output:
++
+----
+queue-depth.
+----
+
+NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller devices. You don't need to reboot.
+
+== Step 5: Optionally, enable 1MB I/O for NVMe/FC
+
+include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
+
+== Step 6: Verify NVMe boot services
+
+The `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
+
+.Steps
+
+. Verify that `nvmf-autoconnect.service` is enabled:
++
+[source,cli]
+----
+systemctl status nvmf-autoconnect.service
+----
++
+.Show example output
+[%collapsible]
+====
+----
+nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
+  Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service; enabled; preset: enabled)
+  Active: inactive (dead) since Fri 2025-07-04 23:56:38 IST; 4 days ago
+  Main PID: 12208 (code=exited, status=0/SUCCESS)
+    CPU: 62ms
+
+Jul 04 23:56:26 localhost systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot...
+Jul 04 23:56:38 localhost systemd[1]: nvmf-autoconnect.service: Deactivated successfully.
+Jul 04 23:56:38 localhost systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
+----
+====
+. Verify that `nvmefc-boot-connections.service` is enabled:
++
+[source,cli]
+----
+systemctl status nvmefc-boot-connections.service
+----
++
+.Show example output
+[%collapsible]
+====
+----
+nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
+    Loaded: loaded (/usr/lib/systemd/system/nvmefc-boot-connections.service; enabled; preset: enabled)
+    Active: inactive (dead) since Mon 2025-07-07 19:52:30 IST; 1 day 4h ago
+  Main PID: 2945 (code=exited, status=0/SUCCESS)
+      CPU: 14ms
+ 
+Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot...
+Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: nvmefc-boot-connections.service: Deactivated successfully.
+Jul 07 19:52:30 HP-DL360-14-168 systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
+----
+====
+
+== Step 7: Verify the multipathing configuration
+
+Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
+
+.Steps
+
+. Verify that the in-kernel NVMe multipath is enabled:
++
+[source,cli]
+----
+cat /sys/module/nvme_core/parameters/multipath
+----
++
+You should see the following output:
++
+----
+Y
+----
+
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to queue-depth) for the respective ONTAP namespaces correctly reflect on the host:
+
+.. Display the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
++
+----
+NetApp ONTAP Controller
+NetApp ONTAP Controller
+----
+.. Display the policy:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+----
++
+You should see the following output:
++
+----
+queue-depth
+queue-depth
+----
+
+. Verify that the namespaces are created and correctly discovered on the host:
++
+[source,cli]
+----
+nvme list
+----
++
+.Show example
+[%collapsible]
+====
+----
+Node         SN                   Model                          
+---------------------------------------------------------  
+/dev/nvme4n1 81Ix2BVuekWcAAAAAAAB	NetApp ONTAP Controller
+                               
+
+Namespace Usage    Format             FW             Rev
+-----------------------------------------------------------
+1                 21.47 GB / 21.47 GB	4 KiB + 0 B   FFFFFFFF
+----
+====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
@@ -618,7 +735,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Create a persistent discovery controller
 
-Beginning with ONTAP 9.11.1, you can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SP7 host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
+You can create a persistent discovery controller (PDC) for a SUSE Linux Enterprise Server 15 SPx host. A PDC is required to automatically detect an NVMe subsystem add or remove operation and changes to the discovery log page data. 
 
 .Steps
 
@@ -773,11 +890,11 @@ Transport Service Identifier: 8009
 
 == Step 9: Set up secure in-band authentication
 
-Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVMe/TCP and NVMe/FC between the host and the ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between a SUSE Linux Enterprise Server 15 SPx host and an ONTAP controller.
 
-To set up secure authentication, each host or controller must be associated with a `DH-HMAC-CHAP` key, which is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
+Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A DH-HMAC-CHAP key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
-You can set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
+Set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
 
 [role="tabbed-block"]
 =====
@@ -785,7 +902,6 @@ You can set up secure in-band authentication using the CLI or a config JSON file
 --
 Set up secure in-band authentication using the CLI. 
 
-.Steps
 . Obtain the host NQN:
 +
 [source,cli]
@@ -834,7 +950,7 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_secret
 [%collapsible]
 ====
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
+cat /sys/class/nvme-subsystem/nvme-subsys1/nvme*/dhchap_secret
 DHHC-1:01:iM63E6cX7G5SOKKOju8gmzM53qywsy+C/YwtzxhIt9ZRz+ky:
 DHHC-1:01:iM63E6cX7G5SOKKOju8gmzM53qywsy+C/YwtzxhIt9ZRz+ky:
 DHHC-1:01:iM63E6cX7G5SOKKOju8gmzM53qywsy+C/YwtzxhIt9ZRz+ky:
@@ -853,7 +969,7 @@ cat /sys/class/nvme-subsystem/<nvme-subsysX>/nvme*/dhchap_ctrl_secret
 [%collapsible]
 ====
 ----
-# cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_ctrl_secret
+cat /sys/class/nvme-subsystem/nvme-subsys6/nvme*/dhchap_ctrl_secret
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
@@ -861,20 +977,19 @@ DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxuk
 ----
 ====
 --
-.JSON file
+.JSON
 --
 When multiple NVMe subsystems are available on the ONTAP controller configuration, you can use the `/etc/nvme/config.json` file with the `nvme connect-all` command. 
 
-To generate the JSON file, you can use the `-o` option. See the NVMe connect-all manual pages for more syntax options.
+Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
 
-.Steps
 . Configure the JSON file:
 +
 .Show example output
 [%collapsible]
 ====
 ----
-# cat /etc/nvme/config.json
+cat /etc/nvme/config.json
 [
  {
     "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33",
@@ -921,7 +1036,7 @@ To generate the JSON file, you can use the `-o` option. See the NVMe connect-all
 
 ==== 
 [NOTE]
-In the preceding example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
+In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhchap_ctrl_key` corresponds to `dhchap_ctrl_secret`. 
 
 . Connect to the ONTAP controller using the config JSON file:
 +
@@ -958,7 +1073,7 @@ traddr=192.168.111.70 is already connected
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_secret
 ----
 +
-You should see the following output:
+The following example shows a dhchap key:
 +
 ----
 DHHC-1:01:i4i789R11sMuHLCY27RVI8XloC/GzjRwyhxip5hmIELsHrBq:
@@ -971,7 +1086,7 @@ DHHC-1:01:i4i789R11sMuHLCY27RVI8XloC/GzjRwyhxip5hmIELsHrBq:
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
 +
-You should see the following output:
+You should see output similar to the following example:
 +
 ----
 DHHC-1:03:jqgYcJSKp73+XqAf2X6twr9ngBpr2n0MGWbmZIZq4PieKZCoilKGef8lAvhYS0PNK7T+04YD5CRPjh+m3qjJU++yR8s=:

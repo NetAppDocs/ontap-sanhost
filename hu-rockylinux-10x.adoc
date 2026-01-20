@@ -15,8 +15,6 @@ summary: Install Linux Host Utilities on a Rocky Linux 10.x host to manage FCP a
 [.lead]
 The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install Linux Host Utilities on a Rocky Linux 10.x host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
-include::_include/hu/linux-configure-kvm-note.adoc[]
-
 include::_include/hu/linux-enable-san-boot.adoc[]
 
 include::_include/hu/install-linux-host-utilities-80.adoc[]
@@ -161,7 +159,9 @@ include::_include/hu/use-linux-host-utilities.adoc[]
 
 include::_include/hu/asm-mirroring.adoc[]
 
-// 2026 JAN 15, ONTAPDOC-3486
+include::_include/hu/kvm-rockylinux.adoc[]
+
+// 2025 Dec 17, ONTAPDOC-3531
 // 2025 JUN 25, ONTAPDOC-3090
 // ONTAPDOC-2987 8-May-2025
 // ONTAPDOC-2561 25-Nov-2024

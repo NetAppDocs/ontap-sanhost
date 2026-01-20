@@ -5,7 +5,6 @@ keywords: host utilities, red hat, rhel, linux, 20.04, netapp, ontap, ubuntu
 summary: Install Linux Host Utilities on an Ubuntu 24.04 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
 = Configure Ubuntu 24.04 for FCP and iSCSI with ONTAP storage
-:toc: macro
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -15,8 +14,6 @@ summary: Install Linux Host Utilities on an Ubuntu 24.04 host to manage FCP and 
 
 [.lead]
 The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on an Ubuntu 24.04 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
-
-include::_include/hu/linux-configure-kvm-note.adoc[]
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
@@ -47,8 +44,10 @@ There are no known issues.
 
 include::_include/hu/use-linux-host-utilities.adoc[]
 
-include::_include/hu/asm-mirroring.adoc[] 
+include::_include/hu/asm-mirroring.adoc[]
 
-// 2026 JAN 15, ONTAPDOC-3486
+include::_include/hu/kvm-ubuntu.adoc[]
+
+// 2025 Dec 17, ONTAPDOC-3531
 // 2025 JULY 15, ONTAPDOC-3128
 // 2024 AUG 13, ONTAPDOC-2294
