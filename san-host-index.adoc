@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar
-permalink: overview.html
+permalink: san-host-index.html
 keywords: ontap, san, host, rhel, red, hat, linux, sles, suse, esxi, nvme, oracle, linux, windows, enterprise, fc, fcp, isci, aix, powervm, vios, centos, citrix, hp-ux, solaris, veritas, cvo, cloud, volume, ontap, clients, configuration, FSx, instance, netapp
 summary: This content provides distribution-specific guidance on how to configure cloud clients connected to Cloud Volumes ONTAP and Amazon FSx for ONTAP and SAN hosts connected to on-premises ONTAP storage.
 ---
@@ -15,12 +15,9 @@ summary: This content provides distribution-specific guidance on how to configur
 [.lead]
 You should configure SAN hosts for multipathing and with specific parameters and settings critical for correct operation with ONTAP LUNs. The host configuration varies depending on the host operating system and the protocol. Correct configuration is important for best performance and successful failover. 
 
-You should configure your SAN hosts to use the NetApp SAN Host Utilities. SAN Host Utilities help you manage and monitor your LUNs and host bus adapters (HBAs). For example, you can use the SAN Host Utilities to retrieve a list of all LUNs mapped to a host or to see a list of all the attributes of a specific LUN mapped to a host. NetApp customer support can also use the SAN Host Utilities to gather information about your configuration if you have an issue that requires assistance.  
+* link:hu_fcp_scsi_index.html[Learn about configuring ONTAP SAN hosts with the FCP and iSCSI protocols]
+* link:hu-nvme-index.html[Learn about configuring ONTAP SAN hosts with the NVMe-oF protocol]
 
-NetApp recommends using the SAN Host Utilities software if it's available for your SAN host.  
-
-If your SAN configuration supports SAN booting, you can also configure your host to use SAN booting to simplify deployment and improve scalability. Using SAN boot, you can deploy multiple new servers by connecting them to SAN and configuring the appropriate boot settings. This saves time by eliminating the need to install the operating system on each server individually. 
-  
 Your SAN hosts and ONTAP storage can reside either on-premises, in the cloud, or both.
 
 NOTE: In a cloud environment, hosts are typically referred to as clients. All host-specific information in this content also applies to cloud clients.

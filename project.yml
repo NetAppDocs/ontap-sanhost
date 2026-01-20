@@ -17,7 +17,7 @@ sidebar:
     - title: ONTAP SAN hosts and cloud clients
       url: /index.html  
     - title: Learn about SAN host configurations
-      url: /overview.html
+      url: /san-host-index.html
     - title: Install SAN Host Utilities
       entries:
       - title: Learn about SAN Host Utilities
@@ -101,8 +101,8 @@ sidebar:
             url: /hu_wuhu_troubleshoot.html          
     - title: Configure hosts with FCP and iSCSI
       entries:
-      - title: Overview
-        url: /hu_fcp_scsi_index.html
+      - title: Learn about configuring FCP and iSCSI hosts
+        url: /hu-fcp-scsi-index.html
       - title: AIX and PowerVM/VIOS
         entries:
         - title: 7.3/4.x
