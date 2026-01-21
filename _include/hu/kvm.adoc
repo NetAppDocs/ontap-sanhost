@@ -1,0 +1,3 @@
+* Learn about Oracle Linux KVM and Virtualization
++
+Oracle Linux can serve as a KVM host. This enables you to run multiple virtual machines on a single physical server using the Linux Kernel-based Virtual Machine (KVM) technology. You can manage and support multiple Oracle Linux KVM hosts by using Oracle Linux Virtualization Manager, which is built from the open-source oVirt project. The KVM host doesn't require explicit host configuration settings for ONTAP LUNs.

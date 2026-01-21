@@ -5,7 +5,6 @@ keywords: windows, host, utilities, 7.1, hba, fibre, channel, SANtricity, netapp
 summary: Windows Host Utilities includes an installation program that sets the required Windows registry and HBA parameters so that the Windows host correctly handles the storage system behaviors for ONTAP and E-Series platforms.
 ---
 = Repair and remove the Windows Host Utilities for ONTAP storage
-:toc: macro
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -18,7 +17,6 @@ Use the *Repair* option in the Host Utilities installation program to update the
 
 [role="tabbed-block"]
 ====
-
 .Repair or remove interactively
 --
 The *Repair* option updates the Windows registry and FC HBAs with the required settings. You can also remove the Host Utilities entirely.

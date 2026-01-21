@@ -1,0 +1,741 @@
+---
+sidebar: sidebar
+permalink: nvme-proxmox-ve-8x.html
+keywords: nvme, proxmox, linux, red hat, enterprise
+summary: How to Configure NVMe-oF Host for Proxmox VE 8.x with ONTAP storage
+---
+= Configure Proxmox VE 8.x for NVMe-oF with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+The Proxmox VE 8.x host supports the NVMe over Fibre Channel (NVMe/FC) and NVMe over TCP (NVMe/TCP) protocols with Asymmetric Namespace Access (ANA). ANA provides multipathing functionality equivalent to asymmetric logical unit access (ALUA) in iSCSI and FCP environments.
+
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Proxmox VE 8.x. For more support and feature information, see link:nvme-proxmox-supported-features.html[ONTAP support and features^].
+
+NVMe-oF with Proxmox VE 8.x has the following known limitation:
+
+* The SAN boot configuration for NVMe-FC is not supported.
+
+== Step 1: Install Proxmox VE and NVMe software and verify your configuration
+
+include::_include/nvme/verify-software-version-introduction.adoc[]
+
+.Steps
+
+. Install Proxmox 8.x on the server. After the installation is complete, verify that you are running the specified Proxmox 8.x kernel: 
++
+[source,cli]
+----
+uname -r
+----
++
+The following example shows a Proxmox kernel version:
++
+----
+6.8.12-10-pve
+----
+
+. Install the `nvme-cli` package:
++
+[source,cli]
+----
+apt list|grep nvme-cli
+----
++
+The following example shows an `nvme-cli` package version:
++
+----
+nvme-cli/oldstable,now 2.4+really2.3-3 amd64
+----
+
+. Install the `libnvme` package:
++
+[source,cli]
+----
+apt list|grep libnvme
+----
++
+The following example shows an `libnvme` package version:
++
+----
+libnvme1/oldstable,now 1.3-1+deb12u1 amd64
+----
+
+. On the host, check the hostnqn string at `/etc/nvme/hostnqn`:
++
+[source,cli]
+----
+cat /etc/nvme/hostnqn
+----
++
+The following example shows a `hostnqn` value:
++
+----
+nqn.2014-08.org.nvmexpress:uuid:1536c9a6-f954-11ea-b24d-0a94efb46eaf
+----
+
+. On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
++
+[source,cli]
+----
+::>  vserver nvme subsystem host show -vserver proxmox_120_122
+----
++
+.Show example
+[%collapsible]
+====
+----
+Vserver Subsystem Priority  Host NQN
+------- --------- --------  --------- 
+proxmox_120_122
+proxmox_120_122 
+                  regular   nqn.2014-08.org.nvmexpress:uuid:1536c9a6-f954-11ea-b24d-0a94efb46eaf
+                  regular   nqn.2014-08.org.nvmexpress:uuid:991a7476-f9bf-11ea-8b73-0a94efb46c3b
+proxmox_120_122_tcp
+                  regular   nqn.2014-08.org.nvmexpress:uuid:1536c9a6-f954-11ea-b24d-0a94efb46eaf
+                  regular  nqn.2014-08.org.nvmexpress:uuid:991a7476-f9bf-11ea-8b73-0a94efb46c3b
+2 entries were displayed.
+----
+====
++
+[NOTE]
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP storage system subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
+
+== Step 2: Configure NVMe/FC and NVMe/TCP
+
+Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
+
+[role="tabbed-block"]
+=====
+.NVMe/FC - Broadcom/Emulex
+--
+
+Configure NVMe/FC for a Broadcom/Emulex adapter.
+
+. Verify that you are using the supported adapter model: 
+
+.. Display the model names:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modelname
+----
++
+You should see the following output:
++
+----
+LPe35002-M2 
+LPe35002-M2
+----
+
+.. Display the model descriptions:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/modeldesc
+----
++
+You should see output similar to the following example:
++
+----
+Emulex LPe35002-M2 2-Port 32Gb Fibre Channel Adapter
+Emulex LPe35002-M2 2-Port 32Gb Fibre Channel Adapter
+----
+
+. Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver: 
+
+.. Display the firmware version:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/fwrev 
+----
++
+The command returns the firmware versions:
++
+----
+14.0.505.12, sli-4:6:d
+14.0.505.12, sli-4:6:d
+----
+
+.. Display the inbox driver version:
++
+[source,cli]
+----
+cat /sys/module/lpfc/version
+----
++
+The following example shows a driver version:
++
+----
+0:14.2.0.17
+----
+
++
+For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+
+. Verify that `lpfc_enable_fc4_type` is set to `3`:
++
+[source,cli]
+----
+cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
+----
+
+. Verify that you can view your initiator ports:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_name
+----
++
+You should see output similar to:
++
+----
+0x100000109b95467e
+0x100000109b95467f
+----
+
+. Verify that your initiator ports are online:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/port_state
+----
++
+You should see the following output:
++
+----
+Online
+Online
+----
+
+. Verify that the NVMe/FC initiator ports are enabled and that the target ports are visible:
++
+[source,cli]
+----
+cat /sys/class/scsi_host/host*/nvme_info
+----
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+NVME Initiator Enabled 
+XRI Dist lpfc0 Total 6144 IO 5894 ELS 250 
+NVME LPORT lpfc0 WWPN x10005ced8c531948 WWNN x20005ced8c531948 DID x082400
+*ONLINE*
+NVME RPORT WWPN x200ed039eac79573 WWNN x200dd039eac79573 DID x060902
+*TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x2001d039eac79573 WWNN x2000d039eac79573 DID x060904
+*TARGET DISCSRVC ONLINE*
+NVME Statistics LS: Xmt 0000000034 Cmpl 0000000034 Abort 00000000 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 Total FCP Cmpl 0000000000142cfb Issue 0000000000142cfc OutIO 0000000000000001 abort 00000005 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 FCP CMPL: xb 00000005 Err 00000005 NVME Initiator Enabled XRI Dist lpfc1 Total 6144 IO 5894 ELS 250 NVME LPORT lpfc1 WWPN x10005ced8c531949 WWNN x20005ced8c531949 DID x082500
+*ONLINE*
+NVME RPORT WWPN x2010d039eac79573 WWNN x200dd039eac79573 DID x062902
+*TARGET DISCSRVC ONLINE*
+NVME RPORT WWPN x2007d039eac79573 WWNN x2000d039eac79573 DID x062904
+*TARGET DISCSRVC ONLINE*
+NVME Statistics LS: Xmt 0000000034 Cmpl 0000000034 Abort 00000000 LS XMIT: Err 00000000 CMPL: xb 00000000 Err 00000000 Total FCP Cmpl 00000000000d39f1 Issue 00000000000d39f2 OutIO 0000000000000001 abort 00000005 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000 FCP CMPL: xb 00000005 Err 00000005
+----
+====
+
+--
+
+.NVMe/FC - Marvell/QLogic
+--
+
+Configure NVMe/FC for a Marvell/QLogic adapter.
+
+. Verify that you are using the supported adapter driver and firmware versions:
++
+[source,cli]
+----
+cat /sys/class/fc_host/host*/symbolic_name
+----
++
+The following example shows driver and firmware versions:
++
+----
+QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
+QLE2872 FW:v9.15.00 DVR:v10.02.09.300-k
+----
+
+. Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
++
+[source,cli]
+----
+cat /sys/module/qla2xxx/parameters/ql2xnvmeenable
+----
++
+The expected output is 1.
+--
+
+.NVMe/TCP
+--
+
+The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
+
+. Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
++
+[source,cli]
+----
+nvme discover -t tcp -w host-traddr -a traddr
+----
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme discover -t tcp -w 192.168.2.22 -a 192.168.2.30
+ 
+Discovery Log Number of Records 12, Generation counter 13
+=====Discovery Log Entry 0======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *current discovery subsystem*
+treq:    not specified
+portid:  10
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:discovery
+traddr:  192.168.2.30
+eflags:  *explicit discovery connections, duplicate discovery information*
+sectype: none
+=====Discovery Log Entry 1======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *current discovery subsystem*
+treq:    not specified
+portid:  9
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:discovery
+traddr:  192.168.1.30
+eflags:  *explicit discovery connections, duplicate discovery information*
+sectype: none
+=====Discovery Log Entry 2======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *current discovery subsystem*
+treq:    not specified
+portid:  12
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:discovery
+traddr:  192.168.2.25
+eflags:  *explicit discovery connections, duplicate discovery information*
+sectype: none
+=====Discovery Log Entry 3======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *current discovery subsystem*
+treq:    not specified
+portid:  11
+trsvcid: 8009
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:discovery
+traddr:  192.168.1.25
+eflags:  *explicit discovery connections, duplicate discovery information*
+sectype: none
+=====Discovery Log Entry 4======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *nvme subsystem*
+treq:    not specified
+portid:  10
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122
+traddr:  192.168.2.30
+eflags:  none
+sectype: none
+=====Discovery Log Entry 5======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *nvme subsystem*
+treq:    not specified
+portid:  9
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122
+traddr:  192.168.1.30
+eflags:  none
+sectype: none
+=====Discovery Log Entry 6======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *nvme subsystem*
+treq:    not specified
+portid:  12
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122
+traddr:  192.168.2.25
+eflags:  none
+sectype: none
+=====Discovery Log Entry 7======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *nvme subsystem*
+treq:    not specified
+portid:  11
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122
+traddr:  192.168.1.25
+eflags:  none
+sectype: none
+=====Discovery Log Entry 8======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *nvme subsystem*
+treq:    not specified
+portid:  10
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122_tcp
+traddr:  192.168.2.30
+eflags:  none
+sectype: none
+=====Discovery Log Entry 9======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *nvme subsystem*
+treq:    not specified
+portid:  9
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122_tcp
+traddr:  192.168.1.30
+eflags:  none
+sectype: none
+=====Discovery Log Entry 10======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *nvme subsystem*
+treq:    not specified
+portid:  12
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122_tcp
+traddr:  192.168.2.25
+eflags:  none
+sectype: none
+=====Discovery Log Entry 11======
+trtype:  tcp
+adrfam:  ipv4
+subtype: *nvme subsystem*
+treq:    not specified
+portid:  11
+trsvcid: 4420
+subnqn:  nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122_tcp
+traddr:  192.168.1.25
+eflags:  none
+sectype: none
+----
+====
+
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully retrieve discovery log page data:
++
+[source,cli]
+----
+nvme discover -t tcp -w host-traddr -a traddr
+----
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme discover -t tcp -w 192.168.1.22 -a 192.168.1.30
+nvme discover -t tcp -w 192.168.2.22 -a 192.168.2.30
+nvme discover -t tcp -w 192.168.1.22 -a 192.168.1.25
+nvme discover -t tcp -w 192.168.2.22 -a 192.168.2.25
+----			
+====
+
+. Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
++
+[source,cli]
+----
+nvme connect-all -t tcp -w host-traddr -a traddr
+----
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme connect-all -t tcp -w 192.168.1.22 -a 192.168.1.30
+nvme connect-all -t tcp -w 192.168.2.22 -a 192.168.2.30
+nvme connect-all -t tcp -w 192.168.1.22 -a 192.168.1.25
+nvme connect-all -t tcp -w 192.168.2.22 -a 192.168.2.25
+----			
+====
+
+[NOTE]
+====
+The setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
+
+include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
+====
+--
+=====
+
+== Step 3: Optionally, enable 1MB I/O for NVMe/FC
+
+ONTAP reports a Max Data Transfer Size (MDTS) of 8 in the Identify Controller data. This means the maximum I/O request size can be up to 1MB. To issue I/O requests of size 1MB for a Broadcom NVMe/FC host, you should increase the `lpfc` value of the `lpfc_sg_seg_cnt` parameter to 256 from the default value of 64.
+
+NOTE: These steps don't apply to Qlogic NVMe/FC hosts.
+
+.Steps
+
+. Set the `lpfc_sg_seg_cnt` parameter to 256:
++
+[source,cli]
+----
+cat /etc/modprobe.d/lpfc.conf 
+----
++
+You should see an output similar to the following example:
++
+----
+options lpfc lpfc_sg_seg_cnt=256
+----
+
+. Run the `update-initramfs` command, and reboot the host.
+
+. Verify that the value for `lpfc_sg_seg_cnt` is 256:
++
+[source,cli]
+----
+cat /sys/module/lpfc/parameters/lpfc_sg_seg_cnt 
+----
+
+== Step 4: Verify NVMe boot services 
+
+With Proxmox 8.x, the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots. 
+
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
+
+.Steps
+
+. Verify that `nvmf-autoconnect.service` is enabled:
++
+[source,cli]
+----
+systemctl status nvmf-autoconnect.service
+----
++
+.Show example output
+[%collapsible]
+====
+----
+○ nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
+     Loaded: loaded (/lib/systemd/system/nvmf-autoconnect.service; enabled; preset: enabled)
+     Active: inactive (dead) since Fri 2025-11-21 19:59:10 IST; 8s ago
+    Process: 256613 ExecStartPre=/sbin/modprobe nvme-fabrics (code=exited, status=0/SUCCESS)
+    Process: 256614 ExecStart=/usr/sbin/nvme connect-all (code=exited, status=0/SUCCESS)
+   Main PID: 256614 (code=exited, status=0/SUCCESS)
+        CPU: 18ms
+Nov 21 19:59:07 SR665-14-122.lab.eng.btc.netapp.in systemd[1]: Starting nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot...
+Nov 21 19:59:10 SR665-14-122.lab.eng.btc.netapp.in nvme[256614]: Failed to write to /dev/nvme-fabrics: Invalid argument
+Nov 21 19:59:10 SR665-14-122.lab.eng.btc.netapp.in nvme[256614]: Failed to write to /dev/nvme-fabrics: Invalid argument
+Nov 21 19:59:10 SR665-14-122.lab.eng.btc.netapp.in systemd[1]: nvmf-autoconnect.service: Deactivated successfully.
+Nov 21 19:59:10 SR665-14-122.lab.eng.btc.netapp.in systemd[1]: Finished nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot.
+----
+====
+. Verify that `nvmefc-boot-connections.service` is enabled:
++
+[source,cli]
+----
+systemctl status nvmefc-boot-connections.service
+----
++
+.Show example output
+[%collapsible]
+====
+----
+○ nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
+    Loaded: loaded (/lib/systemd/system/nvmefc-boot-connections.service; enabled; preset: enabled)
+     Active: inactive (dead) since Thu 2025-11-20 17:48:29 IST; 1 day 2h ago
+    Process: 1381 ExecStart=/bin/sh -c echo add > /sys/class/fc/fc_udev_device/nvme_discovery (code=exited, status=0/SUCCESS)
+   Main PID: 1381 (code=exited, status=0/SUCCESS)
+        CPU: 3ms
+
+Nov 20 17:48:29 SR665-14-122.lab.eng.btc.netapp.in systemd[1]: Starting nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot..
+Nov 20 17:48:29 SR665-14-122.lab.eng.btc.netapp.in systemd[1]: nvmefc-boot-connections.service: Deactivated successfully.
+Nov 20 17:48:29 SR665-14-122.lab.eng.btc.netapp.in systemd[1]: Finished nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot...
+----
+====
+
+== Step 5: Verify the multipathing configuration
+
+Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
+
+.Steps
+
+. Verify that the in-kernel NVMe multipath is enabled:
++
+[source,cli]
+----
+cat /sys/module/nvme_core/parameters/multipath
+----
++
+You should see the following output:
++
+----
+Y
+----
+
+. Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the ONTAP namespaces show up correctly on the host:
+
+.. Show the subsystems:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
+----
++
+You should see the following output:
++
+----
+NetApp ONTAP Controller
+NetApp ONTAP Controller
+----
+.. Display the policy:
++
+[source,cli]
+----
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
+----
++
+You should see the following output:
++
+----
+round-robin
+round-robin
+----
+
+. Verify that the namespaces are created and correctly discovered on the host:
++
+[source,cli]
+----
+nvme list
+----
++
+.Show example
+[%collapsible]
+====
+----
+Node                  Generic               SN                   Model                                    Namespace  Usage                      Format           FW Rev
+--------------------- --------------------- -------------------- ---------------------------------------- ---------- -------------------------- ---------------- --------
+/dev/nvme2n20         /dev/ng2n20           81K13BUDdygsAAAAAAAG NetApp ONTAP Controller                  10          5.56  GB /  91.27  GB      4 KiB +  0 B   9.18.1
+----
+====
+
+. Verify that the controller state of each path is live and has the correct ANA status:
++ 
+[role="tabbed-block"]
+=====
+.NVMe/FC
+--
+[source,cli]
+----
+nvme list-subsys /dev/nvme2n20
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme-subsys2 - NQN= nqn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122_tcp               
+\
++- nvme1 *fc* traddr=nn-0x200dd039eac79573:pn-0x2010d039eac79573,host_traddr=nn-0x20005ced8c531949:pn-0x10005ced8c531949 *live optimized*
++- nvme3 *fc* traddr=nn-0x200dd039eac79573:pn-0x200ed039eac79573,host_traddr=nn-0x20005ced8c531948:pn-0x10005ced8c531948 *live optimized*
++- nvme5 *fc* traddr=nn-0x200dd039eac79573:pn-0x200fd039eac79573,host_traddr=nn-0x20005ced8c531949:pn-0x10005ced8c531949 *live non-optimized*
++- nvme7 fc traddr=nn-0x200dd039eac79573:pn-0x2011d039eac79573,host_traddr=nn-0x20005ced8c531948:pn-0x10005ced8c531948 *live non-optimized*
+----
+====
+--
+.NVMe/TCP
+--
+[source,cli]
+----
+nvme list-subsys /dev/nvme2n3
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme-subsys2 - NQN= qn.1992-08.com.netapp:sn.ae9f2d55a7ec11ef8751d039ea9e891c:subsystem.proxmox_120_122_tcp
+\
++- nvme2 *tcp* traddr=192.168.1.30,trsvcid=4420,host_traddr=192.168.1.22,src_addr=192.168.1.22 *live optimized*
++- nvme4 *tcp* traddr=192.168.2.30,trsvcid=4420,host_traddr=192.168.2.22,src_addr=192.168.2.22 *live optimized*
++- nvme6 *tcp* traddr=192.168.1.25,trsvcid=4420,host_traddr=192.168.1.22,src_addr=192.168.1.22 *live non-optimized*
++- nvme8 *tcp* traddr=192.168.2.25,trsvcid=4420,host_traddr=192.168.2.22,src_addr=192.168.2.22 *live non-optimized*
+----
+====
+--
+=====
+
+. Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
++
+[role="tabbed-block"]
+=====
+.Column
+--
+[source,cli]
+----
+nvme netapp ontapdevices -o column
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+
+Device        Vserver               Namespace Path                                                          
+------------- --------------------- ------------------------------                   
+/dev/nvme2n11     proxmox_120_122 / /vol/vm120_tcp1/ns
+              
+NSID       UUID                            Size
+---- ------------------------------------  --------
+1          5aefea74-f0cf-4794-a7e9-e113c4659aca   37.58GB
+----
+====
+--
+.JSON
+--
+[source,cli]
+----
+nvme netapp ontapdevices -o json
+----
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+{
+      "Device":"/dev/nvme2n11",
+      "Vserver":"proxmox_120_122",
+      "Namespace_Path":"/vol/vm120_tcp1/ns",
+      "NSID":1,
+      "UUID":"5aefea74-f0cf-4794-a7e9-e113c4659aca",
+       “Size”:”37.58GB”,
+      "LBA_Data_Size":4096,
+      "Namespace_Size":32212254720
+    }
+  ]
+----
+====
+--
+=====
+
+== Step 6: Review the known issues
+
+There are no known issues.
+
+// 2025 JUN 25, ONTAPDOC-3090
+// ONTAPDOC-2561 25-Nov-2024
+// ONTAPDOC-2987 13-May-2025
