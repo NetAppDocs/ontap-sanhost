@@ -32,18 +32,20 @@ Ubuntu 24.04 has in-kernel NVMe multipath enabled for NVMe namespaces by default
 
 SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 24.04 with ONTAP.
 
-
 == Validate software versions
 
 You can use the following procedure to validate the minimum supported Ubuntu 24.04 software versions.
 
-.Steps
+== Step 1: Install Ubuntu and NVMe software and verify your configuration
 
 . Install Ubuntu 24.04 on the server. After the installation is complete, verify that you are running the specified Ubuntu 24.04 kernel:
 +
+[source,cli]
 ----
 uname -r
 ----
++
+Example Ubuntu kernel version:
 +
 ----
 6.8.0-31-generic 
@@ -51,9 +53,12 @@ uname -r
 
 . Install the `nvme-cli` package:
 +
+[source,cli]
 ----
 apt list | grep nvme
 ----
++
+The following example shows an `nvme-cli` package version:
 +
 ----
 nvme-cli/noble-updates 2.8-1ubuntu0.1 amd64 
@@ -61,9 +66,12 @@ nvme-cli/noble-updates 2.8-1ubuntu0.1 amd64
 
 . On the Ubuntu 24.04 host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
+[source,cli]
 ----
 cat /etc/nvme/hostnqn
 ----
++
+The following example shows an `hostnqn` version:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:ace18dd8-1f5a-11ec-b0c3-3a68dd61a6ff 
@@ -71,15 +79,20 @@ nqn.2014-08.org.nvmexpress:uuid:ace18dd8-1f5a-11ec-b0c3-3a68dd61a6ff
 
 . Verify that the `hostnqn` string from `/etc/nvme/hostnqn` matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
+[source,cli]
 ----
 vserver nvme subsystem host show -vserver vs_106_fc_nvme
 ----
 +
+.Show example
+[%collapsible]
+====
 ----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
 vs_106_fc_nvme ub_106 nqn.2014-08.org.nvmexpress:uuid:c04702c8-e91e-4353-9995-ba4536214631
 ----
+====
 +
 [NOTE]
 If the `hostnqn` strings don't match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
