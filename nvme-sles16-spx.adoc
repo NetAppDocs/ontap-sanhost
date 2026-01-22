@@ -646,13 +646,25 @@ Namespace Usage    Format             FW             Rev
 
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
+[source,cli]
+----
+nvme list-subsys /dev/<controller_ID>
+----
++
+NOTE: Beginning with ONTAP 9.16.1, NVMe/TCP and NVMe/FC reports all optimized paths on ASA r2 systems. 
++
 [role="tabbed-block"]
 =====
-.NVMe/FC - ASA r2
+
+.NVMe/FC 
 --
+This following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, and ASA systems and ASA r2 system with NVMe/FC.
+
+.AFF, FAS, and ASA systems
 ----
 nvme list-subsys /dev/nvme4n5  
 ----
+
 .Show example output
 [%collapsible]
 ====
@@ -667,34 +679,12 @@ nvme-subsys96 - NQN=nqn.1992-08.om.netapp:sn.b351b2b6777b11f0b3c2d039ea5cfc91:su
  +- nvme32 *fc* traddr=nn-0x2011d039ea5cfc90:pn-0x2013d039ea5cfc90,host_traddr=nn-0x200000109bdacc76:pn-0x100000109bdacc76 *live optimized*
 ----
 ====
---
 
-.NVMe/TCP - ASA r2
---
+.ASA r2 systems
 ----
-nvme list-subsys /dev/nvme4n2
+nvme list-subsys /dev/nvme4n5  
 ----
-.Show example output
-[%collapsible]
-====
-[subs=+quotes]
-----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0               
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034
-\                                                                                                                                                                               +- nvme4 *tcp* traddr=192.168.20.28,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
-+- nvme5 *tcp* traddr=192.168.20.29,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
-+- nvme6 *tcp* traddr=192.168.21.28,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*                                                
-+- nvme7 *tcp* traddr=192.168.21.29,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
-----
-====
---
-
-.NVMe/FC
---
-----
-nvme list-subsys /dev/nvme4n5
-----
-.Show example output
+.Show  example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -711,6 +701,9 @@ nvme-subsys114 - NQN=nqn.1992-08.com.netapp:sn.9e30b9760a4911f08c87d039eab67a95:
 
 .NVMe/TCP 
 --
+This following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, and ASA systems and ASA r2 systems with NVMe/TCP.
+
+.AFF, FAS, and ASA systems
 ----
 nvme list-subsys /dev/nvme9n1 
 ----
@@ -726,6 +719,24 @@ nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:su
  +- nvme153 *tcp* traddr=192.168.39.11,trsvcid=4420,host_traddr=192.168.39.20,src_addr=192.168.39.20 *live non-optimized*
  +- nvme57 *tcp* traddr=192.168.38.11,trsvcid=4420,host_traddr=192.168.38.20,src_addr=192.168.38.20 *live non-optimized*
  +- nvme9 *tcp* traddr=192.168.38.10,trsvcid=4420,host_traddr=192.168.38.20,src_addr=192.168.38.20 *live optimized*
+----
+====
+
+.ASA r2 systems
+----
+nvme list-subsys /dev/nvme4n2
+----
+.Show example output
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0               
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034
+\                                                                                                                                                                               +- nvme4 *tcp* traddr=192.168.20.28,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
++- nvme5 *tcp* traddr=192.168.20.29,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
++- nvme6 *tcp* traddr=192.168.21.28,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*                                                
++- nvme7 *tcp* traddr=192.168.21.29,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
 ----
 ====
 --
