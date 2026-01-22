@@ -660,12 +660,25 @@ NOTE: Beginning with ONTAP 9.16.1, NVMe/TCP and NVMe/FC reports all optimized pa
 --
 This following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, and ASA systems and ASA r2 system with NVMe/FC.
 
-.AFF, FAS, and ASA systems
-----
-nvme list-subsys /dev/nvme4n5  
-----
+*AFF, FAS, and ASA systems*
 
 .Show example output
+[%collapsible]
+====
+[subs=+quotes]
+----
+ nvme-subsys114 - NQN=nqn.1992-08.com.netapp:sn.9e30b9760a4911f08c87d039eab67a95:subsystem.sles_161_27                       
+                 hostnqn=nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f iopolicy=round-robin\
++- nvme114 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2360d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live optimized*                                       
++- nvme115 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2362d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live non-optimized*
++- nvme116 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2361d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live optimized*
++- nvme117 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2363d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live non-optimized*
+----
+====
+
+*ASA r2 systems*
+
+.Show  example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -679,34 +692,14 @@ nvme-subsys96 - NQN=nqn.1992-08.om.netapp:sn.b351b2b6777b11f0b3c2d039ea5cfc91:su
  +- nvme32 *fc* traddr=nn-0x2011d039ea5cfc90:pn-0x2013d039ea5cfc90,host_traddr=nn-0x200000109bdacc76:pn-0x100000109bdacc76 *live optimized*
 ----
 ====
-
-.ASA r2 systems
-----
-nvme list-subsys /dev/nvme4n5  
-----
-.Show  example output
-[%collapsible]
-====
-[subs=+quotes]
-----
-nvme-subsys114 - NQN=nqn.1992-08.com.netapp:sn.9e30b9760a4911f08c87d039eab67a95:subsystem.sles_161_27                       
-                 hostnqn=nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f iopolicy=round-robin\
-+- nvme114 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2360d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live optimized*                                       
-+- nvme115 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2362d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live non-optimized*
-+- nvme116 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2361d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live optimized*
-+- nvme117 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2363d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live non-optimized*
-----
-====
 --
 
 .NVMe/TCP 
 --
 This following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, and ASA systems and ASA r2 systems with NVMe/TCP.
 
-.AFF, FAS, and ASA systems
-----
-nvme list-subsys /dev/nvme9n1 
-----
+*AFF, FAS, and ASA systems*
+
 .Show example output
 [%collapsible]
 ====
@@ -722,10 +715,8 @@ nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:su
 ----
 ====
 
-.ASA r2 systems
-----
-nvme list-subsys /dev/nvme4n2
-----
+*ASA r2 systems*
+
 .Show example output
 [%collapsible]
 ====
