@@ -20,16 +20,15 @@ Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varie
 
 |ONTAP feature | Proxmox host version | ONTAP version 
 
-| Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
-
-a|8.0 
-|9.10.1 or later
-
 |NVMe/TCP is a fully supported enterprise feature 
 a|9.0 
 |9.10.1 or later
-| NVMe and SCSI traffic is supported on the same host using NVMe multipath for NVMe-oF namespaces and dm-multipath for SCSI LUNs
 
+| Provides ONTAP details for both NVMe/FC and NVMe/TCP namespaces using the native `nvme-cli` package.
+a|8.0 
+|9.10.1 or later
+
+| NVMe and SCSI traffic is supported on the same host using NVMe multipath for NVMe-oF namespaces and dm-multipath for SCSI LUNs
 a|8.0 
 |9.4 or later
 |===
