@@ -41,7 +41,7 @@ ONTAP supports the following SAN host features regardless of the ONTAP version r
 |Feature | RHEL host version
 |Native NVMe multipathing is enabled by default
 a|10.0 or later
-|The native udev rule in `nvme-cli` package provides queue-depth load balancing for NVMe multipath
+|The native udev rule in the `nvme-cli` package provides queue-depth load balancing for NVMe multipathing
 a|9.6 or later	 
 |SAN booting is enabled using the NVMe/FC protocol
 a|9.4 or later
