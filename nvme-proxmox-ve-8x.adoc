@@ -117,6 +117,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
+.Steps 
+
 . Verify that you are using the supported adapter model: 
 
 .. Display the model names:
@@ -279,6 +281,8 @@ The expected output is 1.
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
+
+.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
