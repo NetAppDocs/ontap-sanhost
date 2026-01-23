@@ -40,7 +40,7 @@ include::_include/nvme/verify-software-version-introduction.adoc[]
 uname -r
 ----
 +
-Example Rocky Linux kernel version:
+Example SUSE Linux Enterprise Server kernel version:
 +
 ----
 6.12.0-160000.6-default 
@@ -970,7 +970,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-nnvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33
+nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33
 DHHC-1:03:ohdxI1yIS8gBLwIOubcwl57rXcozYuRgBsoWaBvxEvpDlQHn/7dQ4JjFGwmhgwdJWmVoripbWbMJy5eMAbCahN4hhYU=:
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
