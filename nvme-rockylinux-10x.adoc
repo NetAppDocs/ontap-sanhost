@@ -123,6 +123,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter model: 
 
 .. Display the model names:
@@ -267,6 +269,8 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -295,6 +299,8 @@ The expected output is 1.
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
+
+.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -446,6 +452,7 @@ Beginning with Rocky Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo time
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
+--
 =====
 
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
@@ -574,6 +581,8 @@ Secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 1
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
+.Steps
+
 Set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
 
 [role="tabbed-block"]
@@ -583,6 +592,7 @@ Set up secure in-band authentication using the CLI or a config JSON file. If you
 Set up secure in-band authentication using the CLI. 
 
 .Steps
+
 . Obtain the host NQN:
 +
 [source,cli]
@@ -678,7 +688,6 @@ When multiple NVMe subsystems are available on the ONTAP controller, you can use
 
 Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
 
-.Steps
 . Configure the JSON file.
 +
 [NOTE]

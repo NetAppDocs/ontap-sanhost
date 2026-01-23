@@ -136,6 +136,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 --
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
+.Steps
+
 . Verify that you're using the supported adapter model:
 
 .. Display the model names:
@@ -274,6 +276,8 @@ FCP CMPL: xb 00000016 Err 00000016
 --
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
+
+.Steps
 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
