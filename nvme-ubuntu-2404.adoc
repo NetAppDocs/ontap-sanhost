@@ -277,6 +277,7 @@ The expected ouptut is 1.
 --
 
 .NVMe/TCP
+--
 
 NVMe/TCP doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
 
@@ -385,7 +386,7 @@ sectype: none
 ----
 ====
 
-. Verify that the other NVMe/TCP initiator-target LIF combinations can fetch discovery log page data:
+. Verify that the other NVMe/TCP initiator-target LIF combinations can successfully retrieve discovery log page data:
 +
 [source,cli]
 ----
@@ -405,6 +406,7 @@ nvme discover -t tcp -w <host-traddr> -a <traddr>
 
 . Run the `nvme connect-all` command across all the supported NVMe/TCP initiator-target LIFs across the nodes:
 +
+[source,cli]
 ----
 nvme connect-all -t tcp -w <host-traddr> -a <traddr>
 ----
@@ -421,6 +423,7 @@ nvme connect-all -t tcp -w <host-traddr> -a <traddr>
 ====
 +
 NOTE: Beginning with Ubuntu 24.04, the ctrl_loss_tmo timeout default setting for NVMe/TCP is turned off. This means there is no limit on the number of retries (indefinite retry) and you don't need to manually configure a specific ctrl_loss_tmo timeout duration when using the `nvme connect` or `nvme connect-all` commands (option -l ). With this default behavior, the NVMe/TCP controllers don't experience timeouts in the event of a path failure and remain connected indefinitely.
+--
 
 =====
 
@@ -434,6 +437,7 @@ NVMe/TCP doesn't support the auto-connect functionality. Instead, you can manual
 
 . Verify that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
+[source,cli]
 ----
 nvme discover -t tcp -w <host-traddr> -a <traddr>
 ----
