@@ -433,7 +433,7 @@ include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 4: Verify multipathing configuration
 
-You can use the following procedure to validate NVME-oF.
+Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespaces are correct for the NVMe-oF configuration.
 
 .Steps
 
@@ -448,16 +448,27 @@ cat /sys/module/nvme_core/parameters/multipath
 +
 The expected output is "Y".
 
-. Verify that the appropriate NVMe-oF settings (such as, model set to "NetApp ONTAP Controller" and load balancing iopolicy set to "round-robin") for the respective ONTAP namespaces correctly display on the host:
-
+.. Display the subsystems:
++
+[source,cli]
+----
 .. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
+----
++
+You should see the following output:
 +
 ----
 NetApp ONTAP Controller
 NetApp ONTAP Controller
 ----
-
+.. Display the policy:
++
+[source,cli]
+----
 .. `cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy`
+----
++
+You should see the following output:
 +
 ---- 
 round-robin
@@ -466,6 +477,7 @@ round-robin
 
 . Verify that the namespaces are created and correctly discovered on the host:
 +
+[source,cli]
 ----
 nvme list
 ----
@@ -491,6 +503,7 @@ Namespace Usage   Format                FW            Rev
 =====
 .NVMe/FC
 --
+[source,cli]
 ----
 nvme list-subsys /dev/nvme0n1
 ----
@@ -511,6 +524,7 @@ nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:su
 
 .NVMe/TCP
 --
+[source,cli]
 ----
 nvme list-subsys /dev/nvme1n1
 ----
@@ -539,6 +553,7 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:su
 =====
 .Column
 --
+[source,cli]
 ----
 nvme netapp ontapdevices -o column
 ----
@@ -555,6 +570,7 @@ Device        Vserver        Namespace Path          NSID UUID                  
 --
 .JSON
 --
+[source,cli]
 ----
 nvme netapp ontapdevices -o json
 ----
@@ -584,6 +600,6 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Known issues
+== Step 5: Review the known issues
 
 There are no known issues for the NVMe-oF host configuration for Ubuntu 24.04 with ONTAP release.
