@@ -16,7 +16,7 @@ summary: How to Configure NVMe-oF Host for Ubuntu 24.04 with ONTAP
 
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Ubuntu 24.04 and Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath.
 
-Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Ubuntu 24.04. For more support and feature information, see link:nvme-ubuntu-supported-features.html[Ubuntu ONTAP support and features].
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Ubuntu 24.04. For more support and feature information, see link:nvme-rhel-supported-features.html[Ubuntu ONTAP support and features].
 
 
 NVMe-oF with Ubuntu 24.04 has the following known limitations:
