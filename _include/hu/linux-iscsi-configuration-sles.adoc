@@ -1,4 +1,4 @@
-To ensure that multipathing is configured correctly for your host, set the `timeout` parameter and confirm that the iSCSI service is running and connecting to the iSCSI targets.
+To ensure that multipathing is configured correctly for your host, set the `timeout` parameter on your host and confirm that the iSCSI service is running and connecting to the iSCSI targets.
 
 .Steps
 
@@ -25,7 +25,7 @@ Use lowercase, max 223 chars.
 node.session.timeo.replacement_timeout = 5
 ----
 +
-The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it. NetApp recommends setting the value of `replacement_timeout` to 5 in the iSCSI configuration file.
+The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it. You should set the value of `replacement_timeout` to 5 in the iSCSI configuration file.
 
 . Enable the iSCSI service:
 +
@@ -95,7 +95,7 @@ iscsiadm --mode discovery --op update --type sendtargets --portal  192.168.30.87
 $iscsiadm --mode node -l all
 ----
 
-. Set the automatic iSCSI login upon host boot:
+. Set iSCSI to log in automatically when the host boots:
 +
 [source,cli]
 ----
