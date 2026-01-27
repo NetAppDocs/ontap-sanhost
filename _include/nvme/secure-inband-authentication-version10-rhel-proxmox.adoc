@@ -2,6 +2,8 @@ Beginning with ONTAP 9.12.1, secure in-band authentication is supported over NVM
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
+.Steps
+
 Set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
 
 [role="tabbed-block"]
@@ -10,7 +12,6 @@ Set up secure in-band authentication using the CLI or a config JSON file. If you
 --
 Set up secure in-band authentication using the CLI. 
 
-.Steps
 . Obtain the host NQN:
 +
 [source,cli]
@@ -105,7 +106,6 @@ When multiple NVMe subsystems are available on the ONTAP controller configuratio
 
 Use the `-o` option to generate the JSON file. See the NVMe connect-all manual pages for more syntax options.
 
-.Steps
 . Configure the JSON file.
 +
 [NOTE]
