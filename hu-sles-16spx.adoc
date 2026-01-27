@@ -25,15 +25,19 @@ You can use multipathing with SUSE Linux Enterprise Server 16 to manage ONTAP LU
 
 include::_include/hu/multipathing.adoc[]
 
-== Step 4: Optionally, exclude a device from multipathing
+== Step 4: Confirm the iSCSI configuration for your host
+
+include::_include/hu/linux-iscsi-configuration-sles.adoc[]
+
+== Step 5: Optionally, exclude a device from multipathing
 
 include::_include/hu/exclude-device.adoc[]
 
-== Step 5: Customize multipath parameters for ONTAP LUNs
+== Step 6: Customize multipath parameters for ONTAP LUNs
 
 include::_include/hu/linux-customize-parameters.adoc[]
 
-== Step 6: Review the known issues
+== Step 7: Review the known issues
 
 There are no known issues.
 

@@ -6,13 +6,13 @@ To ensure that multipathing is configured correctly for your host, set the `time
 +
 [source,cli]
 ----
-$apt list |grep open-iscsi
+rpm -qa | grep open-iscsi
 ----
 +
 You should see an output similar to the following example:
 +
 ----
-open-iscsi/noble-updates,noble-updates,now 2.1.9-3ubuntu5.4 amd64
+open-iscsi-2.1.11-160000.2.2.x86_64
 ----
 
 . Set iSCSI Initiator node name:
@@ -59,18 +59,20 @@ $systemctl status iscsid
 [%collapsible]
 ====
 ----
-●iscsid.service - iSCSI initiator daemon (iscsid)
-     Loaded: loaded (/usr/lib/systemd/system/iscsid.service; disabled; preset: enabled)
-     Active: active (running) since Mon 2026-01-12 12:53:18 IST; 2 days ago
+● iscsid.service - Open-iSCSI
+     Loaded: loaded (/usr/lib/systemd/system/iscsid.service; disabled; preset: disabled)
+     Active: active (running) since Tue 2025-12-02 11:36:21 EST; 2 weeks 1 day ago
 TriggeredBy: ● iscsid.socket
        Docs: man:iscsid(8)
-   Main PID: 1127419 (iscsid)
-      Tasks: 2 (limit: 76557)
-     Memory: 4.3M (peak: 8.8M)
-        CPU: 1.657s
+             man:iscsiuio(8)
+             man:iscsiadm(8)
+   Main PID: 2263 (iscsid)
+     Status: "Ready to process requests"
+      Tasks: 1 (limit: 816061)
+     Memory: 18.5M
+        CPU: 14.480s
      CGroup: /system.slice/iscsid.service
-             ├─1127418 /usr/sbin/iscsid
-             └─1127419 /usr/sbin/iscsid
+             └─2263 /usr/sbin/iscsid -f -d2
 ----
 ====
 
@@ -85,11 +87,11 @@ $iscsiadm --mode discovery --op update --type sendtargets --portal <target_IP>
 [%collapsible]
 ====
 ----
-iscsiadm --mode discovery --op update --type sendtargets --portal  192.168.100.197
-192.168.100.197:3260,1046 iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8
-192.168.200.199:3260,1049 iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8
-192.168.100.199:3260,1048 iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8
-192.168.200.197:3260,1047 iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8
+iscsiadm --mode discovery --op update --type sendtargets --portal  192.168.30.87
+192.168.30.87:3260,1139 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23
+192.168.31.97:3260,1142 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23
+192.168.31.87:3260,1141 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23
+192.168.30.97:3260,1140 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23
 ----
 ====
 
@@ -110,7 +112,7 @@ $iscsiadm --mode node -T <target_name> -p <ip:port> -o update -n node.startup -v
 You should an ouptput similar to the following example:
 +
 ----
-iscsiadm --mode node -T iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8 -p 192.168.100.197:3260 -o update -n node.startup -v automatic
+iscsiadm --mode node -T iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 -p 192.168.30.87:3260 -o update -n node.startup -v automatic
 ----
 . Verify the iSCSI sessions:
 +
@@ -124,9 +126,9 @@ $iscsiadm --mode session
 ====
 ----
 iscsiadm --mode session
-tcp: [1] 192.168.200.197:3260,1047 iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8 (non-flash)
-tcp: [2] 192.168.100.197:3260,1046 iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8 (non-flash)
-tcp: [3] 192.168.100.199:3260,1048 iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8 (non-flash)
-tcp: [4] 192.168.200.199:3260,1049 iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8 (non-flash)
+tcp: [1] 192.168.30.87:3260,1139 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 (non-flash)
+tcp: [2] 192.168.31.97:3260,1142 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 (non-flash)
+tcp: [3] 192.168.31.87:3260,1141 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 (non-flash)
+tcp: [4] 192.168.30.97:3260,1140 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 (non-flash)
 ----
 ====
