@@ -217,7 +217,6 @@ cat /sys/class/scsi_host/host*/nvme_info
 ====
 [subs=+quotes]
 ----
-+
 NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
 NVME LPORT lpfc1 WWPN x100000109bf0447c WWNN x200000109bf0447c DID x022300 ONLINE
@@ -356,13 +355,15 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 [%collapsible]
 ====
 ----
-#	nvme	connect-all	-t	tcp	-w	10.10.10.47	-a	10.10.10.122 -l	1800
-#	nvme	connect-all	-t	tcp	-w	10.10.10.47	-a	10.10.10.124 -l	1800
-#	nvme	connect-all	-t	tcp	-w	10.10.11.47	-a	10.10.11.122 -l	1800
-#	nvme	connect-all	-t	tcp	-w	10.10.11.47	-a	10.10.11.124 -l	1800
+#nvme	connect-all	-t	tcp	-w	10.10.10.47	-a	10.10.10.122 -l	1800
+#nvme	connect-all	-t	tcp	-w	10.10.10.47	-a	10.10.10.124 -l	1800
+#nvme	connect-all	-t	tcp	-w	10.10.11.47	-a	10.10.11.122 -l	1800
+#nvme	connect-all	-t	tcp	-w	10.10.11.47	-a	10.10.11.124 -l	1800
 ----
 ====
 --
+
+====
 
 == Step 3: Optionally, enable 1MB I/O for NVMe/FC
 
