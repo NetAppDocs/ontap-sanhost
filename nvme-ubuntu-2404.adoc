@@ -16,6 +16,13 @@ summary: How to Configure NVMe-oF Host for Ubuntu 24.04 with ONTAP
 
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Ubuntu 24.04 and Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath.
 
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Ubuntu 24.04. For more support and feature information, see link:nvme-ubuntu-supported-features.html[Ubuntu ONTAP support and features].
+
+
+NVMe-oF with Ubuntu 24.04 has the following known limitations:
+
+SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 24.04 with ONTAP.
+
 The following support is available for the NVMe-oF host configuration for Ubuntu 24.04 with ONTAP:
 
 * The NetApp plug-in in the native nvme-cli package displays ONTAP details for NVMe/FC namespaces.
@@ -27,10 +34,6 @@ For additional details on supported configurations, see the link:https://mysuppo
 == Features
 
 Ubuntu 24.04 has in-kernel NVMe multipath enabled for NVMe namespaces by default. This means you don't need explicit settings.
-
-== Known limitations
-
-SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 24.04 with ONTAP.
 
 == Validate software versions
 
@@ -100,7 +103,7 @@ If the `hostnqn` strings don't match, use the `vserver modify` command to update
 
 == Step 2: Configure NVMe/FC and NVMe/TCP
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters.
+You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
 
 [role="tabbed-block"]
 =====
@@ -166,7 +169,6 @@ The following example shows a driver version:
 ----
 0:14.2.0.17
 ----
-
 +
 For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
@@ -544,8 +546,6 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:su
 ----
 ====
 --
-=====
-
 
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
