@@ -6,11 +6,6 @@ To ensure that multipathing is configured correctly for your host, set the `time
 [source,cli]
 ----
 rpm -qa | grep iscsi-initiator-utils
-----
-+
-You should see an output similar to the following example:
-+
-----
 iscsi-initiator-utils-6.2.1.11-0.git4b3e853.el9.x86_64
 ----
 
@@ -18,7 +13,6 @@ iscsi-initiator-utils-6.2.1.11-0.git4b3e853.el9.x86_64
 +
 [source,cli]
 ----
-Edit /etc/iscsi/initiatorname.iscsi.
 Format: InitiatorName=iqn.YYYY-MM.com.vendor:<host_name>
 Use lowercase, max 223 chars.
 ----
@@ -27,7 +21,6 @@ Use lowercase, max 223 chars.
 +
 [source,cli]
 ----
-Edit /etc/iscsi/iscsid.conf:
 node.session.timeo.replacement_timeout = 5
 ----
 +
@@ -59,7 +52,7 @@ $systemctl status iscsid
 ====
 ----
 ● iscsid.service - Open-iSCSI
-     Loaded: loaded (/usr/lib/systemd/system/iscsid.service; disabled; preset: disabled)
+     Loaded: loaded (/usr/lib/systemd/system/iscsid.service; enabled; preset: enabled)
      Active: active (running) since Tue 2025-12-02 11:36:21 EST; 2 weeks 1 day ago
 TriggeredBy: ● iscsid.socket
        Docs: man:iscsid(8)
