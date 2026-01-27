@@ -106,6 +106,7 @@ You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters, or con
 ====
 .Broadcom/Emulex
 --
+
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
 . Verify that you are using the supported adapter model:
@@ -297,7 +298,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 ====
 [subs=+quotes]
 ----
-# nvme discover -t tcp -w 10.10.11.47-a 10.10.10.122
+#nvme discover -t tcp -w 10.10.11.47-a 10.10.10.122
 Discovery Log Number of Records 8, Generation counter 10
 =====Discovery Log Entry 0======
 trtype:  tcp
@@ -336,6 +337,7 @@ nvme discover -t tcp -w host-traddr -a traddr
 .Show example output
 [%collapsible]
 ====
+[subs=+quotes]
 ----
 #nvme discover -t tcp -w 10.10.10.47 -a 10.10.10.122
 #nvme discover -t tcp -w 10.10.10.47 -a 10.10.10.124
@@ -354,6 +356,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 .Show example output
 [%collapsible]
 ====
+[subs=+quotes]
 ----
 #nvme	connect-all	-t	tcp	-w	10.10.10.47	-a	10.10.10.122 -l	1800
 #nvme	connect-all	-t	tcp	-w	10.10.10.47	-a	10.10.10.124 -l	1800
@@ -361,9 +364,10 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 #nvme	connect-all	-t	tcp	-w	10.10.11.47	-a	10.10.11.124 -l	1800
 ----
 ====
+
 --
 
-====
+
 
 == Step 3: Optionally, enable 1MB I/O for NVMe/FC
 
