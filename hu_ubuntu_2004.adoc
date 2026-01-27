@@ -15,7 +15,12 @@ summary: Configure Ubuntu 20.04 for multipathing and with specific parameters an
 [.lead]
 Configure Ubuntu 20.04 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage. 
 
-include::_include/hu/linux-introduction-note-ubuntu.adoc[]
+[NOTE]
+====
+The Linux Host Utilities software package doesn't support Ubuntu operating systems.
+
+You don't need to manually configure Kernel-based Virtual Machine (KVM) settings because ONTAP LUNs are automatically mapped to the hypervisor.
+====
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
