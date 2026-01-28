@@ -21,7 +21,7 @@ Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Ubuntu 24.04. For m
 
 NVMe-oF with Ubuntu 24.04 has the following known limitations:
 
-SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 24.04 with ONTAP.
+* SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 24.04 with ONTAP.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
@@ -99,6 +99,8 @@ Configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters, or configure N
 .Broadcom/Emulex
 --
 Configure NVMe/FC for a Broadcom/Emulex adapter.
+
+.Steps
 
 . Verify that you're using the supported adapter model: 
 
@@ -243,6 +245,8 @@ The native inbox qla2xxx driver included in the Ubuntu 24.04 GA kernel has the l
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -272,6 +276,8 @@ The expected ouptut is 1.
 
 NVMe/TCP doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
 
+.Steps
+
 . Check that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
 [source,cli]
@@ -295,7 +301,7 @@ portid:  4
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:discovery
 traddr:  192.168.167.156
-eflags:  *explicit discovery connections, duplicate discovery information*
+eflags:  *explicit discovery connections*, *duplicate discovery* information*
 sectype: *none*
 =====Discovery Log Entry 1======
 trtype:  tcp
@@ -306,7 +312,7 @@ portid:  2
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:discovery
 traddr:  192.168.166.156
-eflags:  *explicit discovery connections, duplicate discovery information*
+eflags:  *explicit discovery connections*, *duplicate discovery* information*
 sectype: *none*
 =====Discovery Log Entry 2======
 trtype:  tcp
@@ -317,7 +323,7 @@ portid:  3
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:discovery
 traddr:  192.168.167.155
-eflags:  *explicit discovery connections, duplicate discovery information*
+eflags:  *explicit discovery connections*, *duplicate discovery* information*
 sectype: *none*
 =====Discovery Log Entry 3======
 trtype:  tcp
@@ -328,12 +334,12 @@ portid:  1
 trsvcid: 8009
 subnqn:  nqn.1992-08.com.netapp:sn.9b7d42b764ff11efb8fed039eabac370:discovery
 traddr:  192.168.166.155
-eflags:  *explicit discovery connections, duplicate discovery information*
+eflags:  *explicit discovery connections*, *duplicate discovery* information*
 sectype: *none*
 =====Discovery Log Entry 4======
 trtype:  tcp
 adrfam:  ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq:    not specified
 portid:  4
 trsvcid: 4420
@@ -344,7 +350,7 @@ sectype: none
 =====Discovery Log Entry 5======
 trtype:  tcp
 adrfam:  ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq:    not specified
 portid:  2
 trsvcid: 4420
@@ -355,7 +361,7 @@ sectype: none
 =====Discovery Log Entry 6======
 trtype:  tcp
 adrfam:  ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq:    not specified
 portid:  3
 trsvcid: 4420
@@ -366,7 +372,7 @@ sectype: none
 =====Discovery Log Entry 7======
 trtype:  tcp
 adrfam:  ipv4
-subtype: nvme subsystem
+subtype: *nvme subsystem*
 treq:    not specified
 portid:  1
 trsvcid: 4420
@@ -430,7 +436,7 @@ Verify that the in-kernel NVMe multipath status, ANA status, and ONTAP namespace
 
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to round-robin) for the respective ONTAP namespaces correctly display on the host:
 
-..Verify that the in-kernel NVMe multipath is enabled:
+.. Verify that the in-kernel NVMe multipath is enabled:
 +
 [source,cli]
 ----
@@ -443,7 +449,7 @@ The expected output is "Y".
 +
 [source,cli]
 ----
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/model`
+cat /sys/class/nvme-subsystem/nvme-subsys*/model
 ----
 +
 You should see the following output:
@@ -456,7 +462,7 @@ NetApp ONTAP Controller
 +
 [source,cli]
 ----
-.. `cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy`
+cat /sys/class/nvme-subsystem/nvme-subsys*/iopolicy
 ----
 +
 You should see the following output:
