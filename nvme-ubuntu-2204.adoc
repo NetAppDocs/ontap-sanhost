@@ -439,7 +439,7 @@ Namespace Usage    Format             FW             Rev
 . Verify that the controller state of each path is live and has the correct ANA status:
 +
 [role="tabbed-block"]
-====
+=====
 .NVMe/FC
 --
 [source,cli]
@@ -461,7 +461,7 @@ nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.8763d311b2ac11ed950ed039ea951c46:su
 ====
 --
 
-.NVME/TCP
+.NVMe/TCP
 --
 [source,cli]
 ----
@@ -482,10 +482,12 @@ nvme-subsys1 - NQN=nqn.1992- 08.com.netapp:sn. bbfb4ee8dfb611edbd07d039ea165590:
 ====
 --
 
+=====
+
 . Verify that the NetApp plug-in displays the correct values for each ONTAP namespace device:
 +
 [role="tabbed-block"]
-====
+=====
 .Column
 --
 [source,cli]
@@ -541,6 +543,8 @@ NSID       UUID                                   Size
 ----
 ====
 --
+
+=====
 
 == Step 5: Review the known issues
 
