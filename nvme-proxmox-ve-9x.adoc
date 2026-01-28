@@ -139,7 +139,7 @@ SN1700E2P
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-You should see output similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 HPE SN1700E 64Gb 2p FC HBA 
@@ -192,7 +192,7 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-You should see output similar to:
+You should an see output similar to:
 +
 ----
 0x10005ced8c531948
