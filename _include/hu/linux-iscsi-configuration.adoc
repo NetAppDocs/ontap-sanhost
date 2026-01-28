@@ -6,18 +6,22 @@ To ensure that multipathing is configured correctly for your host, set the `time
 [source,cli]
 ----
 rpm -qa | grep iscsi-initiator-utils
+----
++
+You  should see an output similar to the following example:
++
+----
 iscsi-initiator-utils-6.2.1.11-0.git4b3e853.el9.x86_64
 ----
 
-. Set iSCSI Initiator node name:
+. Verify the iSCSI initiator node name located in the `/etc/iscsi/initiatorname.iscsi` file:
 +
 [source,cli]
 ----
-Format: InitiatorName=iqn.YYYY-MM.com.vendor:<host_name>
-Use lowercase, max 223 chars.
+InitiatorName=iqn.YYYY-MM.com.<vendor>:<host_name>
 ----
 
-. Configure the iSCSI session timeout parameter:
+. Configure the iSCSI session timeout parameter located in the `/etc/iscsi/iscsid.conf` file:
 +
 [source,cli]
 ----
