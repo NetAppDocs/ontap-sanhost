@@ -250,10 +250,9 @@ FCP CMPL: xb 00000000 Err 00000000
 
 .Marvell/QLogic
 --
-
-The native inbox qla2xxx driver included in the Ubuntu 22.04 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support. 
-
 Configure NVMe/FC for a Marvell/QLogic adapter.
+
+The native inbox qla2xxx driver included in the Ubuntu 22.04 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support.
 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
