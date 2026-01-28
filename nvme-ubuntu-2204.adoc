@@ -293,7 +293,7 @@ If a path goes down and is not reinstated within the default time out period of 
 nvme discover -t tcp -w host-traddr -a traddr
 ----
 +
-.Show example
+.Show example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -367,6 +367,7 @@ nvme connect-all -t tcp -w host-traddr -a traddr -l 1800
 
 --
 
+====
 
 
 == Step 3: Optionally, enable 1MB I/O for NVMe/FC
