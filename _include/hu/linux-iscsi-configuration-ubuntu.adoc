@@ -104,7 +104,7 @@ $iscsiadm --mode node -l all
 $iscsiadm --mode node -T <target_name> -p <ip:port> -o update -n node.startup -v automatic
 ----
 +
-You should an ouptput similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 iscsiadm --mode node -T iqn.1992-08.com.netapp:sn.7cd154a7d35411f0a25ed039eaa95f59:vs.8 -p 192.168.100.197:3260 -o update -n node.startup -v automatic
