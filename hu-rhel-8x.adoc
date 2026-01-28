@@ -28,11 +28,19 @@ You can use multipathing with RHEL 8.x to manage ONTAP LUNs.
 
 include::_include/hu/linux-rhel-multipathing.adoc[]
 
+== Step 4: Confirm the iSCSI configuration for your host
+
+include::_include/hu/linux-iscsi-configuration.adoc[]
+
+== Step 5: Optionally, exclude a device from multipathing
+
 include::_include/hu/exclude-device.adoc[]
+
+== Step 6: Customize multipath parameters for ONTAP LUNs
 
 include::_include/hu/linux-customize-parameters.adoc[]
 
-== Step 6: Review the known issues
+== Step 7: Review the known issues
 
 RHEL 8.x with ONTAP storage has the following known issues.
 
@@ -76,4 +84,5 @@ include::_include/hu/asm-mirroring.adoc[]
 
 include::_include/hu/kvm-redhat.adoc[]
 
+// 2026 JAN 28, ONTAPDOC-3486
 // 2025 Dec 17, ONTAPDOC-3531

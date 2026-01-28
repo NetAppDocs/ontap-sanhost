@@ -1,5 +1,3 @@
-== Step 4: Optionally, exclude a device from multipathing
-
 If required, you can exclude a device from multipathing by adding the WWID for the unwanted device to the "blacklist" stanza for the `multipath.conf` file.
 
 .Steps
