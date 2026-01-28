@@ -42,7 +42,7 @@ ONTAP supports the following SAN host features regardless of the ONTAP version r
 |===
 
 |Feature | Oracle Linux host version
-|The native udev rule in `nvme-cli` package provides queue-depth load balancing for NVMe multipath
+|The native udev rule in the `nvme-cli` package provides queue-depth load balancing for NVMe multipathing
 a|9.6 or later 
 |SAN booting is enabled using the NVMe/FC protocol
 a|9.5 or later 
@@ -50,7 +50,7 @@ a|9.5 or later
 a|8.3 or later
 |The `nvme-cli` package includes auto-connect scripts removing the need for third-party scripts
 a|8.3 or later 
-|The native udev rule in `nvme-cli` package provides round-robin load balancing for NVMe multipath
+|The native udev rule in the `nvme-cli` package provides round-robin load balancing for NVMe multipathing
 a|8.3 or later
 |===
 

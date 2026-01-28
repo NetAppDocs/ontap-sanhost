@@ -55,6 +55,7 @@ The following table shows the Linux OS native compiled multipath parameter setti
 |===
 ====
 
+
 . Verify the parameter settings and path status for your ONTAP LUNs:
 +
 [source,cli]
@@ -111,3 +112,5 @@ size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 ====
 --
 =====
+
+// 2025 Dec 17, ONTAPDOC-3486

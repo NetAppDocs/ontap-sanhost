@@ -26,9 +26,13 @@ You can use multipathing with Proxmox VE 8.x to manage ONTAP LUNs.
 
 include::_include/hu/proxmox-multipathing.adoc[]
 
-include::_include/hu/exclude-device-step2.adoc[]
+== Step 2: Optionally, exclude a device from multipathing
 
-include::_include/hu/linux-customize-parameters-step3.adoc[]
+include::_include/hu/exclude-device.adoc[]
+
+== Step 3: Customize multipath parameters for ONTAP LUNs
+
+include::_include/hu/linux-customize-parameters.adoc[]
 
 == Step 4: Review the known issues
 

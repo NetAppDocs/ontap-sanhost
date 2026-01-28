@@ -1,8 +1,0 @@
-For All SAN Array (ASA) and Non-ASA configurations, you can use the `multipath -ll` command to verify the settings for an ONTAP LUN, as shown in the following examples.
-
-NOTE: A single LUN shouldn't require more than four paths. More than eight paths might cause path issues during storage failures.
-
-=== ASA configurations
-In ASA configurations, all paths to a given LUN are active and optimized. This improves performance by serving I/O operations through all paths at the same time.
-
-The following example displays the correct output for an ONTAP LUN mapped to an ASA persona:

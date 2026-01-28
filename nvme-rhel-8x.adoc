@@ -138,6 +138,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter model:
 
 .. Display the model names:
@@ -161,7 +163,7 @@ LPe32002-M2
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-You should see output similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 Emulex LightPulse LPe32002-M2 2-Port 32Gb Fibre Channel Adapter
@@ -214,7 +216,7 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-You should see output similar to:
+You should see an output similar to:
 +
 ----
 0x10000090fae0ec88
@@ -280,6 +282,8 @@ FCP CMPL: xb 00000368 Err 00000382
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -308,6 +312,8 @@ The expected output is 1.
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
+
+.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
