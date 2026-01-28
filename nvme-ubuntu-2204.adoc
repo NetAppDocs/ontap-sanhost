@@ -4,7 +4,9 @@ permalink: nvme-ubuntu-2204.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for Ubuntu 22.04 with ONTAP
 ---
-= NVMe-oF host configuration for Ubuntu 24.04 with ONTAP
+
+= Configure Ubuntu 22.04 for NVMe-oF with ONTAP storage
+
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -16,28 +18,18 @@ summary: How to Configure NVMe-oF Host for Ubuntu 22.04 with ONTAP
 
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Ubuntu 22.04 with Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath.
 
-NVMe-oF with Ubuntu 24.04 has the following known limitations:
+Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Ubuntu 22.04. For more support and feature information, see link:nvme-ubuntu-supported-features.html[Ubuntu ONTAP support and features].
 
-SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 24.04 with ONTAP.
+NVMe-oF with Ubuntu 22.04 has the following known limitations:
 
-The following support is available for the NVMe-oF host configuration for Ubuntu 22.04 with ONTAP:
-
-* The NetApp plug-in in the native nvme-cli package displays ONTAP details for NVMe/FC namespaces.
-
-* Use of NVMe and SCSI co-existent traffic on the same host on a given host bus adapter (HBA), without the explicit dm-multipath settings to prevent claiming NVMe namespaces.
+SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 22.04 with ONTAP.
 
 For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
-== Features
-
-Ubuntu 22.04 has in-kernel NVMe multipath enabled for NVMe namespaces by default. Therefore, there is no need for explicit settings.
-
-
-== Validate software versions
-
-You can use the following procedure to validate the minimum supported Ubuntu 22.04 software versions.
 
 == Step 1: Install Ubuntu and NVMe software and verify your configuration
+
+include::_include/nvme/verify-software-version-introduction.adoc[]
 
 . Install Ubuntu 22.04 on the server. After the installation is complete, verify that you are running the specified Ubuntu 22.04 kernel:
 +
@@ -46,7 +38,7 @@ You can use the following procedure to validate the minimum supported Ubuntu 22.
 # uname -r
 ----
 +
-*Example output:*
+Example Ubuntu kernel version:
 +
 ----
 5.15.0-101-generic
@@ -78,29 +70,29 @@ The following example shows an `hostnqn` version:
 nqn.2014-08.org.nvmexpress:uuid:063a9fa0-438a-4737-b9b4-95a21c66d041
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. On the ONTAP system, Verify that the `hostnqn` string from `/etc/nvme/hostnqn` matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
 +
 [source,cli]
 ----
 ::> vserver nvme subsystem host show -vserver vs_106_fc_nvme
 ----
 +
-*Example output:*
-+
+.Show example
+[%collapsible]
+====
 ----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
 vs_106_fc_nvme ub_106 nqn.2014-08.org.nvmexpress:uuid:c04702c8-e91e-4353-9995-ba4536214631
-
 ----
+====
 +
 [NOTE]
-If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP array subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
-
+If the `hostnqn` strings do not match, use the `vserver modify` command to update the `hostnqn` string on your corresponding ONTAP storage system subsystem to match the `hostnqn` string from `/etc/nvme/hostnqn` on the host.
 
 == Step 2: Configure NVMe/FC and NVMe/TCP
 
-You can configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
+Configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters, or configure NVMe/TCP using manual discovery and connect operations.
 
 [role="tabbed-block"]
 =====
@@ -175,10 +167,8 @@ For the current list of supported adapter driver and firmware versions, see the 
 ----
 # cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 ----
-+
-The expected output is 3.
 
-. Verify that the initiator ports are up and running and that you can see the target LIFs:
+. Verify that you can view your initiator ports:
 +
 [source,cli]
 ----
@@ -249,9 +239,10 @@ FCP CMPL: xb 00000000 Err 00000000
 
 .Marvell/QLogic
 --
-Configure NVMe/FC for a Marvell/QLogic adapter.
 
 The native inbox qla2xxx driver included in the Ubuntu 22.04 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support.
+
+Configure NVMe/FC for a Marvell/QLogic adapter.
 
 . Verify that you are running the supported adapter driver and firmware versions:
 +
