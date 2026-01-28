@@ -70,7 +70,7 @@ The following example shows an `hostnqn` version:
 nqn.2014-08.org.nvmexpress:uuid:ace18dd8-1f5a-11ec-b0c3-3a68dd61a6ff 
 ----
 
-. On the ONTAP system, Verify that the `hostnqn` string from `/etc/nvme/hostnqn` matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
+. On the ONTAP system, verify that the `hostnqn` string from `/etc/nvme/hostnqn` matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
 +
 [source,cli]
 ----
