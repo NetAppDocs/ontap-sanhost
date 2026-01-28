@@ -9,13 +9,13 @@ To ensure that multipathing is configured correctly for your host, set the `time
 $apt list |grep open-iscsi
 ----
 +
-You  should see an output similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 open-iscsi/noble-updates,noble-updates,now 2.1.9-3ubuntu5.4 amd64
 ----
 
-. Verify the iSCSI initiator node name located in the `/etc/iscsi/initiatorname.iscsi` file:
+. Verify the iSCSI initiator node name, which is located in the `/etc/iscsi/initiatorname.iscsi` file:
 +
 [source,cli]
 ----

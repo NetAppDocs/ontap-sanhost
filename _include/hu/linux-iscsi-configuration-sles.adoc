@@ -9,13 +9,13 @@ To ensure that multipathing is configured correctly for your host, set the `time
 rpm -qa | grep open-iscsi
 ----
 +
-You  should see an output similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 open-iscsi-2.1.11-160000.2.2.x86_64
 ----
 
-. Verify the iSCSI initiator node name located in the `/etc/iscsi/initiatorname.iscsi` file:
+. Verify the iSCSI initiator node name, which is located in the `/etc/iscsi/initiatorname.iscsi` file:
 +
 ----
 InitiatorName=iqn.YYYY-MM.com.<vendor>:<host_name>
