@@ -216,7 +216,7 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-You should an see output similar to:
+You should see an output similar to:
 +
 ----
 0x10000090fae0ec88
