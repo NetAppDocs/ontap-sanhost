@@ -67,11 +67,14 @@ The default multipath parameters support ASA, AFF, and FAS configurations. In th
 The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration. 
 +
 [role="tabbed-block"]
-====
+=====
 .ASA configuration
 --
 An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time. 
 
+.Show example
+[%collapsible]
+====
 ----
 /usr/sbin/mpathutil status
 show topology
@@ -83,6 +86,7 @@ size=9.0G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_han
   |- 16:0:0:0  sdcf 69:48   active ready running
   `- 16:0:1:0  sdcg 69:64   active ready running
 ----
+====
 --
 .AFF or FAS configuration
 --
@@ -90,6 +94,9 @@ An AFF or FAS configuration should have two groups of paths with higher and lowe
 
 The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 
+.Show example
+[%collapsible]
+====
 ----
 /usr/sbin/mpathutil status
 show topology
@@ -102,5 +109,6 @@ size=9.0G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_han
      |- 16:0:0:0  sdcf 69:48   active ready running
      `- 16:0:1:0  sdcg 69:64   active ready running
 ----
---
 ====
+--
+=====
