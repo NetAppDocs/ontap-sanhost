@@ -1,0 +1,130 @@
+To ensure that multipathing is configured correctly for your host, set the `timeout` parameter on your host and confirm that the iSCSI service is running and connecting to the iSCSI targets.
+
+.Steps
+
+. Verify that the iSCSI initiator package (iscsi-initiator-utils) is installed: 
++
+[source,cli]
+----
+rpm -qa | grep open-iscsi
+----
++
+You should see an output similar to the following example:
++
+----
+open-iscsi-2.1.11-160000.2.2.x86_64
+----
+
+. Verify the iSCSI initiator node name, which is located in the `/etc/iscsi/initiatorname.iscsi` file:
++
+----
+InitiatorName=iqn.YYYY-MM.com.<vendor>:<host_name>
+----
+
+. Configure the iSCSI session timeout parameter located in the `/etc/iscsi/iscsid.conf` file:
++
+[source,cli]
+----
+node.session.timeo.replacement_timeout = 5
+----
++
+The iSCSI `replacement_timeout` parameter controls how long the iSCSI layer should wait for a timed-out path or session to reestablish itself before failing any commands on it. You should set the value of `replacement_timeout` to 5 in the iSCSI configuration file.
+
+. Enable the iSCSI service:
++
+[source,cli]
+----
+$systemctl enable iscsid
+----
+
+. Start the iSCSI service:
++
+[source,cli]
+----
+$systemctl start iscsid
+----
+
+. Verify that the iSCSI service is running:
++
+[source,cli]
+----
+$systemctl status iscsid
+----
++
+.Show example
+[%collapsible]
+====
+----
+● iscsid.service - Open-iSCSI
+     Loaded: loaded (/usr/lib/systemd/system/iscsid.service; enabled; preset: disabled)
+     Active: active (running) since Tue 2025-12-02 11:36:21 EST; 2 weeks 1 day ago
+TriggeredBy: ● iscsid.socket
+       Docs: man:iscsid(8)
+             man:iscsiuio(8)
+             man:iscsiadm(8)
+   Main PID: 2263 (iscsid)
+     Status: "Ready to process requests"
+      Tasks: 1 (limit: 816061)
+     Memory: 18.5M
+        CPU: 14.480s
+     CGroup: /system.slice/iscsid.service
+             └─2263 /usr/sbin/iscsid -f -d2
+----
+====
+
+. Discover the iSCSI targets:
++
+[source,cli]
+----
+$iscsiadm --mode discovery --op update --type sendtargets --portal <target_IP>
+----
++
+.show example
+[%collapsible]
+====
+----
+iscsiadm --mode discovery --op update --type sendtargets --portal  192.168.30.87
+192.168.30.87:3260,1139 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23
+192.168.31.97:3260,1142 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23
+192.168.31.87:3260,1141 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23
+192.168.30.97:3260,1140 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23
+----
+====
+
+. Log in to the targets:
++
+[source,cli]
+----
+$iscsiadm --mode node -l all
+----
+
+. Set iSCSI to log in automatically when the host boots:
++
+[source,cli]
+----
+$iscsiadm --mode node -T <target_name> -p <ip:port> -o update -n node.startup -v automatic
+----
++
+You should see an output similar to the following example:
++
+----
+iscsiadm --mode node -T iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 -p 192.168.30.87:3260 -o update -n node.startup -v automatic
+----
+. Verify the iSCSI sessions:
++
+[source,cli]
+----
+$iscsiadm --mode session
+----
++
+.Show example
+[%collapsible]
+====
+----
+iscsiadm --mode session
+tcp: [1] 192.168.30.87:3260,1139 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 (non-flash)
+tcp: [2] 192.168.31.97:3260,1142 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 (non-flash)
+tcp: [3] 192.168.31.87:3260,1141 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 (non-flash)
+tcp: [4] 192.168.30.97:3260,1140 iqn.1992-08.com.netapp:sn.064a9b19b3ee11f09dcad039eabac370:vs.23 (non-flash)
+----
+====
