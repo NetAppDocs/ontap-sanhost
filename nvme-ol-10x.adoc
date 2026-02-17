@@ -753,7 +753,7 @@ cat /etc/nvme/hostnqn
 ----
 . Generate the dhchap key for the Linux host.
 +
-The following output describes the `gen-dhchap-key` command paramters:
+The following output describes the `gen-dhchap-key` command parameters:
 +
 ----
 nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function {0|1|2|3} -n host_nqn 
