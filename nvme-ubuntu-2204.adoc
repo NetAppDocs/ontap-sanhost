@@ -22,9 +22,9 @@ Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Ubuntu 22.04. For m
 
 NVMe-oF with Ubuntu 22.04 has the following known limitations:
 
-SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 22.04 with ONTAP.
+* SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 22.04 with ONTAP.
 
-For additional details on supported configurations, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
+For additional details on supported configurations, see the link:httpsupport.netapp.com/matrix/[Interoperability Matrix Tool^].
 
 
 == Step 1: Install Ubuntu and NVMe software and verify your configuration
