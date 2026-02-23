@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: hu-ol-10x.html
-keywords: host utilities, oracle, linux, 10, netapp, ontap
-summary: Install the Linux Host Utilities on an Oracle Linux 10 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
+keywords: host utilities, oracle, linux, 10.x, netapp, ontap
+summary: Install the Linux Host Utilities on an Oracle Linux 10.x host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Configure Oracle Linux 10 for FCP and iSCSI with ONTAP storage
+= Configure Oracle Linux 10.x for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,7 +13,7 @@ summary: Install the Linux Host Utilities on an Oracle Linux 10 host to manage F
 :imagesdir: ./media/
 
 [.lead]
-The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on an Oracle Linux 10 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on an Oracle Linux 10.x host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
@@ -21,7 +21,7 @@ include::_include/hu/install-linux-host-utilities.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
-You can use multipathing with Oracle Linux 10 to manage ONTAP LUNs.
+You can use multipathing with Oracle Linux 10.x to manage ONTAP LUNs.
 
 include::_include/hu/linux-ol-multipathing.adoc[]
 
