@@ -449,7 +449,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
 
-The Oracle Linux 10 host sets the default iopolicy for NVMe-oF to `queue-depth`. Beginning with Oracle Linux 9.6, you can change the iopolicy to `round-robin` by modifying the udev rules file.
+The Oracle Linux 10 host sets the default iopolicy for NVMe-oF to `queue-depth`. You can change the iopolicy to `round-robin` by modifying the udev rules file.
 
 .Steps
 
