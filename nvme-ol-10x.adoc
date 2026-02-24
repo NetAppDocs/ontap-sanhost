@@ -273,7 +273,7 @@ Configure NVMe/FC for a Marvell/QLogic adapter.
 cat /sys/class/fc_host/host*/symbolic_name
 ----
 +
-The follow example shows driver and firmware versions:
+The following example shows driver and firmware versions:
 +
 ----
 QLE2772 FW:v9.15.03 DVR:v10.02.09.300-k
