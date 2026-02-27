@@ -658,9 +658,9 @@ NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized pat
 
 .NVMe/FC 
 --
-This following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, and ASA systems and ASA r2 system with NVMe/FC.
+The following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, ASA, or ASA r2 system with NVMe/FC.
 
-.Show AFF, FAS, and ASA example output
+.Show example output for AFF, FAS, or ASA r2
 [%collapsible]
 ====
 [subs=+quotes]
@@ -674,7 +674,7 @@ This following example outputs show a namespace hosted on a two-node ONTAP contr
 ----
 ====
 
-.Show ASA r2 example output
+.Show example output for ASA r2
 [%collapsible]
 ====
 [subs=+quotes]
@@ -692,9 +692,9 @@ nvme-subsys96 - NQN=nqn.1992-08.om.netapp:sn.b351b2b6777b11f0b3c2d039ea5cfc91:su
 
 .NVMe/TCP 
 --
-This following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, and ASA systems and ASA r2 systems with NVMe/TCP.
+The following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, ASA, or ASA r2 systems with NVMe/TCP.
 
-.Show AFF, FAS, and ASA example output
+.Show example output for AFF, FAS, or ASA
 [%collapsible]
 ====
 [subs=+quotes]
@@ -709,7 +709,7 @@ nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:su
 ----
 ====
 
-.Show ASA r2 example output
+.Show example output for ASA r2
 [%collapsible]
 ====
 [subs=+quotes]
