@@ -1298,6 +1298,13 @@ nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:su
 ----
 ====
 
+.. Export the TLS PSK from the kernel keyring. This ensures that the key persists during a host reboot:
++
+[source,cli]
+----
+# nvme tls --export --keyfile /etc/nvme/tls-keys
+----
+
 . Add the target, and verify the TLS connection to the specified ONTAP subsystem:
 +
 [source,cli]
@@ -1341,5 +1348,6 @@ Authentication Diffie-Hellman Group: 3072-bit
 
 There are no known issues. 
 
+// 2026 FEB 27, ONTAPDOC-3351
 // 2025 JUN 9, ONTAPDOC-3028
 // 2024 NOV 5, ONTAPDOC-2390
