@@ -455,7 +455,12 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
 
-RHEL 10.1 sets the default iopolicy for NVMe-oF to `queue-depth`. If you are using RHEL 10.0 and want to change the iopolicy to `queue-depth`, modify the udev rules file as follows:
+.Changes to iopolicy for RHEL 10.x Releases
+
+* Beginning with RHEL 10.1, the default iopolicy is queue-depth.
+* In RHEL 10.0, round-robin is the default iopolicy, but queue-depth is available as a configurable option.
+
+If you are using RHEL 10.0 and want to change the iopolicy to queue-depth, modify the udev rules file as follows:
 
 .Steps
 
