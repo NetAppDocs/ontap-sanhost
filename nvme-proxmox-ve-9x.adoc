@@ -384,7 +384,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 3: Optionally, modify the iopolicy in the udev rules
 
-Beginning with Proxmox VE 9.0, the default iopolicy for NVMe-oF is set to `queue-depth`. If you want to change the iopolicy to `round-robin`, modify the udev rules file as follows:
+Beginning with Proxmox VE 9.0, the default iopolicy for NVMe-oF is set to `queue-depth`. If you want to change the iopolicy to `round-robin` which is also available as a configurable option, modify the udev rules file as follows:
 
 .Steps
 
@@ -584,17 +584,35 @@ Node          Generic     SN                   Model                    Namespac
 ====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
++
+[source,cli]
+----
+nvme list-subsys /dev/<controller_ID>
+----
++
+NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized paths on ASA r2 systems. 
 + 
 [role="tabbed-block"]
 =====
 .NVMe/FC
 --
-[source,cli]
-----
-nvme list-subsys /dev/nvme3n9
-----
+This following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/FC.
 
-.Show example
+.Show AFF, FAS, and ASA example output
+[%collapsible]
+====
+[subs=+quotes]
+----
+ nvme-subsys114 - NQN=nqn.1992-08.com.netapp:sn.9e30b9760a4911f08c87d039eab67a95:subsystem.sles_161_27                       
+                 hostnqn=nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f iopolicy=round-robin\
++- nvme114 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2360d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live optimized*                                       
++- nvme115 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2362d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live non-optimized*
++- nvme116 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2361d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live optimized*
++- nvme117 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2363d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live non-optimized*
+----
+====
+
+.Show ASA r2 example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -602,21 +620,18 @@ nvme list-subsys /dev/nvme3n9
 nvme-subsys3 - NQN=nqn.1992-08.com.netapp:sn.94929fdb84eb11f0b624d039eac809ba:subsystem.sub_176
                hostnqn=nqn.2014-08.org.nvmexpress:uuid:39333550-3333-4753-4844-32594d4a524c
 \
- +- nvme1 *fc* traddr=nn-0x200dd039eac79573:pn-0x2010d039eac79573,host_traddr=nn-0x20005ced8c531949:pn-0x10005ced8c531949 *live optimized*
- +- nvme3 *fc* traddr=nn-0x200dd039eac79573:pn-0x200ed039eac79573,host_traddr=nn-0x20005ced8c531948:pn-0x10005ced8c531948 *live optimized*
-+- nvme5 *fc* traddr=nn-0x200dd039eac79573:pn-0x200fd039eac79573,host_traddr=nn-0x20005ced8c531949:pn-0x10005ced8c531949 *live non-optimized*
- +- nvme7 *fc* traddr=nn-0x200dd039eac79573:pn-0x2011d039eac79573,host_traddr=nn-0x20005ced8c531948:pn-0x10005ced8c531948 *live non-optimized*
++- nvme1 *fc* traddr=nn-0x200dd039eac79573:pn-0x2010d039eac79573,host_traddr=nn-0x20005ced8c531949:pn-0x10005ced8c531949 *live optimized*
++- nvme3 *fc* traddr=nn-0x200dd039eac79573:pn-0x200ed039eac79573,host_traddr=nn-0x20005ced8c531948:pn-0x10005ced8c531948 *live optimized*
++- nvme5 *fc* traddr=nn-0x200dd039eac79573:pn-0x200fd039eac79573,host_traddr=nn-0x20005ced8c531949:pn-0x10005ced8c531949 *live optimized*
++- nvme7 *fc* traddr=nn-0x200dd039eac79573:pn-0x2011d039eac79573,host_traddr=nn-0x20005ced8c531948:pn-0x10005ced8c531948 *live optimized*
 ----
 ====
 --
 .NVMe/TCP
 --
-[source,cli]
-----
-nvme list-subsys /dev/nvme2n3
-----
+This following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/TCP.
 
-.Show example
+.Show AFF, FAS, and ASA example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -624,10 +639,25 @@ nvme list-subsys /dev/nvme2n3
 nvme-subsys2 - NQN=nqn.1992-08.com.netapp:sn.c770be5d934811f0b624d039eac809ba:subsystem.sub_176
                hostnqn=nqn.2014-08.org.nvmexpress:uuid:39333550-3333-4753-4844-32594d4a524c
 \
- +- nvme2 *tcp* traddr=192.168.166.50,trsvcid=4420,host_traddr=192.168.166.73,src_addr=192.168.166.73 *live optimized*
- +- nvme4 *tcp* traddr=192.168.165.51,trsvcid=4420,host_traddr=192.168.165.73,src_addr=192.168.165.73 *live optimized*
++- nvme2 *tcp* traddr=192.168.166.50,trsvcid=4420,host_traddr=192.168.166.73,src_addr=192.168.166.73 *live optimized*
++- nvme4 *tcp* traddr=192.168.165.51,trsvcid=4420,host_traddr=192.168.165.73,src_addr=192.168.165.73 *live optimized*
 +- nvme6 *tcp* traddr=192.168.166.51,trsvcid=4420,host_traddr=192.168.166.73,src_addr=192.168.166.73 *live non-optimized*
- +- nvme8 *tcp* traddr=192.168.165.50,trsvcid=4420,host_traddr=192.168.165.73,src_addr=192.168.165.73 *live non-optimized*
++- nvme8 *tcp* traddr=192.168.165.50,trsvcid=4420,host_traddr=192.168.165.73,src_addr=192.168.165.73 *live non-optimized*
+----
+====
+
+.Show ASA r2 example output
+[%collapsible]
+====
+[subs=+quotes]
+----
+nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme10
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33
+\
+ +- nvme105 *tcp* traddr=192.168.39.10,trsvcid=4420,host_traddr=192.168.39.20,src_addr=192.168.39.20 *live optimized*
+ +- nvme153 *tcp* traddr=192.168.39.11,trsvcid=4420,host_traddr=192.168.39.20,src_addr=192.168.39.20 *live optimized*
+ +- nvme57 *tcp* traddr=192.168.38.11,trsvcid=4420,host_traddr=192.168.38.20,src_addr=192.168.38.20 *live optimized*
+ +- nvme9 *tcp* traddr=192.168.38.10,trsvcid=4420,host_traddr=192.168.38.20,src_addr=192.168.38.20 *live optimized*
 ----
 ====
 --
