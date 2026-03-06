@@ -15,7 +15,7 @@ $apt list |grep open-iscsi
 You should see an output similar to the following example:
 +
 ----
-open-iscsi/noble-updates,noble-updates,now 2.1.9-3ubuntu5.4 amd64
+open-iscsi/stable,now 2.1.11-1+deb13u1 amd64
 ----
 
 . Verify the iSCSI initiator node name, which is located in the `/etc/iscsi/initiatorname.iscsi` file:
@@ -59,18 +59,22 @@ $systemctl status iscsid
 [%collapsible]
 ====
 ----
-●iscsid.service - iSCSI initiator daemon (iscsid)
-     Loaded: loaded (/usr/lib/systemd/system/iscsid.service; enabled; preset: disabled)
-     Active: active (running) since Mon 2026-01-12 12:53:18 IST; 2 days ago
+● iscsid.service - iSCSI initiator daemon (iscsid)
+     Loaded: loaded (/usr/lib/systemd/system/iscsid.service; disabled; preset: enabled)
+     Active: active (running) since Fri 2026-02-20 22:14:34 IST; 2 days ago
+ Invocation: 37a44a6ebd3a4e3898dcc6c408b85bec
 TriggeredBy: ● iscsid.socket
        Docs: man:iscsid(8)
-   Main PID: 1127419 (iscsid)
-      Tasks: 2 (limit: 76557)
-     Memory: 4.3M (peak: 8.8M)
-        CPU: 1.657s
+    Process: 4985 ExecStartPre=/usr/lib/open-iscsi/startup-checks.sh (code=exited, status=0/SUCCESS)
+    Process: 4988 ExecStart=/usr/sbin/iscsid (code=exited, status=0/SUCCESS)
+   Main PID: 4991 (iscsid)
+      Tasks: 2 (limit: 151112)
+     Memory: 12.5M (peak: 15.5M)
+        CPU: 2.438s
      CGroup: /system.slice/iscsid.service
-             ├─1127418 /usr/sbin/iscsid
-             └─1127419 /usr/sbin/iscsid
+             ├─4990 /usr/sbin/iscsid
+             └─4991 /usr/sbin/iscsid
+
 ----
 ====
 
@@ -85,7 +89,8 @@ $iscsiadm --mode discovery --op update --type sendtargets --portal <target_IP>
 [%collapsible]
 ====
 ----
-iscsiadm --mode discovery --op update --type sendtargets --portal 192.168.166.70
+iscsiadm --mode discovery --op update --type sendtargets --portal
+192.168.166.70
 192.168.166.70:3260,1042 iqn.1992-08.com.netapp:sn.c770be5d934811f0b624d039eac809ba:vs.5
 192.168.165.71:3260,1045 iqn.1992-08.com.netapp:sn.c770be5d934811f0b624d039eac809ba:vs.5
 192.168.165.70:3260,1044 iqn.1992-08.com.netapp:sn.c770be5d934811f0b624d039eac809ba:vs.5
