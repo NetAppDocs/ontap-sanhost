@@ -384,7 +384,7 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 3: Optionally, modify the iopolicy in the udev rules
 
-Beginning with Proxmox VE 9.0, the default iopolicy for NVMe-oF is set to `queue-depth`. If you want to change the iopolicy to `round-robin` which is also available as a configurable option, modify the udev rules file as follows:
+Beginning with Proxmox VE 9.0, the default iopolicy for NVMe-oF is set to `queue-depth`. If you want to change the iopolicy to `round-robin`, which is also available as a configurable option, modify the udev rules file as follows:
 
 .Steps
 
