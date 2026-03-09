@@ -100,13 +100,13 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_coexistence_LPE36002
         nvme
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
         nvme_1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
         nvme_2
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
         nvme_3
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
 4 entries were displayed.
 ----
 ====
@@ -932,7 +932,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:e6dade64-216d-11ec-b7bb-7ed30a5482c3
+nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:e6daXXXX-216d-XXXX-b7bb-7edXXXX482c3
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:

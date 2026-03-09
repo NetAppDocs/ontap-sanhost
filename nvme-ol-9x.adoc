@@ -79,7 +79,7 @@ cat /etc/nvme/hostnqn
 The following example shows an `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
+nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
@@ -96,12 +96,12 @@ vserver nvme subsystem host show -vserver vs_203
 ----
 Vserver Subsystem Priority  Host NQN
 ------- --------- --------  --------------------------------------------------------------------
-vs_203  Nvme1     regular   nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
-        Nvme10    regular   nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
-        Nvme11    regular   nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
-        Nvme12    regular   nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
-        Nvme13    regular   nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
-        Nvme14    regular   nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
+vs_203  Nvme1     regular   nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb
+        Nvme10    regular   nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb
+        Nvme11    regular   nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb
+        Nvme12    regular   nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb
+        Nvme13    regular   nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb
+        Nvme14    regular   nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb
 ----
 ===== 
 +
@@ -650,7 +650,7 @@ nvme list-subsys /dev/nvme4n5
 ====
 [subs=+quotes]
 ----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.f9c6d0cb4fef11f08579d039eaa8138c:discovery hostnqn=nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb \ +- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c *live optimized*
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.f9c6d0cb4fef11f08579d039eaa8138c:discovery hostnqn=nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb \ +- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c *live optimized*
 +- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d *live non-optimized*
 +- nvme2 fc traddr=nn-0x201ad039eabac36f:pn-0x201bd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c *live non-optimized*
 +- nvme8 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d *live optimized*
@@ -671,7 +671,7 @@ nvme list-subsys /dev/nvme1n1
 [subs=+quotes]
 ----
 nvme-subsys98 - NQN=nqn.1992-08.com.netapp:sn.f9c6d0cb4fef11f08579d039eaa8138c:subsystem.Nvme9
-                hostnqn=nqn.2014-08.org.nvmexpress:uuid:b1d95cd0-1f7c-11ec-b8d1-3a68dd61a1cb
+                hostnqn=nqn.2014-08.org.nvmexpress:uuid:b1d9XXXX-1f7c-XXXX-b8d1-3a6XXXX1a1cb
 \
  +- nvme100 fc traddr=nn-0x201ad039eabac36f:pn-0x201dd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5d:pn-0x2100f4c7aa9d7c5d *live non-optimized*
  +- nvme101 fc traddr=nn-0x201ad039eabac36f:pn-0x201cd039eabac36f,host_traddr=nn-0x2000f4c7aa9d7c5c:pn-0x2100f4c7aa9d7c5c *live non-optimized*
@@ -774,7 +774,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-# nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c4c04f425633
+# nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0035-XXXX-804b-b7cXXXX44d3
 DHHC-1:03:xhAfbAD5IVLZDxiVbmFEOA5JZ3F/ERqTXhHzZQJKgkYkTbPI9dhRyVtr4dBD+SGiAJO3by4FbnVtov1Lmk+86+nNc6k=:
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
@@ -843,8 +843,8 @@ Use the `-o` option to generate the JSON file. See the NVMe connect-all manual p
 ----
 [
   {
-    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c4c04f425633",
-    "hostid":"4c4c4544-0056-5410-8048-c4c04f425633",
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0035-XXXX-804b-b7cXXXX44d33",
+    "hostid":"4c4cXXXX-0035-XXXX-804b-b7cXXXX44d33",
     "dhchap_key":"DHHC-1:01:nFg06gV0FNpXqoiLOF0L+swULQpZU/PjU9v/McDeJHjTZFlF:",
     "subsystems":[
       {

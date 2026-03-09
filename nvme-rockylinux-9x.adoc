@@ -602,7 +602,7 @@ In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is ge
 +
 ----
 nvme gen-dhchap-key -m 3 -n nqn.2014-
-08.org.nvmexpress:uuid:e6dade64-216d-11ec-b7bb-7ed30a5482c3
+08.org.nvmexpress:uuid:e6daXXXX-216d-XXXX-b7bb-7edXXXX482c3
 DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=: 
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:

@@ -80,7 +80,7 @@ cat /etc/nvme/hostnqn
 The following example shows an `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
@@ -97,13 +97,13 @@ nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
 Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_188  Nvme1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
         Nvme10
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
         Nvme11
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
         Nvme12
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
 48 entries were displayed.
 ----
 ====
@@ -813,7 +813,7 @@ In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is ge
 +
 ----
 nvme gen-dhchap-key -m 3 -n nqn.2014-
-08.org.nvmexpress:uuid:e6dade64-216d-11ec-b7bb-7ed30a5482c3
+08.org.nvmexpress:uuid:e6daXXXX-216d-XXXX-b7bb-7edXXXX482c3
 DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=: 
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:

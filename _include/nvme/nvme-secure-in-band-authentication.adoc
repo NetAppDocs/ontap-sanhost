@@ -33,7 +33,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:e6dade64-216d-11ec-b7bb-7ed30a5482c3
+nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:e6daXXXX-216d-XXXX-b7bb-7edXXXX482c3
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:

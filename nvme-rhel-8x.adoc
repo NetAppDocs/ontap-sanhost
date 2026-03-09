@@ -89,7 +89,7 @@ cat /etc/nvme/hostnqn
 The following example shows a `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0032-3410-8035-b8c04f4c5132
+nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0032-XXXX-8035-b8cXXXXc5132
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
