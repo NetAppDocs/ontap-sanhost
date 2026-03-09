@@ -598,7 +598,7 @@ NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized pat
 --
 This following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/FC.
 
-.Show AFF, FAS, and ASA example output
+.Show AFF, FAS, or ASA example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -631,7 +631,7 @@ nvme-subsys3 - NQN=nqn.1992-08.com.netapp:sn.94929fdb84eb11f0b624d039eac809ba:su
 --
 This following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/TCP.
 
-.Show AFF, FAS, and ASA example output
+.Show AFF, FAS, or ASA example output
 [%collapsible]
 ====
 [subs=+quotes]
