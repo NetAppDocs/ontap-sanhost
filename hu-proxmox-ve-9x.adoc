@@ -29,7 +29,7 @@ include::_include/hu/proxmox-multipathing.adoc[]
 
 == Step 2: Confirm the iSCSI configuration for your host
 
-include::_include/hu/linux-iscsi-configuration-ubuntu.adoc[]
+include::_include/hu/linux-iscsi-configuration-proxmox.adoc[]
 
 == Step 3: Optionally, exclude a device from multipathing
 
