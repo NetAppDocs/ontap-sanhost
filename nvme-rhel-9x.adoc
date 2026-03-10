@@ -80,7 +80,7 @@ cat /etc/nvme/hostnqn
 The following example shows an `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
@@ -97,13 +97,13 @@ nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
 Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_188  Nvme1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
         Nvme10
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
         Nvme11
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
         Nvme12
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
 48 entries were displayed.
 ----
 ====
@@ -680,7 +680,7 @@ nvme list-subsys /dev/nvme100n1
 [subs=+quotes]
 ----
 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.3623e199617311f09257d039eaa7dfc9:subsystem.Nvme31
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid: 4c4c4544-0056-5410-8048-b9c04f42563
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid: 4c4cxxxx-0056-xxxx-8048-b9cxxxx2563
                \
 +- nvme199 *fc*   traddr=nn-0x200fd039eaa7dfc8:pn-0x2010d039eaa7dfc8,host_traddr=nn-0x200000109bf044b1:pn-0x100000109bf044b1 *live optimized*
 +- nvme246 *fc*  traddr=nn-0x200fd039eaa7dfc8:pn-0x2011d039eaa7dfc8,host_traddr=nn-0x200000109bf044b1:pn-0x100000109bf044b1  *live non-optimized*
@@ -702,7 +702,7 @@ nvme list-subsys /dev/nvme0n1
 [subs=+quotes]
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.51a3c9846e0c11f08f5dd039eaa7dfc9:subsystem.Nvme1
-hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33
+hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33
 \
 +- nvme0 *tcp* traddr=192.168.30.48,trsvcid=4420,host_traddr=192.168.30.15,
 src_addr=192.168.30.15 *live optimized*
@@ -813,7 +813,7 @@ In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is ge
 +
 ----
 nvme gen-dhchap-key -m 3 -n nqn.2014-
-08.org.nvmexpress:uuid:e6daXXXX-216d-XXXX-b7bb-7edXXXX482c3
+08.org.nvmexpress:uuid:e6daxxxx-216d-xxxx-b7bb-7edxxxx482c3
 DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=: 
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
@@ -888,8 +888,8 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 cat /etc/nvme/config.json
 [
 {
-  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33",
-  "hostid":"4c4c4544-0035-5910-804b-b5c04f444d33",
+  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33",
+  "hostid":"4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33",
   "dhchap_key":"DHHC-1:01:GhgaLS+0h0W/IxKhSa0iaMHg17SOHRTzBduPzoJ6LKEJs3/f:",
   "subsystems":[
         {
@@ -946,10 +946,10 @@ nvme connect-all -J /etc/nvme/config.json
 [%collapsible]
 ====
 ----
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.30.44,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.31.44,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.30.45,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.31.45,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.30.44,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.31.44,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.30.45,trsvcid=4420
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33,nqn=nqn.1992-08.com.netapp:sn.2c0c80d9873a11f0bc60d039eab6cb6d:subsystem.istpMNTC_subsys,transport=tcp,traddr=192.168.31.45,trsvcid=4420
 ----
 ====
 
