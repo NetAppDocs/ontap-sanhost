@@ -76,7 +76,7 @@ cat /etc/nvme/hostnqn
 The following example shows a `hostnqn` value:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:1536XXXX-f954-XXXX-b24d-0a9XXXX46eaf
+nqn.2014-08.org.nvmexpress:uuid:1536xxxx-f954-xxxx-b24d-0a9xxxx46eaf
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -94,11 +94,11 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  --------- 
 proxmox_120_122
 proxmox_120_122 
-                  regular   nqn.2014-08.org.nvmexpress:uuid:1536XXXX-f954-XXXX-b24d-0a9XXXX46eaf
-                  regular   nqn.2014-08.org.nvmexpress:uuid:991a7476-f9bf-11ea-8b73-0a94efb46c3b
+                  regular   nqn.2014-08.org.nvmexpress:uuid:1536xxxx-f954-xxxx-b24d-0a9xxxx46eaf
+                  regular   nqn.2014-08.org.nvmexpress:uuid:991axxxx-f9bf-xxxx-8b73-0a9xxxx46c3b
 proxmox_120_122_tcp
-                  regular   nqn.2014-08.org.nvmexpress:uuid:1536XXXX-f954-XXXX-b24d-0a9XXXX46eaf
-                  regular  nqn.2014-08.org.nvmexpress:uuid:991a7476-f9bf-11ea-8b73-0a94efb46c3b
+                  regular   nqn.2014-08.org.nvmexpress:uuid:1536xxxx-f954-xxxx-b24d-0a9xxxx46eaf
+                  regular  nqn.2014-08.org.nvmexpress:uuid:991axxxx-f9bf-xxxx-8b73-0a9xxxx46c3b
 2 entries were displayed.
 ----
 ====
