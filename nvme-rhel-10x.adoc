@@ -79,7 +79,7 @@ cat /etc/nvme/hostnqn
 The following example shows an `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
@@ -97,11 +97,11 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_coexistence_QLE2872
                subsystem_1
-                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
                subsystem_10
-                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
                subsystem_11
-                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
 ----
 ====
 
@@ -642,7 +642,7 @@ nvme list-subsys /dev/nvme9n2
 [subs=+quotes]
 ----
 nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.7c34ab26675e11f0a6c0d039eac03c33:subsystem.subsystem_46
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
 \
  +- nvme105 *fc* traddr=nn-0x2018d039eac03c33:pn-0x201bd039eac03c33,host_traddr=nn-0x2000f4c7aa0cd7c3:pn-0x2100f4c7aa0cd7c3 *live optimized*
  +- nvme107 *fc* traddr=nn-0x2018d039eac03c33:pn-0x2019d039eac03c33,host_traddr=nn-0x2000f4c7aa0cd7c2:pn-0x2100f4c7aa0cd7c2 *live optimized*

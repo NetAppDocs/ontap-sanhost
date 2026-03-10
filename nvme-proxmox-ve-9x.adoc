@@ -76,7 +76,7 @@ cat /etc/nvme/hostnqn
 The following example shows a `hostnqn` value:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:39333550-3333-4753-4844-32594d4a5247    
+nqn.2014-08.org.nvmexpress:uuid:3933XXXX-3333-XXXX-4844-325XXXXa524c
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -95,7 +95,7 @@ Vserver Subsystem Priority  Host NQN
 vs_proxmox_FC_NVMeFC 
         sub_176
                   regular   nqn.2014-08.org.nvmexpress:uuid:39333550-3333-4753-4844-32594d4a4834
-                  regular   nqn.2014-08.org.nvmexpress:uuid:39333550-3333-4753-4844-32594d4a524c
+                  regular   nqn.2014-08.org.nvmexpress:uuid:3933XXXX-3333-XXXX-4844-325XXXXa524c
 2 entries were displayed
 ----
 ====
@@ -598,7 +598,7 @@ NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized pat
 --
 This following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/FC.
 
-.Show AFF, FAS, and ASA example output
+.Show AFF, FAS, or ASA example output
 [%collapsible]
 ====
 [subs=+quotes]
@@ -618,7 +618,7 @@ This following example outputs show a namespace hosted on a two-node ONTAP contr
 [subs=+quotes]
 ----
 nvme-subsys3 - NQN=nqn.1992-08.com.netapp:sn.94929fdb84eb11f0b624d039eac809ba:subsystem.sub_176
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:39333550-3333-4753-4844-32594d4a524c
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:3933XXXX-3333-XXXX-4844-325XXXXa524c
 \
 +- nvme1 *fc* traddr=nn-0x200dd039eac79573:pn-0x2010d039eac79573,host_traddr=nn-0x20005ced8c531949:pn-0x10005ced8c531949 *live optimized*
 +- nvme3 *fc* traddr=nn-0x200dd039eac79573:pn-0x200ed039eac79573,host_traddr=nn-0x20005ced8c531948:pn-0x10005ced8c531948 *live optimized*
@@ -631,13 +631,13 @@ nvme-subsys3 - NQN=nqn.1992-08.com.netapp:sn.94929fdb84eb11f0b624d039eac809ba:su
 --
 This following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/TCP.
 
-.Show AFF, FAS, and ASA example output
+.Show AFF, FAS, or ASA example output
 [%collapsible]
 ====
 [subs=+quotes]
 ----
 nvme-subsys2 - NQN=nqn.1992-08.com.netapp:sn.c770be5d934811f0b624d039eac809ba:subsystem.sub_176
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:39333550-3333-4753-4844-32594d4a524c
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:3933XXXX-3333-XXXX-4844-325XXXXa524c
 \
 +- nvme2 *tcp* traddr=192.168.166.50,trsvcid=4420,host_traddr=192.168.166.73,src_addr=192.168.166.73 *live optimized*
 +- nvme4 *tcp* traddr=192.168.165.51,trsvcid=4420,host_traddr=192.168.165.73,src_addr=192.168.165.73 *live optimized*

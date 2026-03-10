@@ -80,7 +80,7 @@ cat /etc/nvme/hostnqn
 The following example shows a `hostnqn` value:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -98,13 +98,13 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_nvme_194_rockylinux10
         nvme4
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
         nvme_1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
         nvme_2
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
         nvme_3
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
 4 entries were displayed.
 ----
 ====
@@ -484,7 +484,7 @@ nvme list-subsys /dev/nvme5n1
 [subs=+quotes]
 ----
 nvme-subsys5 - NQN=nqn.1992-08.com.netapp:sn.f7565b15a66911ef9668d039ea951c46:subsystem.nvme1
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-c7cXXXX25633
 \
  +- nvme126 *fc* traddr=nn-0x2036d039ea951c45:pn-0x2038d039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c3:pn-0x2100f4c7aa0cd7c3 *live optimized*
  +- nvme176 *fc* traddr=nn-0x2036d039ea951c45:pn-0x2037d039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c2:pn-0x2100f4c7aa0cd7c2 *live optimized*

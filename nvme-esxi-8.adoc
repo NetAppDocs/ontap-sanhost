@@ -44,7 +44,7 @@ You must check the ESXi host NQN string and verify that it matches with the host
 ----
 Example output:
 ----
-Host NQN: nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f1a436
+Host NQN: nqn.2014-08.org.nvmexpress:uuid:62a1XXXX-ba8c-XXXX-c954-000XXXX1a436
 ----
 
 ----
@@ -54,7 +54,7 @@ Example output:
 ----
 Vserver Subsystem Host NQN
 ------- --------- ----------------------------------------------------------
-nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a19711-ba8c-475d-c954-0000c9f1a436
+nvme_fc nvme_ss  nqn.2014-08.org.nvmexpress:uuid:62a1XXXX-ba8c-XXXX-c954-000XXXX1a436
 ----
 
 If the host NQN strings do not match, you should use the `vserver nvme subsystem host add` command to update the correct host NQN string on your corresponding ONTAP NVMe subsystem.
