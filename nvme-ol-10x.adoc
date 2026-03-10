@@ -79,7 +79,7 @@ cat /etc/nvme/hostnqn
 The following example shows an `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7
+nqn.2014-08.org.nvmexpress:uuid:8397XXXX-30f0-XXXX-850f-7edXXXXf0cc7
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
@@ -98,9 +98,9 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------
 -------------------------------------------------------------------vs_coexistence_emulex 
 nvme1   
-regular   nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7
+regular   nqn.2014-08.org.nvmexpress:uuid:8397XXXX-30f0-XXXX-850f-7edXXXXf0cc7
 nvme2    
-regular    nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7         
+regular    nqn.2014-08.org.nvmexpress:uuid:8397XXXX-30f0-XXXX-850f-7edXXXXf0cc7         
 
 ----
 =====
@@ -641,9 +641,9 @@ NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized pat
 
 .NVMe/FC 
 --
-This following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/FC.
+The following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/FC.
 
-.Show AFF, FAS, and ASA example output
+.Show example output for AFF, FAS, or ASA
 [%collapsible]
 ====
 [subs=+quotes]
@@ -657,7 +657,7 @@ This following example outputs show a namespace hosted on a two-node ONTAP contr
 ----
 ====
 
-.Show ASA r2 example output
+.Show example output for ASA r2
 [%collapsible]
 ====
 [subs=+quotes]
@@ -675,9 +675,9 @@ nvme-subsys96 - NQN=nqn.1992-08.om.netapp:sn.b351b2b6777b11f0b3c2d039ea5cfc91:su
 
 .NVMe/TCP 
 --
-This following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/TCP.
+The following example outputs show a namespace hosted on a two-node ONTAP controller for an AFF, FAS, ASA, or ASA r2 system with NVMe/TCP.
 
-.Show AFF, FAS, and ASA example output
+.Show example output for AFF, FAS, or ASA
 [%collapsible]
 ====
 [subs=+quotes]
@@ -692,7 +692,7 @@ nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:su
 ----
 ====
 
-.Show ASA r2 example output
+.Show example output for ASA r2
 [%collapsible]
 ====
 [subs=+quotes]
@@ -798,7 +798,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-# nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c4c04f425633
+# nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0035-XXXX-804b-b7cXXXX44d33
 DHHC-1:03:xhAfbAD5IVLZDxiVbmFEOA5JZ3F/ERqTXhHzZQJKgkYkTbPI9dhRyVtr4dBD+SGiAJO3by4FbnVtov1Lmk+86+nNc6k=:
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
@@ -867,8 +867,8 @@ Use the `-o` option to generate the JSON file. See the NVMe connect-all manual p
 ----
 [
   {
-    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c4c04f425633",
-    "hostid":"4c4c4544-0056-5410-8048-c4c04f425633",
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0035-XXXX-804b-b7cXXXX44d33",
+    "hostid":"4c4cXXXX-0035-XXXX-804b-b7cXXXX44d33",
     "dhchap_key":"DHHC-1:01:nFg06gV0FNpXqoiLOF0L+swULQpZU/PjU9v/McDeJHjTZFlF:",
     "subsystems":[
       {

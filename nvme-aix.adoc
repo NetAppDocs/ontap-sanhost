@@ -235,7 +235,7 @@ lsattr -El fcnvme0
 ----
 attach     switch                                                               How this adapter is connected  False
 autoconfig available                                                            Configuration State            True
-host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8 Host NQN (NVMe Qualified Name) True
+host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e0XXXX-27d2-XXXX-858d-8a3XXXXc31e8 Host NQN (NVMe Qualified Name) True
 ----
 ====
 +
@@ -250,7 +250,7 @@ lsattr -El fcnvme1
 ----
 attach     switch                                                               How this adapter is connected  False
 autoconfig available                                                            Configuration State            True
-host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8 Host NQN (NVMe Qualified Name) True
+host_nqn   nqn.2014-08.org.nvmexpress:uuid:64e0XXXX-27d2-XXXX-858d-8a3XXXXc31e8 Host NQN (NVMe Qualified Name) True
 ----
 ====
 
@@ -266,7 +266,7 @@ vserver nvme subsystem host show -vserver vs_s922-55-lpar2
 ----
 Vserver         Subsystem                Host NQN
 ------- --------- ----------------------------------------------------------
-vs_s922-55-lpar2 subsystem_s922-55-lpar2 nqn.2014-08.org.nvmexpress:uuid:64e039bd-27d2-421c-858d-8a378dec31e8
+vs_s922-55-lpar2 subsystem_s922-55-lpar2 nqn.2014-08.org.nvmexpress:uuid:64e0XXXX-27d2-XXXX-858d-8a3XXXXc31e8
 ----
 
 . Verify that the initiator ports are up and running and you can see the target LIFs.
