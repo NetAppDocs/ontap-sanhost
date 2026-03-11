@@ -14,7 +14,7 @@ rpm -qa | grep iscsi-initiator-utils
 You should see an output similar to the following example:
 +
 ----
-iscsi-initiator-utils-6.2.1.11-0.git4b3e853.el9.x86_64
+iscsi-initiator-utils-6.2.1.11-0.git4b3e853.el10.x86_64
 ----
 
 . Verify the iSCSI initiator node name, which is located in the `/etc/iscsi/initiatorname.iscsi` file:
