@@ -82,7 +82,7 @@ cat /etc/nvme/hostnqn
 The following example shows a `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
+nqn.2014-08.org.nvmexpress:uuid:f651xxxx-3133-xxxx-bbff-7edxxxxf123f
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -100,13 +100,13 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_coexistence_LPE36002
         nvme
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
         nvme_1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
         nvme_2
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
         nvme_3
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cXXXX-0056-XXXX-8048-b9cXXXX25633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
 4 entries were displayed.
 ----
 ====
@@ -656,7 +656,7 @@ nvme list-subsys /dev/nvme4n5
 [subs=+quotes]
 ----
 nvme-subsys114 - NQN=nqn.1992-08.com.netapp:sn.9e30b9760a4911f08c87d039eab67a95:subsystem.sles_161_27
-                 hostnqn=nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f
+                 hostnqn=nqn.2014-08.org.nvmexpress:uuid:f651xxxx-3133-xxxx-bbff-7edxxxxf123f
 iopolicy=round-robin\
 +- nvme114 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2360d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live optimized*
 +- nvme115 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2362d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live non-optimized*
@@ -676,7 +676,7 @@ nvme list-subsys /dev/nvme9n1
 ====
 [subs=+quotes]
 ----
-nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.f8e2af201b7211f0ac2bd039eab67a95:subsystem.with_inband_with_json hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
+nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.f8e2af201b7211f0ac2bd039eab67a95:subsystem.with_inband_with_json hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33
 iopolicy=round-robin
 \
 +- nvme10 *tcp* traddr=192.168.111.71,trsvcid=4420,src_addr=192.168.111.80 *live non-optimized*
@@ -882,11 +882,11 @@ vserver nvme show-discovery-controller -instance -vserver vs_pdc
      Discovery Subsystem NQN: nqn.1992-08.com.netapp:sn.4f7af2bd221811f0afadd039eab0dadd:discovery
            Logical Interface: lif2
                         Node: A400-12-181
-                    Host NQN: nqn.2014-08.org.nvmexpress:uuid:9796c1ec-0d34-11eb-b6b2-3a68dd3bab57
+                    Host NQN: nqn.2014-08.org.nvmexpress:uuid:9796xxxx-0d34-xxxx-b6b2-3a6xxxxbab57
           Transport Protocol: nvme-tcp
  Initiator Transport Address: 192.168.111.80
 Transport Service Identifier: 8009
-             Host Identifier: 9796c1ec0d3411ebb6b23a68dd3bab57
+             Host Identifier: 9796xxxx0d34xxxxb6b23a6xxxxbab57
            Admin Queue Depth: 32
        Header Digest Enabled: false
          Data Digest Enabled: false
@@ -932,7 +932,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:e6daXXXX-216d-XXXX-b7bb-7edXXXX482c3
+nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:e6daxxxx-216d-xxxx-b7bb-7edxxxx482c3
 DHHC-1:03:1CFivw9ccz58gAcOUJrM7Vs98hd2ZHSr+iw+Amg6xZPl5D2Yk+HDTZiUAg1iGgxTYqnxukqvYedA55Bw3wtz6sJNpR4=:
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
@@ -1000,8 +1000,8 @@ Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man
 cat /etc/nvme/config.json
 [
  {
-    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33",
-    "hostid":"4c4c4544-0035-5910-804b-b2c04f444d33",
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33",
+    "hostid":"4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33",
     "dhchap_key":"DHHC-1:01:i4i789R11sMuHLCY27RVI8XloC\/GzjRwyhxip5hmIELsHrBq:",
     "subsystems":[
       {
@@ -1209,7 +1209,7 @@ cat /etc/nvme/hostnqn
 You should see the following output:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
+nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33
 ----
 
 .. Verify the key: 
@@ -1231,7 +1231,7 @@ NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbBxxxxHx4XTqTJUmydf0gIj:
 [%collapsible]
 ====
 ----
-nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 -tls-configured-psk NVMeTLSkey-1:01:C50EExxxxuOp8xxxxE9EuWjbBxxxxHx4XTqTJUmydf0gIj:
+nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33 -tls-configured-psk NVMeTLSkey-1:01:C50EExxxxuOp8xxxxE9EuWjbBxxxxHx4XTqTJUmydf0gIj:
 ----
 ====
 
@@ -1292,7 +1292,7 @@ nvme list-subsys
 ====
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33
 \
  +- nvme0 tcp traddr=192.168.111.66,trsvcid=4420,host_traddr=192.168.111.80,src_addr=192.168.111.80 live
 ----
@@ -1322,10 +1322,10 @@ nvme subsystem controller show -vserver sles15_tls -subsystem sles15 -instance
                       Controller ID: 0040h
                   Logical Interface: tcpnvme_lif1_1
                                Node: A400-12-181
-                           Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
+                           Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2c04f444d33
                  Transport Protocol: nvme-tcp
         Initiator Transport Address: 192.168.111.80
-                    Host Identifier: 4c4c454400355910804bb2c04f444d33
+                    Host Identifier: 4c4cxxxx0035xxxx804bb2cxxxx44d33
                Number of I/O Queues: 2
                    I/O Queue Depths: 128, 128
                   Admin Queue Depth: 32
