@@ -26,8 +26,6 @@ You can use multipathing with Solaris 11.3 to manage ONTAP LUNs.
 
 Multipathing enables you to configure multiple network paths between the host and storage systems. If one path fails, traffic continues on the remaining paths.
 
-To ensure that multipathing and the recommended timeout parameters are configured correctly for your host, verify that you're using the NetApp recommended settings for your ONTAP LUNs.
-
 .Steps
 
 . The Solaris Host Utilities load the NetApp recommended parameter settings for SPARC and x86_64 processors.

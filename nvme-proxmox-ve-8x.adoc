@@ -76,7 +76,7 @@ cat /etc/nvme/hostnqn
 The following example shows a `hostnqn` value:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:1536c9a6-f954-11ea-b24d-0a94efb46eaf
+nqn.2014-08.org.nvmexpress:uuid:1536xxxx-f954-xxxx-b24d-0a9xxxx46eaf
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -94,11 +94,11 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  --------- 
 proxmox_120_122
 proxmox_120_122 
-                  regular   nqn.2014-08.org.nvmexpress:uuid:1536c9a6-f954-11ea-b24d-0a94efb46eaf
-                  regular   nqn.2014-08.org.nvmexpress:uuid:991a7476-f9bf-11ea-8b73-0a94efb46c3b
+                  regular   nqn.2014-08.org.nvmexpress:uuid:1536xxxx-f954-xxxx-b24d-0a9xxxx46eaf
+                  regular   nqn.2014-08.org.nvmexpress:uuid:991axxxx-f9bf-xxxx-8b73-0a9xxxx46c3b
 proxmox_120_122_tcp
-                  regular   nqn.2014-08.org.nvmexpress:uuid:1536c9a6-f954-11ea-b24d-0a94efb46eaf
-                  regular  nqn.2014-08.org.nvmexpress:uuid:991a7476-f9bf-11ea-8b73-0a94efb46c3b
+                  regular   nqn.2014-08.org.nvmexpress:uuid:1536xxxx-f954-xxxx-b24d-0a9xxxx46eaf
+                  regular  nqn.2014-08.org.nvmexpress:uuid:991axxxx-f9bf-xxxx-8b73-0a9xxxx46c3b
 2 entries were displayed.
 ----
 ====
@@ -116,6 +116,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
+
+.Steps 
 
 . Verify that you are using the supported adapter model: 
 
@@ -140,7 +142,7 @@ LPe35002-M2
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-You should see output similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 Emulex LPe35002-M2 2-Port 32Gb Fibre Channel Adapter
@@ -193,7 +195,7 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-You should see output similar to:
+You should see an output similar to:
 +
 ----
 0x100000109b95467e
@@ -279,6 +281,8 @@ The expected output is 1.
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
+
+.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +

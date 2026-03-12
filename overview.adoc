@@ -20,7 +20,7 @@ You should configure your SAN hosts to use the NetApp SAN Host Utilities. SAN Ho
 NetApp recommends using the SAN Host Utilities software if it's available for your SAN host.  
 
 If your SAN configuration supports SAN booting, you can also configure your host to use SAN booting to simplify deployment and improve scalability. Using SAN boot, you can deploy multiple new servers by connecting them to SAN and configuring the appropriate boot settings. This saves time by eliminating the need to install the operating system on each server individually. 
-  
+
 Your SAN hosts and ONTAP storage can reside either on-premises, in the cloud, or both.
 
 NOTE: In a cloud environment, hosts are typically referred to as clients. All host-specific information in this content also applies to cloud clients.

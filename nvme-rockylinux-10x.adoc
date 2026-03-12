@@ -80,7 +80,7 @@ cat /etc/nvme/hostnqn
 The following example shows a `hostnqn` value:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-b9c04f425633
+nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -98,13 +98,13 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_nvme_194_rockylinux10
         nvme4
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
         nvme_1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
         nvme_2
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
         nvme_3
-                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                  regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
 4 entries were displayed.
 ----
 ====
@@ -122,6 +122,8 @@ Configure NVMe/FC with Broadcom/Emulex or Marvell/QLogic adapters, or configure 
 --
 
 Configure NVMe/FC for a Broadcom/Emulex adapter.
+
+.Steps
 
 . Verify that you are using the supported adapter model: 
 
@@ -146,7 +148,7 @@ LPe36002-M64
 cat /sys/class/scsi_host/host*/modeldesc
 ----
 +
-You should see output similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 Emulex LightPulse LPe36002-M64 2-Port 64Gb Fibre Channel Adapter 
@@ -199,7 +201,7 @@ cat /sys/module/lpfc/parameters/lpfc_enable_fc4_type
 cat /sys/class/fc_host/host*/port_name
 ----
 +
-You should see output similar to:
+You should see an output similar to:
 +
 ----
 0x2100f4c7aa0cd7c2
@@ -267,6 +269,8 @@ FCP CMPL: xb 000014a5 Err 0002149a
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
+.Steps
+
 . Verify that you are using the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -295,6 +299,8 @@ The expected output is 1.
 --
 
 The NVMe/TCP protocol doesn't support the auto-connect operation. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually.
+
+.Steps
 
 . Check that the initiator port can get the discovery log page data across the supported NVMe/TCP LIFs:
 +
@@ -446,6 +452,7 @@ Beginning with Rocky Linux 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo time
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
+--
 =====
 
 == Step 4: Optionally, enable 1MB I/O for NVMe/FC
@@ -477,7 +484,7 @@ nvme list-subsys /dev/nvme5n1
 [subs=+quotes]
 ----
 nvme-subsys5 - NQN=nqn.1992-08.com.netapp:sn.f7565b15a66911ef9668d039ea951c46:subsystem.nvme1
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
 \
  +- nvme126 *fc* traddr=nn-0x2036d039ea951c45:pn-0x2038d039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c3:pn-0x2100f4c7aa0cd7c3 *live optimized*
  +- nvme176 *fc* traddr=nn-0x2036d039ea951c45:pn-0x2037d039ea951c45,host_traddr=nn-0x2000f4c7aa0cd7c2:pn-0x2100f4c7aa0cd7c2 *live optimized*
@@ -499,7 +506,7 @@ nvme list-subsys /dev/nvme4n2
 [subs=+quotes]
 ----
 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.64e65e6caae711ef9668d039ea951c46:subsystem.nvme4
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-c2c04f444d33
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-c2cxxxx44d33
 \
 +- nvme102 *tcp* traddr=192.168.21.20,trsvcid=4420,host_traddr=192.168.21.1,src_addr=192.168.21.1 *live non-optimized*
 +- nvme151 *tcp* traddr=192.168.21.21,trsvcid=4420,host_traddr=192.168.21.1,src_addr=192.168.21.1 *live optimized*
@@ -574,6 +581,8 @@ Secure in-band authentication is supported over NVMe/TCP between a Rocky Linux 1
 
 Each host or controller must be associated with a `DH-HMAC-CHAP` key to set up secure authentication. A `DH-HMAC-CHAP` key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer. 
 
+.Steps
+
 Set up secure in-band authentication using the CLI or a config JSON file. If you need to specify different dhchap keys for different subsystems, you must use a config JSON file. 
 
 [role="tabbed-block"]
@@ -582,7 +591,6 @@ Set up secure in-band authentication using the CLI or a config JSON file. If you
 --
 Set up secure in-band authentication using the CLI. 
 
-.Steps
 . Obtain the host NQN:
 +
 [source,cli]
@@ -605,7 +613,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-c2c04f444d33
+nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-c2cxxxx44d33
 DHHC-1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia1aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:   
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
@@ -678,7 +686,6 @@ When multiple NVMe subsystems are available on the ONTAP controller, you can use
 
 Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man pages for more syntax options.
 
-.Steps
 . Configure the JSON file.
 +
 [NOTE]
@@ -691,8 +698,8 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 cat /etc/nvme/config.json
 [
   {
-    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-c2c04f444d33",
-    "hostid":"4c4c4544-0035-5910-804b-c2c04f444d33",
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-c2cxxxx44d33",
+    "hostid":"4c4cxxxx-0035-xxxx-804b-c2cxxxx44d33",
     "dhchap_key":"DHHC-1:03:7zf8I9gaRcDWH3tCH5vLGaoyjzPIvwNWusBfKdpJa+hia1aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:",
     "subsystems":[
       {
@@ -779,7 +786,7 @@ aKDKJQ2o53pX3wYM9xdv5DtKNNhJInZ7X8wU2RQpQIngc=:
 cat /sys/class/nvme-subsystem/nvme-subsys0/nvme0/dhchap_ctrl_secret
 ----
 +
-You should see output similar to the following example:
+You should see an output similar to the following example:
 +
 ----
 DHHC-1:03:fMCrJharXUOqRoIsOEaG6m2PH1yYvu5+z3jT

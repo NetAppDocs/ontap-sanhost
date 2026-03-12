@@ -121,8 +121,7 @@ The following example shows the output for an ONTAP LUN with two Active/Optimize
 ====
 ----
 multipath -ll
-3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode
-size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
+3600a0980383149764b5d567257516273 dm-0 NETAPP,LUN C-Mode size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
 | |- 16:0:3:0  sdcg 69:64  active ready running
 | `- 10:0:0:0  sdb  8:16   active ready running

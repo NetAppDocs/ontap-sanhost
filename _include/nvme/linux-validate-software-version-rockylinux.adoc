@@ -24,7 +24,7 @@ The following example shows an `libnvme` package version:
 libnvme-1.11.1-1.el9.x86_64
 ----
 
-. On the RHEL host, check the hostnqn string at `/etc/nvme/hostnqn`:
+. On the Rocky Linux host, check the hostnqn string at `/etc/nvme/hostnqn`:
 +
 [source,cli]
 ----
@@ -37,7 +37,7 @@ The following example shows an `hostnqn` version:
 nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-b9cxxxx25633
 ----
 
-. Verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
+. On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
 +
 [source,cli]
 ----

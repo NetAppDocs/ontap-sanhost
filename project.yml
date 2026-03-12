@@ -133,9 +133,15 @@ sidebar:
         entries:
         - title: 11i v3
           url: /hu_hpux_11iv3.html
+      - title: HPE VME
+        entries:
+        - title: HPE VME 8.0.x
+          url: /hu-hpe-vme-80x.html
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
+        - title: 10.x
+          url: /hu-ol-10x.html        
         - title: 9.x
           url: /hu-ol-9x.html
         - title: 8.x
@@ -176,7 +182,10 @@ sidebar:
           url: /hu_solaris_113.html
       - title: SUSE Linux Enterprise Server
         entries:
-        - title: SUSE Linux Enterprise Server 15
+        - title: "16"
+          pdf-filename: SLES-16-FCP
+          url: /hu-sles-16spx.html
+        - title: "15 SPx"
           pdf-filename: SLES-15-FCP
           url: /hu-sles-15spx.html
       - title: Ubuntu
@@ -228,6 +237,8 @@ sidebar:
         entries:
         - title: ONTAP support and features
           url: /nvme-ol-supported-features.html
+        - title: 10.x
+          url: /nvme-ol-10x.html          
         - title: 9.x
           url: /nvme-ol-9x.html
         - title: 8.x
@@ -268,10 +279,14 @@ sidebar:
         entries:
         - title: ONTAP support and features 
           url: /nvme-sles-supported-features.html
+        - title: "16"
+          url: /nvme-sles16-spx.html
         - title: 15 SPx
           url: /nvme-sles15-spx.html
       - title: Ubuntu
         entries:
+        - title: ONTAP support and features 
+          url: /nvme-ubuntu-supported-features.html
         - title: "24.04"
           url: /nvme-ubuntu-2404.html
         - title: "22.04"

@@ -71,11 +71,14 @@ sanlun lun show
 The default multipath parameters support ASA, AFF, and FAS configurations. The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
 +
 [role="tabbed-block"]
-====
+=====
 .ASA configuration
 --
 An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time.
 
+.Show example
+[%collapsible]
+====
 ----
 # sanlun lun show -p vs39:/vol/hpux_vol_1_1/hpux_lun
 
@@ -95,6 +98,7 @@ up       primary    /dev/dsk/c6t0d2      fcd0    246_1c_hp
 up       primary    /dev/dsk/c10t0d2     fcd1    246_1d_hp
 up       primary    /dev/dsk/c8t0d2      fcd1    248_1d_hp
 ----
+====
 --
 
 .AFF or FAS configuration
@@ -103,6 +107,9 @@ An AFF or FAS configuration should have two groups of paths with higher and lowe
 
 The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
 
+.Show example
+[%collapsible]
+====
 ----
 # sanlun lun show -p vs39:/vol/vol24_3_0/lun24_0
                     ONTAP Path: vs39:/vol/vol24_3_0/lun24_0
@@ -122,8 +129,9 @@ up       primary    /dev/dsk/c41t4d5   fcd1    hpux_4     0
 up       secondary  /dev/dsk/c40t4d5   fcd0    hpux_3     1
 up       secondary  /dev/dsk/c42t4d5   fcd1    hpux_4     1
 ----
---
 ====
+--
+=====
 
 == Step 4: Review the known issues
 
