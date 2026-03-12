@@ -1222,7 +1222,7 @@ nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn= nqn.1992-08.com.netapp:sn.a2
 You should see the following output:
 +
 ----
-NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbBxxxxHx4XTqTJUmydf0gIj:
+NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbxxxxhmfoHx4XTqTJUmydf0gIj:
 ----
 
 . On the ONTAP controller, add the TLS PSK to the ONTAP subsystem:
@@ -1231,7 +1231,7 @@ NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbBxxxxHx4XTqTJUmydf0gIj:
 [%collapsible]
 ====
 ----
-nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33 -tls-configured-psk NVMeTLSkey-1:01:C50EExxxxuOp8xxxxE9EuWjbBxxxxHx4XTqTJUmydf0gIj:
+nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33 -tls-configured-psk NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbxxxxhmfoHx4XTqTJUmydf0gIj:
 ----
 ====
 
@@ -1239,7 +1239,7 @@ nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.201
 +
 [source,cli]
 ----
-nvme check-tls-key --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 --keydata=NVMeTLSkey-1:01:C50EExxxxuOp8xxxxE9EuWjbBxxxxHx4XTqTJUmydf0gIj: --insert
+nvme check-tls-key --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 --keydata=NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbxxxxhmfoHx4XTqTJUmydf0gIj: --insert
 ----
 +
 You should see the following TLS key:
@@ -1322,7 +1322,7 @@ nvme subsystem controller show -vserver sles15_tls -subsystem sles15 -instance
                       Controller ID: 0040h
                   Logical Interface: tcpnvme_lif1_1
                                Node: A400-12-181
-                           Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2c04f444d33
+                           Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33
                  Transport Protocol: nvme-tcp
         Initiator Transport Address: 192.168.111.80
                     Host Identifier: 4c4cxxxx0035xxxx804bb2cxxxx44d33
