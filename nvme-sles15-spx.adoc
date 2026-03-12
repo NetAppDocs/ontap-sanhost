@@ -1261,7 +1261,7 @@ cat /proc/keys | grep NVMe
 [%collapsible]
 ====
 ----
-069f56bb I--Q---     5 perm 3b010000     0     0 psk       NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=: 32
+069f56bb I--Q---     5 perm 3b010000     0     0 psk       NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33 nqn.1992-08.com.netapp:sn.a2d41235b78211efb57dd039eab67a95:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=: 32
 ----
 ====
 
