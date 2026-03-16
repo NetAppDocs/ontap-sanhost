@@ -95,13 +95,12 @@ vserver nvme subsystem host show -vserver vs_coexistence_emulex
 [subs=+quotes]
 ----
 Vserver Subsystem Priority  Host NQN
-------- --------- --------
--------------------------------------------------------------------vs_coexistence_emulex 
-nvme1   
-regular   nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7
-nvme2    
-regular    nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7         
-
+------- --------- -------   ------------------------------------------------
+vs_coexistence_emulex 
+        nvme1     
+                  regular    nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7
+        nvme2     
+                  regular    nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7         
 ----
 =====
 +
@@ -721,12 +720,13 @@ nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:su
 ====
 [subs=+quotes]
 ----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0               
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034
-\                                                                                                                                                                               +- nvme4 *tcp* traddr=192.168.20.28,+- nvme4 *tcp* traddr=192.168.20.28,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
-+- nvme5 *tcp* traddr=192.168.20.29,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
-+- nvme6 *tcp* traddr=192.168.21.28,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*                                                
-+- nvme7 *tcp* traddr=192.168.21.29,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0054-xxxx-8039-c3cxxxx23034
+\
+ +- nvme4 *tcp* traddr=192.168.20.28,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*
+ +- nvme5 *tcp* traddr=192.168.20.29,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*
+ +- nvme6 *tcp* traddr=192.168.21.28,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
+ +- nvme7 *tcp* traddr=192.168.21.29,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
 ----
 ====
 --
