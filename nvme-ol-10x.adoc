@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: nvme-ol-10x.html
-keywords: nvme, oracle linux, 10, host configuration
+keywords: nvme, oracle linux, 10.x, host configuration
 summary: NVMe-oF Host Configuration for Oracle Linux 10 with ONTAP
 ---
 = Configure Oracle Linux 10.x with NVMe-oF for ONTAP storage 
@@ -41,7 +41,7 @@ uname -r
 Example Oracle Linux kernel version:
 +
 ----
-6.12.0-100.28.2.el10uek.x86_64
+6.12.0-105.51.5.el10uek.x86_64
 ----
 
 . Install the `nvme-cli` package:
@@ -69,7 +69,7 @@ The following example shows an `libnvme` package version:
 libnvme-1.13-1.el10.x86_64
 ----
 
-.	On the Oracle Linux 10.x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
+. On the Oracle Linux 10.x host, check the `hostnqn` string at `/etc/nvme/hostnqn`: 
 +
 [source,cli]
 ----
@@ -95,13 +95,12 @@ vserver nvme subsystem host show -vserver vs_coexistence_emulex
 [subs=+quotes]
 ----
 Vserver Subsystem Priority  Host NQN
-------- --------- --------
--------------------------------------------------------------------vs_coexistence_emulex 
-nvme1   
-regular   nqn.2014-08.org.nvmexpress:uuid:8397xxxx-30f0-xxxx-850f-7edxxxxf0cc7
-nvme2    
-regular    nqn.2014-08.org.nvmexpress:uuid:8397xxxx-30f0-xxxx-850f-7edxxxxf0cc7         
-
+------- --------- -------   ------------------------------------------------
+vs_coexistence_emulex 
+        nvme1     
+                  regular    nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7
+        nvme2     
+                  regular    nqn.2014-08.org.nvmexpress:uuid:8397cecc-30f0-11e8-850f-7ed30aef0cc7         
 ----
 =====
 +
@@ -132,8 +131,8 @@ cat /sys/class/scsi_host/host*/modelname
 You should see the following output:
 +
 ----
-LPe36002-M64-D
-LPe36002-M64-D
+LPe37102
+LPe37102
 ----
 
 .. Display the model descriptions:
@@ -146,8 +145,8 @@ cat /sys/class/scsi_host/host*/modeldesc
 You should see an output similar to the following example:
 +
 ----
-Emulex LPe36002-M64-D 2-Port 64Gb Fibre Channel Adapter
-Emulex LPe36002-M64-D 2-Port 64Gb Fibre Channel Adapter
+Emulex LPe37102 32Gb 2-port Fibre Channel Adapter
+Emulex LPe37102 32Gb 2-port Fibre Channel Adapter
 ----
 
 . Verify that you are using the recommended Broadcom `lpfc` firmware and inbox driver:
@@ -162,8 +161,8 @@ cat /sys/class/scsi_host/host*/fwrev
 The following example shows firmware versions:
 +
 ----
-14.4.393.25, sli-4:6:d
-14.4.393.25, sli-4:6:d
+14.4.725.15, sli-4:6:e
+14.4.725.15, sli-4:6:e
 ----
 
 .. Display the inbox driver version:
@@ -176,7 +175,7 @@ cat /sys/module/lpfc/version
 The following example shows a driver version:
 +
 ----
-0:14.4.0.2
+0:14.4.0.8
 ----
 +
 For the current list of supported adapter driver and firmware versions, see the link:https://mysupport.netapp.com/matrix/[Interoperability Matrix Tool^].
@@ -197,8 +196,8 @@ cat /sys/class/fc_host/host*/<port_name>
 The following example shows port identities:
 +
 ----
-0x100000620b3c089c
-0x100000620b3c089d
+0x100070b7e422ab3f
+0x100070b7e422ab40
 ----
 
 . Verify that your initiator ports are online:
@@ -229,32 +228,56 @@ cat /sys/class/scsi_host/host*/nvme_info
 ----
 NVME Initiator Enabled
 XRI Dist lpfc0 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc0 WWPN x100000620b3c089c WWNN x200000620b3c089c DID x081300 *ONLINE*
-NVME RPORT       WWPN x2001d039eab0dadc WWNN x2000d039eab0dadc DID x080107 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2221d039eab0dadc WWNN x2220d039eab0dadc DID x080105 *TARGET DISCSRVC ONLINE*
+NVME LPORT lpfc0 WWPN x100000620b3c0869 WWNN x200000620b3c0869
+DID x080e00 *ONLINE*
+NVME RPORT       WWPN x2001d039eabac36f WWNN x2000d039eabac36f
+DID x021401 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x20e2d039eabac36f WWNN x20e1d039eabac36f
+DID x02141f *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2011d039eabac36f WWNN x2010d039eabac36f
+DID x021429 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2002d039eabac36f WWNN x2000d039eabac36f
+DID x021003 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x20e4d039eabac36f WWNN x20e1d039eabac36f
+DID x02100f *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2012d039eabac36f WWNN x2010d039eabac36f
+DID x021015 *TARGET DISCSRVC ONLINE*
+
 
 
 NVME Statistics
-LS: Xmt 000000713b Cmpl 000000713b Abort 00000001
-LS XMIT: Err 00000000  CMPL: xb 00000001 Err 00000001
-Total FCP Cmpl 00000000a513b8bb Issue 00000000a4f2485c OutIO ffffffffffde8fa1
-        abort 00006935 noxri 000004f0 nondlp 0002e119 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 0000693d Err 0009cb89
+LS: Xmt 0000027ccf Cmpl 0000027cca Abort 00000014
+LS XMIT: Err 00000005  CMPL: xb 00000014 Err 00000014
+Total FCP Cmpl 00000000000613ff Issue 00000000000613fc OutIO fffffffffffffffd
+        abort 00000007 noxri 00000000 nondlp 00000000 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 0000000a Err 0000000d
 
 
-NVME Initiator Enabled	
+NVME Initiator Enabled
 XRI Dist lpfc1 Total 6144 IO 5894 ELS 250
-NVME LPORT lpfc1 WWPN x100000620b3c089d WWNN x200000620b3c089d DID x081900 *ONLINE*
-NVME RPORT       WWPN x2002d039eab0dadc WWNN x2000d039eab0dadc DID x080207 *TARGET DISCSRVC ONLINE*
-NVME RPORT       WWPN x2222d039eab0dadc WWNN x2220d039eab0dadc DID x080205 *TARGET DISCSRVC ONLINE*
+NVME LPORT lpfc1 WWPN x100000620b3c086a WWNN x200000620b3c086a
+DID x080000 *ONLINE*
+NVME RPORT       WWPN x2004d039eabac36f WWNN x2000d039eabac36f
+DID x021501 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x20e3d039eabac36f WWNN x20e1d039eabac36f
+DID x02150f *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2014d039eabac36f WWNN x2010d039eabac36f
+DID x021515 *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2003d039eabac36f WWNN x2000d039eabac36f
+DID x02110b *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x20e5d039eabac36f WWNN x20e1d039eabac36f
+DID x02111f *TARGET DISCSRVC ONLINE*
+NVME RPORT       WWPN x2013d039eabac36f WWNN x2010d039eabac36f
+DID x021129 *TARGET DISCSRVC ONLINE*
+
 
 
 NVME Statistics
-LS: Xmt 0000007171 Cmpl 0000007171 Abort 00000000
-LS XMIT: Err 00000000  CMPL: xb 00000000 Err 00000000
-Total FCP Cmpl 00000000a509cecc Issue 00000000a4e7ed6c OutIO ffffffffffde1ea0
-        abort 000069c5 noxri 00000406 nondlp 000301e6 qdepth 00000000 wqerr 00000000 err 00000000
-FCP CMPL: xb 000069d6 Err 0009cbcds
+LS: Xmt 0000027ca3 Cmpl 0000027ca2 Abort 00000017
+LS XMIT: Err 00000001  CMPL: xb 00000017 Err 00000017
+Total FCP Cmpl 000000000006369d Issue 000000000006369a OutIO fffffffffffffffd
+        abort 00000007 noxri 00000000 nondlp 00000011 qdepth 00000000 wqerr 00000000 err 00000000
+FCP CMPL: xb 00000008 Err 0000000c
 ----
 ====
 
@@ -276,7 +299,7 @@ cat /sys/class/fc_host/host*/symbolic_name
 The following example shows driver and firmware versions:
 +
 ----
-QLE2772 FW:v9.15.03 DVR:v10.02.09.300-k
+QLE2872 FW:v9.15.06 DVR:v10.02.09.300-k
 ----
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
@@ -697,12 +720,13 @@ nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:su
 ====
 [subs=+quotes]
 ----
-nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0               
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0
                hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0054-xxxx-8039-c3cxxxx23034
-\                                                                                                                                                                               +- nvme4 *tcp* traddr=192.168.20.28,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
-+- nvme5 *tcp* traddr=192.168.20.29,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
-+- nvme6 *tcp* traddr=192.168.21.28,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*                                                
-+- nvme7 *tcp* traddr=192.168.21.29,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
+\
+ +- nvme4 *tcp* traddr=192.168.20.28,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*
+ +- nvme5 *tcp* traddr=192.168.20.29,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*
+ +- nvme6 *tcp* traddr=192.168.21.28,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
+ +- nvme7 *tcp* traddr=192.168.21.29,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*
 ----
 ====
 --
@@ -763,7 +787,7 @@ nvme netapp ontapdevices -o json
 
 == Step 8: Set up secure in-band authentication
 
-Secure in-band authentication is supported over NVMe/TCP between a Oracle Linux 10.x host and an ONTAP controller.
+Secure in-band authentication is supported over NVMe/TCP between an Oracle Linux 10.x host and an ONTAP controller.
 
 Each host or controller must be associated with a DH-HMAC-CHAP key to set up secure authentication. A DH-HMAC-CHAP key is a combination of the NQN of the NVMe host or controller and an authentication secret configured by the administrator. To authenticate its peer, an NVMe host or controller must recognize the key associated with the peer.
 
@@ -932,4 +956,5 @@ DHHC-1:03:n3F8d+bvxKW/s+lEhqXaOohI2sxrQ9iLutzduuFq49JgdjjaFtTpDSO9kQl/bvZj+Bo3rd
 
 There are no known issues.
 
+// 2026 Mar 11, ONTAPDOC-3774 Oracle Linux 10.1 release
 // 2026 Feb 12, IEPOS-2763, Oracle Linux 10 release
