@@ -4,7 +4,6 @@ permalink: nvme-ubuntu-2204.html
 keywords: nvme, linux, rhel, red hat, enterprise
 summary: How to Configure NVMe-oF Host for Ubuntu 22.04 with ONTAP
 ---
-
 = Configure Ubuntu 22.04 for NVMe-oF with ONTAP storage
 
 :hardbreaks:
@@ -30,6 +29,8 @@ For additional details on supported configurations, see the link:https://support
 == Step 1: Install Ubuntu and NVMe software and verify your configuration
 
 include::_include/nvme/verify-software-version-introduction.adoc[]
+
+.Steps
 
 . Install Ubuntu 22.04 on the server. After the installation is complete, verify that you are running the specified Ubuntu 22.04 kernel:
 +
@@ -67,7 +68,7 @@ nvme-cli/jammy-updates,now 1.16-3ubuntu0.1 amd64
 The following example shows an `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:063a9fa0-438a-4737-b9b4-95a21c66d041
+nqn.2014-08.org.nvmexpress:uuid:063axxxx-438a-xxxx-b9b4-95axxxx6d041
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string from `/etc/nvme/hostnqn` matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
@@ -83,7 +84,7 @@ nqn.2014-08.org.nvmexpress:uuid:063a9fa0-438a-4737-b9b4-95a21c66d041
 ----
 Vserver     Subsystem          Host NQN
 ----------- --------------- ----------------------------------------------------------
-vs_106_fc_nvme ub_106 nqn.2014-08.org.nvmexpress:uuid:c04702c8-e91e-4353-9995-ba4536214631
+vs_106_fc_nvme ub_106 nqn.2014-08.org.nvmexpress:uuid:c047xxxx-e91e-xxxx-9995-ba4xxxx14631
 ----
 ====
 +
@@ -99,6 +100,8 @@ Configure NVMe/FC for Broadcom/Emulex or Marvell/Qlogic adapters, or configure N
 .Broadcom/Emulex
 --
 Configure NVMe/FC for a Broadcom/Emulex adapter.
+
+.Steps
 
 . Verify that you are using the supported adapter model:
 
@@ -244,6 +247,8 @@ The native inbox qla2xxx driver included in the Ubuntu 22.04 GA kernel has the l
 
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
+.Steps
+
 . Verify that you are running the supported adapter driver and firmware versions:
 +
 [source,cli]
@@ -274,6 +279,8 @@ The expected output is 1.
 NVMe/TCP does not have auto-connect functionality. Instead, you can discover the NVMe/TCP subsystems and namespaces by performing the NVMe/TCP `connect` or `connect-all` operations manually. 
 
 If a path goes down and is not reinstated within the default time out period of 10 minutes, NVMe/TCP cannot automatically reconnect. To prevent a time out, set the retry period for failover events to at least 30 minutes.
+
+.Steps
 
 . Check that the initiator port can fetch the discovery log page data across the supported NVMe/TCP LIFs:
 +
