@@ -20,6 +20,9 @@ Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varie
 
 |Feature | Oracle Linux host version| ONTAP version
 
+|Beginning with Oracle Linux 9.6, nvme supports "queue-depth" i/o policy and enabled as default option.
+a|9.6 or later
+ |9.10.1 or later
 |Secure in-band authentication is supported over NVMe/TCP between a Oracle Linux host and an ONTAP controller
 a|9.4 or later
  |9.12.1 or later
@@ -62,6 +65,8 @@ NOTE: For details on supported configurations, see the link:https://mysupport.ne
 |===
 
 |If your Oracle Linux version is .. | Learn about ..
+|10 series
+|link:nvme-ol-10x.html[Configuring NVMe for Oracle Linux 10]
 |9 series
 |link:nvme-ol-9x.html[Configuring NVMe for Oracle Linux 9.x]
 |8 series 
@@ -73,3 +78,4 @@ NOTE: For details on supported configurations, see the link:https://mysupport.ne
 .Related information
 
 link:https://docs.netapp.com/us-en/ontap/san-admin/start-nvme-fc-service-svm-task.html[Learn about managing NVMe protocols^]
+link:https://docs.netapp.com/us-en/asa-r2/index.html[Learn about ASA R2^]

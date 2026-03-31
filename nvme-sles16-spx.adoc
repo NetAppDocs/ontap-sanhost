@@ -82,7 +82,7 @@ cat /etc/nvme/hostnqn
 The following example shows a `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074
+nqn.2014-08.org.nvmexpress:uuid:d3b5xxxx-c975-xxxx-8425-089xxxx1a074
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP array:
@@ -100,13 +100,13 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_coexistence_emulex
         nvme1
-                  regular   nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074
+                  regular   nqn.2014-08.org.nvmexpress:uuid:d3b5xxxx-c975-xxxx-8425-089xxxx1a074
         nvme10
-                  regular   nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074
+                  regular   nqn.2014-08.org.nvmexpress:uuid:d3b5xxxx-c975-xxxx-8425-089xxxx1a074
         nvme11
-                  regular   nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074
+                  regular   nqn.2014-08.org.nvmexpress:uuid:d3b5xxxx-c975-xxxx-8425-089xxxx1a074
         nvme12
-                  regular   nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074
+                  regular   nqn.2014-08.org.nvmexpress:uuid:d3b5xxxx-c975-xxxx-8425-089xxxx1a074
 4 entries were displayed.
 ----
 ====
@@ -658,15 +658,15 @@ NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized pat
 
 .NVMe/FC 
 --
-This following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, and ASA systems and ASA r2 system with NVMe/FC.
+The following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, ASA, or ASA r2 system with NVMe/FC.
 
-.Show AFF, FAS, and ASA example output
+.Show example output for AFF, FAS, or ASA
 [%collapsible]
 ====
 [subs=+quotes]
 ----
  nvme-subsys114 - NQN=nqn.1992-08.com.netapp:sn.9e30b9760a4911f08c87d039eab67a95:subsystem.sles_161_27                       
-                 hostnqn=nqn.2014-08.org.nvmexpress:uuid:f6517cae-3133-11e8-bbff-7ed30aef123f iopolicy=round-robin\
+                 hostnqn=nqn.2014-08.org.nvmexpress:uuid:f651xxxx-3133-xxxx-bbff-7edxxxxf123f iopolicy=round-robin\
 +- nvme114 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2360d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live optimized*                                       
 +- nvme115 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2362d039ea359e4a,host_traddr=nn-0x20000090fae0ec88:pn-0x10000090fae0ec88 *live non-optimized*
 +- nvme116 *fc* traddr=nn-0x234ed039ea359e4a:pn-0x2361d039ea359e4a,host_traddr=nn-0x20000090fae0ec89:pn-0x10000090fae0ec89 *live optimized*
@@ -674,13 +674,13 @@ This following example outputs show a namespace hosted on a two-node ONTAP contr
 ----
 ====
 
-.Show ASA r2 example output
+.Show example output for ASA r2
 [%collapsible]
 ====
 [subs=+quotes]
 ----
 nvme-subsys96 - NQN=nqn.1992-08.om.netapp:sn.b351b2b6777b11f0b3c2d039ea5cfc91:subsystem.nvme24
-                hostnqn=nqn.2014-08.org.nvmexpress:uuid:d3b581b4-c975-11e6-8425-0894ef31a074
+                hostnqn=nqn.2014-08.org.nvmexpress:uuid:d3b5xxxx-c975-xxxx-8425-089xxxx1a074
 \
  +- nvme203 *fc* traddr=nn-0x2011d039ea5cfc90:pn-0x2015d039ea5cfc90,host_traddr=nn-0x200000109bdacc76:pn-0x100000109bdacc76 *live optimized*
  +- nvme25 *fc* traddr=nn-0x2011d039ea5cfc90:pn-0x2014d039ea5cfc90,host_traddr=nn-0x200000109bdacc75:pn-0x100000109bdacc75 *live optimized*
@@ -692,15 +692,15 @@ nvme-subsys96 - NQN=nqn.1992-08.om.netapp:sn.b351b2b6777b11f0b3c2d039ea5cfc91:su
 
 .NVMe/TCP 
 --
-This following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, and ASA systems and ASA r2 systems with NVMe/TCP.
+The following example outputs show a namespace hosted on a two-node ONTAP controller for AFF, FAS, ASA, or ASA r2 systems with NVMe/TCP.
 
-.Show AFF, FAS, and ASA example output
+.Show example output for AFF, FAS, or ASA
 [%collapsible]
 ====
 [subs=+quotes]
 ----
 nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme10
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b7cxxxx44d33
 \
  +- nvme105 *tcp* traddr=192.168.39.10,trsvcid=4420,host_traddr=192.168.39.20,src_addr=192.168.39.20 *live optimized*
  +- nvme153 *tcp* traddr=192.168.39.11,trsvcid=4420,host_traddr=192.168.39.20,src_addr=192.168.39.20 *live non-optimized*
@@ -709,13 +709,13 @@ nvme-subsys9 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:su
 ----
 ====
 
-.Show ASA r2 example output
+.Show example output for ASA r2
 [%collapsible]
 ====
 [subs=+quotes]
 ----
 nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.17e32b6e8c7f11f09545d039eac03c33:subsystem.Bidirectional_DHCP_1_0               
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0054-xxxx-8039-c3cxxxx23034
 \                                                                                                                                                                               +- nvme4 *tcp* traddr=192.168.20.28,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
 +- nvme5 *tcp* traddr=192.168.20.29,trsvcid=4420,host_traddr=192.168.20.21,src_addr=192.168.20.21 *live optimized*                                                
 +- nvme6 *tcp* traddr=192.168.21.28,trsvcid=4420,host_traddr=192.168.21.21,src_addr=192.168.21.21 *live optimized*                                                
@@ -918,11 +918,11 @@ Vserver Name: vs_tcp_sles16
      Discovery Subsystem NQN: nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:discovery
            Logical Interface: lif3
                         Node: A400-12-171
-                    Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33
+                    Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b7cxxxx44d33
           Transport Protocol: nvme-tcp
  Initiator Transport Address: 192.168.39.20
 Transport Service Identifier: 8009
-             Host Identifier: 4c4c454400355910804bb7c04f444d33
+             Host Identifier: 4c4cxxxx0035xxxx804bb7cxxxx44d33
            Admin Queue Depth: 32
        Header Digest Enabled: false
          Data Digest Enabled: false
@@ -968,7 +968,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33
+nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b7cxxxx44d33
 DHHC-1:03:ohdxI1yIS8gBLwIOubcwl57rXcozYuRgBsoWaBvxEvpDlQHn/7dQ4JjFGwmhgwdJWmVoripbWbMJy5eMAbCahN4hhYU=:
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
@@ -1036,8 +1036,8 @@ Use the `-o` option to generate the JSON file. Refer to the NVMe connect-all man
 # cat /etc/nvme/config.json
 [
   {
-    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33",
-    "hostid":"4c4c4544-0035-5910-804b-b7c04f444d33",
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b7cxxxx44d33",
+    "hostid":"4c4cxxxx-0035-xxxx-804b-b7cxxxx44d33",
     "dhchap_key":"DHHC-1:01:wkwAKk8r9Ip7qECKt7V5aIo/7Y1CH7DWkUfLfMxmseg39DFb:",
     "subsystems":[
       {
@@ -1248,7 +1248,7 @@ cat /etc/nvme/hostnqn
 You should see the following output:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b7c04f444d33
+nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b7cxxxx44d33
 ----
 
 .. Verify the key: 
@@ -1261,7 +1261,7 @@ nvme gen-tls-key --hmac=1 --identity=1 --subsysnqn= nqn.1992-08.com.netapp:sn.99
 You should see the following output:
 +
 ----
-NVMeTLSkey-1:01:C50EsaGtuOp8n5fGE9EuWjbBCtshmfoHx4XTqTJUmydf0gIj:
+NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbxxxxhmfoHx4XTqTJUmydf0gIj:
 ----
 
 . On the ONTAP controller, add the TLS PSK to the ONTAP subsystem:
@@ -1270,7 +1270,7 @@ NVMeTLSkey-1:01:C50EsaGtuOp8n5fGE9EuWjbBCtshmfoHx4XTqTJUmydf0gIj:
 [%collapsible]
 ====
 ----
-nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 -tls-configured-psk NVMeTLSkey-1:01:C50EsaGtuOp8n5fGE9EuWjbBCtshmfoHx4XTqTJUmydf0gIj:
+nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33 -tls-configured-psk NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbxxxxhmfoHx4XTqTJUmydf0gIj:
 ----
 ====
 
@@ -1278,7 +1278,7 @@ nvme subsystem host add -vserver vs_iscsi_tcp -subsystem nvme1 -host-nqn nqn.201
 +
 [source,cli]
 ----
-nvme check-tls-key --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 --keydata=NVMeTLSkey-1:01:C50EsaGtuOp8n5fGE9EuWjbBCtshmfoHx4XTqTJUmydf0gIj: --insert
+nvme check-tls-key --identity=1 --subsysnqn=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 --keydata=NVMeTLSkey-1:01:C50ExxxxuOp8xxxxE9EuWjbxxxxhmfoHx4XTqTJUmydf0gIj: --insert
 ----
 +
 You should see the following TLS key:
@@ -1300,7 +1300,7 @@ cat /proc/keys | grep NVMe
 [%collapsible]
 ====
 ----
-069f56bb I-Q-- 5 perm 3b010000 0 0 psk NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=: 32
+069f56bb I-Q-- 5 perm 3b010000 0 0 psk NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33 nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=: 32
 ----
 ====
 
@@ -1331,11 +1331,18 @@ nvme list-subsys
 ====
 ----
 nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1
-               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
+               hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33
 **
  +- nvme0 tcp traddr=192.168.38.10,trsvcid=4420,host_traddr=192.168.38.20,src_addr=192.168.38.20 live
 ----
 ====
+
+.. Export the TLS PSK from the kernel keyring. This ensures that the key persists during a host reboot:
++
+[source,cli]
+----
+# nvme tls --export --keyfile /etc/nvme/tls-keys
+----
 
 . Add the target, and verify the TLS connection to the specified ONTAP subsystem:
 +
@@ -1354,10 +1361,10 @@ nvme subsystem controller show -vserver vs_tcp_sles16 -subsystem nvme1 -instance
                       Controller ID: 0040h
                   Logical Interface: lif1
                                Node: A400-12-171
-                           Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33
+                           Host NQN: nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33
                  Transport Protocol: nvme-tcp
         Initiator Transport Address: 192.168.38.20
-                    Host Identifier: 4c4c454400355910804bb2c04f444d33
+                    Host Identifier: 4c4cxxxx0035xxxx804bb2cxxxx44d33
                Number of I/O Queues: 2
                    I/O Queue Depths: 128, 128
                   Admin Queue Depth: 32
@@ -1371,11 +1378,13 @@ Authentication Diffie-Hellman Group: 3072-bit
                 Authentication Mode: unidirectional
        Transport Service Identifier: 4420
                        TLS Key Type: configured
-                   TLS PSK Identity: NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b2c04f444d33 nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=
+                   TLS PSK Identity: NVMe1R01 nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b2cxxxx44d33 nqn.1992-08.com.netapp:sn.9927e165694211f0b4f4d039eab31e9d:subsystem.nvme1 oYVLelmiOwnvDjXKBmrnIgGVpFIBDJtc4hmQXE/36Sw=
                          TLS Cipher: TLS-AES-128-GCM-SHA256
 ----
 ====
 
 == Step 11: Review the known issues 
 
-There are no known issues. 
+There are no known issues.
+
+// 2026 FEB 27, ONTAPDOC-3351
