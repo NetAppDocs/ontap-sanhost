@@ -140,6 +140,8 @@ sidebar:
       - title: Oracle Linux
         pdf-filename: OL-FCP
         entries:
+        - title: 10.x
+          url: /hu-ol-10x.html        
         - title: 9.x
           url: /hu-ol-9x.html
         - title: 8.x
@@ -235,6 +237,8 @@ sidebar:
         entries:
         - title: ONTAP support and features
           url: /nvme-ol-supported-features.html
+        - title: 10.x
+          url: /nvme-ol-10x.html          
         - title: 9.x
           url: /nvme-ol-9x.html
         - title: 8.x
@@ -281,6 +285,8 @@ sidebar:
           url: /nvme-sles15-spx.html
       - title: Ubuntu
         entries:
+        - title: ONTAP support and features 
+          url: /nvme-ubuntu-supported-features.html
         - title: "24.04"
           url: /nvme-ubuntu-2404.html
         - title: "22.04"
