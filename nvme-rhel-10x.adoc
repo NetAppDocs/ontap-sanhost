@@ -79,7 +79,7 @@ cat /etc/nvme/hostnqn
 The following example shows an `hostnqn` version:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
@@ -97,11 +97,11 @@ Vserver Subsystem Priority  Host NQN
 ------- --------- --------  ------------------------------------------------
 vs_coexistence_QLE2872
                subsystem_1
-                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
                subsystem_10
-                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
                subsystem_11
-                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+                         regular   nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
 ----
 ====
 
@@ -809,7 +809,7 @@ nvme gen-dhchap-key -s optional_secret -l key_length {32|48|64} -m HMAC_function
 In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is generated.
 +
 ----
-nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034
+nvme gen-dhchap-key -m 3 -n nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0054-xxxx-8039-c3cxxxx23034
 DHHC-1:03:AppJHkJygA6ZC4BxyQNtJST+4k4IOv47MAJk0xBITwFOHIC2nV/uE04RoSpy1z2SXYqNW1bhLe9hJ+MDHigGexaG2Ig=:   
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
@@ -881,7 +881,7 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 ----
 [
   {
-    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0054-5110-8039-c3c04f523034",
+    "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0054-xxxx-8039-c3cxxxx23034",
     "hostid":"44454c4c-5400-1051-8039-c3c04f523034",
     "dhchap_key":"DHHC-1:01:2G7lsg9PMO00h1Wf1g4QtP0XT11kREz0qVuLm2xvZdbaWR/g:",
     "subsystems":[

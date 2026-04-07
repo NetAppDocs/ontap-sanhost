@@ -602,7 +602,7 @@ In the following example, a random dhchap key with HMAC set to 3 (SHA-512) is ge
 +
 ----
 nvme gen-dhchap-key -m 3 -n nqn.2014-
-08.org.nvmexpress:uuid:e6dade64-216d-11ec-b7bb-7ed30a5482c3
+08.org.nvmexpress:uuid:e6daxxxx-216d-xxxx-b7bb-7edxxxx482c3
 DHHC-1:03:wSpuuKbBHTzC0W9JZxMBsYd9JFV8Si9aDh22k2BR/4m852vH7KGlrJeMpzhmyjDWOo0PJJM6yZsTeEpGkDHMHQ255+g=: 
 ----
 . On the ONTAP controller, add the host and specify both dhchap keys:
@@ -676,14 +676,14 @@ In the following example, `dhchap_key` corresponds to `dhchap_secret` and `dhcha
 cat /etc/nvme/config.json
 [
 {
-  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:9796c1ec-0d34-11eb-
-  b6b2-3a68dd3bab57",
+  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:9796xxxx-0d34-xxxx-
+  b6b2-3a6xxxxbab57",
   "hostid":"b033cd4fd6db4724adb48655bfb55448",
   "dhchap_key":" DHHC-1:01:CNxTYq73T9vJk0JpOfDBZrhDCqpWBN4XVZI5WxwPgDUieHAi:"
 },
 {
-  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-
-  804b-b5c04f444d33",
+  "hostnqn":"nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-
+  804b-b5cxxxx44d33",
   "subsystems":[
         {
           "nqn":"nqn.1992-
@@ -741,13 +741,13 @@ nvme connect-all -J /etc/nvme/config.json
 [%collapsible]
 ====
 ----
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
 r_DHCP,transport=tcp,traddr=192.168.1.25,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
 r_DHCP,transport=tcp,traddr=192.168.2.25,trsvcid=4420
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
 r_DHCP,transport=tcp,traddr=192.168.1.24,trsvcid=4420 
-already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0035-5910-804b-b5c04f444d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
+already connected to hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0035-xxxx-804b-b5cxxxx44d33,nqn=nqn.1992-08.com.netapp:sn.8dde3be2cc7c11efb777d039eab6cb6d:subsystem. bidi
 r_DHCP,transport=tcp,traddr=192.168.2.24,trsvcid=4420
 ----
 ====
