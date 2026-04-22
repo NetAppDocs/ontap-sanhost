@@ -55,6 +55,16 @@ The following table shows the Linux OS native compiled multipath parameter setti
 |===
 ====
 
+. If your storage configuration includes SnapMirror active sync, additional configuration is required to ensure correct host and virtual machine behavior during SnapMirror active sync storage failover events. 
+ 
+When SnapMirror active sync is used with Oracle Linux Virtualization Manager (OLVM), specific multipath and sanlock behavior must be configured to align host I/O retry handling with OLVM high-availability lease management.
+
+
+Refer to the NetApp Knowledge Base article
+https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/Oracle_Linux_Virtualization_Manager_-_Sanlock_Settings_for_ONTAP_SnapMirror_Active_Sync[Oracle Linux Virtualization Manager – Sanlock Settings for ONTAP SnapMirror Active Sync]
+for detailed configuration instructions.
+
+
 . Verify the parameter settings and path status for your ONTAP LUNs:
 +
 [source,cli]
