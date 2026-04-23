@@ -1,15 +1,19 @@
-To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is defined and that you have the NetApp recommended settings configured for your ONTAP LUNs.
+[role="tabbed-block"]
+=====
+.Oracle Linux Standalone
+--
+To ensure that multipathing is configured correctly for your host, verify that `/etc/multipath.conf` is defined and that the NetApp-recommended settings are configured for your ONTAP LUNs.
 
-.Steps 
+.Steps
 
-. Verify that the `/etc/multipath.conf` file exits. If the file doesn't exist, create an empty, zero-byte file:
+. Verify that the `/etc/multipath.conf` file exists. If the file doesn't exist, create an empty, zero-byte file:
 +
 [source,cli]
 ----
 touch /etc/multipath.conf
 ----
 
-. The first time the `multipath.conf` file is created, you might need to enable and start the multipath services to load the recommended settings: 
+. The first time the `multipath.conf` file is created, you might need to enable and start the multipath services to load the recommended settings:
 +
 [source,cli]
 ----
@@ -23,7 +27,7 @@ systemctl start multipathd
 
 . Each time you boot the host, the empty `/etc/multipath.conf` zero-byte file automatically loads the NetApp recommended host multipath parameters as the default settings. You shouldn't need to make changes to the `/etc/multipath.conf` file for your host because the operating system is compiled with the multipath parameters that recognize and manage ONTAP LUNs correctly.
 +
-The following table shows the Linux OS native compiled multipath parameter settings for ONTAP LUNs.
+The following table shows the native Linux OS compiled multipath parameter settings for ONTAP LUNs.
 +
 .Show parameter settings
 [%collapsible]
@@ -55,12 +59,6 @@ The following table shows the Linux OS native compiled multipath parameter setti
 |===
 ====
 
-. If your storage configuration includes SnapMirror active sync, additional configuration is required to ensure correct host and virtual machine behavior during SnapMirror active sync storage failover events. 
-+
-In SnapMirror active sync environments using Oracle Linux Virtualization Manager (OLVM), default sanlock and multipath timeout values can result in unintended high-avaialbility VM failovers during storage failover events. This occurs because the default lease renewal window may expire before multipath recovery completes.  
-+
-Perform the configuration steps described in the NetApp Knowledge Base article https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/Oracle_Linux_Virtualization_Manager_-_Sanlock_Settings_for_ONTAP_SnapMirror_Active_Sync[Oracle Linux Virtualization Manager – Sanlock Settings for ONTAP SnapMirror Active Sync] to adjust the sanlock and multipath timeout values to ensure that the lease renewal window is sufficient for multipath recovery to complete during a storage failover event.
-
 . Verify the parameter settings and path status for your ONTAP LUNs:
 +
 [source,cli]
@@ -70,13 +68,13 @@ multipath -ll
 +
 The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. Having more than four paths can cause problems during a storage failure.
 +
-The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration. 
+The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
 +
 [role="tabbed-block"]
 =====
 .ASA configuration
 --
-An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time. 
+An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time.
 
 .Show example
 [%collapsible]
@@ -115,5 +113,66 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 15:0:1:35 sdbx  68:176  active ready running
 ----
 ====
+--
+=====
+--
+
+.OLVM - ONTAP HA
+--
+If you are using Oracle Linux Virtualization Manager (OLVM), Linux hypervisor default multipath parameters are controlled by the VDSM daemon.
+
+It is not recommended to directly modify default OLVM VDSM-generated `/etc/multipath.conf` values. Override the default multipath values by using a multipath drop-in file.
+
+NetApp recommends the following drop-in file for ONTAP HA configurations to override the default `dev_loss_tmo` and `no_path_retry` values. The remaining multipath parameters align with the table in the Oracle Linux Standalone tab.
+
+.Steps
+
+. Create the drop-in file and add the following content:
++
+[source,cli]
+----
+cat <<'EOF' > /etc/multipath/conf.d/ontap-ha-mpath-netapp.conf
+# Finite multipath retry window aligned with sanlock io_timeout
+# default sanlock:io_timeout=10s, polling_interval=5s => no_path_retry = (8*10)/5 = 16
+
+devices {
+  device {
+    vendor "NETAPP"
+    product "LUN"
+    no_path_retry 16
+    dev_loss_tmo "infinity"
+  }
+}
+EOF
+----
+
+. Reload the multipath daemon:
++
+[source,cli]
+----
+systemctl reload multipathd
+----
+
+. Verify the updated multipath configuration:
++
+[source,cli]
+----
+multipath -ll
+----
+--
+
+.OLVM - ONTAP SnapMirror active sync
+--
+If you are using Oracle Linux Virtualization Manager (OLVM), Linux hypervisor default multipath parameters are controlled by the VDSM daemon.
+
+It is not recommended to directly modify default OLVM VDSM-generated `/etc/multipath.conf` values. Override the default multipath values by using a multipath drop-in file.
+
+.Steps
+
+. If you are using an ONTAP SnapMirror active sync configuration with Oracle Linux Virtualization Manager (OLVM), additional configuration is required to ensure correct host and virtual machine behavior during SnapMirror active sync storage failover events.
++
+With Oracle Linux Virtualization Manager (OLVM), default sanlock and multipath timeout values can result in unintended high-availability virtual machine (VM) failovers during unplanned storage site failover events. This occurs because the default lease renewal window can expire before multipath recovery completes.
++
+Perform the configuration steps described in the NetApp Knowledge Base article https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/Oracle_Linux_Virtualization_Manager_-_Sanlock_Settings_for_ONTAP_SnapMirror_Active_Sync[Oracle Linux Virtualization Manager - Sanlock Settings for ONTAP SnapMirror Active Sync] to adjust the sanlock and multipath timeout values to ensure that the lease renewal window is sufficient for multipath recovery to complete during a storage failover event.
 --
 =====
