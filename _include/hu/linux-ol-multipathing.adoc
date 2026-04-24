@@ -69,7 +69,7 @@ multipath -ll
 The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. Having more than four paths can cause problems during a storage failure.
 +
 The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
-+
+
 *ASA configuration*
 
 An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time.
@@ -114,11 +114,9 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 
 .OLVM - ONTAP HA
 --
-If you are using Oracle Linux Virtualization Manager (OLVM), Linux hypervisor default multipath parameters are controlled by the VDSM daemon.
+If you are using Oracle Linux Virtualization Manager (OLVM), Linux hypervisor default multipath parameters are controlled by the VDSM daemon. It is not recommended to directly modify default OLVM VDSM-generated `/etc/multipath.conf` values. Override the default multipath values by using a multipath drop-in file.
 
-It is not recommended to directly modify default OLVM VDSM-generated `/etc/multipath.conf` values. Override the default multipath values by using a multipath drop-in file.
-
-NetApp recommends the following drop-in file for ONTAP HA configurations to override the default `dev_loss_tmo` and `no_path_retry` values. The remaining multipath parameters align with the table in the Oracle Linux Standalone tab.
+NetApp recommends the following drop-in file for ONTAP HA configurations to override the default `dev_loss_tmo` and `no_path_retry` values. The remaining multipath parameters align with the parameter settings table in the Oracle Linux Standalone tab.
 
 .Steps
 
@@ -158,13 +156,11 @@ multipath -ll
 
 .OLVM - ONTAP SnapMirror active sync
 --
-If you are using Oracle Linux Virtualization Manager (OLVM), Linux hypervisor default multipath parameters are controlled by the VDSM daemon.
-
-It is not recommended to directly modify default OLVM VDSM-generated `/etc/multipath.conf` values. Override the default multipath values by using a multipath drop-in file.
+If you are using Oracle Linux Virtualization Manager (OLVM), Linux hypervisor default multipath parameters are controlled by the VDSM daemon. It is not recommended to directly modify default OLVM VDSM-generated `/etc/multipath.conf` values. Override the default multipath values by using a multipath drop-in file.
 
 .Steps
 
-. If you are using an ONTAP SnapMirror active sync configuration with Oracle Linux Virtualization Manager (OLVM), additional configuration is required to ensure correct host and virtual machine behavior during SnapMirror active sync storage failover events.
+If you are using an ONTAP SnapMirror active sync configuration with Oracle Linux Virtualization Manager (OLVM), additional configuration is required to ensure correct host and virtual machine behavior during SnapMirror active sync storage failover events.
 +
 With Oracle Linux Virtualization Manager (OLVM), default sanlock and multipath timeout values can result in unintended high-availability virtual machine (VM) failovers during unplanned storage site failover events. This occurs because the default lease renewal window can expire before multipath recovery completes.
 +
