@@ -116,7 +116,7 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
 --
 In Oracle Linux Virtualization Manager (OLVM), default multipath parameters on the hypervisor are controlled by the VDSM daemon. Do not edit /etc/multipath.conf directly.Instead, override the defaults using a multipath drop-in file.
 
-For ONTAP HA configurations, NetApp recommends the following drop-in file to override dev_loss_tmo and no_path_retry. All other multipath parameters should match the settings in the <<multipath-parameter-settings-table,Oracle Linux Host parameter settings table>>.
+For ONTAP HA configurations, NetApp recommends the following drop-in file to override dev_loss_tmo and no_path_retry. All other multipath parameters should match the settings in the Oracle Linux Host parameter settings table.
 
 .Steps
 
