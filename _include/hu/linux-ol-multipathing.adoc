@@ -161,9 +161,9 @@ If you are using Oracle Linux Virtualization Manager (OLVM), Linux hypervisor de
 .Steps
 
 If you are using an ONTAP SnapMirror active sync configuration with Oracle Linux Virtualization Manager (OLVM), additional configuration is required to ensure correct host and virtual machine behavior during SnapMirror active sync storage failover events.
-+
+
 With Oracle Linux Virtualization Manager (OLVM), default sanlock and multipath timeout values can result in unintended high-availability virtual machine (VM) failovers during unplanned storage site failover events. This occurs because the default lease renewal window can expire before multipath recovery completes.
-+
+
 Perform the configuration steps described in the NetApp Knowledge Base article https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/Oracle_Linux_Virtualization_Manager_-_Sanlock_Settings_for_ONTAP_SnapMirror_Active_Sync[Oracle Linux Virtualization Manager - Sanlock Settings for ONTAP SnapMirror Active Sync] to adjust the sanlock and multipath timeout values to ensure that the lease renewal window is sufficient for multipath recovery to complete during a storage failover event.
 --
 =====
