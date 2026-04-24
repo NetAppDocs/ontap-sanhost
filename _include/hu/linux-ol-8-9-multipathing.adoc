@@ -69,11 +69,11 @@ multipath -ll
 The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. Having more than four paths can cause problems during a storage failure.
 +
 The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration.
-
++
 *ASA configuration*
-
++
 An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time.
-
++
 .Show example
 [%collapsible]
 ====
@@ -88,13 +88,13 @@ size=10G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp=
   |- 12:0:1:6   sdgp 132:80  active ready running
 ----
 ====
-
++
 *AFF or FAS configuration*
-
++
 An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren’t available.
-
++
 The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
-
++
 .Show example
 [%collapsible]
 ====
