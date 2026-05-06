@@ -11,12 +11,7 @@ By default, the AIX OS enforces a shorter I/O timeout when there are no availabl
 --
 Beginning with ONTAP 9.11.1, SnapMirror active sync is supported for an AIX host. The support behavior differs by ONTAP release:
 
-  - ONTAP 9.11.1 to 9.18.1: SnapMirror active sync is supported in Active/Standby configuration.
-  - ONTAP 9.19.1 and later: SnapMirror active sync is supported in an Active/Active configuration, enabling non-disruptive SnapMirror active sync operations.
-
-  For SnapMirror active sync configuration guidance:
-  
-    - ONTAP 9.11.1 to 9.18.1, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/How_to_configure_AIX_Host_for_SnapMirror_active_sync_in_ONTAP[How to configure an AIX host for SnapMirror active sync in ONTAP 9.11.1 to 9.18.1^].
-    - ONTAP 9.19.1 and later, see the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/SnapMirror_active_sync_support_for_AIX%3A_behavior_by_ONTAP_release_and_migration_guidance[SnapMirror active sync support for AIX: behavior by ONTAP release and migration guidance^].
+  - ONTAP 9.11.1 to 9.18.1: SnapMirror active sync is supported in Active/Standby configuration. See the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/How_to_configure_AIX_Host_for_SnapMirror_active_sync_in_ONTAP[How to configure an AIX host for SnapMirror active sync in ONTAP 9.11.1 to 9.18.1^].
+  - ONTAP 9.19.1 and later: SnapMirror active sync is supported in an Active/Active configuration, enabling non-disruptive SnapMirror active sync operations. See the Knowledge Base article link:https://kb.netapp.com/on-prem/ontap/DP/SnapMirror/SnapMirror-KBs/SnapMirror_active_sync_support_for_AIX%3A_behavior_by_ONTAP_release_and_migration_guidance[SnapMirror active sync support for AIX: behavior by ONTAP release and migration guidance^].
 --
 ====
