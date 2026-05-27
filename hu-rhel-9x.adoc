@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: hu-rhel-9x.html
-keywords: host utilities, red hat, rhel, linux, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0, netapp, ontap, rhel
+keywords: host utilities, red hat, rhel, linux, 9.8, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0, netapp, ontap, rhel
 summary: Install Linux Host Utilities on a RHEL 9.x host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
 = Configure RHEL 9.x for FCP and iSCSI with ONTAP storage
@@ -29,7 +29,7 @@ include::_include/hu/linux-rhel-multipathing.adoc[]
 
 == Step 4: Confirm the iSCSI configuration for your host
 
-include::_include/hu/linux-iscsi-configuration.adoc[]
+include::_include/hu/linux-iscsi-configuration-rhel9.adoc[]
 
 == Step 5: Optionally, exclude a device from multipathing
 
@@ -84,9 +84,11 @@ include::_include/hu/asm-mirroring.adoc[]
 
 include::_include/hu/kvm-redhat.adoc[]
 
+// 2026 May 27, ONTAPDOC-3909
 // 2026 JAN 28, ONTAPDOC-3486
 // 2025 Dec 17, ONTAPDOC-3531
 //ONTAPDOC-2984 22-May-2025
 //ONTAPDOC-2561 25-Nov-2024
 //ONTAPDOC-1584 1-Feb-2024
+
 
