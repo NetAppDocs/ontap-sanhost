@@ -566,14 +566,16 @@ systemctl status nvmf-autoconnect.service
 [%collapsible]
 ====
 ----
-nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
-        Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service;  enabled; preset: disabled)
+○ nvmf-autoconnect.service - Connect NVMe-oF subsystems automatically during boot
+     Loaded: loaded (/usr/lib/systemd/system/nvmf-autoconnect.service; enabled; preset: disabled)
+     Active: inactive (dead) since Thu 2026-05-21 10:20:23 EDT; 10min ago
+    Process: 7484 ExecStart=/usr/sbin/nvme connect-all --context=autoconnect (code=exited, status=0/SUCCESS)
+   Main PID: 7484 (code=exited, status=0/SUCCESS)
+        CPU: 30ms
 
-Active: inactive (dead) since Wed 2025-10-29 00:42:03 EDT; 6h ago   Main PID: 8487 (code=exited, status=0/SUCCESS)  CPU: 66ms
-
-Oct 29 00:42:03 R650-14-188 systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot...
-Oct 29 00:42:03 R650-14-188 systemd[1]: nvmf-autoconnect.service: Deactivated successfully.           
-Oct 29 00:42:03 R650-14-188 systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
+May 21 10:20:23 SR650-N-13-89 systemd[1]: Starting Connect NVMe-oF subsystems automatically during boot...
+May 21 10:20:23 SR650-N-13-89 systemd[1]: nvmf-autoconnect.service: Deactivated successfully.
+May 21 10:20:23 SR650-N-13-89 systemd[1]: Finished Connect NVMe-oF subsystems automatically during boot.
 ----
 ====
 . Verify that `nvmefc-boot-connections.service` is enabled:
@@ -588,12 +590,15 @@ systemctl status nvmefc-boot-connections.service
 ====
 ----
 nvmefc-boot-connections.service - Auto-connect to subsystems on FC-NVME devices found during boot
-         Loaded: loaded (/usr/lib/systemd/system/nvmefc-boot-connections.service; enabled; preset:enabled)
-     Active: inactive (dead) since Wed 2025-10-29 00:41:51 EDT; 6h ago
-Main PID: 4652 (code=exited, status=0/SUCCESS)
-        CPU: 13ms
+     Loaded: loaded (/usr/lib/systemd/system/nvmefc-boot-connections.service; enabled; preset: enabled)
+     Active: inactive (dead) since Thu 2026-05-21 10:20:04 EDT; 16min ago
+    Process: 3427 ExecStart=/bin/sh -c echo add > /sys/class/fc/fc_udev_device/nvme_discovery (code=exited, status=0/SUCCESS)
+   Main PID: 3427 (code=exited, status=0/SUCCESS)
+        CPU: 18ms
 
-Oct 29 00:41:51 R650-14-188 systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot...  Oct 29 00:41:51 R650-14-188 systemd[1]: nvmefc-boot-connections.service: Deactivated successfully.  Oct 29 00:41:51 R650-14-188 systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot
+May 21 10:20:04 SR650-N-13-89 systemd[1]: Starting Auto-connect to subsystems on FC-NVME devices found during boot...
+May 21 10:20:04 SR650-N-13-89 systemd[1]: nvmefc-boot-connections.service: Deactivated successfully.
+May 21 10:20:04 SR650-N-13-89 systemd[1]: Finished Auto-connect to subsystems on FC-NVME devices found during boot.
 ----
 ====
 
@@ -794,8 +799,10 @@ nvme netapp ontapdevices -o json
       "Namespace_Path":"/vol/Nvmevol1/ns1",
       "NSID":1,
       "UUID":"d8efef7d-4dde-447f-b50e-b2c009298c66",
-      "LBA_Size":4096,
-      "Namespace_Size":26843545600,
+      "LBA_Size":4096, 
+      "UsedBytes":832835584,
+      "Namespace_Size":26843545600, 
+      "Version":"9.18.1"
     },
 ]
 }
@@ -1015,15 +1022,9 @@ DHHC-1:03:ZCRrP9MQOeXhFitT7Fvvf/3P6K/qY1HfSmSfM8nLjESJdOjbjK/J6m00ygJgjm0VrRlrgr
 
 == Step 9: Review the known issues
 
-These are the known issues:
+There are no known issues.
 
-[cols="20,40,40",options="header"]
-|===
-|NetApp Bug ID	|Title	|Description
-|1503468
-|In RHEL 9.1, the `nvme list-subsys` command returns repeated nvme controller list for a given subsystem	|The `nvme list-subsys` command returns a list of NVMe controllers for a given subsystem. In RHEL 9.1, this command shows controllers with their ANA state for all namespaces in the subsystem. Because ANA state is a per-namespace attribute, the command should display unique controller entries with the path state for each namespace.|
-link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1479047[1479047^]	|RHEL 9.0 NVMe-oF hosts create duplicate Persistent Discovery Controllers (PDCs)	|On NVMe-oF hosts, you can use the `nvme discover -p` command to create PDCs. When this command is used, only one PDC should be created per initiator-target combination.  However, if you are running ONTAP 9.10.1 and RHEL 9.0 with an NVMe-oF host, a duplicate PDC is created each time `nvme discover -p` is executed. This leads to unnecessary usage of resources on both the host and the target.
-|===
 
+//ONTAPDOC-3908 18-June-2026
 //ONTAPDOC-2984 26-May-2025
 //ONTAPDOC-2561 25-Nov-2024
