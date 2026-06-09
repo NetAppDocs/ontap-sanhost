@@ -7,6 +7,8 @@ You can configure your host to use SAN booting to simplify deployment and improv
 --
 SAN booting is the process of setting up a SAN-attached disk (a LUN) as a boot device for an AIX/PowerVM host host. You can set up a SAN boot LUN to work in a AIX Multipath I/O (MPIO) environment that is using the FC protocol and running AIX Host Utilities with either the FC or FCoE protocol. The method you use to create a SAN boot LUN and install a new OS image in an AIX MPIO environment depends on the protocol that you are using. 
 
+NOTE: AIX requires that one and only one path be visible to a SAN boot disk until MPIO is enabled. Installing or migrating an AIX boot disk generally requires temporarily restricting the FC zoning for the host to iniclude a single FC initiator and a single FC target. Once the Host Utilities, including the PCM package, are installed the OS can be rebooted to fully enable MPIO. At that point, add the additional FC initiators and FC targets to the zone. You should then run `cfgmgr -v` and the `bosboot -a` commands to update the boot configuration to include all available paths.
+
 .Steps
 . Use the link:https://mysupport.netapp.com/matrix/#welcome[Interoperability Matrix Tool^] to verify that your AIX OS, protocol, and ONTAP version support SAN booting.
 . Follow the best practices for setting up a SAN boot in the vendor documentation.
