@@ -19,7 +19,7 @@ include::_include/hu/linux-enable-san-boot.adoc[]
 
 == Step 2: Install the Linux Host Utilities
 
-include::_include/hu/install-linux-host-utilities-80.adoc[]
+include::_include/hu/install-linux-host-utilities.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
@@ -41,18 +41,7 @@ include::_include/hu/linux-customize-parameters.adoc[]
 
 == Step 7: Review the known issues
 
-Oracle Linux 9.3, 9.2, 9.1, and 9.0 with ONTAP storage has the following known issue:
-
-[cols="20,40,40",options="header"]
-|===
-|NetApp Bug ID	|Title	|Description
-|https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/BURT/1508554[1508554^]	|SAN LUN utility with Emulex HBA needs symbolic links from library packages	|When you execute the Linux Host Utilities CLI command - "sanlun fcp show adapter -v" on a SAN host, the command fails with an error message displaying that the library dependencies required for an host bus adapter (HBA) discovery cannot be located:
-----
-[root@hostname ~]# sanlun fcp show adapter -v
-Unable to locate /usr/lib64/libHBAAPI.so library
-Make sure the package installing the library is installed & loaded
-----
-|===
+There are no known issues.
 
 == What's next?
 
@@ -62,5 +51,6 @@ include::_include/hu/asm-mirroring.adoc[]
 
 include::_include/hu/kvm.adoc[]
 
+// 2026 June 16, ONTAPDOC-3932
 // 2026 JAN 28, ONTAPDOC-3486
 // 2025 Dec 17, ONTAPDOC-3531
