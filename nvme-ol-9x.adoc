@@ -513,9 +513,9 @@ NOTE: The new iopolicy applies automatically to matching NetApp ONTAP Controller
 include::_include/nvme/nvme-enabling-broadcom-1mb-size.adoc[]
 
 == Step 6: Verify NVMe boot services
-The nvmefc-boot-connections.service and nvmf-autoconnect.service boot services included in the NVMe/FC nvme-cli package are automatically enabled when the system boots.
+The `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services included in the NVMe/FC `nvme-cli` package are automatically enabled when the system boots.
 
-After booting completes, verify that the nvmefc-boot-connections.service and nvmf-autoconnect.service boot services are enabled.
+After booting completes, verify that the `nvmefc-boot-connections.service` and `nvmf-autoconnect.service` boot services are enabled.
 
 .Steps
 
