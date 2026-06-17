@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: hu-rhel-9x.html
-keywords: host utilities, red hat, rhel, linux, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0, netapp, ontap, rhel
+keywords: host utilities, red hat, rhel, linux, 9.8, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0, netapp, ontap
 summary: Install Linux Host Utilities on a RHEL 9.x host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
 = Configure RHEL 9.x for FCP and iSCSI with ONTAP storage
@@ -29,7 +29,7 @@ include::_include/hu/linux-rhel-multipathing.adoc[]
 
 == Step 4: Confirm the iSCSI configuration for your host
 
-include::_include/hu/linux-iscsi-configuration.adoc[]
+include::_include/hu/linux-iscsi-configuration-rhel9.adoc[]
 
 == Step 5: Optionally, exclude a device from multipathing
 
@@ -41,40 +41,7 @@ include::_include/hu/linux-customize-parameters.adoc[]
 
 == Step 7: Review the known issues
 
-RHEL 9.x with ONTAP storage has the following known issues.
-
-[role="tabbed-block"]
-====
-.9.3
---
-[options="header", cols="20, 20, 50,20"]
-|===
-|NetApp Bug ID	|Title	|Description	|JIRA ID
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex host bus adapter (HBA) adapter discovery	|In RHEL 9.x, the NetApp Linux SAN Host Utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support Emulex host bus adapter (HBA) discovery cannot be found. |Not applicable
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1593771[1593771^]  	|A Red Hat Enterprise Linux 9.3 QLogic SAN host encounters loss of partial multipaths during storage mobility operations	| During the ONTAP storage controller takeover operation, half of the multipaths are expected to go down or switch to a failover mode and then recover to full path count during the giveback workflow. However, with a Red Hat Enterprise Linux (RHEL) 9.3 QLogic host, only partial multipaths are recovered after a storage failover giveback operation. |RHEL 17811
-|===
---
-
-.9.2
---
-[options="header", cols="20,40,40"]
-|===
-|NetApp Bug ID	|Title	|Description
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.2, the NetApp Linux SAN Host Utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. 
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1537359[1537359^] |A Red Hat Linux 9.2 SAN booted host with Emulex HBA encounters stalled tasks leading to kernel disruption |During a storage failover giveback operation, a Red Hat Linux 9.2 SAN booted host with an Emulex host bus adapeter (HBA) encounters stalled tasks leading to kernel disruption. The kernel disruption causes the operating system to reboot and if `kdump` is configured, it generates the `vmcore` file under the `/var/crash/` directory. The issue is being triaged with the `lpfc` driver but it cannot be reproduced consistently.
-|===
---
-
-.9.1
---
-[options="header", cols="20,40,40"]
-|===
-|NetApp Bug ID	|Title	|Description
-|link:https://mysupport.netapp.com/site/bugs-online/product/HOSTUTILITIES/1508554[1508554^]  	|NetApp Linux Host Utilities CLI requires additional library package dependencies to support Emulex HBA adapter discovery	|In RHEL 9.1, the NetApp Linux SAN Host Utilities CLI `sanlun fcp show adapter -v` fails because the library package dependencies to support HBA discovery cannot be found. 
-
-|===
---
-====
+There are no known issues.
 
 == What's next?
 
@@ -84,9 +51,11 @@ include::_include/hu/asm-mirroring.adoc[]
 
 include::_include/hu/kvm-redhat.adoc[]
 
+// 2026 May 27, ONTAPDOC-3909
 // 2026 JAN 28, ONTAPDOC-3486
 // 2025 Dec 17, ONTAPDOC-3531
 //ONTAPDOC-2984 22-May-2025
 //ONTAPDOC-2561 25-Nov-2024
 //ONTAPDOC-1584 1-Feb-2024
+
 
