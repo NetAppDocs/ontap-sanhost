@@ -638,7 +638,7 @@ Node            Generic         SN                   Model                    Na
 ----
 nvme list-subsys /dev/<controller_ID>
 ----
-
++
 NOTE: Beginning with ONTAP 9.16.1, NVMe/FV and NVMe/TCP report all optimized paths on ASA r2 systems.
 +
 [role="tabbed-block"]
