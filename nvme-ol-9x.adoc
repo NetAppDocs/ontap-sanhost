@@ -633,7 +633,7 @@ Node            Generic         SN                   Model                    Na
 ====
 
 . Verify that the controller state of each path is live and has the correct ANA status:
-
++
 [source,cli]
 ----
 nvme list-subsys /dev/<controller_ID>
