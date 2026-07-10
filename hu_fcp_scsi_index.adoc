@@ -13,7 +13,7 @@ summary:
 :imagesdir: ./media/
 
 [.lead]
-You can configure certain SAN hosts for FCP or iSCSI with ONTAP as the target. If your host operating system (OS) is supported by SAN Host Utilities software, you first install the relevant OS host utility package, which includes the SAN tool kit. Then, for all host OS types, you configure the multipath settings for ONTAP LUNs.
+You can configure certain SAN host operating systems (OS) for FCP and iSCSI with ONTAP as the target. If your host OS is supported by SAN Host Utilities software, you first install the relevant OS host utility package, which includes the SAN tool kit. Then, for all host OS types, you configure the multipath settings for ONTAP LUNs.
 
 .Related information
 * link:https://docs.netapp.com/us-en/ontap/san-admin/configure-svm-fc-task.html[Learn about managing FC protocols^]
