@@ -37,6 +37,8 @@ Refer to the vendor documentation to verify that the following packages are corr
 ** Marvell QLogic HBA – QConvergeConsole CLI
 ** Broadcom Emulex HBA - OneCommand Manager core application CLI
 
+NOTE: The Linux Host Utilities has an installation dependency on libHBAAPI.so. You will need to install one of the packages listed above, even if a host is intended for iSCSI-only. The alternative is to use OS-level tools for LUN and path management. The Linux Host Utilities are not mandatory and do not make any changes to host settings or behavior.  
+
 .Steps
 
 . If you have a version of Linux Host Utilities currently installed, remove it:
