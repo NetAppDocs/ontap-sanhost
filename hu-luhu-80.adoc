@@ -36,8 +36,8 @@ Refer to the vendor documentation to verify that the following packages are corr
 +
 ** Marvell QLogic HBA – QConvergeConsole CLI
 ** Broadcom Emulex HBA - OneCommand Manager core application CLI
-
-NOTE: The Linux Host Utilities has an installation dependency on libHBAAPI.so. You will need to install one of the packages listed above, even if a host is intended for iSCSI-only. The alternative is to use OS-level tools for LUN and path management. The Linux Host Utilities are not mandatory and do not make any changes to host settings or behavior.  
++
+NOTE: The Linux Host Utilities has an installation dependency on libHBAAPI.so. You need to install one of the packages listed above, even if a host is intended for an iSCSI-only configuration. Alternatively, you can use OS-level tools for LUN and path management.  
 
 .Steps
 
@@ -127,4 +127,5 @@ sanlun version 8.0.386.1644
 
 include::_include/hu/linux-install-hu-whats-next.adoc[]
 
+// 2026 JUL 15, ONTAPDOC-3947
 // 2025 SEP 18, ONTAPDOC-3352
