@@ -4,7 +4,7 @@ To ensure that multipathing is configured correctly for your host, verify that t
 
 . Verify that the `/etc/multipath.conf` exists. 
 +
-If the reference `/etc/multipath.conf` files doesn't have the NetApp device specific configuration parameters, add these parameters by using the following customized `.conf drop-in` file. You can find this file under `/etc/multipath/conf.d/`:
+If the reference `/etc/multipath.conf` file doesn't have the NetApp device specific configuration parameters, add these parameters by using the following customized `.conf drop-in` file. You can find this file under `/etc/multipath/conf.d/`:
 +
 NOTE: Don't make changes to the `/etc/multipath.conf` file because the file contents might be overwritten during a system update.
 +
@@ -20,7 +20,7 @@ defaults {
 }
  
 blacklist {
-	wwid <Insert the LUN wwid string>
+	wwid <Insert_LUN_wwid_string>
         devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
         devnode "^hd[a-z]"
         devnode "^cciss.*"
