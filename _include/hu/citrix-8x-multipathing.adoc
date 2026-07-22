@@ -20,14 +20,14 @@ defaults {
 }
  
 blacklist {
-	wwid <Insert_LUN_wwid_string>
-        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
-        devnode "^hd[a-z]"
-        devnode "^cciss.*"
+	  wwid <Insert_LUN_wwid_string>
+    devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
+    devnode "^hd[a-z]"
+    devnode "^cciss.*"
 }
  
 devices {
-  device {
+    device {
     vendor "NETAPP"
     product "LUN.*"
     user_friendly_names no
