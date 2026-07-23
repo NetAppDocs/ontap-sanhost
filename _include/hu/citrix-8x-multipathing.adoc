@@ -16,7 +16,7 @@ NOTE: Don't make changes to the `/etc/multipath.conf` file because the file cont
 $sudo tee -a /etc/multipath/conf.d/custom.conf >/dev/null <<'EOF'
  
 defaults {
-  polling_interval 5
+    polling_interval 5
 }
  
 blacklist {
@@ -101,7 +101,7 @@ The following table shows the native Linux OS compiled multipath parameter setti
 +
 [source,cli]
 ----
-/sbin/mpathutil list
+/sbin/mpathutil status
 ----
 +
 The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. Having more than four paths can cause problems during a storage failure.
