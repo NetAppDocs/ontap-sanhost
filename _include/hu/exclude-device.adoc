@@ -18,7 +18,7 @@ An example WWID is `360030057024d0730239134810c0cb833`.
 [source,cli]
 ----
 blacklist {
-	     wwid   360030057024d0730239134810c0cb833
+        wwid   360030057024d0730239134810c0cb833
         devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
         devnode "^hd[a-z]"
         devnode "^cciss.*"
