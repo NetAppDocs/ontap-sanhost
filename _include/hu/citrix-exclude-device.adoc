@@ -1,4 +1,4 @@
-If required, you can exclude a device from multipathing by adding the WWID for the unwanted device to the "blacklist" stanza for the `multipath.conf` file.
+If required, you can exclude a device from multipathing by adding the WWID for the unwanted device to the "blacklist" stanza for the `/etc/multipath/conf.d/custom.conf` file.
 
 .Steps
 
