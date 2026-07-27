@@ -81,7 +81,7 @@ MPIO Disk13: 04 Paths, Round Robin with Subset, Symmetric Access
 ----
 ====
 
-.Show UI example 
+.Show UI example
 [%collapsible]
 ====
 image::asa.png[Screenshot of ONTAP LUN with active/optimized paths]
@@ -116,7 +116,7 @@ MPIO Disk0: 04 Paths, Round Robin with Subset, Implicit Only
 ----
 ====
 
-.Show UI example 
+.Show UI example
 [%collapsible]
 ====
 image::nonasa.png[Screenshot of an ONTAP LUN with two active/optimized paths and two active/non-optimized paths]
