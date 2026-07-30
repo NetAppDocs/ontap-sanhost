@@ -19,7 +19,9 @@ Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varie
 |===
 
 |Feature | Oracle Linux host version| ONTAP version
-
+|NVMe/FC and NVMe/TCP report all optimized paths on ASA r2 systems
+a|9.x or later
+ |9.16.1 or later
 |Beginning with Oracle Linux 9.6, nvme supports "queue-depth" i/o policy and enabled as default option.
 a|9.6 or later
  |9.10.1 or later

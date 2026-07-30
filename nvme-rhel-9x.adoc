@@ -526,7 +526,7 @@ udevadm control --reload
 udevadm trigger --subsystem-match=nvme-subsystem
 ----
 
-. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
+. Verify the current iopolicy for your subsystem: 
 +
 [source,cli]
 ----
@@ -675,8 +675,6 @@ Namespace Usage    Format             FW             Rev
 nvme list-subsys /dev/<controller_ID>
 ----
 +
-NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized paths on ASA r2 systems. 
-+ 
 [role="tabbed-block"]
 =====
 

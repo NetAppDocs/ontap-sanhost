@@ -604,12 +604,9 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
 
-.Changes to iopolicy for RHEL 10.x Releases
+Beginning with RHEL 10.1, the default iopolicy is queue-depth. In RHEL 10.0, round-robin is the default iopolicy, but queue-depth is available as a configurable option.
 
-* Beginning with RHEL 10.1, the default iopolicy is queue-depth.
-* In RHEL 10.0, round-robin is the default iopolicy, but queue-depth is available as a configurable option.
-
-If you are using RHEL 10.0 and want to change the iopolicy to queue-depth, modify the udev rules file as follows:
+If you are using RHEL 10.0 and want to change the iopolicy to queue-depth, modify the udev rules file using this procedure.
 
 .Steps
 
@@ -647,7 +644,7 @@ udevadm control --reload
 udevadm trigger --subsystem-match=nvme-subsystem
 ----
 
-. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
+. Verify the current iopolicy for your subsystem:
 +
 [source,cli]
 ----
@@ -786,8 +783,6 @@ Namespace  Usage                      Format           FW Rev
 nvme list-subsys /dev/<controller_ID>
 ----
 +
-NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized paths on ASA r2 systems. 
-+ 
 [role="tabbed-block"]
 =====
 
