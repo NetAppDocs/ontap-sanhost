@@ -560,7 +560,7 @@ The expected output is "Y".
 
 . Verify that the appropriate NVMe-oF settings (such as, model set to NetApp ONTAP Controller and load balancing iopolicy set to queue-depth) for the respective ONTAP namespaces correctly reflect on the host:
 
-..Display the subsystems:
+.. Display the subsystems:
 +
 [source,cli]
 ----
