@@ -3,7 +3,7 @@
 ### Repository overview
 Product: ONTAP SAN Host Utilities
 
-ONTAP SAN Host Utilities is NetApp software that enables SAN hosts to connect to ONTAP storage systems using FC, FCoE, iSCSI, and NVMe over Fabrics (NVMe-oF) protocols, providing management and diagnostic tools including the `sanlun` command-line utility for LUN and HBA management.
+ONTAP SAN Host Utilities is NetApp software that enables SAN hosts to connect to ONTAP storage systems using the FC and iSCSI protocols. Configure SAN hosts to use SAN Host Utilities to help manage and monitor LUNs and host bus adapters (HBAs). Configure host operating systems to use the NVMe over Fabrics (NVMe-oF) protocol.
 
 ### Repository structure
 - `hu-aix-*.adoc` – AIX Host Utilities installation and configuration pages (SAN booting, multipathing)
