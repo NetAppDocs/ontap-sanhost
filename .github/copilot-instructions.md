@@ -52,7 +52,7 @@ ONTAP SAN Host Utilities is NetApp software that enables SAN hosts to connect to
 - *LUN* – Logical unit number; the storage object presented to a SAN host over FC or iSCSI
 - *Namespace* – The NVMe-oF equivalent of a LUN, presented over NVMe/FC or NVMe/TCP
 - *HBA (Host Bus Adapter)* – The host-side FC adapter; supported vendors include Broadcom/Emulex and Marvell/QLogic
-- *Multipathing* – Redundant path configuration to storage; on Linux this is managed by `dm-multipath` (for SCSI) or native NVMe multipath; on Windows by MPIO
+- *Multipathing* – Redundant path configuration to storage; on Linux this is managed by `/etc/multipath.conf` for FCP and SCSI and ANA for NVME-oF; on AIX, HP-UX, Solaris, and Windows by MPIO
 - *SAN booting* – Booting the host OS from a LUN or namespace on ONTAP storage over the SAN fabric
 - *igroup (initiator group)* – An ONTAP object that maps LUNs to specific host initiators
 - *NVMe subsystem* – The ONTAP-side object that maps NVMe namespaces to host NQNs
