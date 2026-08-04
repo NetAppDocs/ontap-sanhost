@@ -42,7 +42,7 @@ ONTAP SAN Host Utilities is NetApp software that enables SAN hosts to connect to
 **Architecture and components:**
 - ONTAP is the storage operating system; SAN hosts connect to ONTAP storage using a SAN protocol (FC, FCoE, iSCSI, or NVMe-oF)
 - *SAN Host Utilities* are OS-specific software packages (AIX, Linux, Solaris, HP-UX, Windows) that install on the host. AIX, Linux, Solaris, HP-UX provide the `sanlun` CLI toolkit. Windows provides the recommended HBA and registry settings
-- *Linux Host Utilities* (LUHU) and *Windows Host Utilities* (WUHU) are the versioned installer packages; LUHU installs the `sanlun` utility and sets multipath parameters, WUHU sets Windows registry and HBA parameters
+- *Linux Host Utilities* and *Windows Host Utilities* are the versioned installer packages; Linux Host Utilities installs the `sanlun` utility and sets multipath parameters, Windows Host Utilities sets Windows registry and HBA parameters
 - The `sanlun` utility provides CLI commands to list ONTAP LUNs mapped to a host, display multipath information, and retrieve HBA details; it is installed automatically with the Host Utilities package
 - *NVMe-oF* configuration is documented separately from FCP/iSCSI and does not use the Host Utilities installer
 - On Linux, *dm-multipath* is used for SCSI LUNs (FCP/iSCSI) while native NVMe multipathing is used for NVMe-oF namespaces; both can coexist on the same host
