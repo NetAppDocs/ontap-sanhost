@@ -590,6 +590,8 @@ Node          Generic     SN                   Model                    Namespac
 nvme list-subsys /dev/<controller_ID>
 ----
 +
+NOTE: Beginning with ONTAP 9.16.1, NVMe/FC and NVMe/TCP report all optimized paths on ASA r2 systems. 
++ 
 [role="tabbed-block"]
 =====
 .NVMe/FC
