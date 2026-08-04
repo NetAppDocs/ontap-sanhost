@@ -51,7 +51,7 @@ devices {
 EOF
 ----
 ====
-. The first time you configure multipath, you might need to enable and start the multipath services to load the recommended settings: 
+. The first time you configure multipathing, you might need to enable and start the multipath services to load the recommended settings: 
 +
 [source,cli]
 ----
