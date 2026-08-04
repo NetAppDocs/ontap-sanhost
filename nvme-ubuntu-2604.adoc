@@ -242,9 +242,6 @@ FCP CMPL: xb 00000047 Err 00000075
 
 .NVMe/FC - Marvell/QLogic
 --
-
-The native inbox qla2xxx driver included in the Ubuntu 26.04 GA kernel has the latest upstream fixes. These fixes are essential for ONTAP support. 
-
 Configure NVMe/FC for a Marvell/QLogic adapter.
 
 .Steps
@@ -427,7 +424,7 @@ NOTE: The ctrl_loss_tmo timeout default setting for NVMe/TCP is turned off. This
 =====
 
 == Step 3: Optionally, modify the iopolicy in the udev rules
-The default iopolicy for NVMe-oF is set to queue-depth. To change the iopolicy to `round-robin`, you need to modify the udev rules file.
+Beginning with Ubuntu 26.04, the default iopolicy for NVMe-oF is set to queue-depth. You can change the iopolicy to round-robin by modifying the udev rules.
 
 .Steps
 . Open the udev rules file in a text editor with root privileges:
