@@ -420,7 +420,7 @@ udevadm control --reload
 udevadm trigger --subsystem-match=nvme-subsystem
 ----
 
-. Verify the current iopolicy for your subsystem. Replace <subsystem> with the name of your subsystem, for example, nvme-subsys0.
+. Verify the current iopolicy for your subsystem:
 +
 [source,cli]
 ----
