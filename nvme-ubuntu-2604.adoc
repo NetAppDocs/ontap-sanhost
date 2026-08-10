@@ -14,12 +14,11 @@ summary: How to Configure NVMe-oF Host for Ubuntu 26.04 with ONTAP
 :imagesdir: ./media/
 
 [.lead]
-
 NVMe over Fabrics (NVMe-oF), including NVMe over Fibre Channel (NVMe/FC) and other transports, is supported with Ubuntu 26.04 and Asymmetric Namespace Access (ANA). In NVMe-oF environments, ANA is the equivalent of ALUA multipathing in iSCSI and FC environments and is implemented with in-kernel NVMe multipath.
 
 Learn how to configure NVMe over Fabrics (NVMe-oF) hosts for Ubuntu 26.04. For more support and feature information, see link:nvme-ubuntu-supported-features.html[Ubuntu ONTAP support and features].
 
-NVMe-oF with Ubuntu 26.04 has the following known limitations:
+NVMe-oF with Ubuntu 26.04 has the following known limitation:
 
 * SAN booting using the NVMe-oF protocol is currently not supported for Ubuntu 26.04 with ONTAP.
 
@@ -64,10 +63,10 @@ nvme-cli/resolute,now 2.16-1 amd64
 cat /etc/nvme/hostnqn
 ----
 +
-The following example shows an `hostnqn` value:
+The following example shows a `hostnqn` value:
 +
 ---- 
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0050-3410-8035-c2c04f4a5933
+nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0050-xxxx-8035-c2cxxxxa5933
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string from `/etc/nvme/hostnqn` matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
