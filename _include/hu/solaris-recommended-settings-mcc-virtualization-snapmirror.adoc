@@ -15,7 +15,7 @@ For additional information and recommended changes to default settings for Metro
 
 * You can use multiple options together, for example, a Solaris Container within a particular Solaris Logical Domain.
 
-* NetApp supports the use of Solaris virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://imt.netapp.com/matrix/#welcome[IMT] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
+* NetApp supports the use of Solaris virtualization technologies where the overall configuration is supported by Oracle and any partition with direct access to LUNs is listed on the link:https://imt.netapp.com/matrix/#welcome[IMT^] in a supported configuration. This includes root containers, LDOM I/O domains, and LDOM using NPIV to access LUNs.
 
 * Partitions or virtual machines that use only virtualized storage resources, such as a `vdsk`, don't need specific qualifications because they don't have direct access to ONTAP LUNs. You only need to verify that the partition or virtual machine that has direct access to the underlying LUN, such as an LDOM I/O domain, is listed on the link:https://imt.netapp.com/matrix/#welcome[IMT^].
 

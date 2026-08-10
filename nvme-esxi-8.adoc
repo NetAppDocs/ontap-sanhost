@@ -17,9 +17,9 @@ You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.
 
 == Supportability
 
-* Beginning with ONTAP 9.16.1 space allocation is enabled by default for all newly created NVMe namespaces.
-* Beginning with ONTAP 9.9.1 P3, NVMe/FC protocol is supported for ESXi 8 and later. 
-* Beginning with ONTAP 9.10.1, NVMe/TCP protocol is supported for ONTAP.
+* Beginning with ONTAP 9.16.1, space allocation is enabled by default for all newly created NVMe namespaces.
+* Beginning with ONTAP 9.9.1 P3, the NVMe/FC protocol is supported for ESXi 8. 
+* Beginning with ONTAP 9.10.1, the NVMe/TCP protocol is supported for ONTAP.
 
 == Features
 
