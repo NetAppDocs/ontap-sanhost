@@ -13,13 +13,15 @@ summary: Learn about ONTAP support and features for RHEL hosts
 :imagesdir: ./media/
 
 [.lead]
-Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varies based on your version of ONTAP and RHEL.
+Features supported for host configuration with NVMe over Fabrics (NVMe-oF) vary based on your version of ONTAP and RHEL.
 
 [cols="50,25,25",options="header"]
 |===
 
 |Feature | RHEL host version| ONTAP version
-
+|NVMe/FC and NVMe/TCP report all optimized paths on ASA r2 systems
+a|9.0 or later
+ |9.16.1 or later
 |Secure in-band authentication is supported over NVMe/TCP between a RHEL host and an ONTAP controller
 a|9.3 or later
  |9.12.1 or later

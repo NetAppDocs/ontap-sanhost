@@ -273,14 +273,11 @@ The NVMe-oF host configuration for ESXi 8.x with ONTAP has the following known i
 [cols="10,30,30",options="header"]
 |===
 h|NetApp Bug ID	h|Title	h|Description
-|CONTAPEXT-2693	
-|ESXi 8.0U3 NVMe/TCP fails when SnapMirror active sync CG enters Out-of-Sync state
-|ESXi 8.0U3 environments configured with NVMe/TCP and SnapMirror active sync on NVMe namespaces might fail when the Consistency Group (CG) relationship status transitions to an Out-of-Sync state. The CG can move from the InSync state to the Out-of-Sync state due to various workflows, such as an automatic unplanned failover or a disruption to the inter-cluster connection. For more information, refer to  VMware Bug ID: TR1049746.
-|link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|ONTAP node non-operational when NVMe/FC protocol is used with ONTAP version 9.9.1 |ONTAP 9.9.1 has introduced support for the NVMe "abort" command. When ONTAP 
-receives the "abort" command to abort an NVMe fused command that is waiting for 
-its partner command, an ONTAP node disruption occurs. The issue is noticed only with hosts 
-that use NVMe fused commands (for example, ESX) and Fibre Channel (FC) transport. 
-|1543660 | I/O error occurs when Linux VMs using vNVMe adapters encounter a long all paths down (APD) window a|Linux VMs running vSphere 8.x and later and using virtual NVMe (vNVME) adapters encounter an I/O error because the vNVMe retry operation is disabled by default. To avoid a disruption on Linux VMs running older kernels during an all paths down (APD) or a heavy I/O load, VMware has introduced a tunable "VSCSIDisableNvmeRetry" to disable the vNVMe retry operation.
+|link:https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1420654[1420654^]	|ONTAP node non-operational when NVMe/FC protocol is used
+with ONTAP version 9.9.1 |ONTAP 9.9.1 has introduced support for the NVMe "abort" command. When ONTAP receives the "abort" command to abort an NVMe
+fused command that is waiting for its partner command, an ONTAP node disruption occurs. The issue is noticed only with hosts that use NVMe fused commands (for example, ESX) and Fibre Channel (FC) transport. 
+|link:https://jira.ngage.netapp.com/browse/CONTAPEXT-1126[CONTAPEXT-1126^] | I/O error occurs when Linux VMs using vNVMe adapters encounter a long all paths down (APD) window a|Linux VMs running vSphere 8.x and later and using virtual NVMe (vNVME) adapters encounter an I/O error because the
+vNVMe retry operation is disabled by default. To avoid a disruption on Linux VMs running older kernels during an all paths down (APD) or a heavy I/O load, VMware has introduced a tunable "VSCSIDisableNvmeRetry" to disable the vNVMe retry operation.
 |===
 
 .Related information

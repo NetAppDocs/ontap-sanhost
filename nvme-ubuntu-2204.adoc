@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar
 permalink: nvme-ubuntu-2204.html
-keywords: nvme, linux, rhel, red hat, enterprise
+keywords: nvme, linux, ubuntu, enterprise
 summary: How to Configure NVMe-oF Host for Ubuntu 22.04 with ONTAP
 ---
 = Configure Ubuntu 22.04 for NVMe-oF with ONTAP storage
@@ -65,7 +65,7 @@ nvme-cli/jammy-updates,now 1.16-3ubuntu0.1 amd64
 # cat /etc/nvme/hostnqn
 ----
 +
-The following example shows an `hostnqn` version:
+The following example shows a `hostnqn` value:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:063axxxx-438a-xxxx-b9b4-95axxxx6d041

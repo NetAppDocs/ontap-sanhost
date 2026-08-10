@@ -1,0 +1,26 @@
+If your host is connected to LUNs from other vendors and any of the multipath parameter settings are overridden, you need to correct them by either modifying an existing stanza or adding a new stanza in the `/etc/multipath/conf.d/custom.conf` file that applies specifically to ONTAP LUNs. You need to scroll down in the file to review the changes that apply to your host. If you don't correct the parameters, the ONTAP LUNs might not work as expected. 
+ 
+CAUTION: You shouldn't override the recommended parameter settings for ONTAP LUNs. These settings are required for optimal performance of your host configuration. Contact NetApp support, your OS vendor, or both for more information.
+
+The following example shows how to correct an overridden default. In this example, the `custom.conf drop-in` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs, and you can't remove these parameters because ONTAP storage arrays are still attached to the host. Instead, you correct the values for `path_checker` and `no_path_retry` by adding a device stanza to the `custom.conf drop-in` file that applies specifically to the ONTAP LUNs.
+
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+defaults {
+   path_checker      *readsector0*
+   no_path_retry     *fail*
+}
+
+devices {
+   device {
+      vendor          "NETAPP"
+      product         "LUN"
+      no_path_retry   *queue*
+      path_checker    *tur*
+   }
+}
+----
+====

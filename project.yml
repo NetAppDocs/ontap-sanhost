@@ -101,7 +101,7 @@ sidebar:
             url: /hu_wuhu_troubleshoot.html          
     - title: Configure hosts with FCP and iSCSI
       entries:
-      - title: Overview
+      - title: Learn about configuring hosts with FCP and iSCSI
         url: /hu_fcp_scsi_index.html
       - title: AIX and PowerVM/VIOS
         entries:
@@ -191,6 +191,8 @@ sidebar:
       - title: Ubuntu
         pdf-filename: Ubuntu-FCP
         entries:
+        - title: "26.04"
+          url: /hu-ubuntu-2604.html
         - title: "24.04" 
           url: /hu_ubuntu_2404.html
         - title: "22.04"
@@ -222,7 +224,7 @@ sidebar:
           url: /hu_windows_2012r2.html
     - title: Configure hosts with NVMe-oF
       entries:
-      - title: Learn about configuring NVMe-oF hosts
+      - title: Learn about configuring host with NVMe-oF
         url: /hu-nvme-index.html
       - title: AIX
         url: /nvme-aix.html
@@ -287,6 +289,8 @@ sidebar:
         entries:
         - title: ONTAP support and features 
           url: /nvme-ubuntu-supported-features.html
+        - title: "26.04"
+          url: /nvme-ubuntu-2604.html
         - title: "24.04"
           url: /nvme-ubuntu-2404.html
         - title: "22.04"

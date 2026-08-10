@@ -141,7 +141,7 @@ size=150G features='3 queue_if_no_path pg_init_retries 50' hwhandler='1 alua' wp
 
 == Step 4: Confirm the iSCSI configuration for your host
 
-include::_include/hu/linux-iscsi-configuration.adoc[]
+include::_include/hu/linux-iscsi-configuration-rhel-10.adoc[]
 
 == Step 5: Optionally, exclude a device from multipathing
 
