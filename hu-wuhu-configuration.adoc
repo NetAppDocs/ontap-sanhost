@@ -29,7 +29,7 @@ The installer sets different values when you specify Microsoft Multipath I/O (MP
 
 [NOTE]
 ====
-You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2. See <<nvme-parameter,NVME parameters>>.
+You need to change the LimTransferSize parameter value after installing Windows Host Utilities 7.2. See <<nvme-parameter-72,NVME parameters>>.
 
 For all other parameters and registry keys for Windows Host Utilities 8.0, 7.2, or 7.1, you don't need to change the values unless technical support advises you to do so.
 ====
@@ -185,7 +185,7 @@ Windows Host Utilities 8.0 updates the following NVMe Emulex driver parameters d
 
 The Windows Host Utilities installer automatically sets the Windows registry values and the iSCSI and NVMe HBA parameters based on the choices that you make during the installation. Review these values and the operating system version. 
 
-[[nvme-parameter]]
+[[nvme-parameter-72]]
 
 [role="tabbed-block"]
 ====
