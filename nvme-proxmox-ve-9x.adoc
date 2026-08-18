@@ -172,7 +172,7 @@ cat /sys/module/lpfc/version
 The following example shows a driver version:
 +
 ----
-0:14.4.0.10
+0:14.4.0.13
 ----
 
 +
@@ -272,8 +272,8 @@ cat /sys/class/fc_host/host*/symbolic_name
 The following example shows driver and firmware versions:
 +
 ----
-SN1700Q FW:v9.15.05 DVR:v10.02.09.400-k
-SN1700Q FW:v9.15.05 DVR:v10.02.09.400-k
+SN1700Q FW:v9.15.05 DVR:v10.02.10.100-k
+SN1700Q FW:v9.15.05 DVR:v10.02.10.100-k
 ----
 
 . Verify that `ql2xnvmeenable` is set. This enables the Marvell adapter to function as an NVMe/FC initiator:
