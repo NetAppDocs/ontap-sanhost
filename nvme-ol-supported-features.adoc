@@ -13,13 +13,15 @@ summary: Learn about ONTAP support and features for Oracle Linux hosts
 :imagesdir: ./media/
 
 [.lead]
-Features supported for host configuration with NVMe over Fabrics (NVMe-oF) varies based on your version of ONTAP and Oracle Linux.
+Features supported for host configuration with NVMe over Fabrics (NVMe-oF) vary based on your version of ONTAP and Oracle Linux.
 
 [cols="50,25,25",options="header"]
 |===
 
 |Feature | Oracle Linux host version| ONTAP version
-
+|NVMe/FC and NVMe/TCP report all optimized paths on ASA r2 systems
+a|9.0 or later
+ |9.16.1 or later
 |Beginning with Oracle Linux 9.6, nvme supports "queue-depth" i/o policy and enabled as default option.
 a|9.6 or later
  |9.10.1 or later

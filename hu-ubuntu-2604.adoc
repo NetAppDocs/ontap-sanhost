@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
-permalink: hu_ubuntu_2204.html
-keywords: host utilities, linux, 22.04, netapp, ontap, ubuntu 
-summary: Install Linux Host Utilities on an Ubuntu 22.04 host to manage FCP and iSCSI protocol operations with ONTAP LUNs. 
+permalink: hu-ubuntu-2604.html
+keywords: host utilities, linux, ubuntu, 26.04, netapp, ontap, fcp, iscsi
+summary: Install Linux Host Utilities on an Ubuntu 26.04 host to manage FCP and iSCSI protocol operations with ONTAP LUNs.
 ---
-= Configure Ubuntu 22.04 for FCP and iSCSI with ONTAP storage
+= Configure Ubuntu 26.04 for FCP and iSCSI with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -13,7 +13,7 @@ summary: Install Linux Host Utilities on an Ubuntu 22.04 host to manage FCP and 
 :imagesdir: ./media/
 
 [.lead]
-The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on an Ubuntu 22.04 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
+The Linux Host Utilities software provides management and diagnostic tools for Linux hosts that are connected to ONTAP storage. When you install the Linux Host Utilities on an Ubuntu 26.04 host, you can use the Host Utilities to help you manage FCP and iSCSI protocol operations with ONTAP LUNs.
 
 include::_include/hu/linux-enable-san-boot.adoc[]
 
@@ -23,7 +23,7 @@ include::_include/hu/install-linux-host-utilities-80.adoc[]
 
 == Step 3: Confirm the multipath configuration for your host
 
-You can use multipathing with Ubuntu 22.04 to manage ONTAP LUNs.
+You can use multipathing with Ubuntu 26.04 to manage ONTAP LUNs.
 
 include::_include/hu/linux-ubuntu-multipathing.adoc[]
 
