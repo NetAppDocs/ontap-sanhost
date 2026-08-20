@@ -76,10 +76,10 @@ libnvme-1.16.1-3.el10_2.x86_64
 cat /etc/nvme/hostnqn
 ----
 +
-The following example shows an `hostnqn` version:
+The following example shows a `hostnqn` value:
 +
 ----
-nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0056-5410-8048-c7c04f425633
+nqn.2014-08.org.nvmexpress:uuid:4c4cxxxx-0056-xxxx-8048-c7cxxxx25633
 ----
 
 . On the ONTAP system, verify that the `hostnqn` string matches the `hostnqn` string for the corresponding subsystem on the ONTAP storage system:
@@ -604,12 +604,9 @@ include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 
 == Step 4: Optionally, modify the iopolicy in the udev rules
 
-.Changes to iopolicy for RHEL 10.x Releases
+Beginning with RHEL 10.1, the default iopolicy is queue-depth. 
 
-* Beginning with RHEL 10.1, the default iopolicy is queue-depth.
-* In RHEL 10.0, round-robin is the default iopolicy, but queue-depth is available as a configurable option.
-
-If you are using RHEL 10.0 and want to change the iopolicy to queue-depth, modify the udev rules file as follows:
+In RHEL 10.0, the default iopolicy is round-robin, but queue-depth is available as a configurable option. If you are using RHEL 10.0, you can change the iopolicy to queue-depth by modifying the udev rules file.
 
 .Steps
 
@@ -647,7 +644,7 @@ udevadm control --reload
 udevadm trigger --subsystem-match=nvme-subsystem
 ----
 
-. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
+. Verify the current iopolicy for your subsystem:
 +
 [source,cli]
 ----

@@ -76,7 +76,7 @@ libnvme-1.13-1.el10.x86_64
 cat /etc/nvme/hostnqn
 ----
 +
-The following example shows an `hostnqn` version:
+The following example shows a `hostnqn` value:
 +
 ----
 nqn.2014-08.org.nvmexpress:uuid:8397xxxx-30f0-xxxx-850f-7edxxxxf0cc7
@@ -512,7 +512,7 @@ udevadm control --reload
 udevadm trigger --subsystem-match=nvme-subsystem
 ----
 
-. Verify the current iopolicy for your subsystem. Replace <subsystem>, for example, `nvme-subsys0`. 
+. Verify the current iopolicy for your subsystem: 
 +
 [source,cli]
 ----
