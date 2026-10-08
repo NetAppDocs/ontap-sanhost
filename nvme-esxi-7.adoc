@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: nvme-esxi-7.html
-keywords: nvme, esxi, ontap, nvme/fc, hypervisor
-summary: Describes how to configure NVMe-oF for ESXi 7.x with ONTAP
+keywords: nvme, esxi, ontap, nvme fc, hypervisor
+summary: "Configure NVMe-oF for ESXi 7.x hosts with ONTAP storage."
 ---
-= NVMe-oF Host Configuration for ESXi 7.x with ONTAP
+= Configure ESXi 7.x for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -249,5 +249,3 @@ The NVMe-oF host configuration for ESXi 7.x with ONTAP has the following known i
 .Related information
 
 link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html[VMware vSphere with ONTAP^]
-link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)^]
-link:https://kb.vmware.com/s/article/83370[VMware vSphere 6.x and 7.x support with NetApp® SnapMirror active sync^]

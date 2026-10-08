@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar
 permalink: nvme-esxi-8.html
-keywords: nvme, esxi, ontap, nvme/fc, hypervisor
-summary: You can configure NVMe over Fabrics (NVMe-oF) on initiator hosts running ESXi 8.x and ONTAP as the target.
+keywords: nvme, esxi, ontap, nvme fc, hypervisor
+summary: "Configure NVMe over Fabrics on initiator hosts running ESXi 8.x and ONTAP as the target."
 ---
-= NVMe-oF Host Configuration for ESXi 8.x with ONTAP
+= Configure ESXi 8.x for NVMe-oF with ONTAP storage
 :hardbreaks:
 :toclevels: 1
 :nofooter:
@@ -280,8 +280,6 @@ vNVMe retry operation is disabled by default. To avoid a disruption on Linux VMs
 .Related information
 
 link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html[VMware vSphere with ONTAP^]
-link:https://kb.vmware.com/s/article/2031038[VMware vSphere 5.x, 6.x and 7.x support with NetApp MetroCluster  (2031038)^]
-link:https://kb.vmware.com/s/article/83370[VMware vSphere 6.x and 7.x support with NetApp SnapMirror active sync^]
 
 // 2024 Nov 04, ONTAPDOC 2209
 //BURT 1525630 20-Jan-2023
