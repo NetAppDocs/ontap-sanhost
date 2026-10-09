@@ -60,6 +60,8 @@ An ASA configuration should have one group of Active/Optimized paths with single
 [%collapsible]
 ====
 ----
+C:\TOOLS>mpclaim -s -d 13
+
 MPIO Disk13: 04 Paths, Round Robin with Subset, Symmetric Access
     Controlling DSM: Microsoft DSM
     SN: 600A09803831397A545D586E362D2F54
@@ -96,6 +98,8 @@ An AFF or FAS configuration should have two groups of paths with different prior
 [%collapsible]
 ====
 ----
+C:\Windows\system32>mpclaim -s -d 0
+
 MPIO Disk0: 04 Paths, Round Robin with Subset, Implicit Only
     Controlling DSM: Microsoft DSM
     SN: 600A0980383136724D5D546931437933
@@ -124,4 +128,5 @@ image::nonasa.png[Screenshot of an ONTAP LUN with two active/optimized paths and
 --
 =====
 
+// 2026 OCT 6, ontap-sanhost-issue-185
 // 2026 JUL 2, ONTAPDOC-3957
