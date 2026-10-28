@@ -919,9 +919,9 @@ nvme netapp ontapdevices -o json
 --
 =====
 
-== Step 8: Retain and reconnect NVMe/FC and NVMe/TCP namespace path connections
+== Step 8: Configure NVMe/FC and NVMe/TCP to retain and reconnect namespace path connections
 
-If your configuration includes MetroCluster IP or SnapMirror active sync, you need to configure the following parameters to ensure the OS retains and reconnects namespace paths after an All paths Down or unplanned failover event. This applies to NVMe/FC and NVMe/TCP connections:
+If your configuration includes MetroCluster IP or SnapMirror active sync, you need to configure the following parameters to ensure the OS retains and reconnects namespace path connections after an All paths Down or unplanned failover event. This applies to NVMe/FC and NVMe/TCP protocols:
 
 * Set the `dev_loss_tmo` parameter value to 90 seconds to ensure the system retains namespace paths during storage recovery longer than the default value of 30 seconds.
 * Configure the NVMe auto-connect service with the Persistent Discovery Controller (PCD) `-p` option. This ensures that namespace paths reconnect automatically after recovery without manual intervention.
