@@ -595,7 +595,7 @@ nvme	connect-all -t	tcp -w	192.168.21.1	-a 192.168.21.27
 
 [NOTE]
 ====
-Beginning with RHEL 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to "off". As a result:
+Beginning with RHEL 9.4, the setting for the NVMe/TCP `ctrl_loss_tmo timeout` is automatically set to `-1` (off). As a result:
 
 include::_include/nvme/ctrl-loss-tmo-default-off.adoc[]
 ====
@@ -914,11 +914,205 @@ nvme netapp ontapdevices -o json
 ]
 }
 ----
+
 ====
 --
 =====
 
-== Step 8: Set up secure in-band authentication
+== Step 8: Configure dev_loss_tmo for NVMe/FC and NVMe/TCP connections
+
+If your configuration includes MetroCluster IP or SnapMirror active sync, you need to configure the following parameters to ensure that namespace paths are retained during an All paths Down or unplanned failover event. This applies to NVMe/FC and NVMe/TCP connections:
+
+* Set the `dev_loss_tmo` paramter value to 90 seconds to ensure the system retains namespace paths longer than the default value of 30 seconds during storage recovery.
+* Configure the NVMe auto-connect service with the Persistent Discovery Controller (PCD) `-p` option. This ensures that namespace paths reconnect automatically after recovery without manual intervention.
+
+.Steps
+
+. If the existing NVMe/FC and NVMe/TCP connections are non-PDC, convert them to PDC-enabled connections:
+.. Display existing non-PDC connections:
++
+[source,cli]
+----
+nvme list-subsys
+----
++
+The following example output displays subsystem NQN and live NVMe/FC connections:
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+[root@R650xs-54-92 ~]# nvme list-subsys
+
+nvme-subsys17 - NQN=nqn.1992-08.com.netapp:sn.bc1e6ff23ed011f19f77d039eaa707e1:subsystem.sys_rhel10_src
+ hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0031-5010-8032-c8c04f595933
+\
+ +- nvme17 fc traddr=nn-0x202bd039eaa7f661:pn-0x202cd039eaa7f661,host_traddr=nn-0x200000620b423f18:pn-0x100000620b423f18 live
+ +- nvme18 fc traddr=nn-0x2052d039eaa707e0:pn-0x2055d039eaa707e0,host_traddr=nn-0x200000620b423f19:pn-0x100000620b423f19 live
+ +- nvme19 fc traddr=nn-0x202bd039eaa7f661:pn-0x202ed039eaa7f661,host_traddr=nn-0x200000620b423f19:pn-0x100000620b423f19 live
+ +- nvme20 fc traddr=nn-0x202bd039eaa7f661:pn-0x202fd039eaa7f661,host_traddr=nn-0x200000620b423f19:pn-0x100000620b423f19 live
+ +- nvme21 fc traddr=nn-0x2052d039eaa707e0:pn-0x2056d039eaa707e0,host_traddr=nn-0x200000620b423f19:pn-0x100000620b423f19 live
+ +- nvme22 fc traddr=nn-0x2052d039eaa707e0:pn-0x2053d039eaa707e0,host_traddr=nn-0x200000620b423f18:pn-0x100000620b423f18 live
+ +- nvme23 fc traddr=nn-0x202bd039eaa7f661:pn-0x202dd039eaa7f661,host_traddr=nn-0x200000620b423f18:pn-0x100000620b423f18 live
+ +- nvme24 fc traddr=nn-0x2052d039eaa707e0:pn-0x2054d039eaa707e0,host_traddr=nn-0x200000620b423f18:pn-0x100000620b423f18 live
+----
+====
+
+.. Add PDC to the existing connections by adding the `-p` option to the existing `nvme discover` and `nvme connect-all` commands for each path, then re-discover the controllers. 
++
+.Show nvme discover example command
+[%collapsible]
+====
+[subs=+quotes]
+----
+# Discover with PDC enabled (-p) for each subsystem path
+
+nvme discover -t fc -w nn-0x200000620b423f18:pn-0x100000620b423f18 -a nn-0x202bd039eaa7f661:pn-0x202cd039eaa7f661 -p
+nvme discover -t fc -w nn-0x200000620b423f19:pn-0x100000620b423f19 -a nn-0x202bd039eaa7f661:pn-0x202ed039eaa7f661 -p
+----
+====
++
+.Show nvme connect-all example
+[%collapsible]
+====
+[subs=+quotes]
+----
+# Connect-all with PDC enabled (-p) for each subsystem path
+
+nvme connect-all -t fc -w nn-0x200000620b423f18:pn-0x100000620b423f18 -a nn-0x202bd039eaa7f661:pn-0x202cd039eaa7f661 -p
+nvme connect-all -t fc -w nn-0x200000620b423f19:pn-0x100000620b423f19 -a nn-0x202bd039eaa7f661:pn-0x202ed039eaa7f661 -p
+----
+====
+
+.. Verify that the discovery controller is persistent:
++
+[source,cli]
+----
+nvme list-subsys
+----
++
+The output shows discovery controller subsystems with `:discovery` in the NQN.
++
+.Show example
+[%collapsible]
+====
+[subs=+quotes]
+----
+[root@R650xs-54-92 ~]# nvme list-subsys
+
+nvme-subsys0 - NQN=nqn.1992-08.com.netapp:sn.3a4017584d2311f18d42d039eaa78e4a\:discovery
+ hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0031-5010-8032-c8c04f595933
+\
+ +- nvme0 fc traddr=nn-0x202bd039eaa7f661:pn-0x202cd039eaa7f661,host_traddr=nn-0x200000620b423f18:pn-0x100000620b423f18 live
+ +- nvme1 fc traddr=nn-0x202bd039eaa7f661:pn-0x202ed039eaa7f661,host_traddr=nn-0x200000620b423f19:pn-0x100000620b423f19 live
+ +- nvme2 fc traddr=nn-0x202bd039eaa7f661:pn-0x202fd039eaa7f661,host_traddr=nn-0x200000620b423f19:pn-0x100000620b423f19 live
+ +- nvme3 fc traddr=nn-0x202bd039eaa7f661:pn-0x202dd039eaa7f661,host_traddr=nn-0x200000620b423f18:pn-0x100000620b423f18 live
+nvme-subsys4 - NQN=nqn.1992-08.com.netapp:sn.bc1e6ff23ed011f19f77d039eaa707e1:discovery
+ hostnqn=nqn.2014-08.org.nvmexpress:uuid:4c4c4544-0031-5010-8032-c8c04f595933
+\
+ +- nvme4 fc traddr=nn-0x2052d039eaa707e0:pn-0x2053d039eaa707e0,host_traddr=nn-0x200000620b423f18:pn-0x100000620b423f18 live
+ +- nvme5 fc traddr=nn-0x2052d039eaa707e0:pn-0x2055d039eaa707e0,host_traddr=nn-0x200000620b423f19:pn-0x100000620b423f19 live
+ +- nvme6 fc traddr=nn-0x2052d039eaa707e0:pn-0x2056d039eaa707e0,host_traddr=nn-0x200000620b423f19:pn-0x100000620b423f19 live
+ +- nvme7 fc traddr=nn-0x2052d039eaa707e0:pn-0x2054d039eaa707e0,host_traddr=nn-0x200000620b423f18:pn-0x100000620b423f18 live
+----
+====
+
+. Set the `dev_loss_tmo` value to 90 seconds. 
++
+You need to add the `dev_loss_tmo` change configuration under the `rules.d` folder to make the  parameter persistent across a reboot. The configuration is saved in `/usr/lib/udev/rules.d/71-nvmf-netapp.rules`, which is created when the `nvme-cli` package is installed. If you cannot find `/usr/lib/udev/rules.d/71-nvmf-netapp.rules`, verify that the `nvme-cli` package was installed on the OS.
++
+[role="tabbed-block"]
+====
+.Broadcom (Emulex) adapter
+--
+[source,cli]
+----
+# cat /etc/udev/rules.d/99-nvmefc-broadcom-devloss.rules
+ACTION!="add|change", GOTO="tmo_end"
+KERNELS=="rport-?*", SUBSYSTEM=="fc_remote_ports", ATTR{roles}=="NVMe Target, NVMe Discovery", ATTR{dev_loss_tmo}="90"
+LABEL="tmo_end"
+----
+--
+.Marvell (QLogic) adapter
+--
+[source,cli]
+----
+# cat /etc/udev/rules.d/99-nvmefc-marvell-devloss.rules
+ACTION!="add|change", GOTO="tmo_end"
+KERNELS=="rport-?*", SUBSYSTEM=="fc_remote_ports", ATTR{roles}=="NVMe Initiator, NVMe Target, NVMe Discovery", ATTR{dev_loss_tmo}="90"
+LABEL="tmo_end"
+----
+--
+====
+
+. Give the script with the new `dev_loss_tmo` value execution permission:
++
+[source,cli]
+----
+udevadm control --reload-rules 
+udevadm trigger
+----
+. Verify the updated `dev_loss_tmo` value is 90 seconds:
++
+[source,cli]
+----
+cat /sys/devices/*/*/*/host*/rport-*/fc_remote_ports/rport-*/dev_loss_tmo
+----
+
+. Enable Persistent Discovery Controller (PDC) by adding the `-p` option to the NVMe auto-connect service.
++
+[role="tabbed-block"]
+====
+.MetroCluster IP
+--
+.. Backup the original file:
++
+[source,cli]
+----
+cp /usr/lib/systemd/system/nvmf-connect@.service /usr/lib/systemd/system/nvmf-connect@.service.bak
+----
+.. Check the configuration of the current service file:
++
+[source,cli]
+----
+cat /usr/lib/systemd/system/nvmf-connect@.service
+----
+.. Include the `-p` option:
++
+[source,cli]
+----
+ExecStart=/bin/sh -c "/usr/sbin/nvme connect-all -p --context=autoconnect --quiet `/bin/echo -e '${CONNECT_ARGS}'`"
+----
+.. Reload systemd:
++
+[source,cli]
+----
+systemctl daemon-reload
+----
+
+. Confirm that the `dev_loss_tmo` value is updated to 90 seconds:
++
+[source,cli]
+----
+cat /sys/class/fc_remote_ports/rport-*/dev_loss_tmo
+----
+
+.. Verify that PDC is active:
++
+[source,cli]
+----
+nvme list-subsys
+----
+--
+
+.SnapMirror active sync
+--
+
+--
+====
+
+== Step 9: Set up secure in-band authentication
 
 Secure in-band authentication is supported over NVMe/TCP between a RHEL 10.x host and an ONTAP controller.
 
@@ -1120,9 +1314,10 @@ DHHC-1:03:sdLD7EmvjGj8J9CNNe+my2i9JnuI6bIjhPrtcNRs5q6sAKW2HFPh4L3MjhTh49bxZsYSZl
 --
 =====
 
-== Step 9: Review the known issues
+== Step 10: Review the known issues
 
 There are no known issues.
 
-//ONTAPDOC-2561 25-Nov-2024
-//ONTAPDOC-2987 13-May-2025
+// 2026 OCT 28, ONTAPDOC-4395
+// 2024 NOV 25, ONTAPDOC-2561
+// 2025 MAY 13, ONTAPDOC-2987
