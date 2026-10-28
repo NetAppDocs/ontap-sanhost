@@ -1061,11 +1061,7 @@ cat /sys/devices/*/*/*/host*/rport-*/fc_remote_ports/rport-*/dev_loss_tmo
 ----
 
 . Enable Persistent Discovery Controller (PDC) by adding the `-p` option to the NVMe auto-connect service.
-+
-[role="tabbed-block"]
-====
-.MetroCluster IP
---
+
 .. Backup the original file:
 +
 [source,cli]
@@ -1104,13 +1100,6 @@ cat /sys/class/fc_remote_ports/rport-*/dev_loss_tmo
 ----
 nvme list-subsys
 ----
---
-
-.SnapMirror active sync
---
-
---
-====
 
 == Step 9: Set up secure in-band authentication
 
