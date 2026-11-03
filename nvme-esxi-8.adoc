@@ -237,33 +237,31 @@ tcp.vmnic2:34:80:0d:30:ca:e0-tcp.192.168.100.167:4420-uuid.f4f14337c3ad4a639edf0
    Path Config: {ANA_GRP_id=6,*ANA_GRP_state=AO*,health=UP}
 ----
 
-== Enable space allocation
+== NVMe deallocate
 
-Space allocation is supported for ESXi 8.x and later. 
+The NVMe deallocate command is supported for ESXi 8.0u2 and later with ONTAP 9.16.1 and later. 
 
-When space allocation is enabled, if a namespace runs out of space, ONTAP communicates to the host that no free space is available for write operations; the namespace remains online and read operations continue to be serviced. Write operations resume when additional free space becomes available. Space allocation also allows the host to perform `UNMAP` (sometimes called `TRIM`) operations. UNMAP operations allow a host to identify blocks of data that are no longer required because they no longer contain valid data. The storage system can then deallocate those data blocks so that the space can be consumed elsewhere. 
-
-.Before you begin
-
-link:https://docs.netapp.com/us-en/ontap/san-admin/enable-space-allocation.html[Enable space allocation on your ONTAP storage system^].  Then you should perform the following steps on your ESXi host.  
+Deallocate support is always enabled for NVMe namespaces. Deallocate also allows the guest OS to perform 'UNMAP' (sometimes called 'TRIM') operations on VMFS datastores. Deallocate operations allow a host to identify blocks of data that are no longer required because they no longer contain valid data. The storage system can then remove those data blocks so that the space can be consumed elsewhere. 
 
 .Steps
 
-. On your ESXi host, verify that the DSM is disabled:
+. On your ESXi host, verify the setting for DSM deallocate with TP4040 support:
 +
 `esxcfg-advcfg -g /Scsi/NVmeUseDsmTp4040`
 +
 The expected value is 0.
 
-. Enable the NVMe DSM:
+. Enable the setting for DSM deallocate with TP4040 support:
 +
 `esxcfg-advcfg -s 1 /Scsi/NvmeUseDsmTp4040`
 
-. Verify that the DSM is enabled: 
+. Verify that the setting for DSM deallocate with TP4040 support is enabled: 
 +
 `esxcfg-advcfg -g /Scsi/NVmeUseDsmTp4040`
 +
 The expected value is 1.
+
+For more information on NVMe deallocate in VMware vSphere, refer to https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vsphere-storage-8-0/storage-provisioning-and-space-reclamation-in-vsphere/storage-space-reclamation-in-vsphere.html[Storage Space Reclamation in vSphere^]
 
 == Known issues
 
