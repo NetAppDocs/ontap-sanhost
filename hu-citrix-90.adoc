@@ -1,0 +1,41 @@
+---
+sidebar: sidebar
+permalink: hu-citrix-90.html
+keywords: host utilities, citrix, Xenserver, 9 series, netapp, ontap, san, boot
+summary: Configure Citrix Xenserver 9.0 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
+---
+= Configure Citrix Xenserver 9.0 for FCP and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+Configure Citrix Xenserver 9.0 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage. 
+
+[NOTE]
+====
+The Linux Host Utilities software package doesn’t support Citrix Xenserver operating systems.
+====
+
+include::_include/hu/linux-enable-san-boot.adoc[]
+
+== Step 2: Confirm the multipath configuration for your host
+
+You can use multipathing with Citrix Xenserver 9.0 to manage ONTAP LUNs.
+
+include::_include/hu/citrix-8x-multipathing.adoc[]
+
+== Step 3: Optionally, exclude a device from multipathing
+
+include::_include/hu/citrix-exclude-device.adoc[]
+
+== Step 4: Customize multipath parameters for ONTAP LUNs
+
+include::_include/hu/citrix-customize-parameters.adoc[]
+
+== Step 5: Review the known issues
+
+There are no known issues.
