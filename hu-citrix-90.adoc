@@ -1,0 +1,196 @@
+---
+sidebar: sidebar
+permalink: hu-citrix-90.html
+keywords: host utilities, citrix, Xenserver, 9 series, netapp, ontap, san, boot
+summary: Configure Citrix Xenserver 9.0 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage.
+---
+= Configure Citrix Xenserver 9.0 for FCP and iSCSI with ONTAP storage
+:hardbreaks:
+:toclevels: 1
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+Configure Citrix Xenserver 9.0 for multipathing and with specific parameters and settings for FCP and iSCSI protocol operations with ONTAP storage. 
+
+[NOTE]
+====
+The Linux Host Utilities software package doesn’t support Citrix Xenserver operating systems.
+====
+
+include::_include/hu/linux-enable-san-boot.adoc[]
+
+== Step 2: Confirm the multipath configuration for your host
+
+You can use multipathing with Citrix Xenserver 9.0 to manage ONTAP LUNs.
+
+To ensure that multipathing is configured correctly for your host, verify that the `/etc/multipath.conf` file is defined and that you have the NetApp recommended settings configured for your ONTAP LUNs.
+
+.Steps 
+
+. Locate the `/etc/multipath.conf` file.
++
+If the reference `/etc/multipath.conf` file doesn't have the NetApp device specific configuration parameters, add these parameters by using the following customized `.conf drop-in` file. You can find this file under `/etc/multipath/conf.d/`:
++
+NOTE: Don't make changes to the `/etc/multipath.conf` file because the file contents might be overwritten during a system update.
++
+.Show file contents
+[%collapsible]
+====
+[source,cli]
+----
+$sudo tee -a /etc/multipath/conf.d/custom.conf >/dev/null <<'EOF'
+ 
+defaults {
+    polling_interval 5
+}
+ 
+blacklist {
+    wwid <Insert_LUN_wwid_string>
+    devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
+    devnode "^hd[a-z]"
+    devnode "^cciss.*"
+}
+ 
+devices {
+    device {
+    vendor "NETAPP"
+    product "LUN.*"
+    user_friendly_names no
+    path_checker "tur"
+    prio "ontap"
+    detect_prio yes
+    path_grouping_policy "group_by_prio"
+    path_selector "service-time 0"
+    failback immediate
+    fast_io_fail_tmo 5
+    dev_loss_tmo infinity
+    no_path_retry queue
+    features "3 queue_if_no_path pg_init_retries 50"
+    flush_on_last_del yes
+    hardware_handler "0"
+    retain_attached_hw_handler yes
+    rr_weight uniform
+  }
+}
+
+EOF
+----
+====
+. The first time you configure multipathing, you might need to enable and start the multipath services to load the recommended settings: 
++
+[source,cli]
+----
+systemctl enable multipathd
+----
++
+[source,cli]
+----
+systemctl start multipathd
+----
+
+. Each time you boot the host, the  `/etc/multipath/conf.d/custom.conf` file automatically loads the NetApp recommended host multipath parameters as the default settings. 
++
+The following table shows the native Linux OS compiled multipath parameter settings for ONTAP LUNs.
++
+.Show parameter settings
+[%collapsible]
+====
+[[multipath-parameter-settings]]
+[cols=2]
+[options="header"]
+|===
+| Parameter
+| Setting
+| detect_prio | yes
+| dev_loss_tmo | "infinity"
+| failback | immediate
+| fast_io_fail_tmo | 5
+| features | "3 queue_if_no_path pg_init_retries 50"
+| flush_on_last_del | "yes"
+| hardware_handler | "0"
+| no_path_retry | queue
+| path_checker | "tur"
+| path_grouping_policy | "group_by_prio"
+| path_selector | "service-time 0"
+| polling_interval | 5
+| prio | "ontap"
+| product | LUN
+| retain_attached_hw_handler | yes
+| rr_weight | "uniform"
+| user_friendly_names | no
+| vendor | NETAPP
+|===
+====
+
+. Verify the parameter settings and path status for your ONTAP LUNs:
++
+[source,cli]
+----
+multipath -ll
+----
++
+The default multipath parameters support ASA, AFF, and FAS configurations. In these configurations, a single ONTAP LUN shouldn't require more than four paths. Having more than four paths can cause problems during a storage failure.
++
+The following example outputs show the correct parameter settings and path status for ONTAP LUNs in an ASA, AFF, or FAS configuration. 
++
+[role="tabbed-block"]
+=====
+.ASA configuration
+--
+An ASA configuration optimizes all paths to a given LUN, keeping them active. This improves performance by serving I/O operations through all paths at the same time. 
+
+.Show example
+[%collapsible]
+====
+----
+/usr/sbin/mpathutil status
+show topology
+create: 3600a098038315045572b5930646f4b63 dm-1 NETAPP  ,LUN C-Mode
+size=9.0G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
+`-+- policy='service-time 0' prio=50 status=active
+  |- 15:0:0:0  sdb  8:16    active ready running
+  |- 15:0:1:0  sdc  8:32    active ready running
+  |- 16:0:0:0  sdcf 69:48   active ready running
+  `- 16:0:1:0  sdcg 69:64   active ready running
+----
+====
+--
+.AFF or FAS configuration
+--
+An AFF or FAS configuration should have two groups of paths with higher and lower priorities. Higher priority Active/Optimized paths are served by the controller where the aggregate is located. Lower priority paths are active but non-optimized because they are served by a different controller. Non-optimized paths are only used when optimized paths aren't available.
+
+The following example displays the output for an ONTAP LUN with two Active/Optimized paths and two Active/Non-Optimized paths:
+
+.Show example
+[%collapsible]
+====
+----
+/usr/sbin/mpathutil status
+show topology
+create: 3600a098038315045572b5930646f4b63 dm-1 NETAPP  ,LUN C-Mode
+size=9.0G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
+|-+- policy='service-time 0' prio=50 status=active
+  |- 15:0:0:0  sdb  8:16    active ready running
+  `- 15:0:1:0  sdc  8:32    active ready running
+`-+- policy='service-time 0' prio=50 status=active
+     |- 16:0:0:0  sdcf 69:48   active ready running
+     `- 16:0:1:0  sdcg 69:64   active ready running
+----
+====
+--
+=====
+
+== Step 3: Optionally, exclude a device from multipathing
+
+include::_include/hu/citrix-exclude-device.adoc[]
+
+== Step 4: Customize multipath parameters for ONTAP LUNs
+
+include::_include/hu/citrix-customize-parameters.adoc[]
+
+== Step 5: Review the known issues
+
+There are no known issues.
