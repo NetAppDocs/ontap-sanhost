@@ -69,7 +69,7 @@ devices {
     dev_loss_tmo infinity
     no_path_retry queue
     features "3 queue_if_no_path pg_init_retries 50"
-    flush_on_last_del yes
+    flush_on_last_del always
     hardware_handler "0"
     retain_attached_hw_handler yes
     rr_weight uniform
@@ -109,7 +109,7 @@ The following table shows the native Linux OS compiled multipath parameter setti
 | failback | immediate
 | fast_io_fail_tmo | 5
 | features | "3 queue_if_no_path pg_init_retries 50"
-| flush_on_last_del | "yes"
+| flush_on_last_del | "always"
 | hardware_handler | "0"
 | no_path_retry | queue
 | path_checker | "tur"
@@ -189,7 +189,36 @@ include::_include/hu/citrix-exclude-device.adoc[]
 
 == Step 4: Customize multipath parameters for ONTAP LUNs
 
-include::_include/hu/citrix-customize-parameters.adoc[]
+If your host is connected to LUNs from other vendors and any of the multipath parameter settings are overridden, you need to correct them by either modifying an existing stanza or adding a new stanza in the `/etc/multipath/conf.d/custom.conf` file that applies specifically to ONTAP LUNs. You need to scroll down in the file to review the changes that apply to your host. If you don't correct the parameters, the ONTAP LUNs might not work as expected.
+
+CAUTION: You shouldn't override the recommended parameter settings for ONTAP LUNs. These settings are required for optimal performance of your host configuration. Contact NetApp support, your OS vendor, or both for more information.
+
+The following example shows how to correct an overridden default. In this example, the `custom.conf drop-in` file defines values for `path_checker` and `no_path_retry` that aren't compatible with ONTAP LUNs, and you can't remove these parameters because ONTAP storage arrays are still attached to the host. Instead, you correct the values for `path_checker` and `no_path_retry` by adding a device stanza to the `custom.conf drop-in` file that applies specifically to the ONTAP LUNs.
+
+.Show example
+[%collapsible]
+====
+[source,cli]
+----
+$sudo tee -a /etc/multipath/conf.d/custom.conf >/dev/null <<'EOF'
+
+defaults {
+   path_checker      readsector0
+   no_path_retry     fail
+}
+
+devices {
+   device {
+      vendor          "NETAPP"
+      product         "LUN"
+      no_path_retry   queue
+      path_checker    tur
+   }
+}
+
+EOF
+----
+====
 
 == Step 5: Review the known issues
 
