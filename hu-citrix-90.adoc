@@ -146,9 +146,7 @@ An ASA configuration optimizes all paths to a given LUN, keeping them active. Th
 [%collapsible]
 ====
 ----
-/usr/sbin/mpathutil status
-show topology
-create: 3600a098038315045572b5930646f4b63 dm-1 NETAPP  ,LUN C-Mode
+multipath -ll: 3600a098038315045572b5930646f4b63 dm-1 NETAPP  ,LUN C-Mode
 size=9.0G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
 `-+- policy='service-time 0' prio=50 status=active
   |- 15:0:0:0  sdb  8:16    active ready running
@@ -168,9 +166,7 @@ The following example displays the output for an ONTAP LUN with two Active/Optim
 [%collapsible]
 ====
 ----
-/usr/sbin/mpathutil status
-show topology
-create: 3600a098038315045572b5930646f4b63 dm-1 NETAPP  ,LUN C-Mode
+multipath -ll: 3600a098038315045572b5930646f4b63 dm-1 NETAPP  ,LUN C-Mode
 size=9.0G features='4 queue_if_no_path pg_init_retries 50 retain_attached_hw_handle' hwhandler='1 alua' wp=rw
 |-+- policy='service-time 0' prio=50 status=active
   |- 15:0:0:0  sdb  8:16    active ready running
